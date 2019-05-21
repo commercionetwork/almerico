@@ -1,0 +1,3 @@
+/**
+ * Common type definitions
+ */
