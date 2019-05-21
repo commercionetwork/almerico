@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 import {
   ROUTES,
   ROUTE_NAMES
@@ -16,11 +16,13 @@ const NotFound = loadView("NotFound");
 const ServerUnreachable = loadView("ServerUnreachable");
 
 export default new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [{
       path: ROUTES.ROOT,
-      redirect: ROUTES.HOME
+      redirect: {
+        name: ROUTE_NAMES.HOME
+      }
     },
     {
       path: ROUTES.HOME,

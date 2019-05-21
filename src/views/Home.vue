@@ -8,6 +8,6 @@
 
 export default {
   name: "Home",
-  description: "The Commerc.io Explorer starting page"
-}
+  description: "The Commerc.io Explorer starting page",
+} 
 </script>
