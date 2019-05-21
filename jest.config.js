@@ -11,10 +11,17 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest'
   },
   transformIgnorePatterns: [
-    '/node_modules/'
+    '/node_modules(?![\\\\/]vue-awesome[\\\\/])/'
   ],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
+    '^@/(.*)$': '<rootDir>/src/$1',
+    "^Assets(.*)$": "<rootDir>/src/assets$1",
+    "^Components(.*)$": "<rootDir>/src/components$1",
+    "^Constants(.*)$": "<rootDir>/src/constants$1",
+    "^Setup(.*)$": "<rootDir>/src/setup$1",
+    "^Store(.*)$": "<rootDir>/src/store$1",
+    "^Utils(.*)$": "<rootDir>/src/utils$1",
+    "^Views(.*)$": "<rootDir>/src/views$1"
   },
   snapshotSerializers: [
     'jest-serializer-vue'
@@ -22,9 +29,5 @@ module.exports = {
   testMatch: [
     '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
   ],
-  testURL: 'http://localhost/',
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname'
-  ]
+  testURL: 'http://localhost/'
 }

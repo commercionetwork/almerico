@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono');
+
+///////////
+//COLORS //
+///////////
+$white: #FFFFFF;
+$black: #000000;
+$blue: #3399FF;
+$yellow: #FFCC00;
+$red: #EE3300;
+////////////////
+// GRAY SCALE //
+////////////////
+$gray-darkest: #202020;
+$gray-darker: #3c3c3c;
+$gray-dark: #4f4f4f;
+$gray: #6f6f6f;
+$gray-light: #7e7e7e;
+$gray-lighter: #ededed;
+$gray-lightest: #fafafa;
+///////////////////////
+// COMMERC.IO COLORS //
+///////////////////////
+$com-green-1: #38BA8C;
+$com-green-2: #37BA8C;
+//////////////////
+// BRAND COLORS //
+//////////////////
+$primary: $com-green-1;
+$secondary: $gray-darkest;
+$light: $gray-lightest;
+$success: $com-green-2;
+$info: $blue;
+$warning: $yellow;
+$danger: $red;
+$text: $secondary;
+$background: $gray-lighter;
+/////////////////////
+// OVERRIDE COLORS //
+/////////////////////
+// Override alert background colors
+$state-success-bg: lighten($success, 30);
+$state-info-bg: lighten($info, 30);
+$state-warning-bg: lighten($warning, 30);
+$state-danger-bg: lighten($danger, 45);
+// Override alert text colors
+$state-success-text: darken($success, 30);
+$state-info-text: darken($info, 30);
+$state-warning-text: darken($warning, 30);
+$state-danger-text: darken($danger, 10);
+//////////////////////
+// GENERAL SETTINGS //
+//////////////////////
+// Override badges padding (doubled because otherwise too crammed)
+$badge-padding-x: 0.8em;
+$badge-padding-y: 0.4em;
+// Don't make badges normal instead of bold
+$badge-font-weight: normal;
+// Override fonts
+$font-family-sans-serif: 'Open Sans', sans-serif;
+$font-family-serif: 'Liberation Serif', serif;
+$font-family-monospace: 'Roboto Mono', monospace;
+$font-family-base: $font-family-sans-serif;
+// Set global options
+$enable-shadows: false;
+$enable-gradients: true;

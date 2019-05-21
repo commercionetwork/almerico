@@ -1,0 +1,122 @@
+html, body, #app {
+  height: 100%;
+  background-color: $background;
+}
+h1, a {
+  color: $primary;
+}
+a:hover {
+  color: $primary;
+  text-decoration: none;
+}
+h2, h3, h4, h5, h6 {
+  color: $secondary;
+}
+p, div, span {
+  color: $text;
+}
+.com-container {
+  @include page-container();
+}
+.com-pointer {  
+  cursor: pointer;
+}
+.com-nowrap {
+  white-space: nowrap;
+}
+.com-scroll-y {
+  overflow-y: scroll;
+}
+.com-required-field label::after {
+  content: '*';
+  color: $danger;
+  margin-left: 0.25rem;
+}
+.com-required-field-error {
+  margin-bottom: 3px;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+}
+// colors
+.com-white-background {
+  background-color: $white;
+}
+.com-gray-darkest {
+  color: $gray-darkest;
+}
+.com-gray-darker {
+  color: $gray-darker;
+}
+.com-gray-dark {
+  color: $gray-dark;
+}
+.com-gray {
+  color: $gray;
+}
+.com-gray-light {
+  color: $gray-light;
+}
+.com-gray-lighter {
+  color: $gray-lighter;
+}
+.com-gray-lightest {
+  color: $gray-lightest;
+}
+// fonts
+.com-font-s30-w900 {
+  font-size: 30px;
+  font-weight: 900;
+}
+.com-font-s20-w800 {
+  font-size: 20px;
+  font-weight: 800;
+}
+.com-font-s16-w700 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.com-font-s14-w700 {
+  font-size: 14px;
+  font-weight: 700;
+}
+.com-font-s14-w400 {
+  font-size: 14px;
+  font-weight: 400;
+}
+.com-font-s14-w300 {
+  font-size: 14px;
+  font-weight: 300;
+}
+.com-font-s13-w700 {
+  font-size: 13px;
+  font-weight: 700;
+}
+.com-font-s13-w400 {
+  font-size: 13px;
+  font-weight: 400;
+}
+.com-font-s12-w700 {
+  font-size: 12px;
+  font-weight: 700;
+}
+.com-font-s12-w400 {
+  font-size: 12px;
+  font-weight: 400;
+}
+.com-font-s12-w300 {
+  font-size: 12px;
+  font-weight: 300;
+}
+.com-font-s11-w700 {
+  font-size: 11px;
+  font-weight: 700;
+}
+.com-font-s11-w400 {
+  font-size: 11px;
+  font-weight: 400;
+}
+.com-font-s10-w700 {
+  font-size: 10px;
+  font-weight: 700;
+}

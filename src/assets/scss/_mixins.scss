@@ -1,0 +1,17 @@
+@mixin page-container() {
+  min-height: 85vh;
+  padding-top: 30px;
+  padding-bottom: 15px;
+}
+
+@mixin mobile() {
+  @media only screen and (max-width: 767px) {
+      @content;
+  }
+}
+
+@mixin desktop() {
+  @media only screen and (min-width: 768px) {
+      @content;
+  }
+}
