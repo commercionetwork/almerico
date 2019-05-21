@@ -4,7 +4,9 @@
 export const ROUTES = {
   ROOT: "/",
   NOT_FOUND: "/404",
-  SERVER_UNREACHABLE: "/:lang/server_unreachable"
+  SERVER_UNREACHABLE: "/:lang/server_unreachable",
+  // Home
+  HOME: "/:lang/home",
 };
 
 /**
