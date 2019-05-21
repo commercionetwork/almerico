@@ -4,6 +4,7 @@ import router from "Setup/router";
 import store from "Setup/store";
 import i18n from "Setup/i18n";
 import "bootstrap";
+import "Setup/navigationGuard";
 
 Vue.config.productionTip = false
 
