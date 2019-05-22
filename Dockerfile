@@ -1,12 +1,10 @@
 FROM node:12.2.0
 
 # Read the set variables
-ARG vue_app_host
 ARG vue_app_lcd
 ARG vue_app_rpc
 
 # Copy all arguments into the environment variables
-ENV  VUE_APP_HOST ${vue_app_host}
 ENV  VUE_APP_LCD ${vue_app_lcd}
 ENV  VUE_APP_RPC ${vue_app_rpc}
 
