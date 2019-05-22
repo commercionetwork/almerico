@@ -5,7 +5,7 @@
     :class="{ open: sideBarOpen }"
     v-click-outside="closeSidebar"
   >
-    <!-- buy -->
+    <!-- dashboard -->
     <div
       class="m-4"
       @click="closeSidebar"
@@ -13,17 +13,94 @@
       <router-link :to="toSection(ROUTE_NAMES.DASHBOARD)">
         <div class="row d-flex flex-row align-items-center">
           <Icon
-            name="th"
+            name="thLarge"
             scale="1.5"
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 com-font-s14-w400"
+            class="flex-grow-1 text-primary com-font-s14-w700"
             v-html="$t('titles.dashboard')"
           />
         </div>
       </router-link>
     </div>
+    <!-- validators -->
+    <div
+      class="m-4"
+      @click="closeSidebar"
+    >
+      <router-link :to="toSection(ROUTE_NAMES.VALIDATORS)">
+        <div class="row d-flex flex-row align-items-center">
+          <Icon
+            name="pollPeople"
+            scale="1.5"
+            class="pr-2 text-primary"
+          />
+          <span
+            class="flex-grow-1 text-primary com-font-s14-w700"
+            v-html="$t('titles.validators')"
+          />
+        </div>
+      </router-link>
+    </div>
+    <!-- blocks -->
+    <div
+      class="m-4"
+      @click="closeSidebar"
+    >
+      <router-link :to="toSection(ROUTE_NAMES.BLOCKS)">
+        <div class="row d-flex flex-row align-items-center">
+          <Icon
+            name="shapes"
+            scale="1.5"
+            class="pr-2 text-primary"
+          />
+          <span
+            class="flex-grow-1 text-primary com-font-s14-w700"
+            v-html="$t('titles.blocks')"
+          />
+        </div>
+      </router-link>
+    </div>
+    <!-- transactions -->
+    <div
+      class="m-4"
+      @click="closeSidebar"
+    >
+      <router-link :to="toSection(ROUTE_NAMES.TRANSACTIONS)">
+        <div class="row d-flex flex-row align-items-center">
+          <Icon
+            name="exchangeAlt"
+            scale="1.5"
+            class="pr-2 text-primary"
+          />
+          <span
+            class="flex-grow-1 text-primary com-font-s14-w700"
+            v-html="$t('titles.transactions')"
+          />
+        </div>
+      </router-link>
+    </div>
+    <!-- votings -->
+    <div
+      class="m-4"
+      @click="closeSidebar"
+    >
+      <router-link :to="toSection(ROUTE_NAMES.VOTINGS)">
+        <div class="row d-flex flex-row align-items-center">
+          <Icon
+            name="poll"
+            scale="1.5"
+            class="pr-2 text-primary"
+          />
+          <span
+            class="flex-grow-1 text-primary com-font-s14-w700"
+            v-html="$t('titles.votings')"
+          />
+        </div>
+      </router-link>
+    </div>
+
   </div>
 </template>
 
@@ -32,7 +109,11 @@ import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 
 import Icon from "vue-awesome/components/Icon.vue";
-import "vue-awesome/icons/th";
+import "Assets/img/icons/exchange-alt";
+import "Assets/img/icons/poll-people";
+import "Assets/img/icons/poll";
+import "Assets/img/icons/shapes";
+import "Assets/img/icons/th-large";
 
 export default {
   name: "SideBar",
