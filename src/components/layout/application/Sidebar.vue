@@ -5,6 +5,25 @@
     :class="{ open: sideBarOpen }"
     v-click-outside="closeSidebar"
   >
+    <!-- buy -->
+    <div
+      class="m-4"
+      @click="closeSidebar"
+    >
+      <router-link :to="toSection(ROUTE_NAMES.DASHBOARD)">
+        <div class="row d-flex flex-row align-items-center">
+          <Icon
+            name="th"
+            scale="1.5"
+            class="pr-2 text-primary"
+          />
+          <span
+            class="flex-grow-1 com-font-s14-w400"
+            v-html="$t('titles.dashboard')"
+          />
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -13,6 +32,7 @@ import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 
 import Icon from "vue-awesome/components/Icon.vue";
+import "vue-awesome/icons/th";
 
 export default {
   name: "SideBar",
@@ -42,7 +62,7 @@ export default {
       return localizedRoute(route, this.$i18n.locale);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
