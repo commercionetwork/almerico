@@ -10,7 +10,11 @@ Vue.use(Router)
 function loadView(view) {
   return () => import( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
 }
-const Dashboard = loadView("Dashboard");
+const Blocks = loadView("blocks/index");
+const Dashboard = loadView("dashboard/index");
+const Transactions = loadView("transactions/index");
+const Validators = loadView("validators/index");
+const Votings = loadView("votings/index");
 // error
 const NotFound = loadView("NotFound");
 const ServerUnreachable = loadView("ServerUnreachable");
@@ -25,9 +29,29 @@ export default new Router({
       }
     },
     {
+      path: ROUTES.BLOCKS,
+      name: ROUTE_NAMES.BLOCKS,
+      component: Blocks,
+    },
+    {
       path: ROUTES.DASHBOARD,
       name: ROUTE_NAMES.DASHBOARD,
       component: Dashboard,
+    },
+    {
+      path: ROUTES.TRANSACTIONS,
+      name: ROUTE_NAMES.TRANSACTIONS,
+      component: Transactions,
+    },
+    {
+      path: ROUTES.VALIDATORS,
+      name: ROUTE_NAMES.VALIDATORS,
+      component: Validators,
+    },
+    {
+      path: ROUTES.VOTINGS,
+      name: ROUTE_NAMES.VOTINGS,
+      component: Votings,
     },
     // not found
     {
