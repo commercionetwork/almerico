@@ -19,7 +19,7 @@ export default {
   description: "Layout for error",
   computed: {
     toStart() {
-      return localizedRoute(ROUTE_NAMES.HOME, this.$i18n.locale);
+      return localizedRoute(ROUTE_NAMES.DASHBOARD, this.$i18n.locale);
     }
   }
 };

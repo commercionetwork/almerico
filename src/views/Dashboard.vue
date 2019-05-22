@@ -1,13 +1,13 @@
 <template>
   <div>
-    HOME
+    dashboard
   </div>
 </template>
 
 <script>
 
 export default {
-  name: "Home",
+  name: "Dashboard",
   description: "The Commerc.io Explorer starting page",
 } 
 </script>

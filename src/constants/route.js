@@ -5,8 +5,8 @@ export const ROUTES = {
   ROOT: "/",
   NOT_FOUND: "/404",
   SERVER_UNREACHABLE: "/:lang/server_unreachable",
-  // Home
-  HOME: "/:lang/home",
+  // Dashboard
+  DASHBOARD: "/:lang/dashboard",
 };
 
 /**
@@ -15,5 +15,5 @@ export const ROUTES = {
 export const ROUTE_NAMES = {
   NOT_FOUND: "notFound",
   SERVER_UNREACHABLE: "serverUnreachable",
-  HOME: "home",
+  DASHBOARD: "dashboard",
 };

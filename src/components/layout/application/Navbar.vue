@@ -12,7 +12,7 @@
     </button>
     <router-link
       class="navbar-brand"
-      :to="toSection(ROUTE_NAMES.HOME)"
+      :to="toSection(ROUTE_NAMES.DASHBOARD)"
     >
       <img
         class="com-logo m-1"

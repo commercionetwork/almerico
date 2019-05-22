@@ -10,7 +10,7 @@ Vue.use(Router)
 function loadView(view) {
   return () => import( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
 }
-const Home = loadView("Home");
+const Dashboard = loadView("Dashboard");
 // error
 const NotFound = loadView("NotFound");
 const ServerUnreachable = loadView("ServerUnreachable");
@@ -21,13 +21,13 @@ export default new Router({
   routes: [{
       path: ROUTES.ROOT,
       redirect: {
-        name: ROUTE_NAMES.HOME
+        name: ROUTE_NAMES.DASHBOARD
       }
     },
     {
-      path: ROUTES.HOME,
-      name: ROUTE_NAMES.HOME,
-      component: Home,
+      path: ROUTES.DASHBOARD,
+      name: ROUTE_NAMES.DASHBOARD,
+      component: Dashboard,
     },
     // not found
     {

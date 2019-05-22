@@ -6,7 +6,7 @@ import { ROUTE_NAMES } from "Constants";
 
 describe("utils/localizedRoute", () => {
   it("Check if the function returns the correct route", () => {
-    const route = ROUTE_NAMES.HOME;
+    const route = ROUTE_NAMES.DASHBOARD;
     const locale = LOCALES.IT;
     const response = localizedRoute(route, locale);
     const expectValue = {
@@ -18,7 +18,7 @@ describe("utils/localizedRoute", () => {
   });
 
   it("Check if the function returns the default locale route", () => {
-    const route = ROUTE_NAMES.HOME;
+    const route = ROUTE_NAMES.DASHBOARD;
     const response = localizedRoute(route);
     const expectValue = {
       name: route,
