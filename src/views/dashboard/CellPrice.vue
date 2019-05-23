@@ -1,5 +1,5 @@
 <template>
-  <DataCell>
+  <DataCell :isFetching="isFetching">
     <div
       slot="top-left-content"
       class="com-font-s12-w400"
@@ -12,16 +12,18 @@
 
 <script>
 import DataCell from "Components/common/DataCell.vue";
+import LineChart from "Components/common/LineChart.vue";
 
 export default {
   name: "CellPrice",
   description: "Display the price",
   components: {
-    DataCell
+    DataCell,
+    LineChart
   },
   computed: {
     isFetching() {
-      return true;
+      return false;
     }
   }
 };
