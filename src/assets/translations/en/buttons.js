@@ -1,3 +1,5 @@
 export const buttons = {
-  showMore: "Show more"
+  active: "Active",
+  inactive: "Inactive",
+  showMore: "Show more",
 };
