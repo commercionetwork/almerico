@@ -1,12 +1,18 @@
 <template>
-  <DataCell>
+  <DataCell :isFetching="isFetching">
     <div
       slot="top-left-content"
       class="com-font-s12-w400"
     >Inflation</div>
-    <div slot="top-right-content">2</div>
-    <div slot="bottom-left-content">3</div>
-    <div slot="bottom-right-content">4</div>
+    <div slot="top-right-content">&nbsp;</div>
+    <div
+      slot="bottom-left-content"
+      class="text-secondary com-font-s13-w700"
+    >3,5%</div>
+    <div
+      slot="bottom-right-content"
+      class="com-font-s11-w400"
+    >Year</div>
   </DataCell>
 </template>
 
@@ -18,6 +24,11 @@ export default {
   description: "Display the inflation",
   components: {
     DataCell
+  },
+  computed: {
+    isFetching() {
+      return false;
+    }
   }
 };
 </script>
