@@ -1,12 +1,27 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import blocks from "Store/blocks";
+import transactions from "Store/transactions";
+import validators from "Store/validators";
+import votings from "Store/votings";
+
 Vue.use(Vuex);
 
-const initialState = {};
+const initialState = {
+  blocks: blocks.initialState,
+  transactions: transactions.initialState,
+  validators: validators.initialState,
+  votings: votings.initialState,
+};
 
 export default new Vuex.Store({
-  modules: {},
+  modules: {
+    blocks,
+    transactions,
+    validators,
+    votings
+  },
   state: {
     serverReachability: true
   },

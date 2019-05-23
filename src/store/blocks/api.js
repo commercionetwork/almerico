@@ -1,0 +1,4 @@
+/**
+ * Blocks APIs
+ */
+export default {};

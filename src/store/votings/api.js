@@ -1,0 +1,4 @@
+/**
+ * Votings APIs
+ */
+export default {};
