@@ -8,25 +8,42 @@
         />
       </div>
       <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
-        <input
-          class="form-control bg-light rounded-pill com-font-s14-w400"
-          :placeholder="$t('messages.search')"
-        />
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control bg-light com-font-s13-w400"
+            :placeholder="$t('messages.search')"
+            aria-label="Search"
+            aria-describedby="search-field"
+          >
+          <div class="input-group-append">
+            <span
+              class="input-group-text bg-light com-pointer"
+              id="search-field"
+            >
+              <Icon
+                name="search"
+                scale="1"
+                class="text-primary"
+              />
+            </span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="py-3 px-5 rounded bg-white">
       <div class="row">
         <div class="col-12 col-md-3 my-1 my-md-0">
-          <CellPrice/>
+          <CellPrice />
         </div>
         <div class="col-12 col-md-3 my-1 my-md-0">
-          <CellHeight/>
+          <CellHeight />
         </div>
         <div class="col-12 col-md-3 my-1 my-md-0">
-          <CellBonded/>
+          <CellBonded />
         </div>
         <div class="col-12 col-md-3 my-1 my-md-0">
-          <CellInflation/>
+          <CellInflation />
         </div>
       </div>
       <div class="row">
@@ -43,6 +60,9 @@ import CellHeight from "./CellHeight.vue";
 import CellInflation from "./CellInflation.vue";
 import CellPrice from "./CellPrice.vue";
 
+import Icon from "vue-awesome/components/Icon.vue";
+import "Assets/img/icons/search";
+
 export default {
   name: "Dashboard",
   description: "Container for dashboard's section",
@@ -50,7 +70,8 @@ export default {
     CellBonded,
     CellHeight,
     CellInflation,
-    CellPrice
+    CellPrice,
+    Icon
   }
 };
 </script>
