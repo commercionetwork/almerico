@@ -11,7 +11,7 @@
     >3,5%</div>
     <div
       slot="bottom-right-content"
-      class="com-font-s11-w400"
+      class="com-font-s10-w400"
     >Year</div>
   </DataCell>
 </template>

@@ -21,7 +21,7 @@
         class="text-danger"
         scale="0.75"
       />
-      <span class="pl-1 com-font-s11-w400">-11,11% (24h)</span>
+      <span class="pl-1 com-font-s10-w400">-11,11% (24h)</span>
     </div>
   </DataCell>
 </template>

@@ -11,7 +11,7 @@
         <div class="input-group mb-3">
           <input
             type="text"
-            class="form-control bg-light com-font-s13-w400"
+            class="form-control com-font-s13-w400"
             :placeholder="$t('messages.search')"
             aria-label="Search"
             aria-describedby="search-field"
@@ -46,19 +46,26 @@
           <CellInflation />
         </div>
       </div>
+      <hr>
       <div class="row">
-        <div class="col-12 col-md-6"></div>
-        <div class="col-12 col-md-6"></div>
+        <div class="col-12 col-md-6">
+          <CellBlocks />
+        </div>
+        <div class="col-12 col-md-6">
+          <CellTransactions />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CellBlocks from "./CellBlocks.vue";
 import CellBonded from "./CellBonded.vue";
 import CellHeight from "./CellHeight.vue";
 import CellInflation from "./CellInflation.vue";
 import CellPrice from "./CellPrice.vue";
+import CellTransactions from "./CellTransactions.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
 import "Assets/img/icons/search";
@@ -67,10 +74,12 @@ export default {
   name: "Dashboard",
   description: "Container for dashboard's section",
   components: {
+    CellBlocks,
     CellBonded,
     CellHeight,
     CellInflation,
     CellPrice,
+    CellTransactions,
     Icon
   }
 };

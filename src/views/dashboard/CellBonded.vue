@@ -12,8 +12,8 @@
       />
     </div>
     <div slot="bottom-left-content">
-      <span class="text-secondary com-font-s13-w700">54,5%</span><br>
-      <span class="text-secondary com-font-s11-w400">120M/240M</span>
+      <div class="text-secondary com-font-s13-w700">54,5%</div>
+      <div class="text-secondary com-font-s10-w400">120M/240M</div>
     </div>
     <div slot="bottom-right-content">
       <Icon
@@ -21,7 +21,7 @@
         class="text-danger"
         scale="0.75"
       />
-      <span class="pl-1 com-font-s11-w400">-1,11% (24h)</span>
+      <span class="pl-1 com-font-s10-w400">-1,11% (24h)</span>
     </div>
   </DataCell>
 </template>

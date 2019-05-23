@@ -11,7 +11,7 @@
     >350,12</div>
     <div
       slot="bottom-right-content"
-      class="com-font-s11-w400"
+      class="com-font-s10-w400"
     >Last 10s ago</div>
   </DataCell>
 </template>
