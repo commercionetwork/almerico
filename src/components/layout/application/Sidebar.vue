@@ -18,7 +18,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-primary com-font-s14-w700"
+            class="flex-grow-1 text-secondary com-font-s14-w700"
             v-html="$t('titles.dashboard')"
           />
         </div>
@@ -37,7 +37,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-primary com-font-s14-w700"
+            class="flex-grow-1 text-secondary com-font-s14-w700"
             v-html="$t('titles.validators')"
           />
         </div>
@@ -56,7 +56,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-primary com-font-s14-w700"
+            class="flex-grow-1 text-secondary com-font-s14-w700"
             v-html="$t('titles.blocks')"
           />
         </div>
@@ -75,7 +75,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-primary com-font-s14-w700"
+            class="flex-grow-1 text-secondary com-font-s14-w700"
             v-html="$t('titles.transactions')"
           />
         </div>
@@ -94,7 +94,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-primary com-font-s14-w700"
+            class="flex-grow-1 text-secondary com-font-s14-w700"
             v-html="$t('titles.votings')"
           />
         </div>
