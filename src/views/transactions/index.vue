@@ -7,17 +7,22 @@
       :bonded="bonded"
       :inflation="inflation"
     />
+    <div class="py-3 px-5 rounded bg-white">
+      <TableTransactions />
+    </div>
   </div>
 </template>
 
 <script>
 import SectionHeader from "Components/common/SectionHeader.vue";
+import TableTransactions from "./TableTransactions.vue";
 
 export default {
   name: "Transactions",
   description: "Container for transactions' section",
   components: {
     SectionHeader,
+    TableTransactions
   },
   computed: {
     price() {
