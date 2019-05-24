@@ -84,7 +84,7 @@ export default {
     formattedHeight() {
       return this.$n(this.height, {
         style: "decimal",
-        minimumFractionDigits: 2
+        maximumFractionDigits: 0
       });
     },
     formattedBonded() {
@@ -96,7 +96,7 @@ export default {
     formattedInflation() {
       return this.$n(this.inflation, {
         style: "percent",
-        minimumFractionDigits: 1
+        maximumFractionDigits: 2
       });
     }
   }

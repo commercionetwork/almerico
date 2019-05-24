@@ -52,7 +52,7 @@ export default {
       return { value: 10, iso_code: "EUR" };
     },
     height() {
-      return 345.67;
+      return 345678;
     },
     bonded() {
       return 123456789;
