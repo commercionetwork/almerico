@@ -6,7 +6,7 @@
     />
     <div v-else>
       <div class="row py-1 d-flex justify-content-between">
-        <div class="col-12">
+        <div class="col-12 col-md-8 offset-md-4">
           <SearchValidator />
         </div>
       </div>
@@ -27,11 +27,81 @@
           <tbody>
             <tr class="text-center com-font-s12-w400">
               <td class="align-middle">1</td>
-              <td class="align-middle"></td>
-              <td class="align-middle"></td>
-              <td class="align-middle"></td>
-              <td class="align-middle"></td>
-              <td class="align-middle"></td>
+              <td class="align-middle">commerc.io network</td>
+              <td class="align-middle">
+                <div>1.234.567</div>
+                <div class="text-black-50">10%</div>
+              </td>
+              <td class="align-middle">44%</td>
+              <td class="align-middle">
+                <div>1.234</div>
+                <div class="text-black-50">25%</div>
+              </td>
+              <td class="align-middle">150(+1)</td>
+              <td class="align-middle">10%</td>
+              <td class="align-middle">100%</td>
+            </tr>
+            <tr class="text-center com-font-s12-w400">
+              <td class="align-middle">1</td>
+              <td class="align-middle">commerc.io network</td>
+              <td class="align-middle">
+                <div>1.234.567</div>
+                <div class="text-black-50">10%</div>
+              </td>
+              <td class="align-middle">44%</td>
+              <td class="align-middle">
+                <div>1.234</div>
+                <div class="text-black-50">25%</div>
+              </td>
+              <td class="align-middle">150(+1)</td>
+              <td class="align-middle">10%</td>
+              <td class="align-middle">100%</td>
+            </tr>
+            <tr class="text-center com-font-s12-w400">
+              <td class="align-middle">1</td>
+              <td class="align-middle">commerc.io network</td>
+              <td class="align-middle">
+                <div>1.234.567</div>
+                <div class="text-black-50">10%</div>
+              </td>
+              <td class="align-middle">44%</td>
+              <td class="align-middle">
+                <div>1.234</div>
+                <div class="text-black-50">25%</div>
+              </td>
+              <td class="align-middle">150(+1)</td>
+              <td class="align-middle">10%</td>
+              <td class="align-middle">100%</td>
+            </tr>
+            <tr class="text-center com-font-s12-w400">
+              <td class="align-middle">1</td>
+              <td class="align-middle">commerc.io network</td>
+              <td class="align-middle">
+                <div>1.234.567</div>
+                <div class="text-black-50">10%</div>
+              </td>
+              <td class="align-middle">44%</td>
+              <td class="align-middle">
+                <div>1.234</div>
+                <div class="text-black-50">25%</div>
+              </td>
+              <td class="align-middle">150(+1)</td>
+              <td class="align-middle">10%</td>
+              <td class="align-middle">100%</td>
+            </tr>
+            <tr class="text-center com-font-s12-w400">
+              <td class="align-middle">1</td>
+              <td class="align-middle">commerc.io network</td>
+              <td class="align-middle">
+                <div>1.234.567</div>
+                <div class="text-black-50">10%</div>
+              </td>
+              <td class="align-middle">44%</td>
+              <td class="align-middle">
+                <div>1.234</div>
+                <div class="text-black-50">25%</div>
+              </td>
+              <td class="align-middle">150(+1)</td>
               <td class="align-middle">10%</td>
               <td class="align-middle">100%</td>
             </tr>
