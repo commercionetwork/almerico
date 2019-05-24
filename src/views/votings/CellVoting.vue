@@ -103,7 +103,7 @@ export default {
   computed: {
     toDetails() {
       return {
-        name: ROUTE_NAMES.VOTING_DETAILS,
+        name: ROUTE_NAMES.VOTINGS_DETAILS,
         params: {
           lang: this.$i18n.locale,
           id: this.voting.id

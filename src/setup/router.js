@@ -11,10 +11,14 @@ function loadView(view) {
   return () => import( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
 }
 const Blocks = loadView("blocks/index");
+const BlocksDetails = loadView("blocks/BlocksDetails");
 const Dashboard = loadView("dashboard/index");
 const Transactions = loadView("transactions/index");
+const TransactionsDetails = loadView("transactions/TransactionsDetails");
 const Validators = loadView("validators/index");
+const ValidatorsDetails = loadView("validators/ValidatorsDetails");
 const Votings = loadView("votings/index");
+const VotingsDetails = loadView("votings/VotingsDetails");
 // error
 const NotFound = loadView("NotFound");
 const ServerUnreachable = loadView("ServerUnreachable");
@@ -34,6 +38,11 @@ export default new Router({
       component: Blocks,
     },
     {
+      path: ROUTES.BLOCKS_DETAILS,
+      name: ROUTE_NAMES.BLOCKS_DETAILS,
+      component: BlocksDetails,
+    },
+    {
       path: ROUTES.DASHBOARD,
       name: ROUTE_NAMES.DASHBOARD,
       component: Dashboard,
@@ -44,14 +53,29 @@ export default new Router({
       component: Transactions,
     },
     {
+      path: ROUTES.TRANSACTIONS_DETAILS,
+      name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
+      component: TransactionsDetails,
+    },
+    {
       path: ROUTES.VALIDATORS,
       name: ROUTE_NAMES.VALIDATORS,
       component: Validators,
     },
     {
+      path: ROUTES.VALIDATORS_DETAILS,
+      name: ROUTE_NAMES.VALIDATORS_DETAILS,
+      component: ValidatorsDetails,
+    },
+    {
       path: ROUTES.VOTINGS,
       name: ROUTE_NAMES.VOTINGS,
       component: Votings,
+    },
+    {
+      path: ROUTES.VOTINGS_DETAILS,
+      name: ROUTE_NAMES.VOTINGS_DETAILS,
+      component: VotingsDetails,
     },
     // not found
     {
