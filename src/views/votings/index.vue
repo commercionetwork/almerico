@@ -56,7 +56,7 @@ export default {
         hashtag: "#1",
         status: "Passed",
         polls: {
-          labels: ["Yes", "No", "No With Veto", "Abstain"],
+          labels: ["Yes", "No", "Veto", "Abstain"],
           datasets: [
             {
               data: [71.95, 20.12, 4.14, 3.79],

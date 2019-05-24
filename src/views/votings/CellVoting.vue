@@ -21,12 +21,14 @@
       </div>
       <div class="row">
         <div class="col-12 col-sm-3 d-flex justify-content-center align-items-center">
-          <DoughnutChart
-            :chartdata="chartdata"
-            :options="options"
-          />
+          <span class="p-0">
+            <DoughnutChart
+              :chartdata="chartdata"
+              :options="options"
+            />
+          </span>
         </div>
-        <div class="col-12 col-sm-8">
+        <div class="col-12 col-sm-7">
           <div class="d-flex justify-content-start com-font-s12-w400">
             Proposer:<span class="pl-1 text-info">commerc.io network</span>
           </div>
@@ -45,7 +47,7 @@
           </span>
 
         </div>
-        <div class="col-12 col-sm-1 d-flex justify-content-end align-items-center">
+        <div class="col-12 col-sm-2 d-flex justify-content-end align-items-center">
           <router-link
             :to="toDetails"
             class="btn text-black-50"
@@ -90,6 +92,10 @@ export default {
         maintainAspectRatio: false,
         legend: {
           display: false
+        },
+        tooltips: {
+          titleFontSize: 9,
+          bodyFontSize: 9
         }
       }
     };
