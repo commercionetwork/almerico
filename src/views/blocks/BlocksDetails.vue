@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="py-3 px-5 rounded bg-white">
-      <div class="p-1 rounded-lg bg-light">
+      <div class="p-1 rounded-lg bg-light border">
         <div class="row p-1">
           <div class="col-12">
             <h2 class="com-font-s16-w700">Header</h2>
@@ -40,7 +40,7 @@
           <div class="col-12 col-md-9 com-font-s13-w400">{{ block.proposer }}</div>
         </div>
       </div>
-      <div class="my-3 p-1 rounded-lg bg-light">
+      <div class="my-3 p-1 rounded-lg bg-light border">
         <div class="row p-1">
           <div class="col-12">
             <h2 class="com-font-s16-w700">Transactions</h2>
