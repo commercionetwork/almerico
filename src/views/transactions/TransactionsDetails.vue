@@ -28,7 +28,12 @@
         </div>
         <div class="row p-1">
           <div class="col-12 col-md-3 com-font-s13-w700">Height</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">{{ transaction.height }}</div>
+          <div class="col-12 col-md-9 com-font-s13-w400">
+            <router-link
+              :to="toBlockDetails(transaction.height)"
+              v-text="transaction.height"
+            />
+          </div>
         </div>
         <div class="row p-1">
           <div class="col-12 col-md-3 com-font-s13-w700">Time</div>
@@ -81,6 +86,8 @@
 <script>
 import SectionHeader from "Components/common/SectionHeader.vue";
 
+import { ROUTE_NAMES } from "Constants";
+
 //TODO: remove
 import { mockTransaction } from "Store/transactions/__mocks__/transactions";
 
@@ -108,6 +115,17 @@ export default {
     },
     inflation() {
       return 0.034;
+    }
+  },
+  methods: {
+    toBlockDetails(id) {
+      return {
+        name: ROUTE_NAMES.BLOCKS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     }
   }
 };
