@@ -8,7 +8,7 @@
       :inflation="inflation"
     />
     <div class="py-3 px-5 rounded bg-white">
-      <TableTransactions />
+      <TableTransactions :transactions="transactions" />
     </div>
   </div>
 </template>
@@ -16,6 +16,9 @@
 <script>
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableTransactions from "./TableTransactions.vue";
+
+//TODO: remove
+import { mockTransactions } from "Store/transactions/__mocks__/transactions";
 
 export default {
   name: "Transactions",
@@ -36,7 +39,10 @@ export default {
     },
     inflation() {
       return 0.034;
+    },
+    transactions() {
+      return mockTransactions();
     }
   }
-} 
+};
 </script>

@@ -18,45 +18,36 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">Delegate</td>
-              <td class="align-middle">Success</td>
-              <td class="align-middle">0.000400 ATOM</td>
-              <td class="align-middle">345678</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">Delegate</td>
-              <td class="align-middle">Success</td>
-              <td class="align-middle">0.000400 ATOM</td>
-              <td class="align-middle">345678</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">Delegate</td>
-              <td class="align-middle">Success</td>
-              <td class="align-middle">0.000400 ATOM</td>
-              <td class="align-middle">345678</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">Delegate</td>
-              <td class="align-middle">Success</td>
-              <td class="align-middle">0.000400 ATOM</td>
-              <td class="align-middle">345678</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">Delegate</td>
-              <td class="align-middle">Success</td>
-              <td class="align-middle">0.000400 ATOM</td>
-              <td class="align-middle">345678</td>
-              <td class="align-middle">1m ago</td>
+            <tr
+              class="text-center com-font-s12-w400"
+              v-for="transaction in transactions.slice().reverse()"
+              :key="transaction.id"
+            >
+              <td class="align-middle">
+                <router-link
+                  :to="toTransactionDetails(transaction.hash)"
+                  v-text="transaction.hash"
+                  class="d-inline-block text-truncate com-font-s10-w400"
+                  style="max-width: 120px;"
+                />
+              </td>
+              <td
+                class="align-middle"
+                v-text="transaction.type"
+              />
+              <td
+                class="align-middle"
+                v-text="transaction.result"
+              />
+              <td class="align-middle">{{ transaction.fee }} ATOM</td>
+              <td
+                class="align-middle"
+                v-text="transaction.height"
+              />
+              <td
+                class="align-middle"
+                v-text="getSeconds(transaction.time)"
+              />
             </tr>
           </tbody>
         </table>
@@ -66,12 +57,36 @@
 </template>
 
 <script>
+import { ROUTE_NAMES } from "Constants";
+
 export default {
   name: "TableTransactions",
   description: "Display the tansactions list",
+  props: {
+    transactions: {
+      type: Array,
+      required: true,
+      note: "The transactions list to dipslay"
+    }
+  },
   computed: {
     isFetching() {
       return false;
+    }
+  },
+  methods: {
+    getSeconds(time) {
+      let seconds = ((new Date() - time) / 1000).toFixed(0);
+      return `${seconds}s ago`;
+    },
+    toTransactionDetails(id) {
+      return {
+        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     }
   }
 };

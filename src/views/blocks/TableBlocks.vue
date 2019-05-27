@@ -22,12 +22,15 @@
               v-for="block in blocks.slice().reverse()"
               :key="block.id"
             >
+              <td class="align-middle">
+                <router-link
+                  :to="toBlockDetails(block.height)"
+                  v-text="block.height"
+                />
+              </td>
               <td
-                class="align-middle"
-                v-text="block.height"
-              />
-              <td
-                class="align-middle com-font-s10-w400"
+                class="d-inline-block text-truncate com-font-s10-w400"
+                style="max-width: 120px;"
                 v-text="block.hash"
               />
               <td
@@ -51,6 +54,8 @@
 </template>
 
 <script>
+import { ROUTE_NAMES } from "Constants";
+
 export default {
   name: "TableBlocks",
   description: "Display the blocks list",
@@ -68,8 +73,17 @@ export default {
   },
   methods: {
     getSeconds(time) {
-      let seconds =  ((new Date() - time) / 1000).toFixed(0);
+      let seconds = ((new Date() - time) / 1000).toFixed(0);
       return `${seconds}s ago`;
+    },
+    toBlockDetails(id) {
+      return {
+        name: ROUTE_NAMES.BLOCKS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     }
   }
 };
