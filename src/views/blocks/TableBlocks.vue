@@ -17,40 +17,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">345678</td>
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">1</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">345678</td>
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">1</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">345678</td>
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">1</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">345678</td>
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">1</td>
-              <td class="align-middle">1m ago</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">345678</td>
-              <td class="align-middle">DFEE9...6753E</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">1</td>
-              <td class="align-middle">1m ago</td>
+            <tr
+              class="text-center com-font-s12-w400"
+              v-for="block in blocks.slice().reverse()"
+              :key="block.id"
+            >
+              <td
+                class="align-middle"
+                v-text="block.height"
+              />
+              <td
+                class="align-middle com-font-s10-w400"
+                v-text="block.hash"
+              />
+              <td
+                class="align-middle"
+                v-text="block.proposer"
+              />
+              <td
+                class="align-middle"
+                v-text="block.transactions"
+              />
+              <td
+                class="align-middle"
+                v-text="getSeconds(block.time)"
+              />
             </tr>
           </tbody>
         </table>
@@ -63,9 +54,22 @@
 export default {
   name: "TableBlocks",
   description: "Display the blocks list",
+  props: {
+    blocks: {
+      type: Array,
+      required: true,
+      note: "The blocks list to dipslay"
+    }
+  },
   computed: {
     isFetching() {
       return false;
+    }
+  },
+  methods: {
+    getSeconds(time) {
+      let seconds =  ((new Date() - time) / 1000).toFixed(0);
+      return `${seconds}s ago`;
     }
   }
 };

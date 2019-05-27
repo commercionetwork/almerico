@@ -8,7 +8,7 @@
       :inflation="inflation"
     />
     <div class="py-3 px-5 rounded bg-white">
-      <TableBlocks />
+      <TableBlocks :blocks="blocks" />
     </div>
   </div>
 </template>
@@ -16,6 +16,9 @@
 <script>
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableBlocks from "./TableBlocks.vue";
+
+//TODO: remove
+import { mockBlocks } from "Store/blocks/__mocks__/blocks";
 
 export default {
   name: "Blocks",
@@ -36,6 +39,9 @@ export default {
     },
     inflation() {
       return 0.034;
+    },
+    blocks() {
+      return mockBlocks();
     }
   }
 };

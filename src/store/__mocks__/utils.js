@@ -52,6 +52,20 @@ const randomDataGenerator = {
       [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
+  },
+  /**
+   * Return an alphanumeric string of the desired length
+   * 
+   * @param {number} length 
+   */
+  makeId(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
   }
 };
 
