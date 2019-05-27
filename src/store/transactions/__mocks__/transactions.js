@@ -1,15 +1,17 @@
 import randomDataGenerator from "Store/__mocks__/utils";
 const typeList = ["Send", "Delegate", "GetReward", "MultiSend"];
 
-const mockTransaction = (id = 1, height, time) => {
+const mockTransaction = (id = 1, hash = randomDataGenerator.makeId(64), height = randomDataGenerator.intFromInterval(400000, 499999), time = new Date()) => {
   let item = {
     id,
-    hash: randomDataGenerator.makeId(64),
+    hash,
     type: randomDataGenerator.listValue(typeList),
     result: "Success",
     fee: (randomDataGenerator.intFromInterval(1, 4999)) / 100000,
     height,
-    time
+    time,
+    gas: `${randomDataGenerator.intFromInterval(100000, 199999)}/200.000`,
+    memo: randomDataGenerator.makeId(16)
   };
   return item;
 };
@@ -24,7 +26,7 @@ const mockTransactions = (transactions = 10, height) => {
   let list = new Array(transactions).fill(null).map(() => {
     time = new Date(today.getTime() + randomDataGenerator.intFromInterval(1000, 9999));
     today = time;
-    return mockTransaction(counter++, hgt++, time);
+    return mockTransaction(counter++, randomDataGenerator.makeId(64), (height) ? hgt : hgt++, time);
   });
   return list;
 };
