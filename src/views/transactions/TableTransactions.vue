@@ -40,10 +40,12 @@
                 v-text="transaction.result"
               />
               <td class="align-middle">{{ transaction.fee }} ATOM</td>
-              <td
-                class="align-middle"
-                v-text="transaction.height"
-              />
+              <td class="align-middle">
+                <router-link
+                  :to="toBlockDetails(transaction.height)"
+                  v-text="transaction.height"
+                />
+              </td>
               <td
                 class="align-middle"
                 v-text="getSeconds(transaction.time)"
@@ -78,6 +80,15 @@ export default {
     getSeconds(time) {
       let seconds = ((new Date() - time) / 1000).toFixed(0);
       return `${seconds}s ago`;
+    },
+    toBlockDetails(id) {
+      return {
+        name: ROUTE_NAMES.BLOCKS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     },
     toTransactionDetails(id) {
       return {

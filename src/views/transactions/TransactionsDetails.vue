@@ -53,7 +53,7 @@
             <h2 class="com-font-s16-w700">Msgs</h2>
           </div>
         </div>
-        <div class="p-1 rounded bg-primary">
+        <div class="p-1 rounded border">
           <div class="row p-1">
             <div class="col-12">
               <h3 class="com-font-s16-w700">Send</h3>

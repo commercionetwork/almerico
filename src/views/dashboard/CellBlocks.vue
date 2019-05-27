@@ -16,29 +16,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">387654</td>
-              <td class="align-middle">Block1</td>
-              <td class="align-middle">0</td>
-              <td class="align-middle">2019-05-23 14:23:42<br>(10s ago)</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">387655</td>
-              <td class="align-middle">Block2</td>
-              <td class="align-middle">0</td>
-              <td class="align-middle">2019-05-23 14:23:47<br>(15s ago)</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">387656</td>
-              <td class="align-middle">Block3</td>
-              <td class="align-middle">1</td>
-              <td class="align-middle">2019-05-23 14:23:52<br>(20s ago)</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">387657</td>
-              <td class="align-middle">Block4</td>
-              <td class="align-middle">0</td>
-              <td class="align-middle">2019-05-23 14:23:62<br>(30s ago)</td>
+            <tr
+              class="text-center com-font-s12-w400"
+              v-for="block in blocks.slice().reverse()"
+              :key="block.id"
+            >
+              <td class="align-middle">
+                <router-link
+                  :to="toBlockDetails(block.height)"
+                  v-text="block.height"
+                />
+              </td>
+              <td
+                class="align-middle"
+                v-text="block.proposer"
+              />
+              <td
+                class="align-middle"
+                v-text="block.transactions"
+              />
+              <td
+                class="align-middle"
+                v-text="block.time.toLocaleString()"
+              />
             </tr>
           </tbody>
         </table>
@@ -53,6 +53,9 @@ import TableCell from "Components/common/TableCell.vue";
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 
+//TODO: remove
+import { mockBlocks } from "Store/blocks/__mocks__/blocks";
+
 export default {
   name: "CellBlocks",
   description: "Display the blocks table",
@@ -60,11 +63,25 @@ export default {
     TableCell
   },
   computed: {
+    blocks() {
+      return mockBlocks();
+    },
     isFetching() {
       return false;
     },
     link() {
       return localizedRoute(ROUTE_NAMES.BLOCKS, this.$i18n.locale);
+    }
+  },
+  methods: {
+    toBlockDetails(id) {
+      return {
+        name: ROUTE_NAMES.BLOCKS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     }
   }
 };

@@ -28,11 +28,19 @@
                   v-text="block.height"
                 />
               </td>
-              <td
+              <td class="align-middle">
+                <router-link
+                  class="d-inline-block text-truncate com-font-s10-w400"
+                  style="max-width: 120px;"
+                  :to="toTransactionDetails(block.hash)"
+                  v-text="block.hash"
+                />
+              </td>
+              <!-- <td
                 class="d-inline-block text-truncate com-font-s10-w400"
                 style="max-width: 120px;"
                 v-text="block.hash"
-              />
+              /> -->
               <td
                 class="align-middle"
                 v-text="block.proposer"
@@ -79,6 +87,15 @@ export default {
     toBlockDetails(id) {
       return {
         name: ROUTE_NAMES.BLOCKS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
+    },
+    toTransactionDetails(id) {
+      return {
+        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
         params: {
           lang: this.$i18n.locale,
           id: id
