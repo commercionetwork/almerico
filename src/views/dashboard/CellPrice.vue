@@ -8,6 +8,8 @@
       <LineChart
         :chartdata="chartdata"
         :options="options"
+        height="60"
+        width="90"
         class="p-1"
       />
     </div>

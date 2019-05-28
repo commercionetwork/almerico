@@ -23,8 +23,8 @@
           <DoughnutChart
             :chartdata="chartdata"
             :options="options"
-            :height=125
-            :width=125
+            height="125"
+            width="125"
           />
         </span>
       </div>
@@ -124,7 +124,7 @@ export default {
       return this.validator.voting.delegated.toLocaleString();
     },
     othersPercent(){
-      let percent = 100 - this.validator.voting.delegated_percent;
+      let percent = (100 - this.validator.voting.delegated_percent).toFixed(2);
       return `${percent}%`;
     },
     selfPercent(){
