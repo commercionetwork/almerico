@@ -17,12 +17,19 @@
         :validator="validator"
         class="mt-3"
       />
+      <div class="row mt-3">
+        <div class="col-12 col-md-6">
+          <ValidatorDetailsDelegators />
+        </div>
+        <div class="col-12 col-md-6"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
+import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 
 //TODO: remove
@@ -33,6 +40,7 @@ export default {
   description: "Display the validator details",
   components: {
     ValidatorDetailsDelegated,
+    ValidatorDetailsDelegators,
     ValidatorDetailsHeader
   },
   computed: {
