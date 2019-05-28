@@ -36,11 +36,6 @@
                   v-text="block.hash"
                 />
               </td>
-              <!-- <td
-                class="d-inline-block text-truncate com-font-s10-w400"
-                style="max-width: 120px;"
-                v-text="block.hash"
-              /> -->
               <td
                 class="align-middle"
                 v-text="block.proposer"
