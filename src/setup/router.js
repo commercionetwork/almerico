@@ -10,6 +10,7 @@ Vue.use(Router)
 function loadView(view) {
   return () => import( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
 }
+const AccountDetails = loadView("account/index");
 const Blocks = loadView("blocks/index");
 const BlocksDetails = loadView("blocks/BlocksDetails");
 const Dashboard = loadView("dashboard/index");
@@ -31,6 +32,11 @@ export default new Router({
       redirect: {
         name: ROUTE_NAMES.DASHBOARD
       }
+    },
+    {
+      path: ROUTES.ACCOUNT_DETAILS,
+      name: ROUTE_NAMES.ACCOUNT_DETAILS,
+      component: AccountDetails,
     },
     {
       path: ROUTES.BLOCKS,

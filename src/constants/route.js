@@ -6,6 +6,7 @@ export const ROUTES = {
   NOT_FOUND: "/404",
   SERVER_UNREACHABLE: "/:lang/server_unreachable",
   // sections
+  ACCOUNT_DETAILS: "/:lang/account/:id",
   BLOCKS: "/:lang/blocks",
   BLOCKS_DETAILS: "block/:id",
   DASHBOARD: "/:lang/dashboard",
@@ -23,6 +24,7 @@ export const ROUTES = {
 export const ROUTE_NAMES = {
   NOT_FOUND: "notFound",
   SERVER_UNREACHABLE: "serverUnreachable",
+  ACCOUNT_DETAILS: "accountDetails",
   BLOCKS: "blocks",
   BLOCKS_DETAILS: "blocksDetails",
   DASHBOARD: "dashboard",
