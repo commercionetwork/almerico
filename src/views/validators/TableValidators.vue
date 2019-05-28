@@ -25,85 +25,42 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">1</td>
-              <td class="align-middle">commerc.io network</td>
+            <tr
+              class="text-center com-font-s12-w400"
+              v-for="validator in validators"
+              :key="validator.id"
+            >
+              <td
+                class="align-middle"
+                v-text="validator.rank"
+              />
+              <td
+                class="align-middle"
+                v-text="validator.name"
+              />
               <td class="align-middle">
-                <div>1.234.567</div>
-                <div class="text-black-50">10%</div>
+                <div v-text="validator.voting.power.toLocaleString()" />
+                <div
+                  class="text-black-50"
+                  v-text="percentFormat(validator.voting.power_percent)"
+                />
               </td>
-              <td class="align-middle">44%</td>
+              <td
+                class="align-middle"
+                v-text="percentFormat(validator.share)"
+              />
               <td class="align-middle">
-                <div>1.234</div>
-                <div class="text-black-50">25%</div>
+                <div v-text="validator.voting.delegated.toLocaleString()" />
+                <div
+                  class="text-black-50"
+                  v-text="percentFormat(validator.voting.delegated_percent)"
+                />
               </td>
-              <td class="align-middle">150(+1)</td>
-              <td class="align-middle">10%</td>
-              <td class="align-middle">100%</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">1</td>
-              <td class="align-middle">commerc.io network</td>
               <td class="align-middle">
-                <div>1.234.567</div>
-                <div class="text-black-50">10%</div>
+                {{ validator.delegators }} (+1)
               </td>
-              <td class="align-middle">44%</td>
-              <td class="align-middle">
-                <div>1.234</div>
-                <div class="text-black-50">25%</div>
-              </td>
-              <td class="align-middle">150(+1)</td>
-              <td class="align-middle">10%</td>
-              <td class="align-middle">100%</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">1</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">
-                <div>1.234.567</div>
-                <div class="text-black-50">10%</div>
-              </td>
-              <td class="align-middle">44%</td>
-              <td class="align-middle">
-                <div>1.234</div>
-                <div class="text-black-50">25%</div>
-              </td>
-              <td class="align-middle">150(+1)</td>
-              <td class="align-middle">10%</td>
-              <td class="align-middle">100%</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">1</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">
-                <div>1.234.567</div>
-                <div class="text-black-50">10%</div>
-              </td>
-              <td class="align-middle">44%</td>
-              <td class="align-middle">
-                <div>1.234</div>
-                <div class="text-black-50">25%</div>
-              </td>
-              <td class="align-middle">150(+1)</td>
-              <td class="align-middle">10%</td>
-              <td class="align-middle">100%</td>
-            </tr>
-            <tr class="text-center com-font-s12-w400">
-              <td class="align-middle">1</td>
-              <td class="align-middle">commerc.io network</td>
-              <td class="align-middle">
-                <div>1.234.567</div>
-                <div class="text-black-50">10%</div>
-              </td>
-              <td class="align-middle">44%</td>
-              <td class="align-middle">
-                <div>1.234</div>
-                <div class="text-black-50">25%</div>
-              </td>
-              <td class="align-middle">150(+1)</td>
-              <td class="align-middle">10%</td>
-              <td class="align-middle">100%</td>
+              <td class="align-middle" v-text="percentFormat(validator.commission)" />
+              <td class="align-middle" v-text="percentFormat(validator.uptime)" />
             </tr>
           </tbody>
         </table>
@@ -121,9 +78,25 @@ export default {
   components: {
     SearchValidator
   },
+  props: {
+    validators: {
+      type: Array,
+      required: true,
+      note: "The validators list to diplay"
+    }
+  },
   computed: {
     isFetching() {
       return false;
+    }
+  },
+  methods: {
+    percentFormat(value) {
+      let percent = value.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      return `${percent}%`;
     }
   }
 };

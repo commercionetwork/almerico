@@ -23,7 +23,7 @@
         </div>
       </div>
       <hr>
-      <TableValidators />
+      <TableValidators :validators="validators" />
     </div>
   </div>
 </template>
@@ -35,6 +35,9 @@ import CellTokens from "./CellTokens.vue";
 import CellValidators from "./CellValidators.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableValidators from "./TableValidators.vue";
+
+//TODO: remove
+import { mockValidators } from "Store/validators/__mocks__/validators";
 
 export default {
   name: "Validators",
@@ -59,6 +62,9 @@ export default {
     },
     inflation() {
       return 0.034;
+    },
+    validators() {
+      return mockValidators();
     }
   }
 };
