@@ -16,11 +16,11 @@ export default {
     },
     height: {
       type: String,
-      default: "70"
+      default: "100"
     },
     width: {
       type: String,
-      default: "70"
+      default: "100"
     }
   },
   mounted () {

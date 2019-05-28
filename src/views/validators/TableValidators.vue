@@ -44,18 +44,18 @@
                 <div v-text="validator.voting.power.toLocaleString()" />
                 <div
                   class="text-black-50"
-                  v-text="percentFormat(validator.voting.power_percent)"
+                  v-text="`${validator.voting.power_percent}%`"
                 />
               </td>
               <td
                 class="align-middle"
-                v-text="percentFormat(validator.share)"
+                v-text="`${validator.share}%`"
               />
               <td class="align-middle">
                 <div v-text="validator.voting.delegated.toLocaleString()" />
                 <div
                   class="text-black-50"
-                  v-text="percentFormat(validator.voting.delegated_percent)"
+                  v-text="`${validator.voting.delegated_percent}%`"
                 />
               </td>
               <td class="align-middle">
@@ -63,11 +63,11 @@
               </td>
               <td
                 class="align-middle"
-                v-text="percentFormat(validator.commission)"
+                v-text="`${validator.commission}%`"
               />
               <td
                 class="align-middle"
-                v-text="percentFormat(validator.uptime)"
+                v-text="`${validator.uptime}%`"
               />
             </tr>
           </tbody>
@@ -101,13 +101,6 @@ export default {
     }
   },
   methods: {
-    percentFormat(value) {
-      let percent = value.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      return `${percent}%`;
-    },
     toValidatorDetails(id) {
       return {
         name: ROUTE_NAMES.VALIDATORS_DETAILS,

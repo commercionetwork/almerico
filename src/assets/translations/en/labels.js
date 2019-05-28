@@ -1,4 +1,5 @@
 export const labels = {
   address: "Address",
-  publicKey: "Public key"
+  publicKey: "Public key",
+  total: "Total"
 };

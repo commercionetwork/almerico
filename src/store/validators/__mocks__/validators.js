@@ -15,14 +15,14 @@ const mockValidator = (id = 1) => {
     rank,
     voting: {
       power,
-      power_percent: randomDataGenerator.intFromInterval(10, 999) / 100,
+      power_percent: (randomDataGenerator.intFromInterval(10, 999) / 100).toFixed(2),
       delegated,
-      delegated_percent: (delegated * 100) / power
+      delegated_percent: ((delegated * 100) / power).toFixed(2)
     },
-    share: randomDataGenerator.intFromInterval(100, 9999) / 100,
+    share: (randomDataGenerator.intFromInterval(100, 9999) / 100).toFixed(2),
     delegators: randomDataGenerator.intFromInterval(1,19),
-    commission: randomDataGenerator.intFromInterval(100, 5000) / 100,
-    uptime: randomDataGenerator.intFromInterval(9000, 9999) / 100,
+    commission: (randomDataGenerator.intFromInterval(100, 5000) / 100).toFixed(2),
+    uptime: (randomDataGenerator.intFromInterval(9000, 9999) / 100).toFixed(2),
   };
   return item;
 };

@@ -53,14 +53,14 @@
       <div class="col-12 col-md-3 com-font-s13-w700">Commission</div>
       <div
         class="col-12 col-md-9 com-font-s13-w400"
-        v-text="percentFormat(validator.commission)"
+        v-text="`${validator.commission}%`"
       />
     </div>
     <div class="row p-1">
       <div class="col-12 col-md-3 com-font-s13-w700">Uptime</div>
       <div
         class="col-12 col-md-9 com-font-s13-w400"
-        v-text="percentFormat(validator.uptime)"
+        v-text="`${validator.uptime}%`"
       />
     </div>
     <div class="row p-1">
@@ -97,19 +97,10 @@ export default {
   },
   computed: {
     votingPower() {
-      let percent = this.percentFormat(this.validator.voting.power_percent);
+      let percent = `${this.validator.voting.power_percent}%`;
       let power = this.validator.voting.power.toLocaleString();
       return `${percent} (${power} ATOM)`;
     }
   },
-  methods: {
-    percentFormat(value) {
-      let percent = value.toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      return `${percent}%`;
-    }
-  }
 };
 </script>

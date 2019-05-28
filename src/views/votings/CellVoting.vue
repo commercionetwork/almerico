@@ -25,6 +25,8 @@
             <DoughnutChart
               :chartdata="chartdata"
               :options="options"
+              :height=65
+              :width=65
             />
           </span>
         </div>
