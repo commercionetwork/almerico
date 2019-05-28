@@ -75,7 +75,7 @@
           </div>
           <div class="row p-1">
             <div class="col-12 col-md-3 com-font-s13-w700">Amount</div>
-            <div class="col-12 col-md-9 text-break com-font-s13-w400">0.123456 ATOM</div>
+            <div class="col-12 col-md-9 text-break com-font-s13-w400">{{ transaction.amount }} ATOM</div>
           </div>
         </div>
       </div>

@@ -11,7 +11,8 @@ const mockTransaction = (id = 1, hash = randomDataGenerator.makeId(64), height =
     height,
     time,
     gas: `${randomDataGenerator.intFromInterval(100000, 199999)}/200.000`,
-    memo: randomDataGenerator.makeId(16)
+    memo: randomDataGenerator.makeId(16),
+    amount: (randomDataGenerator.intFromInterval(100, 10000)) / 100
   };
   return item;
 };

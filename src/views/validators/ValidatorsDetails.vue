@@ -21,7 +21,9 @@
         <div class="col-12 col-md-6">
           <ValidatorDetailsDelegators />
         </div>
-        <div class="col-12 col-md-6"></div>
+        <div class="col-12 col-md-6 mt-3 mt-md-0">
+          <ValidatorDetailsEvents />
+        </div>
       </div>
     </div>
   </div>
@@ -30,6 +32,7 @@
 <script>
 import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
 import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
+import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 
 //TODO: remove
@@ -41,6 +44,7 @@ export default {
   components: {
     ValidatorDetailsDelegated,
     ValidatorDetailsDelegators,
+    ValidatorDetailsEvents,
     ValidatorDetailsHeader
   },
   computed: {
