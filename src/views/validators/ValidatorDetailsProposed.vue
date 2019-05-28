@@ -9,7 +9,7 @@
         <div class="col-12 d-flex justify-content-start">
           <h2
             class="com-font-s16-w700"
-            v-html="'Power events'"
+            v-html="'Proposed blocks'"
           />
         </div>
       </div>
@@ -20,38 +20,38 @@
               <thead>
                 <tr class="text-center com-font-s12-w700">
                   <th scope="col">Height</th>
-                  <th scope="col">TxHash</th>
-                  <th scope="col">Amount</th>
+                  <th scope="col">Block Hash</th>
+                  <th scope="col">Txs</th>
                   <th scope="col">Time</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
                   class="text-center com-font-s12-w400"
-                  v-for="transaction in transactions.slice().reverse()"
-                  :key="transaction.id"
+                  v-for="block in blocks.slice().reverse()"
+                  :key="block.id"
                 >
                   <td class="align-middle">
                     <router-link
-                      :to="toBlockDetails(transaction.height)"
-                      v-text="transaction.height"
+                      :to="toBlockDetails(block.height)"
+                      v-text="block.height"
                     />
                   </td>
                   <td class="align-middle">
                     <router-link
-                      :to="toTransactionDetails(transaction.hash)"
-                      v-text="transaction.hash"
+                      :to="toBlockDetails(block.height)"
+                      v-text="block.hash"
                       class="d-inline-block text-truncate com-font-s10-w400"
                       style="max-width: 120px;"
                     />
                   </td>
                   <td
                     class="align-middle"
-                    v-text="`${transaction.amount} ATOM`"
+                    v-text="block.transactions"
                   />
                   <td
                     class="align-middle"
-                    v-text="transaction.time.toLocaleString()"
+                    v-text="block.time.toLocaleString()"
                   />
                 </tr>
               </tbody>
@@ -67,17 +67,17 @@
 import { ROUTE_NAMES } from "Constants";
 
 //TODO: remove
-import { mockTransactions } from "Store/transactions/__mocks__/transactions";
+import { mockBlocks } from "Store/blocks/__mocks__/blocks";
 
 export default {
-  name: "ValidatorDetailsEvents",
-  description: "Display an events list",
+  name: "ValidatorDetailsProposed",
+  description: "Display a blocks list",
   computed: {
     isFetching() {
       return false;
     },
-    transactions() {
-      return mockTransactions(5);
+    blocks() {
+      return mockBlocks(5);
     }
   },
   methods: {

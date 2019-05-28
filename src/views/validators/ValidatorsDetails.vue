@@ -12,11 +12,12 @@
       </div>
     </div>
     <div class="py-3 px-5 rounded bg-white">
-      <ValidatorDetailsHeader :validator="validator" />
-      <ValidatorDetailsDelegated
-        :validator="validator"
-        class="mt-3"
-      />
+      <div>
+        <ValidatorDetailsHeader :validator="validator" />
+      </div>
+      <div class="mt-3">
+        <ValidatorDetailsDelegated :validator="validator" />
+      </div>
       <div class="row mt-3">
         <div class="col-12 col-md-6">
           <ValidatorDetailsDelegators />
@@ -24,6 +25,9 @@
         <div class="col-12 col-md-6 mt-3 mt-md-0">
           <ValidatorDetailsEvents />
         </div>
+      </div>
+      <div class="mt-3">
+        <ValidatorDetailsProposed />
       </div>
     </div>
   </div>
@@ -34,6 +38,7 @@ import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
 import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
 import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
+import ValidatorDetailsProposed from "./ValidatorDetailsProposed.vue";
 
 //TODO: remove
 import { mockValidator } from "Store/validators/__mocks__/validators";
@@ -45,7 +50,8 @@ export default {
     ValidatorDetailsDelegated,
     ValidatorDetailsDelegators,
     ValidatorDetailsEvents,
-    ValidatorDetailsHeader
+    ValidatorDetailsHeader,
+    ValidatorDetailsProposed
   },
   computed: {
     validator() {
