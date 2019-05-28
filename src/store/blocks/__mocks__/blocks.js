@@ -7,7 +7,10 @@ const mockBlock = (id = 1, time, height) => {
     height,
     hash: randomDataGenerator.makeId(64),
     transactions: randomDataGenerator.intFromInterval(0, 5),
-    proposer: "commerc.io network"
+    proposer: {
+      name: "commerc.io network",
+      pub_key: "cosmosvaloper1fqzqejwkk898fcslw4z4eeqjzesynvrdfr5hte",
+    }
   };
   return item;
 };

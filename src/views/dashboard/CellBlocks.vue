@@ -29,8 +29,8 @@
               </td>
               <td class="align-middle">
                 <router-link
-                  :to="toValidatorDetails(block.proposer)"
-                  v-text="block.proposer"
+                  :to="toValidatorDetails(block.proposer.pub_key)"
+                  v-text="block.proposer.name"
                 />
               </td>
               <td

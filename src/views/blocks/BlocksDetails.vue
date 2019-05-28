@@ -37,7 +37,7 @@
         </div>
         <div class="row p-1">
           <div class="col-12 col-md-3 com-font-s13-w700">Proposer</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">{{ block.proposer }}</div>
+          <div class="col-12 col-md-9 com-font-s13-w400">{{ block.proposer.name }}</div>
         </div>
       </div>
       <div class="my-3 p-1 rounded-lg bg-light border">
