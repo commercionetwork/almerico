@@ -5,6 +5,7 @@ export const titles = {
   information: "Information",
   transactionDetails: "Transaction details",
   transactions: "Transactions",
+  validatorDetails: "Validator details",
   validators: "Validators",
   votings: "Votings",
 };

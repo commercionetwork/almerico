@@ -27,10 +27,12 @@
                   v-text="block.height"
                 />
               </td>
-              <td
-                class="align-middle"
-                v-text="block.proposer"
-              />
+              <td class="align-middle">
+                <router-link
+                  :to="toValidatorDetails(block.proposer)"
+                  v-text="block.proposer"
+                />
+              </td>
               <td
                 class="align-middle"
                 v-text="block.transactions"
@@ -77,6 +79,15 @@ export default {
     toBlockDetails(id) {
       return {
         name: ROUTE_NAMES.BLOCKS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
+    },
+    toValidatorDetails(id) {
+      return {
+        name: ROUTE_NAMES.VALIDATORS_DETAILS,
         params: {
           lang: this.$i18n.locale,
           id: id
