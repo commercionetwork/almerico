@@ -34,10 +34,12 @@
                 class="align-middle"
                 v-text="validator.rank"
               />
-              <td
-                class="align-middle"
-                v-text="validator.name"
-              />
+              <td class="align-middle">
+                <router-link
+                  :to="toValidatorDetails(validator.pub_key)"
+                  v-text="validator.name"
+                />
+              </td>
               <td class="align-middle">
                 <div v-text="validator.voting.power.toLocaleString()" />
                 <div
@@ -59,8 +61,14 @@
               <td class="align-middle">
                 {{ validator.delegators }} (+1)
               </td>
-              <td class="align-middle" v-text="percentFormat(validator.commission)" />
-              <td class="align-middle" v-text="percentFormat(validator.uptime)" />
+              <td
+                class="align-middle"
+                v-text="percentFormat(validator.commission)"
+              />
+              <td
+                class="align-middle"
+                v-text="percentFormat(validator.uptime)"
+              />
             </tr>
           </tbody>
         </table>
@@ -71,6 +79,8 @@
 
 <script>
 import SearchValidator from "./SearchValidator.vue";
+
+import { ROUTE_NAMES } from "Constants";
 
 export default {
   name: "TableValidators",
@@ -97,6 +107,15 @@ export default {
         maximumFractionDigits: 2
       });
       return `${percent}%`;
+    },
+    toValidatorDetails(id) {
+      return {
+        name: ROUTE_NAMES.VALIDATORS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     }
   }
 };
