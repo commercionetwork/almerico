@@ -8,14 +8,14 @@ export const ROUTES = {
   // sections
   ACCOUNT_DETAILS: "/:lang/account/:id",
   BLOCKS: "/:lang/blocks",
-  BLOCKS_DETAILS: "block/:id",
+  BLOCKS_DETAILS: "/:lang/block/:id",
   DASHBOARD: "/:lang/dashboard",
   TRANSACTIONS: "/:lang/transactions",
-  TRANSACTIONS_DETAILS: "transaction/:id",
+  TRANSACTIONS_DETAILS: "/:lang/transaction/:id",
   VALIDATORS: "/:lang/validators",
-  VALIDATORS_DETAILS: "validator/:id",
+  VALIDATORS_DETAILS: "/:lang/validator/:id",
   VOTINGS: "/:lang/votings",
-  VOTINGS_DETAILS: "voting/:id"
+  VOTINGS_DETAILS: "/:lang/voting/:id"
 };
 
 /**
