@@ -41,7 +41,7 @@
                     <router-link
                       :to="toTransactionDetails(transaction.hash)"
                       v-text="transaction.hash"
-                      class="d-inline-block text-truncate com-font-s10-w400"
+                      class="d-inline-block text-truncate com-font-s12-w400"
                       style="max-width: 120px;"
                     />
                   </td>
