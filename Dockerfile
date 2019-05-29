@@ -1,4 +1,4 @@
-FROM node:12.3.0
+FROM node:12.3.1
 
 # Read the set variables
 ARG vue_app_lcd
