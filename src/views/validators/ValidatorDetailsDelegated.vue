@@ -155,4 +155,3 @@ export default {
   border-width: 10px !important;
 }
 </style>
-
