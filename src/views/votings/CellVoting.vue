@@ -32,7 +32,7 @@
         </div>
         <div class="col-12 col-sm-7">
           <div class="d-flex justify-content-start com-font-s12-w400">
-            Proposer:<span class="pl-1 text-info">{{ voting.proposer }}</span>
+            {{ $t('labels.proposer') }}:<span class="pl-1 text-info">{{ voting.proposer.name }}</span>
           </div>
           <div class="d-flex justify-content-start com-font-s13-w400">
             {{ voting.title }}

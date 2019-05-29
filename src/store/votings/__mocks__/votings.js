@@ -21,7 +21,11 @@ const mockVoting = (id = 1) => {
     id,
     hashtag: "#" + id,
     title: "Join the commerc.io network",
-    proposer: "commercio.network",
+    proposer: {
+      name: "commercio.network",
+      address: "cosmos1fqzqejwkk898fcslw4z4eeqjzesynvrdvhqz82",
+      pub_key: "cosmosvaloper1fqzqejwkk898fcslw4z4eeqjzesynvrdfr5hte",
+    },
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     type: "gov/TextProposal",
     status,
