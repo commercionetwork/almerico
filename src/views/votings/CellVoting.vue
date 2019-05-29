@@ -14,7 +14,7 @@
         </div>
         <div class="col-12 col-sm-6 d-flex justify-content-start justify-content-sm-end">
           <span
-            class="px-3 rounded-pill bg-dark text-white com-font-s12-w400"
+            class="px-3 rounded-pill bg-dark text-white com-font-s10-w400"
             v-html="status"
           />
         </div>
@@ -32,19 +32,19 @@
         </div>
         <div class="col-12 col-sm-7">
           <div class="d-flex justify-content-start com-font-s12-w400">
-            Proposer:<span class="pl-1 text-info">commerc.io network</span>
+            Proposer:<span class="pl-1 text-info">{{ voting.proposer }}</span>
           </div>
           <div class="d-flex justify-content-start com-font-s13-w400">
-            Join the commerc.io network now
+            {{ voting.title }}
           </div>
           <span class="d-flex flex-row justify-content-start">
             <div class="pr-1 flex-grow-0 border-right border-dark">
               <div class="com-font-s11-w700">Quorum</div>
-              <div class="com-font-s11-w400">76.54%</div>
+              <div class="com-font-s11-w400">{{ voting.poll.quorum }}%</div>
             </div>
             <div class="pl-1 flex-grow-1">
               <div class="com-font-s11-w700">Most voted on</div>
-              <div class="com-font-s11-w400">{{ pollLabel }} ({{ pollValue }}%)</div>
+              <div class="com-font-s11-w400">{{ winner.label }} ({{ winner.percent }}%)</div>
             </div>
           </span>
 
@@ -124,15 +124,37 @@ export default {
     status() {
       return this.voting.status;
     },
+    votes() {
+      return this.voting.poll.votes;
+    },
+    labels() {
+      let labels = [];
+      this.votes.forEach(vote => {
+        labels.push(vote.label);
+      });
+      return labels;
+    },
+    data() {
+      let data = [];
+      this.votes.forEach(vote => {
+        data.push(vote.percent);
+      });
+      return data;
+    },
     chartdata() {
-      return this.voting.polls;
+      return {
+        labels: this.labels,
+        datasets: [
+          {
+            data: this.data,
+            backgroundColor: ["#38BA8C", "#FFCC33", "#CC3333", "#3C3C3C"]
+          }
+        ]
+      };
     },
-    pollLabel() {
-      return this.chartdata.labels[0];
-    },
-    pollValue() {
-      return this.chartdata.datasets[0].data[0];
+    winner() {
+      return this.votes.reduce((prev, current) => (prev.count > current.count) ? prev : current);
     }
-  }
+  },
 };
 </script>

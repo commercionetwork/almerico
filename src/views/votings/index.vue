@@ -9,16 +9,11 @@
     />
     <div class="py-3 px-5 rounded bg-white">
       <div class="row">
-        <div class="col-12 col-md-6 p-1">
-          <CellVoting :voting="voting" />
-        </div>
-        <div class="col-12 col-md-6 p-1">
-          <CellVoting :voting="voting" />
-        </div>
-        <div class="col-12 col-md-6 p-1">
-          <CellVoting :voting="voting" />
-        </div>
-        <div class="col-12 col-md-6 p-1">
+        <div
+          class="col-12 col-md-6 p-1"
+          v-for="voting in votings.slice().reverse()"
+          :key="voting.id"
+        >
           <CellVoting :voting="voting" />
         </div>
       </div>
@@ -29,6 +24,8 @@
 <script>
 import CellVoting from "./CellVoting.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
+
+import { mockVotings } from "Store/votings/__mocks__/votings";
 
 export default {
   name: "Votings",
@@ -50,21 +47,8 @@ export default {
     inflation() {
       return 0.034;
     },
-    voting() {
-      return {
-        id: 1,
-        hashtag: "#1",
-        status: "Passed",
-        polls: {
-          labels: ["Yes", "No", "Veto", "Abstain"],
-          datasets: [
-            {
-              data: [71.95, 20.12, 4.14, 3.79],
-              backgroundColor: ["#38BA8C", "#FFCC33", "#CC3333", "#3C3C3C"]
-            }
-          ]
-        }
-      };
+    votings() {
+      return mockVotings();
     }
   }
 };

@@ -1,6 +1,6 @@
 const randomDataGenerator = {
   /**
-   * Return a date between 2 dates
+   * Returns a date between 2 dates
    * 
    * @param {Date} start 
    * @param {Date} end 
@@ -9,7 +9,27 @@ const randomDataGenerator = {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
   },
   /**
-   * Returns a number between the min and max included
+   * Sums days to a date
+   * 
+   * @param {Date} date 
+   * @param {number} days 
+   */
+  addDays(date, days) {
+    let result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+  },
+  /**
+   * Returns a number between the min included and max excluded
+   * 
+   * @param {number} min 
+   * @param {number} max 
+   */
+  numberFromInterval(min, max) {
+    return Math.random() * (max - min) + min;
+  },
+  /**
+   * Returns a integer between the min and max included
    * 
    * @param {number} min 
    * @param {number} max 
