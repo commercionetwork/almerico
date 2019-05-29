@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import account from "Store/account";
 import blocks from "Store/blocks";
 import transactions from "Store/transactions";
 import validators from "Store/validators";
@@ -9,6 +10,7 @@ import votings from "Store/votings";
 Vue.use(Vuex);
 
 const initialState = {
+  account: account.initialState,
   blocks: blocks.initialState,
   transactions: transactions.initialState,
   validators: validators.initialState,
@@ -17,6 +19,7 @@ const initialState = {
 
 export default new Vuex.Store({
   modules: {
+    account,
     blocks,
     transactions,
     validators,
