@@ -13,6 +13,9 @@
     <div class="mt-3">
       <VotingsDetailsVote :voting="voting" />
     </div>
+    <div class="mt-3">
+      <VotingsDetailsVotesList />
+    </div>
   </div>
 </template>
 
@@ -20,6 +23,7 @@
 import SectionHeader from "Components/common/SectionHeader.vue";
 import VotingsDetailsHeader from "./VotingsDetailsHeader.vue";
 import VotingsDetailsVote from "./VotingsDetailsVote.vue";
+import VotingsDetailsVotesList from "./VotingsDetailsVotesList.vue";
 
 //TODO: remove
 import { mockVoting } from "Store/votings/__mocks__/votings";
@@ -30,7 +34,8 @@ export default {
   components: {
     SectionHeader,
     VotingsDetailsHeader,
-    VotingsDetailsVote
+    VotingsDetailsVote,
+    VotingsDetailsVotesList,
   },
   computed: {
     voting() {

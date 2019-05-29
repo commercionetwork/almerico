@@ -7,7 +7,10 @@
     <div v-else>
       <div class="row p-1 d-flex align-items-center">
         <div class="col-6">
-          <h2 class="com-font-s16-w700">Vote</h2>
+          <h2
+            class="com-font-s16-w700"
+            v-text="$t('titles.vote')"
+          />
         </div>
         <div class="col-6 d-flex justify-content-end">
           <span class="px-3 border rounded-pill text-secondary bg-light com-font-s12-w400">Quorum: {{ voting.poll.quorum }}%</span>

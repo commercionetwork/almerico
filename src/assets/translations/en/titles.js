@@ -7,6 +7,8 @@ export const titles = {
   transactions: "Transactions",
   validatorDetails: "Validator details",
   validators: "Validators",
+  vote:"Vote",
+  votes:"Votes",
   votingDetails: "Voting details",
   votings: "Votings",
 };
