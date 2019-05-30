@@ -6,7 +6,7 @@ const mockVoting = (id = 1) => {
   let start_date = randomDataGenerator.addDays(submit_date, 1);
   let end_date = randomDataGenerator.addDays(start_date, 14);
 
-  let total = randomDataGenerator.intFromInterval(100000, 200000);
+  let total = randomDataGenerator.numberFromInterval(100000, 200000);
   let yes_percent = randomDataGenerator.numberFromInterval(0, 100);
   let yes = total / 100 * yes_percent;
   let no_percent = randomDataGenerator.numberFromInterval(0, (100 - yes_percent));

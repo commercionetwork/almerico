@@ -3,11 +3,12 @@
 ///////////
 //COLORS //
 ///////////
-$white: #FFFFFF;
 $black: #000000;
-$blue: #3399FF;
-$yellow: #FFCC00;
-$red: #CC3333;
+$blue: #3399ff;
+$green: #33cc99;
+$red: #cc3333;
+$white: #ffffff;
+$yellow: #ffcc00;
 ////////////////
 // GRAY SCALE //
 ////////////////
@@ -21,15 +22,14 @@ $gray-lightest: #fafafa;
 ///////////////////////
 // COMMERC.IO COLORS //
 ///////////////////////
-$com-green-1: #38BA8C;
-$com-green-2: #37BA8C;
+$com-green: #38BA8C;
 //////////////////
 // BRAND COLORS //
 //////////////////
-$primary: $com-green-1;
+$primary: $com-green;
 $secondary: $gray-darkest;
 $light: $gray-lightest;
-$success: $com-green-2;
+$success: $green;
 $info: $blue;
 $warning: $yellow;
 $danger: $red;

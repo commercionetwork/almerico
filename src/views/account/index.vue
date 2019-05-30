@@ -17,6 +17,9 @@
 import AccountHeader from "./AccountHeader.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
+//TODO: remove
+import { mockAccount } from "Store/account/__mocks__/account";
+
 export default {
   name: "Account",
   description: "Container for account section",
@@ -26,7 +29,7 @@ export default {
   },
   computed: {
     account() {
-      return {}
+      return mockAccount();
     },
     price() {
       return { value: 10, iso_code: "EUR" };

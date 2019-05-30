@@ -38,9 +38,10 @@
             class="pt-1 com-font-s13-w700"
             v-text="$t('labels.address')"
           />
-          <span
-            class="text-break com-font-s13-w400"
+          <router-link
+            :to="toAccountDetails(validator.address)"
             v-text="validator.address"
+            class="text-break com-font-s13-w400"
           />
         </div>
       </div>
@@ -91,6 +92,8 @@
 </template>
 
 <script>
+import { ROUTE_NAMES } from "Constants";
+
 export default {
   name: "ValidatorDetailsHeader",
   description: "Display the validator header",
@@ -109,6 +112,17 @@ export default {
       let percent = `${this.validator.voting.power_percent}%`;
       let power = this.validator.voting.power.toLocaleString();
       return `${percent} (${power} ATOM)`;
+    }
+  },
+  methods: {
+    toAccountDetails(id) {
+      return {
+        name: ROUTE_NAMES.ACCOUNT_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     }
   }
 };
