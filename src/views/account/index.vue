@@ -12,10 +12,10 @@
     </div>
     <div class="row">
       <div class="col-12 col-md-6 mt-3">
-        <AccountDelegations />
+        <AccountDelegations :account="account" />
       </div>
       <div class="col-12 col-md-6 mt-3">
-        <AccountUnbondings/>
+        <AccountUnbondings :account="account" />
       </div>
     </div>
   </div>
