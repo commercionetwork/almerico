@@ -4,6 +4,10 @@
       slot="top-left-content"
       class="com-font-s12-w400"
     >Bonded</div>
+    <div slot="bottom-left-content">
+      <div class="text-secondary com-font-s13-w700">54,5%</div>
+      <div class="text-secondary com-font-s10-w400">120M/240M</div>
+    </div>
     <div slot="top-right-content">
       <LineChart
         :chartdata="chartdata"
@@ -12,10 +16,6 @@
         width="90"
         class="p-1"
       />
-    </div>
-    <div slot="bottom-left-content">
-      <div class="text-secondary com-font-s13-w700">54,5%</div>
-      <div class="text-secondary com-font-s10-w400">120M/240M</div>
     </div>
     <div slot="bottom-right-content">
       <Icon

@@ -4,6 +4,10 @@
       slot="top-left-content"
       class="com-font-s12-w400"
     >Price</div>
+    <div
+      slot="bottom-left-content"
+      class="text-secondary com-font-s13-w700"
+    >10,00 €</div>
     <div slot="top-right-content">
       <LineChart
         :chartdata="chartdata"
@@ -13,10 +17,6 @@
         class="p-1"
       />
     </div>
-    <div
-      slot="bottom-left-content"
-      class="text-secondary com-font-s13-w700"
-    >10,00 €</div>
     <div slot="bottom-right-content">
       <Icon
         name="arrowAltDown"

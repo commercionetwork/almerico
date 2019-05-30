@@ -1,24 +1,39 @@
 <template>
-  <div class="p-1 h-100 rounded-lg bg-light border">
+  <div class="p-1 rounded-lg bg-light border">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
     />
-    <div v-else>
-      <div class="row d-flex align-items-start">
-        <div class="col-6 d-flex justify-content-start">
-          <slot name="top-left-content" />
+    <div
+      v-else
+      class="container"
+    >
+      <div class="row">
+        <div class="col-6">
+          <div
+            class="d-flex align-items-start flex-column"
+            :style="cellHeight"
+          >
+            <div class="mb-auto justify-content-start">
+              <slot name="top-left-content" />
+            </div>
+            <div class="justify-content-end">
+              <slot name="bottom-left-content" />
+            </div>
+          </div>
         </div>
-        <div class="col-6 d-flex justify-content-end">
-          <slot name="top-right-content" />
-        </div>
-      </div>
-      <div class="row d-flex align-items-end">
-        <div class="col-6 d-flex justify-content-start">
-          <slot name="bottom-left-content" />
-        </div>
-        <div class="col-6 d-flex justify-content-end">
-          <slot name="bottom-right-content" />
+        <div class="col-6">
+          <div
+            class="d-flex align-items-end flex-column"
+            :style="cellHeight"
+          >
+            <div class="mb-auto justify-content-start">
+              <slot name="top-right-content" />
+            </div>
+            <div class="justify-content-end">
+              <slot name="bottom-right-content" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -34,6 +49,18 @@ export default {
       type: Boolean,
       default: false,
       note: "Toogle the loading message"
+    },
+    height: {
+      type: Number,
+      default: 100,
+      note: "The cell height"
+    }
+  },
+  data() {
+    return {
+      cellHeight:{
+        height: `${this.height}px`
+      }
     }
   }
 };
