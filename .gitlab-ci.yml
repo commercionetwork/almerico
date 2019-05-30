@@ -1,0 +1,104 @@
+image: node:12.3.1
+
+# Define any variable that might come in handy when building the project.
+# If no variable is needed, delete this section.
+variables:
+  DOCKER_REGISTRY_NAME: "registry.commerc.io"
+  DOCKER_PROJECT_PREFIX: "explorer"
+
+  # The Docker project name represents the key that will be used when pushing
+  # a successful Docker image build to the repository.
+  # DOCKER_PROJECT_NAME="project" will case the image
+  # DOCKER_REGISTRY_NAME/DOCKER_PROJECT_PREFIX-DOCKER_PROJECT_NAME to be pushed
+  DOCKER_PROJECT_NAME: "web"
+  
+  DOCKER_BUILD_ARGS: -f Dockerfile
+
+############################
+## Define the building stage.
+## This stage will be called for each branch, merge request or tag that is
+## pushed to the project.
+############################
+Build:
+  stage: build
+  script:
+    - npm install --progress=false
+    - npm run build
+
+############################
+## Define the testing stage.
+## This stage will be called for each branch, merge request or tag that is pushed to the project
+############################
+Test:
+  stage: test
+  script:
+    - npm install --progress=false
+    - npm run test
+
+############################
+## Define the deploying stage for the development branch.
+## This stage will be called only when pushing to the development branch.
+############################
+Deploy test:
+  stage: deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  only:
+    - development
+
+  before_script:
+    - export DOCKER_VERSION_TAG=test
+    - export DOCKER_TAG=$DOCKER_REGISTRY_NAME/$DOCKER_PROJECT_PREFIX/$DOCKER_PROJECT_NAME:$DOCKER_VERSION_TAG
+
+  script:
+    # Build the Docker image
+    - docker build $DOCKER_BUILD_OPTIONS -t
+      $DOCKER_PROJECT_NAME
+      $DOCKER_BUILD_ARGS
+      --build-arg vue_app_lcd=https://lcd.n01c01p1f2.commercio.network
+      --build-arg vue_app_rpc=https://rpc.n01c01p1f2.commercio.network
+      .
+
+    # Tag and publish the built Docker image
+    - docker image tag $DOCKER_PROJECT_NAME $DOCKER_TAG
+    - docker image push $DOCKER_TAG
+
+  environment:
+    name: test
+    url: https://test.explorer.commerc.io
+
+############################
+## Define the deploying stage for each tag.
+## This stage will be called only when pushing a tag.
+############################
+Deploy public:
+  stage: deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  only:
+    - tags
+
+  before_script:
+    - export DOCKER_VERSION_TAG=$CI_COMMIT_REF_NAME
+    - export DOCKER_TAG=$DOCKER_REGISTRY_NAME/$DOCKER_PROJECT_PREFIX/$DOCKER_PROJECT_NAME:$DOCKER_VERSION_TAG
+
+  script:
+    - echo "Publishing release $DOCKER_VERSION_TAG"
+
+    # Build the Docker image
+    - docker build $DOCKER_BUILD_OPTIONS -t
+      $DOCKER_PROJECT_NAME
+      $DOCKER_BUILD_ARGS
+      --build-arg vue_app_lcd=https://lcd-mainnet.commercio.network
+      --build-arg vue_app_rpc=https://rpc-mainnet.commercio.network
+      .
+
+    # Tag and publish the built Docker image
+    - docker image tag $DOCKER_PROJECT_NAME $DOCKER_TAG
+    - docker image push $DOCKER_TAG
+
+  environment:
+    name: release
+    url: https://explorer.commerc.io
