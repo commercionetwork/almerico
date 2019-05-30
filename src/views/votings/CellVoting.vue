@@ -32,7 +32,12 @@
         </div>
         <div class="col-12 col-sm-7">
           <div class="d-flex justify-content-start com-font-s12-w400">
-            {{ $t('labels.proposer') }}:<span class="pl-1 text-info">{{ voting.proposer.name }}</span>
+            {{ $t('labels.proposer') }}:
+            <router-link
+              class="pl-1"
+              v-text="voting.proposer.name"
+              :to="toAccountDetails(voting.proposer.address)"
+            />
           </div>
           <div class="d-flex justify-content-start com-font-s13-w400">
             {{ voting.title }}
@@ -153,8 +158,21 @@ export default {
       };
     },
     winner() {
-      return this.votes.reduce((prev, current) => (prev.count > current.count) ? prev : current);
+      return this.votes.reduce((prev, current) =>
+        prev.count > current.count ? prev : current
+      );
     }
   },
+  methods: {
+    toAccountDetails(id) {
+      return {
+        name: ROUTE_NAMES.ACCOUNT_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
+    }
+  }
 };
 </script>
