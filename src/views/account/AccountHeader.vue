@@ -71,7 +71,7 @@
                     <div class="d-none d-md-block">
                       <div
                         class="com-font-s12-w400"
-                        v-text="partition[0].count.toLocaleString()"
+                        v-text="partition[0].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
                       <div class="com-font-s12-w400">{{ partition[0].percent }}%</div>
                     </div>
@@ -86,7 +86,7 @@
                     <div class="d-none d-md-block">
                       <div
                         class="com-font-s12-w400"
-                        v-text="partition[1].count.toLocaleString()"
+                        v-text="partition[1].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
                       <div class="com-font-s12-w400">{{ partition[1].percent }}%</div>
                     </div>
@@ -101,7 +101,7 @@
                     <div class="d-none d-md-block">
                       <div
                         class="com-font-s12-w400"
-                        v-text="partition[2].count.toLocaleString()"
+                        v-text="partition[2].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
                       <div class="com-font-s12-w400">{{ partition[2].percent }}%</div>
                     </div>
@@ -116,7 +116,7 @@
                     <div class="d-none d-md-block">
                       <div
                         class="com-font-s12-w400"
-                        v-text="partition[3].count.toLocaleString()"
+                        v-text="partition[3].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
                       <div class="com-font-s12-w400">{{ partition[3].percent }}%</div>
                     </div>
