@@ -19,27 +19,27 @@ const mockAccount = (id = 1) => {
     address: "cosmos1fqzqejwkk898fcslw4z4eeqjzesynvrdvhqz82",
     pub_key: "cosmosvaloper1fqzqejwkk898fcslw4z4eeqjzesynvrdfr5hte",
     atoms: {
-      total: randomDataGenerator.numberFromInterval(1, 999999),
+      total,
       value: randomDataGenerator.numberFromInterval(1, 9),
       partition: [{
           label: labelsList[0],
           count: available,
-          percent: available_percent
+          percent: available_percent.toFixed(2)
         },
         {
           label: labelsList[1],
           count: delegated,
-          percent: delegated_percent
+          percent: delegated_percent.toFixed(2)
         },
         {
           label: labelsList[2],
           count: reward,
-          percent: reward_percent
+          percent: reward_percent.toFixed(2)
         },
         {
           label: labelsList[3],
           count: unbonding,
-          percent: unbonding_percent
+          percent: unbonding_percent.toFixed(2)
         },
       ]
     }
