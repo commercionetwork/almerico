@@ -18,12 +18,16 @@
         <AccountUnbondings :account="account" />
       </div>
     </div>
+    <div class="mt-3">
+      <AccountTransactions />
+    </div>
   </div>
 </template>
 
 <script>
 import AccountDelegations from "./AccountDelegations.vue";
 import AccountHeader from "./AccountHeader.vue";
+import AccountTransactions from "./AccountTransactions.vue";
 import AccountUnbondings from "./AccountUnbondings.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
@@ -36,6 +40,7 @@ export default {
   components: {
     AccountDelegations,
     AccountHeader,
+    AccountTransactions,
     AccountUnbondings,
     SectionHeader
   },
