@@ -10,11 +10,21 @@
     <div>
       <AccountHeader :account="account" />
     </div>
+    <div class="row">
+      <div class="col-12 col-md-6 mt-3">
+        <AccountDelegations />
+      </div>
+      <div class="col-12 col-md-6 mt-3">
+        <AccountUnbondings/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import AccountDelegations from "./AccountDelegations.vue";
 import AccountHeader from "./AccountHeader.vue";
+import AccountUnbondings from "./AccountUnbondings.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
 //TODO: remove
@@ -24,7 +34,9 @@ export default {
   name: "Account",
   description: "Container for account section",
   components: {
+    AccountDelegations,
     AccountHeader,
+    AccountUnbondings,
     SectionHeader
   },
   computed: {
