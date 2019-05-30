@@ -32,14 +32,16 @@
                 <router-link
                   class="d-inline-block text-truncate com-font-s10-w400"
                   style="max-width: 120px;"
-                  :to="toTransactionDetails(block.hash)"
+                  :to="toBlockDetails(block.height)"
                   v-text="block.hash"
                 />
               </td>
-              <td
-                class="align-middle"
-                v-text="block.proposer"
-              />
+              <td class="align-middle">
+                <router-link
+                  :to="toValidatorDetails(block.proposer.pub_key)"
+                  v-text="block.proposer.name"
+                />
+              </td>
               <td
                 class="align-middle"
                 v-text="block.transactions"
@@ -88,9 +90,9 @@ export default {
         }
       };
     },
-    toTransactionDetails(id) {
+    toValidatorDetails(id) {
       return {
-        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
+        name: ROUTE_NAMES.VALIDATORS_DETAILS,
         params: {
           lang: this.$i18n.locale,
           id: id

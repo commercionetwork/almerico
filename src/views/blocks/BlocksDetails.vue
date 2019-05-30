@@ -37,7 +37,12 @@
         </div>
         <div class="row p-1">
           <div class="col-12 col-md-3 com-font-s13-w700">Proposer</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">{{ block.proposer.name }}</div>
+          <div class="col-12 col-md-9 com-font-s13-w400">
+            <router-link
+              :to="toValidatorDetails(block.proposer.pub_key)"
+              v-text="block.proposer.name"
+            />
+          </div>
         </div>
       </div>
       <div class="my-3 p-1 rounded-lg bg-light border">
@@ -84,10 +89,12 @@
                   v-text="transaction.result"
                 />
                 <td class="align-middle">{{ transaction.fee }} ATOM</td>
-                <td
-                  class="align-middle"
-                  v-text="transaction.height"
-                />
+                <td class="align-middle">
+                  <router-link
+                    :to="toBlockDetails(transaction.height)"
+                    v-text="transaction.height"
+                  />
+                </td>
                 <td
                   class="align-middle"
                   v-text="getSeconds(transaction.time)"
@@ -131,6 +138,24 @@ export default {
     getSeconds(time) {
       let seconds = ((new Date() - time) / 1000).toFixed(0);
       return `${seconds}s ago`;
+    },
+    toBlockDetails(id) {
+      return {
+        name: ROUTE_NAMES.BLOCKS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
+    },
+    toValidatorDetails(id) {
+      return {
+        name: ROUTE_NAMES.VALIDATORS_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id: id
+        }
+      };
     },
     toTransactionDetails(id) {
       return {
