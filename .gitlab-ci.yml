@@ -66,7 +66,7 @@ Deploy test:
 
   environment:
     name: test
-    url: https://test.explorer.commerc.io
+    url: https://test.explorer.commercio.network/
 
 ############################
 ## Define the deploying stage for each tag.
@@ -101,4 +101,4 @@ Deploy public:
 
   environment:
     name: release
-    url: https://explorer.commerc.io
+    url: https://explorer.commercio.network/
