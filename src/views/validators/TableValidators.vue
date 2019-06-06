@@ -28,46 +28,46 @@
             <tr
               class="text-center com-font-s12-w400"
               v-for="validator in validators"
-              :key="validator.id"
+              :key="getAddress(validator)"
             >
               <td
                 class="align-middle"
-                v-text="validator.rank"
+                v-text="'1'"
               />
               <td class="align-middle">
                 <router-link
-                  :to="toValidatorDetails(validator.pub_key)"
-                  v-text="validator.name"
+                  :to="toValidatorDetails(getAddress(validator))"
+                  v-text="getName(validator)"
                 />
               </td>
               <td class="align-middle">
-                <div v-text="validator.voting.power.toLocaleString()" />
+                <div v-text="'TD'" />
                 <div
                   class="text-black-50"
-                  v-text="`${validator.voting.power_percent}%`"
+                  v-text="'TD'"
                 />
               </td>
               <td
                 class="align-middle"
-                v-text="`${validator.share}%`"
+                v-text="'TD'"
               />
               <td class="align-middle">
-                <div v-text="validator.voting.delegated.toLocaleString()" />
+                <div v-text="'TD'" />
                 <div
                   class="text-black-50"
-                  v-text="`${validator.voting.delegated_percent}%`"
+                  v-text="'TD'"
                 />
               </td>
               <td class="align-middle">
-                {{ validator.delegators }} (+1)
+                'TD'
               </td>
               <td
                 class="align-middle"
-                v-text="`${validator.commission}%`"
+                v-text="'TD'"
               />
               <td
                 class="align-middle"
-                v-text="`${validator.uptime}%`"
+                v-text="'TD'"
               />
             </tr>
           </tbody>
@@ -93,14 +93,19 @@ export default {
       type: Array,
       required: true,
       note: "The validators list to diplay"
-    }
-  },
-  computed: {
-    isFetching() {
-      return false;
+    },
+    isFetching: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
+    getAddress(validator) {
+      return validator.operator_address;
+    },
+    getName(validator) {
+      return validator.description.moniker;
+    },
     toValidatorDetails(id) {
       return {
         name: ROUTE_NAMES.VALIDATORS_DETAILS,

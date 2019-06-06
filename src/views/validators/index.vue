@@ -23,7 +23,10 @@
         </div>
       </div>
       <hr>
-      <TableValidators :validators="validators" />
+      <TableValidators
+        :validators="validators"
+        :isFetching="isFetching"
+      />
     </div>
   </div>
 </template>
@@ -36,8 +39,7 @@ import CellValidators from "./CellValidators.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableValidators from "./TableValidators.vue";
 
-//TODO: remove
-import { mockValidators } from "Store/validators/__mocks__/validators";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Validators",
@@ -51,6 +53,10 @@ export default {
     TableValidators
   },
   computed: {
+    ...mapGetters("validators", {
+      isFetching: "isFetching",
+      validators: "allValidators"
+    }),
     price() {
       return { value: 10, iso_code: "EUR" };
     },
@@ -62,10 +68,15 @@ export default {
     },
     inflation() {
       return 0.034;
-    },
-    validators() {
-      return mockValidators();
     }
+  },
+  methods: {
+    ...mapActions("validators", {
+      getValidators: "getValidators"
+    })
+  },
+  created() {
+    this.getValidators();
   }
 };
 </script>

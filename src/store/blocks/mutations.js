@@ -19,6 +19,7 @@ export default {
     state.isFetching = false;
   },
   /**
+   * Set blocks data
    * 
    * @param {BlocksState} state 
    * @param {Object} data 
