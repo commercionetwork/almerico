@@ -30,7 +30,7 @@
               </td>
               <td class="align-middle">
                 <router-link
-                  class="d-inline-block text-truncate com-font-s10-w400"
+                  class="d-inline-block text-truncate"
                   style="max-width: 120px;"
                   :to="toBlockDetails(getHeight(block))"
                   v-text="getHash(block)"
@@ -38,7 +38,7 @@
               </td>
               <td class="align-middle">
                 <router-link
-                  :to="toValidatorDetails(getValidatorsHash(block))"
+                  :to="toValidatorDetails(getProposer(block))"
                   v-text="getProposer(block)"
                 />
               </td>
@@ -60,6 +60,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
+import { bech32Manager } from "Utils";
 
 export default {
   name: "TableBlocks",
@@ -83,7 +84,8 @@ export default {
       return block.header.height;
     },
     getProposer(block) {
-      return block.header.proposer_address;
+      let address = bech32Manager.encode(block.header.proposer_address, "comnetvaloper");
+      return address;
     },
     getTime(block) {
       let time = "";
