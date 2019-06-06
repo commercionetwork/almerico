@@ -18,4 +18,12 @@ export default {
   stopLoading(state) {
     state.isFetching = false;
   },
+  /**
+   * 
+   * @param {BlocksState} state 
+   * @param {Object} data 
+   */
+  setBlocks(state, data) {
+    state.all = data.result.block_metas;
+  }
 };

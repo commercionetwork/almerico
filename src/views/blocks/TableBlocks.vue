@@ -19,36 +19,36 @@
           <tbody>
             <tr
               class="text-center com-font-s12-w400"
-              v-for="block in blocks.slice().reverse()"
-              :key="block.id"
+              v-for="block in blocks"
+              :key="getHash(block)"
             >
               <td class="align-middle">
                 <router-link
-                  :to="toBlockDetails(block.height)"
-                  v-text="block.height"
+                  :to="toBlockDetails(getHeight(block))"
+                  v-text="getHeight(block)"
                 />
               </td>
               <td class="align-middle">
                 <router-link
                   class="d-inline-block text-truncate com-font-s10-w400"
                   style="max-width: 120px;"
-                  :to="toBlockDetails(block.height)"
-                  v-text="block.hash"
+                  :to="toBlockDetails(getHeight(block))"
+                  v-text="getHash(block)"
                 />
               </td>
               <td class="align-middle">
                 <router-link
-                  :to="toValidatorDetails(block.proposer.pub_key)"
-                  v-text="block.proposer.name"
+                  :to="toValidatorDetails(getValidatorsHash(block))"
+                  v-text="getProposer(block)"
                 />
               </td>
               <td
                 class="align-middle"
-                v-text="block.transactions"
+                v-text="getTransactions(block)"
               />
               <td
                 class="align-middle"
-                v-text="getSeconds(block.time)"
+                v-text="getTime(block)"
               />
             </tr>
           </tbody>
@@ -69,17 +69,43 @@ export default {
       type: Array,
       required: true,
       note: "The blocks list to dipslay"
-    }
-  },
-  computed: {
-    isFetching() {
-      return false;
+    },
+    isFetching: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    getSeconds(time) {
-      let seconds = ((new Date() - time) / 1000).toFixed(0);
-      return `${seconds}s ago`;
+    getHash(block) {
+      return block.block_id.hash;
+    },
+    getHeight(block) {
+      return block.header.height;
+    },
+    getProposer(block) {
+      return block.header.proposer_address;
+    },
+    getTime(block) {
+      let time = "";
+      let seconds = (new Date() - new Date(block.header.time)) / 1000;
+      switch (true) {
+        case seconds >= 3600:
+          time = `${(seconds / 3600).toFixed(0)}h`;
+          break;
+        case seconds >= 60:
+          time = `${(seconds / 60).toFixed(0)}m`;
+          break;
+        default:
+          time = `${seconds.toFixed(0)}s`;
+      }
+
+      return `${time} ago`;
+    },
+    getTransactions(block) {
+      return block.header.num_txs;
+    },
+    getValidatorsHash(block) {
+      return block.header.validators_hash;
     },
     toBlockDetails(id) {
       return {

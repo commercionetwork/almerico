@@ -8,7 +8,10 @@
       :inflation="inflation"
     />
     <div class="py-3 px-5 rounded bg-white">
-      <TableBlocks :blocks="blocks" />
+      <TableBlocks
+        :blocks="blocks"
+        :isFetching="isFetching"
+      />
     </div>
   </div>
 </template>
@@ -17,8 +20,7 @@
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableBlocks from "./TableBlocks.vue";
 
-//TODO: remove
-import { mockBlocks } from "Store/blocks/__mocks__/blocks";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Blocks",
@@ -28,6 +30,10 @@ export default {
     TableBlocks
   },
   computed: {
+    ...mapGetters("blocks", {
+      blocks: "allBlocks",
+      isFetching: "isFetching"
+    }),
     price() {
       return { value: 10, iso_code: "EUR" };
     },
@@ -39,10 +45,15 @@ export default {
     },
     inflation() {
       return 0.034;
-    },
-    blocks() {
-      return mockBlocks();
     }
+  },
+  methods: {
+    ...mapActions("blocks", {
+      getBlocks: "getBlocks"
+    })
+  },
+  created() {
+    this.getBlocks();
   }
 };
 </script>

@@ -1,7 +1,5 @@
 import {
-  API,
-  API_LCD,
-  API_RPC_BASE
+  API
 } from "./api";
 import {
   ROUTES,
@@ -10,8 +8,6 @@ import {
 
 export {
   API,
-  API_LCD,
-  API_RPC_BASE,
   ROUTES,
   ROUTE_NAMES,
 };

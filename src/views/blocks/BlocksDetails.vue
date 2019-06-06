@@ -111,20 +111,21 @@
 <script>
 import { ROUTE_NAMES } from "Constants";
 
+import api from "Store/blocks/api";
+
 //TODO: remove
-import { mockBlock } from "Store/blocks/__mocks__/blocks";
 import { mockTransactions } from "Store/transactions/__mocks__/transactions";
 
 export default {
   name: "BlocksDetails",
   description: "Display the block details",
+  data() {
+    return {
+      isFetching: false,
+      block: null
+    };
+  },
   computed: {
-    block() {
-      return mockBlock(1, new Date(), this.blockHeight);
-    },
-    blockHeight() {
-      return this.$route.params.id;
-    },
     title() {
       let label = this.$t("titles.detailsForBlock");
       let height = this.block.height;
@@ -135,6 +136,17 @@ export default {
     }
   },
   methods: {
+    async fetchBlock(height) {
+      this.isFetching = true;
+      try {
+        const response = await api.requestBlock(height);
+        this.block = response.data.block;
+      } catch (error){
+        console.log(error);
+      } finally {
+        this.isFetching = false;
+      }
+    },
     getSeconds(time) {
       let seconds = ((new Date() - time) / 1000).toFixed(0);
       return `${seconds}s ago`;
@@ -166,6 +178,9 @@ export default {
         }
       };
     }
+  },
+  created() {
+    this.fetchBlock(this.$route.params.id);
   }
 };
 </script>
