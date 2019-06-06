@@ -1,11 +1,25 @@
-const bech32 = require(`bech32`);
+const bech32 = require('bech32');
 
 const bech32Manager = {
-  decode(value) {
-    const words = bech32.decode(value);
-    return Buffer.from(bech32.fromWords(words.words)).toString(`hex`);
+  /**
+   * Decode to hex default
+   * 
+   * @param {string} value 
+   * @param {string} type 
+   */
+  decode(value, type = "hex") {
+    // obj = { prefix: 'abcdef', words: [0,1,...,31] }
+    const obj = bech32.decode(value);
+    return Buffer.from(bech32.fromWords(obj.words)).toString(type);
   },
-  encode(value, prefix = `comnet`, type = `hex`) {
+  /**
+   * Encode from hex default
+   * 
+   * @param {string} value 
+   * @param {string} prefix
+   * @param {string} type 
+   */
+  encode(value, prefix, type = "hex") {
     const words = bech32.toWords(Buffer.from(value, type));
     return bech32.encode(prefix, words);
   }

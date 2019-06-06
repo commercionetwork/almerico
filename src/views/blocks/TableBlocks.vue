@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import { ROUTE_NAMES } from "Constants";
+import { PREFIX, ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
 
 export default {
@@ -84,7 +84,10 @@ export default {
       return block.header.height;
     },
     getProposer(block) {
-      let address = bech32Manager.encode(block.header.proposer_address, "comnetvaloper");
+      let address = bech32Manager.encode(
+        block.header.proposer_address,
+        PREFIX.COMNETVALOPER
+      );
       return address;
     },
     getTime(block) {
