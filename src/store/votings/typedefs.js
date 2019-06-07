@@ -19,6 +19,6 @@
  * @property {String} yes 
  */
 /** @typedef {Object} Deposit
-* @property {String} amount 
-* @property {String} denom 
-*/
+ * @property {String} amount 
+ * @property {String} denom 
+ */

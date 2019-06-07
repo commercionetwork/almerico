@@ -4,7 +4,7 @@
 /** @typedef {Object} Block 
 * @property {Array.<String>} evidence 
 * @property {Header} header 
-* @property {LastCommit} last_commit 
+* @property {Commit} last_commit 
 * @property {Array.<String>} txs 
 */
 /** @typedef {Object} Header 
@@ -37,7 +37,7 @@
  * @property {Number} app 
  * @property {Number} block 
  */
-/**  @typedef {Object} LastCommit 
+/**  @typedef {Object} Commit 
  * @property {BlockId} block_id 
  * @property {Array.<PreCommit>} precommits 
  */
