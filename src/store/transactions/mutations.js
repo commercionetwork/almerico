@@ -18,4 +18,13 @@ export default {
   stopLoading(state) {
     state.isFetching = false;
   },
+  /**
+   * Set transactions data
+   * 
+   * @param {TransactionsState} state 
+   * @param {Object} data 
+   */
+  setTransactions(state, data) {
+    state.all = data;
+  }
 };

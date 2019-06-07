@@ -1,6 +1,9 @@
-// import api from "./api";
+import api from "./api";
 
 /**
  * Transactions  actions
  */
-export default {};
+export default {
+  getTransactions({dispatch}){},
+  async fetchTransactionsList({commit}) {}
+};

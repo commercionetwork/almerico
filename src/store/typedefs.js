@@ -81,7 +81,7 @@
  * @property {String} validator_index 
  */
 /** 
- * @typedef {Object} Tx
+ * @typedef {Object} Transaction
  * @property {Fee} fee 
  * @property {String} memo 
  * @property {Array} msg 
