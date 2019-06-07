@@ -24,35 +24,7 @@
  * @property {Number} p2p 
  */
 
-/** 
- * @typedef {Object} Transaction
- * @property {Fee} fee 
- * @property {String} memo 
- * @property {Array} msg 
- * @property {Signature} signature 
- */
-/** 
- * @typedef {Object} Fee
- * @property {Array.<Amount>} amount 
- * @property {String} gas 
- */
-/** 
- * @typedef {Object} Amount
- * @property {String} amount 
- * @property {String} denom 
- */
-/** 
- * @typedef {Object} Signature
- * @property {String} account_number 
- * @property {PubKey} pub_key 
- * @property {String} sequence 
- * @property {String} signature 
- */
-/** 
- * @typedef {Object} PubKey 
- * @property {String} type 
- * @property {String} value 
- */
+
 /** 
  * @typedef {Object} Validator 
  * @property {String} bond_height 
