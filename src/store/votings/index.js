@@ -6,9 +6,11 @@ import mutations from "./mutations";
  * Votings state
  *
  * @typedef {Object} VotingsState
+ * @property {Array.<Proposal>} all
  * @property {boolean} isFetching
  */
 export const initialState = {
+  all: [],
   isFetching: false,
 };
 

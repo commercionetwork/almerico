@@ -138,3 +138,15 @@
  * @property {String} moniker 
  * @property {String} website 
  */
+/** 
+ * @typedef {Object} proposal
+ * @property {String} description 
+ * @property {Object} final_tally_result 
+ * @property {Number} proposal_id 
+ * @property {String} proposal_status 
+ * @property {String} proposal_type 
+ * @property {String} submit_time 
+ * @property {String} title 
+ * @property {Array} total_deposit 
+ * @property {String} voting_start_time 
+ */
