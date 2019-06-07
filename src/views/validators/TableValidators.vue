@@ -28,7 +28,7 @@
             <tr
               class="text-center com-font-s12-w400"
               v-for="validator in validators"
-              :key="getAddress(validator)"
+              :key="validator.operator_address"
             >
               <td
                 class="align-middle"
@@ -36,8 +36,8 @@
               />
               <td class="align-middle">
                 <router-link
-                  :to="toValidatorDetails(getAddress(validator))"
-                  v-text="getName(validator)"
+                  :to="toValidatorDetails(validator.operator_address)"
+                  v-text="validator.description.moniker"
                 />
               </td>
               <td class="align-middle">
@@ -63,7 +63,7 @@
               </td>
               <td
                 class="align-middle"
-                v-text="'TD'"
+                v-text="getCommission(validator)"
               />
               <td
                 class="align-middle"
@@ -100,11 +100,9 @@ export default {
     }
   },
   methods: {
-    getAddress(validator) {
-      return validator.operator_address;
-    },
-    getName(validator) {
-      return validator.description.moniker;
+    getCommission(validator) {
+      let rate = parseFloat(validator.commission.rate) * 100;
+      return `${rate.toFixed(2)}%`;
     },
     toValidatorDetails(id) {
       return {

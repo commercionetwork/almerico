@@ -20,20 +20,20 @@
             <tr
               class="text-center com-font-s12-w400"
               v-for="block in blocks"
-              :key="getHash(block)"
+              :key="block.block_id.hash"
             >
               <td class="align-middle">
                 <router-link
-                  :to="toBlockDetails(getHeight(block))"
-                  v-text="getHeight(block)"
+                  :to="toBlockDetails(block.header.height)"
+                  v-text="block.header.height"
                 />
               </td>
               <td class="align-middle">
                 <router-link
                   class="d-inline-block text-truncate"
                   style="max-width: 120px;"
-                  :to="toBlockDetails(getHeight(block))"
-                  v-text="getHash(block)"
+                  :to="toBlockDetails(block.header.height)"
+                  v-text="block.block_id.hash"
                 />
               </td>
               <td class="align-middle">
@@ -44,7 +44,7 @@
               </td>
               <td
                 class="align-middle"
-                v-text="getTransactions(block)"
+                v-text="block.header.num_txs"
               />
               <td
                 class="align-middle"
@@ -77,12 +77,6 @@ export default {
     }
   },
   methods: {
-    getHash(block) {
-      return block.block_id.hash;
-    },
-    getHeight(block) {
-      return block.header.height;
-    },
     getProposer(block) {
       let address = bech32Manager.encode(
         block.header.proposer_address,
@@ -105,12 +99,6 @@ export default {
       }
 
       return `${time} ago`;
-    },
-    getTransactions(block) {
-      return block.header.num_txs;
-    },
-    getValidatorsHash(block) {
-      return block.header.validators_hash;
     },
     toBlockDetails(id) {
       return {
