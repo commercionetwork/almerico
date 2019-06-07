@@ -22,7 +22,7 @@ export default {
    * Set transactions data
    * 
    * @param {TransactionsState} state 
-   * @param {Object} data 
+   * @param {Array} data 
    */
   setTransactions(state, data) {
     state.all = data;
