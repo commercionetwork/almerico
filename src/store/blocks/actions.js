@@ -12,8 +12,8 @@ export default {
    */
   getBlocks({
     dispatch
-  }, blocks = 19) {
-    dispatch("fetchBlocksList", blocks);
+  }, blocks) {
+    dispatch("fetchBlocks", blocks);
   },
   /**
    * Action to fetch a blocks list
@@ -21,7 +21,7 @@ export default {
    * @param {Function} commit 
    * @param {number} blocks
    */
-  async fetchBlocksList({
+  async fetchBlocks({
     commit
   }, blocks = 19) {
     commit("startLoading");

@@ -39,6 +39,11 @@ export default {
    * @return {Promise}
    */
   requestBlockChain(min, max) {
-    return instance.get(`${API.BLOCKCHAIN}?minHeight=${min}&maxHeight=${max}`);
+    return instance.get(API.BLOCKCHAIN, {
+      params: {
+        minHeight: min,
+        maxHeight: max
+      }
+    });
   }
 };
