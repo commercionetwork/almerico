@@ -76,7 +76,7 @@ export default {
     })
   },
   created() {
-    this.getValidators();
+    this.getValidators({ limit: 10 });
   }
 };
 </script>

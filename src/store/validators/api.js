@@ -1,9 +1,6 @@
 /**
  * Validators APIs
  */
-/**
- * Blocks APIs
- */
 import axios from "axios";
 import {
   API
@@ -24,8 +21,18 @@ export default {
    * @param {number} limit
    * @return {Promise}
    */
-  requestValidators(status = "bonded", page = 1, limit = 20) {
-    return instance.get(`${API.STAKING_VALIDATORS}?status=${status}&page=${page}&limit=${limit}`);
+  requestValidators({
+    status = "bonded",
+    page = 1,
+    limit = 20
+  }) {
+    return instance.get(API.STAKING_VALIDATORS, {
+      params: {
+        status,
+        page,
+        limit
+      }
+    });
   },
   /**
    * Handle ajax request to get a validator by address

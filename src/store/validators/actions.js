@@ -8,28 +8,28 @@ export default {
    * Action to get the validators list
    * 
    * @param {Function} dispatch
-   * @param {Object} filter 
+   * @param {Object} filters // status, page, limit
    */
   getValidators({
     dispatch
-  }, status, page, limit) {
-    dispatch("fetchValidatorsList", status, page, limit);
+  }, filters) {
+    dispatch("fetchValidators", filters);
   },
   /**
    * Action to fetch a validators list
    * 
    * @param {Function} commit 
-   * @param {Object} filter 
+   * @param {Object} filters // status, page, limit
    */
-  async fetchValidatorsList({
+  async fetchValidators({
     commit
-  }, status, page, limit) {
+  }, filters) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
     try {
-      const response = await api.requestValidators(status, page, limit);
+      const response = await api.requestValidators(filters);
       commit("setValidators", response.data);
     } catch (error) {
       if (error.response !== undefined) {
