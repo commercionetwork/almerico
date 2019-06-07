@@ -23,7 +23,7 @@ export default {
    */
   async fetchBlocks({
     commit
-  }, blocks = 19) {
+  }, blocks) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
@@ -31,7 +31,11 @@ export default {
     try {
       const response = await api.requestLastBlock();
       const height = response.data.block.header.height;
-      const res = await api.requestBlockChain((height - blocks), height);
+      let min = (blocks && blocks < 19) ?
+        height - blocks :
+        height - 19;
+      let max = height;
+      const res = await api.requestBlockChain(min, max);
       commit("setBlocks", res.data);
     } catch (error) {
       if (error.response !== undefined) {
