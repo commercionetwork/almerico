@@ -36,7 +36,7 @@ export default {
         height - 19;
       let max = height;
       const res = await api.requestBlockChain(min, max);
-      commit("setBlocks", res.data);
+      commit("setBlocks", res.data.result.block_metas);
     } catch (error) {
       if (error.response !== undefined) {
         console.log(error.response);

@@ -29,17 +29,12 @@ describe("store/blocks/mutations", () => {
   });
 
   it("Check mutations.setBlocks", () => {
-    const blocks = [{
+    const data = [{
       id: 1
     }];
-    const data = {
-      result: {
-        block_metas: blocks
-      }
-    };
 
     mutations.setBlocks(state, data);
 
-    expect(state.all).toEqual(blocks);
+    expect(state.all).toEqual(data);
   });
 });

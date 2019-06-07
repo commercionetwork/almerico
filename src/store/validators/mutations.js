@@ -22,7 +22,7 @@ export default {
    * Set validators data
    * 
    * @param {ValidatorsState} state 
-   * @param {Object} data 
+   * @param {Array} data 
    */
   setValidators(state, data) {
     state.all = data;

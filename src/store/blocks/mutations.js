@@ -22,9 +22,9 @@ export default {
    * Set blocks data
    * 
    * @param {BlocksState} state 
-   * @param {Object} data 
+   * @param {Array} data 
    */
   setBlocks(state, data) {
-    state.all = data.result.block_metas;
+    state.all = data;
   }
 };
