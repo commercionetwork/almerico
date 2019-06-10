@@ -36,8 +36,8 @@ export const API = {
   STAKING_VALIDATORS: `${API_LCD_BASE}/staking/validators`,
   SYNCING: `${API_LCD_BASE}/syncing`,
   TXS: `${API_LCD_BASE}/txs`,
-  VALIDATORSETS: `${API_LCD_BASE}/validators`,
-  VALIDATORSETS_LATEST: `${API_LCD_BASE}/validators/latest`,
+  VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
+  VALIDATORSETS_LATEST: `${API_LCD_BASE}/validatorsets/latest`,
   VERSION:`${API_LCD_BASE}/version`,
   // rpc
   ABCI_INFO: `${API_RPC_BASE}/abci_info`,

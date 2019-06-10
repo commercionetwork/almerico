@@ -41,7 +41,7 @@
                 />
               </td>
               <td class="align-middle">
-                <div v-text="'TD'" />
+                <div v-text="validator.voting_power" />
                 <div
                   class="text-black-50"
                   v-text="'TD'"

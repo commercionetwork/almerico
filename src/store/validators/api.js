@@ -22,7 +22,7 @@ export default {
    * @return {Promise}
    */
   requestValidators({
-    status = "bonded",
+    status,
     page = 1,
     limit = 20
   }) {
@@ -42,5 +42,13 @@ export default {
    */
   requestValidator(address) {
     return instance.get(`${API.STAKING_VALIDATORS}/${address}`);
+  },
+  /**
+   * Handle ajax request to get latest validator sets
+   * 
+   * @return {Promis}
+   */
+  requestValidatorsetsLatest() {
+    return instance.get(API.VALIDATORSETS_LATEST);
   }
 };

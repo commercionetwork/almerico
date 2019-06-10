@@ -39,6 +39,7 @@ import CellValidators from "./CellValidators.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableValidators from "./TableValidators.vue";
 
+import api from "Store/validators/api";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -52,11 +53,30 @@ export default {
     SectionHeader,
     TableValidators
   },
+  data() {
+    return {
+      loadingValidatorSets: false,
+      validatorSets: []
+    };
+  },
   computed: {
     ...mapGetters("validators", {
-      isFetching: "isFetching",
-      validators: "allValidators"
+      loadingValidators: "isFetching",
+      allValidators: "allValidators"
     }),
+    isFetching() {
+      return this.loadingValidators || this.loadingValidatorSets;
+    },
+    validators() {
+      return (this.allValidators.length > 0) & (this.validatorSets.length > 0)
+        ? this.allValidators.map(validator => {
+            validator.voting_power = this.validatorSets.find(
+              x => x.consensus_pubkey === validator.pub_key
+            ).voting_power;
+            return validator;
+          })
+        : [];
+    },
     price() {
       return { value: 10, iso_code: "EUR" };
     },
@@ -73,10 +93,22 @@ export default {
   methods: {
     ...mapActions("validators", {
       getValidators: "getValidators"
-    })
+    }),
+    async getValidatorSets() {
+      this.loadingValidatorSets = true;
+      try {
+        const response = await api.requestValidatorsetsLatest();
+        this.validatorSets = response.data.validators;
+      } catch (error) {
+        console.log("Get validator sets: ", error);
+      } finally {
+        this.loadingValidatorSets = false;
+      }
+    }
   },
   created() {
     this.getValidators({ limit: 10 });
+    this.getValidatorSets();
   }
 };
 </script>
