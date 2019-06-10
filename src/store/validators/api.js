@@ -22,7 +22,7 @@ export default {
    * @return {Promise}
    */
   requestValidators({
-    status,
+    status = "bonded",
     page = 1,
     limit = 20
   }) {
@@ -46,9 +46,18 @@ export default {
   /**
    * Handle ajax request to get latest validator sets
    * 
-   * @return {Promis}
+   * @return {Promise}
    */
   requestValidatorsetsLatest() {
     return instance.get(API.VALIDATORSETS_LATEST);
+  },
+  /**
+   * Handle ajax request to get validator sets concerning an height
+   * 
+   * @param {number} height
+   * @return {Promise} 
+   */
+  requestValidatorsetsFromHeight(height) {
+    return instance.get(`${API.VALIDATORSETS}/${height}`);
   }
 };
