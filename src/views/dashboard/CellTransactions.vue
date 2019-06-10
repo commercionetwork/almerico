@@ -57,8 +57,7 @@ import TableCell from "Components/common/TableCell.vue";
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 
-//TODO: remove
-import { mockTransactions } from "Store/transactions/__mocks__/transactions";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CellTransactions",
@@ -67,17 +66,18 @@ export default {
     TableCell
   },
   computed: {
-    isFetching() {
-      return false;
-    },
+    ...mapGetters("transactions", {
+      transactions: "alltransactions",
+      isFetching: "isFetching"
+    }),
     link() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
-    transactions() {
-      return mockTransactions();
-    }
   },
   methods: {
+    ...mapActions("transactions", {
+      getTransactions: "getTransactions"
+    }),
     toBlockDetails(id) {
       return {
         name: ROUTE_NAMES.BLOCKS_DETAILS,
@@ -96,6 +96,9 @@ export default {
         }
       };
     }
+  },
+  created() {
+    // this.getTransactions(5);
   }
 };
 </script>
