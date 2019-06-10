@@ -38,8 +38,12 @@
               </td>
               <td
                 class="align-middle"
-                v-text="getProposer(block)"
-              />
+              >
+                <router-link
+                :to="toValidatorDetails(block.header.proposer_address)"
+                v-text="block.header.proposer"
+                />
+              </td>
               <td
                 class="align-middle"
                 v-text="block.header.num_txs"
@@ -57,10 +61,7 @@
 </template>
 
 <script>
-import api from "Store/validators/api";
-import { PREFIX, ROUTE_NAMES } from "Constants";
-import { bech32Manager } from "Utils";
-import { mapActions, mapGetters } from "vuex";
+import { ROUTE_NAMES } from "Constants";
 
 export default {
   name: "TableBlocks",
@@ -77,31 +78,6 @@ export default {
     }
   },
   methods: {
-    async getProposer(block) {
-      let address = bech32Manager.encode(
-        block.header.proposer_address,
-        PREFIX.COMNETVALCONS
-      );
-      let name = "proposer name";
-      try {
-        const response = await api.requestValidatorsetsFromHeight(
-          block.header.height
-        );
-        let pubKey = response.data.validators.find(x => x.address === address)
-          .pub_key;
-        let validators =
-          this.validators.length === 0
-            ? this.getValidators({})
-            : this.validators;
-        let proposer = validators.find(x => x.consensus_pubkey === pubKey);
-        if (proposer) {
-          name = proposer.description.moniker;
-        }
-      } catch (error) {
-        console.log("Get validator sets: ", error);
-      }
-      return name;
-    },
     getTime(block) {
       let time = "";
       let seconds = (new Date() - new Date(block.header.time)) / 1000;
@@ -136,6 +112,6 @@ export default {
         }
       };
     }
-  }
+  },
 };
 </script>
