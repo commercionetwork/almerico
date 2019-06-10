@@ -107,8 +107,8 @@ export default {
     }
   },
   created() {
-    this.getValidators({ limit: 10 });
-    this.getValidatorSets();
+    if (this.allValidators.length === 0) this.getValidators({ limit: 10 });
+    if (this.validatorSets.length === 0) this.getValidatorSets();
   }
 };
 </script>

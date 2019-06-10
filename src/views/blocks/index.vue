@@ -53,7 +53,7 @@ export default {
     })
   },
   created() {
-    this.getBlocks(9);
+    if (this.blocks.length === 0) this.getBlocks(9);
   }
 };
 </script>
