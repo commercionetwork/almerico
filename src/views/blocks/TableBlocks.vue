@@ -80,7 +80,7 @@ export default {
     getProposer(block) {
       let address = bech32Manager.encode(
         block.header.proposer_address,
-        PREFIX.COMNETVALCONS
+        PREFIX.COMNETVALOPER
       );
       return address;
     },

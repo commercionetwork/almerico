@@ -53,7 +53,7 @@ export default {
     })
   },
   created() {
-    this.getBlocks();
+    this.getBlocks(9);
   }
 };
 </script>
