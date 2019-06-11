@@ -95,8 +95,7 @@ export default {
     })
   },
   created() {
-    if (this.validators.length === 0)
-      this.getValidators({});
+    if (this.validators.length === 0) this.getValidators({});
   }
 };
 </script>

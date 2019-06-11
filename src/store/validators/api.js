@@ -22,7 +22,7 @@ export default {
    * @return {Promise}
    */
   requestValidators({
-    status = "bonded",
+    status,
     page = 1,
     limit = 20
   }) {

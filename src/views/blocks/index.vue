@@ -87,7 +87,7 @@ export default {
   },
   created() {
     this.getBlocks(9);
-    if (this.validators.length === 0) this.getValidators();
+    if (this.validators.length === 0) this.getValidators({});
   },
 };
 </script>
