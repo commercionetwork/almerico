@@ -58,12 +58,12 @@ export default {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactions() {
-      let orderedTransactions = this.allTransactions
+      let transactions = this.allTransactions.slice();
+      return transactions
         .sort(function(a, b) {
           return b.height - a.height;
         })
         .slice(0, 5);
-      return orderedTransactions;
     }
   },
   methods: {
