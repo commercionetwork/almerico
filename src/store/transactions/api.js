@@ -26,13 +26,7 @@ export default {
     page = 1,
     limit = 20
   }) {
-    return instance.get(API.TXS, {
-      params: {
-        tag,
-        page,
-        limit
-      }
-    });
+    return instance.get(`${API.TXS}?${tag}&page=${page}&limit=${limit}`);
   },
   /**
    * Handle ajax request to get a transaction by hash

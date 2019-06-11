@@ -1,7 +1,7 @@
 <template>
   <TableCell
     :isFetching="isFetching"
-    :link="link"
+    :link="linkToTransactions"
     :title="$t('titles.transactions')"
   >
     <div slot="main-content">
@@ -16,34 +16,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              class="text-center com-font-s12-w400"
-              v-for="transaction in transactions.slice().reverse()"
+            <CellTransactionsRow
+              v-for="transaction in transactions"
               :key="transaction.id"
-            >
-              <td class="align-middle">
-                <router-link
-                  :to="toBlockDetails(transaction.height)"
-                  v-text="transaction.height"
-                />
-              </td>
-              <td class="align-middle">
-                <router-link
-                  :to="toTransactionDetails(transaction.hash)"
-                  v-text="transaction.hash"
-                  class="d-inline-block text-truncate com-font-s10-w400"
-                  style="max-width: 120px;"
-                />
-              </td>
-              <td
-                class="align-middle"
-                v-text="transaction.result"
-              />
-              <td
-                class="align-middle"
-                v-text="transaction.time.toLocaleString()"
-              />
-            </tr>
+              :transaction="transaction"
+            />
           </tbody>
         </table>
       </div>
@@ -52,9 +29,11 @@
 </template>
 
 <script>
+import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import { ROUTE_NAMES } from "Constants";
+import api from "Store/blocks/api";
+import { ROUTE_NAMES, TX_TYPES } from "Constants";
 import { localizedRoute } from "Utils";
 
 import { mapActions, mapGetters } from "vuex";
@@ -63,42 +42,42 @@ export default {
   name: "CellTransactions",
   description: "Display the Transactions table",
   components: {
+    CellTransactionsRow,
     TableCell
   },
   computed: {
     ...mapGetters("transactions", {
-      transactions: "alltransactions",
+      transactions: "allTransactions",
       isFetching: "isFetching"
     }),
-    link() {
+    linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
-    },
+    }
   },
   methods: {
     ...mapActions("transactions", {
-      getTransactions: "getTransactions"
+      updateTransactions: "updateTransactions"
     }),
-    toBlockDetails(id) {
-      return {
-        name: ROUTE_NAMES.BLOCKS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
-    },
-    toTransactionDetails(id) {
-      return {
-        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
+    async getTransactions(types) {
+      let totalTxs = 0;
+      try {
+        const response = await api.requestLastBlock();
+        totalTxs = response.data.block.header.total_txs;
+      } catch (error) {
+        console.log(error);
+      }
+      let lastPage = Math.round(totalTxs) + 1;
+      types.forEach(type => {
+        this.updateTransactions({
+          tag: `action=${type}`,
+          page: lastPage,
+          limit: 20
+        });
+      });
     }
   },
   created() {
-    // this.getTransactions(5);
+    this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>

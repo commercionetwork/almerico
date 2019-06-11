@@ -52,7 +52,7 @@
           <CellBlocks />
         </div>
         <div class="col-12 col-md-6">
-          <!-- <CellTransactions /> -->
+          <CellTransactions />
         </div>
       </div>
     </div>
