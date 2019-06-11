@@ -16,22 +16,19 @@ export default {
   /**
    * Handle ajax request to get a transactions list
    * 
-   * @param {string} action // mandatory
-   * @param {string} sender // mandatory
+   * @param {string} tag // mandatory
    * @param {number} page 
    * @param {number} limit 
    * @return {Promise}
    */
   requestTransactions({
-    action,
-    sender,
+    tag,
     page = 1,
     limit = 20
   }) {
     return instance.get(API.TXS, {
       params: {
-        action,
-        sender,
+        tag,
         page,
         limit
       }
@@ -45,29 +42,5 @@ export default {
    */
   requestTransaction(hash) {
     return instance.get(`${API.TXS}/${hash}`)
-  },
-  /**
-   * Handle ajax request to search transactions
-   * 
-   * @param {string} query // mandatory 
-   * @param {boolean} prove
-   * @param {number} page
-   * @param {number} per_page
-   * @return {Promise}
-   */
-  requestSearchTransactions({
-    query,
-    prove = false,
-    page = 1,
-    per_page = 20
-  }){
-    return instance.get(API.TX_SEARCH, {
-      params: {
-        query,
-        prove,
-        page,
-        per_page
-      }
-    });
   }
 };

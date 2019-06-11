@@ -37,4 +37,22 @@ describe("store/transactions/mutations", () => {
 
     expect(state.all).toEqual(data);
   });
+
+  it("Check mutations.addTransactions", () => {
+    state.all = [{
+      id: 1
+    }];
+    const data = [{
+      id: 2
+    }];
+    const expectAll = [{
+      id: 1
+    }, {
+      id: 2
+    }];
+
+    mutations.addTransactions(state, data);
+
+    expect(state.all).toEqual(expectAll);
+  });
 });
