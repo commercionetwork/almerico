@@ -45,13 +45,25 @@ export default {
     CellTransactionsRow,
     TableCell
   },
+  data() {
+    return {
+      isFetching: false
+    };
+  },
   computed: {
     ...mapGetters("transactions", {
-      transactions: "allTransactions",
-      isFetching: "isFetching"
+      allTransactions: "allTransactions"
     }),
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
+    },
+    transactions() {
+      let orderedTransactions = this.allTransactions
+        .sort(function(a, b) {
+          return b.height - a.height;
+        })
+        .slice(0, 5);
+      return orderedTransactions;
     }
   },
   methods: {
@@ -59,21 +71,30 @@ export default {
       updateTransactions: "updateTransactions"
     }),
     async getTransactions(types) {
+      this.isFetching = true;
+      const limit = 20;
       let totalTxs = 0;
       try {
         const response = await api.requestLastBlock();
         totalTxs = response.data.block.header.total_txs;
+        let lastPage = Math.floor(totalTxs / limit);
+        types.forEach(type => {
+          this.updateTransactions({
+            tag: `action=${type}`,
+            page: lastPage,
+            limit
+          });
+          this.updateTransactions({
+            tag: `action=${type}`,
+            page: lastPage - 1,
+            limit
+          });
+        });
       } catch (error) {
         console.log(error);
+      } finally {
+        this.isFetching = false;
       }
-      let lastPage = Math.round(totalTxs) + 1;
-      types.forEach(type => {
-        this.updateTransactions({
-          tag: `action=${type}`,
-          page: lastPage,
-          limit: 20
-        });
-      });
     }
   },
   created() {
