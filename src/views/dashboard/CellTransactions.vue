@@ -18,7 +18,7 @@
           <tbody>
             <CellTransactionsRow
               v-for="transaction in transactions"
-              :key="transaction.id"
+              :key="transaction.txhash"
               :transaction="transaction"
             />
           </tbody>
