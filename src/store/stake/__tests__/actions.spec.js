@@ -2,7 +2,7 @@
 
 import actions from "../actions.js";
 
-describe("store/validators/actions", () => {
+describe("store/stake/actions", () => {
   beforeEach(() => {});
 
   it("Check if 'actions.getValidators' dispatch action 'fetchValidators'", () => {

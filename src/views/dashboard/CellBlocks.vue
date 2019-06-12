@@ -43,8 +43,8 @@ export default {
     TableCell
   },
   computed: {
-    ...mapGetters("blocks", {
-      blocks: "allBlocks",
+    ...mapGetters("tendermint", {
+      blocks: "blocks",
       isFetching: "isFetching"
     }),
     linkToBlocks() {
@@ -57,7 +57,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("blocks", {
+    ...mapActions("tendermint", {
       getBlocks: "getBlocks"
     })
   },

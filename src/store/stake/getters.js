@@ -1,7 +1,8 @@
 /**
- * Validators getters
+ * Stake getters
  */
+
 export default {
-  allValidators: state => state.all,
+  validators: state => state.validators,
   isFetching: state => state.isFetching,
 };

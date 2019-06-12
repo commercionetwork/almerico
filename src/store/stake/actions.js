@@ -1,8 +1,9 @@
+/**
+ * Stake actions
+ */
+
 import api from "./api";
 
-/**
- * Validators actions
- */
 export default {
   /**
    * Action to get the validators list

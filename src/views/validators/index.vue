@@ -39,7 +39,7 @@ import CellValidators from "./CellValidators.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableValidators from "./TableValidators.vue";
 
-import api from "Store/validators/api";
+import api from "Store/tendermint/api";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -60,15 +60,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("validators", {
+    ...mapGetters("stake", {
       loadingValidators: "isFetching",
-      allValidators: "allValidators"
+      allValidators: "validators"
     }),
     isFetching() {
       return this.loadingValidators || this.loadingValidatorSets;
     },
     validators() {
-      return (this.allValidators.length > 0) & (this.validatorSets.length > 0)
+      return this.allValidators.length > 0 && this.validatorSets.length > 0
         ? this.allValidators.map(validator => {
             validator.voting_power = this.validatorSets.find(
               x => x.consensus_pubkey === validator.pub_key
@@ -91,7 +91,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("validators", {
+    ...mapActions("stake", {
       getValidators: "getValidators"
     }),
     async getValidatorSets() {

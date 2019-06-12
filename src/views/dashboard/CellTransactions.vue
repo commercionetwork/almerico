@@ -32,7 +32,7 @@
 import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import api from "Store/blocks/api";
+import api from "Store/tendermint/api";
 import { ROUTE_NAMES, TX_TYPES } from "Constants";
 import { localizedRoute } from "Utils";
 
@@ -51,8 +51,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("transactions", {
-      allTransactions: "allTransactions"
+    ...mapGetters("tendermint", {
+      allTransactions: "transactions"
     }),
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("transactions", {
+    ...mapActions("tendermint", {
       updateTransactions: "updateTransactions"
     }),
     async getTransactions(types) {

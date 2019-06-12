@@ -5,7 +5,7 @@ import {
   initialState
 } from "../index";
 
-describe("store/transactions/mutations", () => {
+describe("store/tendermint/mutations", () => {
   let state = {};
 
   beforeEach(() => {
@@ -28,6 +28,34 @@ describe("store/transactions/mutations", () => {
     expect(state.isFetching).toBeFalsy();
   });
 
+  it("Check mutations.setBlocks", () => {
+    const data = [{
+      id: 1
+    }];
+
+    mutations.setBlocks(state, data);
+
+    expect(state.blocks).toEqual(data);
+  });
+
+  it("Check mutations.addBlocks", () => {
+    state.blocks = [{
+      id: 1
+    }];
+    const data = [{
+      id: 2
+    }];
+    const expectBlocks = [{
+      id: 1
+    }, {
+      id: 2
+    }];
+
+    mutations.addBlocks(state, data);
+
+    expect(state.blocks).toEqual(expectBlocks);
+  });
+
   it("Check mutations.setTransactions", () => {
     const data = [{
       id: 1
@@ -35,17 +63,17 @@ describe("store/transactions/mutations", () => {
 
     mutations.setTransactions(state, data);
 
-    expect(state.all).toEqual(data);
+    expect(state.transactions).toEqual(data);
   });
 
   it("Check mutations.addTransactions", () => {
-    state.all = [{
+    state.transactions = [{
       id: 1
     }];
     const data = [{
       id: 2
     }];
-    const expectAll = [{
+    const expectTxs = [{
       id: 1
     }, {
       id: 2
@@ -53,6 +81,6 @@ describe("store/transactions/mutations", () => {
 
     mutations.addTransactions(state, data);
 
-    expect(state.all).toEqual(expectAll);
+    expect(state.transactions).toEqual(expectTxs);
   });
 });

@@ -53,12 +53,12 @@ export default {
     TableBlocksRow
   },
   computed: {
-    ...mapGetters("blocks", {
-      blocks: "allBlocks",
+    ...mapGetters("tendermint", {
+      blocks: "blocks",
       isFetchingBlocks: "isFetching"
     }),
-    ...mapGetters("validators", {
-      validators: "allValidators",
+    ...mapGetters("stake", {
+      validators: "validators",
       isFetchingValidators: "isFetching"
     }),
     isFetching() {
@@ -78,10 +78,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions("blocks", {
+    ...mapActions("tendermint", {
       getBlocks: "getBlocks"
     }),
-    ...mapActions("validators", {
+    ...mapActions("stake", {
       getValidators: "getValidators"
     })
   },
