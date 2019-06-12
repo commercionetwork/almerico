@@ -78,7 +78,7 @@ export default {
         : [];
     },
     price() {
-      return { value: 10, iso_code: "EUR" };
+      return { value: 1, iso_code: "EUR" };
     },
     height() {
       return 345678;
