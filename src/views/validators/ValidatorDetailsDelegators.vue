@@ -60,7 +60,7 @@
 import { ROUTE_NAMES } from "Constants";
 
 //TODO: remove
-import { mockValidators } from "Store/validators/__mocks__/validators";
+import { mockValidators } from "Store/validators/__mocks__/validatorsOld";
 
 export default {
   name: "ValidatorDetailsDelegators",
