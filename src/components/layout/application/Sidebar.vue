@@ -19,7 +19,7 @@
           />
           <span
             class="flex-grow-1 com-font-s14-w700"
-            v-html="'test.explorer.commmerc.io'"
+            v-html="'Almerico'"
           />
           <Icon
             name="angle-down"

@@ -1,4 +1,4 @@
-# Commerc.io Explorer
+# Almerico
 
 ## Project setup
 ```
