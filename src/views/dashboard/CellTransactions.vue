@@ -98,7 +98,8 @@ export default {
     }
   },
   created() {
-    this.getTransactions(Object.values(TX_TYPES));
+    if (this.allTransactions.length === 0)
+      this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>
