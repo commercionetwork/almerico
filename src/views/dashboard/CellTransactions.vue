@@ -81,12 +81,12 @@ export default {
         types.forEach(type => {
           this.updateTransactions({
             tag: `action=${type}`,
-            page: lastPage,
+            page: lastPage > 0 ? lastPage : 1,
             limit
           });
           this.updateTransactions({
             tag: `action=${type}`,
-            page: lastPage - 1,
+            page: lastPage - 1 > 1 ? lastPage - 1 : 1,
             limit
           });
         });
