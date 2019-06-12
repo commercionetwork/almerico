@@ -1,7 +1,9 @@
 {
-  "name": "explorer",
+  "name": "almerico",
   "version": "0.1.0",
+  "description": "commercio network explorer",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
