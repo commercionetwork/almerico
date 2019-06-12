@@ -15,8 +15,8 @@
             <th scope="col">TxHash</th>
             <th scope="col">Type</th>
             <th scope="col">Result</th>
+            <th scope="col">Amount</th>
             <th scope="col">Fee</th>
-            <th scope="col">Height</th>
             <th scope="col">Time</th>
           </tr>
         </thead>

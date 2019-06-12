@@ -18,11 +18,11 @@
     />
     <td
       class="align-middle"
-      v-text="fee"
+      v-text="amount"
     />
     <td
       class="align-middle"
-      v-text="transaction.height"
+      v-text="fee"
     />
     <td
       class="align-middle"
@@ -50,8 +50,14 @@ export default {
     };
   },
   computed: {
+    amount() {
+      return `${this.transaction.tx.value.msg[0].value.amount[0].amount} COMM`;
+    },
     fee() {
-      return `${this.transaction.tx.value.fee.amount} COMM`;
+      let fee = this.transaction.tx.value.fee.amount
+        ? this.transaction.tx.value.fee.amount
+        : 0;
+      return `${fee} COMM`;
     },
     result() {
       return this.transaction.logs[0].success ? "success" : "fail";
