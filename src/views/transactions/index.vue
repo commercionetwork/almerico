@@ -45,7 +45,7 @@
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableTransactionsRow from "./TableTransactionsRow.vue";
 
-import api from "Store/blocks/api";
+import api from "Store/tendermint/api";
 import { TX_TYPES } from "Constants";
 import { mapActions, mapGetters } from "vuex";
 
@@ -62,8 +62,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("transactions", {
-      allTransactions: "allTransactions"
+    ...mapGetters("tendermint", {
+      allTransactions: "transactions"
     }),
     transactions() {
       let transactions = this.allTransactions.slice();
@@ -85,7 +85,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("transactions", {
+    ...mapActions("tendermint", {
       updateTransactions: "updateTransactions"
     }),
     async getTransactions(types) {

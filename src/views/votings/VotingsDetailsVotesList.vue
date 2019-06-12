@@ -73,6 +73,9 @@ export default {
   name: "VotingsDetailsVotesList",
   description: "Diplay the votes list",
   computed: {
+    isFetching() {
+      return false;
+    },
     votes() {
       return mockVotes(5);
     }

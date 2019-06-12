@@ -1,16 +1,13 @@
+/**
+ * Stake state
+ */
+
 import actions from "./actions";
 import getters from "./getters";
 import mutations from "./mutations";
 
-/**
- * Blocks state
- *
- * @typedef {Object} BlocksState
- * @property {Array.<Block>} all
- * @property {boolean} isFetching
- */
 export const initialState = {
-  all: [],
+  validators: [],
   isFetching: false,
 };
 

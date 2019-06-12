@@ -1,5 +1,9 @@
 /**
- * Validators type definitions
+ * Stake type definitions
+ */
+/** @typedef {Object} StakeState
+ * @property {Array.<Validator>} validators
+ * @property {boolean} isFetching
  */
 /** @typedef {Object} Validator 
  * @property {String} bond_height 

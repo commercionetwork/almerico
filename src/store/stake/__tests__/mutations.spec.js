@@ -5,7 +5,7 @@ import {
   initialState
 } from "../index";
 
-describe("store/blocks/mutations", () => {
+describe("store/stake/mutations", () => {
   let state = {};
 
   beforeEach(() => {
@@ -28,13 +28,31 @@ describe("store/blocks/mutations", () => {
     expect(state.isFetching).toBeFalsy();
   });
 
-  it("Check mutations.setBlocks", () => {
+  it("Check mutations.setValidators", () => {
     const data = [{
       id: 1
     }];
 
-    mutations.setBlocks(state, data);
+    mutations.setValidators(state, data);
 
-    expect(state.all).toEqual(data);
+    expect(state.validators).toEqual(data);
+  });
+
+  it("Check mutations.addValidators", () => {
+    state.validators = [{
+      id: 1
+    }];
+    const data = [{
+      id: 2
+    }];
+    const expectValidators = [{
+      id: 1
+    }, {
+      id: 2
+    }];
+
+    mutations.addValidators(state, data);
+
+    expect(state.validators).toEqual(expectValidators);
   });
 });

@@ -85,12 +85,12 @@ export default {
     Icon
   },
   computed: {
-    ...mapGetters("validators", {
-      validators: "allValidators"
+    ...mapGetters("stake", {
+      validators: "validators"
     })
   },
   methods: {
-    ...mapActions("validators", {
+    ...mapActions("stake", {
       getValidators: "getValidators"
     })
   },

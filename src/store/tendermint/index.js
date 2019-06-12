@@ -1,17 +1,15 @@
+/**
+ * Tendermint state
+ */
+
 import actions from "./actions";
 import getters from "./getters";
 import mutations from "./mutations";
 
-/**
- * Transactions state
- *
- * @typedef {Object} TransactionsState
- * @property {Array.<Transaction>} all
- * @property {boolean} isFetching
- */
 export const initialState = {
-  all: [],
-  isFetching: false,
+  blocks: [],
+  transactions: [],
+  isFetching: false
 };
 
 export default {

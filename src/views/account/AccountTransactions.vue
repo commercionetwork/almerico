@@ -74,7 +74,7 @@
 import { ROUTE_NAMES } from "Constants";
 
 //TODO: remove
-import { mockTransactions } from "Store/transactions/__mocks__/transactions";
+import { mockTransactions } from "Store/transactions/__mocks__/transactionsOld";
 
 export default {
   name: "AccountTransactions",

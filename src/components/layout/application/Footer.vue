@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     footerText() {
-      return `${this.year}&nbsp;&copy;&nbsp;Commerc.io`;
+      return `${this.year}&nbsp;Commercio.network`;
     }
   }
 }

@@ -2,27 +2,24 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import account from "Store/account";
-import blocks from "Store/blocks";
-import transactions from "Store/transactions";
-import validators from "Store/validators";
+import stake from "Store/stake";
+import tendermint from "Store/tendermint";
 import votings from "Store/votings";
 
 Vue.use(Vuex);
 
 const initialState = {
   account: account.initialState,
-  blocks: blocks.initialState,
-  transactions: transactions.initialState,
-  validators: validators.initialState,
+  stake: stake.initialState,
+  tendermint: tendermint.initialState,
   votings: votings.initialState,
 };
 
 export default new Vuex.Store({
   modules: {
     account,
-    blocks,
-    transactions,
-    validators,
+    stake,
+    tendermint,
     votings
   },
   state: {
