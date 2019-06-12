@@ -25,6 +25,7 @@
 import CellVoting from "./CellVoting.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
+//TODO: remove
 import { mockVotings } from "Store/votings/__mocks__/votings";
 
 export default {

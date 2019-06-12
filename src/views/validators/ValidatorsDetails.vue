@@ -41,7 +41,7 @@ import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 import ValidatorDetailsProposed from "./ValidatorDetailsProposed.vue";
 
 //TODO: remove
-import { mockValidator } from "Store/validators/__mocks__/validators";
+import { mockValidator } from "Store/validators/__mocks__/validatorsOld";
 
 export default {
   name: "ValidatorsDetails",

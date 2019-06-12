@@ -67,7 +67,7 @@
 import { ROUTE_NAMES } from "Constants";
 
 //TODO: remove
-import { mockBlocks } from "Store/blocks/__mocks__/blocks";
+import { mockBlocks } from "Store/blocks/__mocks__/blocksOld";
 
 export default {
   name: "ValidatorDetailsProposed",

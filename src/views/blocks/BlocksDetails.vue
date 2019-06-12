@@ -114,7 +114,7 @@ import { ROUTE_NAMES } from "Constants";
 import api from "Store/blocks/api";
 
 //TODO: remove
-import { mockTransactions } from "Store/transactions/__mocks__/transactions";
+import { mockTransactions } from "Store/transactions/__mocks__/transactionsOld";
 
 export default {
   name: "BlocksDetails",
