@@ -8,8 +8,8 @@ const mockVote = (id = 1, answer = "Abstain") => {
     answer,
     voter: {
       name: "commercio.network",
-      address: "cosmos1fqzqejwkk898fcslw4z4eeqjzesynvrdvhqz82",
-      pub_key: "cosmosvaloper1fqzqejwkk898fcslw4z4eeqjzesynvrdfr5hte",
+      address: "comnet1fqzqejwkk898fcslw4z4eeqjzesynvrdvhqz82",
+      pub_key: "comnetvaloper1fqzqejwkk898fcslw4z4eeqjzesynvrdfr5hte",
     },
     tx_hash: randomDataGenerator.makeId(64),
     date: randomDataGenerator.dateFromInterval(new Date(2019, 0, 2), new Date())

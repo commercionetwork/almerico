@@ -28,46 +28,46 @@
             <tr
               class="text-center com-font-s12-w400"
               v-for="validator in validators"
-              :key="validator.id"
+              :key="validator.operator_address"
             >
               <td
                 class="align-middle"
-                v-text="validator.rank"
+                v-text="'1'"
               />
               <td class="align-middle">
                 <router-link
-                  :to="toValidatorDetails(validator.pub_key)"
-                  v-text="validator.name"
+                  :to="toValidatorDetails(validator.operator_address)"
+                  v-text="validator.description.moniker"
                 />
               </td>
               <td class="align-middle">
-                <div v-text="validator.voting.power.toLocaleString()" />
+                <div v-text="validator.voting_power" />
                 <div
                   class="text-black-50"
-                  v-text="`${validator.voting.power_percent}%`"
+                  v-text="'TD'"
                 />
               </td>
               <td
                 class="align-middle"
-                v-text="`${validator.share}%`"
+                v-text="'TD'"
               />
               <td class="align-middle">
-                <div v-text="validator.voting.delegated.toLocaleString()" />
+                <div v-text="'TD'" />
                 <div
                   class="text-black-50"
-                  v-text="`${validator.voting.delegated_percent}%`"
+                  v-text="'TD'"
                 />
               </td>
               <td class="align-middle">
-                {{ validator.delegators }} (+1)
+                'TD'
               </td>
               <td
                 class="align-middle"
-                v-text="`${validator.commission}%`"
+                v-text="getCommission(validator)"
               />
               <td
                 class="align-middle"
-                v-text="`${validator.uptime}%`"
+                v-text="'TD'"
               />
             </tr>
           </tbody>
@@ -93,14 +93,17 @@ export default {
       type: Array,
       required: true,
       note: "The validators list to diplay"
-    }
-  },
-  computed: {
-    isFetching() {
-      return false;
+    },
+    isFetching: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
+    getCommission(validator) {
+      let rate = parseFloat(validator.commission.rate) * 100;
+      return `${rate.toFixed(2)}%`;
+    },
     toValidatorDetails(id) {
       return {
         name: ROUTE_NAMES.VALIDATORS_DETAILS,

@@ -18,4 +18,13 @@ export default {
   stopLoading(state) {
     state.isFetching = false;
   },
+  /**
+   * Set blocks data
+   * 
+   * @param {BlocksState} state 
+   * @param {Array} data 
+   */
+  setBlocks(state, data) {
+    state.all = data;
+  }
 };

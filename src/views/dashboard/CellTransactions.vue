@@ -1,7 +1,7 @@
 <template>
   <TableCell
     :isFetching="isFetching"
-    :link="link"
+    :link="linkToTransactions"
     :title="$t('titles.transactions')"
   >
     <div slot="main-content">
@@ -16,34 +16,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              class="text-center com-font-s12-w400"
-              v-for="transaction in transactions.slice().reverse()"
-              :key="transaction.id"
-            >
-              <td class="align-middle">
-                <router-link
-                  :to="toBlockDetails(transaction.height)"
-                  v-text="transaction.height"
-                />
-              </td>
-              <td class="align-middle">
-                <router-link
-                  :to="toTransactionDetails(transaction.hash)"
-                  v-text="transaction.hash"
-                  class="d-inline-block text-truncate com-font-s10-w400"
-                  style="max-width: 120px;"
-                />
-              </td>
-              <td
-                class="align-middle"
-                v-text="transaction.result"
-              />
-              <td
-                class="align-middle"
-                v-text="transaction.time.toLocaleString()"
-              />
-            </tr>
+            <CellTransactionsRow
+              v-for="transaction in transactions"
+              :key="transaction.txhash"
+              :transaction="transaction"
+            />
           </tbody>
         </table>
       </div>
@@ -52,50 +29,76 @@
 </template>
 
 <script>
+import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import { ROUTE_NAMES } from "Constants";
+import api from "Store/blocks/api";
+import { ROUTE_NAMES, TX_TYPES } from "Constants";
 import { localizedRoute } from "Utils";
 
-//TODO: remove
-import { mockTransactions } from "Store/transactions/__mocks__/transactions";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CellTransactions",
   description: "Display the Transactions table",
   components: {
+    CellTransactionsRow,
     TableCell
   },
+  data() {
+    return {
+      isFetching: false
+    };
+  },
   computed: {
-    isFetching() {
-      return false;
-    },
-    link() {
+    ...mapGetters("transactions", {
+      allTransactions: "allTransactions"
+    }),
+    linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactions() {
-      return mockTransactions();
+      let transactions = this.allTransactions.slice();
+      return transactions
+        .sort(function(a, b) {
+          return b.height - a.height;
+        })
+        .slice(0, 5);
     }
   },
   methods: {
-    toBlockDetails(id) {
-      return {
-        name: ROUTE_NAMES.BLOCKS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
-    },
-    toTransactionDetails(id) {
-      return {
-        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
+    ...mapActions("transactions", {
+      updateTransactions: "updateTransactions"
+    }),
+    async getTransactions(types) {
+      this.isFetching = true;
+      const limit = 20;
+      let totalTxs = 0;
+      try {
+        const response = await api.requestLastBlock();
+        totalTxs = response.data.block.header.total_txs;
+        let lastPage = Math.floor(totalTxs / limit);
+        types.forEach(type => {
+          this.updateTransactions({
+            tag: `action=${type}`,
+            page: lastPage > 0 ? lastPage : 1,
+            limit
+          });
+          this.updateTransactions({
+            tag: `action=${type}`,
+            page: lastPage - 1 > 1 ? lastPage - 1 : 1,
+            limit
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isFetching = false;
+      }
     }
+  },
+  created() {
+    this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>

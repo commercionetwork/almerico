@@ -6,9 +6,11 @@ import mutations from "./mutations";
  * Blocks state
  *
  * @typedef {Object} BlocksState
+ * @property {Array.<Block>} all
  * @property {boolean} isFetching
  */
 export const initialState = {
+  all: [],
   isFetching: false,
 };
 

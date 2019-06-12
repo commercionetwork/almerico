@@ -51,8 +51,8 @@ export default {
       note: "Toogle the loading message"
     },
     height: {
-      type: Number,
-      default: 100,
+      type: String,
+      default: "100",
       note: "The cell height"
     }
   },

@@ -1,17 +1,21 @@
 import {
-  API,
-  API_LCD,
-  API_RPC_BASE
+  API
 } from "./api";
+import {
+  PREFIX
+} from "./prefix";
 import {
   ROUTES,
   ROUTE_NAMES
 } from "./route";
+import {
+  TX_TYPES
+} from "./transaction";
 
 export {
   API,
-  API_LCD,
-  API_RPC_BASE,
+  PREFIX,
   ROUTES,
   ROUTE_NAMES,
+  TX_TYPES
 };

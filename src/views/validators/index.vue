@@ -23,7 +23,10 @@
         </div>
       </div>
       <hr>
-      <TableValidators :validators="validators" />
+      <TableValidators
+        :validators="validators"
+        :isFetching="isFetching"
+      />
     </div>
   </div>
 </template>
@@ -36,8 +39,8 @@ import CellValidators from "./CellValidators.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableValidators from "./TableValidators.vue";
 
-//TODO: remove
-import { mockValidators } from "Store/validators/__mocks__/validators";
+import api from "Store/validators/api";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Validators",
@@ -50,7 +53,30 @@ export default {
     SectionHeader,
     TableValidators
   },
+  data() {
+    return {
+      loadingValidatorSets: false,
+      validatorSets: []
+    };
+  },
   computed: {
+    ...mapGetters("validators", {
+      loadingValidators: "isFetching",
+      allValidators: "allValidators"
+    }),
+    isFetching() {
+      return this.loadingValidators || this.loadingValidatorSets;
+    },
+    validators() {
+      return (this.allValidators.length > 0) & (this.validatorSets.length > 0)
+        ? this.allValidators.map(validator => {
+            validator.voting_power = this.validatorSets.find(
+              x => x.consensus_pubkey === validator.pub_key
+            ).voting_power;
+            return validator;
+          })
+        : [];
+    },
     price() {
       return { value: 10, iso_code: "EUR" };
     },
@@ -62,10 +88,27 @@ export default {
     },
     inflation() {
       return 0.034;
-    },
-    validators() {
-      return mockValidators();
     }
+  },
+  methods: {
+    ...mapActions("validators", {
+      getValidators: "getValidators"
+    }),
+    async getValidatorSets() {
+      this.loadingValidatorSets = true;
+      try {
+        const response = await api.requestValidatorsetsLatest();
+        this.validatorSets = response.data.validators;
+      } catch (error) {
+        console.log("Get validator sets: ", error);
+      } finally {
+        this.loadingValidatorSets = false;
+      }
+    }
+  },
+  created() {
+    if (this.allValidators.length === 0) this.getValidators({ limit: 10 });
+    if (this.validatorSets.length === 0) this.getValidatorSets();
   }
 };
 </script>

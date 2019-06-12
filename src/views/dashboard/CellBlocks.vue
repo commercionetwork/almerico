@@ -1,7 +1,7 @@
 <template>
   <TableCell
     :isFetching="isFetching"
-    :link="link"
+    :link="linkToBlocks"
     :title="$t('titles.blocks')"
   >
     <div slot="main-content">
@@ -16,32 +16,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              class="text-center com-font-s12-w400"
-              v-for="block in blocks.slice().reverse()"
-              :key="block.id"
-            >
-              <td class="align-middle">
-                <router-link
-                  :to="toBlockDetails(block.height)"
-                  v-text="block.height"
-                />
-              </td>
-              <td class="align-middle">
-                <router-link
-                  :to="toValidatorDetails(block.proposer.pub_key)"
-                  v-text="block.proposer.name"
-                />
-              </td>
-              <td
-                class="align-middle"
-                v-text="block.transactions"
-              />
-              <td
-                class="align-middle"
-                v-text="block.time.toLocaleString()"
-              />
-            </tr>
+            <CellBlocksRow
+              v-for="block in blocks"
+              :key="block.block_id.hash"
+              :block="block"
+            />
           </tbody>
         </table>
       </div>
@@ -50,50 +29,40 @@
 </template>
 
 <script>
+import CellBlocksRow from "./CellBlocksRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { localizedRoute } from "Utils";
-
-//TODO: remove
-import { mockBlocks } from "Store/blocks/__mocks__/blocks";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CellBlocks",
   description: "Display the blocks table",
   components: {
+    CellBlocksRow,
     TableCell
   },
   computed: {
-    blocks() {
-      return mockBlocks();
-    },
-    isFetching() {
-      return false;
-    },
-    link() {
-      return localizedRoute(ROUTE_NAMES.BLOCKS, this.$i18n.locale);
+    ...mapGetters("blocks", {
+      blocks: "allBlocks",
+      isFetching: "isFetching"
+    }),
+    linkToBlocks() {
+      return {
+        name: ROUTE_NAMES.BLOCKS,
+        params: {
+          lang: this.$i18n.locale
+        }
+      };
     }
   },
   methods: {
-    toBlockDetails(id) {
-      return {
-        name: ROUTE_NAMES.BLOCKS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
-    },
-    toValidatorDetails(id) {
-      return {
-        name: ROUTE_NAMES.VALIDATORS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
-    }
+    ...mapActions("blocks", {
+      getBlocks: "getBlocks"
+    })
+  },
+  created() {
+    this.getBlocks(4);
   }
 };
 </script>

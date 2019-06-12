@@ -89,7 +89,7 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import { ROUTE_NAMES } from "Constants";
 
 //TODO: remove
-import { mockTransaction } from "Store/transactions/__mocks__/transactions";
+import { mockTransaction } from "Store/transactions/__mocks__/transactionsOld";
 
 export default {
   name: "TransactionsDetails",

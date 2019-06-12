@@ -18,4 +18,13 @@ export default {
   stopLoading(state) {
     state.isFetching = false;
   },
+  /**
+   * Set votings data
+   * 
+   * @param {VotingsState} state 
+   * @param {Array} data 
+   */
+  setVotings(state, data) {
+    state.all = data;
+  }
 };
