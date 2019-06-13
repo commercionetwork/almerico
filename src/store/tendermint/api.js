@@ -81,7 +81,7 @@ export default {
    * @param {string} hash 
    * @return {Promise}
    */
-  requestTransaction(hash) {
+  requestTransactionByHash(hash) {
     return instance.get(`${API.TXS}/${hash}`)
   },
   /**

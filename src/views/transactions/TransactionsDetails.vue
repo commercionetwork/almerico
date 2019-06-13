@@ -8,50 +8,14 @@
       :inflation="inflation"
     />
     <div class="py-3 px-5 rounded bg-white">
-      <div class="p-1 rounded-lg bg-light border">
-        <div class="row p-1">
-          <div class="col-12">
-            <h2
-              class="com-font-s16-w700"
-              v-text="$t('titles.information')"
-            />
-          </div>
-        </div>
-        <hr>
-        <div class="row p-1">
-          <div class="col-12 col-md-3 com-font-s13-w700">TxHash</div>
-          <div class="col-12 col-md-9 text-break com-font-s13-w400">{{ transaction.hash }}</div>
-        </div>
-        <div class="row p-1">
-          <div class="col-12 col-md-3 com-font-s13-w700">Status</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">{{ transaction.result }}</div>
-        </div>
-        <div class="row p-1">
-          <div class="col-12 col-md-3 com-font-s13-w700">Height</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">
-            <router-link
-              :to="toBlockDetails(transaction.height)"
-              v-text="transaction.height"
-            />
-          </div>
-        </div>
-        <div class="row p-1">
-          <div class="col-12 col-md-3 com-font-s13-w700">Time</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">{{ transaction.time.toLocaleString() }}</div>
-        </div>
-        <div class="row p-1">
-          <div class="col-12 col-md-3 com-font-s13-w700">Fee</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">{{ transaction.fee }} ATOM</div>
-        </div>
-        <div class="row p-1">
-          <div class="col-12 col-md-3 com-font-s13-w700">Gas (used/wanted)</div>
-          <div class="col-12 col-md-9 com-font-s13-w400">{{ transaction.gas }}</div>
-        </div>
-        <div class="row p-1">
-          <div class="col-12 col-md-3 com-font-s13-w700">Memo</div>
-          <div class="col-12 col-md-9 text-lowercase com-font-s13-w400">{{ transaction.memo }}</div>
-        </div>
+      <div
+        v-if="isFetching"
+        v-text="$t('messages.lodaing')"
+      />
+      <div v-else>
+        <TransactionsDetailsInfo :transaction="transaction" />
       </div>
+
       <div class="my-3 p-1 rounded-lg bg-light border">
         <div class="row p-1">
           <div class="col-12">
@@ -75,7 +39,7 @@
           </div>
           <div class="row p-1">
             <div class="col-12 col-md-3 com-font-s13-w700">Amount</div>
-            <div class="col-12 col-md-9 text-break com-font-s13-w400">{{ transaction.amount }} ATOM</div>
+            <div class="col-12 col-md-9 text-break com-font-s13-w400">1000 COMM</div>
           </div>
         </div>
       </div>
@@ -85,25 +49,24 @@
 
 <script>
 import SectionHeader from "Components/common/SectionHeader.vue";
+import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
-import { ROUTE_NAMES } from "Constants";
-
-//TODO: remove
-import { mockTransaction } from "Store/transactions/__mocks__/transactionsOld";
+import api from "Store/tendermint/api";
 
 export default {
   name: "TransactionsDetails",
   description: "Display the transaction details",
   components: {
-    SectionHeader
+    SectionHeader,
+    TransactionsDetailsInfo
+  },
+  data() {
+    return {
+      isFetching: false,
+      transaction: null
+    };
   },
   computed: {
-    transaction() {
-      return mockTransaction(1, this.transactionHash);
-    },
-    transactionHash() {
-      return this.$route.params.id;
-    },
     price() {
       return { value: 1, iso_code: "EUR" };
     },
@@ -118,15 +81,20 @@ export default {
     }
   },
   methods: {
-    toBlockDetails(id) {
-      return {
-        name: ROUTE_NAMES.BLOCKS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
+    async getTransaction(hash) {
+      this.isFetching = true;
+      try {
+        const response = await api.requestTransactionByHash(hash);
+        this.transaction = response.data;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isFetching = false;
+      }
     }
+  },
+  created() {
+    this.getTransaction(this.$route.params.id);
   }
 };
 </script>
