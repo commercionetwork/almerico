@@ -150,7 +150,7 @@ export default {
 <style lang="scss" scoped>
 .sidebar-slideout {
   position: fixed;
-  top: 30px;
+  top: 60px;
   overflow-y: auto;
   width: 300px;
   height: 100vh;

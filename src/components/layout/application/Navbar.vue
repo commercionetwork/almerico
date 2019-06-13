@@ -2,12 +2,13 @@
   <nav class="navbar fixed-top navbar-toggleable-md navbar-dark d-flex align-items-center">
     <button 
       type="button" 
-      class="navbar-toggler navbar-toggler-right m-0 p-0" 
+      class="navbar-toggler navbar-toggler-right ml-3 my-auto p-0" 
       @click.stop="toggleSidebar"
     >
       <Icon
         name="bars"
-        class="navbar-icon ml-3 my-1"
+        scale="2"
+        class="navbar-icon"
       />
     </button>
     <router-link
@@ -61,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  height: 30px;
+  height: 60px;
   padding: 0;
   background-color: $primary;
   @include z-index(navbar);
@@ -75,7 +76,7 @@ export default {
   transform: translateX(-50%);
 }
 .com-logo {
-  max-height: 25px;
+  max-height: 50px;
   width: auto;
 }
 </style>
