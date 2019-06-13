@@ -18,7 +18,7 @@
           <div class="table-responsive">
             <table class="table">
               <thead>
-                <tr class="text-center com-font-s12-w700">
+                <tr class="text-center com-font-s13-w700">
                   <th scope="col">Voter</th>
                   <th scope="col">Answer</th>
                   <th scope="col">TxHash</th>
@@ -27,7 +27,7 @@
               </thead>
               <tbody>
                 <tr
-                  class="text-center com-font-s12-w400"
+                  class="text-center com-font-s13-w400"
                   v-for="vote in votes.slice().reverse()"
                   :key="vote.id"
                 >

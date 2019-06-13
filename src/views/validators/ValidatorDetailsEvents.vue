@@ -18,7 +18,7 @@
           <div class="table-responsive">
             <table class="table">
               <thead>
-                <tr class="text-center com-font-s12-w700">
+                <tr class="text-center com-font-s13-w700">
                   <th scope="col">Height</th>
                   <th scope="col">TxHash</th>
                   <th scope="col">Amount</th>
@@ -27,7 +27,7 @@
               </thead>
               <tbody>
                 <tr
-                  class="text-center com-font-s12-w400"
+                  class="text-center com-font-s13-w400"
                   v-for="transaction in transactions.slice().reverse()"
                   :key="transaction.id"
                 >
@@ -41,7 +41,7 @@
                     <router-link
                       :to="toTransactionDetails(transaction.hash)"
                       v-text="transaction.hash"
-                      class="d-inline-block text-truncate com-font-s12-w400"
+                      class="d-inline-block text-truncate com-font-s13-w400"
                       style="max-width: 120px;"
                     />
                   </td>

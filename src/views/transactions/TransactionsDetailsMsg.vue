@@ -1,8 +1,8 @@
 <template>
   <div class="border-bottom">
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">From</div>
-      <div class="col-12 col-md-9 text-break com-font-s13-w400">
+      <div class="col-12 col-md-3 com-font-s14-w700">From</div>
+      <div class="col-12 col-md-9 text-break com-font-s14-w400">
         <router-link
           :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, msgFrom)"
           v-text="msgFrom"
@@ -10,8 +10,8 @@
       </div>
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">To</div>
-      <div class="col-12 col-md-9 text-break com-font-s13-w400">
+      <div class="col-12 col-md-3 com-font-s14-w700">To</div>
+      <div class="col-12 col-md-9 text-break com-font-s14-w400">
         <router-link
           :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, msgTo)"
           v-text="msgTo"
@@ -19,9 +19,9 @@
       </div>
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Amount</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Amount</div>
       <div
-        class="col-12 col-md-9 text-break com-font-s13-w400"
+        class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="msgAmount"
       />
     </div>

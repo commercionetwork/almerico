@@ -12,7 +12,7 @@
       >
         <table class="table">
           <thead>
-            <tr class="text-center com-font-s12-w700">
+            <tr class="text-center com-font-s13-w700">
               <th scope="col">TxHash</th>
               <th scope="col">Type</th>
               <th scope="col">Result</th>

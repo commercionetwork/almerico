@@ -13,7 +13,7 @@
       <div class="table-responsive">
         <table class="table">
           <thead>
-            <tr class="text-center com-font-s12-w700">
+            <tr class="text-center com-font-s13-w700">
               <th scope="col">Rank</th>
               <th scope="col">Validator</th>
               <th scope="col">Voting power</th>
@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             <tr
-              class="text-center com-font-s12-w400"
+              class="text-center com-font-s13-w400"
               v-for="validator in validators"
               :key="validator.operator_address"
             >

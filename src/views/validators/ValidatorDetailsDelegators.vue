@@ -18,7 +18,7 @@
           <div class="table-responsive">
             <table class="table">
               <thead>
-                <tr class="text-center com-font-s12-w700">
+                <tr class="text-center com-font-s13-w700">
                   <th scope="col">Delegator address</th>
                   <th scope="col">Amount</th>
                   <th scope="col">Share</th>
@@ -26,7 +26,7 @@
               </thead>
               <tbody>
                 <tr
-                  class="text-center com-font-s12-w400"
+                  class="text-center com-font-s13-w400"
                   v-for="delegator in delegators.slice().reverse()"
                   :key="delegator.id"
                 >
@@ -34,7 +34,7 @@
                     <router-link
                       :to="toAccountDetails(delegator.pub_key)"
                       v-text="delegator.pub_key"
-                      class="d-inline-block text-truncate com-font-s12-w400"
+                      class="d-inline-block text-truncate com-font-s13-w400"
                       style="max-width: 120px;"
                     />
                   </td>

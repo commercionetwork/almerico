@@ -10,7 +10,7 @@
           scale="1"
         />
       </span>
-      <span class="pl-1 com-font-s12-w400">Bonded tokens</span>
+      <span class="pl-1 com-font-s13-w400">Bonded tokens</span>
     </div>
     <div slot="bottom-left-content">&nbsp;</div>
     <div slot="top-right-content">&nbsp;</div>

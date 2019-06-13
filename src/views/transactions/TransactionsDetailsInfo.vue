@@ -10,23 +10,23 @@
     </div>
     <hr>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">TxHash</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">TxHash</div>
       <div
-        class="col-12 col-md-9 text-break com-font-s13-w400"
+        class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="transaction.txhash"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Status</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Status</div>
       <div
-        class="col-12 col-md-9 com-font-s13-w400"
+        class="col-12 col-md-9 com-font-s14-w400"
         v-text="result"
       >
       </div>
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Height</div>
-      <div class="col-12 col-md-9 com-font-s13-w400">
+      <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
+      <div class="col-12 col-md-9 com-font-s14-w400">
         <router-link
           :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"
           v-text="transaction.height"
@@ -34,22 +34,22 @@
       </div>
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Time</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Time</div>
       <div
-        class="col-12 col-md-9 com-font-s13-w400"
+        class="col-12 col-md-9 com-font-s14-w400"
         v-text="time"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Fee</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Fee</div>
       <div
-        class="col-12 col-md-9 com-font-s13-w400"
+        class="col-12 col-md-9 com-font-s14-w400"
         v-text="fee"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Gas (used/wanted)</div>
-      <div class="col-12 col-md-9 com-font-s13-w400">
+      <div class="col-12 col-md-3 com-font-s14-w700">Gas (used/wanted)</div>
+      <div class="col-12 col-md-9 com-font-s14-w400">
         {{ gasUsed }}{{ "/" }}{{ gasWanted}}
       </div>
     </div>
@@ -57,9 +57,9 @@
       v-if="memo"
       class="row p-1"
     >
-      <div class="col-12 col-md-3 com-font-s13-w700">Memo</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Memo</div>
       <div
-        class="col-12 col-md-9 text-lowercase com-font-s13-w400"
+        class="col-12 col-md-9 text-lowercase com-font-s14-w400"
         v-text="memo"
       />
     </div>

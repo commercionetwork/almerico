@@ -13,7 +13,7 @@
           />
         </div>
         <div class="col-6 d-flex justify-content-end">
-          <span class="px-3 border rounded-pill text-secondary bg-light com-font-s12-w400">Quorum: {{ voting.poll.quorum }}%</span>
+          <span class="px-3 border rounded-pill text-secondary bg-light com-font-s13-w400">Quorum: {{ voting.poll.quorum }}%</span>
         </div>
       </div>
       <div class="row p-1">
@@ -44,60 +44,60 @@
             <div class="col-12 col-md-3">
               <div class="p-1 d-flex flex-column border-left border-primary com-border-w10">
                 <div
-                  class="com-font-s12-w700"
+                  class="com-font-s13-w700"
                   v-text="votes[0].label"
                 />
                 <div class="d-none d-md-block">
                   <div
-                    class="com-font-s12-w400"
+                    class="com-font-s13-w400"
                     v-text="votes[0].count.toLocaleString()"
                   />
-                  <div class="com-font-s12-w400">{{ votes[0].percent }}%</div>
+                  <div class="com-font-s13-w400">{{ votes[0].percent }}%</div>
                 </div>
               </div>
             </div>
             <div class="col-12 col-md-3">
               <div class="p-1 d-flex flex-column border-left border-warning com-border-w10">
                 <div
-                  class="com-font-s12-w700"
+                  class="com-font-s13-w700"
                   v-text="votes[1].label"
                 />
                 <div class="d-none d-md-block">
                   <div
-                    class="com-font-s12-w400"
+                    class="com-font-s13-w400"
                     v-text="votes[1].count.toLocaleString()"
                   />
-                  <div class="com-font-s12-w400">{{ votes[1].percent }}%</div>
+                  <div class="com-font-s13-w400">{{ votes[1].percent }}%</div>
                 </div>
               </div>
             </div>
             <div class="col-12 col-md-3">
               <div class="p-1 d-flex flex-column border-left border-danger com-border-w10">
                 <div
-                  class="com-font-s12-w700"
+                  class="com-font-s13-w700"
                   v-text="votes[2].label"
                 />
                 <div class="d-none d-md-block">
                   <div
-                    class="com-font-s12-w400"
+                    class="com-font-s13-w400"
                     v-text="votes[2].count.toLocaleString()"
                   />
-                  <div class="com-font-s12-w400">{{ votes[2].percent }}%</div>
+                  <div class="com-font-s13-w400">{{ votes[2].percent }}%</div>
                 </div>
               </div>
             </div>
             <div class="col-12 col-md-3">
               <div class="p-1 d-flex flex-column border-left border-secondary com-border-w10">
                 <div
-                  class="com-font-s12-w700"
+                  class="com-font-s13-w700"
                   v-text="votes[3].label"
                 />
                 <div class="d-none d-md-block">
                   <div
-                    class="com-font-s12-w400"
+                    class="com-font-s13-w400"
                     v-text="votes[3].count.toLocaleString()"
                   />
-                  <div class="com-font-s12-w400">{{ votes[3].percent }}%</div>
+                  <div class="com-font-s13-w400">{{ votes[3].percent }}%</div>
                 </div>
               </div>
             </div>

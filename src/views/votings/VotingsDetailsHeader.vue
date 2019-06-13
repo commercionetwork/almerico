@@ -16,7 +16,7 @@
             </div>
             <div class="col-6 d-flex justify-content-end">
               <span
-                class="px-3 rounded-pill bg-dark text-white com-font-s10-w400"
+                class="px-3 rounded-pill bg-dark text-white com-font-s11-w400"
                 v-text="voting.status"
               />
             </div>
@@ -27,7 +27,7 @@
                 class="com-font-s16-w700"
                 v-text="voting.title"
               />
-              <div class="d-flex flex-row align-items-center com-font-s12-w400">
+              <div class="d-flex flex-row align-items-center com-font-s13-w400">
                 <span>{{ $t('labels.proposer') }}: </span>
                 <router-link
                   class="pl-1"
@@ -40,13 +40,13 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="$t('labels.votingStart')"
               />
             </div>
             <div class="col-12 col-md-8">
               <span
-                class="com-font-s12-w400"
+                class="com-font-s13-w400"
                 v-text="voting.dates.start.toLocaleString()"
               />
             </div>
@@ -54,13 +54,13 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="$t('labels.votingEnd')"
               />
             </div>
             <div class="col-12 col-md-8">
               <span
-                class="com-font-s12-w400"
+                class="com-font-s13-w400"
                 v-text="voting.dates.end.toLocaleString()"
               />
             </div>
@@ -70,13 +70,13 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="$t('labels.type')"
               />
             </div>
             <div class="col-12 col-md-8">
               <span
-                class="com-font-s12-w400"
+                class="com-font-s13-w400"
                 v-text="voting.type"
               />
             </div>
@@ -84,13 +84,13 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="$t('labels.submitTime')"
               />
             </div>
             <div class="col-12 col-md-8">
               <span
-                class="com-font-s12-w400"
+                class="com-font-s13-w400"
                 v-text="voting.dates.submit.toLocaleString()"
               />
             </div>
@@ -98,13 +98,13 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="$t('labels.depositEndTime')"
               />
             </div>
             <div class="col-12 col-md-8">
               <span
-                class="com-font-s12-w400"
+                class="com-font-s13-w400"
                 v-text="voting.dates.deposit_end.toLocaleString()"
               />
             </div>
@@ -112,13 +112,13 @@
           <div class="row">
             <div class="col-12 col-md-4">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="$t('labels.description')"
               />
             </div>
             <div class="col-12 col-md-8">
               <span
-                class="com-font-s12-w400"
+                class="com-font-s13-w400"
                 v-text="voting.description"
               />
             </div>
