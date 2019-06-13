@@ -6,7 +6,7 @@
   >
     <div slot="main-content">
       <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table">
           <thead>
             <tr class="text-center com-font-s12-w700">
               <th scope="col">Height</th>

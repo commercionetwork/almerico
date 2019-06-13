@@ -16,7 +16,7 @@
       <div class="row py-1">
         <div class="col-12">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table">
               <thead>
                 <tr class="text-center com-font-s12-w700">
                   <th scope="col">TxHash</th>
