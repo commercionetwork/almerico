@@ -16,23 +16,23 @@
         class="row mx-auto p-1 w-100 rounded bg-white"
       >
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s13-w700">Price:</span>
+          <span class="com-font-s14-w700">Price:</span>
           <span
-            class="pl-1 com-font-s13-w400"
+            class="pl-1 com-font-s14-w400"
             v-html="formattedPrice"
           />
         </div>
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s13-w700">Height:</span>
+          <span class="com-font-s14-w700">Height:</span>
           <span
-            class="pl-1 com-font-s13-w400"
+            class="pl-1 com-font-s14-w400"
             v-html="formattedHeight"
           />
         </div>
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s13-w700">Bonded:</span>
+          <span class="com-font-s14-w700">Bonded:</span>
           <span
-            class="pl-1 com-font-s13-w400"
+            class="pl-1 com-font-s14-w400"
             v-html="formattedBonded"
           />
         </div>
