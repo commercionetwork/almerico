@@ -8,8 +8,9 @@ export const titles = {
   transactions: "Transazioni",
   validatorDetails: "Dettagli validatore",
   validators: "Validatori",
-  vote:"Voto",
-  votes:"Voti",
+  vote: "Voto",
+  votes: "Voti",
   votingDetails: "Dettagli votazione",
   votings: "Votazioni",
+  messages: "Messaggi",
 };

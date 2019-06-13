@@ -48,13 +48,15 @@
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Gas</div>
-      <div
-        class="col-12 col-md-9 com-font-s13-w400"
-        v-text="gas"
-      />
+      <div class="col-12 col-md-3 com-font-s13-w700">Gas (used/wanted)</div>
+      <div class="col-12 col-md-9 com-font-s13-w400">
+        {{ gasUsed }}{{ "/" }}{{ gasWanted}}
+      </div>
     </div>
-    <div v-if="memo" class="row p-1">
+    <div
+      v-if="memo"
+      class="row p-1"
+    >
       <div class="col-12 col-md-3 com-font-s13-w700">Memo</div>
       <div
         class="col-12 col-md-9 text-lowercase com-font-s13-w400"
@@ -85,12 +87,24 @@ export default {
   computed: {
     fee() {
       let fee = this.transaction.tx.value.fee.amount
-        ? this.transaction.tx.value.fee.amount
+        ? this.$n(this.transaction.tx.value.fee.amount, {
+            style: "decimal",
+            maximumFractionDigits: 0
+          })
         : 0;
       return `${fee} COMM`;
     },
-    gas() {
-      return this.transaction.tx.value.fee.gas;
+    gasWanted() {
+      return this.$n(this.transaction.gas_wanted, {
+        style: "decimal",
+        maximumFractionDigits: 0
+      });
+    },
+    gasUsed() {
+      return this.$n(this.transaction.gas_used, {
+        style: "decimal",
+        maximumFractionDigits: 0
+      });
     },
     memo() {
       return this.transaction.tx.value.memo;
