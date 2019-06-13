@@ -1,7 +1,7 @@
 export const titles = {
   accountDetails: "Dettagli account",
   blocks: "Blocchi",
-  dashboard: "Cruscotto",
+  dashboard: "Dashboard",
   detailsForBlock: "Dettagli del blocco",
   information: "Informazione",
   transactionDetails: "Dettagli transazione",

@@ -11,19 +11,15 @@
       @click="closeSidebar"
     >
       <router-link :to="toSection(ROUTE_NAMES.DASHBOARD)">
-        <div class="row d-flex flex-row align-items-center text-primary">
+        <div class="row d-flex flex-row align-items-center">
           <Icon
-            name="th"
+            name="thLarge"
             scale="1.5"
-            class="pr-2"
+            class="pr-2 text-primary"
           />
           <span
             class="flex-grow-1 com-font-s14-w700"
-            v-html="'Almerico'"
-          />
-          <Icon
-            name="angle-down"
-            scale="1"
+            v-text="$t('titles.dashboard')"
           />
         </div>
       </router-link>
@@ -117,8 +113,8 @@ import "Assets/img/icons/exchange-alt";
 import "Assets/img/icons/poll-people";
 import "Assets/img/icons/poll";
 import "Assets/img/icons/shapes";
+import "Assets/img/icons/th-large";
 import "vue-awesome/icons/angle-down";
-import "vue-awesome/icons/th";
 
 export default {
   name: "SideBar",
