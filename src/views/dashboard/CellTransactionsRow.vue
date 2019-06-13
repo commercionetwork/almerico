@@ -1,5 +1,5 @@
 <template>
-  <tr class="text-center com-font-s12-w400">
+  <tr class="text-center com-font-s13-w400">
     <td class="align-middle">
       <router-link
         :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"

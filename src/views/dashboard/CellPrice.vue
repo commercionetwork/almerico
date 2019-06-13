@@ -2,11 +2,11 @@
   <DataCell :isFetching="isFetching">
     <div
       slot="top-left-content"
-      class="com-font-s12-w400"
+      class="com-font-s13-w400"
     >Price</div>
     <div
       slot="bottom-left-content"
-      class="text-secondary com-font-s13-w700"
+      class="text-secondary com-font-s14-w700"
     >10,00 €</div>
     <div slot="top-right-content">
       <LineChart
@@ -23,7 +23,7 @@
         class="text-danger"
         scale="0.75"
       />
-      <span class="pl-1 com-font-s10-w400">-11,11% (24h)</span>
+      <span class="pl-1 com-font-s11-w400">-11,11% (24h)</span>
     </div>
   </DataCell>
 </template>

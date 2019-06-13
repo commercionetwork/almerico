@@ -11,7 +11,7 @@
         <div class="input-group mb-3">
           <input
             type="text"
-            class="form-control com-font-s13-w400"
+            class="form-control com-font-s14-w400"
             :placeholder="$t('messages.search')"
             aria-label="Search"
             aria-describedby="search-field"
@@ -32,26 +32,22 @@
       </div>
     </div>
     <div class="py-3 px-5 rounded bg-white">
-      <div class="row">
-        <div class="col-12 col-md-3 my-1 my-md-0">
+      <div class="row py-3">
+        <div class="col-12 col-lg-4 my-1 my-lg-0">
           <CellPrice />
         </div>
-        <div class="col-12 col-md-3 my-1 my-md-0">
+        <div class="col-12 col-lg-4 my-1 my-lg-0">
           <CellHeight />
         </div>
-        <div class="col-12 col-md-3 my-1 my-md-0">
+        <div class="col-12 col-lg-4 my-1 my-lg-0">
           <CellBonded />
         </div>
-        <div class="col-12 col-md-3 my-1 my-md-0">
-          <CellInflation />
-        </div>
       </div>
-      <hr>
-      <div class="row">
-        <div class="col-12 col-md-6">
+      <div class="row py-3">
+        <div class="col-12 col-md-6 my-1 my-md-0">
           <CellBlocks />
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 my-1 my-md-0">
           <CellTransactions />
         </div>
       </div>
@@ -63,7 +59,6 @@
 import CellBlocks from "./CellBlocks.vue";
 import CellBonded from "./CellBonded.vue";
 import CellHeight from "./CellHeight.vue";
-import CellInflation from "./CellInflation.vue";
 import CellPrice from "./CellPrice.vue";
 import CellTransactions from "./CellTransactions.vue";
 
@@ -79,7 +74,6 @@ export default {
     CellBlocks,
     CellBonded,
     CellHeight,
-    CellInflation,
     CellPrice,
     CellTransactions,
     Icon
