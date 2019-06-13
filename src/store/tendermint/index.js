@@ -9,7 +9,8 @@ import mutations from "./mutations";
 export const initialState = {
   blocks: [],
   transactions: [],
-  isFetching: false
+  isFetching: false,
+  message: "",
 };
 
 export default {

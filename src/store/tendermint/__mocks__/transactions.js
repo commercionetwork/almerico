@@ -1,12 +1,12 @@
 import randomDataGenerator from "Store/__mocks__/utils";
 
-const mockTransaction = (hash = randomDataGenerator.makeId(40), height = randomDataGenerator.intFromInterval(400000, 499999)) => {
+const mockTransaction = (txhash = randomDataGenerator.makeId(40), height = randomDataGenerator.intFromInterval(400000, 499999)) => {
   let gas = `${randomDataGenerator.intFromInterval(100000, 199999)}/200.000`;
   let memo = randomDataGenerator.makeId(16);
   let amount = (randomDataGenerator.intFromInterval(100, 10000)) / 100;
 
   let item = {
-    hash,
+    txhash,
     height,
     tx: {
       msg: [
