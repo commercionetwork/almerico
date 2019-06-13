@@ -7,14 +7,16 @@
       :bonded="bonded"
       :inflation="inflation"
     />
-    <div>
-      <VotingsDetailsHeader :voting="voting" />
-    </div>
-    <div class="mt-3">
-      <VotingsDetailsVote :voting="voting" />
-    </div>
-    <div class="mt-3">
-      <VotingsDetailsVotesList />
+    <div class="py-3 px-5 rounded bg-white">
+      <div>
+        <VotingsDetailsHeader :voting="voting" />
+      </div>
+      <div class="mt-3">
+        <VotingsDetailsVote :voting="voting" />
+      </div>
+      <div class="mt-3">
+        <VotingsDetailsVotesList />
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +37,7 @@ export default {
     SectionHeader,
     VotingsDetailsHeader,
     VotingsDetailsVote,
-    VotingsDetailsVotesList,
+    VotingsDetailsVotesList
   },
   computed: {
     voting() {

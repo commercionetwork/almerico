@@ -7,19 +7,21 @@
       :bonded="bonded"
       :inflation="inflation"
     />
-    <div>
-      <AccountHeader :account="account" />
-    </div>
-    <div class="row">
-      <div class="col-12 col-md-6 mt-3">
-        <AccountDelegations :account="account" />
+    <div class="py-3 px-5 rounded bg-white">
+      <div>
+        <AccountHeader :account="account" />
       </div>
-      <div class="col-12 col-md-6 mt-3">
-        <AccountUnbondings :account="account" />
+      <div class="row">
+        <div class="col-12 col-md-6 mt-3">
+          <AccountDelegations :account="account" />
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          <AccountUnbondings :account="account" />
+        </div>
       </div>
-    </div>
-    <div class="mt-3">
-      <AccountTransactions />
+      <div class="mt-3">
+        <AccountTransactions />
+      </div>
     </div>
   </div>
 </template>

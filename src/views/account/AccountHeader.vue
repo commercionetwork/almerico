@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light border">
+  <div class="p-1 rounded-lg bg-light">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"

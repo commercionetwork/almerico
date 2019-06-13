@@ -7,7 +7,7 @@
       />
     </div>
     <div class="col-12 col-md-8">
-      <div class="row mx-auto p-1 w-100 rounded bg-white border">
+      <div class="row mx-auto p-1 w-100 rounded bg-white">
         <div class="col-12 col-md-3 d-flex justify-content-between justify-content-md-center">
           <span class="com-font-s13-w700">Price:</span>
           <span

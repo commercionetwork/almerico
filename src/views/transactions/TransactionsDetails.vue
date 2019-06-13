@@ -14,7 +14,7 @@
       />
       <div v-else>
         <TransactionsDetailsInfo :transaction="transaction" />
-        <div class="my-3 p-1 rounded-lg bg-light border">
+        <div class="my-3 p-1 rounded-lg bg-light">
           <div class="row p-1">
             <div class="col-12">
               <h2
