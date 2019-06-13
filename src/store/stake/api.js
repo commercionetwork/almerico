@@ -43,5 +43,13 @@ export default {
    */
   requestValidator(address) {
     return instance.get(`${API.STAKING_VALIDATORS}/${address}`);
+  },
+  /**
+   * Handle ajax request to get staking pool
+   * 
+   * @return {Promise}
+   */
+  requestPool() {
+    return instance.get(API.STAKING_POOL);
   }
 };

@@ -1,12 +1,6 @@
 <template>
   <div class="container com-container">
-    <SectionHeader
-      :title="$t('titles.votings')"
-      :price="price"
-      :height="height"
-      :bonded="bonded"
-      :inflation="inflation"
-    />
+    <SectionHeader :title="$t('titles.votings')" />
     <div class="py-3 px-5 rounded bg-white">
       <div class="row">
         <div
@@ -36,18 +30,6 @@ export default {
     SectionHeader
   },
   computed: {
-    price() {
-      return { value: 1, iso_code: "EUR" };
-    },
-    height() {
-      return 345678;
-    },
-    bonded() {
-      return 123456789;
-    },
-    inflation() {
-      return 0.034;
-    },
     votings() {
       return mockVotings();
     }

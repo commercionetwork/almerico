@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light border">
+  <div class="p-1 rounded-lg bg-light">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -29,21 +29,21 @@
             </div>
             <div class="col-12 col-md-3 d-flex flex-column align-items-md-center">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="labelTotal"
               />
               <span
-                class="text-break com-font-s12-w400"
+                class="text-break com-font-s13-w400"
                 v-text="total"
               />
             </div>
             <div class="col-12 col-md-3 d-flex flex-column align-items-md-center">
               <span
-                class="com-font-s12-w700"
+                class="com-font-s13-w700"
                 v-text="value"
               />
               <span
-                class="text-break com-font-s12-w400"
+                class="text-break com-font-s13-w400"
                 v-text="totalValue"
               />
             </div>
@@ -65,60 +65,60 @@
                 <div class="col-12 col-md-3">
                   <div class="p-1 d-flex flex-column border-left border-info com-border-w10">
                     <div
-                      class="com-font-s12-w700"
+                      class="com-font-s13-w700"
                       v-text="partition[0].label"
                     />
                     <div class="d-none d-md-block">
                       <div
-                        class="com-font-s12-w400"
+                        class="com-font-s13-w400"
                         v-text="partition[0].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
-                      <div class="com-font-s12-w400">{{ partition[0].percent }}%</div>
+                      <div class="com-font-s13-w400">{{ partition[0].percent }}%</div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="p-1 d-flex flex-column border-left border-success com-border-w10">
                     <div
-                      class="com-font-s12-w700"
+                      class="com-font-s13-w700"
                       v-text="partition[1].label"
                     />
                     <div class="d-none d-md-block">
                       <div
-                        class="com-font-s12-w400"
+                        class="com-font-s13-w400"
                         v-text="partition[1].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
-                      <div class="com-font-s12-w400">{{ partition[1].percent }}%</div>
+                      <div class="com-font-s13-w400">{{ partition[1].percent }}%</div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="p-1 d-flex flex-column border-left border-warning com-border-w10">
                     <div
-                      class="com-font-s12-w700"
+                      class="com-font-s13-w700"
                       v-text="partition[2].label"
                     />
                     <div class="d-none d-md-block">
                       <div
-                        class="com-font-s12-w400"
+                        class="com-font-s13-w400"
                         v-text="partition[2].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
-                      <div class="com-font-s12-w400">{{ partition[2].percent }}%</div>
+                      <div class="com-font-s13-w400">{{ partition[2].percent }}%</div>
                     </div>
                   </div>
                 </div>
                 <div class="col-12 col-md-3">
                   <div class="p-1 d-flex flex-column border-left border-danger com-border-w10">
                     <div
-                      class="com-font-s12-w700"
+                      class="com-font-s13-w700"
                       v-text="partition[3].label"
                     />
                     <div class="d-none d-md-block">
                       <div
-                        class="com-font-s12-w400"
+                        class="com-font-s13-w400"
                         v-text="partition[3].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
                       />
-                      <div class="com-font-s12-w400">{{ partition[3].percent }}%</div>
+                      <div class="com-font-s13-w400">{{ partition[3].percent }}%</div>
                     </div>
                   </div>
                 </div>

@@ -1,25 +1,21 @@
 <template>
   <div class="container com-container">
-    <SectionHeader
-      :title="$t('titles.accountDetails')"
-      :price="price"
-      :height="height"
-      :bonded="bonded"
-      :inflation="inflation"
-    />
-    <div>
-      <AccountHeader :account="account" />
-    </div>
-    <div class="row">
-      <div class="col-12 col-md-6 mt-3">
-        <AccountDelegations :account="account" />
+    <SectionHeader :title="$t('titles.accountDetails')" />
+    <div class="py-3 px-5 rounded bg-white">
+      <div>
+        <AccountHeader :account="account" />
       </div>
-      <div class="col-12 col-md-6 mt-3">
-        <AccountUnbondings :account="account" />
+      <div class="row">
+        <div class="col-12 col-md-6 mt-3">
+          <AccountDelegations :account="account" />
+        </div>
+        <div class="col-12 col-md-6 mt-3">
+          <AccountUnbondings :account="account" />
+        </div>
       </div>
-    </div>
-    <div class="mt-3">
-      <AccountTransactions />
+      <div class="mt-3">
+        <AccountTransactions />
+      </div>
     </div>
   </div>
 </template>
@@ -48,18 +44,6 @@ export default {
     account() {
       return mockAccount();
     },
-    price() {
-      return { value: 1, iso_code: "EUR" };
-    },
-    height() {
-      return 345678;
-    },
-    bonded() {
-      return 123456789;
-    },
-    inflation() {
-      return 0.034;
-    }
   }
 };
 </script>

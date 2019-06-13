@@ -20,6 +20,15 @@ export default {
     state.isFetching = false;
   },
   /**
+   * Set Tendermint message
+   *
+   * @param {TendermintState} state
+   * @param {Message} message
+   */
+  setMessage(state, message) {
+    state.message = message;
+  },
+  /**
    * Set blocks data
    * 
    * @param {TendermintState} state 

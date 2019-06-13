@@ -1,7 +1,8 @@
 @mixin page-container() {
   min-height: 85vh;
-  padding-top: 30px;
-  padding-bottom: 15px;
+  min-width: 80vw;
+  padding-top: 60px;
+  padding-bottom: 10px;
 }
 
 @mixin mobile() {

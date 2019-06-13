@@ -1,5 +1,5 @@
 <template>
-  <tr class="text-center com-font-s12-w400">
+  <tr class="text-center com-font-s13-w400">
     <td class="align-middle">
       <span
         v-if="isFetching"

@@ -28,6 +28,16 @@ describe("store/tendermint/mutations", () => {
     expect(state.isFetching).toBeFalsy();
   });
 
+  it("Check mutations.setMessage", () => {
+    const message = {
+      text: "Check mutations.setMessage",
+      type: "type"
+    };
+    mutations.setMessage(state, message);
+
+    expect(state.message).toEqual(message);
+  });
+
   it("Check mutations.setBlocks", () => {
     const data = [{
       id: 1

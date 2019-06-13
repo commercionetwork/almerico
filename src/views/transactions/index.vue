@@ -1,12 +1,6 @@
 <template>
   <div class="container com-container">
-    <SectionHeader
-      :title="$t('titles.transactions')"
-      :price="price"
-      :height="height"
-      :bonded="bonded"
-      :inflation="inflation"
-    />
+    <SectionHeader :title="$t('titles.transactions')" />
     <div class="py-3 px-5 rounded bg-white">
       <div
         v-if="isFetching"
@@ -16,9 +10,9 @@
         v-else
         class="table-responsive"
       >
-        <table class="table table-striped">
+        <table class="table">
           <thead>
-            <tr class="text-center com-font-s12-w700">
+            <tr class="text-center com-font-s13-w700">
               <th scope="col">TxHash</th>
               <th scope="col">Type</th>
               <th scope="col">Result</th>
@@ -71,18 +65,6 @@ export default {
         return b.height - a.height;
       });
     },
-    price() {
-      return { value: 1, iso_code: "EUR" };
-    },
-    height() {
-      return 345678;
-    },
-    bonded() {
-      return 123456789;
-    },
-    inflation() {
-      return 0.034;
-    }
   },
   methods: {
     ...mapActions("tendermint", {

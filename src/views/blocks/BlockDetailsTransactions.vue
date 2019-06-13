@@ -1,5 +1,5 @@
 <template>
-  <div class="my-3 p-1 rounded-lg bg-light border">
+  <div class="my-3 p-1 rounded-lg bg-light">
     <div class="row p-1">
       <div class="col-12">
         <h2 class="com-font-s16-w700">Transactions</h2>
@@ -9,9 +9,9 @@
       v-if="transactions.length > 0"
       class="table-responsive"
     >
-      <table class="table table-striped">
+      <table class="table">
         <thead>
-          <tr class="text-center com-font-s12-w700">
+          <tr class="text-center com-font-s13-w700">
             <th scope="col">TxHash</th>
             <th scope="col">Type</th>
             <th scope="col">Result</th>

@@ -7,33 +7,33 @@
       />
     </div>
     <div class="col-12 col-md-8">
-      <div class="row mx-auto p-1 w-100 rounded bg-white border">
-        <div class="col-12 col-md-3 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s13-w700">Price:</span>
+      <div
+        v-if="isFetching"
+        v-text="$t('messages.loading')"
+      />
+      <div
+        v-else
+        class="row mx-auto p-1 w-100 rounded bg-white"
+      >
+        <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
+          <span class="com-font-s14-w700">Price:</span>
           <span
-            class="pl-1 com-font-s13-w400"
+            class="pl-1 com-font-s14-w400"
             v-html="formattedPrice"
           />
         </div>
-        <div class="col-12 col-md-3 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s13-w700">Height:</span>
+        <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
+          <span class="com-font-s14-w700">Height:</span>
           <span
-            class="pl-1 com-font-s13-w400"
+            class="pl-1 com-font-s14-w400"
             v-html="formattedHeight"
           />
         </div>
-        <div class="col-12 col-md-3 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s13-w700">Bonded:</span>
+        <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
+          <span class="com-font-s14-w700">Bonded:</span>
           <span
-            class="pl-1 com-font-s13-w400"
+            class="pl-1 com-font-s14-w400"
             v-html="formattedBonded"
-          />
-        </div>
-        <div class="col-12 col-md-3 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s13-w700">Inflation:</span>
-          <span
-            class="pl-1 com-font-s13-w400"
-            v-html="formattedInflation"
           />
         </div>
       </div>
@@ -42,6 +42,9 @@
 </template>
 
 <script>
+import stakeApi from "Store/stake/api";
+import tendermintApi from "Store/tendermint/api";
+
 export default {
   name: "SectionHeader",
   description: "Display the section header with title and values bar",
@@ -50,27 +53,15 @@ export default {
       type: String,
       required: true,
       note: "The section's title"
-    },
-    price: {
-      type: Object,
-      required: true,
-      note: "Object representing the price"
-    },
-    height: {
-      type: Number,
-      required: true,
-      note: "The height's value"
-    },
-    bonded: {
-      type: Number,
-      required: true,
-      note: "The bonded's value"
-    },
-    inflation: {
-      type: Number,
-      required: true,
-      note: "The inflation's value"
     }
+  },
+  data() {
+    return {
+      bonded: 0,
+      height: 0,
+      isFetchingBonded: false,
+      isFetchingHeight: false
+    };
   },
   computed: {
     formattedPrice() {
@@ -93,12 +84,41 @@ export default {
         maximumFractionDigits: 0
       });
     },
-    formattedInflation() {
-      return this.$n(this.inflation, {
-        style: "percent",
-        maximumFractionDigits: 2
-      });
+    isFetching() {
+      return this.isFetchingBonded || this.isFetchingHeight;
+    },
+    //TODO: remove || get real value
+    price() {
+      return { value: 1, iso_code: "EUR" };
     }
+  },
+  methods: {
+    async getBonded() {
+      this.isFetchingBonded = true;
+      try {
+        const response = await stakeApi.requestPool();
+        this.bonded = response.data.bonded_tokens;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isFetchingBonded = false;
+      }
+    },
+    async getHeight() {
+      this.isFetchingHeight = true;
+      try {
+        const response = await tendermintApi.requestLastBlock();
+        this.height = response.data.block.header.height;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isFetchingHeight = false;
+      }
+    }
+  },
+  created() {
+    this.getBonded();
+    this.getHeight();
   }
 };
 </script>

@@ -1,12 +1,6 @@
 <template>
   <div class="container com-container">
-    <SectionHeader
-      :title="$t('titles.validators')"
-      :price="price"
-      :height="height"
-      :bonded="bonded"
-      :inflation="inflation"
-    />
+    <SectionHeader :title="$t('titles.validators')" />
     <div class="py-3 px-5 rounded bg-white">
       <div class="row">
         <div class="col-12 col-md-3 my-1 my-md-0">
@@ -76,18 +70,6 @@ export default {
             return validator;
           })
         : [];
-    },
-    price() {
-      return { value: 1, iso_code: "EUR" };
-    },
-    height() {
-      return 345678;
-    },
-    bonded() {
-      return 123456789;
-    },
-    inflation() {
-      return 0.034;
     }
   },
   methods: {

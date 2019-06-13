@@ -40,7 +40,7 @@ export default {
       commit("setBlocks", res.data.result.block_metas);
     } catch (error) {
       if (error.response !== undefined) {
-        console.log(error.response);
+        commit("setMessage", error.response);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -77,7 +77,7 @@ export default {
       commit("setTransactions", response.data);
     } catch (error) {
       if (error.response !== undefined) {
-        console.log(error.response);
+        commit("setMessage", error.response);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -104,7 +104,7 @@ export default {
       commit("addTransactions", response.data);
     } catch (error) {
       if (error.response !== undefined) {
-        console.log(error.response);
+        commit("setMessage", error.response);
       } else {
         commit("setServerReachability", false, {
           root: true

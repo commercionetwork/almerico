@@ -2,19 +2,17 @@
   <div class="container com-container">
     <SectionHeader
       :title="$t('titles.votingDetails')"
-      :price="price"
-      :height="height"
-      :bonded="bonded"
-      :inflation="inflation"
     />
-    <div>
-      <VotingsDetailsHeader :voting="voting" />
-    </div>
-    <div class="mt-3">
-      <VotingsDetailsVote :voting="voting" />
-    </div>
-    <div class="mt-3">
-      <VotingsDetailsVotesList />
+    <div class="py-3 px-5 rounded bg-white">
+      <div>
+        <VotingsDetailsHeader :voting="voting" />
+      </div>
+      <div class="mt-3">
+        <VotingsDetailsVote :voting="voting" />
+      </div>
+      <div class="mt-3">
+        <VotingsDetailsVotesList />
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +33,7 @@ export default {
     SectionHeader,
     VotingsDetailsHeader,
     VotingsDetailsVote,
-    VotingsDetailsVotesList,
+    VotingsDetailsVotesList
   },
   computed: {
     voting() {
@@ -43,18 +41,6 @@ export default {
     },
     votingId() {
       return this.$route.params.id;
-    },
-    price() {
-      return { value: 1, iso_code: "EUR" };
-    },
-    height() {
-      return 345678;
-    },
-    bonded() {
-      return 123456789;
-    },
-    inflation() {
-      return 0.034;
     }
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 h-100 rounded-lg bg-light border">
+  <div class="p-1 h-100 rounded-lg bg-light">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -11,9 +11,9 @@
         </div>
       </div>
       <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table">
           <thead>
-            <tr class="text-center com-font-s12-w700">
+            <tr class="text-center com-font-s13-w700">
               <th scope="col">Rank</th>
               <th scope="col">Validator</th>
               <th scope="col">Voting power</th>
@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             <tr
-              class="text-center com-font-s12-w400"
+              class="text-center com-font-s13-w400"
               v-for="validator in validators"
               :key="validator.operator_address"
             >

@@ -3,21 +3,21 @@
     <div class="py-1 col-12 col-md-6">
       <input
         type="text"
-        class="form-control com-font-s13-w400"
+        class="form-control com-font-s14-w400"
         :placeholder="$t('messages.searchValidator')"
       >
     </div>
     <div class="py-1 col-6 col-md-3">
       <button
         type="button"
-        class="btn btn-secondary btn-block com-font-s13-w700"
+        class="btn btn-secondary btn-block com-font-s14-w700"
         v-html="$t('buttons.active')"
       />
     </div>
     <div class="py-1 col-6 col-md-3">
       <button
         type="button"
-        class="btn btn-outline-secondary btn-block com-font-s13-w700"
+        class="btn btn-outline-secondary btn-block com-font-s14-w700"
         v-html="$t('buttons.inactive')"
       />
     </div>

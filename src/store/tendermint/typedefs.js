@@ -5,6 +5,12 @@
  * @property {Array.<Block>} blocks
  * @property {Array.<Transaction>} transactions
  * @property {boolean} isFetching
+ * @property {Message} message
+ */
+/** @typedef {Object} Message
+ * @property {string} code
+ * @property {Object} data
+ * @property {string} type
  */
 /** @typedef {Object} Block 
  * @property {Array.<String>} evidence 
@@ -57,7 +63,7 @@
  * @property {String} validator_index 
  */
 /** @typedef {Object} Transaction 
- * @property {String} hash 
+ * @property {String} txhash 
  * @property {Number} height 
  * @property {Result} result 
  * @property {Tx} tx 

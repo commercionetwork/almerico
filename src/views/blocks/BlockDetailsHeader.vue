@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light border">
+  <div class="p-1 rounded-lg bg-light">
     <div class="row p-1">
       <div class="col-12">
         <h2 class="com-font-s16-w700">Header</h2>
@@ -7,36 +7,36 @@
     </div>
     <hr>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Height</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
       <div
-        class="col-12 col-md-9 com-font-s13-w400"
+        class="col-12 col-md-9 com-font-s14-w400"
         v-text="block.header.height"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Block time</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Block time</div>
       <div
-        class="col-12 col-md-9 com-font-s13-w400"
+        class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockTime"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Block hash</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Block hash</div>
       <div
-        class="col-12 col-md-9 text-break com-font-s13-w400"
+        class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="blockHash"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Number of transactions</div>
+      <div class="col-12 col-md-3 com-font-s14-w700">Number of transactions</div>
       <div
-        class="col-12 col-md-9 com-font-s13-w400"
+        class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockTransactions"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s13-w700">Proposer</div>
-      <div class="col-12 col-md-9 com-font-s13-w400">
+      <div class="col-12 col-md-3 com-font-s14-w700">Proposer</div>
+      <div class="col-12 col-md-9 com-font-s14-w400">
         <div
           v-if="isFetching"
           v-text="$t('messages.loading')"

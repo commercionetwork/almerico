@@ -31,7 +31,7 @@ export const API = {
   SLASHING_SIGNING: `${API_LCD_BASE}/slashing/signing_infos`,
   STAKING_DELEGATORS: `${API_LCD_BASE}/staking/delegators`,
   STAKING_PARAMETERS: `${API_LCD_BASE}/staking/parameters`,
-  STAKING_POLL: `${API_LCD_BASE}/staking/poll`,
+  STAKING_POOL: `${API_LCD_BASE}/staking/pool`,
   STAKING_REDELEGATIONS: `${API_LCD_BASE}/staking/redelegations`,
   STAKING_VALIDATORS: `${API_LCD_BASE}/staking/validators`,
   SYNCING: `${API_LCD_BASE}/syncing`,

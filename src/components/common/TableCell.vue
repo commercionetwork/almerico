@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 h-100 rounded-lg bg-light border">
+  <div class="p-1 h-100 rounded-lg bg-light">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -14,7 +14,7 @@
         </div>
         <div class="col-6 d-flex justify-content-end">
           <router-link
-            class="btn btn-outline-secondary com-font-s13-w700"
+            class="btn btn-outline-secondary com-font-s14-w700"
             v-html="$t('buttons.showMore')"
             :to="link"
           />

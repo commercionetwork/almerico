@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light border">
+  <div class="p-1 rounded-lg bg-light">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -16,9 +16,9 @@
       <div class="row py-1">
         <div class="col-12">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table">
               <thead>
-                <tr class="text-center com-font-s12-w700">
+                <tr class="text-center com-font-s13-w700">
                   <th scope="col">Validator</th>
                   <th scope="col">Height</th>
                   <th scope="col">Amount</th>
@@ -27,7 +27,7 @@
               </thead>
               <tbody>
                 <tr
-                  class="text-center com-font-s11-w400"
+                  class="text-center com-font-s12-w400"
                   v-for="unbonding in unbondings.slice().reverse()"
                   :key="unbonding.id"
                 >

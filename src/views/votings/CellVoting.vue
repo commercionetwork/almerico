@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light border">
+  <div class="p-1 rounded-lg bg-light">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -31,7 +31,7 @@
           </span>
         </div>
         <div class="col-12 col-sm-7">
-          <div class="d-flex justify-content-start com-font-s12-w400">
+          <div class="d-flex justify-content-start com-font-s13-w400">
             {{ $t('labels.proposer') }}:
             <router-link
               class="pl-1"
@@ -39,17 +39,17 @@
               :to="toAccountDetails(voting.proposer.address)"
             />
           </div>
-          <div class="d-flex justify-content-start com-font-s13-w400">
+          <div class="d-flex justify-content-start com-font-s14-w400">
             {{ voting.title }}
           </div>
           <span class="d-flex flex-row justify-content-start">
             <div class="pr-1 flex-grow-0 border-right border-dark">
-              <div class="com-font-s11-w700">Quorum</div>
-              <div class="com-font-s11-w400">{{ voting.poll.quorum }}%</div>
+              <div class="com-font-s12-w700">Quorum</div>
+              <div class="com-font-s12-w400">{{ voting.poll.quorum }}%</div>
             </div>
             <div class="pl-1 flex-grow-1">
-              <div class="com-font-s11-w700">Most voted on</div>
-              <div class="com-font-s11-w400">{{ winner.label }} ({{ winner.percent }}%)</div>
+              <div class="com-font-s12-w700">Most voted on</div>
+              <div class="com-font-s12-w400">{{ winner.label }} ({{ winner.percent }}%)</div>
             </div>
           </span>
 
