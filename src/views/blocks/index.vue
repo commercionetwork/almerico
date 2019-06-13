@@ -1,12 +1,6 @@
 <template>
   <div class="container com-container">
-    <SectionHeader
-      :title="$t('titles.blocks')"
-      :price="price"
-      :height="height"
-      :bonded="bonded"
-      :inflation="inflation"
-    />
+    <SectionHeader :title="$t('titles.blocks')" />
     <div class="py-3 px-5 rounded bg-white">
       <div
         v-if="isFetching"
@@ -64,18 +58,6 @@ export default {
     isFetching() {
       return this.isFetchingBlocks || this.isFetchingValidators;
     },
-    price() {
-      return { value: 1, iso_code: "EUR" };
-    },
-    height() {
-      return 345678;
-    },
-    bonded() {
-      return 123456789;
-    },
-    inflation() {
-      return 0.034;
-    }
   },
   methods: {
     ...mapActions("tendermint", {
@@ -88,6 +70,6 @@ export default {
   created() {
     this.getBlocks(9);
     if (this.validators.length === 0) this.getValidators({});
-  },
+  }
 };
 </script>

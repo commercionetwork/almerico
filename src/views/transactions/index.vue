@@ -1,12 +1,6 @@
 <template>
   <div class="container com-container">
-    <SectionHeader
-      :title="$t('titles.transactions')"
-      :price="price"
-      :height="height"
-      :bonded="bonded"
-      :inflation="inflation"
-    />
+    <SectionHeader :title="$t('titles.transactions')" />
     <div class="py-3 px-5 rounded bg-white">
       <div
         v-if="isFetching"
@@ -71,18 +65,6 @@ export default {
         return b.height - a.height;
       });
     },
-    price() {
-      return { value: 1, iso_code: "EUR" };
-    },
-    height() {
-      return 345678;
-    },
-    bonded() {
-      return 123456789;
-    },
-    inflation() {
-      return 0.034;
-    }
   },
   methods: {
     ...mapActions("tendermint", {
