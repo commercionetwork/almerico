@@ -1,5 +1,5 @@
 import {
-  API
+  API, WS
 } from "./api";
 import {
   PREFIX
@@ -17,5 +17,6 @@ export {
   PREFIX,
   ROUTES,
   ROUTE_NAMES,
-  TX_TYPES
+  TX_TYPES,
+  WS
 };

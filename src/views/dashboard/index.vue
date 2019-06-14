@@ -84,12 +84,18 @@ export default {
     })
   },
   methods: {
+    ...mapActions("tendermint", {
+      subNewBlock: "subNewBlock"
+    }),
     ...mapActions("stake", {
       getValidators: "getValidators"
     })
   },
   created() {
     if (this.validators.length === 0) this.getValidators({});
+  },
+  mounted() {
+    this.subNewBlock();
   }
 };
 </script>
