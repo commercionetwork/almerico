@@ -44,7 +44,9 @@ export default {
    * @param {Array} data 
    */
   addBlocks(state, data) {
-    state.blocks.push(...data);
+    const blocks = [...state.blocks];
+    state.blocks.length = 0;
+    state.blocks.push(...data, ...blocks);
   },
   /**
    * Add block to blocks list
@@ -52,8 +54,10 @@ export default {
    * @param {TendermintState} state 
    * @param {Block} data 
    */
-  addNewBlock(state,data) {
-    state.blocks.push(data);
+  addNewBlock(state, data) {
+    const blocks = [...state.blocks];
+    state.blocks.length = 0;
+    state.blocks.push(data, ...blocks);
   },
   /**
    * Set transactions data
