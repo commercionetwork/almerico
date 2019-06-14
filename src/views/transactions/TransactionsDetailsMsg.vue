@@ -48,11 +48,15 @@ export default {
   },
   computed: {
     msgAmount() {
-      let amount = this.$n(this.message.value.amount[0].amount, {
-        style: "decimal",
-        maximumFractionDigits: 0
-      });
-      return `${amount} COMM`;
+      let comm = this.$n(
+        this.message.value.amount[0].amount / 1000000,
+        {
+          style: "decimal",
+          minimumFractionDigits: 6,
+          maximumFractionDigits: 6
+        }
+      );
+      return `${comm} COMM`;
     },
     msgFrom() {
       return this.message.value.from_address;

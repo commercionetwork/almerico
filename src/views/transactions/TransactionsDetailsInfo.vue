@@ -87,9 +87,10 @@ export default {
   computed: {
     fee() {
       let fee = this.transaction.tx.value.fee.amount
-        ? this.$n(this.transaction.tx.value.fee.amount, {
+        ? this.$n(this.transaction.tx.value.fee.amount / 1000000, {
             style: "decimal",
-            maximumFractionDigits: 0
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
           })
         : 0;
       return `${fee} COMM`;

@@ -13,10 +13,13 @@
  * @property {string} type
  */
 /** @typedef {Object} Block 
- * @property {Array.<String>} evidence 
+ * @property {BlockData} data 
  * @property {Header} header 
  * @property {Commit} last_commit 
  * @property {Array.<String>} txs 
+ */
+/** @typedef {Object} BlockData 
+ * @property {Array.<StringS} txs 
  */
 /** @typedef {Object} Header 
  * @property {String} app_hash 
