@@ -44,9 +44,7 @@ export default {
    * @param {Array} data 
    */
   addBlocks(state, data) {
-    const blocks = [...state.blocks];
-    state.blocks.length = 0;
-    state.blocks.push(...data, ...blocks);
+    state.blocks.push(...data);
   },
   /**
    * Add block to blocks list
