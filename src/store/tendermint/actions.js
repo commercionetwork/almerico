@@ -64,12 +64,16 @@ export default {
    * @param {Function} commit
    */
   subNewBlock({
-    commit
+    commit,
+    dispatch
   }) {
     client.subscribe({
       query: "tm.event = 'NewBlock'"
     }, event => {
       commit("addNewBlock", event.block);
+      dispatch("stake/fetchPool", null, {
+        root: true
+      });
     });
   },
   /**

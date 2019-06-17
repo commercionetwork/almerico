@@ -28,6 +28,17 @@ describe("store/stake/mutations", () => {
     expect(state.isFetching).toBeFalsy();
   });
 
+  it("Check mutations.setPool", () => {
+    const data = {
+      not_bonded_tokens: "2",
+      bonded_tokens: "1"
+    };
+
+    mutations.setPool(state, data);
+
+    expect(state.pool).toEqual(data);
+  });
+
   it("Check mutations.setValidators", () => {
     const data = [{
       id: 1

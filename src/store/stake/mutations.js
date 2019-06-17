@@ -19,6 +19,14 @@ export default {
   stopLoading(state) {
     state.isFetching = false;
   },
+  /** Set pool data
+   * 
+   * @param {StakeState} state 
+   * @param {Pool} data 
+   */
+  setPool(state, data) {
+    state.pool = data;
+  },
   /**
    * Set validators data
    * 
