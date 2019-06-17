@@ -25,15 +25,17 @@ In order to run this project as a developer with the hot reload option enabled y
  
 **2.** Inside the `.env.development.local` file write the following data:
 ```
-VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
-VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
+VUE_APP_LCD=<YOUR_LCD_ULR>
+VUE_APP_RPC=<YOUR_RPC_URL>
+VUE_APP_WS=<YOUR_WS_URL>
 ```
   
 Example
 
 ```
-VUE_APP_LCD=<YOUR_LCD_ULR>  
-VUE_APP_RPC=<YOUR_RPC_URL>
+VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
+VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
+VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
 ```
 
 #### Running
@@ -45,6 +47,7 @@ This will start a local web server and publish a web page to http://localhost:80
 In order to properly setup the production environment, you have to set the following environment variables:
 * `VUE_APP_LCD`
 * `VUE_APP_RPC`
+* `VUE_APP_WS`
 
 In order to do so, for each variable run the following command: 
 * `set <VARIABLE_NAME>=<VARIABLE_VALUE>` for Windows-based environments
@@ -53,13 +56,15 @@ In order to do so, for each variable run the following command:
 E.g.
 
 ```
-# On windows
+# On Windows
 set VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
 set VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
+set VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
 
-# On Linux or MAX
+# On Linux or MAC
 export VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
 export VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
+export VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
 ``` 
 
 #### Building
