@@ -56,9 +56,9 @@ describe("store/tendermint/mutations", () => {
       id: 2
     }];
     const expectBlocks = [{
-      id: 2
-    }, {
       id: 1
+    }, {
+      id: 2
     }];
 
     mutations.addBlocks(state, data);
@@ -67,17 +67,17 @@ describe("store/tendermint/mutations", () => {
   });
 
   it("Check mutations.addNewBlock", () => {
-    state.blocks = [
-      {
+    state.blocks = [{
         id: 2
       },
       {
         id: 1
       }
     ];
-    const data = { id: 3 };
-    const expectBlocks = [
-      {
+    const data = {
+      id: 3
+    };
+    const expectBlocks = [{
         id: 3
       },
       {
