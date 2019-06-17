@@ -69,7 +69,7 @@ export default {
         const response = await api.requestBlock(height);
         this.block = response.data.block;
       } catch (error) {
-        console.log(error);
+        this.block = {};
       } finally {
         this.isFetchingBlock = false;
       }

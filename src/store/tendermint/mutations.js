@@ -9,6 +9,7 @@ export default {
    * @param {TendermintState} state
    */
   startLoading(state) {
+    state.message = "";
     state.isFetching = true;
   },
   /**
@@ -23,7 +24,7 @@ export default {
    * Set Tendermint message
    *
    * @param {TendermintState} state
-   * @param {Message} message
+   * @param {String} message
    */
   setMessage(state, message) {
     state.message = message;
@@ -74,5 +75,16 @@ export default {
    */
   addTransactions(state, data) {
     state.transactions.push(...data);
+  },
+  /**
+   * Add transaction to transactions list
+   * 
+   * @param {TendermintState} state 
+   * @param {Transaction} data 
+   */
+  addNewTransaction(state, data) {
+    const transactions = [...state.transactions];
+    state.transactions.length = 0;
+    state.transactions.push(data, ...transactions);
   },
 };

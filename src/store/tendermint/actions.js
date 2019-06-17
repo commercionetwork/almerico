@@ -40,6 +40,7 @@ export default {
     try {
       const response = await api.requestLastBlock();
       const height = response.data.block.header.height;
+      //TODO: check if height > 19
       let min = (blocks && blocks < 19) ?
         height - blocks :
         height - 19;
@@ -48,7 +49,7 @@ export default {
       commit("setBlocks", res.data.result.block_metas);
     } catch (error) {
       if (error.response !== undefined) {
-        commit("setMessage", error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -59,17 +60,21 @@ export default {
     }
   },
   /**
-   * Action to subscribe blocks web socket
+   * Action to subscribe new block web socket
    * 
    * @param {Function} commit
    */
   subNewBlock({
-    commit
+    commit,
+    dispatch
   }) {
     client.subscribe({
       query: "tm.event = 'NewBlock'"
     }, event => {
       commit("addNewBlock", event.block);
+      dispatch("stake/fetchPool", null, {
+        root: true
+      });
     });
   },
   /**
@@ -99,7 +104,7 @@ export default {
       commit("setTransactions", response.data);
     } catch (error) {
       if (error.response !== undefined) {
-        commit("setMessage", error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -126,7 +131,7 @@ export default {
       commit("addTransactions", response.data);
     } catch (error) {
       if (error.response !== undefined) {
-        commit("setMessage", error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -135,5 +140,21 @@ export default {
     } finally {
       commit("stopLoading");
     }
+  },
+  /**
+   * Action to subscribe new transaction web socket
+   * 
+   * @param {Function} commit
+   */
+  subNewTx({
+    commit
+  }) {
+    client.subscribe({
+      query: "tm.event = 'Tx'"
+    }, event => {
+      //TODO: remove
+      console.log("TX: ", event);
+      // commit("addNewTransaction", event.tx);
+    });
   }
 };

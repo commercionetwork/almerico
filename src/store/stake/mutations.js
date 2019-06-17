@@ -9,6 +9,7 @@ export default {
    * @param {StakeState} state
    */
   startLoading(state) {
+    state.message = "";
     state.isFetching = true;
   },
   /**
@@ -18,6 +19,23 @@ export default {
    */
   stopLoading(state) {
     state.isFetching = false;
+  },
+  /**
+   * Set Stake message
+   *
+   * @param {StakeState} state
+   * @param {String} message
+   */
+  setMessage(state, message) {
+    state.message = message;
+  },
+  /** Set pool data
+   * 
+   * @param {StakeState} state 
+   * @param {Pool} data 
+   */
+  setPool(state, data) {
+    state.pool = data;
   },
   /**
    * Set validators data

@@ -27,7 +27,13 @@ describe("store/tendermint/actions", () => {
   });
 
   it("Check if 'actions.fetchBlocks' sets blocks", async () => {
-    //TODO: implement
+    const commit = jest.fn();
+
+    await actions.fetchBlocks({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setBlocks", mockResponse.data.result.block_metas);
   });
 
   it("Check if 'actions.fetchBlocks' has an error", async () => {
@@ -38,7 +44,7 @@ describe("store/tendermint/actions", () => {
       commit
     });
 
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response);
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
   });
 
   it("Check 'actions.fetchBlocks' when server is unreachable", async () => {
@@ -75,7 +81,13 @@ describe("store/tendermint/actions", () => {
   });
 
   it("Check if 'actions.fetchTransactions' sets transactions", async () => {
-    //TODO: implement
+    const commit = jest.fn();
+
+    await actions.fetchTransactions({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setTransactions", mockResponse.data);
   });
 
   it("Check if 'actions.fetchTransactions' has an error", async () => {
@@ -86,7 +98,7 @@ describe("store/tendermint/actions", () => {
       commit
     });
 
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response);
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
   });
 
   it("Check 'actions.fetchTransactions' when server is unreachable", async () => {
@@ -101,17 +113,48 @@ describe("store/tendermint/actions", () => {
       root: true
     });
   });
+
+  it("Check if 'actions.updateTransactions' updates transactions", async () => {
+    const commit = jest.fn();
+
+    await actions.updateTransactions({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("addTransactions", mockResponse.data);
+  });
+
+  it("Check if 'actions.updateTransactions' has an error", async () => {
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.updateTransactions({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check 'actions.updateTransactions' when server is unreachable", async () => {
+    const commit = jest.fn();
+    mockErrorServer = true;
+
+    await actions.updateTransactions({
+      commit
+    });
+
+    expect(commit).toBeCalledWith("setServerReachability", false, {
+      root: true
+    });
+  });
 });
 
 const mockErrorResponse = {
   response: {
     data: {
-      code: 400,
-      data: {
-        param: "param"
-      },
-      message: "error"
-    }
+      error: "error",
+    },
+    status: 400
   }
 };
 let mockError = false;
@@ -130,7 +173,10 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockBlock(new Date(), 100)
+          data: {
+            block_meta: {},
+            block: mockBlock(new Date(), 100)
+          }
         };
         resolve(mockResponse);
       }, 1);
