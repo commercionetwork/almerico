@@ -59,7 +59,7 @@ export default {
     }
   },
   /**
-   * Action to subscribe blocks web socket
+   * Action to subscribe new block web socket
    * 
    * @param {Function} commit
    */
@@ -135,5 +135,21 @@ export default {
     } finally {
       commit("stopLoading");
     }
+  },
+  /**
+   * Action to subscribe new transaction web socket
+   * 
+   * @param {Function} commit
+   */
+  subNewTx({
+    commit
+  }) {
+    client.subscribe({
+      query: "tm.event = 'Tx'"
+    }, event => {
+      //TODO: remove
+      console.log("TX: ", event);
+      // commit("addNewTransaction", event.tx);
+    });
   }
 };

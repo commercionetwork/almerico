@@ -120,4 +120,31 @@ describe("store/tendermint/mutations", () => {
 
     expect(state.transactions).toEqual(expectTxs);
   });
+
+  it("Check mutations.addNewTransaction", () => {
+    state.transactions = [{
+        id: 2
+      },
+      {
+        id: 1
+      }
+    ];
+    const data = {
+      id: 3
+    };
+    const expectTransactions = [{
+        id: 3
+      },
+      {
+        id: 2
+      },
+      {
+        id: 1
+      }
+    ];
+
+    mutations.addNewTransaction(state, data);
+
+    expect(state.transactions).toEqual(expectTransactions);
+  });
 });

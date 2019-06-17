@@ -75,4 +75,15 @@ export default {
   addTransactions(state, data) {
     state.transactions.push(...data);
   },
+  /**
+   * Add transaction to transactions list
+   * 
+   * @param {TendermintState} state 
+   * @param {Transaction} data 
+   */
+  addNewTransaction(state, data) {
+    const transactions = [...state.transactions];
+    state.transactions.length = 0;
+    state.transactions.push(data, ...transactions);
+  },
 };
