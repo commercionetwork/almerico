@@ -24,12 +24,7 @@
       />
     </div>
     <div slot="bottom-right-content">
-      <Icon
-        name="arrowAltDown"
-        class="text-danger"
-        scale="0.75"
-      />
-      <span class="pl-1 com-font-s11-w400">-1,11% (24h)</span>
+      <span class="pl-1 com-font-s11-w400">0% (24h)</span>
     </div>
   </DataCell>
 </template>
@@ -38,9 +33,6 @@
 import DataCell from "Components/common/DataCell.vue";
 import LineChart from "Components/common/LineChart.vue";
 
-import Icon from "vue-awesome/components/Icon.vue";
-import "Assets/img/icons/arrow-alt-down";
-
 import { mapGetters } from "vuex";
 
 export default {
@@ -48,8 +40,7 @@ export default {
   description: "Display the bonded",
   components: {
     DataCell,
-    LineChart,
-    Icon
+    LineChart
   },
   data() {
     return {
