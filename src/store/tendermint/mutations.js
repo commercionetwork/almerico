@@ -9,6 +9,7 @@ export default {
    * @param {TendermintState} state
    */
   startLoading(state) {
+    state.message = "";
     state.isFetching = true;
   },
   /**
@@ -23,7 +24,7 @@ export default {
    * Set Tendermint message
    *
    * @param {TendermintState} state
-   * @param {Message} message
+   * @param {String} message
    */
   setMessage(state, message) {
     state.message = message;

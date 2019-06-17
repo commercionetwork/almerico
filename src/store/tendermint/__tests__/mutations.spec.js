@@ -15,9 +15,12 @@ describe("store/tendermint/mutations", () => {
   });
 
   it("Check mutations.startLoading", () => {
+    state.message = "message";
+
     mutations.startLoading(state);
 
     expect(state.isFetching).toBeTruthy();
+    expect(state.message).toBe("");
   });
 
   it("Check mutations.stopLoading", () => {
@@ -29,10 +32,8 @@ describe("store/tendermint/mutations", () => {
   });
 
   it("Check mutations.setMessage", () => {
-    const message = {
-      text: "Check mutations.setMessage",
-      type: "type"
-    };
+    const message = "mutations.setMessage error";
+    
     mutations.setMessage(state, message);
 
     expect(state.message).toEqual(message);

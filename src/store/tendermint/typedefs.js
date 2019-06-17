@@ -5,12 +5,7 @@
  * @property {Array.<Block>} blocks
  * @property {Array.<Transaction>} transactions
  * @property {boolean} isFetching
- * @property {Message} message
- */
-/** @typedef {Object} Message
- * @property {string} code
- * @property {Object} data
- * @property {string} type
+ * @property {String} message
  */
 /** @typedef {Object} Block 
  * @property {BlockData} data 

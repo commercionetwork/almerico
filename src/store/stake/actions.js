@@ -34,7 +34,7 @@ export default {
       commit("setValidators", response.data);
     } catch (error) {
       if (error.response !== undefined) {
-        console.log(error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -60,7 +60,7 @@ export default {
     }
     catch (error) {
       if (error.response !== undefined) {
-        console.log(error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true

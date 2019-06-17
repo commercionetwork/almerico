@@ -40,6 +40,7 @@ export default {
     try {
       const response = await api.requestLastBlock();
       const height = response.data.block.header.height;
+      //TODO: check if height > 19
       let min = (blocks && blocks < 19) ?
         height - blocks :
         height - 19;
@@ -48,7 +49,7 @@ export default {
       commit("setBlocks", res.data.result.block_metas);
     } catch (error) {
       if (error.response !== undefined) {
-        commit("setMessage", error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -103,7 +104,7 @@ export default {
       commit("setTransactions", response.data);
     } catch (error) {
       if (error.response !== undefined) {
-        commit("setMessage", error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true
@@ -130,7 +131,7 @@ export default {
       commit("addTransactions", response.data);
     } catch (error) {
       if (error.response !== undefined) {
-        commit("setMessage", error.response);
+        commit("setMessage", error.response.data.error);
       } else {
         commit("setServerReachability", false, {
           root: true

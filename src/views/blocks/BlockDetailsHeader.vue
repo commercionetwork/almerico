@@ -10,7 +10,7 @@
       <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
       <div
         class="col-12 col-md-9 com-font-s14-w400"
-        v-text="block.header.height"
+        v-text="blockHeight"
       />
     </div>
     <div class="row p-1">
@@ -79,14 +79,19 @@ export default {
     ...mapGetters("stake", {
       validators: "validators"
     }),
-    blockTime() {
-      return new Date(this.block.header.time).toLocaleString();
-    },
     blockHash() {
-      return this.block.header.last_block_id.hash;
+      return this.block.header ? this.block.header.last_block_id.hash : "";
+    },
+    blockHeight() {
+      return this.block.header ? this.block.header.height : "";
+    },
+    blockTime() {
+      return this.block.header
+        ? new Date(this.block.header.time).toLocaleString()
+        : "";
     },
     blockTransactions() {
-      return this.block.header.num_txs;
+      return this.block.header ? this.block.header.num_txs : "";
     }
   },
   methods: {
@@ -124,7 +129,7 @@ export default {
     }
   },
   created() {
-    this.getProposer();
+    if (this.block.header) this.getProposer();
   }
 };
 </script>

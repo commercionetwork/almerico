@@ -10,6 +10,7 @@ export const initialState = {
   pool: null,
   validators: [],
   isFetching: false,
+  message: ""
 };
 
 export default {

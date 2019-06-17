@@ -5,6 +5,7 @@
  * @property {Pool} pool
  * @property {Array.<Validator>} validators
  * @property {boolean} isFetching
+ * @property {String} message
  */
 /** @typedef {Object} Pool
  * @property {String} not_bonded_tokens
