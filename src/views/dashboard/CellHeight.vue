@@ -7,13 +7,13 @@
     <div
       slot="bottom-left-content"
       class="text-secondary com-font-s14-w700"
-      v-text="lastBlock.header.height"
+      v-text="height"
     />
     <div slot="top-right-content">&nbsp;</div>
     <div
       slot="bottom-right-content"
       class="com-font-s11-w400"
-      v-text="getTime(lastBlock)"
+      v-text="getTime()"
     />
   </DataCell>
 </template>
@@ -34,14 +34,17 @@ export default {
       blocks: "blocks",
       isFetching: "isFetching"
     }),
-    lastBlock() {
-      return this.blocks[0];
-    }
+    height() {
+      return this.blocks.length > 0 ? this.blocks[0].header.height : "";
+    },
+    time() {
+      return this.blocks.length > 0 ? this.blocks[0].header.time : "";
+    },
   },
   methods: {
-    getTime(block) {
+    getTime() {
       let time = "";
-      let seconds = (new Date() - new Date(block.header.time)) / 1000;
+      let seconds = (new Date() - new Date(this.time)) / 1000;
       switch (true) {
         case seconds >= 3600:
           time = `${(seconds / 3600).toFixed(0)}h`;
