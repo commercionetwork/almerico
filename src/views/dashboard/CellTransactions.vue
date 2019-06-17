@@ -63,7 +63,7 @@ export default {
         .sort(function(a, b) {
           return b.height - a.height;
         })
-        .slice(0, 5);
+        .slice(0, 9);
     }
   },
   methods: {

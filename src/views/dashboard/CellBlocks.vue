@@ -44,9 +44,12 @@ export default {
   },
   computed: {
     ...mapGetters("tendermint", {
-      blocks: "blocks",
+      allBlocks: "blocks",
       isFetching: "isFetching"
     }),
+    blocks() {
+      return this.allBlocks.slice(0, 9);
+    },
     linkToBlocks() {
       return {
         name: ROUTE_NAMES.BLOCKS,
@@ -62,7 +65,7 @@ export default {
     })
   },
   created() {
-    if (this.blocks.length === 0) this.getBlocks(4);
+    if (this.allBlocks.length === 0) this.getBlocks(9);
   }
 };
 </script>
