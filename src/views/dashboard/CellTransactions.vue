@@ -6,7 +6,7 @@
   >
     <div slot="main-content">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
               <th scope="col">Height</th>
@@ -63,7 +63,7 @@ export default {
         .sort(function(a, b) {
           return b.height - a.height;
         })
-        .slice(0, 5);
+        .slice(0, 9);
     }
   },
   methods: {

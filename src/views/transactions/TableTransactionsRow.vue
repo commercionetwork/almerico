@@ -57,11 +57,23 @@ export default {
   },
   computed: {
     amount() {
-      return `${this.transaction.tx.value.msg[0].value.amount[0].amount} COMM`;
+      let comm = this.$n(
+        this.transaction.tx.value.msg[0].value.amount[0].amount / 1000000,
+        {
+          style: "decimal",
+          minimumFractionDigits: 6,
+          maximumFractionDigits: 6
+        }
+      );
+      return `${comm} COMM`;
     },
     fee() {
       let fee = this.transaction.tx.value.fee.amount
-        ? this.transaction.tx.value.fee.amount
+        ? this.$n(this.transaction.tx.value.fee.amount / 1000000, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+          })
         : 0;
       return `${fee} COMM`;
     },

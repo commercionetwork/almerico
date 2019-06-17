@@ -6,7 +6,7 @@
   >
     <div slot="main-content">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
               <th scope="col">Height</th>
@@ -18,7 +18,7 @@
           <tbody>
             <CellBlocksRow
               v-for="block in blocks"
-              :key="block.block_id.hash"
+              :key="block.header.height"
               :block="block"
             />
           </tbody>
@@ -44,9 +44,12 @@ export default {
   },
   computed: {
     ...mapGetters("tendermint", {
-      blocks: "blocks",
+      allBlocks: "blocks",
       isFetching: "isFetching"
     }),
+    blocks() {
+      return this.allBlocks.slice(0, 9);
+    },
     linkToBlocks() {
       return {
         name: ROUTE_NAMES.BLOCKS,
@@ -62,7 +65,7 @@ export default {
     })
   },
   created() {
-    this.getBlocks(4);
+    if (this.allBlocks.length === 0) this.getBlocks(9);
   }
 };
 </script>

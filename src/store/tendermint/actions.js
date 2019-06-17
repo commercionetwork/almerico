@@ -3,6 +3,14 @@
  */
 
 import api from "./api";
+import {
+  RpcClient
+} from "tendermint";
+import {
+  WS
+} from "Constants";
+
+const client = RpcClient(WS);
 
 export default {
   /**
@@ -49,6 +57,20 @@ export default {
     } finally {
       commit("stopLoading");
     }
+  },
+  /**
+   * Action to subscribe blocks web socket
+   * 
+   * @param {Function} commit
+   */
+  subNewBlock({
+    commit
+  }) {
+    client.subscribe({
+      query: "tm.event = 'NewBlock'"
+    }, event => {
+      commit("addNewBlock", event.block);
+    });
   },
   /**
    * 
