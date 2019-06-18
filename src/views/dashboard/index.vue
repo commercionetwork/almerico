@@ -65,8 +65,6 @@ import CellTransactions from "./CellTransactions.vue";
 import Icon from "vue-awesome/components/Icon.vue";
 import "Assets/img/icons/search";
 
-import { mapActions, mapGetters } from "vuex";
-
 export default {
   name: "Dashboard",
   description: "Container for dashboard's section",
@@ -78,24 +76,5 @@ export default {
     CellTransactions,
     Icon
   },
-  computed: {
-    ...mapGetters("stake", {
-      validators: "validators"
-    })
-  },
-  methods: {
-    ...mapActions("tendermint", {
-      subNewBlock: "subNewBlock"
-    }),
-    ...mapActions("stake", {
-      getValidators: "getValidators"
-    })
-  },
-  created() {
-    if (this.validators.length === 0) this.getValidators({});
-  },
-  mounted() {
-    this.subNewBlock();
-  }
 };
 </script>

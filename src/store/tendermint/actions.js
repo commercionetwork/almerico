@@ -14,6 +14,24 @@ const client = RpcClient(WS);
 
 export default {
   /**
+   * Action to subscribe new block web socket
+   * 
+   * @param {Function} commit
+   */
+  subNewClient({
+    commit,
+    dispatch
+  }) {
+    client.subscribe({
+      query: "tm.event = 'NewBlock'"
+    }, event => {
+      commit("addNewBlock", event.block);
+      dispatch("stake/fetchPool", null, {
+        root: true
+      });
+    });
+  },
+  /**
    * Action to get the blocks list
    * 
    * @param {Function} dispatch 
@@ -28,25 +46,28 @@ export default {
    * Action to fetch a blocks list
    * 
    * @param {Function} commit 
+   * @param {Function} dispatch 
    * @param {number} blocks
    */
   async fetchBlocks({
     commit
-  }, blocks) {
+  }, limit) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
     try {
       const response = await api.requestLastBlock();
-      const height = response.data.block.header.height;
-      //TODO: check if height > 19
-      let min = (blocks && blocks < 19) ?
-        height - blocks :
+      const height = response.data.block.header.height > 19 ? response.data.block.header.height : 20;
+      let min = (limit > 0 && limit < 19) ?
+        height - limit :
         height - 19;
-      let max = height;
-      const res = await api.requestBlockChain(min, max);
-      commit("setBlocks", res.data.result.block_metas);
+      const blocks = [];
+      for (let index = height; index > min; index--) {
+        const res = await api.requestBlock(index);
+        blocks.push(res.data.block);
+      }
+      commit("setBlocks", blocks);
     } catch (error) {
       if (error.response !== undefined) {
         commit("setMessage", error.response.data.error);
@@ -58,24 +79,6 @@ export default {
     } finally {
       commit("stopLoading");
     }
-  },
-  /**
-   * Action to subscribe new block web socket
-   * 
-   * @param {Function} commit
-   */
-  subNewBlock({
-    commit,
-    dispatch
-  }) {
-    client.subscribe({
-      query: "tm.event = 'NewBlock'"
-    }, event => {
-      commit("addNewBlock", event.block);
-      dispatch("stake/fetchPool", null, {
-        root: true
-      });
-    });
   },
   /**
    * 
@@ -140,21 +143,5 @@ export default {
     } finally {
       commit("stopLoading");
     }
-  },
-  /**
-   * Action to subscribe new transaction web socket
-   * 
-   * @param {Function} commit
-   */
-  subNewTx({
-    commit
-  }) {
-    client.subscribe({
-      query: "tm.event = 'Tx'"
-    }, event => {
-      //TODO: remove
-      console.log("TX: ", event);
-      // commit("addNewTransaction", event.tx);
-    });
   }
 };
