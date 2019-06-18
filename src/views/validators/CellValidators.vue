@@ -17,7 +17,8 @@
     <div
       slot="bottom-right-content"
       class="com-font-s14-w400"
-    >100/120</div>
+      v-text="proportion"
+    />
   </DataCell>
 </template>
 
@@ -27,6 +28,8 @@ import DataCell from "Components/common/DataCell.vue";
 import Icon from "vue-awesome/components/Icon.vue";
 import "Assets/img/icons/poll-people";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "CellValidators",
   description: "Display the validators",
@@ -35,8 +38,16 @@ export default {
     Icon
   },
   computed: {
-    isFetching() {
-      return false;
+    ...mapGetters("stake", {
+      validators: "validators",
+      isFetching: "isFetching"
+    }),
+    unjailedValidators() {
+      const unjaileds = this.validators.filter(validator => !validator.jailed);
+      return unjaileds.length;
+    },
+    proportion() {
+      return `${this.unjailedValidators}/${this.validators.length}`;
     }
   }
 };

@@ -24,8 +24,8 @@ export default {
    */
   requestValidators({
     status,
-    page = 1,
-    limit = 20
+    page,
+    limit
   }) {
     return instance.get(API.STAKING_VALIDATORS, {
       params: {

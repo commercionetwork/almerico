@@ -17,7 +17,8 @@
     <div
       slot="bottom-right-content"
       class="com-font-s14-w400"
-    >350,12</div>
+      v-text="height"
+    />
   </DataCell>
 </template>
 
@@ -27,6 +28,8 @@ import DataCell from "Components/common/DataCell.vue";
 import Icon from "vue-awesome/components/Icon.vue";
 import "Assets/img/icons/cubes";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "CellHeight",
   description: "Display the height",
@@ -35,8 +38,12 @@ export default {
     Icon
   },
   computed: {
-    isFetching() {
-      return false;
+    ...mapGetters("tendermint", {
+      blocks: "blocks",
+      isFetching: "isFetching"
+    }),
+    height() {
+      return this.blocks.length > 0 ? this.blocks[0].header.height : "";
     }
   }
 };

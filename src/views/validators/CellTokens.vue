@@ -17,7 +17,8 @@
     <div
       slot="bottom-right-content"
       class="com-font-s14-w400"
-    >120M/240M</div>
+      v-text="proportion"
+    />
   </DataCell>
 </template>
 
@@ -27,6 +28,8 @@ import DataCell from "Components/common/DataCell.vue";
 import Icon from "vue-awesome/components/Icon.vue";
 import "Assets/img/icons/coins";
 
+import { mapGetters } from "vuex";
+
 export default {
   name: "CellTokens",
   description: "Display the bonded tokens",
@@ -35,8 +38,21 @@ export default {
     Icon
   },
   computed: {
-    isFetching() {
-      return false;
+    ...mapGetters("stake", {
+      pool: "pool",
+      isFetching: "isFetching"
+    }),
+    bonded() {
+      return this.pool ? new Number(this.pool.bonded_tokens) : 0;
+    },
+    notBonded() {
+      return this.pool ? new Number(this.pool.not_bonded_tokens) : 0;
+    },
+    totalToken() {
+      return this.bonded + this.notBonded;
+    },
+    proportion() {
+      return `${this.bonded / 1000000000}M/${this.totalToken / 1000000000}M`;
     }
   }
 };
