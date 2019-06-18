@@ -64,12 +64,7 @@ export default {
       });
     },
     height() {
-      return this.block
-        ? this.$n(this.block.header.height, {
-            style: "decimal",
-            maximumFractionDigits: 0
-          })
-        : "";
+      return this.block ? this.block.header.height : "";
     },
     bonded() {
       return this.pool
