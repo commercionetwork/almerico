@@ -9,6 +9,7 @@ import ApplicationLayout from "Components/layout/application/index.vue";
 import ErrorLayout from "Components/layout/error/index.vue";
 import { ROUTE_NAMES, ROUTES } from "Constants";
 import { localizedRoute } from "Utils";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "App",
@@ -17,6 +18,9 @@ export default {
     ErrorLayout
   },
   computed: {
+    ...mapGetters("stake", {
+      validators: "validators"
+    }),
     currentLayout() {
       const errorComponents = [ROUTES.NOT_FOUND, ROUTES.SERVER_UNREACHABLE];
       const routeWithErrorLayout = this.$route.matched.some(match => {
@@ -42,6 +46,18 @@ export default {
           localizedRoute(ROUTE_NAMES.SERVER_UNREACHABLE, this.$i18n.locale)
         );
     }
+  },
+  methods: {
+    ...mapActions("tendermint", {
+      subNewClient: "subNewClient"
+    }),
+    ...mapActions("stake", {
+      getValidators: "getValidators"
+    })
+  },
+  mounted(){
+    if (this.validators.length === 0) this.getValidators({});
+    this.subNewClient();
   }
 };
 </script>

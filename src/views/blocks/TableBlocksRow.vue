@@ -21,7 +21,7 @@
         class="d-inline-block text-truncate"
         style="max-width: 120px;"
         :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, block.header.height)"
-        v-text="block.block_id.hash"
+        v-text="block.last_commit.block_id.hash"
       />
     </td>
     <td class="align-middle">

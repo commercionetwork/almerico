@@ -2,14 +2,7 @@
   <div class="container com-container">
     <SectionHeader :title="$t('titles.blocks')" />
     <div class="py-3 px-5 rounded bg-white">
-      <div
-        v-if="isFetching"
-        v-text="$t('messages.loading')"
-      />
-      <div
-        v-else
-        class="table-responsive"
-      >
+      <div class="table-responsive">
         <table class="table">
           <thead>
             <tr class="text-center com-font-s13-w700">
@@ -23,7 +16,7 @@
           <tbody>
             <TableBlocksRow
               v-for="block in blocks"
-              :key="block.block_id.hash"
+              :key="block.header.height"
               :block="block"
             />
           </tbody>
@@ -37,7 +30,7 @@
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableBlocksRow from "./TableBlocksRow.vue";
 
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Blocks",
@@ -48,28 +41,11 @@ export default {
   },
   computed: {
     ...mapGetters("tendermint", {
-      blocks: "blocks",
-      isFetchingBlocks: "isFetching"
+      allBlocks: "blocks"
     }),
-    ...mapGetters("stake", {
-      validators: "validators",
-      isFetchingValidators: "isFetching"
-    }),
-    isFetching() {
-      return this.isFetchingBlocks || this.isFetchingValidators;
-    },
-  },
-  methods: {
-    ...mapActions("tendermint", {
-      getBlocks: "getBlocks"
-    }),
-    ...mapActions("stake", {
-      getValidators: "getValidators"
-    })
-  },
-  created() {
-    this.getBlocks(9);
-    if (this.validators.length === 0) this.getValidators({});
+    blocks() {
+      return this.allBlocks.slice(0, 19);
+    }
   }
 };
 </script>

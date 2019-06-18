@@ -33,7 +33,7 @@ import CellBlocksRow from "./CellBlocksRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CellBlocks",
@@ -59,13 +59,5 @@ export default {
       };
     }
   },
-  methods: {
-    ...mapActions("tendermint", {
-      getBlocks: "getBlocks"
-    })
-  },
-  created() {
-    if (this.allBlocks.length === 0) this.getBlocks(9);
-  }
 };
 </script>
