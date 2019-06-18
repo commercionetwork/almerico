@@ -58,35 +58,29 @@ export default {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactions() {
-      let transactions = this.allTransactions.slice();
+      let transactions = [...this.allTransactions];
       return transactions
         .sort(function(a, b) {
           return b.height - a.height;
         })
-        .slice(0, 9);
+        .slice(0, 10);
     }
   },
   methods: {
     ...mapActions("tendermint", {
-      updateTransactions: "updateTransactions"
+      fetchTransactions: "fetchTransactions"
     }),
     async getTransactions(types) {
       this.isFetching = true;
-      const limit = 20;
-      let totalTxs = 0;
+      const limit = 10;
       try {
         const response = await api.requestLastBlock();
-        totalTxs = response.data.block.header.total_txs;
-        let lastPage = Math.floor(totalTxs / limit);
+        const totalTxs = response.data.block.header.total_txs;
+        const page = Math.floor(totalTxs / limit) + 1;
         types.forEach(type => {
-          this.updateTransactions({
+          this.fetchTransactions({
             tag: `action=${type}`,
-            page: lastPage > 0 ? lastPage : 1,
-            limit
-          });
-          this.updateTransactions({
-            tag: `action=${type}`,
-            page: lastPage - 1 > 1 ? lastPage - 1 : 1,
+            page,
             limit
           });
         });

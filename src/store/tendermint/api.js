@@ -33,21 +33,6 @@ export default {
     return instance.get(`${API.BLOCKS}/latest`);
   },
   /**
-   *Handle ajax request to get a blocks list
-   *  
-   * @param {number} min 
-   * @param {number} max
-   * @return {Promise}
-   */
-  requestBlockChain(minHeight, maxHeight) {
-    return instance.get(API.BLOCKCHAIN, {
-      params: {
-        minHeight,
-        maxHeight
-      }
-    });
-  },
-  /**
    * Handle ajax request to get a transactions list
    * 
    * @param {string} tag // mandatory

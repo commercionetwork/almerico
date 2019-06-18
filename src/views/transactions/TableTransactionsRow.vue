@@ -81,20 +81,7 @@ export default {
       return this.transaction.logs[0].success ? "success" : "fail";
     },
     time() {
-      let time = "";
-      let seconds = (new Date() - new Date(this.transaction.timestamp)) / 1000;
-      switch (true) {
-        case seconds >= 3600:
-          time = `${(seconds / 3600).toFixed(0)}h`;
-          break;
-        case seconds >= 60:
-          time = `${(seconds / 60).toFixed(0)}m`;
-          break;
-        default:
-          time = `${seconds.toFixed(0)}s`;
-      }
-
-      return `${time} ago`;
+      return new Date(this.transaction.timestamp).toLocaleString();
     },
     type() {
       return this.transaction.tags[0].value;

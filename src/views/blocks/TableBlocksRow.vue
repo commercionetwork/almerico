@@ -52,7 +52,7 @@
       />
       <span
         v-else
-        v-text="getTime(block)"
+        v-text="blockTime"
       />
     </td>
   </tr>
@@ -85,7 +85,10 @@ export default {
   computed: {
     ...mapGetters("stake", {
       validators: "validators"
-    })
+    }),
+    blockTime() {
+      return new Date(this.block.header.time).toLocaleString();
+    }
   },
   methods: {
     async getProposer() {
@@ -110,22 +113,6 @@ export default {
       } finally {
         this.isFetching = false;
       }
-    },
-    getTime(block) {
-      let time = "";
-      let seconds = (new Date() - new Date(block.header.time)) / 1000;
-      switch (true) {
-        case seconds >= 3600:
-          time = `${(seconds / 3600).toFixed(0)}h`;
-          break;
-        case seconds >= 60:
-          time = `${(seconds / 60).toFixed(0)}m`;
-          break;
-        default:
-          time = `${seconds.toFixed(0)}s`;
-      }
-
-      return `${time} ago`;
     },
     toDetails(name, id) {
       return {

@@ -30,24 +30,6 @@ export default {
     state.message = message;
   },
   /**
-   * Set blocks data
-   * 
-   * @param {TendermintState} state 
-   * @param {Array} data 
-   */
-  setBlocks(state, data) {
-    state.blocks = data;
-  },
-  /**
-   * Add blocks data
-   * 
-   * @param {TendermintState} state 
-   * @param {Array} data 
-   */
-  addBlocks(state, data) {
-    state.blocks.push(...data);
-  },
-  /**
    * Add block to blocks list
    * 
    * @param {TendermintState} state 
@@ -68,32 +50,12 @@ export default {
     state.lastBlock = data;
   },
   /**
-   * Set transactions data
-   * 
-   * @param {TendermintState} state 
-   * @param {Array} data 
-   */
-  setTransactions(state, data) {
-    state.transactions = data;
-  },
-  /**
    * Add transactions data
    *
    * @param {TendermintState} state
-   * @param {Array} data
+   * @param {Array.<Transaction>} data
    */
   addTransactions(state, data) {
     state.transactions.push(...data);
-  },
-  /**
-   * Add transaction to transactions list
-   * 
-   * @param {TendermintState} state 
-   * @param {Transaction} data 
-   */
-  addNewTransaction(state, data) {
-    const transactions = [...state.transactions];
-    state.transactions.length = 0;
-    state.transactions.push(data, ...transactions);
-  },
+  }
 };
