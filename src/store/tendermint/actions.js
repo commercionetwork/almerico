@@ -31,7 +31,9 @@ export default {
       dispatch("stake/fetchPool", null, {
         root: true
       });
-      if (block.header.num_txs * 1 > 0) dispatch("updateTransactions", block.header.height);
+      if (block.header.num_txs * 1 > 0) {
+        dispatch("updateTransactions", block.header.height);
+      }
     });
   },
   /**

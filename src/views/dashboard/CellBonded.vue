@@ -50,19 +50,19 @@ export default {
             data: [
               {
                 x: 0,
-                y: 1
+                y: 0.67
               },
               {
                 x: 8,
-                y: 1
+                y: 0.67
               },
               {
                 x: 16,
-                y: 1
+                y: 0.67
               },
               {
                 x: 24,
-                y: 1
+                y: 0.67
               }
             ],
             backgroundColor: "#38BA8C",
@@ -110,15 +110,18 @@ export default {
     notBonded() {
       return this.pool ? new Number(this.pool.not_bonded_tokens) : 0;
     },
+    totalToken() {
+      return this.bonded + this.notBonded;
+    },
     percent() {
-      return this.$n(this.bonded / this.notBonded, {
+      return this.$n(this.bonded / this.totalToken, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
     },
     proportion() {
-      return `${this.bonded / 1000000000}M/${this.notBonded / 1000000000}M`;
+      return `${this.bonded / 1000000000}M/${this.totalToken / 1000000000}M`;
     }
   }
 };
