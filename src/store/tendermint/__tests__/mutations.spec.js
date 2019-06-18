@@ -33,7 +33,7 @@ describe("store/tendermint/mutations", () => {
 
   it("Check mutations.setMessage", () => {
     const message = "mutations.setMessage error";
-    
+
     mutations.setMessage(state, message);
 
     expect(state.message).toEqual(message);
@@ -92,6 +92,16 @@ describe("store/tendermint/mutations", () => {
     mutations.addNewBlock(state, data);
 
     expect(state.blocks).toEqual(expectBlocks);
+  });
+
+  it("Check mutations.setLastBlock", () => {
+    const data = {
+      id: 1
+    };
+
+    mutations.setLastBlock(state, data);
+
+    expect(state.lastBlock).toEqual(data);
   });
 
   it("Check mutations.setTransactions", () => {

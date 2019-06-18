@@ -3,6 +3,7 @@
  */
 /** @typedef {Object} TendermintState
  * @property {Array.<Block>} blocks
+ * @property {Block} lastBlock
  * @property {Array.<Transaction>} transactions
  * @property {boolean} isFetching
  * @property {String} message

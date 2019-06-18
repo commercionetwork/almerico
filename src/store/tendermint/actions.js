@@ -26,6 +26,7 @@ export default {
       query: "tm.event = 'NewBlock'"
     }, event => {
       commit("addNewBlock", event.block);
+      commit("setLastBlock", event.block);
       dispatch("stake/fetchPool", null, {
         root: true
       });

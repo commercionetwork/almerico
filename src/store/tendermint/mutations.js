@@ -59,6 +59,15 @@ export default {
     state.blocks.push(data, ...blocks);
   },
   /**
+   * Set last block
+   * 
+   * @param {TendermintState} state 
+   * @param {Block} data 
+   */
+  setLastBlock(state, data) {
+    state.lastBlock = data;
+  },
+  /**
    * Set transactions data
    * 
    * @param {TendermintState} state 

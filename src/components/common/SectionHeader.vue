@@ -3,37 +3,30 @@
     <div class="col-12 col-md-4">
       <h1
         class="text-uppercase com-font-s20-w800"
-        v-html="title"
+        v-text="title"
       />
     </div>
     <div class="col-12 col-md-8">
-      <div
-        v-if="isFetching"
-        v-text="$t('messages.loading')"
-      />
-      <div
-        v-else
-        class="row mx-auto p-1 w-100 rounded bg-white"
-      >
+      <div class="row mx-auto p-1 w-100 rounded bg-white">
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
           <span class="com-font-s14-w700">Price:</span>
           <span
             class="pl-1 com-font-s14-w400"
-            v-html="formattedPrice"
+            v-text="price"
           />
         </div>
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
           <span class="com-font-s14-w700">Height:</span>
           <span
             class="pl-1 com-font-s14-w400"
-            v-html="formattedHeight"
+            v-text="height"
           />
         </div>
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
           <span class="com-font-s14-w700">Bonded:</span>
           <span
             class="pl-1 com-font-s14-w400"
-            v-html="formattedBonded"
+            v-text="bonded"
           />
         </div>
       </div>
@@ -42,8 +35,7 @@
 </template>
 
 <script>
-import stakeApi from "Store/stake/api";
-import tendermintApi from "Store/tendermint/api";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SectionHeader",
@@ -55,70 +47,38 @@ export default {
       note: "The section's title"
     }
   },
-  data() {
-    return {
-      bonded: 0,
-      height: 0,
-      isFetchingBonded: false,
-      isFetchingHeight: false
-    };
-  },
   computed: {
-    formattedPrice() {
-      let currencyIsoCode = this.price.iso_code ? this.price.iso_code : "EUR";
-      return this.$n(this.price.value, {
+    ...mapGetters("stake", {
+      pool: "pool"
+    }),
+    ...mapGetters("tendermint", {
+      block: "lastBlock"
+    }),
+    price() {
+      //TODO: remove hard coded value
+      let price = { value: 1, iso_code: "EUR" };
+      return this.$n(price.value, {
         style: "currency",
-        currency: currencyIsoCode,
+        currency: price.iso_code,
         currencyDisplay: "symbol"
       });
     },
-    formattedHeight() {
-      return this.$n(this.height, {
-        style: "decimal",
-        maximumFractionDigits: 0
-      });
+    height() {
+      return this.block
+        ? this.$n(this.block.header.height, {
+            style: "decimal",
+            maximumFractionDigits: 0
+          })
+        : "";
     },
-    formattedBonded() {
-      return this.$n(this.bonded, {
-        style: "decimal",
-        maximumFractionDigits: 0
-      });
-    },
-    isFetching() {
-      return this.isFetchingBonded || this.isFetchingHeight;
-    },
-    //TODO: remove || get real value
-    price() {
-      return { value: 1, iso_code: "EUR" };
+    bonded() {
+      return this.pool
+        ? this.$n(this.pool.bonded_tokens, {
+            style: "decimal",
+            maximumFractionDigits: 0
+          })
+        : "";
     }
-  },
-  methods: {
-    async getBonded() {
-      this.isFetchingBonded = true;
-      try {
-        const response = await stakeApi.requestPool();
-        this.bonded = response.data.bonded_tokens;
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.isFetchingBonded = false;
-      }
-    },
-    async getHeight() {
-      this.isFetchingHeight = true;
-      try {
-        const response = await tendermintApi.requestLastBlock();
-        this.height = response.data.block.header.height;
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.isFetchingHeight = false;
-      }
-    }
-  },
-  created() {
-    this.getBonded();
-    this.getHeight();
   }
 };
 </script>
