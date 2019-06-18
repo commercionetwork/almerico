@@ -17,10 +17,40 @@
         </div>
       </div>
       <hr>
-      <TableValidators
-        :validators="validators"
-        :isFetching="isFetching"
+      <div class="row py-1 d-flex justify-content-between">
+        <div class="col-12 col-md-8 offset-md-4">
+          <SearchValidator />
+        </div>
+      </div>
+      <div
+        v-if="isFetching"
+        v-text="$t('messages.loading')"
       />
+      <div
+        v-else
+        class="table-responsive"
+      >
+        <table class="table">
+          <thead>
+            <tr class="text-center com-font-s13-w700">
+              <th scope="col">Rank</th>
+              <th scope="col">Validator</th>
+              <th scope="col">Voting power</th>
+              <th scope="col">% Cumulative share</th>
+              <th scope="col">Commission</th>
+              <th scope="col">UpTime</th>
+            </tr>
+          </thead>
+          <tbody>
+            <TableValidatorsRow
+              v-for="(validator, index) in validators"
+              :key="index"
+              :validator="validator"
+              :rank="index"
+            />
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -31,10 +61,10 @@ import CellTime from "./CellTime.vue";
 import CellTokens from "./CellTokens.vue";
 import CellValidators from "./CellValidators.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
-import TableValidators from "./TableValidators.vue";
+import SearchValidator from "./SearchValidator.vue";
+import TableValidatorsRow from "./TableValidatorsRow.vue";
 
-import api from "Store/tendermint/api";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Validators",
@@ -45,52 +75,20 @@ export default {
     CellTokens,
     CellValidators,
     SectionHeader,
-    TableValidators
-  },
-  data() {
-    return {
-      loadingValidatorSets: false,
-      validatorSets: []
-    };
+    SearchValidator,
+    TableValidatorsRow
   },
   computed: {
     ...mapGetters("stake", {
-      loadingValidators: "isFetching",
+      isFetching: "isFetching",
       allValidators: "validators"
     }),
-    isFetching() {
-      return this.loadingValidators || this.loadingValidatorSets;
-    },
     validators() {
-      return this.allValidators.length > 0 && this.validatorSets.length > 0
-        ? this.allValidators.map(validator => {
-            validator.voting_power = this.validatorSets.find(
-              x => x.consensus_pubkey === validator.pub_key
-            ).voting_power;
-            return validator;
-          })
-        : [];
+      const validators = [...this.allValidators];
+      return validators.sort(function(a, b) {
+        return b.tokens - a.tokens;
+      });
     }
-  },
-  methods: {
-    ...mapActions("stake", {
-      getValidators: "getValidators"
-    }),
-    async getValidatorSets() {
-      this.loadingValidatorSets = true;
-      try {
-        const response = await api.requestValidatorsetsLatest();
-        this.validatorSets = response.data.validators;
-      } catch (error) {
-        console.log("Get validator sets: ", error);
-      } finally {
-        this.loadingValidatorSets = false;
-      }
-    }
-  },
-  created() {
-    if (this.allValidators.length === 0) this.getValidators({ limit: 10 });
-    if (this.validatorSets.length === 0) this.getValidatorSets();
   }
 };
 </script>
