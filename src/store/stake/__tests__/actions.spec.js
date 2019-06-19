@@ -27,11 +27,12 @@ describe("store/stake/actions", () => {
     });
   });
 
-  it("Check if 'actions.fetchValidators' sets validators", async () => {
+  it("Check if 'actions.fetchValidators' sets validators", async (done) => {
     //TODO: implement
+    done();
   });
 
-  it("Check if 'actions.fetchValidators' has an error", async () => {
+  it("Check if 'actions.fetchValidators' has an error", async (done) => {
     const commit = jest.fn();
     mockError = true;
 
@@ -40,9 +41,10 @@ describe("store/stake/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+    done();
   });
 
-  it("Check 'actions.fetchValidators' when server is unreachable", async () => {
+  it("Check 'actions.fetchValidators' when server is unreachable", async (done) => {
     const commit = jest.fn();
     mockErrorServer = true;
 
@@ -53,9 +55,10 @@ describe("store/stake/actions", () => {
     expect(commit).toBeCalledWith("setServerReachability", false, {
       root: true
     });
+    done();
   });
 
-  it("Check if 'actions.fetchPool' sets pool", async () => {
+  it("Check if 'actions.fetchPool' sets pool", async (done) => {
     const commit = jest.fn();
 
     await actions.fetchPool({
@@ -63,9 +66,10 @@ describe("store/stake/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("setPool", mockResponse.data);
+    done();
   });
 
-  it("Check if 'actions.fetchPool' has an error", async () => {
+  it("Check if 'actions.fetchPool' has an error", async (done) => {
     const commit = jest.fn();
     mockError = true;
 
@@ -74,9 +78,10 @@ describe("store/stake/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+    done();
   });
 
-  it("Check 'actions.fetchPool' when server is unreachable", async () => {
+  it("Check 'actions.fetchPool' when server is unreachable", async (done) => {
     const commit = jest.fn();
     mockErrorServer = true;
 
@@ -87,6 +92,7 @@ describe("store/stake/actions", () => {
     expect(commit).toBeCalledWith("setServerReachability", false, {
       root: true
     });
+    done();
   });
 });
 

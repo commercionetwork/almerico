@@ -7,7 +7,10 @@ import directives from "Setup/directives";
 import "bootstrap";
 import "Setup/navigationGuard";
 
-require('dotenv').config();
+const result = require('dotenv').config({ debug: process.env.DEBUG });
+if (result.error) {
+  throw result.error;
+}
 
 Vue.config.productionTip = false;
 

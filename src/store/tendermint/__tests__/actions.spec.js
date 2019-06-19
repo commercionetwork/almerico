@@ -15,7 +15,7 @@ describe("store/tendermint/actions", () => {
     mockResponse = null;
   });
 
-  it("Check if 'actions.fetchTransactions' updates transactions", async () => {
+  it("Check if 'actions.fetchTransactions' updates transactions", async (done) => {
     const commit = jest.fn();
 
     await actions.fetchTransactions({
@@ -23,9 +23,10 @@ describe("store/tendermint/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("addTransactions", mockResponse.data);
+    done();
   });
 
-  it("Check if 'actions.fetchTransactions' has an error", async () => {
+  it("Check if 'actions.fetchTransactions' has an error", async (done) => {
     const commit = jest.fn();
     mockError = true;
 
@@ -34,9 +35,10 @@ describe("store/tendermint/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+    done();
   });
 
-  it("Check 'actions.fetchTransactions' when server is unreachable", async () => {
+  it("Check 'actions.fetchTransactions' when server is unreachable", async (done) => {
     const commit = jest.fn();
     mockErrorServer = true;
 
@@ -47,6 +49,7 @@ describe("store/tendermint/actions", () => {
     expect(commit).toBeCalledWith("setServerReachability", false, {
       root: true
     });
+    done();
   });
 });
 
