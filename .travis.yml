@@ -9,9 +9,6 @@ services:
 install:
   - npm install
 
-script: 
-  - npm test
-
 after_success:
   - docker build -t $DOCKER_IMAGE .
 
