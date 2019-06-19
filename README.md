@@ -83,6 +83,20 @@ To test the code base, you can run
 npm run test
 ```
 
+## Using Docker
+### Build the Docker image
+```shell
+docker build -t almerico .
+```
+
+## Use the Docker image
+```shell
+docker run --rm -d --name almerico \
+  -e VUE_APP_LCD=<LCD_URL> \
+  -e VUE_APP_RPC=<VUE_APP_RPC > \
+  almerico
+```
+
 ## Customize the Vue.js CLI configuration
 In order to properly customize the Vue.js CLI configuration please refer to 
 the [official configuration page](https://cli.vuejs.org/config/).

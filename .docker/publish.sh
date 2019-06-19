@@ -1,0 +1,1 @@
+docker push $DOCKER_IMAGE
