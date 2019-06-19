@@ -1,5 +1,6 @@
 import {
-  API, WS
+  API,
+  WS
 } from "./api";
 import {
   PREFIX
