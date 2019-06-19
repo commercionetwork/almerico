@@ -17,6 +17,6 @@ after_success:
 
 deploy:
   provider: script
-  script: .docker/publish.sh
+  script: docker push $DOCKER_IMAGE
   on:
     branch: development
