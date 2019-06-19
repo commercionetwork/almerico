@@ -109,15 +109,15 @@ export default {
     votingPower() {
       let power = this.$n(this.validator.tokens / 1000000, {
         style: "decimal",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
       });
       let percent = this.validator.tokens / this.bonded;
       return `${this.$n(percent, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-      })} (${power})`;
+      })} (${power} COMM)`;
     }
   },
   methods: {

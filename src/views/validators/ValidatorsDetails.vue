@@ -18,7 +18,7 @@
       />
       <div v-else>
         <div>
-          <!-- <ValidatorDetailsHeader :validator="validator" /> -->
+          <ValidatorDetailsHeader :validator="validator" />
         </div>
         <div class="mt-3">
           <!-- <ValidatorDetailsDelegated :validator="validator" /> -->
