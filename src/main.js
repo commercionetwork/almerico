@@ -7,7 +7,9 @@ import directives from "Setup/directives";
 import "bootstrap";
 import "Setup/navigationGuard";
 
-Vue.config.productionTip = false
+require('dotenv').config();
+
+Vue.config.productionTip = false;
 
 // Add directive "v-click-outside" on element outside click
 Vue.directive("click-outside", directives.clickOutside);
@@ -17,4 +19,4 @@ new Vue({
   store,
   i18n,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');

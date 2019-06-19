@@ -28,4 +28,4 @@ WORKDIR /app
 RUN mv tmp/dist dist && rm -fr tmp
 
 # Start the server
-CMD [ "serve", "--single", "dist" ]
+ENTRYPOINT [ "serve", "--single", "dist" ]
