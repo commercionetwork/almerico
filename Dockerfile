@@ -1,13 +1,5 @@
 FROM node:12.3.1
 
-# Read the set variables
-ARG vue_app_lcd
-ARG vue_app_rpc
-
-# Copy all arguments into the environment variables
-ENV  VUE_APP_LCD ${vue_app_lcd}
-ENV  VUE_APP_RPC ${vue_app_rpc}
-
 # Set unsafe perm in order to avoid npm errors
 RUN npm config set unsafe-perm true
 
