@@ -76,11 +76,17 @@ export default {
       });
     },
     powerPercent() {
-      return this.$n(this.validator.tokens / this.bonded, {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      let percent =
+        this.validator.tokens && this.bonded
+          ? this.validator.tokens / this.bonded
+          : 0;
+      return percent > 0
+        ? this.$n(percent, {
+            style: "percent",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })
+        : "- %";
     }
   },
   methods: {

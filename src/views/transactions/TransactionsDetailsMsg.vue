@@ -39,6 +39,11 @@ export default {
       type: Object,
       required: true,
       note: "Object representing the messages to display"
+    },
+    txType: {
+      type: String,
+      required: true,
+      note: "The transaction type"
     }
   },
   data() {
@@ -48,14 +53,13 @@ export default {
   },
   computed: {
     msgAmount() {
-      let comm = this.$n(
-        this.message.value.amount[0].amount / 1000000,
-        {
-          style: "decimal",
-          minimumFractionDigits: 6,
-          maximumFractionDigits: 6
-        }
-      );
+      let comm = this.message.value.amount
+        ? this.$n(this.message.value.amount[0].amount / 1000000, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+          })
+        : 0;
       return `${comm} COMM`;
     },
     msgFrom() {

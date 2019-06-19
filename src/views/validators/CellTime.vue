@@ -17,7 +17,7 @@
     <div
       slot="bottom-right-content"
       class="com-font-s14-w400"
-      v-text="getTime()"
+      v-text="time"
     />
   </DataCell>
 </template>
@@ -43,13 +43,8 @@ export default {
       isFetching: "isFetching"
     }),
     time() {
-      return this.blocks.length > 0 ? this.blocks[0].header.time : "";
-    }
-  },
-  methods: {
-    getTime() {
-      let time = "";
-      let seconds = (new Date() - new Date(this.time)) / 1000;
+      let time = this.blocks.length > 0 ? this.blocks[0].header.time : null;
+      let seconds = time ? (new Date() - new Date(time)) / 1000 : 0;
       switch (true) {
         case seconds >= 3600:
           time = `${(seconds / 3600).toFixed(0)}h`;
@@ -60,7 +55,8 @@ export default {
         default:
           time = `${seconds.toFixed(0)}s`;
       }
-      return time;
+
+      return time ? `Last ${time} ago` : "";
     }
   }
 };
