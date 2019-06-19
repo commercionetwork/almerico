@@ -19,4 +19,4 @@ deploy:
   provider: script
   script: .docker/publish.sh
   on:
-    branch: master
+    branch: development
