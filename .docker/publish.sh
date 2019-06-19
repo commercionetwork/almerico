@@ -1,2 +1,2 @@
 #!/bin/bash
-docker push $DOCKER_IMAGE
+docker push "$DOCKER_IMAGE"
