@@ -18,9 +18,6 @@ RUN npm install
 # Copy project files and folders to the working directory
 COPY . .
 
-# Delete all the env files as the variables will be set when running
-RUN rm *.env
-
 # build for production with minification
 RUN npm run build
 
