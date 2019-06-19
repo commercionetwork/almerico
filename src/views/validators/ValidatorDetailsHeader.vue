@@ -27,7 +27,7 @@
         />
         <span
           class="text-break com-font-s14-w400"
-          v-text="validator.consensus_pubkey"
+          v-text="pubKey"
         />
         <span
           class="pt-1 com-font-s14-w700"
@@ -76,7 +76,8 @@
 </template>
 
 <script>
-import { ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES, PREFIX } from "Constants";
+import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -95,6 +96,11 @@ export default {
     }),
     status() {
       return this.validator.status === 2 ? "Active" : "Inactive";
+    },
+    pubKey() {
+      let hexValue = bech32Manager.decode(this.validator.operator_address);
+      console.log(hexValue);
+      return bech32Manager.encode(hexValue, PREFIX.COMNET);
     },
     commission() {
       return this.$n(this.validator.commission.rate * 1, {
