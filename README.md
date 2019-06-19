@@ -11,19 +11,16 @@ Commercio.network explorer.
 
 
 ## Building
+### 1. Install dependencies
 In order to properly build the project, first you have to download all of its dependencies. To do so, please run
 
 ```bash
 npm install
 ``` 
 
-### Development
-In order to run this project as a developer with the hot reload option enabled you have to: 
+### 2. Setup environments variables
+Inside the `.env` file assign the proper values to the written variables:
 
-#### Setup
-**1.** Create a file named `.env.development.local` inside the project root folder.
- 
-**2.** Inside the `.env.development.local` file write the following data:
 ```
 VUE_APP_LCD=<YOUR_LCD_ULR>
 VUE_APP_RPC=<YOUR_RPC_URL>
@@ -31,44 +28,21 @@ VUE_APP_WS=<YOUR_WS_URL>
 ```
   
 Example
-
 ```
 VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
 VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
 VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
 ```
 
-#### Running
-In order to run the project, simply execute the `npm serve` command.  
+### 3. Run
+#### Development
+In order to run the project, simply execute the `npm run serve` command.  
 This will start a local web server and publish a web page to http://localhost:8080. 
 
-### Production
-#### Setup
-In order to properly setup the production environment, you have to set the following environment variables:
-* `VUE_APP_LCD`
-* `VUE_APP_RPC`
-* `VUE_APP_WS`
+#### Production
+In order to build the project run `npm run build`.  
+This will create a `dist` folder that you can serve using your favourite method. 
 
-In order to do so, for each variable run the following command: 
-* `set <VARIABLE_NAME>=<VARIABLE_VALUE>` for Windows-based environments
-* `export <VARIABLE_NAME>=<VARIABLE_VALUE>` for Unix-based environments
-
-E.g.
-
-```
-# On Windows
-set VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
-set VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
-set VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
-
-# On Linux or MAC
-export VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
-export VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
-export VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
-``` 
-
-#### Building
-In order tto build the project run `npm build`.
 
 ## Performing link checks and fixes 
 In order to perform a lint check on all your files and fix any problem, you can run the following command.
