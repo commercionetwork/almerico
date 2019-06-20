@@ -99,7 +99,6 @@ export default {
     },
     pubKey() {
       let hexValue = bech32Manager.decode(this.validator.operator_address);
-      console.log(hexValue);
       return bech32Manager.encode(hexValue, PREFIX.COMNET);
     },
     commission() {
