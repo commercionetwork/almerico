@@ -102,7 +102,7 @@ export default {
       return bech32Manager.encode(hexValue, PREFIX.COMNET);
     },
     commission() {
-      return this.$n(this.validator.commission.rate * 1, {
+      return this.$n(parseFloat(this.validator.commission.rate), {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2

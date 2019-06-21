@@ -1,8 +1,5 @@
 <template>
-  <DataCell
-    :isFetching="isFetching"
-    height="75"
-  >
+  <DataCell height="75">
     <div slot="top-left-content">
       <span>
         <Icon
@@ -39,8 +36,7 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool",
-      isFetching: "isFetching"
+      pool: "pool"
     }),
     bonded() {
       return this.pool ? new Number(this.pool.bonded_tokens) : 0;

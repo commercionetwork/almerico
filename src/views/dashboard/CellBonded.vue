@@ -1,5 +1,5 @@
 <template>
-  <DataCell :isFetching="isFetching">
+  <DataCell>
     <div
       slot="top-left-content"
       class="com-font-s13-w400"
@@ -101,8 +101,7 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool",
-      isFetching: "isFetching"
+      pool: "pool"
     }),
     bonded() {
       return this.pool ? new Number(this.pool.bonded_tokens) : 0;
@@ -114,7 +113,9 @@ export default {
       return this.bonded + this.notBonded;
     },
     percent() {
-      return this.$n(this.bonded / this.totalToken, {
+      let value =
+        this.bonded && this.totalToken ? this.bonded / this.totalToken : 0;
+      return this.$n(value, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2

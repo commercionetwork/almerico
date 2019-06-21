@@ -60,22 +60,25 @@ export default {
       allTransactions: "transactions"
     }),
     transactions() {
-      let transactions = [...this.allTransactions];
+      let transactions = this.uniqBy(this.allTransactions, JSON.stringify);
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
-    },
+    }
   },
   methods: {
     ...mapActions("tendermint", {
       fetchTransactions: "fetchTransactions"
     }),
+    uniqBy(a, key) {
+      return [...new Map(a.map(x => [key(x), x])).values()];
+    },
     async getTransactions(types) {
       this.isFetching = true;
-      const limit = 10;
+      const limit = 20;
       try {
         const response = await api.requestLastBlock();
-        const totalTxs = response.data.block.header.total_txs;
+        const totalTxs = parseInt(response.data.block.header.total_txs);
         const page = Math.floor(totalTxs / limit) + 1;
         types.forEach(type => {
           this.fetchTransactions({
@@ -83,6 +86,13 @@ export default {
             page,
             limit
           });
+          if (page > 1) {
+            this.fetchTransactions({
+              tag: `action=${type}`,
+              page: page - 1,
+              limit
+            });
+          }
         });
       } catch (error) {
         console.log(error);

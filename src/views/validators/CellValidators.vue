@@ -1,8 +1,5 @@
 <template>
-  <DataCell
-    :isFetching="isFetching"
-    height="75"
-  >
+  <DataCell height="75">
     <div slot="top-left-content">
       <span>
         <Icon
@@ -39,8 +36,7 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      validators: "validators",
-      isFetching: "isFetching"
+      validators: "validators"
     }),
     unjailedValidators() {
       const unjaileds = this.validators.filter(validator => !validator.jailed);

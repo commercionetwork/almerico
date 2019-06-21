@@ -78,7 +78,7 @@ export default {
       const limit = 10;
       try {
         const response = await api.requestLastBlock();
-        const totalTxs = response.data.block.header.total_txs;
+        const totalTxs = parseInt(response.data.block.header.total_txs);
         const page = Math.floor(totalTxs / limit) + 1;
         types.forEach(type => {
           this.fetchTransactions({
