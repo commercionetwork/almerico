@@ -10,7 +10,7 @@
       <router-link
         :to="toDetails(ROUTE_NAMES.TRANSACTIONS_DETAILS, transaction.txhash)"
         v-text="transaction.txhash"
-        class="d-inline-block text-truncate"
+        class="d-block text-truncate"
         style="max-width: 120px;"
       />
     </td>

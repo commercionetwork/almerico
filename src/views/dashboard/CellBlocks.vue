@@ -48,7 +48,7 @@ export default {
       isFetching: "isFetching"
     }),
     blocks() {
-      return this.allBlocks.slice(0, 9);
+      return this.allBlocks.slice(0, 10);
     },
     linkToBlocks() {
       return {
