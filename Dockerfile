@@ -1,4 +1,4 @@
-FROM node:12.3.1
+FROM node:12.4.0
 
 # Set unsafe perm in order to avoid npm errors
 RUN npm config set unsafe-perm true
