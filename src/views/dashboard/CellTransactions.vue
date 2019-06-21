@@ -58,7 +58,7 @@ export default {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactions() {
-      let transactions = [...this.allTransactions];
+      let transactions = this.removeDuplicates(this.allTransactions, "txhash");
       return transactions
         .sort(function(a, b) {
           return b.height - a.height;
@@ -70,6 +70,11 @@ export default {
     ...mapActions("tendermint", {
       fetchTransactions: "fetchTransactions"
     }),
+    removeDuplicates(myArr, prop) {
+      return myArr.filter((obj, pos, arr) => {
+        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+      });
+    },
     async getTransactions(types) {
       this.isFetching = true;
       const limit = 10;
@@ -83,6 +88,13 @@ export default {
             page,
             limit
           });
+          if (page > 1) {
+            this.fetchTransactions({
+              tag: `action=${type}`,
+              page: page - 1,
+              limit
+            });
+          }
         });
       } catch (error) {
         console.log(error);
