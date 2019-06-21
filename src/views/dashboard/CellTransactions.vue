@@ -58,7 +58,7 @@ export default {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactions() {
-      let transactions = this.removeDuplicates(this.allTransactions, "txhash");
+      let transactions = this.uniqBy(this.allTransactions, JSON.stringify);
       return transactions
         .sort(function(a, b) {
           return b.height - a.height;
@@ -70,10 +70,8 @@ export default {
     ...mapActions("tendermint", {
       fetchTransactions: "fetchTransactions"
     }),
-    removeDuplicates(myArr, prop) {
-      return myArr.filter((obj, pos, arr) => {
-        return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
-      });
+    uniqBy(a, key) {
+      return [...new Map(a.map(x => [key(x), x])).values()];
     },
     async getTransactions(types) {
       this.isFetching = true;
