@@ -33,9 +33,9 @@ VUE_APP_WS=<YOUR_WS_URL>
 Example
 
 ```
-VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
-VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
-VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
+VUE_APP_LCD=https://lcd.com
+VUE_APP_RPC=https://rpc.com
+VUE_APP_WS=ws://rpc.com
 ```
 
 #### Running
@@ -44,28 +44,22 @@ This will start a local web server and publish a web page to http://localhost:80
 
 ### Production
 #### Setup
-In order to properly setup the production environment, you have to set the following environment variables:
-* `VUE_APP_LCD`
-* `VUE_APP_RPC`
-* `VUE_APP_WS`
-
-In order to do so, for each variable run the following command: 
-* `set <VARIABLE_NAME>=<VARIABLE_VALUE>` for Windows-based environments
-* `export <VARIABLE_NAME>=<VARIABLE_VALUE>` for Unix-based environments
-
-E.g.
+**1.** Create a file named `.env.production` inside the project root folder.
+ 
+**2.** Inside the `.env.production` file write the following data:
+```
+VUE_APP_LCD=<YOUR_LCD_ULR>
+VUE_APP_RPC=<YOUR_RPC_URL>
+VUE_APP_WS=<YOUR_WS_URL>
+```
+  
+Example
 
 ```
-# On Windows
-set VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
-set VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
-set VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
-
-# On Linux or MAC
-export VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
-export VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
-export VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
-``` 
+VUE_APP_LCD=https://lcd.com
+VUE_APP_RPC=https://rpc.com
+VUE_APP_WS=ws://rpc.com
+```
 
 #### Building
 In order tto build the project run `npm build`.
@@ -86,15 +80,12 @@ npm run test
 ## Using Docker
 ### Build the Docker image
 ```shell
-docker build -t almerico .
+docker build -t almerico --build-arg vue_app_lcd=<VUE_APP_LCD> --build-arg vue_app_rpc=<VUE_APP_RPC> --build-arg vue_app_ws=<VUE_APP_WS> .
 ```
 
 ## Use the Docker image
 ```shell
-docker run --rm -d --name almerico \
-  -e VUE_APP_LCD=<LCD_URL> \
-  -e VUE_APP_RPC=<VUE_APP_RPC > \
-  almerico
+docker run --name almerico --rm almerico 
 ```
 
 ## Customize the Vue.js CLI configuration
