@@ -5,7 +5,7 @@
       <div class="row">
         <div
           class="col-12 col-md-6 p-1"
-          v-for="voting in votings.slice().reverse()"
+          v-for="voting in votings"
           :key="voting.id"
         >
           <CellVoting :voting="voting" />
@@ -19,9 +19,6 @@
 import CellVoting from "./CellVoting.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
-//TODO: remove
-import { mockVotings } from "Store/votings/__mocks__/votings";
-
 export default {
   name: "Votings",
   description: "Container for votings' section",
@@ -31,7 +28,7 @@ export default {
   },
   computed: {
     votings() {
-      return mockVotings();
+      return [];
     }
   }
 };
