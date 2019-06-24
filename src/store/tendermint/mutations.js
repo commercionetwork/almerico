@@ -39,15 +39,6 @@ export default {
     state.blocks.push(data);
   },
   /**
-   * Add blocks data
-   *
-   * @param {TendermintState} state
-   * @param {Array.<Block>} data
-   */
-  addBlocks(state,data) {
-    state.blocks.push(...data);
-  },
-  /**
    * Set last block
    * 
    * @param {TendermintState} state 
