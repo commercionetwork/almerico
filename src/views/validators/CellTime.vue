@@ -1,29 +1,25 @@
 <template>
-  <DataCell
-    :isFetching="isFetching"
-    height="75"
-  >
-    <div slot="top-left-content">
+  <HeaderCell :chart='false'>
+    <div slot="header">
       <span>
         <Icon
           name="history"
           scale="1"
         />
       </span>
-      <span class="pl-1 com-font-s13-w400">Block time</span>
+      <span
+        class="pl-1"
+        v-text="'Block time'"
+      />
     </div>
-    <div slot="bottom-left-content">&nbsp;</div>
-    <div slot="top-right-content">&nbsp;</div>
-    <div
-      slot="bottom-right-content"
-      class="com-font-s14-w400"
-      v-text="time"
-    />
-  </DataCell>
+    <div slot="body">
+      <span v-text="time" />
+    </div>
+  </HeaderCell>
 </template>
 
 <script>
-import DataCell from "Components/common/DataCell.vue";
+import HeaderCell from "Components/common/HeaderCell.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
 import "Assets/img/icons/history";
@@ -34,16 +30,15 @@ export default {
   name: "CellTime",
   description: "Display the block time",
   components: {
-    DataCell,
+    HeaderCell,
     Icon
   },
   computed: {
     ...mapGetters("tendermint", {
-      blocks: "blocks",
-      isFetching: "isFetching"
+      block: "lastBlock"
     }),
     time() {
-      let time = this.blocks.length > 0 ? this.blocks[0].header.time : null;
+      let time = this.block ? this.block.header.time : null;
       let seconds = time ? (new Date() - new Date(time)) / 1000 : 0;
       switch (true) {
         case seconds >= 3600:
