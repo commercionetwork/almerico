@@ -52,10 +52,12 @@ export default {
       subNewClient: "subNewClient"
     }),
     ...mapActions("stake", {
+      fetchPool: "fetchPool",
       getValidators: "getValidators"
     })
   },
   mounted(){
+    this.fetchPool();
     if (this.validators.length === 0) this.getValidators({});
     this.subNewClient();
   }
