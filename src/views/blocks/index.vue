@@ -30,7 +30,8 @@
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableBlocksRow from "./TableBlocksRow.vue";
 
-import { mapGetters } from "vuex";
+import { arrayManager } from "Utils";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Blocks",
@@ -44,8 +45,21 @@ export default {
       allBlocks: "blocks"
     }),
     blocks() {
-      return this.allBlocks.slice(0, 19);
+      const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
+      return blocks
+        .sort(function(a, b) {
+          return b.header.height - a.header.height;
+        })
+        .slice(0, 20);
     }
+  },
+  methods: {
+    ...mapActions("tendermint", {
+      fetchBlocks: "fetchBlocks"
+    })
+  },
+  created() {
+    this.fetchBlocks(20);
   }
 };
 </script>
