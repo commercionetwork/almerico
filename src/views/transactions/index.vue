@@ -41,6 +41,7 @@ import TableTransactionsRow from "./TableTransactionsRow.vue";
 
 import api from "Store/tendermint/api";
 import { TX_TYPES } from "Constants";
+import { arrayManager } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -60,7 +61,7 @@ export default {
       allTransactions: "transactions"
     }),
     transactions() {
-      let transactions = this.uniqBy(this.allTransactions, JSON.stringify);
+      let transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
@@ -70,9 +71,6 @@ export default {
     ...mapActions("tendermint", {
       fetchTransactions: "fetchTransactions"
     }),
-    uniqBy(a, key) {
-      return [...new Map(a.map(x => [key(x), x])).values()];
-    },
     async getTransactions(types) {
       this.isFetching = true;
       const limit = 20;

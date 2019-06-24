@@ -33,6 +33,7 @@ import CellBlocksRow from "./CellBlocksRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
 import { ROUTE_NAMES } from "Constants";
+import { arrayManager } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -48,7 +49,7 @@ export default {
       isFetching: "isFetching"
     }),
     blocks() {
-      const blocks = [...this.allBlocks];
+      const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
       return blocks
         .sort(function(a, b) {
           return b.header.height - a.header.height;

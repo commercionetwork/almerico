@@ -34,8 +34,7 @@ import TableCell from "Components/common/TableCell.vue";
 
 import api from "Store/tendermint/api";
 import { ROUTE_NAMES, TX_TYPES } from "Constants";
-import { localizedRoute } from "Utils";
-
+import { arrayManager, localizedRoute } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -58,7 +57,7 @@ export default {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactions() {
-      let transactions = this.uniqBy(this.allTransactions, JSON.stringify);
+      let transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
       return transactions
         .sort(function(a, b) {
           return b.height - a.height;
@@ -70,9 +69,6 @@ export default {
     ...mapActions("tendermint", {
       fetchTransactions: "fetchTransactions"
     }),
-    uniqBy(a, key) {
-      return [...new Map(a.map(x => [key(x), x])).values()];
-    },
     async getTransactions(types) {
       this.isFetching = true;
       const limit = 10;
