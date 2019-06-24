@@ -44,33 +44,7 @@ export default {
   },
   data() {
     return {
-      chartdata: {
-        datasets: [
-          {
-            data: [
-              {
-                x: 0,
-                y: 0.67
-              },
-              {
-                x: 8,
-                y: 0.67
-              },
-              {
-                x: 16,
-                y: 0.67
-              },
-              {
-                x: 24,
-                y: 0.67
-              }
-            ],
-            backgroundColor: "#38BA8C",
-            borderColor: "#237659",
-            borderWidth: 1
-          }
-        ]
-      },
+      chartdata: null,
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -113,17 +87,52 @@ export default {
       return this.bonded + this.notBonded;
     },
     percent() {
-      let value =
-        this.bonded && this.totalToken ? this.bonded / this.totalToken : 0;
-      return this.$n(value, {
+      return this.$n(this.percentValue, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
     },
+    percentValue() {
+      return this.bonded && this.totalToken ? this.bonded / this.totalToken : 0;
+    },
     proportion() {
       return `${this.bonded / 1000000000}M/${this.totalToken / 1000000000}M`;
     }
+  },
+  methods: {
+    setChartData() {
+      this.chartdata = {
+        datasets: [
+          {
+            data: [
+              {
+                x: 0,
+                y: this.percentValue * 100
+              },
+              {
+                x: 8,
+                y: this.percentValue * 100
+              },
+              {
+                x: 16,
+                y: this.percentValue * 100
+              },
+              {
+                x: 24,
+                y: this.percentValue * 100
+              }
+            ],
+            backgroundColor: "#38BA8C",
+            borderColor: "#237659",
+            borderWidth: 1
+          }
+        ]
+      };
+    }
+  },
+  mounted() {
+    this.setChartData();
   }
 };
 </script>

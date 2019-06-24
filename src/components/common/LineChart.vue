@@ -23,8 +23,13 @@ export default {
       default: "100"
     }
   },
+  watch:{
+    chartdata(data) {
+      this.renderChart(data, this.options);
+    }
+  },
   mounted() {
     this.renderChart(this.chartdata, this.options);
-  }
+  },
 };
 </script>
