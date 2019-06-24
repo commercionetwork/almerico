@@ -15,6 +15,40 @@ describe("store/tendermint/actions", () => {
     mockResponse = null;
   });
 
+  it("Check if 'actions.fetchBlocks' add blocks", async () => {
+    const commit = jest.fn();
+
+    await actions.fetchBlocks({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("addNewBlock", mockResponse.data.block);
+  });
+
+  it("Check if 'actions.fetchBlocks' has an error", async () => {
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchBlocks({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check 'actions.fetchBlocks' when server is unreachable", async () => {
+    const commit = jest.fn();
+    mockErrorServer = true;
+
+    await actions.fetchBlocks({
+      commit
+    });
+
+    expect(commit).toBeCalledWith("setServerReachability", false, {
+      root: true
+    });
+  });
+
   it("Check if 'actions.fetchTransactions' updates transactions", async () => {
     const commit = jest.fn();
 
@@ -63,7 +97,7 @@ let mockErrorServer = false;
 let mockResponse = null;
 
 jest.mock("./../api", () => ({
-  requestBlock: () => {
+  requestBlock: height => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -76,7 +110,7 @@ jest.mock("./../api", () => ({
         mockResponse = {
           data: {
             block_meta: {},
-            block: mockBlock(new Date(), 100)
+            block: mockBlock(new Date(), height)
           }
         };
         resolve(mockResponse);

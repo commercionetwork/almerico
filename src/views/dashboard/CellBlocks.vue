@@ -33,7 +33,7 @@ import CellBlocksRow from "./CellBlocksRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CellBlocks",
@@ -48,7 +48,12 @@ export default {
       isFetching: "isFetching"
     }),
     blocks() {
-      return this.allBlocks.slice(0, 10);
+      const blocks = [...this.allBlocks];
+      return blocks
+        .sort(function(a, b) {
+          return b.header.height - a.header.height;
+        })
+        .slice(0, 10);
     },
     linkToBlocks() {
       return {
@@ -59,5 +64,13 @@ export default {
       };
     }
   },
+  methods: {
+    ...mapActions("tendermint", {
+      fetchBlocks: "fetchBlocks"
+    })
+  },
+  created() {
+    if (this.allBlocks.length === 0) this.fetchBlocks();
+  }
 };
 </script>
