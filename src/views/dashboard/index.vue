@@ -33,13 +33,13 @@
     </div>
     <div class="container rounded bg-light">
       <div class="row py-3 px-5">
-        <div class="col-12 col-lg-4 my-1 my-lg-0">
+        <div class="col-12 col-lg-5 my-1 my-lg-0">
           <CellPrice />
         </div>
-        <div class="col-12 col-lg-4 my-1 my-lg-0">
+        <div class="col-12 col-lg-2 my-1 my-lg-0">
           <CellHeight />
         </div>
-        <div class="col-12 col-lg-4 my-1 my-lg-0">
+        <div class="col-12 col-lg-5 my-1 my-lg-0">
           <CellBonded />
         </div>
       </div>

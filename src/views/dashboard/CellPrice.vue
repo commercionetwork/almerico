@@ -1,68 +1,40 @@
 <template>
-  <DataCell :isFetching="isFetching">
+  <HeaderCell :chart='true'>
     <div
-      slot="top-left-content"
-      class="com-font-s13-w400"
-    >Price</div>
+      slot="header"
+      v-text="'Price'"
+    />
     <div
-      slot="bottom-left-content"
-      class="text-secondary com-font-s14-w700"
-    >1,00 €</div>
-    <div slot="top-right-content">
+      slot="body"
+      v-text="'1,00 €'"
+    />
+    <div
+      slot="footer"
+      v-text="'0% (24h)'"
+    />
+    <div slot="chart">
       <LineChart
         :chartdata="chartdata"
         :options="options"
-        height="60"
-        width="90"
-        class="p-1"
       />
     </div>
-    <div slot="bottom-right-content">
-      <span class="pl-1 com-font-s11-w400">0% (24h)</span>
-    </div>
-  </DataCell>
+  </HeaderCell>
 </template>
 
 <script>
-import DataCell from "Components/common/DataCell.vue";
+import HeaderCell from "Components/common/HeaderCell.vue";
 import LineChart from "Components/common/LineChart.vue";
 
 export default {
   name: "CellPrice",
   description: "Display the price",
   components: {
-    DataCell,
+    HeaderCell,
     LineChart
   },
   data() {
     return {
-      chartdata: {
-        datasets: [
-          {
-            data: [
-              {
-                x: 0,
-                y: 1
-              },
-              {
-                x: 8,
-                y: 1
-              },
-              {
-                x: 16,
-                y: 1
-              },
-              {
-                x: 24,
-                y: 1
-              }
-            ],
-            backgroundColor: "#38BA8C",
-            borderColor: "#237659",
-            borderWidth: 1
-          }
-        ]
-      },
+      chartdata: null,
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -92,9 +64,43 @@ export default {
     };
   },
   computed: {
-    isFetching() {
-      return false;
+    price() {
+      return 1;
     }
+  },
+  methods: {
+    setChartData() {
+      this.chartdata = {
+        datasets: [
+          {
+            data: [
+              {
+                x: 0,
+                y: this.price
+              },
+              {
+                x: 8,
+                y: this.price
+              },
+              {
+                x: 16,
+                y: this.price
+              },
+              {
+                x: 24,
+                y: this.price
+              }
+            ],
+            backgroundColor: "#38BA8C",
+            borderColor: "#237659",
+            borderWidth: 1
+          }
+        ]
+      };
+    }
+  },
+  mounted() {
+    this.setChartData();
   }
 };
 </script>

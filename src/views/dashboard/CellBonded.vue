@@ -1,36 +1,28 @@
 <template>
-  <DataCell>
+  <HeaderCell :chart='true'>
     <div
-      slot="top-left-content"
-      class="com-font-s13-w400"
-    >Bonded</div>
-    <div slot="bottom-left-content">
-      <div
-        class="text-secondary com-font-s14-w700"
-        v-text="percent"
-      />
-      <div
-        class="text-secondary com-font-s11-w400"
-        v-text="proportion"
-      />
-    </div>
-    <div slot="top-right-content">
+      slot="header"
+      v-text="'Bonded'"
+    />
+    <div
+      slot="body"
+      v-text="percent"
+    />
+    <div
+      slot="footer"
+      v-text="proportion"
+    />
+    <div slot="chart">
       <LineChart
         :chartdata="chartdata"
         :options="options"
-        height="60"
-        width="90"
-        class="p-1"
       />
     </div>
-    <div slot="bottom-right-content">
-      <span class="pl-1 com-font-s11-w400">0% (24h)</span>
-    </div>
-  </DataCell>
+  </HeaderCell>
 </template>
 
 <script>
-import DataCell from "Components/common/DataCell.vue";
+import HeaderCell from "Components/common/HeaderCell.vue";
 import LineChart from "Components/common/LineChart.vue";
 
 import { mapGetters } from "vuex";
@@ -39,7 +31,7 @@ export default {
   name: "CellBonded",
   description: "Display the bonded",
   components: {
-    DataCell,
+    HeaderCell,
     LineChart
   },
   data() {

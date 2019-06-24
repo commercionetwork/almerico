@@ -1,26 +1,22 @@
 <template>
-  <DataCell :isFetching="isFetching">
+  <HeaderCell :chart='false'>
     <div
-      slot="top-left-content"
-      class="com-font-s13-w400"
+      slot="header"
       v-text="'Height'"
     />
     <div
-      slot="bottom-left-content"
-      class="text-secondary com-font-s14-w700"
+      slot="body"
       v-text="height"
     />
-    <div slot="top-right-content">&nbsp;</div>
     <div
-      slot="bottom-right-content"
-      class="com-font-s11-w400"
+      slot="footer"
       v-text="time"
     />
-  </DataCell>
+  </HeaderCell>
 </template>
 
 <script>
-import DataCell from "Components/common/DataCell.vue";
+import HeaderCell from "Components/common/HeaderCell.vue";
 
 import { mapGetters } from "vuex";
 
@@ -28,17 +24,17 @@ export default {
   name: "CellHeight",
   description: "Display the height",
   components: {
-    DataCell
+    HeaderCell
   },
   computed: {
     ...mapGetters("tendermint", {
       block: "lastBlock"
     }),
     height() {
-      return this.block.header.height;
+      return this.block ? this.block.header.height : "-";
     },
     time() {
-      let time = this.block.header.time;
+      let time = this.block ? this.block.header.time : null;
       let seconds = time ? (new Date() - new Date(time)) / 1000 : 0;
       switch (true) {
         case seconds >= 3600:
