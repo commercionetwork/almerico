@@ -32,14 +32,13 @@ export default {
   },
   computed: {
     ...mapGetters("tendermint", {
-      blocks: "blocks",
-      isFetching: "isFetching"
+      block: "lastBlock"
     }),
     height() {
-      return this.blocks.length > 0 ? this.blocks[0].header.height : "";
+      return this.block.header.height;
     },
     time() {
-      let time = this.blocks.length > 0 ? this.blocks[0].header.time : null;
+      let time = this.block.header.time;
       let seconds = time ? (new Date() - new Date(time)) / 1000 : 0;
       switch (true) {
         case seconds >= 3600:

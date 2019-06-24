@@ -31,8 +31,8 @@
         </div>
       </div>
     </div>
-    <div class="py-3 px-5 rounded bg-white">
-      <div class="row py-3">
+    <div class="container rounded bg-light">
+      <div class="row py-3 px-5">
         <div class="col-12 col-lg-4 my-1 my-lg-0">
           <CellPrice />
         </div>
@@ -43,7 +43,7 @@
           <CellBonded />
         </div>
       </div>
-      <div class="row py-3">
+      <div class="row py-3 px-5 bg-white">
         <div class="col-12 col-md-6 my-1 my-md-0">
           <CellBlocks />
         </div>
