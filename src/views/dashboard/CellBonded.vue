@@ -92,6 +92,11 @@ export default {
       return `${this.bonded / 1000000000}M/${this.totalToken / 1000000000}M`;
     }
   },
+  watch: {
+    percentValue() {
+      this.setChartData();
+    }
+  },
   methods: {
     setChartData() {
       this.chartdata = {
