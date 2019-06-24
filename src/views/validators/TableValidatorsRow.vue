@@ -19,15 +19,11 @@
     </td>
     <td
       class="align-middle"
-      v-text="'TD'"
+      v-text="cumulative"
     />
     <td
       class="align-middle"
       v-text="commission"
-    />
-    <td
-      class="align-middle"
-      v-text="'TD'"
     />
   </tr>
 </template>
@@ -62,7 +58,14 @@ export default {
         maximumFractionDigits: 2
       });
     },
-    bonded() {
+    cumulative(){
+      return this.$n(this.validator.cumulative, {
+        style: "percent",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    },
+    bonded() { 
       return this.pool ? new Number(this.pool.bonded_tokens) : 0;
     },
     validatorRank() {

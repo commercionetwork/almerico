@@ -38,7 +38,6 @@
               <th scope="col">Voting power</th>
               <th scope="col">% Cumulative share</th>
               <th scope="col">Commission</th>
-              <th scope="col">UpTime</th>
             </tr>
           </thead>
           <tbody>
@@ -81,13 +80,22 @@ export default {
   computed: {
     ...mapGetters("stake", {
       isFetching: "isFetching",
-      allValidators: "validators"
+      allValidators: "validators",
+      pool: "pool"
     }),
     validators() {
+      let cumulative = 0;
+      const bonded = new Number(this.pool.bonded_tokens);
       const validators = [...this.allValidators];
-      return validators.sort(function(a, b) {
-        return b.tokens - a.tokens;
-      });
+      return validators
+        .sort(function(a, b) {
+          return b.tokens - a.tokens;
+        })
+        .map(validator => {
+          cumulative += validator.tokens / bonded;
+          validator.cumulative = cumulative;
+          return validator;
+        });
     }
   }
 };
