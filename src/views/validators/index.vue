@@ -16,39 +16,41 @@
           <CellTime />
         </div>
       </div>
-      <div class="bg-white">
-        <div class="row py-1 d-flex justify-content-between">
-          <div class="col-12 col-md-8 offset-md-4">
-            <SearchValidator />
+      <div class="row py-3 px-5 bg-white">
+        <div class="col-12">
+          <div class="row py-1 d-flex justify-content-between">
+            <div class="col-12 col-md-8 offset-md-4">
+              <SearchValidator />
+            </div>
           </div>
-        </div>
-        <div
-          v-if="isFetching"
-          v-text="$t('messages.loading')"
-        />
-        <div
-          v-else
-          class="table-responsive"
-        >
-          <table class="table">
-            <thead>
-              <tr class="text-center com-font-s13-w700">
-                <th scope="col">Rank</th>
-                <th scope="col">Validator</th>
-                <th scope="col">Voting power</th>
-                <th scope="col">% Cumulative share</th>
-                <th scope="col">Commission</th>
-              </tr>
-            </thead>
-            <tbody>
-              <TableValidatorsRow
-                v-for="(validator, index) in validators"
-                :key="index"
-                :validator="validator"
-                :rank="index"
-              />
-            </tbody>
-          </table>
+          <div
+            v-if="isFetching"
+            v-text="$t('messages.loading')"
+          />
+          <div
+            v-else
+            class="table-responsive"
+          >
+            <table class="table table-striped">
+              <thead>
+                <tr class="text-center com-font-s13-w700">
+                  <th scope="col">Rank</th>
+                  <th scope="col">Validator</th>
+                  <th scope="col">Voting power</th>
+                  <th scope="col">% Cumulative share</th>
+                  <th scope="col">Commission</th>
+                </tr>
+              </thead>
+              <tbody>
+                <TableValidatorsRow
+                  v-for="(validator, index) in validators"
+                  :key="index"
+                  :validator="validator"
+                  :rank="index"
+                />
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -80,9 +82,9 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      isFetching: "isFetching",
       allValidators: "validators",
-      pool: "pool"
+      pool: "pool",
+      isFetching: "isFetching"
     }),
     validators() {
       let cumulative = 0;

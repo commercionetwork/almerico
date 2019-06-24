@@ -10,14 +10,14 @@
     <div class="py-1 col-6 col-md-3">
       <button
         type="button"
-        class="btn btn-secondary btn-block com-font-s14-w700"
+        class="btn btn-primary btn-block com-font-s14-w700"
         v-html="$t('buttons.active')"
       />
     </div>
     <div class="py-1 col-6 col-md-3">
       <button
         type="button"
-        class="btn btn-outline-secondary btn-block com-font-s14-w700"
+        class="btn btn-outline-primary btn-block com-font-s14-w700"
         v-html="$t('buttons.inactive')"
       />
     </div>
