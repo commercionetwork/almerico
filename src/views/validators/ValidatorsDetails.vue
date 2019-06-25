@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
-import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
-import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
+// import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
+// import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
+// import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
-import ValidatorDetailsProposed from "./ValidatorDetailsProposed.vue";
+// import ValidatorDetailsProposed from "./ValidatorDetailsProposed.vue";
 
 import api from "Store/stake/api";
 
@@ -52,11 +52,11 @@ export default {
   name: "ValidatorsDetails",
   description: "Display the validator details",
   components: {
-    ValidatorDetailsDelegated,
-    ValidatorDetailsDelegators,
-    ValidatorDetailsEvents,
+    // ValidatorDetailsDelegated,
+    // ValidatorDetailsDelegators,
+    // ValidatorDetailsEvents,
     ValidatorDetailsHeader,
-    ValidatorDetailsProposed
+    // ValidatorDetailsProposed
   },
   data() {
     return {
