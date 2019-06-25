@@ -3,6 +3,10 @@ import {
   WS
 } from "./api";
 import {
+  MODAL_ID,
+  MODAL_SIZE
+} from "./modal";
+import {
   PREFIX
 } from "./prefix";
 import {
@@ -15,6 +19,8 @@ import {
 
 export {
   API,
+  MODAL_ID,
+  MODAL_SIZE,
   PREFIX,
   ROUTES,
   ROUTE_NAMES,

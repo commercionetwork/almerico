@@ -1,11 +1,10 @@
 <template>
   <div>
-    <NavBar
-      :toggleSidebar="toggleSidebar"
-    />
+    <ModalContainer />
+    <NavBar :toggleSidebar="toggleSidebar" />
     <div class="contents">
       <SideBar
-        :sideBarOpen="sideBarOpen" 
+        :sideBarOpen="sideBarOpen"
         :closeSidebar="closeSidebar"
       />
       <router-view />
@@ -16,6 +15,7 @@
 
 <script>
 import Footer from "./Footer.vue";
+import ModalContainer from "Components/modals/index.vue";
 import NavBar from "./Navbar.vue";
 import SideBar from "./Sidebar.vue";
 
@@ -24,13 +24,14 @@ export default {
   description: "Layout for application pages",
   components: {
     Footer,
+    ModalContainer,
     NavBar,
-    SideBar,
+    SideBar
   },
   data() {
     return {
       sideBarOpen: false
-    }
+    };
   },
   methods: {
     toggleSidebar() {
@@ -40,7 +41,7 @@ export default {
       this.sideBarOpen = false;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
