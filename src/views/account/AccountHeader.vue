@@ -1,61 +1,28 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
-    <div
-      v-if="isFetching"
-      v-html="$t('messages.loading')"
-    />
-    <div v-else>
-      <div class="row px-3">
-        <div class="col-12">
-          <div class="row d-flex align-items-center">
-            <div class="col-12 col-md-1">
-              <span
-                class="p-1 com-pointer"
-                @click="addModQrCode"
-                data-toggle="modal"
-                :data-target="modalId"
-              >
-                <Icon
-                  name="qrcode"
-                  scale="2"
-                  class="text-primary"
-                />
-              </span>
-            </div>
-            <div class="col-12 col-md-5 d-flex flex-column">
-              <span
-                class="com-font-s14-w700"
-                v-text="$t('labels.address')"
-              />
-              <span
-                class="text-break com-font-s14-w400"
-                v-text="account.address"
-              />
-            </div>
-            <div class="col-12 col-md-3 d-flex flex-column align-items-md-center">
-              <span
-                class="com-font-s13-w700"
-                v-text="labelTotal"
-              />
-              <span
-                class="text-break com-font-s13-w400"
-                v-text="total"
-              />
-            </div>
-            <div class="col-12 col-md-3 d-flex flex-column align-items-md-center">
-              <span
-                class="com-font-s13-w700"
-                v-text="value"
-              />
-              <span
-                class="text-break com-font-s13-w400"
-                v-text="totalValue"
-              />
-            </div>
-          </div>
-          <hr>
-        </div>
-      </div>
+  <div class="row p-1 d-flex align-items-center">
+    <div class="col-12 col-md-2 d-flex justify-content-md-center">
+      <span
+        class="p-1 com-pointer"
+        @click="addModQrCode"
+        data-toggle="modal"
+        :data-target="modalId"
+      >
+        <Icon
+          name="qrcode"
+          scale="2"
+          class="text-primary"
+        />
+      </span>
+    </div>
+    <div class="col-12 col-md-10 d-flex flex-column align-items-start">
+      <span
+        class="com-font-s14-w700"
+        v-text="$t('labels.address')"
+      />
+      <span
+        class="text-break com-font-s14-w400"
+        v-text="address"
+      />
     </div>
   </div>
 </template>
@@ -76,46 +43,17 @@ export default {
     Icon
   },
   props: {
-    account: {
-      type: Object,
+    address: {
+      type: String,
       required: true,
-      note: "Object representing a account"
+      note: "The account address"
     }
   },
-  
+
   computed: {
     modalId() {
       return `#${MODAL_ID}`;
-    },
-    isFetching() {
-      return false;
-    },
-    atoms() {
-      return this.account.atoms;
-    },
-    labelTotal() {
-      let label = this.$t("labels.total");
-      return `${label} COOMs`;
-    },
-    total() {
-      return this.atoms.total.toLocaleString(undefined, {
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-    },
-    value() {
-      let value = this.atoms.value.toLocaleString(undefined, {
-        style: "currency",
-        currency: "EUR"
-      });
-      return `${value}/ATOM`;
-    },
-    totalValue() {
-      return (this.atoms.total * this.atoms.value).toLocaleString(undefined, {
-        style: "currency",
-        currency: "EUR"
-      });
-    },
+    }
   },
   methods: {
     ...mapActions("modals", {
@@ -126,10 +64,10 @@ export default {
         component: ModalQrCode,
         dialogProps: {
           size: MODAL_SIZE.SMALL,
-          title: "QR Code"
+          title: this.$t("titles.qrCode")
         },
         componentProps: {
-          code: this.$route.params.id
+          code: this.address
         }
       });
     }

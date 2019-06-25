@@ -1,20 +1,22 @@
 <template>
   <div class="container com-container">
     <SectionHeader :title="$t('titles.accountDetails')" />
-    <div class="py-3 px-5 rounded bg-white">
+    <div class="rounded bg-light">
       <div>
-        <AccountHeader :account="account" />
+        <AccountHeader :address="address" />
       </div>
-      <div class="row">
-        <div class="col-12 col-md-6 mt-3">
-          <AccountDelegations :account="account" />
+      <div class="bg-white">
+        <div class="row">
+          <div class="col-12 col-md-6 mt-3">
+            <!-- <AccountDelegations :account="account" /> -->
+          </div>
+          <div class="col-12 col-md-6 mt-3">
+            <!-- <AccountUnbondings :account="account" /> -->
+          </div>
         </div>
-        <div class="col-12 col-md-6 mt-3">
-          <AccountUnbondings :account="account" />
+        <div class="mt-3">
+          <!-- <AccountTransactions /> -->
         </div>
-      </div>
-      <div class="mt-3">
-        <AccountTransactions />
       </div>
     </div>
   </div>
@@ -27,9 +29,6 @@ import AccountTransactions from "./AccountTransactions.vue";
 import AccountUnbondings from "./AccountUnbondings.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
-//TODO: remove
-import { mockAccount } from "Store/account/__mocks__/account";
-
 export default {
   name: "Account",
   description: "Container for account section",
@@ -41,9 +40,9 @@ export default {
     SectionHeader
   },
   computed: {
-    account() {
-      return mockAccount();
-    },
+    address() {
+      return this.$route.params.id;
+    }
   }
 };
 </script>
