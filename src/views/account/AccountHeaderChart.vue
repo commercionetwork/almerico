@@ -1,6 +1,6 @@
 <template>
   <div class="row p-1 d-flex align-items-center">
-    <div class="col-3">
+    <!-- <div class="col-3">
       <span class="p-0">
         <DoughnutChart
           :chartdata="chartdata"
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -87,10 +87,10 @@ export default {
     DoughnutChart
   },
   props: {
-    partition: {
-      type: Array,
+    operatorAddress: {
+      type: String,
       required: true,
-      note: "The data to make the chart"
+      note: "The account operator address"
     }
   },
   data() {
@@ -117,32 +117,32 @@ export default {
     };
   },
   computed: {
-    labels() {
-      let labels = [];
-      this.partition.forEach(type => {
-        labels.push(type.label);
-      });
-      return labels;
-    },
-    datasets() {
-      let data = [];
-      this.partition.forEach(type => {
-        data.push(type.percent);
-      });
-      return data;
-    },
-    chartdata() {
-      return {
-        labels: this.labels,
-        datasets: [
-          {
-            data: this.datasets,
-            backgroundColor: ["#3399ff", "#33cc99", "#ffcc00", "#cc3333"]
-          }
-        ]
-      };
-    }
-  }
+    // labels() {
+    //   let labels = [];
+    //   this.partition.forEach(type => {
+    //     labels.push(type.label);
+    //   });
+    //   return labels;
+    // },
+    // datasets() {
+    //   let data = [];
+    //   this.partition.forEach(type => {
+    //     data.push(type.percent);
+    //   });
+    //   return data;
+    // },
+    // chartdata() {
+    //   return {
+    //     labels: this.labels,
+    //     datasets: [
+    //       {
+    //         data: this.datasets,
+    //         backgroundColor: ["#3399ff", "#33cc99", "#ffcc00", "#cc3333"]
+    //       }
+    //     ]
+    //   };
+    // }
+  },
 };
 </script>
 

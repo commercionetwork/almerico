@@ -3,7 +3,10 @@
     <SectionHeader :title="$t('titles.accountDetails')" />
     <div class="rounded bg-light">
       <div>
-        <AccountHeader :address="address" />
+        <AccountHeader
+          :address="address"
+          :operatorAddress="operatorAddress"
+        />
       </div>
       <div class="bg-white">
         <div class="row">
@@ -29,6 +32,9 @@ import AccountTransactions from "./AccountTransactions.vue";
 import AccountUnbondings from "./AccountUnbondings.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
+import { PREFIX } from "Constants";
+import { bech32Manager } from "Utils";
+
 export default {
   name: "Account",
   description: "Container for account section",
@@ -42,6 +48,10 @@ export default {
   computed: {
     address() {
       return this.$route.params.id;
+    },
+    operatorAddress() {
+      let hex = bech32Manager.decode(this.address);
+      return bech32Manager.encode(hex, PREFIX.COMNETVALOPER);
     }
   }
 };

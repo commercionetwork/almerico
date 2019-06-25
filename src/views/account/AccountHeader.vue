@@ -1,33 +1,37 @@
 <template>
-  <div class="row p-1 d-flex align-items-center">
-    <div class="col-12 col-md-2 d-flex justify-content-md-center">
-      <span
-        class="p-1 com-pointer"
-        @click="addModQrCode"
-        data-toggle="modal"
-        :data-target="modalId"
-      >
-        <Icon
-          name="qrcode"
-          scale="2"
-          class="text-primary"
+  <div>
+    <div class="row p-1 d-flex align-items-center">
+      <div class="col-12 col-md-2 d-flex justify-content-md-center">
+        <span
+          class="p-1 com-pointer"
+          @click="addModQrCode"
+          data-toggle="modal"
+          :data-target="modalId"
+        >
+          <Icon
+            name="qrcode"
+            scale="2"
+            class="text-primary"
+          />
+        </span>
+      </div>
+      <div class="col-12 col-md-10 d-flex flex-column align-items-start">
+        <span
+          class="com-font-s14-w700"
+          v-text="$t('labels.address')"
         />
-      </span>
+        <span
+          class="text-break com-font-s14-w400"
+          v-text="address"
+        />
+      </div>
     </div>
-    <div class="col-12 col-md-10 d-flex flex-column align-items-start">
-      <span
-        class="com-font-s14-w700"
-        v-text="$t('labels.address')"
-      />
-      <span
-        class="text-break com-font-s14-w400"
-        v-text="address"
-      />
-    </div>
+    <AccountHeaderChart :operatorAddress="operatorAddress" />
   </div>
 </template>
 
 <script>
+import AccountHeaderChart from "./AccountHeaderChart.vue";
 import ModalQrCode from "Components/modals/ModalQrCode.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
@@ -40,6 +44,7 @@ export default {
   name: "AccountHeader",
   description: "Display the account header data",
   components: {
+    AccountHeaderChart,
     Icon
   },
   props: {
@@ -47,7 +52,12 @@ export default {
       type: String,
       required: true,
       note: "The account address"
-    }
+    },
+    operatorAddress: {
+      type: String,
+      required: true,
+      note: "The account address"
+    },
   },
 
   computed: {
