@@ -18,7 +18,7 @@
     "core-js": "^2.6.9",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
-    "tendermint": "^4.0.6",
+    "tendermint": "^4.0.8",
     "vue": "^2.6.10",
     "vue-awesome": "^3.5.4",
     "vue-chartjs": "^3.4.2",
@@ -38,7 +38,7 @@
     "babel-eslint": "^10.0.2",
     "babel-jest": "^23.6.0",
     "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
+    "eslint-plugin-vue": "^5.2.3",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.21"
