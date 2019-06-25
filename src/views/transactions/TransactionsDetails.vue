@@ -31,7 +31,6 @@
               v-for="(message, index) in messages"
               :key="index"
               :message="message"
-              :txType="type"
             />
           </div>
         </div>
