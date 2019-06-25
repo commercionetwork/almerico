@@ -23,19 +23,19 @@
         />
         <span
           class="com-font-s14-w700"
-          v-text="$t('labels.publicKey')"
+          v-text="$t('labels.operatorAddress')"
         />
         <span
           class="text-break com-font-s14-w400"
-          v-text="pubKey"
+          v-text="validator.operator_address"
         />
         <span
           class="pt-1 com-font-s14-w700"
           v-text="$t('labels.address')"
         />
         <router-link
-          :to="toAccountDetails(validator.operator_address)"
-          v-text="validator.operator_address"
+          :to="toAccountDetails(pubKey)"
+          v-text="pubKey"
           class="text-break com-font-s14-w400"
         />
       </div>
@@ -71,7 +71,6 @@
         v-text="validator.description.details"
       />
     </div>
-
   </div>
 </template>
 
