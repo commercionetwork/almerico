@@ -13,7 +13,7 @@
     <!-- footer -->
     <div class="modal-footer">
       <span
-        class="mx-auto"
+        class="mx-auto com-font-s14-w700"
         v-text="$t('messages.scanAddress')"
       />
     </div>
