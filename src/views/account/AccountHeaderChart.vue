@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="p-3 bg-white">
     <div
       v-if="isfetching"
       v-text="$t('messages.loading')"
