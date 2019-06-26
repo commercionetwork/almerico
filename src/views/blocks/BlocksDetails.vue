@@ -47,7 +47,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("stake", {
+    ...mapGetters("validators", {
       validators: "validators"
     }),
     isFetching() {
@@ -60,7 +60,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("stake", {
+    ...mapActions("validators", {
       getValidators: "getValidators"
     }),
     async fetchBlock(height) {

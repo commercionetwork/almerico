@@ -83,7 +83,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("stake", {
+    ...mapGetters("validators", {
       validators: "validators"
     }),
     blockTime() {

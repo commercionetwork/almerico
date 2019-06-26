@@ -34,7 +34,7 @@ export default {
     Icon
   },
   computed: {
-    ...mapGetters("stake", {
+    ...mapGetters("validators", {
       validators: "validators"
     }),
     unjailedValidators() {

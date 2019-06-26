@@ -82,10 +82,16 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      allValidators: "validators",
       pool: "pool",
-      isFetching: "isFetching"
+      isFetchingStake: "isFetching"
     }),
+    ...mapGetters("validators", {
+      allValidators: "validators",
+      isFetchingValidators: "isFetching"
+    }),
+    isFetching() {
+      return this.isFetchingStake || this.isFetchingValidators;
+    },
     validators() {
       let cumulative = 0;
       const bonded = new Number(this.pool.bonded_tokens);

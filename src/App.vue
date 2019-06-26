@@ -18,7 +18,7 @@ export default {
     ErrorLayout
   },
   computed: {
-    ...mapGetters("stake", {
+    ...mapGetters("validators", {
       validators: "validators"
     }),
     currentLayout() {
@@ -52,9 +52,11 @@ export default {
       subNewClient: "subNewClient"
     }),
     ...mapActions("stake", {
-      fetchPool: "fetchPool",
+      fetchPool: "fetchPool"
+    }),
+    ...mapActions("validators", {
       getValidators: "getValidators"
-    })
+    }),
   },
   mounted(){
     this.fetchPool();

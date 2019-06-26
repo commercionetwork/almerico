@@ -132,9 +132,6 @@ export default {
         }
       };
     }
-  },
-  created() {
-    console.log(this.transaction)
   }
 };
 </script>

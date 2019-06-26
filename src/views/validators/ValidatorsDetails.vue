@@ -46,7 +46,7 @@
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 // import ValidatorDetailsProposed from "./ValidatorDetailsProposed.vue";
 
-import api from "Store/stake/api";
+import api from "Store/validators/api";
 
 export default {
   name: "ValidatorsDetails",
