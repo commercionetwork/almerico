@@ -12,10 +12,16 @@
     </div>
     <!-- footer -->
     <div class="modal-footer">
-      <span
-        class="mx-auto com-font-s14-w700"
-        v-text="$t('messages.scanAddress')"
-      />
+      <div class="mx-auto d-flex flex-column align-items-center">
+        <span
+          class="com-font-s14-w400"
+          v-text="$t('messages.scanAddress')"
+        />
+        <span
+          class="com-font-s12-w700"
+          v-text="code"
+        />
+      </div>
     </div>
   </div>
 </template>
