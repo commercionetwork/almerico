@@ -3,37 +3,10 @@
  */
 /** @typedef {Object} StakeState
  * @property {Pool} pool
- * @property {Array.<Validator>} validators
- * @property {boolean} isFetching
+ * @property {Boolean} isFetching
  * @property {String} message
  */
 /** @typedef {Object} Pool
  * @property {String} not_bonded_tokens
  * @property {String} bonded_tokens
- */
-/** @typedef {Object} Validator 
- * @property {String} bond_height 
- * @property {Number} bond_intra_tx_counter 
- * @property {Commission} commission 
- * @property {String} consensus_pubkey 
- * @property {String} delegator_shares 
- * @property {Description} description 
- * @property {Boolean} jailed 
- * @property {String} operator_address 
- * @property {Number} status 
- * @property {String} tokens 
- * @property {String} unbonding_height 
- * @property {String} unbonding_time 
- */
-/** @typedef {Object} Commission
- * @property {String} max_change_rate 
- * @property {String} max_rate 
- * @property {String} rate 
- * @property {String} update_time 
- */
-/** @typedef {Object} Description
- * @property {String} details 
- * @property {String} identity 
- * @property {String} moniker 
- * @property {String} website 
  */

@@ -49,32 +49,4 @@ describe("store/stake/mutations", () => {
 
     expect(state.pool).toEqual(data);
   });
-
-  it("Check mutations.setValidators", () => {
-    const data = [{
-      id: 1
-    }];
-
-    mutations.setValidators(state, data);
-
-    expect(state.validators).toEqual(data);
-  });
-
-  it("Check mutations.addValidators", () => {
-    state.validators = [{
-      id: 1
-    }];
-    const data = [{
-      id: 2
-    }];
-    const expectValidators = [{
-      id: 1
-    }, {
-      id: 2
-    }];
-
-    mutations.addValidators(state, data);
-
-    expect(state.validators).toEqual(expectValidators);
-  });
 });
