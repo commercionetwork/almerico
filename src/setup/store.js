@@ -5,6 +5,7 @@ import account from "Store/account";
 import modals from "Store/modals";
 import stake from "Store/stake";
 import tendermint from "Store/tendermint";
+import validators from "Store/validators";
 import votings from "Store/votings";
 
 Vue.use(Vuex);
@@ -14,6 +15,7 @@ const initialState = {
   modals: modals.initialState,
   stake: stake.initialState,
   tendermint: tendermint.initialState,
+  validators: validators.initialState,
   votings: votings.initialState,
 };
 
@@ -23,6 +25,7 @@ export default new Vuex.Store({
     modals,
     stake,
     tendermint,
+    validators,
     votings
   },
   state: {
