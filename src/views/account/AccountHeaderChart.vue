@@ -1,79 +1,87 @@
 <template>
-  <div class="row p-1 d-flex align-items-center">
-    <!-- <div class="col-3">
-      <span class="p-0">
+  <div class="bg-white">
+    <div
+      v-if="isfetching"
+      v-text="$t('messages.loading')"
+    />
+    <div
+      v-else
+      class="row p-1"
+    >
+      <div class="col-12 col-md-3 d-flex flex-column justify-content-start align-items-start">
+        <span
+          class="pt-1 com-font-s16-w700"
+          v-text="$t('labels.total')"
+        />
+        <span class="pl-1 com-font-s16-w400">
+          {{ $n(totals, {
+          style: "decimal",
+          minimumFractionDigits: 6,
+          maximumFractionDigits: 6
+          }) }} {{ "COMM" }}
+        </span>
+      </div>
+      <div class="col-12 col-md-5">
+        <div class="row">
+          <div class="col-12 col-md-6 d-flex flex-column align-items-start">
+            <span
+              class="pt-1 com-font-s14-w700"
+              v-text="labels[0]"
+            />
+            <span class="pl-1 com-font-s14-w400">
+              {{ $n(delegationsAmount, {
+              style: "decimal",
+              minimumFractionDigits: 6,
+              maximumFractionDigits: 6
+              }) }}
+            </span>
+            <span
+              class="pt-1 com-font-s14-w700"
+              v-text="labels[3]"
+            />
+            <span class="pl-1 com-font-s14-w400">
+              {{ $n(unbondingDelegationsAmount, {
+              style: "decimal",
+              minimumFractionDigits: 6,
+              maximumFractionDigits: 6
+              }) }}
+            </span>
+          </div>
+          <div class="col-12 col-md-6 d-flex flex-column align-items-start">
+            <span
+              class="pt-1 com-font-s14-w700"
+              v-text="labels[2]"
+            />
+            <span class="pl-1 com-font-s14-w400">
+              {{ $n(rewardsAmount, {
+              style: "decimal",
+              minimumFractionDigits: 6,
+              maximumFractionDigits: 6
+              }) }}
+            </span>
+            <span
+              class="pt-1 com-font-s14-w700"
+              v-text="labels[1]"
+            />
+            <span class="pl-1 com-font-s14-w400">
+              {{ $n(outstandingRewardsAmount, {
+              style: "decimal",
+              minimumFractionDigits: 6,
+              maximumFractionDigits: 6
+              }) }}
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
         <DoughnutChart
           :chartdata="chartdata"
           :options="options"
           height="125"
           width="125"
         />
-      </span>
-    </div>
-    <div class="col-9">
-      <div class="row">
-        <div class="col-12 col-md-3">
-          <div class="p-1 d-flex flex-column border-left border-info com-border-w10">
-            <div
-              class="com-font-s13-w700"
-              v-text="partition[0].label"
-            />
-            <div class="d-none d-md-block">
-              <div
-                class="com-font-s13-w400"
-                v-text="partition[0].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
-              />
-              <div class="com-font-s13-w400">{{ partition[0].percent }}%</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <div class="p-1 d-flex flex-column border-left border-success com-border-w10">
-            <div
-              class="com-font-s13-w700"
-              v-text="partition[1].label"
-            />
-            <div class="d-none d-md-block">
-              <div
-                class="com-font-s13-w400"
-                v-text="partition[1].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
-              />
-              <div class="com-font-s13-w400">{{ partition[1].percent }}%</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <div class="p-1 d-flex flex-column border-left border-warning com-border-w10">
-            <div
-              class="com-font-s13-w700"
-              v-text="partition[2].label"
-            />
-            <div class="d-none d-md-block">
-              <div
-                class="com-font-s13-w400"
-                v-text="partition[2].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
-              />
-              <div class="com-font-s13-w400">{{ partition[2].percent }}%</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-3">
-          <div class="p-1 d-flex flex-column border-left border-danger com-border-w10">
-            <div
-              class="com-font-s13-w700"
-              v-text="partition[3].label"
-            />
-            <div class="d-none d-md-block">
-              <div
-                class="com-font-s13-w400"
-                v-text="partition[3].count.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 })"
-              />
-              <div class="com-font-s13-w400">{{ partition[3].percent }}%</div>
-            </div>
-          </div>
-        </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -97,15 +105,24 @@ export default {
   },
   data() {
     return {
-      validator: null,
+      labels: [
+        this.$t("labels.delegated"),
+        this.$t("labels.outstandingRewards"),
+        this.$t("labels.rewards"),
+        this.$t("labels.unbonded")
+      ],
+      totals: 0,
       delegations: [],
+      outstandingRewards: [],
+      rewards: [],
       unbondingDelegations: [],
       isfetching: false,
+      chartdata: null,
       options: {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-          display: false
+          position: "right"
         },
         tooltips: {
           callbacks: {
@@ -123,57 +140,95 @@ export default {
     };
   },
   computed: {
-    // labels() {
-    //   let labels = [];
-    //   this.partition.forEach(type => {
-    //     labels.push(type.label);
-    //   });
-    //   return labels;
-    // },
-    // datasets() {
-    //   let data = [];
-    //   this.partition.forEach(type => {
-    //     data.push(type.percent);
-    //   });
-    //   return data;
-    // },
-    // chartdata() {
-    //   return {
-    //     labels: this.labels,
-    //     datasets: [
-    //       {
-    //         data: this.datasets,
-    //         backgroundColor: ["#3399ff", "#33cc99", "#ffcc00", "#cc3333"]
-    //       }
-    //     ]
-    //   };
-    // }
+    delegationsAmount() {
+      let amount = 0;
+      this.delegations.forEach(element => {
+        amount += parseFloat(element.shares);
+      });
+      return amount / 1000000;
+    },
+    outstandingRewardsAmount() {
+      let amount = 0;
+      this.outstandingRewards.forEach(element => {
+        amount += parseFloat(element.amount);
+      });
+      return amount / 1000000;
+    },
+    rewardsAmount() {
+      let amount = 0;
+      this.rewards.forEach(element => {
+        amount += parseFloat(element.amount);
+      });
+      return amount / 1000000;
+    },
+    unbondingDelegationsAmount() {
+      let amount = 0;
+      this.unbondingDelegations.forEach(element => {
+        element.entries.forEach(entry => {
+          amount += parseFloat(entry.balance);
+        });
+      });
+      return amount / 1000000;
+    }
   },
   methods: {
     async getData() {
-      let validator = null;
       let delegations = null;
+      let outstandingRewards = null;
+      let rewards = null;
       let unbondingDelegations = null;
       this.isfetching = true;
       try {
-        validator = await api.requestValidator(this.operatorAddress);
-        this.validator = validator.data;
         delegations = await api.requestValidatorDelegations(
           this.operatorAddress
         );
-        this.delegations = delegations.data;
+        if (delegations.data) this.delegations = delegations.data;
+        outstandingRewards = await api.requestValidatorOutstandingRewards(
+          this.operatorAddress
+        );
+        if (outstandingRewards.data)
+          this.outstandingRewards = outstandingRewards.data;
+        rewards = await api.requestValidatorRewards(this.operatorAddress);
+        if (rewards.data) this.rewards = rewards.data;
         unbondingDelegations = await api.requestValidatorUnbondingDelegations(
           this.operatorAddress
         );
-        this.unbondingDelegations = unbondingDelegations.data;
+        if (unbondingDelegations.data)
+          this.unbondingDelegations = unbondingDelegations.data;
+        this.setChartdata();
       } catch (error) {
         console.log(error);
       } finally {
         this.isfetching = false;
-        console.log("validator: ", this.validator);
-        console.log("delegations: ", this.delegations[0]);
-        console.log("unbondingDelegations: ", this.unbondingDelegations[0]);
       }
+    },
+    setChartdata() {
+      this.setTotals();
+      let data = [
+        this.getPercent(this.delegationsAmount, this.totals),
+        this.getPercent(this.outstandingRewardsAmount, this.totals),
+        this.getPercent(this.rewardsAmount, this.totals),
+        this.getPercent(this.unbondingDelegationsAmount, this.totals)
+      ];
+      this.chartdata = {
+        labels: this.labels,
+        datasets: [
+          {
+            data,
+            backgroundColor: ["#33cc99", "#3399ff", "#ffcc00", "#cc3333"]
+          }
+        ]
+      };
+    },
+    getPercent(value, total) {
+      return ((value / total) * 100).toFixed(2);
+    },
+    setTotals() {
+      this.totals =
+        this.delegationsAmount +
+        this.outstandingRewardsAmount +
+        this.rewardsAmount +
+        this.unbondingDelegationsAmount;
     }
   },
   created() {
@@ -181,9 +236,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.com-border-w10 {
-  border-width: 10px !important;
-}
-</style>

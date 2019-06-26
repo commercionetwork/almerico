@@ -1,13 +1,17 @@
 export const labels = {
   address: "Address",
+  delegated: "Delegated",
   depositEndTime: "Deposit end time",
   description: "Description",
-  operatorAddress:"Operator address",
+  operatorAddress: "Operator address",
+  outstandingRewards: "Outstanding rewards",
   proposer: "Proposer",
   publicKey: "Public key",
+  rewards: "Rewards",
   submitTime: "Submit time",
   total: "Total",
   type: "Type",
+  unbonded: "Unbonded",
   votingEnd: "Voting end",
   votingStart: "Voting start",
 };

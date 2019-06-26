@@ -1,13 +1,17 @@
 export const labels = {
   address: "Indirizzo",
+  delegated: "Delegati",
   depositEndTime: "Termine deposito",
   description: "Descrizione",
   operatorAddress:"Indirizzo operatore",
+  outstandingRewards: "Premi straordinari",
   proposer: "Proponente",
   publicKey: "Chiave pubblica",
+  rewards: "Ricompense",
   submitTime: "Orario di presentazione",
   total: "Totale",
   type: "Tipo",
+  unbonded: "Non vincolati",
   votingEnd: "Fine votazione",
   votingStart: "Inizio votazione",
 };

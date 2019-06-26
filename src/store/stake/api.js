@@ -63,6 +63,24 @@ export default {
     return instance.get(`${API.STAKING_VALIDATORS}/${address}/unbonding_delegations`);
   },
   /**
+   * Handle ajax request to get rewards by validator address
+   * 
+   * @param {string} address
+   * @return {Promise}
+   */
+  requestValidatorRewards(address) {
+    return instance.get(`${API.DISTRIBUTION_VALIDATORS}/${address}/rewards`);
+  },
+  /**
+   * Handle ajax request to get outstanding rewards by validator address
+   * 
+   * @param {string} address
+   * @return {Promise}
+   */
+  requestValidatorOutstandingRewards(address) {
+    return instance.get(`${API.DISTRIBUTION_VALIDATORS}/${address}/outstanding_rewards`);
+  },
+  /**
    * Handle ajax request to get staking pool
    * 
    * @return {Promise}
