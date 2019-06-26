@@ -46,11 +46,11 @@ describe("store/validators/mutations", () => {
 
     mutations.setValidators(state, data);
 
-    expect(state.validators).toEqual(data);
+    expect(state.all).toEqual(data);
   });
 
   it("Check mutations.addValidators", () => {
-    state.validators = [{
+    state.all = [{
       id: 1
     }];
     const data = [{
@@ -64,6 +64,6 @@ describe("store/validators/mutations", () => {
 
     mutations.addValidators(state, data);
 
-    expect(state.validators).toEqual(expectValidators);
+    expect(state.all).toEqual(expectValidators);
   });
 });

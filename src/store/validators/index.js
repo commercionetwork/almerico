@@ -7,7 +7,7 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 export const initialState = {
-  validators: [],
+  all: [],
   isFetching: false,
   message: ""
 };

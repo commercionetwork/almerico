@@ -3,7 +3,7 @@
  */
 
 export default {
-  validators: state => state.validators,
+  validators: state => state.all,
   isFetching: state => state.isFetching,
   message: state => state.message,
 };

@@ -2,8 +2,8 @@
  * Validators type definitions
  */
 /** @typedef {Object} ValidatorsState
- * @property {Array.<Validator>} validators
- * @property {boolean} isFetching
+ * @property {Array.<Validator>} all
+ * @property {Boolean} isFetching
  * @property {String} message
  */
 /** @typedef {Object} Validator 

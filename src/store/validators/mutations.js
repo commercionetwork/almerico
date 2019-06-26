@@ -36,7 +36,7 @@ export default {
    * @param {Array} data 
    */
   setValidators(state, data) {
-    state.validators = data;
+    state.all = data;
   },
   /**
    * Add validators data
@@ -45,6 +45,6 @@ export default {
    * @param {Array} data 
    */
   addValidators(state, data) {
-    state.validators.push(...data);
+    state.all.push(...data);
   },
 };
