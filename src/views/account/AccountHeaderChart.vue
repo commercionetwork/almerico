@@ -80,6 +80,8 @@
 <script>
 import DoughnutChart from "Components/common/DoughnutChart.vue";
 
+import api from "Store/stake/api";
+
 export default {
   name: "AccountHeaderChart",
   description: "Display the account chart",
@@ -95,6 +97,10 @@ export default {
   },
   data() {
     return {
+      validator: null,
+      delegations: [],
+      unbondingDelegations: [],
+      isfetching: false,
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -143,6 +149,36 @@ export default {
     //   };
     // }
   },
+  methods: {
+    async getData() {
+      let validator = null;
+      let delegations = null;
+      let unbondingDelegations = null;
+      this.isfetching = true;
+      try {
+        validator = await api.requestValidator(this.operatorAddress);
+        this.validator = validator.data;
+        delegations = await api.requestValidatorDelegations(
+          this.operatorAddress
+        );
+        this.delegations = delegations.data;
+        unbondingDelegations = await api.requestValidatorUnbondingDelegations(
+          this.operatorAddress
+        );
+        this.unbondingDelegations = unbondingDelegations.data;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isfetching = false;
+        console.log("validator: ", this.validator);
+        console.log("delegations: ", this.delegations[0]);
+        console.log("unbondingDelegations: ", this.unbondingDelegations[0]);
+      }
+    }
+  },
+  created() {
+    this.getData();
+  }
 };
 </script>
 

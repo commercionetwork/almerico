@@ -71,7 +71,7 @@ export default {
     }),
     async getTransactions(types) {
       this.isFetching = true;
-      const limit = 10;
+      const limit = 20;
       try {
         const response = await api.requestLastBlock();
         const totalTxs = parseInt(response.data.block.header.total_txs);

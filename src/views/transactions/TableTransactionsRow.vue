@@ -57,27 +57,35 @@ export default {
   },
   computed: {
     amount() {
-      let comm = this.transaction.tx.value.msg[0].value.amount
-        ? this.$n(
-            this.transaction.tx.value.msg[0].value.amount[0].amount / 1000000,
-            {
-              style: "decimal",
-              minimumFractionDigits: 6,
-              maximumFractionDigits: 6
-            }
-          )
-        : 0;
-      return `${comm} COMM`;
+      let comm = 0;
+      if (typeof(this.transaction.tx.value.msg[0].value.amount) === 'object') {
+        comm = this.transaction.tx.value.msg[0].value.amount.amount / 1000000;
+      }
+      if (Array.isArray(this.transaction.tx.value.msg[0].value.amount)) {
+        comm =
+          this.transaction.tx.value.msg[0].value.amount[0].amount / 1000000;
+      }
+      let formatComm = this.$n(comm, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatComm} COMM`;
     },
     fee() {
-      let fee = this.transaction.tx.value.fee.amount
-        ? this.$n(this.transaction.tx.value.fee.amount / 1000000, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-          })
-        : 0;
-      return `${fee} COMM`;
+      let fee = 0;
+      if (this.transaction.tx.value.fee.amount) {
+        fee = this.transaction.tx.value.fee.amount / 1000000;
+      }
+      if (Array.isArray(this.transaction.tx.value.fee.amount)) {
+        fee = this.transaction.tx.value.fee.amount[0].amount / 1000000;
+      }
+      let formatFee = this.$n(fee, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatFee} COMM`;
     },
     result() {
       return this.transaction.logs[0].success ? "success" : "fail";
