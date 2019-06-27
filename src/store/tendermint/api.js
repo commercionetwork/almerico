@@ -16,43 +16,6 @@ const instance = axios.create({
 
 export default {
   /**
-   * Handle ajax request to get a transactions list
-   * 
-   * @param {string} tag // mandatory
-   * @param {number} page 
-   * @param {number} limit 
-   * @return {Promise}
-   */
-  requestTransactions({
-    tag,
-    page = 1,
-    limit = 20
-  }) {
-    return instance.get(`${API.TXS}?${tag}&page=${page}&limit=${limit}`);
-  },
-  /**
-   * Handle ajax request to get the transactions concerning a height
-   * 
-   * @param {string} height
-   * @return {Promise} 
-   */
-  requestTransactionsByHeight(height) {
-    return instance.get(API.TXS, {
-      params: {
-        'tx.height': height
-      }
-    });
-  },
-  /**
-   * Handle ajax request to get a transaction by hash
-   * 
-   * @param {string} hash 
-   * @return {Promise}
-   */
-  requestTransactionByHash(hash) {
-    return instance.get(`${API.TXS}/${hash}`)
-  },
-  /**
    * Handle ajax request to get latest validator sets
    * 
    * @return {Promise}

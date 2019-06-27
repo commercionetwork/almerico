@@ -50,7 +50,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("tendermint", {
+    ...mapGetters("transactions", {
       allTransactions: "transactions"
     }),
     linkToTransactions() {
@@ -66,7 +66,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("tendermint", {
+    ...mapActions("transactions", {
       fetchTransactions: "fetchTransactions"
     }),
     async getTransactions(types) {

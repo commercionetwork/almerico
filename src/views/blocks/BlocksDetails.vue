@@ -28,7 +28,7 @@
 import BlockDetailsHeader from "./BlockDetailsHeader.vue";
 import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 
-import api from "Store/tendermint/api";
+import apiTransactions from "Store/transactions/api";
 import apiBlocks from "Store/blocks/api";
 import { mapActions, mapGetters } from "vuex";
 
@@ -78,7 +78,7 @@ export default {
     async fetchTransactions(height) {
       this.isFetchingTransactions = true;
       try {
-        const response = await api.requestTransactionsByHeight(
+        const response = await apiTransactions.requestTransactionsByHeight(
           height
         );
         this.transactions = response.data;

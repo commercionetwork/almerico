@@ -44,7 +44,7 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 import TransactionsDetailsMsg from "./TransactionsDetailsMsg.vue";
 
-import api from "Store/tendermint/api";
+import api from "Store/transactions/api";
 
 export default {
   name: "TransactionsDetails",

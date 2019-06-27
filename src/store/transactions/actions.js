@@ -33,6 +33,12 @@ export default {
       commit("stopLoading");
     }
   },
+  /**
+   * Action to add transactions
+   * 
+   * @param {Function} commit 
+   * @param {Number} height 
+   */
   async updateTransactions({
     commit
   }, height) {

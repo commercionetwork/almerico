@@ -6,11 +6,7 @@ import actions from "./actions";
 import getters from "./getters";
 import mutations from "./mutations";
 
-export const initialState = {
-  transactions: [],
-  isFetching: false,
-  message: "",
-};
+export const initialState = {};
 
 export default {
   namespaced: true,
