@@ -1,6 +1,9 @@
 /* global describe, beforeEach, it, expect, jest */
 
 import actions from "../actions.js";
+import {
+  mockPool
+} from "../__mocks__/pool";
 
 describe("store/stake/actions", () => {
   beforeEach(() => {
@@ -68,10 +71,7 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: {
-            not_bonded_tokens: "2000000",
-            bonded_tokens: "1000000",
-          }
+          data: mockPool()
         };
         resolve(mockResponse);
       }, 1);
