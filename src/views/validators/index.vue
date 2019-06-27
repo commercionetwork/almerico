@@ -90,7 +90,7 @@ export default {
       isFetchingValidators: "isFetching"
     }),
     isFetching() {
-      return this.isFetchingStake || this.isFetchingValidators;
+      return (this.isFetchingStake || this.isFetchingValidators) && this.allValidators.length === 0;
     },
     validators() {
       let cumulative = 0;
