@@ -26,7 +26,14 @@
         />
       </div>
     </div>
-    <AccountHeaderChart :operatorAddress="operatorAddress" />
+    <div class="container">
+      <AccountHeaderChart
+        :delegations="delegations"
+        :outstandings="outstandings"
+        :rewards="rewards"
+        :unbondings="unbondings"
+      />
+    </div>
   </div>
 </template>
 
@@ -53,13 +60,27 @@ export default {
       required: true,
       note: "The account address"
     },
-    operatorAddress: {
-      type: String,
+    delegations: {
+      type: Array,
       required: true,
-      note: "The account address"
+      note: "Delegations list"
     },
+    outstandings: {
+      type: Array,
+      required: true,
+      note: "Outstanding rewards list"
+    },
+    rewards: {
+      type: Array,
+      required: true,
+      note: "Rewards list"
+    },
+    unbondings: {
+      type: Array,
+      required: true,
+      note: "Unbonding delegations list"
+    }
   },
-
   computed: {
     modalId() {
       return `#${MODAL_ID}`;

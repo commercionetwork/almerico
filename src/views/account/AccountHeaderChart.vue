@@ -1,86 +1,77 @@
 <template>
-  <div class="p-3 bg-white">
-    <div
-      v-if="isfetching"
-      v-text="$t('messages.loading')"
-    />
-    <div
-      v-else
-      class="row p-1"
-    >
-      <div class="col-12 col-md-4 col-xl-3 d-flex flex-column justify-content-start align-items-start">
-        <span
-          class="pt-1 com-font-s16-w700"
-          v-text="$t('labels.total')"
-        />
-        <span class="pl-1 com-font-s16-w400">
-          {{ $n(totals, {
-          style: "decimal",
-          minimumFractionDigits: 6,
-          maximumFractionDigits: 6
-          }) }} {{ "COMM" }}
-        </span>
-      </div>
-      <div class="col-12 col-md-8 col-xl-5">
-        <div class="row">
-          <div class="col-12 col-md-6 d-flex flex-column align-items-start">
-            <span
-              class="pt-1 com-font-s14-w700"
-              v-text="labels[0]"
-            />
-            <span class="pl-1 com-font-s14-w400">
-              {{ $n(delegationsAmount, {
-              style: "decimal",
-              minimumFractionDigits: 6,
-              maximumFractionDigits: 6
-              }) }}
-            </span>
-            <span
-              class="pt-1 com-font-s14-w700"
-              v-text="labels[3]"
-            />
-            <span class="pl-1 com-font-s14-w400">
-              {{ $n(unbondingDelegationsAmount, {
-              style: "decimal",
-              minimumFractionDigits: 6,
-              maximumFractionDigits: 6
-              }) }}
-            </span>
-          </div>
-          <div class="col-12 col-md-6 d-flex flex-column align-items-start">
-            <span
-              class="pt-1 com-font-s14-w700"
-              v-text="labels[2]"
-            />
-            <span class="pl-1 com-font-s14-w400">
-              {{ $n(rewardsAmount, {
-              style: "decimal",
-              minimumFractionDigits: 6,
-              maximumFractionDigits: 6
-              }) }}
-            </span>
-            <span
-              class="pt-1 com-font-s14-w700"
-              v-text="labels[1]"
-            />
-            <span class="pl-1 com-font-s14-w400">
-              {{ $n(outstandingRewardsAmount, {
-              style: "decimal",
-              minimumFractionDigits: 6,
-              maximumFractionDigits: 6
-              }) }}
-            </span>
-          </div>
+  <div class="row p-1 bg-white">
+    <div class="col-12 col-md-4 col-xl-3 d-flex flex-column justify-content-start align-items-start">
+      <span
+        class="pt-1 com-font-s16-w700"
+        v-text="$t('labels.total')"
+      />
+      <span class="pl-1 com-font-s16-w400">
+        {{ $n(totals, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+        }) }} {{ "COMM" }}
+      </span>
+    </div>
+    <div class="col-12 col-md-8 col-xl-5">
+      <div class="row">
+        <div class="col-12 col-md-6 d-flex flex-column align-items-start">
+          <span
+            class="pt-1 com-font-s14-w700"
+            v-text="labels[0]"
+          />
+          <span class="pl-1 com-font-s14-w400">
+            {{ $n(delegationsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }}
+          </span>
+          <span
+            class="pt-1 com-font-s14-w700"
+            v-text="labels[3]"
+          />
+          <span class="pl-1 com-font-s14-w400">
+            {{ $n(unbondingDelegationsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }}
+          </span>
+        </div>
+        <div class="col-12 col-md-6 d-flex flex-column align-items-start">
+          <span
+            class="pt-1 com-font-s14-w700"
+            v-text="labels[2]"
+          />
+          <span class="pl-1 com-font-s14-w400">
+            {{ $n(rewardsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }}
+          </span>
+          <span
+            class="pt-1 com-font-s14-w700"
+            v-text="labels[1]"
+          />
+          <span class="pl-1 com-font-s14-w400">
+            {{ $n(outstandingRewardsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }}
+          </span>
         </div>
       </div>
-      <div class="col-12 col-md-12 col-xl-4 py-3 py-xl-0">
-        <DoughnutChart
-          :chartdata="chartdata"
-          :options="options"
-          height="125"
-          width="125"
-        />
-      </div>
+    </div>
+    <div class="col-12 col-md-12 col-xl-4 py-3 py-xl-0">
+      <DoughnutChart
+        :chartdata="chartdata"
+        :options="options"
+        height="125"
+        width="125"
+      />
     </div>
   </div>
 </template>
@@ -97,10 +88,25 @@ export default {
     DoughnutChart
   },
   props: {
-    operatorAddress: {
-      type: String,
+    delegations: {
+      type: Array,
       required: true,
-      note: "The account operator address"
+      note: "Delegations list"
+    },
+    outstandings: {
+      type: Array,
+      required: true,
+      note: "Outstanding rewards list"
+    },
+    rewards: {
+      type: Array,
+      required: true,
+      note: "Rewards list"
+    },
+    unbondings: {
+      type: Array,
+      required: true,
+      note: "Unbonding delegations list"
     }
   },
   data() {
@@ -112,11 +118,6 @@ export default {
         this.$t("labels.unbonded")
       ],
       totals: 0,
-      delegations: [],
-      outstandingRewards: [],
-      rewards: [],
-      unbondingDelegations: [],
-      isfetching: false,
       chartdata: null,
       options: {
         responsive: true,
@@ -149,7 +150,7 @@ export default {
     },
     outstandingRewardsAmount() {
       let amount = 0;
-      this.outstandingRewards.forEach(element => {
+      this.outstandings.forEach(element => {
         amount += parseFloat(element.amount);
       });
       return amount / 1000000;
@@ -163,7 +164,7 @@ export default {
     },
     unbondingDelegationsAmount() {
       let amount = 0;
-      this.unbondingDelegations.forEach(element => {
+      this.unbondings.forEach(element => {
         element.entries.forEach(entry => {
           amount += parseFloat(entry.balance);
         });
@@ -172,36 +173,6 @@ export default {
     }
   },
   methods: {
-    async getData() {
-      let delegations = null;
-      let outstandingRewards = null;
-      let rewards = null;
-      let unbondingDelegations = null;
-      this.isfetching = true;
-      try {
-        delegations = await api.requestValidatorDelegations(
-          this.operatorAddress
-        );
-        if (delegations.data) this.delegations = delegations.data;
-        outstandingRewards = await api.requestValidatorOutstandingRewards(
-          this.operatorAddress
-        );
-        if (outstandingRewards.data)
-          this.outstandingRewards = outstandingRewards.data;
-        rewards = await api.requestValidatorRewards(this.operatorAddress);
-        if (rewards.data) this.rewards = rewards.data;
-        unbondingDelegations = await api.requestValidatorUnbondingDelegations(
-          this.operatorAddress
-        );
-        if (unbondingDelegations.data)
-          this.unbondingDelegations = unbondingDelegations.data;
-        this.setChartdata();
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.isfetching = false;
-      }
-    },
     setChartdata() {
       this.setTotals();
       let data = [
@@ -232,7 +203,7 @@ export default {
     }
   },
   created() {
-    this.getData();
+    this.setChartdata();
   }
 };
 </script>
