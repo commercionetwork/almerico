@@ -25,7 +25,7 @@
             style: "decimal",
             minimumFractionDigits: 6,
             maximumFractionDigits: 6
-            }) }}
+            }) }} {{ "COMM" }}
           </span>
           <span
             class="pt-1 com-font-s14-w700"
@@ -36,7 +36,7 @@
             style: "decimal",
             minimumFractionDigits: 6,
             maximumFractionDigits: 6
-            }) }}
+            }) }} {{ "COMM" }}
           </span>
         </div>
         <div class="col-12 col-md-6 d-flex flex-column align-items-start">
@@ -49,7 +49,7 @@
             style: "decimal",
             minimumFractionDigits: 6,
             maximumFractionDigits: 6
-            }) }}
+            }) }} {{ "COMM" }}
           </span>
           <span
             class="pt-1 com-font-s14-w700"
@@ -60,7 +60,7 @@
             style: "decimal",
             minimumFractionDigits: 6,
             maximumFractionDigits: 6
-            }) }}
+            }) }} {{ "COMM" }}
           </span>
         </div>
       </div>
