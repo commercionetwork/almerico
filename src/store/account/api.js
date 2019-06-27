@@ -1,4 +1,0 @@
-/**
- * Account APIs
- */
-export default {};
