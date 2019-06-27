@@ -8,7 +8,7 @@
       v-else
       class="row p-1"
     >
-      <div class="col-12 col-md-3 d-flex flex-column justify-content-start align-items-start">
+      <div class="col-12 col-md-4 col-xl-3 d-flex flex-column justify-content-start align-items-start">
         <span
           class="pt-1 com-font-s16-w700"
           v-text="$t('labels.total')"
@@ -21,7 +21,7 @@
           }) }} {{ "COMM" }}
         </span>
       </div>
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-md-8 col-xl-5">
         <div class="row">
           <div class="col-12 col-md-6 d-flex flex-column align-items-start">
             <span
@@ -73,7 +73,7 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-12 col-xl-4 py-3 py-xl-0">
         <DoughnutChart
           :chartdata="chartdata"
           :options="options"
@@ -122,7 +122,7 @@ export default {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-          position: "right"
+          position: "left"
         },
         tooltips: {
           callbacks: {
