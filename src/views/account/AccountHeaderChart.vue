@@ -79,8 +79,6 @@
 <script>
 import DoughnutChart from "Components/common/DoughnutChart.vue";
 
-import api from "Store/validators/api";
-
 export default {
   name: "AccountHeaderChart",
   description: "Display the account chart",
