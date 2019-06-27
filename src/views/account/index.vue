@@ -86,7 +86,7 @@ export default {
         response = await api.requestValidatorUnbondingDelegations(
           this.operatorAddress
         );
-        if (response.data) this.unbondingDelegations = response.data;
+        if (response.data) this.unbondings = response.data;
         // get outstanding rewards
         response = await api.requestValidatorOutstandingRewards(
           this.operatorAddress
