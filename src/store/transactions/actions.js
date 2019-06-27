@@ -1,5 +1,5 @@
 /**
- * Tendermint actions
+ * Transactions actions
  */
 
 import api from "./api";

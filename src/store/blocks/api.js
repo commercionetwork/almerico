@@ -18,7 +18,7 @@ export default {
   /**
    * Handle ajax request to get a block by id
    * 
-   * @param {number} height
+   * @param {Number} height
    * @return {Promise}
    */
   requestBlock(height) {
