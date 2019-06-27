@@ -5,7 +5,7 @@ import {
   mockTransactions
 } from "../__mocks__/transactions";
 
-describe("store/tendermint/actions", () => {
+describe("store/transactions/actions", () => {
   beforeEach(() => {
     mockError = false;
     mockErrorServer = false;

@@ -5,7 +5,7 @@ import {
   initialState
 } from "../index";
 
-describe("store/tendermint/mutations", () => {
+describe("store/transactions/mutations", () => {
   let state = {};
 
   beforeEach(() => {
@@ -40,7 +40,7 @@ describe("store/tendermint/mutations", () => {
   });
 
   it("Check mutations.addTransactions", () => {
-    state.transactions = [{
+    state.all = [{
       id: 1
     }];
     const data = [{
@@ -54,6 +54,6 @@ describe("store/tendermint/mutations", () => {
 
     mutations.addTransactions(state, data);
 
-    expect(state.transactions).toEqual(expectTxs);
+    expect(state.all).toEqual(expectTxs);
   });
 });
