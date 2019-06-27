@@ -17,9 +17,9 @@ export default {
   /**
    * Handle ajax request to get a validators list
    * 
-   * @param {string} status 
-   * @param {number} page 
-   * @param {number} limit
+   * @param {String} status 
+   * @param {Number} page 
+   * @param {Number} limit
    * @return {Promise}
    */
   requestValidators({
@@ -38,7 +38,7 @@ export default {
   /**
    * Handle ajax request to get a validator by address
    * 
-   * @param {string} address
+   * @param {String} address
    * @return {Promise}
    */
   requestValidator(address) {
@@ -47,7 +47,7 @@ export default {
   /**
    * Handle ajax request to get delegations by validator address
    * 
-   * @param {string} address
+   * @param {String} address
    * @return {Promise}
    */
   requestValidatorDelegations(address) {
@@ -56,7 +56,7 @@ export default {
   /**
    * Handle ajax request to get outstanding rewards by validator address
    * 
-   * @param {string} address
+   * @param {String} address
    * @return {Promise}
    */
   requestValidatorOutstandingRewards(address) {
@@ -65,7 +65,7 @@ export default {
   /**
    * Handle ajax request to get rewards by validator address
    * 
-   * @param {string} address
+   * @param {String} address
    * @return {Promise}
    */
   requestValidatorRewards(address) {
@@ -74,10 +74,19 @@ export default {
   /**
    * Handle ajax request to get unbonding delegations by validator address
    * 
-   * @param {string} address
+   * @param {String} address
    * @return {Promise}
    */
   requestValidatorUnbondingDelegations(address) {
     return instance.get(`${API.STAKING_VALIDATORS}/${address}/unbonding_delegations`);
+  },
+  /**
+   * Handle ajax request to get validator sets concerning an height
+   * 
+   * @param {Number} height
+   * @return {Promise} 
+   */
+  requestValidatorsetsFromHeight(height) {
+    return instance.get(`${API.VALIDATORSETS}/${height}`);
   }
 };
