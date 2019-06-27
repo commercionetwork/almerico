@@ -34,7 +34,7 @@ export default {
     Icon
   },
   computed: {
-    ...mapGetters("tendermint", {
+    ...mapGetters("blocks", {
       block: "lastBlock"
     }),
     time() {

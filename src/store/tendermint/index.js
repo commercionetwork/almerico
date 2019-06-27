@@ -7,8 +7,6 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 export const initialState = {
-  blocks: [],
-  lastBlock: null,
   transactions: [],
   isFetching: false,
   message: "",

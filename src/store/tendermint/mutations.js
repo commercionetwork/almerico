@@ -30,24 +30,6 @@ export default {
     state.message = message;
   },
   /**
-   * Add block to blocks list
-   * 
-   * @param {TendermintState} state 
-   * @param {Block} data 
-   */
-  addNewBlock(state, data) {
-    state.blocks.push(data);
-  },
-  /**
-   * Set last block
-   * 
-   * @param {TendermintState} state 
-   * @param {Block} data 
-   */
-  setLastBlock(state, data) {
-    state.lastBlock = data;
-  },
-  /**
    * Add transactions data
    *
    * @param {TendermintState} state

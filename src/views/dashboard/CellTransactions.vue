@@ -32,7 +32,7 @@
 import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import api from "Store/tendermint/api";
+import api from "Store/blocks/api";
 import { ROUTE_NAMES, TX_TYPES } from "Constants";
 import { arrayManager, localizedRoute } from "Utils";
 import { mapActions, mapGetters } from "vuex";

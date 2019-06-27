@@ -39,7 +39,7 @@
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableTransactionsRow from "./TableTransactionsRow.vue";
 
-import api from "Store/tendermint/api";
+import api from "Store/blocks/api";
 import { TX_TYPES } from "Constants";
 import { arrayManager } from "Utils";
 import { mapActions, mapGetters } from "vuex";

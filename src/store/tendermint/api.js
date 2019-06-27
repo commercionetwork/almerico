@@ -16,23 +16,6 @@ const instance = axios.create({
 
 export default {
   /**
-   * Handle ajax request to get a block by id
-   * 
-   * @param {number} height
-   * @return {Promise}
-   */
-  requestBlock(height) {
-    return instance.get(`${API.BLOCKS}/${height}`);
-  },
-  /**
-   * Handle ajax request to get last block
-   * 
-   * @return {Promise}
-   */
-  requestLastBlock() {
-    return instance.get(`${API.BLOCKS}/latest`);
-  },
-  /**
    * Handle ajax request to get a transactions list
    * 
    * @param {string} tag // mandatory

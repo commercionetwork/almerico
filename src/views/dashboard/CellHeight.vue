@@ -27,7 +27,7 @@ export default {
     HeaderCell
   },
   computed: {
-    ...mapGetters("tendermint", {
+    ...mapGetters("blocks", {
       block: "lastBlock"
     }),
     height() {

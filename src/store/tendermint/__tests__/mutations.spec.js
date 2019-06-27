@@ -39,36 +39,6 @@ describe("store/tendermint/mutations", () => {
     expect(state.message).toEqual(message);
   });
 
-  it("Check mutations.addNewBlock", () => {
-    state.blocks = [{
-      id: 1
-    }];
-    const data = {
-      id: 2
-    };
-    const expectBlocks = [{
-        id: 1
-      },
-      {
-        id: 2
-      }
-    ];
-
-    mutations.addNewBlock(state, data);
-
-    expect(state.blocks).toEqual(expectBlocks);
-  });
-
-  it("Check mutations.setLastBlock", () => {
-    const data = {
-      id: 1
-    };
-
-    mutations.setLastBlock(state, data);
-
-    expect(state.lastBlock).toEqual(data);
-  });
-
   it("Check mutations.addTransactions", () => {
     state.transactions = [{
       id: 1

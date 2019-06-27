@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import account from "Store/account";
+import blocks from "Store/blocks";
 import modals from "Store/modals";
 import stake from "Store/stake";
 import tendermint from "Store/tendermint";
@@ -12,6 +13,7 @@ Vue.use(Vuex);
 
 const initialState = {
   account: account.initialState,
+  blocks: blocks.initialState,
   modals: modals.initialState,
   stake: stake.initialState,
   tendermint: tendermint.initialState,
@@ -22,6 +24,7 @@ const initialState = {
 export default new Vuex.Store({
   modules: {
     account,
+    blocks,
     modals,
     stake,
     tendermint,

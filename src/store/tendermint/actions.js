@@ -26,8 +26,12 @@ export default {
       query: "tm.event = 'NewBlock'"
     }, event => {
       let block = event.block;
-      commit("addNewBlock", block);
-      commit("setLastBlock", block);
+      commit("blocks/addNewBlock", block, {
+        root: true
+      });
+      commit("blocks/setLastBlock", block, {
+        root: true
+      });
       dispatch("stake/fetchPool", null, {
         root: true
       });
@@ -35,40 +39,6 @@ export default {
         dispatch("updateTransactions", block.header.height);
       }
     });
-  },
-  /**
-   * Action to fetch a list of most recent blocks
-   * 
-   * @param {Function} commit 
-   * @param {Number} limit 
-   */
-  async fetchBlocks({
-    commit
-  }, limit = 10) {
-    commit("startLoading");
-    commit("setServerReachability", true, {
-      root: true
-    });
-    try {
-      const response = await api.requestLastBlock();
-      let height = parseInt(response.data.block.header.height);
-      const min = height - limit;
-      while (height > 0 && height > min) {
-        let res = await api.requestBlock(height);
-        commit("addNewBlock", res.data.block);
-        height--;
-      }
-    } catch (error) {
-      if (error.response !== undefined) {
-        commit("setMessage", error.response.data.error);
-      } else {
-        commit("setServerReachability", false, {
-          root: true
-        });
-      }
-    } finally {
-      commit("stopLoading");
-    }
   },
   /**
    * Action to fetch transactions

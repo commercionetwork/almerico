@@ -29,6 +29,7 @@ import BlockDetailsHeader from "./BlockDetailsHeader.vue";
 import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 
 import api from "Store/tendermint/api";
+import apiBlocks from "Store/blocks/api";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -66,7 +67,7 @@ export default {
     async fetchBlock(height) {
       this.isFetchingBlock = true;
       try {
-        const response = await api.requestBlock(height);
+        const response = await apiBlocks.requestBlock(height);
         this.block = response.data.block;
       } catch (error) {
         this.block = {};
