@@ -21,10 +21,10 @@
       <div class="bg-white">
         <div class="row">
           <div class="col-12 col-md-6 mt-3">
-            <!-- <AccountDelegations :account="account" /> -->
+            <AccountDelegations :delegations="delegations" />
           </div>
           <div class="col-12 col-md-6 mt-3">
-            <!-- <AccountUnbondings :account="account" /> -->
+            <AccountUnbondings :delegations="unbondings" />
           </div>
         </div>
         <div class="mt-3">
