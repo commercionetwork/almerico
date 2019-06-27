@@ -1,5 +1,0 @@
-/**
- * Tendermint getters
- */
-
-export default {};

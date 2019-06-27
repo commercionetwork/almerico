@@ -1,5 +1,0 @@
-/**
- * Tendermint mutations
- */
-
-export default {};

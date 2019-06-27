@@ -15,7 +15,6 @@ const initialState = {
   blocks: blocks.initialState,
   modals: modals.initialState,
   stake: stake.initialState,
-  tendermint: tendermint.initialState,
   transactions: transactions.initialState,
   validators: validators.initialState,
   votings: votings.initialState,
