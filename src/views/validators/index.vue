@@ -3,16 +3,16 @@
     <SectionHeader :title="$t('titles.validators')" />
     <div class="container rounded bg-light">
       <div class="row py-3 px-5">
-        <div class="col-12 col-md-3 my-1 my-md-0">
+        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellHeight />
         </div>
-        <div class="col-12 col-md-3 my-1 my-md-0">
+        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellValidators />
         </div>
-        <div class="col-12 col-md-3 my-1 my-md-0">
+        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellTokens />
         </div>
-        <div class="col-12 col-md-3 my-1 my-md-0">
+        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellTime />
         </div>
       </div>
