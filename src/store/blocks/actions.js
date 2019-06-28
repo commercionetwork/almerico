@@ -12,7 +12,8 @@ export default {
    * @param {Number} limit 
    */
   async fetchBlocks({
-    commit
+    commit,
+    dispatch
   }, limit = 10) {
     commit("startLoading");
     commit("setServerReachability", true, {
@@ -23,10 +24,37 @@ export default {
       let height = parseInt(response.data.block.header.height);
       const min = height - limit;
       while (height > 0 && height > min) {
-        let res = await api.requestBlock(height);
-        commit("addNewBlock", res.data.block);
+        dispatch("fetchBlock", height);
         height--;
       }
+    } catch (error) {
+      if (error.response !== undefined) {
+        commit("setMessage", error.response.data.error);
+      } else {
+        commit("setServerReachability", false, {
+          root: true
+        });
+      }
+    } finally {
+      commit("stopLoading");
+    }
+  },
+  /**
+   * Action to fetch a block by height
+   * 
+   * @param {Function} commit 
+   * @param {Number} height 
+   */
+  async fetchBlock({
+    commit
+  }, height) {
+    try {
+      commit("startLoading");
+      commit("setServerReachability", true, {
+        root: true
+      });
+      const response = await api.requestBlock(height);
+      commit("addNewBlock", response.data.block);
     } catch (error) {
       if (error.response !== undefined) {
         commit("setMessage", error.response.data.error);

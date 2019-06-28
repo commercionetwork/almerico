@@ -13,7 +13,6 @@ const instance = axios.create({
   }
 });
 
-
 export default {
   /**
    * Handle ajax request to get a block by id

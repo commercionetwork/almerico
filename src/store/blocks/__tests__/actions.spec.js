@@ -14,20 +14,24 @@ describe("store/blocks/actions", () => {
 
   it("Check if 'actions.fetchBlocks' add blocks", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
 
     await actions.fetchBlocks({
-      commit
+      commit,
+      dispatch
     });
 
-    expect(commit).toHaveBeenCalledWith("addNewBlock", mockResponse.data.block);
+    expect(dispatch).toHaveBeenCalledWith("fetchBlock", mockResponse.data.block.header.height);
   });
 
   it("Check if 'actions.fetchBlocks' has an error", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
     mockError = true;
 
     await actions.fetchBlocks({
-      commit
+      commit,
+      dispatch
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
@@ -35,9 +39,45 @@ describe("store/blocks/actions", () => {
 
   it("Check 'actions.fetchBlocks' when server is unreachable", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
     mockErrorServer = true;
 
     await actions.fetchBlocks({
+      commit,
+      dispatch
+    });
+
+    expect(commit).toBeCalledWith("setServerReachability", false, {
+      root: true
+    });
+  });
+
+  it("Check if 'actions.fetchBlock' add new block", async () => {
+    const commit = jest.fn();
+
+    await actions.fetchBlock({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("addNewBlock", mockResponse.data.block);
+  });
+
+  it("Check if 'actions.fetchBlock' has an error", async () => {
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchBlock({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check 'actions.fetchBlock' when server is unreachable", async () => {
+    const commit = jest.fn();
+    mockErrorServer = true;
+
+    await actions.fetchBlock({
       commit
     });
 
