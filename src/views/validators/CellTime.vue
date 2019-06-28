@@ -22,7 +22,7 @@
 import HeaderCell from "Components/common/HeaderCell.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
-import "Assets/img/icons/history";
+import "vue-awesome/icons/history";
 
 import { mapGetters } from "vuex";
 

@@ -3,7 +3,7 @@
     <div slot="header">
       <span>
         <Icon
-          name="pollPeople"
+          name="users-cog"
           scale="1"
         />
       </span>
@@ -22,7 +22,7 @@
 import HeaderCell from "Components/common/HeaderCell.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
-import "Assets/img/icons/poll-people";
+import "vue-awesome/icons/users-cog";
 
 import { mapGetters } from "vuex";
 

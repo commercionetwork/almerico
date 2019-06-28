@@ -42,7 +42,7 @@ import AccountHeaderChart from "./AccountHeaderChart.vue";
 import ModalQrCode from "Components/modals/ModalQrCode.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
-import "Assets/img/icons/qrcode";
+import "vue-awesome/icons/qrcode";
 
 import { MODAL_ID, MODAL_SIZE } from "Constants";
 import { mapActions } from "vuex";

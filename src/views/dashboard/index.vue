@@ -63,7 +63,7 @@ import CellPrice from "./CellPrice.vue";
 import CellTransactions from "./CellTransactions.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
-import "Assets/img/icons/search";
+import "vue-awesome/icons/search";
 
 export default {
   name: "Dashboard",
