@@ -1,10 +1,14 @@
 /* global describe, beforeEach, it, expect, jest */
 
 import actions from "../actions.js";
+import {
+  mockValidators
+} from "../__mocks__/validators";
 
 describe("store/validators/actions", () => {
   beforeEach(() => {
     mockError = false;
+    mockErrorRequest = false;
     mockErrorServer = false;
     mockResponse = null;
   });
@@ -28,7 +32,13 @@ describe("store/validators/actions", () => {
   });
 
   it("Check if 'actions.fetchValidators' sets validators", async () => {
-    //TODO: implement
+    const commit = jest.fn();
+
+    await actions.fetchValidators({
+      commit
+    });
+    
+    expect(commit).toHaveBeenCalledWith("setValidators", mockResponse.data);
   });
 
   it("Check if 'actions.fetchValidators' has an error", async () => {
@@ -40,6 +50,17 @@ describe("store/validators/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check if 'actions.fetchValidators' has a request error", async () => {
+    const commit = jest.fn();
+    mockErrorRequest = true;
+
+    await actions.fetchValidators({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
   });
 
   it("Check 'actions.fetchValidators' when server is unreachable", async () => {
@@ -56,7 +77,11 @@ describe("store/validators/actions", () => {
   });
 });
 
+let mockResponse = null;
+
+let mockError = false;
 const mockErrorResponse = {
+  request: {},
   response: {
     data: {
       error: "error",
@@ -64,9 +89,12 @@ const mockErrorResponse = {
     status: 400
   }
 };
-let mockError = false;
+let mockErrorRequest = false;
+const mockErrorRequestResponse = {
+  request: {},
+  response: undefined
+};
 let mockErrorServer = false;
-let mockResponse = null;
 
 jest.mock("./../api", () => ({
   requestValidators: () => {
@@ -75,14 +103,15 @@ jest.mock("./../api", () => ({
         if (mockError) {
           reject(mockErrorResponse);
         }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
         if (mockErrorServer) {
           reject({});
         }
 
         mockResponse = {
-          data: {
-            //TODO: implement
-          }
+          data: mockValidators()
         };
         resolve(mockResponse);
       }, 1);

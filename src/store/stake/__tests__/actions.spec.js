@@ -8,6 +8,7 @@ import {
 describe("store/stake/actions", () => {
   beforeEach(() => {
     mockError = false;
+    mockErrorRequest = false;
     mockErrorServer = false;
     mockResponse = null;
   });
@@ -33,6 +34,17 @@ describe("store/stake/actions", () => {
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
   });
 
+  it("Check if 'actions.fetchPool' has a request error", async () => {
+    const commit = jest.fn();
+    mockErrorRequest = true;
+
+    await actions.fetchPool({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+  });
+
   it("Check 'actions.fetchPool' when server is unreachable", async () => {
     const commit = jest.fn();
     mockErrorServer = true;
@@ -47,7 +59,11 @@ describe("store/stake/actions", () => {
   });
 });
 
+let mockResponse = null;
+
+let mockError = false;
 const mockErrorResponse = {
+  request: {},
   response: {
     data: {
       error: "error",
@@ -55,9 +71,12 @@ const mockErrorResponse = {
     status: 400
   }
 };
-let mockError = false;
+let mockErrorRequest = false;
+const mockErrorRequestResponse = {
+  request: {},
+  response: undefined
+};
 let mockErrorServer = false;
-let mockResponse = null;
 
 jest.mock("./../api", () => ({
   requestPool: () => {
@@ -65,6 +84,9 @@ jest.mock("./../api", () => ({
       setTimeout(() => {
         if (mockError) {
           reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
         }
         if (mockErrorServer) {
           reject({});
