@@ -1,5 +1,5 @@
 <template>
-  <div class="row p-1 bg-white">
+  <div class="row py-3 bg-white">
     <div class="col-12 col-md-4 col-xl-3 d-flex flex-column justify-content-start align-items-start">
       <span
         class="pt-1 com-font-s16-w700"
