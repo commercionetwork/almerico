@@ -46,16 +46,16 @@ export default {
    * Action to fetch a block by height
    * 
    * @param {Function} commit 
-   * @param {Number} height 
+   * @param {Number} height
    */
   async fetchBlock({
     commit
   }, height) {
+    commit("startLoading");
+    commit("setServerReachability", true, {
+      root: true
+    });
     try {
-      commit("startLoading");
-      commit("setServerReachability", true, {
-        root: true
-      });
       const response = await api.requestBlock(height);
       commit("addNewBlock", response.data.block);
     } catch (error) {
