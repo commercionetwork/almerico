@@ -36,9 +36,8 @@ export default {
       if (error.response) {
         commit("setMessage", error.response.data.error);
       } else if (error.request) {
-        console.log(error.request);
+        commit("setMessage", "Request error");
       } else {
-        console.log('Error', error.message);
         commit("setServerReachability", false, {
           root: true
         });
