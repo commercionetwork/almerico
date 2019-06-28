@@ -10,19 +10,23 @@ export default {
    * 
    * @param {Function} commit 
    */
-  async fetchPool({commit}){
+  async fetchPool({
+    commit
+  }) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
-    try{
+    try {
       const response = await api.requestPool();
       commit("setPool", response.data);
-    }
-    catch (error) {
-      if (error.response !== undefined) {
+    } catch (error) {
+      if (error.response) {
         commit("setMessage", error.response.data.error);
+      } else if (error.request) {
+        console.log(error.request);
       } else {
+        console.log('Error', error.message);
         commit("setServerReachability", false, {
           root: true
         });

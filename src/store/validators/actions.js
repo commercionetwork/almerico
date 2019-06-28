@@ -33,9 +33,12 @@ export default {
       const response = await api.requestValidators(filters);
       commit("setValidators", response.data);
     } catch (error) {
-      if (error.response !== undefined) {
+      if (error.response) {
         commit("setMessage", error.response.data.error);
+      } else if (error.request) {
+        console.log(error.request);
       } else {
+        console.log('Error', error.message);
         commit("setServerReachability", false, {
           root: true
         });

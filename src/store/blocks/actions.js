@@ -28,9 +28,12 @@ export default {
         height--;
       }
     } catch (error) {
-      if (error.response !== undefined) {
+      if (error.response) {
         commit("setMessage", error.response.data.error);
+      } else if (error.request) {
+        console.log(error.request);
       } else {
+        console.log('Error', error.message);
         commit("setServerReachability", false, {
           root: true
         });
@@ -56,9 +59,12 @@ export default {
       const response = await api.requestBlock(height);
       commit("addNewBlock", response.data.block);
     } catch (error) {
-      if (error.response !== undefined) {
+      if (error.response) {
         commit("setMessage", error.response.data.error);
+      } else if (error.request) {
+        console.log(error.request);
       } else {
+        console.log('Error', error.message);
         commit("setServerReachability", false, {
           root: true
         });
