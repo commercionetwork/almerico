@@ -27,11 +27,20 @@
               </div>
             </div>
             <hr>
-            <TransactionsDetailsMsg
-              v-for="(message, index) in messages"
-              :key="index"
-              :message="message"
-            />
+            <div v-if="type === TX_TYPES.SEND">
+              <MsgTransactionSend
+                v-for="(message, index) in messages"
+                :key="index"
+                :message="message"
+              />
+            </div>
+            <div v-else>
+              <TransactionsDetailsMsg
+                v-for="(message, index) in messages"
+                :key="index"
+                :message="message"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -40,22 +49,26 @@
 </template>
 
 <script>
+import MsgTransactionSend from "./msgs/MsgTransactionSend.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 import TransactionsDetailsMsg from "./TransactionsDetailsMsg.vue";
 
 import api from "Store/transactions/api";
+import { TX_TYPES } from "Constants";
 
 export default {
   name: "TransactionsDetails",
   description: "Display the transaction details",
   components: {
+    MsgTransactionSend,
     SectionHeader,
     TransactionsDetailsInfo,
     TransactionsDetailsMsg
   },
   data() {
     return {
+      TX_TYPES,
       isFetching: false,
       messages: [],
       transaction: null

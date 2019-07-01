@@ -1,4 +1,5 @@
 export const TX_TYPES = {
+  // cosmos
   BEGIN_UNBONDING: "begin_unbonding",
   CREATE_VALIDATOR: "create_validator",
   EDIT_VALIDATOR: "edit_validator",
@@ -17,6 +18,7 @@ const MSG_BASE = {
 };
 
 export const MSG_TYPES = {
+  // cosmos
   CREATE_VALIDATOR: `${MSG_BASE.COSMOS_SDK}/MsgCreateValidator`,
   EDIT_VALIDATOR: `${MSG_BASE.COSMOS_SDK}/MsgEditValidator`,
   SEND: `${MSG_BASE.COSMOS_SDK}/MsgSend`,
