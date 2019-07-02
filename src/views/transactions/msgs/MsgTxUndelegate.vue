@@ -2,15 +2,6 @@
   <MsgTx :title="message.type">
     <div slot="body">
       <div class="row p-1">
-        <div class="col-12">
-          <h3
-            class="text-secondary com-font-s16-w700"
-            v-text="message.type"
-          />
-        </div>
-      </div>
-      <hr>
-      <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.delegatorAddress')"

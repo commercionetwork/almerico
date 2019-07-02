@@ -92,7 +92,7 @@ export default {
       return component;
     },
     type() {
-      return this.transaction.tags[0].value;
+      return this.transaction.tags.find(tag => tag.key === "action").value;
     }
   },
   methods: {
