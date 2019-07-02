@@ -17,44 +17,26 @@
               />
             </div>
           </div>
-          <div class="p-1 rounded bg-white border">
-            <div class="row p-1">
-              <div class="col-12">
-                <h3
-                  class="text-capitalize com-font-s16-w700"
-                  v-text="type"
-                />
-              </div>
-            </div>
-            <hr>
-            <div v-if="type === TX_TYPES.SEND">
-              <MsgTransactionSend
-                v-for="(message, index) in messages"
-                :key="index"
-                :message="message"
-              />
-            </div>
-            <div v-else-if="type === TX_TYPES.BEGIN_UNBONDING">
-              <MsgTransactionUndelegate
-                v-for="(message, index) in messages"
-                :key="index"
-                :message="message"
-              />
-            </div>
-            <div v-else-if="type === TX_TYPES.UNJAIL">
-              <MsgTransactionUnjail
-                v-for="(message, index) in messages"
-                :key="index"
-                :message="message"
-              />
-            </div>
-            <div v-else>
-              <TransactionsDetailsMsg
-                v-for="(message, index) in messages"
-                :key="index"
-                :message="message"
-              />
-            </div>
+          <div v-if="type === TX_TYPES.SEND">
+            <MsgTransactionSend
+              v-for="(message, index) in messages"
+              :key="index"
+              :message="message"
+            />
+          </div>
+          <div v-else-if="type === TX_TYPES.BEGIN_UNBONDING">
+            <MsgTransactionUndelegate
+              v-for="(message, index) in messages"
+              :key="index"
+              :message="message"
+            />
+          </div>
+          <div v-else-if="type === TX_TYPES.UNJAIL">
+            <MsgTransactionUnjail
+              v-for="(message, index) in messages"
+              :key="index"
+              :message="message"
+            />
           </div>
         </div>
       </div>
@@ -68,7 +50,6 @@ import MsgTransactionUndelegate from "./msgs/MsgTransactionUndelegate.vue";
 import MsgTransactionUnjail from "./msgs/MsgTransactionUnjail.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
-import TransactionsDetailsMsg from "./TransactionsDetailsMsg.vue";
 
 import api from "Store/transactions/api";
 import { TX_TYPES } from "Constants";
@@ -81,8 +62,7 @@ export default {
     MsgTransactionUndelegate,
     MsgTransactionUnjail,
     SectionHeader,
-    TransactionsDetailsInfo,
-    TransactionsDetailsMsg
+    TransactionsDetailsInfo
   },
   data() {
     return {

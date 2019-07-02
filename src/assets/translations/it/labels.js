@@ -1,11 +1,13 @@
 export const labels = {
   address: "Indirizzo",
   amount: "Importo",
+  commissionRate: "Tasso commissione",
   delegated: "Delegati",
   delegatorAddress: "Indirizzo delegante",
   depositEndTime: "Termine deposito",
   description: "Descrizione",
   fromAddress: "Da indirizzo",
+  minSelfDelegation: "Min. auto delega",
   operatorAddress: "Indirizzo operatore",
   outstandingRewards: "Premi straordinari",
   proposer: "Proponente",

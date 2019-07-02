@@ -6,22 +6,9 @@ export const TX_TYPES = {
   SEND: "send",
   UNJAIL: "unjail",
   // commercio
+  CREATE_ACCOUNT: "create_account",
   CREATE_CONNECTION: "create_connection",
-  REGISTER: "register",
-  SHARE: "share",
-  STORE: "store",
-  UPSERT_IDENTITY: "upsert-identity",
-};
-
-const MSG_BASE = {
-  COSMOS_SDK: "cosmos-sdk"
-};
-
-export const MSG_TYPES = {
-  // cosmos
-  CREATE_VALIDATOR: `${MSG_BASE.COSMOS_SDK}/MsgCreateValidator`,
-  EDIT_VALIDATOR: `${MSG_BASE.COSMOS_SDK}/MsgEditValidator`,
-  SEND: `${MSG_BASE.COSMOS_SDK}/MsgSend`,
-  UNDELEGATE: `${MSG_BASE.COSMOS_SDK}/MsgUndelegate`,
-  UNJAIL: `${MSG_BASE.COSMOS_SDK}/MsgUnjail`,
+  SET_IDENTITY: "set_identity",
+  SHARE_DOCUMENT: "share_document",
+  STORE_DOCUMENT: "store_document",
 };

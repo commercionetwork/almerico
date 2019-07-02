@@ -1,11 +1,13 @@
 export const labels = {
   address: "Address",
   amount: "Amount",
+  commissionRate: "Commission rate",
   delegated: "Delegated",
   delegatorAddress: "Delegator address",
   depositEndTime: "Deposit end time",
   description: "Description",
   fromAddress: "From address",
+  minSelfDelegation: "Min self delegation",
   operatorAddress: "Operator address",
   outstandingRewards: "Outstanding rewards",
   proposer: "Proposer",

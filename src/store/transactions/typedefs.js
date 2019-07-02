@@ -42,7 +42,29 @@
  */
 /** @typedef {Object} Msg
  * @property {String} type 
- * @property {(ValueCreateValidator|ValueEditValidator|ValueSend|ValueUndelegate|ValueUnjail)} value 
+ * @property {(
+ * ValueCreateAccount|
+ * ValueCreateConnection|
+ * ValueCreateValidator|
+ * ValueEditValidator|
+ * ValueSend|
+ * ValueSetIdentity|
+ * ValueShareDocument|
+ * ValueStoreDocument|
+ * ValueUndelegate|
+ * ValueUnjail
+ * )} value 
+ */
+/** @typedef {Object} ValueCreateAccount
+ * @property {String} address 
+ * @property {String} key_type 
+ * @property {String} key_value 
+ * @property {String} signer 
+ */
+/** @typedef {Object} ValueCreateConnection
+ * @property {String} FirstUser 
+ * @property {String} SecondUser 
+ * @property {String} Signer 
  */
 /** @typedef {Object} ValueCreateValidator
  * @property {String} commission 
@@ -62,6 +84,23 @@
  * @property {Array.<Amount>} amount 
  * @property {String} from_address 
  * @property {String} to_address 
+ */
+/** @typedef {Object} ValueSetIdentity
+ * @property {String} ddo_reference 
+ * @property {String} did 
+ * @property {String} owner 
+ */
+/** @typedef {Object} ValueShareDocument 
+ * @property {String} owner 
+ * @property {String} receiver 
+ * @property {String} reference 
+ * @property {String} sender 
+ */
+/** @typedef {Object} ValueStoreDocument
+ * @property {String} identity 
+ * @property {String} metadata 
+ * @property {String} owner 
+ * @property {String} reference 
  */
 /** @typedef {Object} ValueUndelegate
  * @property {Amount} amount
