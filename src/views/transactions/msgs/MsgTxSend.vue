@@ -1,61 +1,59 @@
 <template>
-  <div class="p-1 rounded bg-white border">
-    <div class="row p-1">
-      <div class="col-12">
-        <h3
-          class="text-secondary com-font-s16-w700"
-          v-text="message.type"
+  <MsgTx :title="message.type">
+    <div slot="body">
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.fromAddress')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <router-link
+            :to="toAccountDetails(fromAddress)"
+            v-text="fromAddress"
+          />
+        </div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.toAddress')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <router-link
+            :to="toAccountDetails(toAddress)"
+            v-text="toAddress"
+          />
+        </div>
+      </div>
+      <div
+        v-for="(amount,index) in amounts"
+        :key="index"
+        class="row p-1"
+      >
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="amountLabel(index)"
+        />
+        <div
+          class="col-12 col-md-9 text-break com-font-s14-w400"
+          v-text="amountValue(amount.amount)"
         />
       </div>
     </div>
-    <hr>
-    <div class="row p-1">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.fromAddress')"
-      />
-      <div class="col-12 col-md-9 text-break com-font-s14-w400">
-        <router-link
-          :to="toAccountDetails(fromAddress)"
-          v-text="fromAddress"
-        />
-      </div>
-    </div>
-    <div class="row p-1">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.toAddress')"
-      />
-      <div class="col-12 col-md-9 text-break com-font-s14-w400">
-        <router-link
-          :to="toAccountDetails(toAddress)"
-          v-text="toAddress"
-        />
-      </div>
-    </div>
-    <div
-      v-for="(amount,index) in amounts"
-      :key="index"
-      class="row p-1"
-    >
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="amountLabel(index)"
-      />
-      <div
-        class="col-12 col-md-9 text-break com-font-s14-w400"
-        v-text="amountValue(amount.amount)"
-      />
-    </div>
-  </div>
+  </MsgTx>
 </template>
 
 <script>
+import MsgTx from "Components/common/MsgTx.vue";
+
 import { ROUTE_NAMES } from "Constants";
 
 export default {
   name: "MsgTxSend",
   description: "Display a send transaction message",
+  components: {
+    MsgTx
+  },
   props: {
     message: {
       type: Object,

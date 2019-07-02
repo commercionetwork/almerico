@@ -5,6 +5,7 @@ export const titles = {
   detailsForBlock: "Dettagli del blocco",
   information: "Informazione",
   messages: "Messaggi",
+  notManagedType: "Tipo non gestito",
   qrCode: "QR Code",
   transactionDetails: "Dettagli transazione",
   transactions: "Transazioni",

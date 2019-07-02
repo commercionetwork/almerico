@@ -17,24 +17,12 @@
               />
             </div>
           </div>
-          <div v-if="type === TX_TYPES.SEND">
-            <MsgTxSend
-              v-for="(message, index) in messages"
-              :key="index"
-              :message="message"
-            />
-          </div>
-          <div v-else-if="type === TX_TYPES.BEGIN_UNBONDING">
-            <MsgTxUndelegate
-              v-for="(message, index) in messages"
-              :key="index"
-              :message="message"
-            />
-          </div>
-          <div v-else-if="type === TX_TYPES.UNJAIL">
-            <MsgTxUnjail
-              v-for="(message, index) in messages"
-              :key="index"
+          <div
+            v-for="(message, index) in messages"
+            :key="index"
+          >
+            <component
+              v-bind:is="msgComponent"
               :message="message"
             />
           </div>
@@ -45,6 +33,7 @@
 </template>
 
 <script>
+import MsgTxDefault from "./msgs/MsgTxDefault.vue";
 import MsgTxSend from "./msgs/MsgTxSend.vue";
 import MsgTxUndelegate from "./msgs/MsgTxUndelegate.vue";
 import MsgTxUnjail from "./msgs/MsgTxUnjail.vue";
@@ -58,6 +47,7 @@ export default {
   name: "TransactionsDetails",
   description: "Display the transaction details",
   components: {
+    MsgTxDefault,
     MsgTxSend,
     MsgTxUndelegate,
     MsgTxUnjail,
@@ -73,6 +63,24 @@ export default {
     };
   },
   computed: {
+    msgComponent() {
+      let component = null;
+      switch (this.type) {
+        case TX_TYPES.BEGIN_UNBONDING:
+          component = MsgTxUndelegate;
+          break;
+        case TX_TYPES.SEND:
+          component = MsgTxSend;
+          break;
+        case TX_TYPES.UNJAIL:
+          component = MsgTxUnjail;
+          break;
+        default:
+          component= MsgTxDefault;
+          break;
+      }
+      return component;
+    },
     type() {
       return this.transaction.tags[0].value;
     }
