@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import MsgTxCreateAccount from "./msgs/MsgTxCreateAccount.vue";
 import MsgTxCreateValidator from "./msgs/MsgTxCreateValidator.vue";
 import MsgTxEditValidator from "./msgs/MsgTxEditValidator.vue";
 import MsgTxDefault from "./msgs/MsgTxDefault.vue";
@@ -49,6 +50,7 @@ export default {
   name: "TransactionsDetails",
   description: "Display the transaction details",
   components: {
+    MsgTxCreateAccount,
     MsgTxCreateValidator,
     MsgTxEditValidator,
     MsgTxDefault,
@@ -72,6 +74,9 @@ export default {
       switch (this.type) {
         case TX_TYPES.BEGIN_UNBONDING:
           component = MsgTxUndelegate;
+          break;
+        case TX_TYPES.CREATE_ACCOUNT:
+          component = MsgTxCreateAccount;
           break;
         case TX_TYPES.CREATE_VALIDATOR:
           component = MsgTxCreateValidator;
