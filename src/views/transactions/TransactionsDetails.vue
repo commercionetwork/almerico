@@ -34,6 +34,13 @@
                 :message="message"
               />
             </div>
+            <div v-else-if="type === TX_TYPES.UNJAIL">
+              <MsgTransactionUnjail
+                v-for="(message, index) in messages"
+                :key="index"
+                :message="message"
+              />
+            </div>
             <div v-else>
               <TransactionsDetailsMsg
                 v-for="(message, index) in messages"
@@ -50,6 +57,7 @@
 
 <script>
 import MsgTransactionSend from "./msgs/MsgTransactionSend.vue";
+import MsgTransactionUnjail from "./msgs/MsgTransactionUnjail.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 import TransactionsDetailsMsg from "./TransactionsDetailsMsg.vue";
@@ -62,6 +70,7 @@ export default {
   description: "Display the transaction details",
   components: {
     MsgTransactionSend,
+    MsgTransactionUnjail,
     SectionHeader,
     TransactionsDetailsInfo,
     TransactionsDetailsMsg
