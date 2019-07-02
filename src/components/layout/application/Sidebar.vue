@@ -117,7 +117,6 @@ export default {
       open: false
     };
   },
-  computed: {},
   methods: {
     toSection(route) {
       return localizedRoute(route, this.$i18n.locale);

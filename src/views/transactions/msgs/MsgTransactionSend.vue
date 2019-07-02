@@ -5,20 +5,24 @@
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.fromAddress')"
       />
-      <div
-        class="col-12 col-md-9 text-break com-font-s14-w400"
-        v-text="fromAddress"
-      />
+      <div class="col-12 col-md-9 text-break com-font-s14-w400">
+        <router-link
+          :to="toAccountDetails(fromAddress)"
+          v-text="fromAddress"
+        />
+      </div>
     </div>
     <div class="row p-1">
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.toAddress')"
       />
-      <div
-        class="col-12 col-md-9 text-break com-font-s14-w400"
-        v-text="toAddress"
-      />
+      <div class="col-12 col-md-9 text-break com-font-s14-w400">
+        <router-link
+          :to="toAccountDetails(toAddress)"
+          v-text="toAddress"
+        />
+      </div>
     </div>
     <div
       v-for="(amount,index) in amounts"
@@ -38,6 +42,8 @@
 </template>
 
 <script>
+import { ROUTE_NAMES } from "Constants";
+
 export default {
   name: "MsgTransactionSend",
   description: "Display a send transaction message",
@@ -53,10 +59,14 @@ export default {
       return this.message.value.amount ? this.message.value.amount : [];
     },
     fromAddress() {
-      return this.message.value.from_address ? this.message.value.from_address : "-";
+      return this.message.value.from_address
+        ? this.message.value.from_address
+        : "-";
     },
     toAddress() {
-      return this.message.value.to_address ? this.message.value.to_address : "-";
+      return this.message.value.to_address
+        ? this.message.value.to_address
+        : "-";
     }
   },
   methods: {
@@ -72,10 +82,16 @@ export default {
         maximumFractionDigits: 6
       });
       return `${formatComm} COMM`;
+    },
+    toAccountDetails(id) {
+      return {
+        name: ROUTE_NAMES.ACCOUNT_DETAILS,
+        params: {
+          lang: this.$i18n.locale,
+          id
+        }
+      };
     }
-  },
-  created() {
-    console.log(this.message)
   }
 };
 </script>
