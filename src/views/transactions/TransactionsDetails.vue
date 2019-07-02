@@ -40,6 +40,7 @@ import MsgTxEditValidator from "./msgs/MsgTxEditValidator.vue";
 import MsgTxDefault from "./msgs/MsgTxDefault.vue";
 import MsgTxSend from "./msgs/MsgTxSend.vue";
 import MsgTxSetIdentity from "./msgs/MsgTxSetIdentity.vue";
+import MsgTxStoreDocument from "./msgs/MsgTxStoreDocument.vue";
 import MsgTxUndelegate from "./msgs/MsgTxUndelegate.vue";
 import MsgTxUnjail from "./msgs/MsgTxUnjail.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
@@ -59,6 +60,7 @@ export default {
     MsgTxDefault,
     MsgTxSend,
     MsgTxSetIdentity,
+    MsgTxStoreDocument,
     MsgTxUndelegate,
     MsgTxUnjail,
     SectionHeader,
@@ -93,6 +95,9 @@ export default {
           break;
         case TX_TYPES.SET_IDENTITY:
           component = MsgTxSetIdentity;
+          break;
+        case TX_TYPES.STORE_DOCUMENT:
+          component = MsgTxStoreDocument;
           break;
         case TX_TYPES.UNDELEGATE:
           component = MsgTxUndelegate;
