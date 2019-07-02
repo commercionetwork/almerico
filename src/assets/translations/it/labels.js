@@ -1,6 +1,7 @@
 export const labels = {
   address: "Indirizzo",
   amount: "Importo",
+  commission: "Commissione",
   commissionRate: "Tasso commissione",
   delegated: "Delegati",
   delegatorAddress: "Indirizzo delegante",

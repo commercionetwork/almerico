@@ -1,6 +1,7 @@
 export const labels = {
   address: "Address",
   amount: "Amount",
+  commission: "Commission",
   commissionRate: "Commission rate",
   delegated: "Delegated",
   delegatorAddress: "Delegator address",
