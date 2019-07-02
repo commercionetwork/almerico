@@ -2,6 +2,7 @@ export const labels = {
   address: "Address",
   amount: "Amount",
   delegated: "Delegated",
+  delegatorAddress: "Delegator address",
   depositEndTime: "Deposit end time",
   description: "Description",
   fromAddress: "From address",
@@ -15,6 +16,7 @@ export const labels = {
   total: "Total",
   type: "Type",
   unbonded: "Unbonded",
+  validatorAddress: "Validator address",
   votingEnd: "Voting end",
   votingStart: "Voting start",
 };

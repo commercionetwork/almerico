@@ -64,7 +64,7 @@
  * @property {String} to_address 
  */
 /** @typedef {Object} ValueUndelegate
- * @property {Amount} amount 
+ * @property {Amount} amount
  * @property {String} delegator_address 
  * @property {String} validator_address 
  */
