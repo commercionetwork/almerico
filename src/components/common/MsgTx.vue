@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded bg-white border">
+  <div class="m-1 p-1 rounded bg-white border">
     <div class="row p-1">
       <div class="col-12">
         <h3
