@@ -1,9 +1,9 @@
 export const TX_TYPES = {
   // cosmos
-  BEGIN_UNBONDING: "begin_unbonding",
   CREATE_VALIDATOR: "create_validator",
   EDIT_VALIDATOR: "edit_validator",
   SEND: "send",
+  UNDELEGATE: "begin_unbonding",
   UNJAIL: "unjail",
   // commercio
   CREATE_ACCOUNT: "create_account",
