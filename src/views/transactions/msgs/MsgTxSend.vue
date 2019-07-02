@@ -3,7 +3,7 @@
     <div class="row p-1">
       <div class="col-12">
         <h3
-          class="com-font-s16-w700"
+          class="text-secondary com-font-s16-w700"
           v-text="message.type"
         />
       </div>
@@ -54,7 +54,7 @@
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTransactionSend",
+  name: "MsgTxSend",
   description: "Display a send transaction message",
   props: {
     message: {
