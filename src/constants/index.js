@@ -14,7 +14,6 @@ import {
   ROUTE_NAMES
 } from "./route";
 import {
-  MSG_TYPES,
   TX_TYPES
 } from "./transaction";
 
@@ -22,7 +21,6 @@ export {
   API,
   MODAL_ID,
   MODAL_SIZE,
-  MSG_TYPES,
   PREFIX,
   ROUTES,
   ROUTE_NAMES,
