@@ -2,7 +2,7 @@
   <div class="container com-container">
     <SectionHeader :title="$t('titles.accountDetails')" />
     <div
-      v-if="isfetching"
+      v-if="isFetching"
       v-text="$t('messages.loading')"
     />
     <div
@@ -28,7 +28,10 @@
           </div>
         </div>
         <div class="mt-3">
-          <!-- <AccountTransactions /> -->
+          <AccountTransactions
+            :address="address"
+            :operatorAddress="operatorAddress"
+          />
         </div>
       </div>
     </div>
@@ -63,7 +66,7 @@ export default {
       outstandings: [],
       rewards: [],
       unbondings: [],
-      isfetching: false
+      isFetching: false
     };
   },
   computed: {
@@ -81,10 +84,12 @@ export default {
     }),
     async getData() {
       let response = null;
-      this.isfetching = true;
+      this.isFetching = true;
       try {
         // get delegations
-        response = await api.requestValidatorDelegations(this.operatorAddress);
+        response = await api.requestValidatorDelegations(
+          this.operatorAddress
+        );
         if (response.data) this.delegations = response.data;
         // get unbonding delegations
         response = await api.requestValidatorUnbondingDelegations(
@@ -97,12 +102,14 @@ export default {
         );
         if (response.data) this.outstandings = response.data;
         // get rewards
-        response = await api.requestValidatorRewards(this.operatorAddress);
+        response = await api.requestValidatorRewards(
+          this.operatorAddress
+        );
         if (response.data) this.rewards = response.data;
       } catch (error) {
         console.log(error);
       } finally {
-        this.isfetching = false;
+        this.isFetching = false;
       }
     }
   },

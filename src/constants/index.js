@@ -14,10 +14,13 @@ import {
   ROUTE_NAMES
 } from "./route";
 import {
-  TX_TYPES
+  TX_TYPES,
+  ACCOUNT_ROLES,
+  VALIDATOR_ROLES
 } from "./transaction";
 
 export {
+  ACCOUNT_ROLES,
   API,
   MODAL_ID,
   MODAL_SIZE,
@@ -25,5 +28,6 @@ export {
   ROUTES,
   ROUTE_NAMES,
   TX_TYPES,
+  VALIDATOR_ROLES,
   WS
 };
