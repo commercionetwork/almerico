@@ -45,6 +45,7 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import api from "Store/validators/api";
 import { PREFIX } from "Constants";
 import { bech32Manager } from "Utils";
+import { mapActions } from "vuex";
 
 export default {
   name: "Account",
@@ -75,6 +76,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions("account", {
+      fetchBalances: "fetchBalances"
+    }),
     async getData() {
       let response = null;
       this.isfetching = true;
@@ -103,6 +107,7 @@ export default {
     }
   },
   created() {
+    this.fetchBalances(this.address);
     this.getData();
   }
 };

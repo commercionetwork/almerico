@@ -1,6 +1,7 @@
 export const labels = {
   address: "Address",
   amount: "Amount",
+  availables: "Availables",
   commission: "Commission",
   commissionRate: "Commission rate",
   ddoReference: "DDO Reference",

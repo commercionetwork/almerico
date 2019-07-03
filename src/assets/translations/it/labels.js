@@ -1,6 +1,7 @@
 export const labels = {
   address: "Indirizzo",
   amount: "Importo",
+  availables: "Disponibili",
   commission: "Commissione",
   commissionRate: "Tasso commissione",
   ddoReference: "Riferimento DDO",

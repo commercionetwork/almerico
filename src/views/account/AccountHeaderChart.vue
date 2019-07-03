@@ -12,13 +12,24 @@
         maximumFractionDigits: 6
         }) }} {{ "COMM" }}
       </span>
+      <span
+        class="pt-1 com-font-s14-w700"
+        v-text="$t('labels.availables')"
+      />
+      <span class="pl-1 com-font-s14-w400">
+        {{ $n(availablesAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }} {{ "COMM" }}
+      </span>
     </div>
     <div class="col-12 col-md-8 col-xl-5">
       <div class="row">
         <div class="col-12 col-md-6 d-flex flex-column align-items-start">
           <span
             class="pt-1 com-font-s14-w700"
-            v-text="labels[0]"
+            v-text="$t('labels.delegated')"
           />
           <span class="pl-1 com-font-s14-w400">
             {{ $n(delegationsAmount, {
@@ -29,7 +40,7 @@
           </span>
           <span
             class="pt-1 com-font-s14-w700"
-            v-text="labels[3]"
+            v-text="$t('labels.unbonded')"
           />
           <span class="pl-1 com-font-s14-w400">
             {{ $n(unbondingDelegationsAmount, {
@@ -42,7 +53,7 @@
         <div class="col-12 col-md-6 d-flex flex-column align-items-start">
           <span
             class="pt-1 com-font-s14-w700"
-            v-text="labels[2]"
+            v-text="$t('labels.rewards')"
           />
           <span class="pl-1 com-font-s14-w400">
             {{ $n(rewardsAmount, {
@@ -53,7 +64,7 @@
           </span>
           <span
             class="pt-1 com-font-s14-w700"
-            v-text="labels[1]"
+            v-text="$t('labels.outstandingRewards')"
           />
           <span class="pl-1 com-font-s14-w400">
             {{ $n(outstandingRewardsAmount, {
@@ -78,6 +89,8 @@
 
 <script>
 import DoughnutChart from "Components/common/DoughnutChart.vue";
+
+import { mapGetters } from "vuex";
 
 export default {
   name: "AccountHeaderChart",
@@ -110,10 +123,11 @@ export default {
   data() {
     return {
       labels: [
+        this.$t("labels.availables"),
         this.$t("labels.delegated"),
-        this.$t("labels.outstandingRewards"),
+        this.$t("labels.unbonded"),
         this.$t("labels.rewards"),
-        this.$t("labels.unbonded")
+        this.$t("labels.outstandingRewards")
       ],
       totals: 0,
       chartdata: null,
@@ -139,6 +153,16 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("account", {
+      balances: "balances"
+    }),
+    availablesAmount() {
+      let amount = 0;
+      this.balances.forEach(element => {
+        amount += parseFloat(element.amount);
+      });
+      return amount / 1000000;
+    },
     delegationsAmount() {
       let amount = 0;
       this.delegations.forEach(element => {
@@ -174,17 +198,24 @@ export default {
     setChartdata() {
       this.setTotals();
       let data = [
+        this.getPercent(this.availablesAmount, this.totals),
         this.getPercent(this.delegationsAmount, this.totals),
-        this.getPercent(this.outstandingRewardsAmount, this.totals),
+        this.getPercent(this.unbondingDelegationsAmount, this.totals),
         this.getPercent(this.rewardsAmount, this.totals),
-        this.getPercent(this.unbondingDelegationsAmount, this.totals)
+        this.getPercent(this.outstandingRewardsAmount, this.totals)
       ];
       this.chartdata = {
         labels: this.labels,
         datasets: [
           {
             data,
-            backgroundColor: ["#33cc99", "#3399ff", "#ffcc00", "#cc3333"]
+            backgroundColor: [
+              "#33cc99",
+              "#3399ff",
+              "#ffcc00",
+              "#cc3333",
+              "#333333"
+            ]
           }
         ]
       };
@@ -194,6 +225,7 @@ export default {
     },
     setTotals() {
       this.totals =
+        this.availablesAmount +
         this.delegationsAmount +
         this.outstandingRewardsAmount +
         this.rewardsAmount +
