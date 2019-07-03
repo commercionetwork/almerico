@@ -1,82 +1,83 @@
 <template>
-  <div class="row py-3 bg-white">
-    <div class="col-12 col-md-4 col-xl-3 d-flex flex-column justify-content-start align-items-start">
-      <span
-        class="pt-1 com-font-s16-w700"
-        v-text="$t('labels.total')"
-      />
-      <span class="pl-1 com-font-s16-w400">
-        {{ $n(totals, {
+  <div class="row bg-white">
+    <div class="col-12 col-md-6 px-1 py-3 px-md-3">
+      <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span
+          class="com-font-s14-w700"
+          v-text="$t('labels.availables')"
+        />
+        <span class="com-font-s14-w400">
+          {{ $n(availablesAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }} {{ "COMM" }}
+        </span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span
+          class="com-font-s14-w700"
+          v-text="$t('labels.delegated')"
+        />
+        <span class="com-font-s14-w400">
+          {{ $n(delegationsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }} {{ "COMM" }}
+        </span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span
+          class="com-font-s14-w700"
+          v-text="$t('labels.unbonded')"
+        />
+        <span class="com-font-s14-w400">
+          {{ $n(unbondingDelegationsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }} {{ "COMM" }}
+        </span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span
+          class="com-font-s14-w700"
+          v-text="$t('labels.rewards')"
+        />
+        <span class="com-font-s14-w400">
+          {{ $n(rewardsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }} {{ "COMM" }}
+        </span>
+      </div>
+      <div class="d-flex justify-content-between align-items-center border-bottom">
+        <span
+          class="com-font-s14-w700"
+          v-text="$t('labels.outstandingRewards')"
+        />
+        <span class="com-font-s14-w400">
+          {{ $n(outstandingRewardsAmount, {
+            style: "decimal",
+            minimumFractionDigits: 6,
+            maximumFractionDigits: 6
+            }) }} {{ "COMM" }}
+        </span>
+      </div>
+      <div class="py-2 d-flex justify-content-between align-items-center com-font-s16-w700">
+        <span v-text="$t('labels.total')" />
+        <span>
+          {{ $n(totals, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
         }) }} {{ "COMM" }}
-      </span>
-      <span
-        class="pt-1 com-font-s14-w700"
-        v-text="$t('labels.availables')"
-      />
-      <span class="pl-1 com-font-s14-w400">
-        {{ $n(availablesAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-      </span>
-    </div>
-    <div class="col-12 col-md-8 col-xl-5">
-      <div class="row">
-        <div class="col-12 col-md-6 d-flex flex-column align-items-start">
-          <span
-            class="pt-1 com-font-s14-w700"
-            v-text="$t('labels.delegated')"
-          />
-          <span class="pl-1 com-font-s14-w400">
-            {{ $n(delegationsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-          </span>
-          <span
-            class="pt-1 com-font-s14-w700"
-            v-text="$t('labels.unbonded')"
-          />
-          <span class="pl-1 com-font-s14-w400">
-            {{ $n(unbondingDelegationsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-          </span>
-        </div>
-        <div class="col-12 col-md-6 d-flex flex-column align-items-start">
-          <span
-            class="pt-1 com-font-s14-w700"
-            v-text="$t('labels.rewards')"
-          />
-          <span class="pl-1 com-font-s14-w400">
-            {{ $n(rewardsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-          </span>
-          <span
-            class="pt-1 com-font-s14-w700"
-            v-text="$t('labels.outstandingRewards')"
-          />
-          <span class="pl-1 com-font-s14-w400">
-            {{ $n(outstandingRewardsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-          </span>
-        </div>
+        </span>
       </div>
     </div>
-    <div class="col-12 col-md-12 col-xl-4 py-3 py-xl-0">
+    <div class="col-12 col-md-6 px-1 py-3 px-md-3">
       <DoughnutChart
         :chartdata="chartdata"
         :options="options"
