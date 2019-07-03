@@ -36,13 +36,15 @@
 import MsgTxCreateAccount from "./msgs/MsgTxCreateAccount.vue";
 import MsgTxCreateConnection from "./msgs/MsgTxCreateConnection.vue";
 import MsgTxCreateValidator from "./msgs/MsgTxCreateValidator.vue";
-import MsgTxEditValidator from "./msgs/MsgTxEditValidator.vue";
 import MsgTxDefault from "./msgs/MsgTxDefault.vue";
+import MsgTxDelegate from "./msgs/MsgTxDelegate.vue";
+import MsgTxEditValidator from "./msgs/MsgTxEditValidator.vue";
+import MsgTxRedelegate from "./msgs/MsgTxRedelegate.vue";
 import MsgTxSend from "./msgs/MsgTxSend.vue";
 import MsgTxSetIdentity from "./msgs/MsgTxSetIdentity.vue";
 import MsgTxShareDocument from "./msgs/MsgTxShareDocument.vue";
 import MsgTxStoreDocument from "./msgs/MsgTxStoreDocument.vue";
-import MsgTxUndelegate from "./msgs/MsgTxUndelegate.vue";
+import MsgTxUnbonding from "./msgs/MsgTxUnbonding.vue";
 import MsgTxUnjail from "./msgs/MsgTxUnjail.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
@@ -57,13 +59,15 @@ export default {
     MsgTxCreateAccount,
     MsgTxCreateConnection,
     MsgTxCreateValidator,
+    MsgTxDelegate,
     MsgTxEditValidator,
     MsgTxDefault,
+    MsgTxRedelegate,
     MsgTxSend,
     MsgTxSetIdentity,
     MsgTxShareDocument,
     MsgTxStoreDocument,
-    MsgTxUndelegate,
+    MsgTxUnbonding,
     MsgTxUnjail,
     SectionHeader,
     TransactionsDetailsInfo
@@ -89,8 +93,14 @@ export default {
         case TX_TYPES.CREATE_VALIDATOR:
           component = MsgTxCreateValidator;
           break;
+        case TX_TYPES.DELEGATE:
+          component = MsgTxDelegate;
+          break;
         case TX_TYPES.EDIT_VALIDATOR:
           component = MsgTxEditValidator;
+          break;
+        case TX_TYPES.REDELEGATE:
+          component = MsgTxRedelegate;
           break;
         case TX_TYPES.SEND:
           component = MsgTxSend;
@@ -104,8 +114,8 @@ export default {
         case TX_TYPES.STORE_DOCUMENT:
           component = MsgTxStoreDocument;
           break;
-        case TX_TYPES.UNDELEGATE:
-          component = MsgTxUndelegate;
+        case TX_TYPES.UNBONDING:
+          component = MsgTxUnbonding;
           break;
         case TX_TYPES.UNJAIL:
           component = MsgTxUnjail;

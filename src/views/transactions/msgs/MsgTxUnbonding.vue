@@ -45,8 +45,8 @@ import MsgTx from "Components/common/MsgTx.vue";
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTxUndelegate",
-  description: "Display an undelegate transaction message",
+  name: "MsgTxUnbonding",
+  description: "Display an unbonding transaction message",
   components: {
     MsgTx
   },
@@ -54,7 +54,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a send message"
+      note: "Object representing an unbonding message"
     }
   },
   data() {

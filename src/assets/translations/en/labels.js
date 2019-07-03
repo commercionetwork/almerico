@@ -34,6 +34,8 @@ export const labels = {
   type: "Type",
   unbonded: "Unbonded",
   validatorAddress: "Validator address",
+  validatorDstAddress: "Destination validator address",
+  validatorSrcAddress: "Source validator address",
   votingEnd: "Voting end",
   votingStart: "Voting start",
 };
