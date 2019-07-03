@@ -159,9 +159,11 @@ export default {
     }),
     availablesAmount() {
       let amount = 0;
-      this.balances.forEach(element => {
-        amount += parseFloat(element.amount);
-      });
+      if (this.balances) {
+        this.balances.forEach(element => {
+          amount += parseFloat(element.amount);
+        });
+      }
       return amount / 1000000;
     },
     delegationsAmount() {
