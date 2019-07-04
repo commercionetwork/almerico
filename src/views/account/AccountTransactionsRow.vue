@@ -68,13 +68,18 @@ export default {
       return `${formatFee} COMM`;
     },
     result() {
-      return this.transaction.logs[0].success ? "success" : "fail";
+      return this.transaction.logs.find(log => typeof log.success !== undefined)
+        .success
+        ? "success"
+        : "fail";
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleString();
     },
     type() {
-      return this.transaction.tags[0].value;
+      return this.transaction.tx.value.msg.find(
+        msg => typeof msg.type !== undefined
+      ).type;
     }
   },
   methods: {
