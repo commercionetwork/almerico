@@ -62,7 +62,7 @@ export default {
       required: true,
       note: "The account address"
     },
-    operatorAddress: {
+    validatorAddress: {
       type: String,
       required: true,
       note: "The validator address"
@@ -100,7 +100,7 @@ export default {
           this.getTxs(role, this.address);
         });
         Object.values(VALIDATOR_ROLES).forEach(role => {
-          this.getTxs(role, this.operatorAddress);
+          this.getTxs(role, this.validatorAddress);
         });
       } catch (error) {
         console.log(error);

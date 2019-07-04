@@ -30,7 +30,7 @@
         <div class="mt-3">
           <AccountTransactions
             :address="address"
-            :operatorAddress="operatorAddress"
+            :validatorAddress="validatorAddress"
           />
         </div>
       </div>
@@ -45,9 +45,10 @@ import AccountTransactions from "./AccountTransactions.vue";
 import AccountUnbondings from "./AccountUnbondings.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
-import api from "Store/validators/api";
+import apiDelegators from "Store/delegators/api";
+import apiValidators from "Store/validators/api";
 import { PREFIX } from "Constants";
-import { bech32Manager } from "Utils";
+import { arrayManager, bech32Manager } from "Utils";
 import { mapActions } from "vuex";
 
 export default {
@@ -62,10 +63,10 @@ export default {
   },
   data() {
     return {
-      delegations: [],
+      allDelegations: [],
       outstandings: [],
       rewards: [],
-      unbondings: [],
+      allUnbondings: [],
       isFetching: false
     };
   },
@@ -73,9 +74,15 @@ export default {
     address() {
       return this.$route.params.id;
     },
-    operatorAddress() {
+    validatorAddress() {
       let hex = bech32Manager.decode(this.address);
       return bech32Manager.encode(hex, PREFIX.COMNETVALOPER);
+    },
+    delegations() {
+      return arrayManager.uniqueByKey(this.allDelegations, JSON.stringify);
+    },
+    unbondings() {
+      return arrayManager.uniqueByKey(this.allUnbondings, JSON.stringify);
     }
   },
   methods: {
@@ -86,31 +93,59 @@ export default {
       let response = null;
       this.isFetching = true;
       try {
-        // get delegations
-        response = await api.requestValidatorDelegations(
-          this.operatorAddress
+        // get all delegations
+        response = await apiValidators.requestValidatorDelegations(
+          this.validatorAddress
         );
-        if (response.data) this.delegations = response.data;
+        if (response.data) this.allDelegations = response.data;
+        response = await apiDelegators.requestDelegatorDelegations(
+          this.address
+        );
+        if (response.data)
+          this.addDelegatorData(
+            this.allDelegations,
+            response.data,
+            this.validatorAddress
+          );
+
         // get unbonding delegations
-        response = await api.requestValidatorUnbondingDelegations(
-          this.operatorAddress
+        response = await apiValidators.requestValidatorUnbondingDelegations(
+          this.validatorAddress
         );
-        if (response.data) this.unbondings = response.data;
-        // get outstanding rewards
-        response = await api.requestValidatorOutstandingRewards(
-          this.operatorAddress
+        if (response.data) this.allUnbondings = response.data;
+        response = await apiDelegators.requestDelegatorUnbondingDelegations(
+          this.address
         );
-        if (response.data) this.outstandings = response.data;
+        if (response.data)
+          this.addDelegatorData(
+            this.allUnbondings,
+            response.data,
+            this.validatorAddress
+          );
+
         // get rewards
-        response = await api.requestValidatorRewards(
-          this.operatorAddress
+        response = await apiValidators.requestValidatorRewards(
+          this.validatorAddress
         );
         if (response.data) this.rewards = response.data;
+
+        // get outstanding rewards
+        response = await apiValidators.requestValidatorOutstandingRewards(
+          this.validatorAddress
+        );
+        if (response.data) this.outstandings = response.data;
       } catch (error) {
         console.log(error);
       } finally {
         this.isFetching = false;
       }
+    },
+    addDelegatorData(arr, data, validator_address) {
+      data.forEach(element => {
+        if (element.validator_address !== validator_address) {
+          arr.push(element);
+        }
+      });
     }
   },
   created() {
