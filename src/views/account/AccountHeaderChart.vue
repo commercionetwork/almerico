@@ -53,19 +53,6 @@
             }) }} {{ "COMM" }}
         </span>
       </div>
-      <div class="d-flex justify-content-between align-items-center border-bottom">
-        <span
-          class="com-font-s14-w700"
-          v-text="$t('labels.outstandingRewards')"
-        />
-        <span class="com-font-s14-w400">
-          {{ $n(outstandingRewardsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-        </span>
-      </div>
       <div class="py-2 d-flex justify-content-between align-items-center com-font-s16-w700">
         <span v-text="$t('labels.total')" />
         <span>
@@ -105,11 +92,6 @@ export default {
       required: true,
       note: "Delegations list"
     },
-    outstandings: {
-      type: Array,
-      required: true,
-      note: "Outstanding rewards list"
-    },
     rewards: {
       type: Array,
       required: true,
@@ -128,7 +110,6 @@ export default {
         this.$t("labels.delegated"),
         this.$t("labels.unbonded"),
         this.$t("labels.rewards"),
-        this.$t("labels.outstandingRewards")
       ],
       totals: 0,
       chartdata: null,
@@ -173,13 +154,6 @@ export default {
       });
       return amount / 1000000;
     },
-    outstandingRewardsAmount() {
-      let amount = 0;
-      this.outstandings.forEach(element => {
-        amount += parseFloat(element.amount);
-      });
-      return amount / 1000000;
-    },
     rewardsAmount() {
       let amount = 0;
       this.rewards.forEach(element => {
@@ -204,8 +178,7 @@ export default {
         this.getPercent(this.availablesAmount, this.totals),
         this.getPercent(this.delegationsAmount, this.totals),
         this.getPercent(this.unbondingDelegationsAmount, this.totals),
-        this.getPercent(this.rewardsAmount, this.totals),
-        this.getPercent(this.outstandingRewardsAmount, this.totals)
+        this.getPercent(this.rewardsAmount, this.totals)
       ];
       this.chartdata = {
         labels: this.labels,
@@ -216,8 +189,7 @@ export default {
               "#33cc99",
               "#3399ff",
               "#ffcc00",
-              "#cc3333",
-              "#333333"
+              "#cc3333"
             ]
           }
         ]
@@ -230,7 +202,6 @@ export default {
       this.totals =
         this.availablesAmount +
         this.delegationsAmount +
-        this.outstandingRewardsAmount +
         this.rewardsAmount +
         this.unbondingDelegationsAmount;
     }

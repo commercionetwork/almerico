@@ -29,7 +29,6 @@
     <div class="container">
       <AccountHeaderChart
         :delegations="delegations"
-        :outstandings="outstandings"
         :rewards="rewards"
         :unbondings="unbondings"
       />
@@ -64,11 +63,6 @@ export default {
       type: Array,
       required: true,
       note: "Delegations list"
-    },
-    outstandings: {
-      type: Array,
-      required: true,
-      note: "Outstanding rewards list"
     },
     rewards: {
       type: Array,

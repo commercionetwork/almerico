@@ -47,7 +47,7 @@
 import AccountTransactionsRow from "./AccountTransactionsRow.vue";
 
 import api from "Store/transactions/api";
-import { ACCOUNT_ROLES, VALIDATOR_ROLES } from "Constants";
+import { ACCOUNT_ROLES } from "Constants";
 import { arrayManager } from "Utils";
 
 export default {
@@ -61,11 +61,6 @@ export default {
       type: String,
       required: true,
       note: "The account address"
-    },
-    validatorAddress: {
-      type: String,
-      required: true,
-      note: "The validator address"
     }
   },
   data() {
@@ -98,9 +93,6 @@ export default {
       try {
         Object.values(ACCOUNT_ROLES).forEach(role => {
           this.getTxs(role, this.address);
-        });
-        Object.values(VALIDATOR_ROLES).forEach(role => {
-          this.getTxs(role, this.validatorAddress);
         });
       } catch (error) {
         console.log(error);
