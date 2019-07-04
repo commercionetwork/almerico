@@ -1,5 +1,6 @@
 export const messages = {
   loading: "Loading...",
+  noItems: "No items",
   notFound: "Resource not found",
   scanAddress:"Scan for address",
   search: "Search by Address, Block Height, TxHash...",

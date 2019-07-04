@@ -85,6 +85,12 @@ export default {
       return arrayManager.uniqueByKey(this.allUnbondings, JSON.stringify);
     }
   },
+  watch: {
+    address(value) {
+      this.fetchBalances(value);
+      this.getData();
+    }
+  },
   methods: {
     ...mapActions("account", {
       fetchBalances: "fetchBalances"

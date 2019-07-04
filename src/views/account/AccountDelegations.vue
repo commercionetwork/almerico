@@ -10,13 +10,15 @@
     </div>
     <div class="row p-1">
       <div class="col-12">
-        <div class="table-responsive">
+        <div
+          v-if="delegations.length > 0"
+          class="table-responsive"
+        >
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
                 <th scope="col">Validator</th>
                 <th scope="col">Amount</th>
-                <th scope="col">Reward</th>
               </tr>
             </thead>
             <tbody>
@@ -28,6 +30,11 @@
             </tbody>
           </table>
         </div>
+        <div
+          v-else
+          class="text-center com-font-s13-w700"
+          v-text="$t('messages.noItems')"
+        />
       </div>
     </div>
   </div>
@@ -51,8 +58,10 @@ export default {
   },
   computed: {
     lastDelegations() {
-      return this.delegations
-        .slice(this.delegations.length - 10, this.delegations.length);
+      return this.delegations.slice(
+        this.delegations.length - 10,
+        this.delegations.length
+      );
     }
   }
 };

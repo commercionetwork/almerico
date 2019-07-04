@@ -10,7 +10,10 @@
     </div>
     <div class="row py-1">
       <div class="col-12">
-        <div class="table-responsive">
+        <div
+          v-if="delegations.length > 0"
+          class="table-responsive"
+        >
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
@@ -29,6 +32,11 @@
             </tbody>
           </table>
         </div>
+        <div
+          v-else
+          class="text-center com-font-s13-w700"
+          v-text="$t('messages.noItems')"
+        />
       </div>
     </div>
   </div>

@@ -11,17 +11,13 @@
   >
     <td class="text-left">
       <router-link
-        :to="toValidatorDetails(delegation.validator_address)"
+        :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, delegation.validator_address)"
         v-text="name"
       />
     </td>
     <td
       class="text-right"
       v-text="amount"
-    />
-    <td
-      class="text-right"
-      v-text="'todo'"
     />
   </tr>
 </template>
@@ -42,6 +38,7 @@ export default {
   },
   data() {
     return {
+      ROUTE_NAMES,
       name: "",
       isFetching: false
     };
@@ -70,9 +67,9 @@ export default {
         this.isFetching = false;
       }
     },
-    toValidatorDetails(id) {
+    toDetails(name, id) {
       return {
-        name: ROUTE_NAMES.VALIDATORS_DETAILS,
+        name,
         params: {
           lang: this.$i18n.locale,
           id: id
