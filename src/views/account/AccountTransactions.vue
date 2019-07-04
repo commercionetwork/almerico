@@ -29,7 +29,7 @@
               </thead>
               <tbody>
                 <AccountTransactionsRow
-                  v-for="(transaction,index) in transactions"
+                  v-for="(transaction,index) in allTransactions"
                   :key="index"
                   :transaction="transaction"
                 />
@@ -72,6 +72,13 @@ export default {
       isFetching: false,
       transactions: []
     };
+  },
+  computed: {
+    allTransactions() {
+      return this.transactions.sort(function(a, b) {
+        return b.height - a.height;
+      });
+    }
   },
   methods: {
     async getTxs(role, address) {
