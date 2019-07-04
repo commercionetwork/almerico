@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="message.type">
+  <MsgTx :title="title">
     <div slot="body">
       <div class="row p-1">
         <div
@@ -66,6 +66,9 @@ export default {
     },
     owner() {
       return this.message.value.owner ? this.message.value.owner : "-";
+    },
+    title() {
+      return this.message.type ? this.message.type.split("/").pop() : "-";
     }
   },
   methods: {

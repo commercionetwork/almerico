@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="message.type">
+  <MsgTx :title="title">
     <div slot="body">
       <div class="row p-1">
         <div
@@ -84,6 +84,9 @@ export default {
       return this.message.value.validator_address
         ? this.message.value.validator_address
         : "-";
+    },
+    title() {
+      return this.message.type ? this.message.type.split("/").pop() : "-";
     }
   },
   methods: {

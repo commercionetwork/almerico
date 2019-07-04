@@ -77,9 +77,10 @@ export default {
       return new Date(this.transaction.timestamp).toLocaleString();
     },
     type() {
-      return this.transaction.tx.value.msg.find(
+      let t = this.transaction.tx.value.msg.find(
         msg => typeof msg.type !== undefined
       ).type;
+      return t.split("/").pop();
     }
   },
   methods: {

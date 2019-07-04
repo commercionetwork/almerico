@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="message.type">
+  <MsgTx :title="title">
     <div slot="body">
       <div
         v-for="(value, index) in values"
@@ -41,6 +41,9 @@ export default {
       return Object.keys(value).map(key => {
         return [key, value[key]];
       });
+    },
+    title() {
+      return this.message.type ? this.message.type.split("/").pop() : "-";
     }
   }
 };

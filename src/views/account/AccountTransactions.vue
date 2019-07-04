@@ -29,7 +29,7 @@
               </thead>
               <tbody>
                 <AccountTransactionsRow
-                  v-for="(transaction,index) in allTransactions"
+                  v-for="(transaction,index) in transactions"
                   :key="index"
                   :transaction="transaction"
                 />
@@ -48,6 +48,7 @@ import AccountTransactionsRow from "./AccountTransactionsRow.vue";
 
 import api from "Store/transactions/api";
 import { ACCOUNT_ROLES, VALIDATOR_ROLES } from "Constants";
+import { arrayManager } from "Utils";
 
 export default {
   name: "AccountTransactions",
@@ -70,12 +71,13 @@ export default {
   data() {
     return {
       isFetching: false,
-      transactions: []
+      allTransactions: []
     };
   },
   computed: {
-    allTransactions() {
-      return this.transactions.sort(function(a, b) {
+    transactions() {
+      const transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
+      return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
     }
@@ -86,7 +88,7 @@ export default {
         const response = await api.requestTransactions({
           tag: `${role}=${address}`
         });
-        if (response.data) this.transactions.push(...response.data);
+        if (response.data) this.allTransactions.push(...response.data);
       } catch (error) {
         console.log(error);
       }

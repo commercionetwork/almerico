@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="message.type">
+  <MsgTx :title="title">
     <div slot="body">
       <div class="row p-1">
         <div
@@ -81,6 +81,9 @@ export default {
     },
     reference() {
       return this.message.value.reference ? this.message.value.reference : "-";
+    },
+    title() {
+      return this.message.type ? this.message.type.split("/").pop() : "-";
     }
   },
   methods: {
