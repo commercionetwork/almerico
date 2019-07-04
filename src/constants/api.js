@@ -14,7 +14,7 @@ process.env.VUE_APP_WS :
  * APIs
  */
 export const API = {
-  //lcd
+  // Cosmos
   AUTH:`${API_LCD_BASE}/auth/accounts`,
   BANK: `${API_LCD_BASE}/bank/balances`,
   BLOCKS: `${API_LCD_BASE}/blocks`,
@@ -42,7 +42,7 @@ export const API = {
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
   VALIDATORSETS_LATEST: `${API_LCD_BASE}/validatorsets/latest`,
   VERSION:`${API_LCD_BASE}/version`,
-  // rpc
+  // Tendermint
   ABCI_INFO: `${API_RPC_BASE}/abci_info`,
   ABCI_QUERY: `${API_RPC_BASE}/abci_query`,
   BLOCK: `${API_RPC_BASE}/block`,
