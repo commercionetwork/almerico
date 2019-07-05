@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
+  <div class="p-1">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -16,7 +16,7 @@
       <div class="row py-1">
         <div class="col-12">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
               <thead>
                 <tr class="text-center com-font-s13-w700">
                   <th scope="col">TxHash</th>

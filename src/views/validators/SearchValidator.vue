@@ -5,6 +5,7 @@
         type="text"
         class="form-control com-font-s14-w400"
         :placeholder="$t('messages.searchValidator')"
+        disabled
       >
     </div>
     <div class="py-1 col-6 col-md-3">
