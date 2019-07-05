@@ -8,47 +8,29 @@
         />
       </div>
       <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control com-font-s14-w400"
-            :placeholder="$t('messages.search')"
-            aria-label="Search"
-            aria-describedby="search-field"
-          >
-          <div class="input-group-append">
-            <span
-              class="input-group-text bg-light com-pointer"
-              id="search-field"
-            >
-              <Icon
-                name="search"
-                scale="1"
-                class="text-primary"
-              />
-            </span>
-          </div>
-        </div>
+        <SearchBar />
       </div>
     </div>
-    <div class="container rounded bg-light">
-      <div class="row py-3 px-5">
-        <div class="col-12 col-lg-5 my-1 my-lg-0">
-          <CellPrice />
+    <div class="row rounded bg-light">
+      <div class="col-12">
+        <div class="row py-3 px-5">
+          <div class="col-12 col-lg-5 my-1 my-lg-0">
+            <CellPrice />
+          </div>
+          <div class="col-12 col-lg-2 my-1 my-lg-0">
+            <CellHeight />
+          </div>
+          <div class="col-12 col-lg-5 my-1 my-lg-0">
+            <CellBonded />
+          </div>
         </div>
-        <div class="col-12 col-lg-2 my-1 my-lg-0">
-          <CellHeight />
-        </div>
-        <div class="col-12 col-lg-5 my-1 my-lg-0">
-          <CellBonded />
-        </div>
-      </div>
-      <div class="row py-3 px-5 bg-white">
-        <div class="col-12 col-md-6 my-1 my-md-0">
-          <CellBlocks />
-        </div>
-        <div class="col-12 col-md-6 my-1 my-md-0">
-          <CellTransactions />
+        <div class="row py-3 px-5 bg-white">
+          <div class="col-12 col-md-6 my-1 my-md-0">
+            <CellBlocks />
+          </div>
+          <div class="col-12 col-md-6 my-1 my-md-0">
+            <CellTransactions />
+          </div>
         </div>
       </div>
     </div>
@@ -61,9 +43,7 @@ import CellBonded from "./CellBonded.vue";
 import CellHeight from "./CellHeight.vue";
 import CellPrice from "./CellPrice.vue";
 import CellTransactions from "./CellTransactions.vue";
-
-import Icon from "vue-awesome/components/Icon.vue";
-import "vue-awesome/icons/search";
+import SearchBar from "./SearchBar.vue";
 
 export default {
   name: "Dashboard",
@@ -74,7 +54,7 @@ export default {
     CellHeight,
     CellPrice,
     CellTransactions,
-    Icon
-  },
+    SearchBar
+  }
 };
 </script>
