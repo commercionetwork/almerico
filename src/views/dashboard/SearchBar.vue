@@ -1,36 +1,82 @@
 <template>
-  <div class="input-group mb-3">
-    <input
-      type="text"
-      class="form-control com-font-s14-w400"
-      :placeholder="$t('messages.search')"
-      aria-label="Search"
-      aria-describedby="search-field"
-    >
-    <div class="input-group-append">
-      <span
-        class="input-group-text bg-light com-pointer"
-        id="search-field"
+  <form
+    @submit="onSubmit"
+    class="w-100"
+  >
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control com-font-s14-w400"
+        :placeholder="$t('messages.search')"
+        v-model="query"
+        aria-label="Search"
+        aria-describedby="search-field"
+          
+        ref="inputSearch"
       >
-        <Icon
-          name="search"
-          scale="1"
-          class="text-primary"
-        />
-      </span>
+      <div class="input-group-append">
+        <span
+          class="input-group-text bg-light com-pointer"
+          id="search-field"
+          @click="onSubmit"
+        >
+          <Icon
+            name="search"
+            scale="1"
+            class="text-primary"
+          />
+        </span>
+      </div>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/search";
 
+import { PREFIX, ROUTE_NAMES } from "Constants";
+
 export default {
   name: "SearchBar",
   description: "Display the dashboard search bar",
   components: {
     Icon
+  },
+  data() {
+    return {
+      query: ""
+    };
+  },
+  methods: {
+    onSubmit(evt) {
+      evt.preventDefault();
+      const hashRegEx = new RegExp(/[0-9A-F]{64}$/, 'igm');
+      const validatorRegEx = new RegExp(PREFIX.COMNETVALOPER+'.*$', 'igm');
+      const accountRegEx = new RegExp(PREFIX.COMNET+'.*$', 'igm');
+      const heightRegEx = new RegExp("^([0-9]{1,})$");
+
+      let routeName = null
+      if (hashRegEx.test(this.query)) {
+        routeName = ROUTE_NAMES.TRANSACTIONS_DETAILS
+      } else if (validatorRegEx.test(this.query)) {
+        routeName = ROUTE_NAMES.VALIDATORS_DETAILS
+      } else if (accountRegEx.test(this.query)) {
+        routeName = ROUTE_NAMES.ACCOUNT_DETAILS
+      } else if (heightRegEx.test(this.query)) {
+        routeName = ROUTE_NAMES.BLOCKS_DETAILS
+      }
+
+      if (routeName) {
+        this.$router.push({
+          name: routeName,
+          params: { id: this.query }
+        });
+      }
+    }
+  },
+  mounted () {
+    this.$refs.inputSearch.focus();
   }
 };
 </script>
