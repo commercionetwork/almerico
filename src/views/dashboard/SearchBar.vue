@@ -11,7 +11,6 @@
         v-model="query"
         aria-label="Search"
         aria-describedby="search-field"
-          
         ref="inputSearch"
       >
       <div class="input-group-append">
