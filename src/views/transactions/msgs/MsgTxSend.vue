@@ -32,7 +32,7 @@
       >
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="amountLabel(index)"
+          v-text="$t('labels.amount')"
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
@@ -80,10 +80,6 @@ export default {
     }
   },
   methods: {
-    amountLabel(index) {
-      const label = this.$t("labels.amount");
-      return `${label} (${index + 1})`;
-    },
     amountValue(amount) {
       const comm = parseFloat(amount) / 1000000;
       const formatComm = this.$n(comm, {
