@@ -13,10 +13,10 @@ script:
   - npm test
 
 after_success:
-  - docker build -t $DOCKER_IMAGE \
-    --build-arg LCD_URL=${ALMERICO_LCD_URL} \
-    --build-arg RPC_URL=${ALMERICO_RPC_URL} \
-    --build-arg WS_URL=${ALMERICO_WS_URL} \
+  - docker build -t $DOCKER_IMAGE
+    --build-arg LCD_URL=${ALMERICO_LCD_URL}
+    --build-arg RPC_URL=${ALMERICO_RPC_URL}
+    --build-arg WS_URL=${ALMERICO_WS_URL}
     .
 
 deploy:
