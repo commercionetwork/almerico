@@ -37,22 +37,4 @@ export default {
   setPool(state, data) {
     state.pool = data;
   },
-  /**
-   * Set validators data
-   * 
-   * @param {StakeState} state 
-   * @param {Array} data 
-   */
-  setValidators(state, data) {
-    state.validators = data;
-  },
-  /**
-   * Add validators data
-   * 
-   * @param {StakeState} state 
-   * @param {Array} data 
-   */
-  addValidators(state, data) {
-    state.validators.push(...data);
-  },
 };

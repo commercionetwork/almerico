@@ -1,64 +1,19 @@
 /* global describe, beforeEach, it, expect, jest */
 
 import actions from "../actions.js";
+import {
+  mockPool
+} from "../__mocks__/pool";
 
 describe("store/stake/actions", () => {
   beforeEach(() => {
     mockError = false;
+    mockErrorRequest = false;
     mockErrorServer = false;
     mockResponse = null;
   });
 
-  it("Check if 'actions.getValidators' dispatch action 'fetchValidators'", () => {
-    const dispatch = jest.fn();
-
-    actions.getValidators({
-      dispatch
-    }, {
-      status: "bonded",
-      page: 1,
-      limit: 10
-    });
-
-    expect(dispatch).toBeCalledWith("fetchValidators", {
-      status: "bonded",
-      page: 1,
-      limit: 10
-    });
-  });
-
-  it("Check if 'actions.fetchValidators' sets validators", async (done) => {
-    //TODO: implement
-    done();
-  });
-
-  it("Check if 'actions.fetchValidators' has an error", async (done) => {
-    const commit = jest.fn();
-    mockError = true;
-
-    await actions.fetchValidators({
-      commit
-    });
-
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
-    done();
-  });
-
-  it("Check 'actions.fetchValidators' when server is unreachable", async (done) => {
-    const commit = jest.fn();
-    mockErrorServer = true;
-
-    await actions.fetchValidators({
-      commit
-    });
-
-    expect(commit).toBeCalledWith("setServerReachability", false, {
-      root: true
-    });
-    done();
-  });
-
-  it("Check if 'actions.fetchPool' sets pool", async (done) => {
+  it("Check if 'actions.fetchPool' sets pool", async () => {
     const commit = jest.fn();
 
     await actions.fetchPool({
@@ -66,10 +21,9 @@ describe("store/stake/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("setPool", mockResponse.data);
-    done();
   });
 
-  it("Check if 'actions.fetchPool' has an error", async (done) => {
+  it("Check if 'actions.fetchPool' has an error", async () => {
     const commit = jest.fn();
     mockError = true;
 
@@ -78,10 +32,20 @@ describe("store/stake/actions", () => {
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
-    done();
   });
 
-  it("Check 'actions.fetchPool' when server is unreachable", async (done) => {
+  it("Check if 'actions.fetchPool' has a request error", async () => {
+    const commit = jest.fn();
+    mockErrorRequest = true;
+
+    await actions.fetchPool({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+  });
+
+  it("Check 'actions.fetchPool' when server is unreachable", async () => {
     const commit = jest.fn();
     mockErrorServer = true;
 
@@ -92,11 +56,14 @@ describe("store/stake/actions", () => {
     expect(commit).toBeCalledWith("setServerReachability", false, {
       root: true
     });
-    done();
   });
 });
 
+let mockResponse = null;
+
+let mockError = false;
 const mockErrorResponse = {
+  request: {},
   response: {
     data: {
       error: "error",
@@ -104,45 +71,29 @@ const mockErrorResponse = {
     status: 400
   }
 };
-let mockError = false;
+let mockErrorRequest = false;
+const mockErrorRequestResponse = {
+  request: {},
+  response: undefined
+};
 let mockErrorServer = false;
-let mockResponse = null;
 
 jest.mock("./../api", () => ({
-  requestValidators: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-        if (mockErrorServer) {
-          reject({});
-        }
-
-        mockResponse = {
-          data: {
-            //TODO: implement
-          }
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
   requestPool: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
           reject(mockErrorResponse);
         }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
         if (mockErrorServer) {
           reject({});
         }
 
         mockResponse = {
-          data: {
-            not_bonded_tokens: "2000000",
-            bonded_tokens: "1000000",
-          }
+          data: mockPool()
         };
         resolve(mockResponse);
       }, 1);

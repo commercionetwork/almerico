@@ -8,7 +8,6 @@ import mutations from "./mutations";
 
 export const initialState = {
   pool: null,
-  validators: [],
   isFetching: false,
   message: ""
 };

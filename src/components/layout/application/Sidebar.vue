@@ -13,7 +13,7 @@
       <router-link :to="toSection(ROUTE_NAMES.DASHBOARD)">
         <div class="row d-flex flex-row align-items-center">
           <Icon
-            name="thLarge"
+            name="th-large"
             scale="1.5"
             class="pr-2 text-primary"
           />
@@ -32,7 +32,7 @@
       <router-link :to="toSection(ROUTE_NAMES.VALIDATORS)">
         <div class="row d-flex flex-row align-items-center">
           <Icon
-            name="pollPeople"
+            name="users-cog"
             scale="1.5"
             class="pr-2 text-primary"
           />
@@ -70,7 +70,7 @@
       <router-link :to="toSection(ROUTE_NAMES.TRANSACTIONS)">
         <div class="row d-flex flex-row align-items-center">
           <Icon
-            name="exchangeAlt"
+            name="exchange-alt"
             scale="1.5"
             class="pr-2 text-primary"
           />
@@ -81,26 +81,6 @@
         </div>
       </router-link>
     </div>
-    <!-- votings -->
-    <div
-      class="m-4"
-      @click="closeSidebar"
-    >
-      <router-link :to="toSection(ROUTE_NAMES.VOTINGS)">
-        <div class="row d-flex flex-row align-items-center">
-          <Icon
-            name="poll"
-            scale="1.5"
-            class="pr-2 text-primary"
-          />
-          <span
-            class="flex-grow-1 text-secondary com-font-s14-w700"
-            v-html="$t('titles.votings')"
-          />
-        </div>
-      </router-link>
-    </div>
-
   </div>
 </template>
 
@@ -109,12 +89,11 @@ import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 
 import Icon from "vue-awesome/components/Icon.vue";
-import "Assets/img/icons/exchange-alt";
-import "Assets/img/icons/poll-people";
-import "Assets/img/icons/poll";
-import "Assets/img/icons/shapes";
-import "Assets/img/icons/th-large";
 import "vue-awesome/icons/angle-down";
+import "vue-awesome/icons/exchange-alt";
+import "vue-awesome/icons/shapes";
+import "vue-awesome/icons/th-large";
+import "vue-awesome/icons/users-cog";
 
 export default {
   name: "SideBar",
@@ -138,7 +117,6 @@ export default {
       open: false
     };
   },
-  computed: {},
   methods: {
     toSection(route) {
       return localizedRoute(route, this.$i18n.locale);

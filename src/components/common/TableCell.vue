@@ -6,23 +6,25 @@
     />
     <div v-else>
       <div class="row py-1 d-flex align-items-center">
-        <div class="col-6 d-flex justify-content-start">
+        <div class="col-12 d-flex justify-content-start">
           <h2
             class="com-font-s16-w700"
             v-html="title"
-          />
-        </div>
-        <div class="col-6 d-flex justify-content-end">
-          <router-link
-            class="btn btn-outline-secondary com-font-s14-w700"
-            v-html="$t('buttons.showMore')"
-            :to="link"
           />
         </div>
       </div>
       <div class="row py-1">
         <div class="col-12">
           <slot name="main-content" />
+        </div>
+      </div>
+      <div class="row py-1">
+        <div class="col-12 d-flex justify-content-center">
+          <router-link
+            class="btn btn-outline-primary com-font-s14-w700"
+            v-html="$t('buttons.showMore')"
+            :to="link"
+          />
         </div>
       </div>
     </div>

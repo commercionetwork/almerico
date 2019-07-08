@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
+  <div class="p-1">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -16,7 +16,7 @@
       <div class="row py-1">
         <div class="col-12">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
               <thead>
                 <tr class="text-center com-font-s13-w700">
                   <th scope="col">TxHash</th>
@@ -28,88 +28,81 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  class="text-center com-font-s13-w400"
-                  v-for="transaction in transactions.slice().reverse()"
-                  :key="transaction.id"
-                >
-                  <td class="align-middle">
-                    <router-link
-                      :to="toTransactionDetails(transaction.hash)"
-                      v-text="transaction.hash"
-                      class="d-inline-block text-truncate com-font-s11-w400"
-                      style="max-width: 120px;"
-                    />
-                  </td>
-                  <td class="align-middle">
-                    <router-link
-                      :to="toBlockDetails(transaction.height)"
-                      v-text="transaction.height"
-                    />
-                  </td>
-                  <td
-                    class="align-middle"
-                    v-text="transaction.type"
-                  />
-                  <td
-                    class="align-middle"
-                    v-text="transaction.result"
-                  />
-                  <td class="align-middle">{{ transaction.fee.toLocaleString(undefined,{ minimumFractionDigits: 6, maximumFractionDigits: 6 }) }} ATOM</td>
-                  <td
-                    class="align-middle"
-                    v-text="getSeconds(transaction.time)"
-                  />
-                </tr>
+                <AccountTransactionsRow
+                  v-for="(transaction,index) in transactions"
+                  :key="index"
+                  :transaction="transaction"
+                />
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import { ROUTE_NAMES } from "Constants";
+import AccountTransactionsRow from "./AccountTransactionsRow.vue";
 
-//TODO: remove
-import { mockTransactions } from "Store/transactions/__mocks__/transactionsOld";
+import api from "Store/transactions/api";
+import { ACCOUNT_ROLES } from "Constants";
+import { arrayManager } from "Utils";
 
 export default {
   name: "AccountTransactions",
   description: "Display the account transactions list",
+  components: {
+    AccountTransactionsRow
+  },
+  props: {
+    address: {
+      type: String,
+      required: true,
+      note: "The account address"
+    }
+  },
+  data() {
+    return {
+      isFetching: false,
+      allTransactions: []
+    };
+  },
   computed: {
-    isFetching() {
-      return false;
-    },
     transactions() {
-      return mockTransactions(5)
+      const transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
+      return transactions.sort(function(a, b) {
+        return b.height - a.height;
+      });
     }
   },
   methods: {
-    getSeconds(time) {
-      let seconds = ((new Date() - time) / 1000).toFixed(0);
-      return `${seconds}s ago`;
+    async getTxs(role, address) {
+      try {
+        const response = await api.requestTransactions({
+          tag: `${role}=${address}`
+        });
+        if (response.data) this.allTransactions.push(...response.data);
+      } catch (error) {
+        console.log(error);
+      }
     },
-    toBlockDetails(id) {
-      return {
-        name: ROUTE_NAMES.BLOCKS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
-    },
-    toTransactionDetails(id) {
-      return {
-        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
+    getData() {
+      this.isFetching = true;
+      try {
+        Object.values(ACCOUNT_ROLES).forEach(role => {
+          this.getTxs(role, this.address);
+        });
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.isFetching = false;
+      }
     }
+  },
+  created() {
+    this.getData();
   }
 };
 </script>

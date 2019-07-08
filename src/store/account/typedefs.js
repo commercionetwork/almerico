@@ -1,19 +1,12 @@
-/** @typedef {Object} Account
- * @property {String} type 
- * @property {AccountDetails} value 
+/**
+ * Account type definitions
  */
-/** @typedef {Object} AccountDetails 
- * @property {String} account_number 
- * @property {String} address 
- * @property {Array.<Coin>} coins 
- * @property {PublicKey} public_key 
- * @property {String} sequence 
+/** @typedef {Object} AccountState
+ * @property {Array.<Balance>} all
+ * @property {Boolean} isFetching
+ * @property {String} message
  */
-/** @typedef {Object} Coin 
+/** @typedef {Object} Balance
  * @property {String} amount 
  * @property {String} denom 
- */
-/** @typedef {Object} PublicKey 
- * @property {String} type 
- * @property {String} value 
  */

@@ -1,4 +1,14 @@
-FROM node:12.3.1
+FROM node:12.6.0
+
+# Read the set variables
+ARG LCD_URL
+ARG RPC_URL
+ARG WS_URL
+
+# Copy all arguments into the environment variables
+ENV VUE_APP_LCD ${LCD_URL}
+ENV VUE_APP_RPC_LOGIN ${RPC_URL}
+ENV VUE_APP_WS ${WS_URL}
 
 # Set unsafe perm in order to avoid npm errors
 RUN npm config set unsafe-perm true
@@ -28,4 +38,4 @@ WORKDIR /app
 RUN mv tmp/dist dist && rm -fr tmp
 
 # Start the server
-ENTRYPOINT [ "serve", "--single", "dist" ]
+CMD [ "serve", "--single", "dist" ]

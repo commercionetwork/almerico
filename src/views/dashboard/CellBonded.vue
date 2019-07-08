@@ -1,36 +1,28 @@
 <template>
-  <DataCell :isFetching="isFetching">
+  <HeaderCell :chart='true'>
     <div
-      slot="top-left-content"
-      class="com-font-s13-w400"
-    >Bonded</div>
-    <div slot="bottom-left-content">
-      <div
-        class="text-secondary com-font-s14-w700"
-        v-text="percent"
-      />
-      <div
-        class="text-secondary com-font-s11-w400"
-        v-text="proportion"
-      />
-    </div>
-    <div slot="top-right-content">
+      slot="header"
+      v-text="'Bonded'"
+    />
+    <div
+      slot="body"
+      v-text="percent"
+    />
+    <div
+      slot="footer"
+      v-text="proportion"
+    />
+    <div slot="chart">
       <LineChart
         :chartdata="chartdata"
         :options="options"
-        height="60"
-        width="90"
-        class="p-1"
       />
     </div>
-    <div slot="bottom-right-content">
-      <span class="pl-1 com-font-s11-w400">0% (24h)</span>
-    </div>
-  </DataCell>
+  </HeaderCell>
 </template>
 
 <script>
-import DataCell from "Components/common/DataCell.vue";
+import HeaderCell from "Components/common/HeaderCell.vue";
 import LineChart from "Components/common/LineChart.vue";
 
 import { mapGetters } from "vuex";
@@ -39,38 +31,12 @@ export default {
   name: "CellBonded",
   description: "Display the bonded",
   components: {
-    DataCell,
+    HeaderCell,
     LineChart
   },
   data() {
     return {
-      chartdata: {
-        datasets: [
-          {
-            data: [
-              {
-                x: 0,
-                y: 0.67
-              },
-              {
-                x: 8,
-                y: 0.67
-              },
-              {
-                x: 16,
-                y: 0.67
-              },
-              {
-                x: 24,
-                y: 0.67
-              }
-            ],
-            backgroundColor: "#38BA8C",
-            borderColor: "#237659",
-            borderWidth: 1
-          }
-        ]
-      },
+      chartdata: null,
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -101,8 +67,7 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool",
-      isFetching: "isFetching"
+      pool: "pool"
     }),
     bonded() {
       return this.pool ? new Number(this.pool.bonded_tokens) : 0;
@@ -114,15 +79,59 @@ export default {
       return this.bonded + this.notBonded;
     },
     percent() {
-      return this.$n(this.bonded / this.totalToken, {
+      return this.$n(this.percentValue, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
     },
+    percentValue() {
+      return this.bonded && this.totalToken ? this.bonded / this.totalToken : 0;
+    },
     proportion() {
-      return `${this.bonded / 1000000000}M/${this.totalToken / 1000000000}M`;
+      let bonded = (this.bonded / 1000000000).toFixed(0);
+      let total = (this.totalToken / 1000000000).toFixed(0);
+      return `${bonded}M/${total}M`;
     }
+  },
+  watch: {
+    percentValue() {
+      this.setChartData();
+    }
+  },
+  methods: {
+    setChartData() {
+      this.chartdata = {
+        datasets: [
+          {
+            data: [
+              {
+                x: 0,
+                y: this.percentValue * 100
+              },
+              {
+                x: 8,
+                y: this.percentValue * 100
+              },
+              {
+                x: 16,
+                y: this.percentValue * 100
+              },
+              {
+                x: 24,
+                y: this.percentValue * 100
+              }
+            ],
+            backgroundColor: "#38BA8C",
+            borderColor: "#237659",
+            borderWidth: 1
+          }
+        ]
+      };
+    }
+  },
+  mounted() {
+    this.setChartData();
   }
 };
 </script>

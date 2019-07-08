@@ -86,14 +86,19 @@ export default {
   },
   computed: {
     fee() {
-      let fee = this.transaction.tx.value.fee.amount
-        ? this.$n(this.transaction.tx.value.fee.amount / 1000000, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-          })
-        : 0;
-      return `${fee} COMM`;
+      let fee = 0;
+      if (this.transaction.tx.value.fee.amount) {
+        fee = this.transaction.tx.value.fee.amount / 1000000;
+      }
+      if (Array.isArray(this.transaction.tx.value.fee.amount)) {
+        fee = this.transaction.tx.value.fee.amount[0].amount / 1000000;
+      }
+      let formatFee = this.$n(fee, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatFee} COMM`;
     },
     gasWanted() {
       return this.$n(this.transaction.gas_wanted, {

@@ -32,10 +32,9 @@
 import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import api from "Store/tendermint/api";
+import api from "Store/blocks/api";
 import { ROUTE_NAMES, TX_TYPES } from "Constants";
-import { localizedRoute } from "Utils";
-
+import { arrayManager, localizedRoute } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -51,14 +50,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("tendermint", {
+    ...mapGetters("transactions", {
       allTransactions: "transactions"
     }),
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactions() {
-      let transactions = [...this.allTransactions];
+      let transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
       return transactions
         .sort(function(a, b) {
           return b.height - a.height;
@@ -67,15 +66,15 @@ export default {
     }
   },
   methods: {
-    ...mapActions("tendermint", {
+    ...mapActions("transactions", {
       fetchTransactions: "fetchTransactions"
     }),
     async getTransactions(types) {
       this.isFetching = true;
-      const limit = 10;
+      const limit = 20;
       try {
         const response = await api.requestLastBlock();
-        const totalTxs = response.data.block.header.total_txs;
+        const totalTxs = parseInt(response.data.block.header.total_txs);
         const page = Math.floor(totalTxs / limit) + 1;
         types.forEach(type => {
           this.fetchTransactions({
@@ -83,6 +82,13 @@ export default {
             page,
             limit
           });
+          if (page > 1) {
+            this.fetchTransactions({
+              tag: `action=${type}`,
+              page: page - 1,
+              limit
+            });
+          }
         });
       } catch (error) {
         console.log(error);

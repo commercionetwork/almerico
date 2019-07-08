@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import api from "Store/tendermint/api";
+import api from "Store/validators/api";
 import { PREFIX, ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
@@ -76,7 +76,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("stake", {
+    ...mapGetters("validators", {
       validators: "validators"
     }),
     blockHash() {

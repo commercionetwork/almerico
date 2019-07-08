@@ -19,15 +19,11 @@
     </td>
     <td
       class="align-middle"
-      v-text="'TD'"
+      v-text="cumulative"
     />
     <td
       class="align-middle"
       v-text="commission"
-    />
-    <td
-      class="align-middle"
-      v-text="'TD'"
     />
   </tr>
 </template>
@@ -56,13 +52,20 @@ export default {
       pool: "pool"
     }),
     commission() {
-      return this.$n(this.validator.commission.rate * 1, {
+      return this.$n(parseFloat(this.validator.commission.rate), {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
     },
-    bonded() {
+    cumulative(){
+      return this.$n(this.validator.cumulative, {
+        style: "percent",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    },
+    bonded() { 
       return this.pool ? new Number(this.pool.bonded_tokens) : 0;
     },
     validatorRank() {
@@ -76,11 +79,17 @@ export default {
       });
     },
     powerPercent() {
-      return this.$n(this.validator.tokens / this.bonded, {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      let percent =
+        this.validator.tokens && this.bonded
+          ? this.validator.tokens / this.bonded
+          : 0;
+      return percent > 0
+        ? this.$n(percent, {
+            style: "percent",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })
+        : "- %";
     }
   },
   methods: {

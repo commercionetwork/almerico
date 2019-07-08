@@ -51,7 +51,7 @@ export default {
     ...mapGetters("stake", {
       pool: "pool"
     }),
-    ...mapGetters("tendermint", {
+    ...mapGetters("blocks", {
       block: "lastBlock"
     }),
     price() {
@@ -64,15 +64,15 @@ export default {
       });
     },
     height() {
-      return this.block ? this.block.header.height : "";
+      return this.block ? this.block.header.height : "-";
     },
     bonded() {
       return this.pool
-        ? this.$n(this.pool.bonded_tokens, {
+        ? this.$n(this.pool.bonded_tokens / 1000000, {
             style: "decimal",
             maximumFractionDigits: 0
           })
-        : "";
+        : "-";
     }
   }
 };

@@ -1,15 +1,15 @@
+/**
+ * Account state
+ */
+
 import actions from "./actions";
 import getters from "./getters";
 import mutations from "./mutations";
 
-/**
- * Account state
- *
- * @typedef {Object} AccountState
- * @property {boolean} isFetching
- */
 export const initialState = {
+  all: [],
   isFetching: false,
+  message: "",
 };
 
 export default {

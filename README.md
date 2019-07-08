@@ -11,16 +11,23 @@ Commercio.network explorer.
 
 
 ## Building
-### 1. Install dependencies
 In order to properly build the project, first you have to download all of its dependencies. To do so, please run
 
 ```bash
 npm install
 ``` 
 
-### 2. Setup environments variables
-Inside the `.env` file assign the proper values to the written variables:
+### Development
+In order to run this project as a developer with the hot reload option enabled you have to: 
 
+#### Setup
+**1.** Create a file named `.env.development.local` inside the project root folder.
+If you are using a Unix-based system, you can simply execute
+```shell
+cp .env .env.development.local
+``` 
+ 
+**2.** Inside the `.env.development.local` file write the following data:
 ```
 VUE_APP_LCD=<YOUR_LCD_ULR>
 VUE_APP_RPC=<YOUR_RPC_URL>
@@ -28,21 +35,42 @@ VUE_APP_WS=<YOUR_WS_URL>
 ```
   
 Example
+
 ```
-VUE_APP_LCD=https://lcd.n01c01p1f2.commercio.network
-VUE_APP_RPC=https://rpc.n01c01p1f2.commercio.network
-VUE_APP_WS=ws://rpc.n01c01p1f2.commercio.network
+VUE_APP_LCD=https://lcd.com
+VUE_APP_RPC=https://rpc.com
+VUE_APP_WS=ws://rpc.com
 ```
 
-### 3. Run
-#### Development
-In order to run the project, simply execute the `npm run serve` command.  
+#### Running
+In order to run the project, simply execute the `npm serve` command.  
 This will start a local web server and publish a web page to http://localhost:8080. 
 
-#### Production
-In order to build the project run `npm run build`.  
-This will create a `dist` folder that you can serve using your favourite method. 
+### Production
+#### Setup
+**1.** Create a file named `.env.production` inside the project root folder.  
+If you are using a Unix-based system, you can simply execute
+```shell
+cp .env .env.production
+``` 
+ 
+**2.** Inside the `.env.production` file write the following data:
+```
+VUE_APP_LCD=<YOUR_LCD_ULR>
+VUE_APP_RPC=<YOUR_RPC_URL>
+VUE_APP_WS=<YOUR_WS_URL>
+```
+  
+Example
 
+```
+VUE_APP_LCD=https://lcd.com
+VUE_APP_RPC=https://rpc.com
+VUE_APP_WS=ws://rpc.com
+```
+
+#### Building
+In order tto build the project run `npm build`.
 
 ## Performing link checks and fixes 
 In order to perform a lint check on all your files and fix any problem, you can run the following command.
@@ -60,15 +88,16 @@ npm run test
 ## Using Docker
 ### Build the Docker image
 ```shell
-docker build -t almerico .
+docker build -t almerico \
+  --build-arg LCD_URL=<LCD URL> \
+  --build-arg RPC_URL_rpc=<RPC URL> \
+  --build-arg WS_URL=<WebSocket URL> \
+  .
 ```
 
 ## Use the Docker image
 ```shell
-docker run --rm -d --name almerico \
-  -e VUE_APP_LCD=<LCD_URL> \
-  -e VUE_APP_RPC=<VUE_APP_RPC > \
-  almerico
+docker run --name almerico --rm almerico 
 ```
 
 ## Customize the Vue.js CLI configuration

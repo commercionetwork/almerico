@@ -28,7 +28,8 @@
 import BlockDetailsHeader from "./BlockDetailsHeader.vue";
 import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 
-import api from "Store/tendermint/api";
+import apiTransactions from "Store/transactions/api";
+import apiBlocks from "Store/blocks/api";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -47,7 +48,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("stake", {
+    ...mapGetters("validators", {
       validators: "validators"
     }),
     isFetching() {
@@ -60,13 +61,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions("stake", {
+    ...mapActions("validators", {
       getValidators: "getValidators"
     }),
     async fetchBlock(height) {
       this.isFetchingBlock = true;
       try {
-        const response = await api.requestBlock(height);
+        const response = await apiBlocks.requestBlock(height);
         this.block = response.data.block;
       } catch (error) {
         this.block = {};
@@ -77,7 +78,7 @@ export default {
     async fetchTransactions(height) {
       this.isFetchingTransactions = true;
       try {
-        const response = await api.requestTransactionsByHeight(
+        const response = await apiTransactions.requestTransactionsByHeight(
           height
         );
         this.transactions = response.data;

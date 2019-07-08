@@ -4,6 +4,9 @@ export const titles = {
   dashboard: "Dashboard",
   detailsForBlock: "Dettagli del blocco",
   information: "Informazione",
+  messages: "Messaggi",
+  notManagedType: "Tipo non gestito",
+  qrCode: "QR Code",
   transactionDetails: "Dettagli transazione",
   transactions: "Transazioni",
   validatorDetails: "Dettagli validatore",
@@ -12,5 +15,4 @@ export const titles = {
   votes: "Voti",
   votingDetails: "Dettagli votazione",
   votings: "Votazioni",
-  messages: "Messaggi",
 };

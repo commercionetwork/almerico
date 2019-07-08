@@ -1,25 +1,22 @@
 <template>
-  <DataCell :isFetching="isFetching">
+  <HeaderCell :chart='false'>
     <div
-      slot="top-left-content"
-      class="com-font-s13-w400"
-    >Height</div>
+      slot="header"
+      v-text="'Height'"
+    />
     <div
-      slot="bottom-left-content"
-      class="text-secondary com-font-s14-w700"
+      slot="body"
       v-text="height"
     />
-    <div slot="top-right-content">&nbsp;</div>
     <div
-      slot="bottom-right-content"
-      class="com-font-s11-w400"
-      v-text="getTime()"
+      slot="footer"
+      v-text="time"
     />
-  </DataCell>
+  </HeaderCell>
 </template>
 
 <script>
-import DataCell from "Components/common/DataCell.vue";
+import HeaderCell from "Components/common/HeaderCell.vue";
 
 import { mapGetters } from "vuex";
 
@@ -27,24 +24,18 @@ export default {
   name: "CellHeight",
   description: "Display the height",
   components: {
-    DataCell
+    HeaderCell
   },
   computed: {
-    ...mapGetters("tendermint", {
-      blocks: "blocks",
-      isFetching: "isFetching"
+    ...mapGetters("blocks", {
+      block: "lastBlock"
     }),
     height() {
-      return this.blocks.length > 0 ? this.blocks[0].header.height : "";
+      return this.block ? this.block.header.height : "-";
     },
     time() {
-      return this.blocks.length > 0 ? this.blocks[0].header.time : "";
-    },
-  },
-  methods: {
-    getTime() {
-      let time = "";
-      let seconds = (new Date() - new Date(this.time)) / 1000;
+      let time = this.block ? this.block.header.time : null;
+      let seconds = time ? (new Date() - new Date(time)) / 1000 : 0;
       switch (true) {
         case seconds >= 3600:
           time = `${(seconds / 3600).toFixed(0)}h`;
@@ -56,7 +47,7 @@ export default {
           time = `${seconds.toFixed(0)}s`;
       }
 
-      return `Last ${time} ago`;
+      return time ? `Last ${time} ago` : "";
     }
   }
 };
