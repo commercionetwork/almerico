@@ -75,6 +75,51 @@ describe("store/validators/actions", () => {
       root: true
     });
   });
+
+  it("Check if 'actions.updateValidators' add validators", async () => {
+    const commit = jest.fn();
+
+    await actions.updateValidators({
+      commit
+    });
+    
+    expect(commit).toHaveBeenCalledWith("addValidators", mockResponse.data);
+  });
+
+  it("Check if 'actions.updateValidators' has an error", async () => {
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.updateValidators({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check if 'actions.updateValidators' has a request error", async () => {
+    const commit = jest.fn();
+    mockErrorRequest = true;
+
+    await actions.updateValidators({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+  });
+
+  it("Check 'actions.updateValidators' when server is unreachable", async () => {
+    const commit = jest.fn();
+    mockErrorServer = true;
+
+    await actions.updateValidators({
+      commit
+    });
+
+    expect(commit).toBeCalledWith("setServerReachability", false, {
+      root: true
+    });
+  });
 });
 
 let mockResponse = null;

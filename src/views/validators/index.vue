@@ -32,8 +32,9 @@
             class="table-responsive"
           >
             <TableValidators
+              :filter="filter"
               :pool="pool"
-              :filteredValidators="filteredValidators"
+              :validators="validators"
             />
           </div>
         </div>
@@ -51,7 +52,8 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchValidator from "./SearchValidator.vue";
 import TableValidators from "./TableValidators.vue";
 
-import { mapGetters } from "vuex";
+import { VALIDATOR_STATUS } from "Constants";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Validators",
@@ -67,9 +69,7 @@ export default {
   },
   data() {
     return {
-      activeFilter: true,
-      queryFilter: "",
-      filteredValidators: []
+      filter: null
     };
   },
   computed: {
@@ -89,12 +89,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions("validators", {
+      getValidators: "getValidators",
+      updateValidators: "updateValidators"
+    }),
     filterValidators(filter) {
-      console.log("filter", filter)
+      this.filter = filter;
+      if (filter.status) {
+        this.getValidators({ status: VALIDATOR_STATUS.BONDED });
+      } else {
+        this.getValidators({ status: VALIDATOR_STATUS.UNBONDING });
+      }
     }
-  },
-  mounted(){
-    this.filteredValidators = this.validators;
   }
 };
 </script>

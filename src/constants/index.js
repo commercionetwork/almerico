@@ -18,6 +18,9 @@ import {
   ACCOUNT_ROLES,
   VALIDATOR_ROLES
 } from "./transaction";
+import {
+  VALIDATOR_STATUS
+} from "./validator";
 
 export {
   ACCOUNT_ROLES,
@@ -29,5 +32,6 @@ export {
   ROUTE_NAMES,
   TX_TYPES,
   VALIDATOR_ROLES,
+  VALIDATOR_STATUS,
   WS
 };

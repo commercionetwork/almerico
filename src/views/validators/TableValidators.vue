@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <TableValidatorsRow
-        v-for="(validator, index) in validators"
+        v-for="(validator, index) in filteredValidators"
         :key="index"
         :validator="validator"
         :rank="index"
@@ -30,23 +30,27 @@ export default {
     TableValidatorsRow
   },
   props: {
+    filter: {
+      type: Object,
+      required: false,
+      note: "Object representing the validators filter"
+    },
     pool: {
       type: Object,
       required: true,
       note: "Object representing the pool"
     },
-    filteredValidators: {
+    validators: {
       type: Array,
       required: true,
       note: "The validators list to show"
     }
   },
   computed: {
-    validators() {
-      const validators = [...this.filteredValidators];
+    filteredValidators() {
       const bonded = parseInt(this.pool.bonded_tokens);
       let cumulative = 0;
-      return validators
+      const vals = this.validators
         .sort(function(a, b) {
           return b.tokens - a.tokens;
         })
@@ -55,6 +59,13 @@ export default {
           validator.cumulative = cumulative;
           return validator;
         });
+      const filtered =
+        this.filter && this.filter.moniker
+          ? vals.filter(
+              validator => validator.description.moniker === this.filter.moniker
+            )
+          : vals;
+      return filtered;
     }
   }
 };
