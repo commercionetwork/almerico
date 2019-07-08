@@ -22,6 +22,10 @@ In order to run this project as a developer with the hot reload option enabled y
 
 #### Setup
 **1.** Create a file named `.env.development.local` inside the project root folder.
+If you are using a Unix-based system, you can simply execute
+```shell
+cp .env .env.development.local
+``` 
  
 **2.** Inside the `.env.development.local` file write the following data:
 ```
@@ -44,7 +48,11 @@ This will start a local web server and publish a web page to http://localhost:80
 
 ### Production
 #### Setup
-**1.** Create a file named `.env.production` inside the project root folder.
+**1.** Create a file named `.env.production` inside the project root folder.  
+If you are using a Unix-based system, you can simply execute
+```shell
+cp .env .env.production
+``` 
  
 **2.** Inside the `.env.production` file write the following data:
 ```
@@ -81,9 +89,10 @@ npm run test
 ### Build the Docker image
 ```shell
 docker build -t almerico \
-  --build-arg vue_app_lcd=<VUE_APP_LCD> \
-  --build-arg vue_app_rpc=<VUE_APP_RPC> \
-  --build-arg vue_app_ws=<VUE_APP_WS> .
+  --build-arg LCD_URL=<LCD URL> \
+  --build-arg RPC_URL_rpc=<RPC URL> \
+  --build-arg WS_URL=<WebSocket URL> \
+  .
 ```
 
 ## Use the Docker image
