@@ -31,13 +31,28 @@ describe("store/validators/actions", () => {
     });
   });
 
+  it("Check if 'actions.searchValidators' commit mutation 'setValidators' and dispatch action 'fetchValidators'", () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    actions.searchValidators({
+      commit,
+      dispatch
+    }, ["bonded"]);
+
+    expect(commit).toBeCalledWith("setValidators", []);
+    expect(dispatch).toBeCalledWith("updateValidators", {
+      status: "bonded"
+    });
+  });
+
   it("Check if 'actions.fetchValidators' sets validators", async () => {
     const commit = jest.fn();
 
     await actions.fetchValidators({
       commit
     });
-    
+
     expect(commit).toHaveBeenCalledWith("setValidators", mockResponse.data);
   });
 
@@ -82,7 +97,7 @@ describe("store/validators/actions", () => {
     await actions.updateValidators({
       commit
     });
-    
+
     expect(commit).toHaveBeenCalledWith("addValidators", mockResponse.data);
   });
 

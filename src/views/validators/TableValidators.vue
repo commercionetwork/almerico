@@ -48,9 +48,10 @@ export default {
   },
   computed: {
     filteredValidators() {
+      const all = [...this.validators];
       const bonded = parseInt(this.pool.bonded_tokens);
       let cumulative = 0;
-      const vals = this.validators
+      const validators = all
         .sort(function(a, b) {
           return b.tokens - a.tokens;
         })
@@ -61,10 +62,10 @@ export default {
         });
       const filtered =
         this.filter && this.filter.moniker
-          ? vals.filter(
+          ? validators.filter(
               validator => validator.description.moniker === this.filter.moniker
             )
-          : vals;
+          : validators;
       return filtered;
     }
   }

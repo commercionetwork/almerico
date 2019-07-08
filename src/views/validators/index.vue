@@ -90,15 +90,17 @@ export default {
   },
   methods: {
     ...mapActions("validators", {
-      getValidators: "getValidators",
-      updateValidators: "updateValidators"
+      searchValidators: "searchValidators"
     }),
     filterValidators(filter) {
       this.filter = filter;
       if (filter.status) {
-        this.getValidators({ status: VALIDATOR_STATUS.BONDED });
+        this.searchValidators([VALIDATOR_STATUS.BONDED]);
       } else {
-        this.getValidators({ status: VALIDATOR_STATUS.UNBONDING });
+        this.searchValidators([
+          VALIDATOR_STATUS.UNBONDED,
+          VALIDATOR_STATUS.UNBONDING
+        ]);
       }
     }
   }

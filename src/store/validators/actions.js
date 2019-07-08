@@ -17,6 +17,21 @@ export default {
     dispatch("fetchValidators", filters);
   },
   /**
+   * 
+   * @param {Function} commit 
+   * @param {Function} dispatch
+   * @param {Array.<String>} filters 
+   */
+  searchValidators({
+    commit,
+    dispatch
+  }, filters) {
+    commit("setValidators", []);
+    [...filters].forEach(filter => dispatch("updateValidators", {
+      status: filter
+    }));
+  },
+  /**
    * Action to fetch a validators list
    * 
    * @param {Function} commit 
