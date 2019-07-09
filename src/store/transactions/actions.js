@@ -20,7 +20,8 @@ export default {
     });
     try {
       const response = await api.requestTransactions(filters);
-      commit("addTransactions", response.data);
+      const txs = response.data.isArray ? response.data : response.data.txs;
+      commit("addTransactions", txs);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);
