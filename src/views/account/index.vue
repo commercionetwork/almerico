@@ -42,6 +42,7 @@ import AccountUnbondings from "./AccountUnbondings.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
 import api from "Store/delegators/api";
+import { arrayManager } from "Utils";
 import { mapActions } from "vuex";
 
 export default {
@@ -67,7 +68,22 @@ export default {
       return this.$route.params.id;
     },
     delegations() {
-      let delegations = [...this.allDelegations];
+      const delegationsObj = arrayManager.groupBy(
+        this.allDelegations,
+        "validator_address"
+      );
+      const delegations = [];
+      Object.keys(delegationsObj).forEach(validator => {
+        const amounts = delegationsObj[validator];
+        let tot = 0;
+        amounts.forEach(item => {
+          tot += parseFloat(item.shares);
+        });
+        delegations.push({
+          validator_address: validator,
+          shares: tot
+        });
+      });
       return delegations.sort(function(a, b) {
         return b.shares - a.shares;
       });

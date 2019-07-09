@@ -3,18 +3,55 @@
  */
 
 import api from "./api";
+import {
+  VALIDATOR_STATUS
+} from "Constants";
 
 export default {
   /**
    * Action to get the validators list
    * 
+   * @param {Function} commit 
    * @param {Function} dispatch
-   * @param {Object} filters // status, page, limit
+   * @param {Array.<String>} status
+   * @param {Number} page
+   * @param {Number} limit
    */
   getValidators({
+    commit,
     dispatch
-  }, filters) {
-    dispatch("fetchValidators", filters);
+  }, {
+    status = [VALIDATOR_STATUS.BONDED],
+    page = 1,
+    limit = 20
+  } = {}) {
+    commit("setValidators", []);
+    [...status].forEach(element => dispatch("fetchValidators", {
+      status: element,
+      page,
+      limit
+    }));
+  },
+  /**
+   * Action to add validators to the list
+   * 
+   * @param {Function} dispatch
+   * @param {Array.<String>} status
+   * @param {Number} page
+   * @param {Number} limit
+   */
+  addValidators({
+    dispatch
+  }, {
+    status = [VALIDATOR_STATUS.BONDED],
+    page = 1,
+    limit = 20
+  } = {}) {
+    [...status].forEach(element => dispatch("fetchValidators", {
+      status: element,
+      page,
+      limit
+    }));
   },
   /**
    * Action to fetch a validators list
@@ -31,7 +68,7 @@ export default {
     });
     try {
       const response = await api.requestValidators(filters);
-      commit("setValidators", response.data);
+      commit("addValidators", response.data);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);

@@ -56,11 +56,11 @@ export default {
     }),
     ...mapActions("validators", {
       getValidators: "getValidators"
-    }),
+    })
   },
-  mounted(){
+  mounted() {
     this.fetchPool();
-    if (this.validators.length === 0) this.getValidators({});
+    this.getValidators();
     this.subNewClient();
   }
 };

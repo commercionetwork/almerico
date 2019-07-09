@@ -92,7 +92,6 @@ export default {
   created() {
     this.fetchBlock(this.$route.params.id);
     this.fetchTransactions(this.$route.params.id);
-    if (this.validators.length === 0) this.getValidators({});
   }
 };
 </script>

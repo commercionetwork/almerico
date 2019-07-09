@@ -2,6 +2,9 @@
 
 import actions from "../actions.js";
 import {
+  VALIDATOR_STATUS
+} from "Constants";
+import {
   mockValidators
 } from "../__mocks__/validators";
 
@@ -13,32 +16,45 @@ describe("store/validators/actions", () => {
     mockResponse = null;
   });
 
-  it("Check if 'actions.getValidators' dispatch action 'fetchValidators'", () => {
+  it("Check if 'actions.getValidators' commit mutation 'setValidators' and dispatch action 'fetchValidators'", () => {
+    const commit = jest.fn();
     const dispatch = jest.fn();
 
     actions.getValidators({
+      commit,
       dispatch
-    }, {
-      status: "bonded",
-      page: 1,
-      limit: 10
     });
 
+    expect(commit).toBeCalledWith("setValidators", []);
     expect(dispatch).toBeCalledWith("fetchValidators", {
-      status: "bonded",
+      status: VALIDATOR_STATUS.BONDED,
       page: 1,
-      limit: 10
+      limit: 20
     });
   });
 
-  it("Check if 'actions.fetchValidators' sets validators", async () => {
+  it("Check if 'actions.addValidators' dispatch action 'fetchValidators'", () => {
+    const dispatch = jest.fn();
+
+    actions.addValidators({
+      dispatch
+    });
+
+    expect(dispatch).toBeCalledWith("fetchValidators", {
+      status: VALIDATOR_STATUS.BONDED,
+      page: 1,
+      limit: 20
+    });
+  });
+
+  it("Check if 'actions.fetchValidators' adds validators", async () => {
     const commit = jest.fn();
 
     await actions.fetchValidators({
       commit
     });
-    
-    expect(commit).toHaveBeenCalledWith("setValidators", mockResponse.data);
+
+    expect(commit).toHaveBeenCalledWith("addValidators", mockResponse.data);
   });
 
   it("Check if 'actions.fetchValidators' has an error", async () => {
