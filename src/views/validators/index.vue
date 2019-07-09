@@ -69,7 +69,10 @@ export default {
   },
   data() {
     return {
-      filter: null
+      filter: {
+        status: true,
+        moniker: ""
+      }
     };
   },
   computed: {
@@ -89,20 +92,37 @@ export default {
     }
   },
   methods: {
+    ...mapActions("stake", {
+      fetchPool: "fetchPool"
+    }),
     ...mapActions("validators", {
-      searchValidators: "searchValidators"
+      getValidators: "getValidators"
     }),
     filterValidators(filter) {
       this.filter = filter;
       if (filter.status) {
-        this.searchValidators([VALIDATOR_STATUS.BONDED]);
+        this.getValidators({
+          status: [VALIDATOR_STATUS.BONDED],
+          page: 1,
+          limit: 20
+        });
       } else {
-        this.searchValidators([
-          VALIDATOR_STATUS.UNBONDED,
-          VALIDATOR_STATUS.UNBONDING
-        ]);
+        this.getValidators({
+          status: [VALIDATOR_STATUS.UNBONDED, VALIDATOR_STATUS.UNBONDING],
+          page: 1,
+          limit: 20
+        });
       }
     }
+  },
+  created() {
+    if (this.validators.length === 0)
+      this.getValidators({
+        status: [VALIDATOR_STATUS.BONDED],
+        page: 1,
+        limit: 20
+      });
+    if (!this.pool) this.fetchPool();
   }
 };
 </script>

@@ -30,6 +30,7 @@ import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 
 import apiTransactions from "Store/transactions/api";
 import apiBlocks from "Store/blocks/api";
+import { VALIDATOR_STATUS } from "Constants";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -92,7 +93,12 @@ export default {
   created() {
     this.fetchBlock(this.$route.params.id);
     this.fetchTransactions(this.$route.params.id);
-    if (this.validators.length === 0) this.getValidators({});
+    if (this.validators.length === 0)
+      this.getValidators({
+        status: [VALIDATOR_STATUS.BONDED],
+        page: 1,
+        limit: 20
+      });
   }
 };
 </script>

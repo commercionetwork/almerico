@@ -61,7 +61,7 @@ export default {
           return validator;
         });
       const filtered =
-        this.filter && this.filter.moniker
+        this.filter.moniker
           ? validators.filter(
               validator => validator.description.moniker === this.filter.moniker
             )
