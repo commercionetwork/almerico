@@ -1,6 +1,6 @@
 <template>
   <form
-    @submit="onSubmit"
+    @submit.prevent="onSubmit"
     class="w-100"
   >
     <div class="input-group mb-3">
@@ -48,33 +48,35 @@ export default {
     };
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      const hashRegEx = new RegExp(/[0-9A-F]{64}$/, 'igm');
-      const validatorRegEx = new RegExp(PREFIX.COMNETVALOPER+'.*$', 'igm');
-      const accountRegEx = new RegExp(PREFIX.COMNET+'.*$', 'igm');
-      const heightRegEx = new RegExp("^([0-9]{1,})$");
+    onSubmit() {
+      const validatorRegEx = new RegExp(PREFIX.COMNETVALOPER + ".*$", "igm");
+      const accountRegEx = new RegExp(PREFIX.COMNET + ".*$", "igm");
+      const hashRegEx = new RegExp(/[0-9A-F]{64}$/, "igm");
+      const heightRegEx = new RegExp(/[0-9]{1,}$/, "igm");
 
-      let routeName = null
-      if (hashRegEx.test(this.query)) {
-        routeName = ROUTE_NAMES.TRANSACTIONS_DETAILS
-      } else if (validatorRegEx.test(this.query)) {
-        routeName = ROUTE_NAMES.VALIDATORS_DETAILS
+      let routeName = null;
+      if (validatorRegEx.test(this.query)) {
+        routeName = ROUTE_NAMES.VALIDATORS_DETAILS;
       } else if (accountRegEx.test(this.query)) {
-        routeName = ROUTE_NAMES.ACCOUNT_DETAILS
+        routeName = ROUTE_NAMES.ACCOUNT_DETAILS;
+      } else if (hashRegEx.test(this.query)) {
+        routeName = ROUTE_NAMES.TRANSACTIONS_DETAILS;
       } else if (heightRegEx.test(this.query)) {
-        routeName = ROUTE_NAMES.BLOCKS_DETAILS
+        routeName = ROUTE_NAMES.BLOCKS_DETAILS;
       }
 
       if (routeName) {
         this.$router.push({
           name: routeName,
-          params: { id: this.query }
+          params: {
+            id: this.query,
+            lang: this.$i18n.locale
+          }
         });
       }
     }
   },
-  mounted () {
+  mounted() {
     this.$refs.inputSearch.focus();
   }
 };
