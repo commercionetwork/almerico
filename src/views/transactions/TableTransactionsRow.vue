@@ -58,7 +58,7 @@ export default {
   computed: {
     amount() {
       let comm = 0;
-      if (typeof(this.transaction.tx.value.msg[0].value.amount) === 'object') {
+      if (typeof this.transaction.tx.value.msg[0].value.amount === "object") {
         comm = this.transaction.tx.value.msg[0].value.amount.amount / 1000000;
       }
       if (Array.isArray(this.transaction.tx.value.msg[0].value.amount)) {
@@ -74,12 +74,13 @@ export default {
     },
     fee() {
       let fee = 0;
-      if (this.transaction.tx.value.fee.amount) {
-        fee = this.transaction.tx.value.fee.amount / 1000000;
-      }
-      if (Array.isArray(this.transaction.tx.value.fee.amount)) {
+      if (
+        Array.isArray(this.transaction.tx.value.fee.amount) &&
+        this.transaction.tx.value.fee.amount.length > 0
+      ) {
         fee = this.transaction.tx.value.fee.amount[0].amount / 1000000;
       }
+
       let formatFee = this.$n(fee, {
         style: "decimal",
         minimumFractionDigits: 6,
@@ -94,7 +95,10 @@ export default {
       return new Date(this.transaction.timestamp).toLocaleString();
     },
     type() {
-      return this.transaction.tags[0].value;
+      return this.transaction.tx.value.msg &&
+        this.transaction.tx.value.msg.length > 0
+        ? this.transaction.tx.value.msg[0].type.split("/").pop()
+        : "-";
     }
   },
   methods: {
