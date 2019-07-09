@@ -3,6 +3,9 @@
  */
 
 import api from "./api";
+import {
+  VALIDATOR_STATUS
+} from "Constants";
 
 export default {
   /**
@@ -10,32 +13,44 @@ export default {
    * 
    * @param {Function} commit 
    * @param {Function} dispatch
-   * @param {Object} filters // status array, page, limit
+   * @param {Array.<String>} status
+   * @param {Number} page
+   * @param {Number} limit
    */
   getValidators({
     commit,
     dispatch
-  }, filters) {
+  }, {
+    status = [VALIDATOR_STATUS.BONDED],
+    page = 1,
+    limit = 20
+  } = {}) {
     commit("setValidators", []);
-    [...filters.status].forEach(status => dispatch("fetchValidators", {
-      status,
-      page: filters.page,
-      limit: filters.limit
+    [...status].forEach(element => dispatch("fetchValidators", {
+      status: element,
+      page,
+      limit
     }));
   },
   /**
    * Action to add validators to the list
    * 
    * @param {Function} dispatch
-   * @param {Object} filters // status array, page, limit
+   * @param {Array.<String>} status
+   * @param {Number} page
+   * @param {Number} limit
    */
   addValidators({
     dispatch
-  }, filters) {
-    [...filters.status].forEach(status => dispatch("fetchValidators", {
-      status,
-      page: filters.page,
-      limit: filters.limit
+  }, {
+    status = [VALIDATOR_STATUS.BONDED],
+    page = 1,
+    limit = 20
+  } = {}) {
+    [...status].forEach(element => dispatch("fetchValidators", {
+      status: element,
+      page,
+      limit
     }));
   },
   /**
