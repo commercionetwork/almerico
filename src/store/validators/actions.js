@@ -24,6 +24,21 @@ export default {
     }));
   },
   /**
+   * Action to add validators to the list
+   * 
+   * @param {Function} dispatch
+   * @param {Object} filters // status array, page, limit
+   */
+  addValidators({
+    dispatch
+  }, filters) {
+    [...filters.status].forEach(status => dispatch("fetchValidators", {
+      status,
+      page: filters.page,
+      limit: filters.limit
+    }));
+  },
+  /**
    * Action to fetch a validators list
    * 
    * @param {Function} commit 
