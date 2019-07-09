@@ -28,7 +28,7 @@
             v-text="$t('messages.loading')"
           />
           <div
-            v-else
+            v-else-if="pool && validators.length > 0"
             class="table-responsive"
           >
             <TableValidators
@@ -37,6 +37,10 @@
               :validators="validators"
             />
           </div>
+          <div
+            v-else
+            v-text="$t('messages.noItems')"
+          />
         </div>
       </div>
     </div>
@@ -92,9 +96,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions("stake", {
-      fetchPool: "fetchPool"
-    }),
     ...mapActions("validators", {
       getValidators: "getValidators"
     }),
@@ -102,27 +103,14 @@ export default {
       this.filter = filter;
       if (filter.status) {
         this.getValidators({
-          status: [VALIDATOR_STATUS.BONDED],
-          page: 1,
-          limit: 20
+          status: [VALIDATOR_STATUS.BONDED]
         });
       } else {
         this.getValidators({
-          status: [VALIDATOR_STATUS.UNBONDED, VALIDATOR_STATUS.UNBONDING],
-          page: 1,
-          limit: 20
+          status: [VALIDATOR_STATUS.UNBONDED, VALIDATOR_STATUS.UNBONDING]
         });
       }
     }
-  },
-  created() {
-    if (this.validators.length === 0)
-      this.getValidators({
-        status: [VALIDATOR_STATUS.BONDED],
-        page: 1,
-        limit: 20
-      });
-    if (!this.pool) this.fetchPool();
   }
 };
 </script>

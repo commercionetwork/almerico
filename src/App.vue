@@ -7,7 +7,7 @@
 <script>
 import ApplicationLayout from "Components/layout/application/index.vue";
 import ErrorLayout from "Components/layout/error/index.vue";
-import { ROUTE_NAMES, ROUTES, VALIDATOR_STATUS } from "Constants";
+import { ROUTE_NAMES, ROUTES } from "Constants";
 import { localizedRoute } from "Utils";
 import { mapGetters, mapActions } from "vuex";
 
@@ -60,12 +60,7 @@ export default {
   },
   mounted() {
     this.fetchPool();
-    if (this.validators.length === 0)
-      this.getValidators({
-        status: [VALIDATOR_STATUS.BONDED],
-        page: 1,
-        limit: 20
-      });
+    this.getValidators();
     this.subNewClient();
   }
 };
