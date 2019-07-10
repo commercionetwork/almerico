@@ -39,6 +39,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "TableTransactionsRow",
@@ -57,36 +58,47 @@ export default {
   },
   computed: {
     amount() {
-      let comm = 0;
-      if (typeof this.transaction.tx.value.msg[0].value.amount === "object") {
-        comm = this.transaction.tx.value.msg[0].value.amount.amount / 1000000;
+      let amount = {
+        denom: "",
+        amount: 0
+      };
+      if (
+        Array.isArray(this.transaction.tx.value.msg[0].value.amount) &&
+        this.transaction.tx.value.msg[0].value.amount.length > 0
+      ) {
+        amount = coinConverter(
+          this.transaction.tx.value.msg[0].value.amount[0]
+        );
+      } else if (
+        this.transaction.tx.value.msg[0].value.amount instanceof Object
+      ) {
+        amount = coinConverter(this.transaction.tx.value.msg[0].value.amount);
       }
-      if (Array.isArray(this.transaction.tx.value.msg[0].value.amount)) {
-        comm =
-          this.transaction.tx.value.msg[0].value.amount[0].amount / 1000000;
-      }
-      let formatComm = this.$n(comm, {
+      let formatAmount = this.$n(amount.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatComm} COMM`;
+      return `${formatAmount} ${amount.denom}`;
     },
     fee() {
-      let fee = 0;
+      let fee = {
+        denom: "",
+        amount: 0
+      };
       if (
         Array.isArray(this.transaction.tx.value.fee.amount) &&
         this.transaction.tx.value.fee.amount.length > 0
       ) {
-        fee = this.transaction.tx.value.fee.amount[0].amount / 1000000;
+        fee = coinConverter(this.transaction.tx.value.fee.amount[0]);
       }
 
-      let formatFee = this.$n(fee, {
+      let formatFee = this.$n(fee.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatFee} COMM`;
+      return `${formatFee} ${fee.denom}`;
     },
     result() {
       return this.transaction.logs[0].success ? "success" : "fail";
