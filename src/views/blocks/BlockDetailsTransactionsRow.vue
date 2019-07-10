@@ -95,16 +95,19 @@ export default {
       return `${formatFee} ${fee.denom}`;
     },
     result() {
-      return this.transaction.logs[0].success ? "success" : "fail";
+      return this.transaction.logs.find(log => typeof log.success !== undefined)
+        .success
+        ? "success"
+        : "fail";
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleString();
     },
     type() {
-      return this.transaction.tx.value.msg &&
-        this.transaction.tx.value.msg.length > 0
-        ? this.transaction.tx.value.msg[0].type.split("/").pop()
-        : "-";
+      let type = this.transaction.tx.value.msg.find(
+        msg => typeof msg.type !== undefined
+      ).type;
+      return type.split("/").pop();
     }
   },
   methods: {
@@ -117,9 +120,6 @@ export default {
         }
       };
     }
-  },
-  created() {
-    console.log(this.transaction);
   }
 };
 </script>

@@ -121,7 +121,10 @@ export default {
       return this.transaction.tx.value.memo;
     },
     result() {
-      return this.transaction.logs[0].success ? "success" : "fail";
+      return this.transaction.logs.find(log => typeof log.success !== undefined)
+        .success
+        ? "success"
+        : "fail";
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleString();
