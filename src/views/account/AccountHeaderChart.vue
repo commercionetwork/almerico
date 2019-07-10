@@ -6,62 +6,44 @@
           class="com-font-s14-w700"
           v-text="$t('labels.availables')"
         />
-        <span class="com-font-s14-w400">
-          {{ $n(availablesAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-        </span>
+        <span
+          class="com-font-s14-w400"
+          v-text="availablesAmount"
+        />
       </div>
       <div class="d-flex justify-content-between align-items-center border-bottom">
         <span
           class="com-font-s14-w700"
           v-text="$t('labels.delegated')"
         />
-        <span class="com-font-s14-w400">
-          {{ $n(delegationsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-        </span>
+        <span
+          class="com-font-s14-w400"
+          v-text="delegationsAmount"
+        />
       </div>
       <div class="d-flex justify-content-between align-items-center border-bottom">
         <span
           class="com-font-s14-w700"
           v-text="$t('labels.unbonded')"
         />
-        <span class="com-font-s14-w400">
-          {{ $n(unbondingDelegationsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-        </span>
+        <span
+          class="com-font-s14-w400"
+          v-text="unbondingDelegationsAmount"
+        />
       </div>
       <div class="d-flex justify-content-between align-items-center border-bottom">
         <span
           class="com-font-s14-w700"
           v-text="$t('labels.rewards')"
         />
-        <span class="com-font-s14-w400">
-          {{ $n(rewardsAmount, {
-            style: "decimal",
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6
-            }) }} {{ "COMM" }}
-        </span>
+        <span
+          class="com-font-s14-w400"
+          v-text="rewardsAmount"
+        />
       </div>
       <div class="py-2 d-flex justify-content-between align-items-center com-font-s16-w700">
         <span v-text="$t('labels.total')" />
-        <span>
-          {{ $n(totals, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-        }) }} {{ "COMM" }}
-        </span>
+        <span v-text="totalsAmount" />
       </div>
     </div>
     <div class="col-12 col-md-6 px-1 py-3 px-md-3">
@@ -78,6 +60,7 @@
 <script>
 import DoughnutChart from "Components/common/DoughnutChart.vue";
 
+import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -109,9 +92,12 @@ export default {
         this.$t("labels.availables"),
         this.$t("labels.delegated"),
         this.$t("labels.unbonded"),
-        this.$t("labels.rewards"),
+        this.$t("labels.rewards")
       ],
-      totals: 0,
+      totalAvailables: 0,
+      totalDelegated: 0,
+      totalUnbonded: 0,
+      totalRewards: 0,
       chartdata: null,
       options: {
         responsive: true,
@@ -138,76 +124,121 @@ export default {
     ...mapGetters("account", {
       balances: "balances"
     }),
+    denom() {
+      return this.balances && this.balances.length > 0
+        ? this.balances[0].denom
+        : "";
+    },
     availablesAmount() {
-      let amount = 0;
-      if (this.balances) {
-        this.balances.forEach(element => {
-          amount += parseFloat(element.amount);
-        });
+      let amount = {
+        denom: "",
+        amount: 0
+      };
+      if (this.balances && this.balances.length > 0) {
+        amount = coinConverter(this.balances[0]);
+        this.totalAvailables = parseFloat(this.balances[0].amount);
       }
-      return amount / 1000000;
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${amount.denom}`;
     },
     delegationsAmount() {
-      let amount = 0;
       this.delegations.forEach(element => {
-        amount += parseFloat(element.shares);
+        this.totalDelegated += parseFloat(element.shares);
       });
-      return amount / 1000000;
+      let amount = coinConverter({
+        denom: this.denom,
+        amount: this.totalDelegated
+      });
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${amount.denom}`;
     },
     rewardsAmount() {
-      let amount = 0;
       this.rewards.forEach(element => {
-        amount += parseFloat(element.amount);
+        this.totalRewards += parseFloat(element.amount);
       });
-      return amount / 1000000;
+      let amount = coinConverter({
+        denom: this.denom,
+        amount: this.totalRewards
+      });
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${amount.denom}`;
     },
     unbondingDelegationsAmount() {
-      let amount = 0;
       this.unbondings.forEach(element => {
         element.entries.forEach(entry => {
-          amount += parseFloat(entry.balance);
+          this.totalUnbonded += parseFloat(entry.balance);
         });
       });
-      return amount / 1000000;
+      let amount = coinConverter({
+        denom: this.denom,
+        amount: this.totalUnbonded
+      });
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${amount.denom}`;
+    },
+    totalsAmount() {
+      let amount = coinConverter({
+        denom: this.denom,
+        amount: this.totals
+      });
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${amount.denom}`;
+    },
+    totals() {
+      return (
+        this.totalAvailables +
+        this.totalDelegated +
+        this.totalRewards +
+        this.totalUnbonded
+      );
+    }
+  },
+  watch: {
+    totals(value) {
+      if (value > 0) this.setChartdata();
     }
   },
   methods: {
     setChartdata() {
-      this.setTotals();
       let data = [
-        this.getPercent(this.availablesAmount, this.totals),
-        this.getPercent(this.delegationsAmount, this.totals),
-        this.getPercent(this.unbondingDelegationsAmount, this.totals),
-        this.getPercent(this.rewardsAmount, this.totals)
+        this.getPercent(this.totalAvailables, this.totals),
+        this.getPercent(this.totalDelegated, this.totals),
+        this.getPercent(this.totalUnbonded, this.totals),
+        this.getPercent(this.totalRewards, this.totals)
       ];
       this.chartdata = {
         labels: this.labels,
         datasets: [
           {
             data,
-            backgroundColor: [
-              "#33cc99",
-              "#3399ff",
-              "#ffcc00",
-              "#cc3333"
-            ]
+            backgroundColor: ["#33cc99", "#3399ff", "#ffcc00", "#cc3333"]
           }
         ]
       };
     },
     getPercent(value, total) {
       return ((value / total) * 100).toFixed(2);
-    },
-    setTotals() {
-      this.totals =
-        this.availablesAmount +
-        this.delegationsAmount +
-        this.rewardsAmount +
-        this.unbondingDelegationsAmount;
     }
-  },
-  created() {
-    this.setChartdata();
   }
 };
 </script>
