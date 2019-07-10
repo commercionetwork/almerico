@@ -1,16 +1,16 @@
 /**
  * Function to format coin's amount
  * 
- * @param {CoinAmount} coin 
+ * @param {Amount} amount 
  */
 
-const coinConverter = coin => {
-  return coin.denom.charAt(0) === "u" ? {
-    denom: coin.denom.substring(1),
-    amount: parseFloat(coin.amount) * 0.000001
+const coinConverter = amount => {
+  return amount.denom.charAt(0) === "u" ? {
+    denom: amount.denom.substring(1),
+    amount: parseFloat(amount.amount) * 0.000001
   } : {
-    denom: coin.denom,
-    amount: parseFloat(coin.amount)
+    denom: amount.denom,
+    amount: parseFloat(amount.amount)
   };
 };
 

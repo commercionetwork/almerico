@@ -6,7 +6,7 @@ import {
 
 describe("utils/coinConverter", () => {
   it("Check if the function returns the expected object from coin beginning with the letter 'u'", () => {
-    const coin = {
+    const amount = {
       denom: "ucommercio",
       amount: "1000000"
     };
@@ -15,13 +15,13 @@ describe("utils/coinConverter", () => {
       amount: 1
     };
 
-    const response = coinConverter(coin);
+    const response = coinConverter(amount);
 
     expect(response).toEqual(expectValue);
   });
 
   it("Check if the function returns the expected object from coin beginning with a letter other than 'u'", () => {
-    const coin = {
+    const amount = {
       denom: "commercio",
       amount: "1"
     };
@@ -30,7 +30,7 @@ describe("utils/coinConverter", () => {
       amount: 1
     };
 
-    const response = coinConverter(coin);
+    const response = coinConverter(amount);
 
     expect(response).toEqual(expectValue);
   });
