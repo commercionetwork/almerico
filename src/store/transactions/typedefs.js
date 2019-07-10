@@ -37,8 +37,12 @@
  * @property {Array.<Signature>} signatures 
  */
 /** @typedef {Object} Fee
- * @property {String} amount 
+ * @property {Array.<CoinAmount>} amount 
  * @property {String} gas 
+ */
+/** @typedef {Object} CoinAmount
+ * @property {String} denom
+ * @property {String} amount
  */
 /** @typedef {Object} Msg
  * @property {String} type 
