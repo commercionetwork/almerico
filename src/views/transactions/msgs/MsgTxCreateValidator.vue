@@ -83,6 +83,7 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 import { ROUTE_NAMES } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "MsgTxCreateValidator",
@@ -104,16 +105,19 @@ export default {
   },
   computed: {
     amount() {
-      const amount = this.message.value.amount.amount
-        ? this.message.value.amount.amount
-        : "0";
-      const comm = parseFloat(amount) / 1000000;
-      const formatComm = this.$n(comm, {
+      let amount = {
+        denom: "",
+        amount: 0
+      };
+      if (this.message.value.amount.amount instanceof Object) {
+        amount = coinConverter(this.message.value.amount.amount);
+      }
+      let formatAmount = this.$n(amount.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatComm} COMM`;
+      return `${formatAmount} ${amount.denom}`;
     },
     commission() {
       return this.message.value.commission

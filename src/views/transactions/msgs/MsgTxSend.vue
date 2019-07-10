@@ -36,7 +36,7 @@
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="amountValue(amount.amount)"
+          v-text="amountValue(amount)"
         />
       </div>
     </div>
@@ -47,6 +47,7 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 import { ROUTE_NAMES } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "MsgTxSend",
@@ -80,14 +81,20 @@ export default {
     }
   },
   methods: {
-    amountValue(amount) {
-      const comm = parseFloat(amount) / 1000000;
-      const formatComm = this.$n(comm, {
+    amountValue(data) {
+      let amount = {
+        denom: "",
+        amount: 0
+      };
+      if (data instanceof Object) {
+        amount = coinConverter(data);
+      }
+      let formatAmount = this.$n(amount.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatComm} COMM`;
+      return `${formatAmount} ${amount.denom}`;
     },
     toAccountDetails(id) {
       return {
