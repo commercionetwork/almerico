@@ -62,6 +62,7 @@
 <script>
 import AccountHeaderChart from "./AccountHeaderChart.vue";
 
+import { SETUP } from "Constants";
 import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
@@ -92,14 +93,9 @@ export default {
     ...mapGetters("account", {
       balances: "balances"
     }),
-    denom() {
-      return this.balances && this.balances.length > 0
-        ? this.balances[0].denom
-        : "";
-    },
     availablesAmount() {
       let amount = {
-        denom: "",
+        denom: SETUP.COIN,
         amount: 0
       };
       if (this.balances && this.balances.length > 0) {
@@ -118,7 +114,7 @@ export default {
         tot += parseFloat(element.shares);
       });
       let amount = coinConverter({
-        denom: this.denom,
+        denom: SETUP.MICRO_COIN,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -134,7 +130,7 @@ export default {
         tot += parseFloat(element.amount);
       });
       let amount = coinConverter({
-        denom: this.denom,
+        denom: SETUP.MICRO_COIN,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -152,7 +148,7 @@ export default {
         });
       });
       let amount = coinConverter({
-        denom: this.denom,
+        denom: SETUP.MICRO_COIN,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -168,7 +164,7 @@ export default {
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${this.denom}`;
+      return `${formatAmount} ${SETUP.COIN}`;
     },
     totals() {
       return (

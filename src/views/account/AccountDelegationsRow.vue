@@ -24,9 +24,8 @@
 
 <script>
 import api from "Store/validators/api";
-import { ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES, SETUP } from "Constants";
 import { coinConverter } from "Utils";
-import { mapGetters } from "vuex";
 
 export default {
   name: "AccountDelegationsRow",
@@ -46,17 +45,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("account", {
-      balances: "balances"
-    }),
-    denom() {
-      return this.balances && this.balances.length > 0
-        ? this.balances[0].denom
-        : "";
-    },
     amount() {
       let amount = coinConverter({
-        denom: this.denom,
+        denom: SETUP.MICRO_COIN,
         amount: this.delegation.shares
       });
       let formatAmount = this.$n(amount.amount, {
