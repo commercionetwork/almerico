@@ -18,10 +18,16 @@
       />
       <div v-else>
         <div>
-          <ValidatorDetailsHeader :validator="validator" />
+          <ValidatorDetailsHeader
+            :address="accountAddress"
+            :validator="validator"
+          />
         </div>
         <div class="mt-3">
-          <!-- <ValidatorDetailsDelegated :validator="validator" /> -->
+          <ValidatorDetailsDelegated
+            :address="accountAddress"
+            :delegations="delegations"
+          />
         </div>
         <div class="row mt-3">
           <div class="col-12 col-md-6">
@@ -40,36 +46,53 @@
 </template>
 
 <script>
-// import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
+import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
 // import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
 // import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 // import ValidatorDetailsProposed from "./ValidatorDetailsProposed.vue";
 
 import api from "Store/validators/api";
+import { PREFIX } from "Constants";
+import { bech32Manager } from "Utils";
 
 export default {
   name: "ValidatorsDetails",
   description: "Display the validator details",
   components: {
-    // ValidatorDetailsDelegated,
+    ValidatorDetailsDelegated,
     // ValidatorDetailsDelegators,
     // ValidatorDetailsEvents,
-    ValidatorDetailsHeader,
+    ValidatorDetailsHeader
     // ValidatorDetailsProposed
   },
   data() {
     return {
       isFetching: false,
+      delegations: [],
       validator: null
     };
   },
+  computed: {
+    accountAddress() {
+      let hexValue = bech32Manager.decode(this.validatorAddress);
+      return bech32Manager.encode(hexValue, PREFIX.COMNET);
+    },
+    validatorAddress() {
+      return this.$route.params.id;
+    }
+  },
   methods: {
-    async getValidator(address) {
+    async getValidatorData(address) {
+      let response = null;
       this.isFetching = true;
       try {
-        const response = await api.requestValidator(address);
+        // get validator
+        response = await api.requestValidator(address);
         this.validator = response.data;
+        // get delegations
+        response = await api.requestValidatorDelegations(address);
+        this.delegations = response.data;
       } catch (error) {
         console.log(error);
       } finally {
@@ -78,7 +101,7 @@ export default {
     }
   },
   created() {
-    this.getValidator(this.$route.params.id);
+    this.getValidatorData(this.validatorAddress);
   }
 };
 </script>

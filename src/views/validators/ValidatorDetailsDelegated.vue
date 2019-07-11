@@ -1,157 +1,123 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
-    <div
-      v-if="isFetching"
-      v-html="$t('messages.loading')"
-    />
-    <div v-else>
-      <div class="row p-1">
-        <div class="col-12">
-          <h2 class="com-font-s16-w700">Delegated</h2>
-        </div>
+  <div class="bg-white">
+    <div class="row">
+      <div class="col-12">
+        <h2
+          v-text="$t('titles.delegated')"
+          class="com-font-s16-w700"
+        />
       </div>
-      <div class="row p-1">
-        <div class="col-12 d-flex flex-column">
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6 px-1 py-3 px-md-3">
+        <div class="d-flex justify-content-between align-items-center border-bottom">
           <span
             class="com-font-s14-w700"
-            v-text="$t('labels.total')"
+            v-text="$t('labels.self')"
           />
           <span
             class="com-font-s14-w400"
-            v-text="votingPower"
+            v-text="selfAmount.label"
           />
         </div>
+        <div class="d-flex justify-content-between align-items-center border-bottom">
+          <span
+            class="com-font-s14-w700"
+            v-text="$t('labels.others')"
+          />
+          <span
+            class="com-font-s14-w400"
+            v-text="othersAmount.label"
+          />
+        </div>
+        <div class="py-2 d-flex justify-content-between align-items-center com-font-s16-w700">
+          <span v-text="$t('labels.total')" />
+          <span v-text="totalsAmount" />
+        </div>
       </div>
-      <div class="row p-1">
-        <div class="col-12 col-md-4 order-3 order-md-1">
-          <span class="p-0">
-            <DoughnutChart
-              :chartdata="chartdata"
-              :options="options"
-              height="125"
-              width="125"
-            />
-          </span>
-        </div>
-        <div class="col-12 col-md-4 order-1 order-md-2">
-          <div class="d-flex flex-column border-top border-primary com-border-w10">
-            <span
-              class="com-font-s14-w700"
-              v-text="'Self'"
-            />
-            <span
-              class="com-font-s14-w400"
-              v-text="selfPercent"
-            />
-            <span
-              class="com-font-s14-w400"
-              v-text="selfDelegated"
-            />
-          </div>
-        </div>
-        <div class="col-12 col-md-4 order-2 order-md-3">
-          <div class="d-flex flex-column border-top border-info com-border-w10">
-            <span
-              class="com-font-s14-w700"
-              v-text="'Others'"
-            />
-            <span
-              class="com-font-s14-w400"
-              v-text="othersPercent"
-            />
-            <span
-              class="com-font-s14-w400"
-              v-text="othersDelegated"
-            />
-          </div>
-        </div>
+      <div class="col-12 col-md-6 px-1 py-3 px-md-3">
+        <ValidatorDetailsDelegatedChart
+          :others="othersAmount.value"
+          :self="selfAmount.value"
+          :totals="totals"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import DoughnutChart from "Components/common/DoughnutChart.vue";
+import ValidatorDetailsDelegatedChart from "./ValidatorDetailsDelegatedChart";
+
+import { SETUP } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "ValidatorDetailsDelegated",
   description: "Display the validator delegated",
   components: {
-    DoughnutChart
+    ValidatorDetailsDelegatedChart
   },
   props: {
-    validator: {
-      type: Object,
+    address: {
+      type: String,
       required: true,
-      note: "Object representing a validator"
+      note: "The account's address"
+    },
+    delegations: {
+      type: Array,
+      required: true,
+      note: "Delegations as validator to display"
     }
   },
-  data() {
-    return {
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-              return (
-                data["labels"][tooltipItem["index"]] +
-                ": " +
-                data["datasets"][0]["data"][tooltipItem["index"]] +
-                "%"
-              );
-            }
-          }
-        }
-      }
-    };
-  },
   computed: {
-    isFetching() {
-      return false;
+    othersAmount() {
+      let tot = 0;
+      this.delegations
+        .filter(delegation => delegation.delegator_address !== this.address)
+        .forEach(delegation => {
+          tot += parseFloat(delegation.shares);
+        });
+      let amount = coinConverter({
+        denom: SETUP.MICRO_COIN,
+        amount: tot
+      });
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
     },
-    chartdata() {
-      let self = this.validator.voting.delegated_percent;
-      let others = 100 - self;
-      return {
-        labels: ["Self", "Others"],
-        datasets: [
-          {
-            data: [self, others],
-            backgroundColor: ["#38BA8C", "#3399FF"]
-          }
-        ]
-      };
+    selfAmount() {
+      let tot = 0;
+      this.delegations
+        .filter(delegation => delegation.delegator_address === this.address)
+        .forEach(delegation => {
+          tot += parseFloat(delegation.shares);
+        });
+      let amount = coinConverter({
+        denom: SETUP.MICRO_COIN,
+        amount: tot
+      });
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
     },
-    othersDelegated() {
-      return (
-        this.validator.voting.power - this.validator.voting.delegated
-      ).toLocaleString();
+    totalsAmount() {
+      let formatAmount = this.$n(this.totals, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${SETUP.COIN}`;
     },
-    selfDelegated() {
-      return this.validator.voting.delegated.toLocaleString();
-    },
-    othersPercent() {
-      let percent = (100 - this.validator.voting.delegated_percent).toFixed(2);
-      return `${percent}%`;
-    },
-    selfPercent() {
-      let percent = this.validator.voting.delegated_percent;
-      return `${percent}%`;
-    },
-    votingPower() {
-      let power = this.validator.voting.power.toLocaleString();
-      return `${power} ATOM`;
+    totals() {
+      return this.othersAmount.value + this.selfAmount.value;
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.com-border-w10 {
-  border-width: 10px !important;
-}
-</style>

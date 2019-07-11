@@ -34,7 +34,7 @@
           v-text="$t('labels.address')"
         />
         <router-link
-          :to="toAccountDetails(address)"
+          :to="toAccountDetails()"
           v-text="address"
           class="text-break com-font-s14-w400"
         />
@@ -75,14 +75,19 @@
 </template>
 
 <script>
-import { ROUTE_NAMES, PREFIX, SETUP } from "Constants";
-import { bech32Manager, coinConverter } from "Utils";
+import { ROUTE_NAMES, SETUP } from "Constants";
+import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
   name: "ValidatorDetailsHeader",
   description: "Display the validator header",
   props: {
+    address: {
+      type: String,
+      required: true,
+      note: "The account's address"
+    },
     validator: {
       type: Object,
       required: true,
@@ -97,10 +102,6 @@ export default {
       return this.validator.status === 2
         ? this.$t("buttons.active")
         : this.$t("buttons.inactive");
-    },
-    address() {
-      let hexValue = bech32Manager.decode(this.validator.operator_address);
-      return bech32Manager.encode(hexValue, PREFIX.COMNET);
     },
     commission() {
       return this.$n(parseFloat(this.validator.commission.rate), {
@@ -135,12 +136,12 @@ export default {
     }
   },
   methods: {
-    toAccountDetails(id) {
+    toAccountDetails() {
       return {
         name: ROUTE_NAMES.ACCOUNT_DETAILS,
         params: {
           lang: this.$i18n.locale,
-          id: id
+          id: this.address
         }
       };
     }
