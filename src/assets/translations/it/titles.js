@@ -3,6 +3,7 @@ export const titles = {
   blocks: "Blocchi",
   dashboard: "Dashboard",
   delegated: "Delegati",
+  delegators: "Deleganti",
   detailsForBlock: "Dettagli del blocco",
   information: "Informazione",
   messages: "Messaggi",

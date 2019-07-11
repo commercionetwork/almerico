@@ -18,7 +18,7 @@
       </div>
       <div class="col-12 order-3 col-md-8 order-md-2 d-flex flex-column">
         <span
-          class="pb-2 com-font-s16-w700"
+          class="pb-2 text-capitalize com-font-s16-w700"
           v-text="validator.description.moniker"
         />
         <span
