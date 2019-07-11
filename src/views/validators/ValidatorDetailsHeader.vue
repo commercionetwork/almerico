@@ -114,7 +114,9 @@ export default {
     },
     votingPower() {
       let percent =
-        this.bonded > 0 ? parseFloat(this.validator.tokens) / this.bonded : 0;
+        this.bonded > 0
+          ? parseFloat(this.validator.delegator_shares) / this.bonded
+          : 0;
       let formatPercent = this.$n(percent, {
         style: "percent",
         minimumFractionDigits: 2,
@@ -122,7 +124,7 @@ export default {
       });
       let power = coinConverter({
         denom: SETUP.MICRO_COIN,
-        amount: this.validator.tokens
+        amount: this.validator.delegator_shares
       });
       let formatPower = this.$n(power.amount, {
         style: "decimal",
