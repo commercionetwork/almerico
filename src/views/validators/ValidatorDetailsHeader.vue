@@ -34,8 +34,8 @@
           v-text="$t('labels.address')"
         />
         <router-link
-          :to="toAccountDetails(pubKey)"
-          v-text="pubKey"
+          :to="toAccountDetails(address)"
+          v-text="address"
           class="text-break com-font-s14-w400"
         />
       </div>
@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import { ROUTE_NAMES, PREFIX } from "Constants";
-import { bech32Manager } from "Utils";
+import { ROUTE_NAMES, PREFIX, SETUP } from "Constants";
+import { bech32Manager, coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -94,9 +94,11 @@ export default {
       pool: "pool"
     }),
     status() {
-      return this.validator.status === 2 ? "Active" : "Inactive";
+      return this.validator.status === 2
+        ? this.$t("buttons.active")
+        : this.$t("buttons.inactive");
     },
-    pubKey() {
+    address() {
       let hexValue = bech32Manager.decode(this.validator.operator_address);
       return bech32Manager.encode(hexValue, PREFIX.COMNET);
     },
@@ -108,20 +110,26 @@ export default {
       });
     },
     bonded() {
-      return this.pool ? new Number(this.pool.bonded_tokens) : 0;
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     votingPower() {
-      let power = this.$n(this.validator.tokens / 1000000, {
+      let percent =
+        this.bonded > 0 ? parseFloat(this.validator.tokens) / this.bonded : 0;
+      let formatPercent = this.$n(percent, {
+        style: "percent",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      let power = coinConverter({
+        denom: SETUP.MICRO_COIN,
+        amount: this.validator.tokens
+      });
+      let formatPower = this.$n(power.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      let percent = this.validator.tokens / this.bonded;
-      return `${this.$n(percent, {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      })} (${power} COMM)`;
+      return `${formatPercent} (${formatPower} ${power.denom})`;
     }
   },
   methods: {
