@@ -81,8 +81,8 @@ export default {
         denom: "",
         amount: 0
       };
-      if (this.message.value.amount.amount instanceof Object) {
-        amount = coinConverter(this.message.value.amount.amount);
+      if (this.message.value.amount instanceof Object) {
+        amount = coinConverter(this.message.value.amount);
       }
       let formatAmount = this.$n(amount.amount, {
         style: "decimal",
