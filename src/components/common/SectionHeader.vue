@@ -9,21 +9,30 @@
     <div class="col-12 col-md-8">
       <div class="row mx-auto p-1 w-100 rounded bg-white">
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s14-w700">Price:</span>
+          <span
+            class="com-font-s14-w700"
+            v-text="$t('labels.price')"
+          />
           <span
             class="pl-1 com-font-s14-w400"
             v-text="price"
           />
         </div>
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s14-w700">Height:</span>
+          <span
+            class="com-font-s14-w700"
+            v-text="$t('labels.height')"
+          />
           <span
             class="pl-1 com-font-s14-w400"
             v-text="height"
           />
         </div>
         <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span class="com-font-s14-w700">Bonded:</span>
+          <span
+            class="com-font-s14-w700"
+            v-text="$t('labels.bonded')"
+          />
           <span
             class="pl-1 com-font-s14-w400"
             v-text="bonded"
