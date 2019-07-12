@@ -14,9 +14,18 @@
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
-                <th scope="col">Delegator address</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Share</th>
+                <th
+                  scope="col"
+                  v-text="$t('labels.delegator')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.amount')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.share')"
+                />
               </tr>
             </thead>
             <tbody>

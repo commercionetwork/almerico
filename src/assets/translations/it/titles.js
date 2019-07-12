@@ -8,7 +8,7 @@ export const titles = {
   information: "Informazione",
   messages: "Messaggi",
   notManagedType: "Tipo non gestito",
-  powerEvents: "Eventi power",
+  powerEvents: "Eventi di potere",
   qrCode: "QR Code",
   transactionDetails: "Dettagli transazione",
   transactions: "Transazioni",
