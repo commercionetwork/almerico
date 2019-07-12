@@ -9,7 +9,7 @@
       </span>
       <span
         class="pl-1"
-        v-text="'Validators'"
+         v-text="$t('labels.validators')"
       />
     </div>
     <div slot="body">

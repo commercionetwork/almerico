@@ -9,7 +9,7 @@
       </span>
       <span
         class="pl-1"
-        v-text="'Height'"
+         v-text="$t('labels.height')"
       />
     </div>
     <div slot="body">
