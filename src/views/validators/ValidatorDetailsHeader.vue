@@ -18,7 +18,7 @@
       </div>
       <div class="col-12 order-3 col-md-8 order-md-2 d-flex flex-column">
         <span
-          class="pb-2 com-font-s16-w700"
+          class="pb-2 text-capitalize com-font-s16-w700"
           v-text="validator.description.moniker"
         />
         <span
@@ -34,8 +34,8 @@
           v-text="$t('labels.address')"
         />
         <router-link
-          :to="toAccountDetails(pubKey)"
-          v-text="pubKey"
+          :to="toAccountDetails()"
+          v-text="address"
           class="text-break com-font-s14-w400"
         />
       </div>
@@ -75,14 +75,19 @@
 </template>
 
 <script>
-import { ROUTE_NAMES, PREFIX } from "Constants";
-import { bech32Manager } from "Utils";
+import { ROUTE_NAMES, SETUP } from "Constants";
+import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
   name: "ValidatorDetailsHeader",
   description: "Display the validator header",
   props: {
+    address: {
+      type: String,
+      required: true,
+      note: "The account's address"
+    },
     validator: {
       type: Object,
       required: true,
@@ -94,11 +99,9 @@ export default {
       pool: "pool"
     }),
     status() {
-      return this.validator.status === 2 ? "Active" : "Inactive";
-    },
-    pubKey() {
-      let hexValue = bech32Manager.decode(this.validator.operator_address);
-      return bech32Manager.encode(hexValue, PREFIX.COMNET);
+      return this.validator.status === 2
+        ? this.$t("buttons.active")
+        : this.$t("buttons.inactive");
     },
     commission() {
       return this.$n(parseFloat(this.validator.commission.rate), {
@@ -108,29 +111,37 @@ export default {
       });
     },
     bonded() {
-      return this.pool ? new Number(this.pool.bonded_tokens) : 0;
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     votingPower() {
-      let power = this.$n(this.validator.tokens / 1000000, {
+      let percent =
+        this.bonded > 0
+          ? parseFloat(this.validator.delegator_shares) / this.bonded
+          : 0;
+      let formatPercent = this.$n(percent, {
+        style: "percent",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      let power = coinConverter({
+        denom: SETUP.MICRO_COIN,
+        amount: this.validator.delegator_shares
+      });
+      let formatPower = this.$n(power.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      let percent = this.validator.tokens / this.bonded;
-      return `${this.$n(percent, {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      })} (${power} COMM)`;
+      return `${formatPercent} (${formatPower} ${power.denom})`;
     }
   },
   methods: {
-    toAccountDetails(id) {
+    toAccountDetails() {
       return {
         name: ROUTE_NAMES.ACCOUNT_DETAILS,
         params: {
           lang: this.$i18n.locale,
-          id: id
+          id: this.address
         }
       };
     }

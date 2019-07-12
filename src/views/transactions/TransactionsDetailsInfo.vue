@@ -68,6 +68,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "TransactionsDetailsInfo",
@@ -86,19 +87,23 @@ export default {
   },
   computed: {
     fee() {
-      let fee = 0;
-      if (this.transaction.tx.value.fee.amount) {
-        fee = this.transaction.tx.value.fee.amount / 1000000;
+      let fee = {
+        denom: "",
+        amount: 0
+      };
+      if (
+        Array.isArray(this.transaction.tx.value.fee.amount) &&
+        this.transaction.tx.value.fee.amount.length > 0
+      ) {
+        fee = coinConverter(this.transaction.tx.value.fee.amount[0]);
       }
-      if (Array.isArray(this.transaction.tx.value.fee.amount)) {
-        fee = this.transaction.tx.value.fee.amount[0].amount / 1000000;
-      }
-      let formatFee = this.$n(fee, {
+
+      let formatFee = this.$n(fee.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatFee} COMM`;
+      return `${formatFee} ${fee.denom}`;
     },
     gasWanted() {
       return this.$n(this.transaction.gas_wanted, {
@@ -116,7 +121,10 @@ export default {
       return this.transaction.tx.value.memo;
     },
     result() {
-      return this.transaction.logs[0].success ? "success" : "fail";
+      return this.transaction.logs.find(log => typeof log.success !== undefined)
+        .success
+        ? "success"
+        : "fail";
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleString();

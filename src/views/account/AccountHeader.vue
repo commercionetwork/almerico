@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="container">
-      <AccountHeaderChart
+      <AccountHeaderValues
         :delegations="delegations"
         :rewards="rewards"
         :unbondings="unbondings"
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import AccountHeaderChart from "./AccountHeaderChart.vue";
+import AccountHeaderValues from "./AccountHeaderValues.vue";
 import ModalQrCode from "Components/modals/ModalQrCode.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
@@ -50,7 +50,7 @@ export default {
   name: "AccountHeader",
   description: "Display the account header data",
   components: {
-    AccountHeaderChart,
+    AccountHeaderValues,
     Icon
   },
   props: {

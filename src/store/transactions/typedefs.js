@@ -37,7 +37,7 @@
  * @property {Array.<Signature>} signatures 
  */
 /** @typedef {Object} Fee
- * @property {String} amount 
+ * @property {Array.<Amount>} amount 
  * @property {String} gas 
  */
 /** @typedef {Object} Msg
@@ -46,12 +46,14 @@
  * ValueCreateAccount|
  * ValueCreateConnection|
  * ValueCreateValidator|
+ * ValueDelegate|
  * ValueEditValidator|
+ * ValueRedelegate|
  * ValueSend|
  * ValueSetIdentity|
  * ValueShareDocument|
  * ValueStoreDocument|
- * ValueUndelegate|
+ * ValueUnbonding|
  * ValueUnjail
  * )} value 
  */
@@ -75,10 +77,21 @@
  * @property {String} validator_address
  * @property {Amount} value
  */
+/** @typedef {Object} ValueDelegate
+ * @property {Amount} amount
+ * @property {String} delegator_address 
+ * @property {String} validator_address 
+ */
 /** @typedef {Object} ValueEditValidator
  * @property {String} address
  * @property {String} commission_rate
  * @property {String} min_self_delegation
+ */
+/** @typedef {Object} ValueRedelegate
+ * @property {Amount} amount
+ * @property {String} delegator_address 
+ * @property {String} validator_dst_address
+ * @property {String} validator_src_address
  */
 /** @typedef {Object} ValueSend
  * @property {Array.<Amount>} amount 
@@ -102,7 +115,7 @@
  * @property {String} owner 
  * @property {String} reference 
  */
-/** @typedef {Object} ValueUndelegate
+/** @typedef {Object} ValueUnbonding
  * @property {Amount} amount
  * @property {String} delegator_address 
  * @property {String} validator_address 

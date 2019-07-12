@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import { ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES, SETUP } from "Constants";
+import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -72,16 +73,20 @@ export default {
       return this.rank + 1;
     },
     votingPower() {
-      return this.$n(this.validator.tokens / 1000000, {
+      let power = coinConverter({
+        denom: SETUP.MICRO_COIN,
+        amount: this.validator.delegator_shares
+      });
+      let formatPower = this.$n(power.amount, {
         style: "decimal",
-        minimumFractionDigits: 0,
         maximumFractionDigits: 0
       });
+      return `${formatPower} ${power.denom}`;
     },
     powerPercent() {
       let percent =
-        this.validator.tokens && this.bonded
-          ? this.validator.tokens / this.bonded
+        this.validator.delegator_shares && this.bonded
+          ? this.validator.delegator_shares / this.bonded
           : 0;
       return percent > 0
         ? this.$n(percent, {

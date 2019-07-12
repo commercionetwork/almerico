@@ -18,21 +18,30 @@
       />
       <div v-else>
         <div>
-          <ValidatorDetailsHeader :validator="validator" />
+          <ValidatorDetailsHeader
+            :address="accountAddress"
+            :validator="validator"
+          />
         </div>
         <div class="mt-3">
-          <!-- <ValidatorDetailsDelegated :validator="validator" /> -->
+          <ValidatorDetailsDelegated
+            :address="accountAddress"
+            :delegations="delegations"
+          />
         </div>
         <div class="row mt-3">
           <div class="col-12 col-md-6">
-            <!-- <ValidatorDetailsDelegators /> -->
+            <ValidatorDetailsDelegators
+              :address="accountAddress"
+              :delegations="delegations"
+              :validator="validator"
+            />
           </div>
           <div class="col-12 col-md-6 mt-3 mt-md-0">
-            <!-- <ValidatorDetailsEvents /> -->
+            <ValidatorDetailsEvents :events="events" />
           </div>
         </div>
         <div class="mt-3">
-          <!-- <ValidatorDetailsProposed /> -->
         </div>
       </div>
     </div>
@@ -40,36 +49,73 @@
 </template>
 
 <script>
-// import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
-// import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
-// import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
+import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
+import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
+import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
-// import ValidatorDetailsProposed from "./ValidatorDetailsProposed.vue";
 
 import api from "Store/validators/api";
+import apiTxs from "Store/transactions/api";
+import { PREFIX, TX_TYPES } from "Constants";
+import { bech32Manager } from "Utils";
 
 export default {
   name: "ValidatorsDetails",
   description: "Display the validator details",
   components: {
-    // ValidatorDetailsDelegated,
-    // ValidatorDetailsDelegators,
-    // ValidatorDetailsEvents,
-    ValidatorDetailsHeader,
-    // ValidatorDetailsProposed
+    ValidatorDetailsDelegated,
+    ValidatorDetailsDelegators,
+    ValidatorDetailsEvents,
+    ValidatorDetailsHeader
   },
   data() {
     return {
       isFetching: false,
+      delegations: [],
+      events: [],
       validator: null
     };
   },
+  computed: {
+    accountAddress() {
+      let hexValue = bech32Manager.decode(this.validatorAddress);
+      return bech32Manager.encode(hexValue, PREFIX.COMNET);
+    },
+    validatorAddress() {
+      return this.$route.params.id;
+    }
+  },
   methods: {
-    async getValidator(address) {
+    async getValidatorData(address) {
+      let response = null;
       this.isFetching = true;
       try {
-        const response = await api.requestValidator(address);
+        // get validator
+        response = await api.requestValidator(address);
         this.validator = response.data;
+        // get delegations
+        response = await api.requestValidatorDelegations(address);
+        this.delegations = response.data;
+        // get plus events
+        Object.values(TX_TYPES).forEach(async type => {
+          response = await apiTxs.requestTransactions({
+            tag: `action=${type}&destination-validator=${this.validatorAddress}`
+          });
+          response.data.forEach(event => {
+            event.plus = true;
+            this.events.push(event);
+          });
+        });
+        // get minus events
+        Object.values(TX_TYPES).forEach(async type => {
+          response = await apiTxs.requestTransactions({
+            tag: `action=${type}&source-validator=${this.validatorAddress}`
+          });
+          response.data.forEach(event => {
+            event.plus = false;
+            this.events.push(event);
+          });
+        });
       } catch (error) {
         console.log(error);
       } finally {
@@ -78,7 +124,7 @@ export default {
     }
   },
   created() {
-    this.getValidator(this.$route.params.id);
+    this.getValidatorData(this.validatorAddress);
   }
 };
 </script>
