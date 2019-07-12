@@ -3,7 +3,7 @@
     <SectionHeader :title="$t('titles.blocks')" />
     <div class="py-3 px-5 rounded bg-white">
       <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
               <th scope="col">Height</th>
