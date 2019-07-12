@@ -9,7 +9,7 @@
         <div class="col-12">
           <h2
             class="com-font-s16-w700"
-            v-text="'Transactions'"
+            v-text="$t('titles.transactions')"
           />
         </div>
       </div>
@@ -19,12 +19,30 @@
             <table class="table table-striped">
               <thead>
                 <tr class="text-center com-font-s13-w700">
-                  <th scope="col">TxHash</th>
-                  <th scope="col">Height</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Result</th>
-                  <th scope="col">Fee</th>
-                  <th scope="col">Time</th>
+                  <th
+                    scope="col"
+                    v-text="$t('labels.hash')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.height')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.type')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.result')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.fee')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.date')"
+                  />
                 </tr>
               </thead>
               <tbody>
@@ -71,7 +89,10 @@ export default {
   },
   computed: {
     transactions() {
-      const transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
+      const transactions = arrayManager.uniqueByKey(
+        this.allTransactions,
+        JSON.stringify
+      );
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });

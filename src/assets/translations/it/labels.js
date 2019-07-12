@@ -16,6 +16,7 @@ export const labels = {
   details: "Dettagli",
   did: "DID",
   fee: "Onorario",
+  finalDate: "Data finale",
   firstUser: "Primo utente",
   fromAddress: "Da indirizzo",
   gasUsedWanted: "Gas (Utilizzato/Richiesto)",

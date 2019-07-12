@@ -16,6 +16,7 @@ export const labels = {
   details: "Details",
   did: "DID",
   fee: "Fee",
+  finalDate: "Final date",
   firstUser: "First user",
   fromAddress: "From address",
   gasUsedWanted: "Gas (Used/Wanted)",
