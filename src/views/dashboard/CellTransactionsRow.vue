@@ -48,7 +48,7 @@ export default {
       return this.transaction.logs[0].success ? "success" : "fail";
     },
     time() {
-      return new Date(this.transaction.timestamp).toLocaleString();
+      return new Date(this.transaction.timestamp).toLocaleDateString();
     }
   },
   methods: {
