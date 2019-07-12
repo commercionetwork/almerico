@@ -1,22 +1,13 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
-    <div class="row p-1">
-      <div class="col-12">
-        <h2
-          class="com-font-s16-w700"
-          v-text="$t('titles.information')"
-        />
-      </div>
-    </div>
-    <hr>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">TxHash</div>
+  <div class="p-3">
+    <div class="row py-1">
+      <div class="col-12 col-md-3 com-font-s14-w700">Hash</div>
       <div
         class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="transaction.txhash"
       />
     </div>
-    <div class="row p-1">
+    <div class="row py-1">
       <div class="col-12 col-md-3 com-font-s14-w700">Status</div>
       <div
         class="col-12 col-md-9 com-font-s14-w400"
@@ -24,7 +15,7 @@
       >
       </div>
     </div>
-    <div class="row p-1">
+    <div class="row py-1">
       <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
       <div class="col-12 col-md-9 com-font-s14-w400">
         <router-link
@@ -33,21 +24,21 @@
         />
       </div>
     </div>
-    <div class="row p-1">
+    <div class="row py-1">
       <div class="col-12 col-md-3 com-font-s14-w700">Time</div>
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="time"
       />
     </div>
-    <div class="row p-1">
+    <div class="row py-1">
       <div class="col-12 col-md-3 com-font-s14-w700">Fee</div>
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="fee"
       />
     </div>
-    <div class="row p-1">
+    <div class="row py-1">
       <div class="col-12 col-md-3 com-font-s14-w700">Gas (used/wanted)</div>
       <div class="col-12 col-md-9 com-font-s14-w400">
         {{ gasUsed }}{{ "/" }}{{ gasWanted}}

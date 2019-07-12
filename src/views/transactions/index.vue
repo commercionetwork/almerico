@@ -10,7 +10,7 @@
         v-else
         class="table-responsive"
       >
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
               <th scope="col">TxHash</th>
