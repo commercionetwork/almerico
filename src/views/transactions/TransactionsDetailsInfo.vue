@@ -1,14 +1,20 @@
 <template>
   <div class="p-3">
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Hash</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.hash')"
+      />
       <div
         class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="transaction.txhash"
       />
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Status</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.status')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="result"
@@ -16,7 +22,10 @@
       </div>
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.height')"
+      />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <router-link
           :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"
@@ -25,21 +34,30 @@
       </div>
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Time</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.date')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="time"
       />
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Fee</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.fee')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="fee"
       />
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Gas (used/wanted)</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.gasUsedWanted')"
+      />
       <div class="col-12 col-md-9 com-font-s14-w400">
         {{ gasUsed }}{{ "/" }}{{ gasWanted}}
       </div>
