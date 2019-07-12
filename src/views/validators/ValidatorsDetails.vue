@@ -11,37 +11,44 @@
         &nbsp;
       </div>
     </div>
-    <div class="py-3 px-5 rounded bg-white">
-      <div
-        v-if="isFetching"
-        v-text="$t('messages.loading')"
-      />
-      <div v-else>
-        <div>
-          <ValidatorDetailsHeader
-            :address="accountAddress"
-            :validator="validator"
-          />
-        </div>
-        <div class="mt-3">
-          <ValidatorDetailsDelegated
-            :address="accountAddress"
-            :delegations="delegations"
-          />
-        </div>
-        <div class="row mt-3">
-          <div class="col-12 col-md-6">
-            <ValidatorDetailsDelegators
+    <div
+      v-if="isFetching"
+      v-text="$t('messages.loading')"
+    />
+    <div
+      v-else
+      class="row rounded bg-light"
+    >
+      <div class="col-12 p-0">
+        <div class="row">
+          <div class="col-12">
+            <ValidatorDetailsHeader
               :address="accountAddress"
-              :delegations="delegations"
               :validator="validator"
             />
           </div>
-          <div class="col-12 col-md-6 mt-3 mt-md-0">
-            <ValidatorDetailsEvents :events="events" />
-          </div>
         </div>
-        <div class="mt-3">
+        <div class="px-5 py-3 bg-white">
+          <div class="row py-1">
+            <div class="col-12">
+              <ValidatorDetailsDelegated
+                :address="accountAddress"
+                :delegations="delegations"
+              />
+            </div>
+          </div>
+          <div class="row py-1">
+            <div class="col-12 col-md-6">
+              <ValidatorDetailsDelegators
+                :address="accountAddress"
+                :delegations="delegations"
+                :validator="validator"
+              />
+            </div>
+            <div class="col-12 col-md-6 pt-3 pt-md-0">
+              <ValidatorDetailsEvents :events="events" />
+            </div>
+          </div>
         </div>
       </div>
     </div>

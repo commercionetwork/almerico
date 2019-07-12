@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
+  <div class="p-3">
     <div class="row d-flex align-items-center">
       <div class="col-6 order-1 col-md-2 order-md-1">
         <span class="p-1">

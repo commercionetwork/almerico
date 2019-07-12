@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div>
     <div class="row">
       <div class="col-12">
         <h2
@@ -8,7 +8,7 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div class="row">
       <div class="col-12">
         <div class="table-responsive">
           <table class="table">

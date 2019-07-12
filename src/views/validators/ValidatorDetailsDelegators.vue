@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div>
     <div class="row">
       <div class="col-12">
         <h2
