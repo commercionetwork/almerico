@@ -1,7 +1,7 @@
 <template>
   <div class="row bg-white">
     <div class="col-12 col-md-6 px-1 py-3 px-md-3">
-      <div class="d-flex justify-content-between align-items-center border-bottom">
+      <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center border-bottom">
         <span
           class="com-font-s14-w700"
           v-text="$t('labels.availables')"
@@ -11,7 +11,7 @@
           v-text="availablesAmount.label"
         />
       </div>
-      <div class="d-flex justify-content-between align-items-center border-bottom">
+      <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center border-bottom">
         <span
           class="com-font-s14-w700"
           v-text="$t('labels.delegated')"
@@ -21,7 +21,7 @@
           v-text="delegationsAmount.label"
         />
       </div>
-      <div class="d-flex justify-content-between align-items-center border-bottom">
+      <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center border-bottom">
         <span
           class="com-font-s14-w700"
           v-text="$t('labels.unbonded')"
@@ -31,7 +31,7 @@
           v-text="unbondingDelegationsAmount.label"
         />
       </div>
-      <div class="d-flex justify-content-between align-items-center border-bottom">
+      <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center border-bottom">
         <span
           class="com-font-s14-w700"
           v-text="$t('labels.rewards')"
@@ -41,13 +41,17 @@
           v-text="rewardsAmount.label"
         />
       </div>
-      <div class="py-2 d-flex justify-content-between align-items-center com-font-s16-w700">
+      <div class="py-2 d-flex flex-column flex-md-row justify-content-md-between align-items-md-center com-font-s16-w700">
         <span v-text="$t('labels.total')" />
         <span v-text="totalsAmount" />
       </div>
     </div>
-    <div class="col-12 col-md-6 px-1 py-3 px-md-3">
-      <AccountHeaderChart
+    <div class="col-12 d-md-none">
+      <hr>
+    </div>
+    <div class="col-md-1 d-none d-md-block border-left" />
+    <div class="col-12 col-md-5 px-1 py-3 px-md-3">
+      <AccountValuesChart
         :availables="availablesAmount.value"
         :delegated="delegationsAmount.value"
         :rewards="rewardsAmount.value"
@@ -60,17 +64,17 @@
 
 
 <script>
-import AccountHeaderChart from "./AccountHeaderChart.vue";
+import AccountValuesChart from "./AccountValuesChart.vue";
 
 import { SETUP } from "Constants";
 import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "AccountHeaderValues",
+  name: "AccountValues",
   description: "Display the account token amounts",
   components: {
-    AccountHeaderChart
+    AccountValuesChart
   },
   props: {
     delegations: {

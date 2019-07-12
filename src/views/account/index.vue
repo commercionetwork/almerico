@@ -1,33 +1,47 @@
 <template>
   <div class="container com-container">
-    <SectionHeader :title="$t('titles.accountDetails')" />
+    <div class="row">
+      <div class="col-12">
+        <SectionHeader :title="$t('titles.accountDetails')" />
+      </div>
+    </div>
     <div
       v-if="isFetching"
       v-text="$t('messages.loading')"
     />
     <div
       v-else
-      class="rounded bg-light"
+      class="row rounded bg-light"
     >
-      <div>
-        <AccountHeader
-          :address="address"
-          :delegations="delegations"
-          :rewards="rewards"
-          :unbondings="unbondings"
-        />
-      </div>
-      <div class="bg-white">
+      <div class="col-12 p-0">
         <div class="row">
-          <div class="col-12 col-md-6 mt-3">
-            <AccountDelegations :delegations="delegations" />
-          </div>
-          <div class="col-12 col-md-6 mt-3">
-            <AccountUnbondings :delegations="unbondings" />
+          <div class="col-12">
+            <AccountHeader :address="address" />
           </div>
         </div>
-        <div class="mt-3">
-          <AccountTransactions :address="address" />
+        <div class="px-5 py-3 bg-white">
+          <div class="row py-1">
+            <div class="col-12">
+              <AccountValues
+                :delegations="delegations"
+                :rewards="rewards"
+                :unbondings="unbondings"
+              />
+            </div>
+          </div>
+          <div class="row py-1">
+            <div class="col-12 col-md-6">
+              <AccountDelegations :delegations="delegations" />
+            </div>
+            <div class="col-12 col-md-6">
+              <AccountUnbondings :delegations="unbondings" />
+            </div>
+          </div>
+          <div class="row py-1">
+            <div class="col-12">
+              <AccountTransactions :address="address" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,6 +53,7 @@ import AccountDelegations from "./AccountDelegations.vue";
 import AccountHeader from "./AccountHeader.vue";
 import AccountTransactions from "./AccountTransactions.vue";
 import AccountUnbondings from "./AccountUnbondings.vue";
+import AccountValues from "./AccountValues.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
 import api from "Store/delegators/api";
@@ -53,6 +68,7 @@ export default {
     AccountHeader,
     AccountTransactions,
     AccountUnbondings,
+    AccountValues,
     SectionHeader
   },
   data() {

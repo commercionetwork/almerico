@@ -62,8 +62,8 @@ export default {
       });
       let formatAmount = this.$n(amount.amount, {
         style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
       });
       return `${formatAmount} ${amount.denom}`;
     },
@@ -71,7 +71,7 @@ export default {
       return this.delegation.entry.creation_height;
     },
     finalDate() {
-      return new Date(this.delegation.entry.completion_time).toLocaleString();
+      return new Date(this.delegation.entry.completion_time).toLocaleDateString();
     }
   },
   methods: {
