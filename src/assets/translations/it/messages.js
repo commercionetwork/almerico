@@ -1,4 +1,5 @@
 export const messages = {
+  ago: "trascorsi",
   loading: "Caricando...",
   noItems: "Nessun elemento",
   notFound: "Risorsa non trovata",
