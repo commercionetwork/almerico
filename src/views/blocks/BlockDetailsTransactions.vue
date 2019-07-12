@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <h2
-          v-text="'Transactions'"
+          v-text="$t('titles.transactions')"
           class="com-font-s16-w700"
         />
       </div>
@@ -14,12 +14,30 @@
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
-                <th scope="col">TxHash</th>
-                <th scope="col">Type</th>
-                <th scope="col">Result</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Fee</th>
-                <th scope="col">Time</th>
+                <th
+                  scope="col"
+                  v-text="$t('labels.hash')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.type')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.result')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.amount')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.fee')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.date')"
+                />
               </tr>
             </thead>
             <tbody>

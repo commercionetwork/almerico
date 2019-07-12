@@ -1,35 +1,50 @@
 <template>
   <div class="p-3">
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.height')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockHeight"
       />
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Block time</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.date')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockTime"
       />
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Block hash</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.hash')"
+      />
       <div
         class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="blockHash"
       />
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Number of transactions</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.txsNumber')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockTransactions"
       />
     </div>
     <div class="row py-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Proposer</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.proposer')"
+      />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <div
           v-if="isFetching"

@@ -6,11 +6,26 @@
         <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
-              <th scope="col">Height</th>
-              <th scope="col">Block Hash</th>
-              <th scope="col">Proposer</th>
-              <th scope="col">Txs</th>
-              <th scope="col">Time</th>
+              <th
+                scope="col"
+                v-text="$t('labels.height')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.hash')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.proposer')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.txs')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.date')"
+              />
             </tr>
           </thead>
           <tbody>
