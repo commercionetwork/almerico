@@ -11,26 +11,31 @@
 import DoughnutChart from "Components/common/DoughnutChart.vue";
 
 export default {
-  name: "AccountHeaderChart",
-  description: "Display the account chart",
+  name: "ValidatorDetailsDelegatedChart",
+  description: "Display the chart of validator's delegations",
   components: {
     DoughnutChart
   },
   props: {
-    availables: { type: Number, default: 0, note: "Total token availables" },
-    delegated: { type: Number, default: 0, note: "Total token delegated" },
-    rewards: { type: Number, default: 0, note: "Total token rewards" },
-    unbonded: { type: Number, default: 0, note: "Total token unbonded" },
-    totals: { type: Number, default: 0, note: "Total tokens" }
+    others: {
+      type: Number,
+      default: 0,
+      note: "Total token delegated from others"
+    },
+    self: {
+      type: Number,
+      default: 0,
+      note: "Total token self delegated"
+    },
+    totals: {
+      type: Number,
+      default: 0,
+      note: "Total tokens"
+    }
   },
   data() {
     return {
-      labels: [
-        this.$t("labels.availables"),
-        this.$t("labels.delegated"),
-        this.$t("labels.unbonded"),
-        this.$t("labels.rewards")
-      ],
+      labels: [this.$t("labels.others"), this.$t("labels.self")],
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -55,17 +60,15 @@ export default {
   computed: {
     chartdata() {
       let data = [
-        this.getPercent(this.availables, this.totals),
-        this.getPercent(this.delegated, this.totals),
-        this.getPercent(this.unbonded, this.totals),
-        this.getPercent(this.rewards, this.totals)
+        this.getPercent(this.others, this.totals),
+        this.getPercent(this.self, this.totals)
       ];
       return {
         labels: this.labels,
         datasets: [
           {
             data,
-            backgroundColor: ["#33cc99", "#3399ff", "#ffcc00", "#cc3333"]
+            backgroundColor: ["#33cc99", "#3399ff"]
           }
         ]
       };
