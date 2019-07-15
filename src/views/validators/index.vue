@@ -31,11 +31,7 @@
             v-else-if="pool && validators.length > 0"
             class="table-responsive"
           >
-            <TableValidators
-              :filter="filter"
-              :pool="pool"
-              :validators="validators"
-            />
+            <TableValidators :validators="filteredValidators" />
           </div>
           <div
             v-else
@@ -56,8 +52,7 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchValidator from "./SearchValidator.vue";
 import TableValidators from "./TableValidators.vue";
 
-import { VALIDATOR_STATUS } from "Constants";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Validators",
@@ -73,10 +68,7 @@ export default {
   },
   data() {
     return {
-      filter: {
-        status: true,
-        moniker: ""
-      }
+      filteredValidators: []
     };
   },
   computed: {
@@ -96,21 +88,33 @@ export default {
     }
   },
   methods: {
-    ...mapActions("validators", {
-      getValidators: "getValidators"
-    }),
     filterValidators(filter) {
-      this.filter = filter;
-      if (filter.status) {
-        this.getValidators({
-          status: [VALIDATOR_STATUS.BONDED]
-        });
-      } else {
-        this.getValidators({
-          status: [VALIDATOR_STATUS.UNBONDED, VALIDATOR_STATUS.UNBONDING]
-        });
-      }
+      const validators = [...this.validators];
+      const statusFilteredValidators = filter.status
+        ? validators.filter(validator => validator.status === 2)
+        : validators.filter(validator => validator.status !== 2);
+      const bondedTokens = parseInt(this.pool.bonded_tokens);
+      let cumulative = 0;
+      const orderedValidators = statusFilteredValidators.sort(function(a, b) {
+        return b.tokens - a.tokens;
+      });
+      const cumulatedValidators = orderedValidators.map(validator => {
+        cumulative += validator.tokens / bondedTokens;
+        validator.cumulative = cumulative;
+        return validator;
+      });
+      this.filteredValidators = filter.moniker
+        ? cumulatedValidators.filter(
+            validator => validator.description.moniker === filter.moniker
+          )
+        : cumulatedValidators;
     }
+  },
+  mounted() {
+    this.filterValidators({
+      status: true,
+      moniker: ""
+    });
   }
 };
 </script>

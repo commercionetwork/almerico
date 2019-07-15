@@ -59,15 +59,15 @@ export default {
         maximumFractionDigits: 2
       });
     },
-    cumulative(){
+    cumulative() {
       return this.$n(this.validator.cumulative, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
     },
-    bonded() { 
-      return this.pool ? new Number(this.pool.bonded_tokens) : 0;
+    bonded() {
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     validatorRank() {
       return this.rank + 1;
@@ -75,7 +75,7 @@ export default {
     votingPower() {
       let power = coinConverter({
         denom: SETUP.MICRO_COIN,
-        amount: this.validator.delegator_shares
+        amount: this.validator.tokens
       });
       let formatPower = this.$n(power.amount, {
         style: "decimal",
@@ -85,10 +85,8 @@ export default {
     },
     powerPercent() {
       let percent =
-        this.validator.delegator_shares && this.bonded
-          ? this.validator.delegator_shares / this.bonded
-          : 0;
-      return percent > 0
+        this.bonded > 0 ? parseFloat(this.validator.tokens) / this.bonded : 0;
+      return percent >= 0
         ? this.$n(percent, {
             style: "percent",
             minimumFractionDigits: 2,
