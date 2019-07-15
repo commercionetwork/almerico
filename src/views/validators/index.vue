@@ -28,7 +28,7 @@
             v-text="$t('messages.loading')"
           />
           <div
-            v-else-if="pool && validators.length > 0"
+            v-else-if="!isFetching && filteredValidators.length > 0"
             class="table-responsive"
           >
             <TableValidators :validators="filteredValidators" />
@@ -68,23 +68,28 @@ export default {
   },
   data() {
     return {
+      filter: {
+        status: true,
+        moniker: ""
+      },
       filteredValidators: []
     };
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool",
-      isFetchingStake: "isFetching"
+      pool: "pool"
     }),
     ...mapGetters("validators", {
       validators: "validators",
-      isFetchingValidators: "isFetching"
+      isFetching: "isFetching"
     }),
-    isFetching() {
-      return (
-        (this.isFetchingStake || this.isFetchingValidators) &&
-        this.validators.length === 0
-      );
+    bonded() {
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
+    }
+  },
+  watch: {
+    pool() {
+      this.filterValidators(this.filter);
     }
   },
   methods: {
@@ -93,28 +98,26 @@ export default {
       const statusFilteredValidators = filter.status
         ? validators.filter(validator => validator.status === 2)
         : validators.filter(validator => validator.status !== 2);
-      const bondedTokens = parseInt(this.pool.bonded_tokens);
       let cumulative = 0;
-      const orderedValidators = statusFilteredValidators.sort(function(a, b) {
-        return b.tokens - a.tokens;
-      });
-      const cumulatedValidators = orderedValidators.map(validator => {
-        cumulative += validator.tokens / bondedTokens;
-        validator.cumulative = cumulative;
-        return validator;
-      });
+      const orderedValidators = statusFilteredValidators
+        .sort(function(a, b) {
+          return b.tokens - a.tokens;
+        })
+        .map(validator => {
+          cumulative += validator.tokens / this.bonded;
+          validator.cumulative = cumulative;
+          return validator;
+        });
       this.filteredValidators = filter.moniker
-        ? cumulatedValidators.filter(
+        ? orderedValidators.filter(
             validator => validator.description.moniker === filter.moniker
           )
-        : cumulatedValidators;
+        : orderedValidators;
+      this.filter = filter;
     }
   },
   mounted() {
-    this.filterValidators({
-      status: true,
-      moniker: ""
-    });
+    this.filterValidators(this.filter);
   }
 };
 </script>
