@@ -101,7 +101,7 @@ export default {
         : "fail";
     },
     time() {
-      return new Date(this.transaction.timestamp).toLocaleString();
+      return new Date(this.transaction.timestamp).toLocaleDateString();
     },
     type() {
       let type = this.transaction.tx.value.msg.find(

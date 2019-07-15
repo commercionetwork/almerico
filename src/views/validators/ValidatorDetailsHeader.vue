@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
+  <div class="p-3">
     <div class="row d-flex align-items-center">
       <div class="col-6 order-1 col-md-2 order-md-1">
         <span class="p-1">
@@ -42,7 +42,10 @@
     </div>
     <hr class="d-none d-md-block">
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Website</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.website')"
+      />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <a
           :href="validator.description.website"
@@ -51,21 +54,30 @@
       </div>
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Commission</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.commission')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="commission"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Voting power</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.votingPower')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="votingPower"
       />
     </div>
     <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Details</div>
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.details')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="validator.description.details"

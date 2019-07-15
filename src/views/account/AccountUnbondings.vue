@@ -4,7 +4,7 @@
       <div class="col-12">
         <h2
           class="com-font-s16-w700"
-          v-text="'Unbondings'"
+          v-text="$t('titles.unbondings')"
         />
       </div>
     </div>
@@ -17,10 +17,22 @@
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
-                <th scope="col">Validator</th>
-                <th scope="col">Height</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Final date</th>
+                <th
+                  scope="col"
+                  v-text="$t('labels.validator')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.height')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.amount')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.finalDate')"
+                />
               </tr>
             </thead>
             <tbody>

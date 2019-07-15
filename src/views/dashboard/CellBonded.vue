@@ -2,7 +2,7 @@
   <HeaderCell :chart='true'>
     <div
       slot="header"
-      v-text="'Bonded'"
+      v-text="$t('labels.bonded')"
     />
     <div
       slot="body"

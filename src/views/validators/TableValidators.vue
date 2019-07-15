@@ -2,11 +2,26 @@
   <table class="table table-striped">
     <thead>
       <tr class="text-center com-font-s13-w700">
-        <th scope="col">Rank</th>
-        <th scope="col">Validator</th>
-        <th scope="col">Voting power</th>
-        <th scope="col">% Cumulative share</th>
-        <th scope="col">Commission</th>
+        <th
+          scope="col"
+          v-text="$t('labels.rank')"
+        />
+        <th
+          scope="col"
+          v-text="$t('labels.validator')"
+        />
+        <th
+          scope="col"
+          v-text="$t('labels.votingPower')"
+        />
+        <th
+          scope="col"
+          v-text="$t('labels.cumulativeShare')"
+        />
+        <th
+          scope="col"
+          v-text="$t('labels.commission')"
+        />
       </tr>
     </thead>
     <tbody>
@@ -60,12 +75,11 @@ export default {
           validator.cumulative = cumulative;
           return validator;
         });
-      const filtered =
-        this.filter.moniker
-          ? validators.filter(
-              validator => validator.description.moniker === this.filter.moniker
-            )
-          : validators;
+      const filtered = this.filter.moniker
+        ? validators.filter(
+            validator => validator.description.moniker === this.filter.moniker
+          )
+        : validators;
       return filtered;
     }
   }

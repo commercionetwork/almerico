@@ -9,7 +9,7 @@
       </span>
       <span
         class="pl-1"
-        v-text="'Block time'"
+         v-text="$t('labels.time')"
       />
     </div>
     <div slot="body">
@@ -51,7 +51,7 @@ export default {
           time = `${seconds.toFixed(0)}s`;
       }
 
-      return time ? `Last ${time} ago` : "";
+      return time ? `${time}  ${this.$t('messages.ago')}` : "";
     }
   }
 };

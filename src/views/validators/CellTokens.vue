@@ -9,7 +9,7 @@
       </span>
       <span
         class="pl-1"
-        v-text="'Bonded tokens'"
+         v-text="$t('labels.bonded')"
       />
     </div>
     <div slot="body">

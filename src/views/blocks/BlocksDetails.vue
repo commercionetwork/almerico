@@ -11,14 +11,27 @@
         &nbsp;
       </div>
     </div>
-    <div class="py-3 px-5 rounded bg-white">
-      <div
-        v-if="isFetching"
-        v-text="$t('messages.loading')"
-      />
-      <div v-else>
-        <BlockDetailsHeader :block="block" />
-        <BlockDetailsTransactions :transactions="transactions" />
+    <div
+      v-if="isFetching"
+      v-text="$t('messages.loading')"
+    />
+    <div
+      v-else
+      class="row rounded bg-light"
+    >
+      <div class="col-12 p-0">
+        <div class="row">
+          <div class="col-12">
+            <BlockDetailsHeader :block="block" />
+          </div>
+        </div>
+        <div class="py-3 px-5 rounded bg-white">
+          <div class="row py-1">
+            <div class="col-12">
+              <BlockDetailsTransactions :transactions="transactions" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

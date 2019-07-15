@@ -74,7 +74,7 @@ export default {
       validators: "validators"
     }),
     blockTime() {
-      return new Date(this.block.header.time).toLocaleString();
+      return new Date(this.block.header.time).toLocaleDateString();
     }
   },
   methods: {

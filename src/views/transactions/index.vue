@@ -10,16 +10,37 @@
         v-else
         class="table-responsive"
       >
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
-              <th scope="col">TxHash</th>
-              <th scope="col">Type</th>
-              <th scope="col">Result</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Fee</th>
-              <th scope="col">Height</th>
-              <th scope="col">Time</th>
+              <th
+                scope="col"
+                v-text="$t('labels.hash')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.type')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.result')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.amount')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.fee')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.height')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.date')"
+              />
             </tr>
           </thead>
           <tbody>
@@ -61,7 +82,10 @@ export default {
       allTransactions: "transactions"
     }),
     transactions() {
-      let transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
+      let transactions = arrayManager.uniqueByKey(
+        this.allTransactions,
+        JSON.stringify
+      );
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });

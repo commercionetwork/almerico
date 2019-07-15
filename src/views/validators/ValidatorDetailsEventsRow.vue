@@ -16,7 +16,7 @@
     </td>
     <td
       class="align-middle"
-      :class="event.plus ? 'text-info' : 'text-danger'"
+      :class="event.plus ? 'text-success' : 'text-danger'"
       v-text="amount"
     />
     <td
@@ -61,15 +61,15 @@ export default {
       }
       let formatAmount = this.$n(amount.amount, {
         style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
       });
       return this.event.plus
         ? `+ ${formatAmount} ${amount.denom}`
         : `- ${formatAmount} ${amount.denom}`;
     },
     time() {
-      return new Date(this.event.timestamp).toLocaleString();
+      return new Date(this.event.timestamp).toLocaleDateString();
     }
   },
   methods: {

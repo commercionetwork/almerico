@@ -1,15 +1,26 @@
 <template>
   <div class="container com-container">
-    <SectionHeader :title="$t('titles.transactionDetails')" />
-    <div class="py-3 px-5 rounded bg-white">
-      <div
-        v-if="isFetching"
-        v-text="$t('messages.loading')"
-      />
-      <div v-else>
-        <TransactionsDetailsInfo :transaction="transaction" />
-        <div class="my-3 p-1 rounded-lg bg-light">
-          <div class="row p-1">
+    <div class="row">
+      <div class="col-12">
+        <SectionHeader :title="$t('titles.transactionDetails')" />
+      </div>
+    </div>
+    <div
+      v-if="isFetching"
+      v-text="$t('messages.loading')"
+    />
+    <div
+      v-else
+      class="row rounded bg-light"
+    >
+      <div class="col-12 p-0">
+        <div class="row">
+          <div class="col-12">
+            <TransactionsDetailsInfo :transaction="transaction" />
+          </div>
+        </div>
+        <div class="py-3 px-5 rounded bg-white">
+          <div class="row py-1">
             <div class="col-12">
               <h2
                 class="com-font-s16-w700"
@@ -20,11 +31,14 @@
           <div
             v-for="(message, index) in messages"
             :key="index"
+            class="row py-1"
           >
-            <component
-              v-bind:is="msgComponent"
-              :message="message"
-            />
+            <div class="col-12">
+              <component
+                v-bind:is="msgComponent"
+                :message="message"
+              />
+            </div>
           </div>
         </div>
       </div>

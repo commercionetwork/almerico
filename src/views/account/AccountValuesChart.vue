@@ -11,7 +11,7 @@
 import DoughnutChart from "Components/common/DoughnutChart.vue";
 
 export default {
-  name: "AccountHeaderChart",
+  name: "AccountValuesChart",
   description: "Display the account chart",
   components: {
     DoughnutChart

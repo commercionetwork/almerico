@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-white">
+  <div>
     <div class="row">
       <div class="col-12">
         <h2
           v-text="$t('titles.delegated')"
-          class="com-font-s16-w700"
+          class="border-bottom com-font-s16-w700"
         />
       </div>
     </div>
@@ -35,7 +35,11 @@
           <span v-text="totalsAmount" />
         </div>
       </div>
-      <div class="col-12 col-md-6 px-1 py-3 px-md-3">
+      <div class="col-12 d-md-none">
+        <hr>
+      </div>
+      <div class="col-md-1 d-none d-md-block border-left" />
+      <div class="col-12 col-md-5 px-1 py-3 px-md-3">
         <ValidatorDetailsDelegatedChart
           :others="othersAmount.value"
           :self="selfAmount.value"
