@@ -25,7 +25,6 @@ import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/users-cog";
 
 import { mapGetters } from "vuex";
-import validators from "../../store/validators";
 
 export default {
   name: "CellValidators",
