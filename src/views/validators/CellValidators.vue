@@ -9,7 +9,7 @@
       </span>
       <span
         class="pl-1"
-         v-text="$t('labels.validators')"
+        v-text="$t('labels.validators')"
       />
     </div>
     <div slot="body">
@@ -25,6 +25,7 @@ import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/users-cog";
 
 import { mapGetters } from "vuex";
+import validators from "../../store/validators";
 
 export default {
   name: "CellValidators",
@@ -37,12 +38,14 @@ export default {
     ...mapGetters("validators", {
       validators: "validators"
     }),
-    unjailedValidators() {
-      const unjaileds = this.validators.filter(validator => !validator.jailed);
-      return unjaileds.length;
+    bondedValidators() {
+      const bonded = this.validators.filter(
+        validator => validator.status === 2
+      );
+      return bonded.length;
     },
     proportion() {
-      return `${this.unjailedValidators}/${this.validators.length}`;
+      return `${this.bondedValidators}/${this.validators.length}`;
     }
   }
 };
