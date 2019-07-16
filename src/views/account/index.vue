@@ -20,7 +20,7 @@
           </div>
         </div>
         <div class="px-5 py-3 bg-white">
-          <div class="row py-1">
+          <div class="row py-3">
             <div class="col-12">
               <AccountValues
                 :delegations="delegations"
@@ -29,7 +29,7 @@
               />
             </div>
           </div>
-          <div class="row py-1">
+          <div class="row py-3">
             <div class="col-12 col-md-6">
               <AccountDelegations :delegations="delegations" />
             </div>
@@ -37,7 +37,7 @@
               <AccountUnbondings :delegations="unbondings" />
             </div>
           </div>
-          <div class="row py-1">
+          <div class="row py-3">
             <div class="col-12">
               <AccountTransactions :address="address" />
             </div>

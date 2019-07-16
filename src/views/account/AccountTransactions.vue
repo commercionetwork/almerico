@@ -1,21 +1,33 @@
 <template>
-  <div class="p-1">
+  <div>
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
     />
     <div v-else>
-      <div class="row p-1 d-flex align-items-center">
-        <div class="col-12">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-4">
           <h2
             class="com-font-s16-w700"
             v-text="$t('titles.transactions')"
           />
         </div>
+        <div class="col-12 col-md-8">
+          <Pagination
+            v-if="transactions.length > 0"
+            :limit="limit"
+            :page="page"
+            :total="total"
+            v-on:change-page="changePage"
+          />
+        </div>
       </div>
-      <div class="row py-1">
+      <div class="row">
         <div class="col-12">
-          <div class="table-responsive">
+          <div
+            v-if="transactions.length > 0"
+            class="table-responsive"
+          >
             <table class="table table-striped">
               <thead>
                 <tr class="text-center com-font-s13-w700">
@@ -54,6 +66,11 @@
               </tbody>
             </table>
           </div>
+          <div
+            v-else
+            class="text-center com-font-s13-w700"
+            v-text="$t('messages.noItems')"
+          />
         </div>
       </div>
     </div>
@@ -63,6 +80,7 @@
 
 <script>
 import AccountTransactionsRow from "./AccountTransactionsRow.vue";
+import Pagination from "Components/common/Pagination.vue";
 
 import api from "Store/transactions/api";
 import { ACCOUNT_ROLES } from "Constants";
@@ -72,7 +90,8 @@ export default {
   name: "AccountTransactions",
   description: "Display the account transactions list",
   components: {
-    AccountTransactionsRow
+    AccountTransactionsRow,
+    Pagination
   },
   props: {
     address: {
@@ -84,7 +103,9 @@ export default {
   data() {
     return {
       isFetching: false,
-      allTransactions: []
+      allTransactions: [],
+      limit: 10,
+      page: 1
     };
   },
   computed: {
@@ -96,6 +117,9 @@ export default {
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
+    },
+    total() {
+      return this.transactions.length;
     }
   },
   methods: {
@@ -120,6 +144,9 @@ export default {
       } finally {
         this.isFetching = false;
       }
+    },
+    changePage(page) {
+      this.page = page;
     }
   },
   created() {

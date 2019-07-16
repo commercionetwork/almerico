@@ -1,14 +1,23 @@
 <template>
-  <div class="p-1">
-    <div class="row p-1 d-flex align-items-center">
-      <div class="col-12">
+  <div>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
         <h2
           class="com-font-s16-w700"
           v-text="$t('titles.delegations')"
         />
       </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          v-if="delegations.length > 0"
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
+        />
+      </div>
     </div>
-    <div class="row p-1">
+    <div class="row">
       <div class="col-12">
         <div
           v-if="delegations.length > 0"
@@ -29,7 +38,7 @@
             </thead>
             <tbody>
               <AccountDelegationsRow
-                v-for="(delegation, index) in lastDelegations"
+                v-for="(delegation, index) in delegationsPage"
                 :key="index"
                 :delegation="delegation"
               />
@@ -48,12 +57,14 @@
 
 <script>
 import AccountDelegationsRow from "./AccountDelegationsRow.vue";
+import Pagination from "Components/common/Pagination.vue";
 
 export default {
   name: "AccountDelegations",
   description: "Display the account delegations list",
   components: {
-    AccountDelegationsRow
+    AccountDelegationsRow,
+    Pagination
   },
   props: {
     delegations: {
@@ -62,12 +73,26 @@ export default {
       note: "Delegations list"
     }
   },
+  data() {
+    return {
+      limit: 5,
+      page: 1
+    };
+  },
   computed: {
-    lastDelegations() {
+    delegationsPage() {
       return this.delegations.slice(
-        this.delegations.length - 10,
-        this.delegations.length
+        (this.page - 1) * this.limit,
+        this.page * this.limit
       );
+    },
+    total() {
+      return this.delegations.length;
+    }
+  },
+  methods: {
+    changePage(page) {
+      this.page = page;
     }
   }
 };

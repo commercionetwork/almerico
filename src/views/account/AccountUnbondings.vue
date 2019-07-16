@@ -1,14 +1,23 @@
 <template>
-  <div class="p-1">
-    <div class="row p-1 d-flex align-items-center">
-      <div class="col-12">
+  <div>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
         <h2
           class="com-font-s16-w700"
           v-text="$t('titles.unbondings')"
         />
       </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          v-if="delegations.length > 0"
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
+        />
+      </div>
     </div>
-    <div class="row py-1">
+    <div class="row">
       <div class="col-12">
         <div
           v-if="delegations.length > 0"
@@ -37,7 +46,7 @@
             </thead>
             <tbody>
               <AccountUnbondingsRow
-                v-for="(delegation, index) in lastDelegations"
+                v-for="(delegation, index) in delegationsPage"
                 :key="index"
                 :delegation="delegation"
               />
@@ -56,12 +65,14 @@
 
 <script>
 import AccountUnbondingsRow from "./AccountUnbondingsRow.vue";
+import Pagination from "Components/common/Pagination.vue";
 
 export default {
   name: "AccountUnbondings",
   description: "Display the account unbondings list",
   components: {
-    AccountUnbondingsRow
+    AccountUnbondingsRow,
+    Pagination
   },
   props: {
     delegations: {
@@ -70,22 +81,26 @@ export default {
       note: "Unbonding delegations list"
     }
   },
+  data() {
+    return {
+      limit: 5,
+      page: 1
+    };
+  },
   computed: {
-    lastDelegations() {
-      const delegs = [];
-      this.delegations.forEach(delegation => {
-        delegation.entries.forEach(entry => {
-          delegs.push({
-            validator_address: delegation.validator_address,
-            entry: entry
-          });
-        });
-      });
-      return delegs
-        .sort(function(a, b) {
-          return b.entry.creation_height - a.entry.creation_height;
-        })
-        .slice(delegs.length - 10, delegs.length);
+    delegationsPage() {
+      return this.delegations.slice(
+        (this.page - 1) * this.limit,
+        this.page * this.limit
+      );
+    },
+    total() {
+      return this.delegations.length;
+    }
+  },
+  methods: {
+    changePage(page) {
+      this.page = page;
     }
   }
 };
