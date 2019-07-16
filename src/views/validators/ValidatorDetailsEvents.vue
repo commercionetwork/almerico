@@ -9,6 +9,7 @@
       </div>
       <div class="col-12 col-md-8">
         <Pagination
+          v-if="events.length > 0"
           :limit="limit"
           :page="page"
           :total="total"
@@ -18,7 +19,10 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div class="table-responsive">
+        <div
+          v-if="events.length > 0"
+          class="table-responsive"
+        >
           <table class="table">
             <thead>
               <tr class="text-center com-font-s13-w700">
@@ -49,6 +53,11 @@
             </tbody>
           </table>
         </div>
+         <div
+          v-else
+          class="text-center com-font-s13-w700"
+          v-text="$t('messages.noItems')"
+        />
       </div>
     </div>
   </div>
