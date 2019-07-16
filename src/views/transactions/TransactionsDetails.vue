@@ -60,6 +60,7 @@ import MsgTxShareDocument from "./msgs/MsgTxShareDocument.vue";
 import MsgTxStoreDocument from "./msgs/MsgTxStoreDocument.vue";
 import MsgTxUnbonding from "./msgs/MsgTxUnbonding.vue";
 import MsgTxUnjail from "./msgs/MsgTxUnjail.vue";
+import MsgTxWithdrawDelegatorReward from "./msgs/MsgTxWithdrawDelegatorReward.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
@@ -83,6 +84,7 @@ export default {
     MsgTxStoreDocument,
     MsgTxUnbonding,
     MsgTxUnjail,
+    MsgTxWithdrawDelegatorReward,
     SectionHeader,
     TransactionsDetailsInfo
   },
@@ -133,6 +135,9 @@ export default {
           break;
         case TX_TYPES.UNJAIL:
           component = MsgTxUnjail;
+          break;
+        case TX_TYPES.WITHDRAW_DELEGATOR_REWARD:
+          component = MsgTxWithdrawDelegatorReward;
           break;
         default:
           component = MsgTxDefault;

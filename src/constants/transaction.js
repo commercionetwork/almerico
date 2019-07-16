@@ -8,6 +8,7 @@ export const TX_TYPES = {
   SEND: "send",
   UNBONDING: "begin_unbonding",
   UNJAIL: "unjail",
+  WITHDRAW_DELEGATOR_REWARD: "withdraw_delegator_reward",
   // commercio
   CREATE_ACCOUNT: "create_account",
   CREATE_CONNECTION: "create_connection",
