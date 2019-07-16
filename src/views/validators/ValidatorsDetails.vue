@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="px-5 py-3 bg-white">
-          <div class="row py-1">
+          <div class="row py-3">
             <div class="col-12">
               <ValidatorDetailsDelegated
                 :address="accountAddress"
@@ -37,7 +37,7 @@
               />
             </div>
           </div>
-          <div class="row py-1">
+          <div class="row py-3">
             <div class="col-12 col-md-6">
               <ValidatorDetailsDelegators
                 :address="accountAddress"

@@ -10,30 +10,43 @@
     </div>
     <div class="row">
       <div class="col-12 col-md-6 px-1 py-3 px-md-3">
-        <div class="d-flex justify-content-between align-items-center border-bottom">
-          <span
-            class="com-font-s14-w700"
-            v-text="$t('labels.self')"
-          />
-          <span
-            class="com-font-s14-w400"
-            v-text="selfAmount.label"
-          />
+        <div class="row mx-1 py-1 align-items-center border-bottom">
+          <div class="col-12 col-md-2">
+            <span
+              class="com-font-s14-w700"
+              v-text="$t('labels.self')"
+            />
+          </div>
+          <div class="col-12 col-md-10 d-flex justify-content-md-end">
+            <span
+              class="com-font-s14-w400"
+              v-text="selfAmount.label"
+            />
+          </div>
         </div>
-        <div class="d-flex justify-content-between align-items-center border-bottom">
-          <span
-            class="com-font-s14-w700"
-            v-text="$t('labels.others')"
-          />
-          <span
-            class="com-font-s14-w400"
-            v-text="othersAmount.label"
-          />
+        <div class="row mx-1 py-1 align-items-center border-bottom">
+          <div class="col-12 col-md-2">
+            <span
+              class="com-font-s14-w700"
+              v-text="$t('labels.others')"
+            />
+          </div>
+          <div class="col-12 col-md-10 d-flex justify-content-md-end">
+            <span
+              class="com-font-s14-w400"
+              v-text="othersAmount.label"
+            />
+          </div>
         </div>
-        <div class="py-2 d-flex justify-content-between align-items-center com-font-s16-w700">
-          <span v-text="$t('labels.total')" />
-          <span v-text="totalsAmount" />
+        <div class="row mx-1 py-1 align-items-center com-font-s16-w700">
+          <div class="col-12 col-md-2">
+            <span v-text="$t('labels.total')" />
+          </div>
+          <div class="col-12 col-md-10 d-flex justify-content-md-end">
+            <span v-text="totalsAmount" />
+          </div>
         </div>
+
       </div>
       <div class="col-12 d-md-none">
         <hr>

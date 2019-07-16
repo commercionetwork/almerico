@@ -1,10 +1,18 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-12">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
         <h2
           v-text="$t('titles.powerEvents')"
           class="com-font-s16-w700"
+        />
+      </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
         />
       </div>
     </div>
@@ -41,12 +49,6 @@
             </tbody>
           </table>
         </div>
-        <Pagination
-          :limit="limit"
-          :page="page"
-          :total="events.length"
-          v-on:change-page="changePage"
-        />
       </div>
     </div>
   </div>
@@ -83,6 +85,9 @@ export default {
         return b.height - a.height;
       });
       return events.slice((this.page - 1) * this.limit, this.page * this.limit);
+    },
+    total() {
+      return this.events.length;
     }
   },
   methods: {

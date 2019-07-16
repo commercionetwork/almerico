@@ -1,10 +1,18 @@
 <template>
   <div>
-    <div class="row">
-      <div class="col-12">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
         <h2
           v-text="$t('titles.delegators')"
           class="com-font-s16-w700"
+        />
+      </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
         />
       </div>
     </div>
@@ -38,12 +46,6 @@
             </tbody>
           </table>
         </div>
-        <Pagination
-          :limit="limit"
-          :page="page"
-          :total="total"
-          v-on:change-page="changePage"
-        />
       </div>
     </div>
   </div>
