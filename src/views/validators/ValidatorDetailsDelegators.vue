@@ -33,7 +33,7 @@
                 v-for="(delegator, index) in delegators"
                 :key="index"
                 :delegator="delegator"
-                :totals="totals"
+                :totals="totalShares"
               />
             </tbody>
           </table>
@@ -41,7 +41,7 @@
         <Pagination
           :limit="limit"
           :page="page"
-          :total="all.length"
+          :total="total"
           v-on:change-page="changePage"
         />
       </div>
@@ -81,7 +81,6 @@ export default {
   },
   data() {
     return {
-      all: [],
       limit: 5,
       page: 1
     };
@@ -112,13 +111,19 @@ export default {
       delegators.sort(function(a, b) {
         return b.shares - a.shares;
       });
-      this.all = [...delegators];
       return delegators.slice(
         (this.page - 1) * this.limit,
         this.page * this.limit
       );
     },
-    totals() {
+    total() {
+      const delegatorsObj = arrayManager.groupBy(
+        this.filteredDelegations,
+        "delegator_address"
+      );
+      return Object.keys(delegatorsObj).length;
+    },
+    totalShares() {
       return parseFloat(this.validator.delegator_shares);
     }
   },
