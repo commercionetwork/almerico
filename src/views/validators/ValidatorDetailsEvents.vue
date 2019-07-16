@@ -41,18 +41,26 @@
             </tbody>
           </table>
         </div>
+        <Pagination
+          :limit="limit"
+          :page="page"
+          :total="events.length"
+          v-on:change-page="changePage"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Pagination from "Components/common/Pagination.vue";
 import ValidatorDetailsEventsRow from "./ValidatorDetailsEventsRow.vue";
 
 export default {
   name: "ValidatorDetailsEvents",
   description: "Display an events list",
   components: {
+    Pagination,
     ValidatorDetailsEventsRow
   },
   props: {
@@ -62,12 +70,24 @@ export default {
       note: "List of power event transactions"
     }
   },
+  data() {
+    return {
+      limit: 5,
+      page: 1
+    };
+  },
   computed: {
     orderedEvents() {
       const events = [...this.events];
-      return events.sort(function(a, b) {
+      events.sort(function(a, b) {
         return b.height - a.height;
       });
+      return events.slice((this.page - 1) * this.limit, this.page * this.limit);
+    }
+  },
+  methods: {
+    changePage(page) {
+      this.page = page;
     }
   }
 };

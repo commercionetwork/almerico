@@ -38,12 +38,19 @@
             </tbody>
           </table>
         </div>
+        <Pagination
+          :limit="limit"
+          :page="page"
+          :total="all.length"
+          v-on:change-page="changePage"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Pagination from "Components/common/Pagination.vue";
 import ValidatorDetailsDelegatorsRow from "./ValidatorDetailsDelegatorsRow.vue";
 
 import { arrayManager } from "Utils";
@@ -52,6 +59,7 @@ export default {
   name: "ValidatorDetailsDelegators",
   description: "Display a delegators list",
   components: {
+    Pagination,
     ValidatorDetailsDelegatorsRow
   },
   props: {
@@ -70,6 +78,13 @@ export default {
       required: true,
       note: "Object representing teh validator"
     }
+  },
+  data() {
+    return {
+      all: [],
+      limit: 5,
+      page: 1
+    };
   },
   computed: {
     filteredDelegations() {
@@ -94,12 +109,22 @@ export default {
           shares: tot
         });
       });
-      return delegators.sort(function(a, b) {
+      delegators.sort(function(a, b) {
         return b.shares - a.shares;
       });
+      this.all = [...delegators];
+      return delegators.slice(
+        (this.page - 1) * this.limit,
+        this.page * this.limit
+      );
     },
     totals() {
       return parseFloat(this.validator.delegator_shares);
+    }
+  },
+  methods: {
+    changePage(page) {
+      this.page = page;
     }
   }
 };
