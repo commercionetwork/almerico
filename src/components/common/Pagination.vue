@@ -1,6 +1,6 @@
 <template>
   <nav aria-label="Pagination bar">
-    <ul class="pagination justify-content-end">
+    <ul class="pagination pagination-sm justify-content-end">
       <li
         v-if="currentPage !== 1 && previousPage !== 1"
         class="page-item"
@@ -62,42 +62,37 @@ export default {
     limit: {
       Type: Number,
       require: true,
-      note: "Max count txs per page"
+      note: "Max count items per page"
     },
-    pageNumber: {
+    page: {
       Type: Number,
       require: true,
       note: "Index of current page"
     },
-    pageTotal: {
+    total: {
       Type: Number,
       require: true,
-      note: "Count of total pages"
-    },
-    totalCount: {
-      Type: Number,
-      require: true,
-      note: "Count of all txs"
+      note: "Count of all items"
     }
   },
   computed: {
     currentPage() {
-      return this.pageNumber;
+      return this.page;
     },
     hasNextPage() {
-      return this.limit * this.pageNumber < this.totalCount;
+      return this.limit * this.page < this.total;
     },
     hasPreviousPage() {
-      return this.pageNumber > 1;
+      return this.page > 1;
     },
     lastPage() {
-      return this.pageTotal;
+      return Math.ceil(this.total / this.limit);
     },
     nextPage() {
-      return this.pageNumber + 1;
+      return this.page + 1;
     },
     previousPage() {
-      return this.pageNumber - 1;
+      return this.page - 1;
     }
   },
   methods: {
