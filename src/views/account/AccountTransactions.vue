@@ -59,7 +59,7 @@
               </thead>
               <tbody>
                 <AccountTransactionsRow
-                  v-for="(transaction,index) in transactions"
+                  v-for="(transaction,index) in transactionsPage"
                   :key="index"
                   :transaction="transaction"
                 />
@@ -104,11 +104,17 @@ export default {
     return {
       isFetching: false,
       allTransactions: [],
-      limit: 10,
+      limit: 5,
       page: 1
     };
   },
   computed: {
+    transactionsPage() {
+      return this.transactions.slice(
+        (this.page - 1) * this.limit,
+        this.page * this.limit
+      );
+    },
     transactions() {
       const transactions = arrayManager.uniqueByKey(
         this.allTransactions,
