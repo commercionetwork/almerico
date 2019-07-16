@@ -41,7 +41,7 @@
         />
       </li>
       <li
-        v-if="lastPage !== currentPage && nextPage !== lastPage"
+        v-if="lastPage > 0 && lastPage !== currentPage && nextPage !== lastPage"
         class="page-item"
       >
         <span
