@@ -8,7 +8,7 @@
         <span
           class="page-link com-pointer"
           v-text="'1'"
-          @click.stop="onSelect(1)"
+          @click.stop="onChangePage(1)"
         />
       </li>
       <li
@@ -18,7 +18,7 @@
         <span
           class="page-link com-pointer"
           v-text="previousPage"
-          @click.stop="onSelect(previousPage)"
+          @click.stop="onChangePage(previousPage)"
         />
       </li>
       <li
@@ -37,7 +37,7 @@
         <span
           class="page-link com-pointer"
           v-text="nextPage"
-          @click.stop="onSelect(nextPage)"
+          @click.stop="onChangePage(nextPage)"
         />
       </li>
       <li
@@ -47,7 +47,7 @@
         <span
           class="page-link com-pointer"
           v-text="lastPage"
-          @click.stop="onSelect(lastPage)"
+          @click.stop="onChangePage(lastPage)"
         />
       </li>
     </ul>
@@ -96,8 +96,8 @@ export default {
     }
   },
   methods: {
-    onSelect(page) {
-      this.$emit("page-selected", page);
+    onChangePage(page) {
+      this.$emit("change-page", page);
     }
   }
 };
