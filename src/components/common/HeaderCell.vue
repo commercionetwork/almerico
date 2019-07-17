@@ -2,11 +2,13 @@
   <div class="p-1">
     <div
       v-if="isFetching"
-      v-html="$t('messages.loading')"
+      v-text="$t('messages.loading')"
+      data-test="loading"
     />
     <div
       v-else
       class="container"
+      data-test="items"
     >
       <div class="row">
         <div :class="[chart ? 'col-12 col-sm-4' : 'col-12']">
@@ -25,6 +27,7 @@
         <div
           v-if="chart"
           class="col-12 col-sm-8"
+          data-test="item-chart"
         >
           <slot name="chart" />
         </div>
