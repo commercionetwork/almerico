@@ -4,17 +4,20 @@
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <router-link
         v-else
         :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, block.header.height)"
         v-text="block.header.height"
+        data-test="item-height"
       />
     </td>
     <td class="align-middle">
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <router-link
         v-else
@@ -22,37 +25,44 @@
         style="max-width: 120px;"
         :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, block.header.height)"
         v-text="block.last_commit.block_id.hash"
+        data-test="item-hash"
       />
     </td>
     <td class="align-middle">
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <router-link
         v-else
         :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, proposerAddress)"
         v-text="proposer"
+        data-test="item-proposer"
       />
     </td>
     <td class="align-middle">
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <span
         v-else
         v-text="block.header.num_txs"
+        data-test="item-txs"
       />
     </td>
     <td class="align-middle">
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <span
         v-else
         v-text="blockTime"
+        data-test="item-date"
       />
     </td>
   </tr>
