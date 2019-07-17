@@ -7,9 +7,13 @@
       >
         <span
           class="page-link com-pointer"
-          v-text="'1'"
           @click.stop="onChangePage(1)"
-        />
+        >
+          <Icon
+            name="angle-double-left"
+            scale="1"
+          />
+        </span>
       </li>
       <li
         v-if="hasPreviousPage"
@@ -46,18 +50,29 @@
       >
         <span
           class="page-link com-pointer"
-          v-text="lastPage"
           @click.stop="onChangePage(lastPage)"
-        />
+        >
+          <Icon
+            name="angle-double-right"
+            scale="1"
+          />
+        </span>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
+import Icon from "vue-awesome/components/Icon.vue";
+import "vue-awesome/icons/angle-double-left";
+import "vue-awesome/icons/angle-double-right";
+
 export default {
   name: "Pagination",
   description: "Display the pagination bar",
+  components: {
+    Icon
+  },
   props: {
     limit: {
       Type: Number,
