@@ -4,6 +4,7 @@
       <li
         v-if="currentPage !== 1 && previousPage !== 1"
         class="page-item"
+        data-test="first-page"
       >
         <span
           class="page-link com-pointer"
@@ -18,6 +19,7 @@
       <li
         v-if="hasPreviousPage"
         class="page-item"
+        data-test="previous-page"
       >
         <span
           class="page-link com-pointer"
@@ -37,6 +39,7 @@
       <li
         v-if="hasNextPage"
         class="page-item"
+        data-test="next-page"
       >
         <span
           class="page-link com-pointer"
@@ -47,6 +50,7 @@
       <li
         v-if="lastPage > 0 && lastPage !== currentPage && nextPage !== lastPage"
         class="page-item"
+        data-test="last-page"
       >
         <span
           class="page-link com-pointer"
