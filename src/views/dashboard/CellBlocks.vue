@@ -5,7 +5,14 @@
     :title="$t('titles.blocks')"
   >
     <div slot="main-content">
-      <div class="table-responsive">
+      <div
+        v-if="hasError"
+        v-text="message"
+      />
+      <div
+        v-if="!hasError && blocksList.length > 0"
+        class="table-responsive"
+      >
         <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
@@ -29,13 +36,18 @@
           </thead>
           <tbody>
             <CellBlocksRow
-              v-for="block in blocks"
-              :key="block.header.height"
+              v-for="(block,index) in blocksList"
+              :key="index"
               :block="block"
             />
           </tbody>
         </table>
       </div>
+      <div
+        v-else
+        class="text-center com-font-s13-w700"
+        v-text="$t('messages.noItems')"
+      />
     </div>
   </TableCell>
 </template>
@@ -57,15 +69,19 @@ export default {
   },
   data() {
     return {
+      allBlocks: [],
+      hasError: false,
       limit: 10
     };
   },
   computed: {
     ...mapGetters("blocks", {
-      allBlocks: "blocks",
-      isFetching: "isFetching"
+      blocks: "blocks",
+      isFetching: "isFetching",
+      lastBlock: "lastBlock",
+      message: "message"
     }),
-    blocks() {
+    blocksList() {
       const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
       return blocks
         .sort(function(a, b) {
@@ -82,16 +98,29 @@ export default {
       };
     }
   },
+  watch: {
+    lastBlock(value) {
+      this.allBlocks.push(value);
+    }
+  },
   methods: {
     ...mapActions("blocks", {
       fetchBlocks: "fetchBlocks"
-    })
+    }),
+    async getBlocks(limit, page) {
+      try {
+        await this.fetchBlocks({
+          limit,
+          page
+        });
+        this.allBlocks = this.blocks;
+      } catch (error) {
+        this.hasError = true;
+      }
+    }
   },
   created() {
-    this.fetchBlocks({
-      limit: this.limit,
-      page: 1
-    });
+    this.getBlocks(this.limit, 1);
   }
 };
 </script>
