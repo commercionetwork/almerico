@@ -28,7 +28,7 @@
       />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <router-link
-          :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"
+          :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, transaction.height)"
           v-text="transaction.height"
         />
       </div>

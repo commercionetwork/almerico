@@ -8,7 +8,7 @@
       />
       <router-link
         v-else
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, block.header.height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, block.header.height)"
         v-text="block.header.height"
         data-test="item-height"
       />
@@ -23,7 +23,7 @@
         v-else
         class="d-inline-block text-truncate"
         style="max-width: 120px;"
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, block.header.height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, block.header.height)"
         v-text="block.last_commit.block_id.hash"
         data-test="item-hash"
       />

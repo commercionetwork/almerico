@@ -7,7 +7,7 @@
       />
       <router-link
         v-else
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, block.header.height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, block.header.height)"
         v-text="block.header.height"
       />
     </td>

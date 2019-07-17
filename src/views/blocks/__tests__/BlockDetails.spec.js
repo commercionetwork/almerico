@@ -1,6 +1,6 @@
 /* global describe, expect, it, jest */
 
-import BlocksDetails from "../BlocksDetails.vue";
+import BlockDetails from "../BlockDetails.vue";
 import {
   createLocalVue,
   shallowMount
@@ -8,7 +8,7 @@ import {
 
 const localVue = createLocalVue();
 
-describe("views/blocks/BlocksDetails.vue", () => {
+describe("views/blocks/BlockDetails.vue", () => {
   const methods = {
     fetchBlock: jest.fn(),
     fetchTransactions: jest.fn()
@@ -23,7 +23,7 @@ describe("views/blocks/BlocksDetails.vue", () => {
   };
 
   it("Check if loading message is displayed", () => {
-    const wrapper = shallowMount(BlocksDetails, {
+    const wrapper = shallowMount(BlockDetails, {
       computed: {
         validators: () => [],
         isFetching: () => true,
@@ -42,7 +42,7 @@ describe("views/blocks/BlocksDetails.vue", () => {
   });
 
   it("Check if error message is displayed", () => {
-    const wrapper = shallowMount(BlocksDetails, {
+    const wrapper = shallowMount(BlockDetails, {
       computed: {
         validators: () => [],
         isFetching: () => false,
@@ -61,7 +61,7 @@ describe("views/blocks/BlocksDetails.vue", () => {
   });
 
   it("Check if item data are displayed", () => {
-    const wrapper = shallowMount(BlocksDetails, {
+    const wrapper = shallowMount(BlockDetails, {
       computed: {
         validators: () => [],
         isFetching: () => false,

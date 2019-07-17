@@ -10,7 +10,7 @@
     </td>
     <td class="align-middle">
       <router-link
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, transaction.height)"
         v-text="transaction.height"
       />
     </td>

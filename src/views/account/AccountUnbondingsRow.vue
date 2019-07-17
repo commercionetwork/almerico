@@ -17,7 +17,7 @@
     </td>
     <td class="text-center">
       <router-link
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, height)"
         v-text="height"
       />
     </td>

@@ -2,7 +2,7 @@
   <tr class="text-center com-font-s13-w400">
     <td class="align-middle">
       <router-link
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, event.height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, event.height)"
         v-text="event.height"
       />
     </td>

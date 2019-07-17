@@ -11,8 +11,8 @@ function loadView(view) {
   return () => import( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
 }
 const AccountDetails = loadView("account/index");
+const BlockDetails = loadView("blocks/BlockDetails");
 const Blocks = loadView("blocks/index");
-const BlocksDetails = loadView("blocks/BlocksDetails");
 const Dashboard = loadView("dashboard/index");
 const Transactions = loadView("transactions/index");
 const TransactionsDetails = loadView("transactions/TransactionsDetails");
@@ -44,9 +44,9 @@ export default new Router({
       component: Blocks,
     },
     {
-      path: ROUTES.BLOCKS_DETAILS,
-      name: ROUTE_NAMES.BLOCKS_DETAILS,
-      component: BlocksDetails,
+      path: ROUTES.BLOCK_DETAILS,
+      name: ROUTE_NAMES.BLOCK_DETAILS,
+      component: BlockDetails,
     },
     {
       path: ROUTES.DASHBOARD,

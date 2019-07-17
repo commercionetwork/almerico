@@ -53,7 +53,7 @@ import apiBlocks from "Store/blocks/api";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "BlocksDetails",
+  name: "BlockDetails",
   description: "Display the block details",
   components: {
     BlockDetailsHeader,
