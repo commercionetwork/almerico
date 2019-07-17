@@ -16,23 +16,35 @@ describe("store/blocks/actions", () => {
   it("Check if 'actions.fetchBlocks' add blocks", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
+    const page = 1;
+    const limit = 10;
 
     await actions.fetchBlocks({
       commit,
       dispatch
+    }, {
+      page,
+      limit
     });
 
+    expect(commit).toHaveBeenCalledWith("deleteBlocks");
     expect(dispatch).toHaveBeenCalledWith("fetchBlock", mockResponse.data.block.header.height);
+    expect(dispatch).toBeCalledTimes(limit);
   });
 
   it("Check if 'actions.fetchBlocks' has an error", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
+    const page = 1;
+    const limit = 10;
     mockError = true;
 
     await actions.fetchBlocks({
       commit,
       dispatch
+    }, {
+      page,
+      limit
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
@@ -41,11 +53,16 @@ describe("store/blocks/actions", () => {
   it("Check if 'actions.fetchBlocks' has a request error", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
+    const page = 1;
+    const limit = 10;
     mockErrorRequest = true;
 
     await actions.fetchBlocks({
       commit,
       dispatch
+    }, {
+      page,
+      limit
     });
 
     expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
@@ -54,11 +71,16 @@ describe("store/blocks/actions", () => {
   it("Check 'actions.fetchBlocks' when server is unreachable", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
+    const page = 1;
+    const limit = 10;
     mockErrorServer = true;
 
     await actions.fetchBlocks({
       commit,
       dispatch
+    }, {
+      page,
+      limit
     });
 
     expect(commit).toBeCalledWith("setServerReachability", false, {
@@ -103,6 +125,51 @@ describe("store/blocks/actions", () => {
     mockErrorServer = true;
 
     await actions.fetchBlock({
+      commit
+    });
+
+    expect(commit).toBeCalledWith("setServerReachability", false, {
+      root: true
+    });
+  });
+
+  it("Check if 'actions.fetchLastBlock' set last block", async () => {
+    const commit = jest.fn();
+
+    await actions.fetchLastBlock({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setLastBlock", mockResponse.data.block);
+  });
+
+  it("Check if 'actions.fetchLastBlock' has an error", async () => {
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchLastBlock({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check if 'actions.fetchLastBlock' has a request error", async () => {
+    const commit = jest.fn();
+    mockErrorRequest = true;
+
+    await actions.fetchLastBlock({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+  });
+
+  it("Check 'actions.fetchLastBlock' when server is unreachable", async () => {
+    const commit = jest.fn();
+    mockErrorServer = true;
+
+    await actions.fetchLastBlock({
       commit
     });
 

@@ -68,4 +68,15 @@ describe("store/blocks/mutations", () => {
 
     expect(state.last).toEqual(data);
   });
+
+  it("Check mutations.deleteBlocks", () => {
+    state.all = [{
+      id: 1
+    }];
+    const expectBlocks = [];
+
+    mutations.deleteBlocks(state);
+
+    expect(state.all).toEqual(expectBlocks);
+  });
 });
