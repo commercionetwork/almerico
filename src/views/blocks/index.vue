@@ -2,46 +2,74 @@
   <div class="container com-container">
     <SectionHeader :title="$t('titles.blocks')" />
     <div class="py-3 px-5 rounded bg-white">
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
-            <tr class="text-center com-font-s13-w700">
-              <th
-                scope="col"
-                v-text="$t('labels.height')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.hash')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.proposer')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.txs')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.date')"
-              />
-            </tr>
-          </thead>
-          <tbody>
-            <TableBlocksRow
-              v-for="block in blocks"
-              :key="block.header.height"
-              :block="block"
-            />
-          </tbody>
-        </table>
+      <div class="row">
+        <div class="col-12">
+          <Pagination
+            v-if="blocks.length > 0"
+            :limit="limit"
+            :page="page"
+            :total="total"
+            v-on:change-page="changePage"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div
+            v-if="isFetching"
+            v-text="$t('messages.loading')"
+          />
+          <div
+            v-else-if="!isFetching && blocks.length > 0"
+            class="table-responsive"
+          >
+            <table class="table table-striped">
+              <thead>
+                <tr class="text-center com-font-s13-w700">
+                  <th
+                    scope="col"
+                    v-text="$t('labels.height')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.hash')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.proposer')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.txs')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.date')"
+                  />
+                </tr>
+              </thead>
+              <tbody>
+                <TableBlocksRow
+                  v-for="(block, index) in blocksPage"
+                  :key="index"
+                  :block="block"
+                />
+              </tbody>
+            </table>
+          </div>
+          <div
+            v-else
+            class="text-center com-font-s13-w700"
+            v-text="$t('messages.noItems')"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Pagination from "Components/common/Pagination.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TableBlocksRow from "./TableBlocksRow.vue";
 
@@ -52,29 +80,51 @@ export default {
   name: "Blocks",
   description: "Container for blocks' section",
   components: {
+    Pagination,
     SectionHeader,
     TableBlocksRow
   },
+  data() {
+    return {
+      limit: 20,
+      page: 1
+    };
+  },
   computed: {
     ...mapGetters("blocks", {
-      allBlocks: "blocks"
+      blocks: "blocks",
+      lastBlock: "lastBlock",
+      isFetching: "isFetching"
     }),
-    blocks() {
-      const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
+    blocksPage() {
+      const blocks = arrayManager.uniqueByKey(this.blocks, JSON.stringify);
       return blocks
         .sort(function(a, b) {
           return b.header.height - a.header.height;
         })
-        .slice(0, 20);
+        .slice(0, this.limit);
+    },
+    total() {
+      return parseInt(this.lastBlock.header.height);
     }
   },
   methods: {
     ...mapActions("blocks", {
       fetchBlocks: "fetchBlocks"
-    })
+    }),
+    changePage(page) {
+      this.page = page;
+      this.fetchBlocks({
+        limit: this.limit,
+        page: this.page
+      });
+    }
   },
   created() {
-    this.fetchBlocks(20);
+    this.fetchBlocks({
+      limit: this.limit,
+      page: this.page
+    });
   }
 };
 </script>

@@ -48,6 +48,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions("blocks", {
+      fetchLastBlock: "fetchLastBlock"
+    }),
     ...mapActions("tendermint", {
       subNewClient: "subNewClient"
     }),
@@ -59,6 +62,7 @@ export default {
     })
   },
   mounted() {
+    this.fetchLastBlock();
     if (!this.validators.length > 0) {
       this.getValidators({
         status: [

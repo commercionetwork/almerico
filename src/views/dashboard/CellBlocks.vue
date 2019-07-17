@@ -55,6 +55,11 @@ export default {
     CellBlocksRow,
     TableCell
   },
+  data() {
+    return {
+      limit: 10
+    };
+  },
   computed: {
     ...mapGetters("blocks", {
       allBlocks: "blocks",
@@ -66,7 +71,7 @@ export default {
         .sort(function(a, b) {
           return b.header.height - a.header.height;
         })
-        .slice(0, 10);
+        .slice(0, this.limit);
     },
     linkToBlocks() {
       return {
@@ -83,7 +88,10 @@ export default {
     })
   },
   created() {
-    if (this.allBlocks.length === 0) this.fetchBlocks();
+    this.fetchBlocks({
+      limit: this.limit,
+      page: 1
+    });
   }
 };
 </script>

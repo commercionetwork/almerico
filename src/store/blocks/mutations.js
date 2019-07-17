@@ -46,5 +46,13 @@ export default {
    */
   setLastBlock(state, data) {
     state.last = data;
+  },
+  /**
+   * Delete all blocks
+   * 
+   * @param {BlocksState} state 
+   */
+  deleteBlocks(state) {
+    state.all = [];
   }
 };
