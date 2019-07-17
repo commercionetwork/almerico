@@ -49,11 +49,18 @@
         <div
           v-if="isFetching"
           v-text="$t('messages.loading')"
+          data-test="loading"
+        />
+        <div
+          v-else-if="!isFetching && hasError"
+          v-text="$t('messages.fetchingError')"
+          data-test="has-error"
         />
         <router-link
           v-else
           :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, proposerAddress)"
           v-text="proposer"
+          data-test="item"
         />
       </div>
     </div>
@@ -79,6 +86,7 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
+      hasError: false,
       isFetching: false,
       proposer: "",
       proposerAddress: ""
@@ -122,7 +130,7 @@ export default {
           : "proposer name";
         this.proposerAddress = proposer ? proposer.operator_address : "";
       } catch (error) {
-        console.log("Get validator sets: ", error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
