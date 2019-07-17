@@ -146,8 +146,10 @@ export default {
     },
     unbondingDelegationsAmount() {
       let tot = 0;
-      this.unbondings.forEach(delegation => {
-        tot += parseFloat(delegation.balance);
+      this.unbondings.forEach(element => {
+        element.entries.forEach(entry => {
+          tot += parseFloat(entry.balance);
+        });
       });
       let amount = coinConverter({
         denom: SETUP.MICRO_COIN,

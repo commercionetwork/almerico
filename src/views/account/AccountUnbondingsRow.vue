@@ -58,7 +58,7 @@ export default {
     amount() {
       let amount = coinConverter({
         denom: SETUP.MICRO_COIN,
-        amount: this.delegation.balance
+        amount: this.delegation.entry.balance
       });
       let formatAmount = this.$n(amount.amount, {
         style: "decimal",
@@ -68,10 +68,10 @@ export default {
       return `${formatAmount} ${amount.denom}`;
     },
     height() {
-      return this.delegation.creation_height;
+      return this.delegation.entry.creation_height;
     },
     finalDate() {
-      return new Date(this.delegation.min_time).toLocaleDateString();
+      return new Date(this.delegation.entry.completion_time).toLocaleDateString();
     }
   },
   methods: {

@@ -89,10 +89,20 @@ export default {
   },
   computed: {
     delegationsPage() {
-      return this.delegations.slice(
-        (this.page - 1) * this.limit,
-        this.page * this.limit
-      );
+      const delegs = [];
+      this.delegations.forEach(delegation => {
+        delegation.entries.forEach(entry => {
+          delegs.push({
+            validator_address: delegation.validator_address,
+            entry: entry
+          });
+        });
+      });
+      return delegs
+        .sort(function(a, b) {
+          return b.entry.creation_height - a.entry.creation_height;
+        })
+        .slice((this.page - 1) * this.limit, this.page * this.limit);
     },
     total() {
       return this.delegations.length;
