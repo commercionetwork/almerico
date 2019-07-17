@@ -5,14 +5,7 @@
     :title="$t('titles.blocks')"
   >
     <div slot="main-content">
-      <div
-        v-if="hasError"
-        v-text="message"
-      />
-      <div
-        v-if="!hasError && blocksList.length > 0"
-        class="table-responsive"
-      >
+      <div class="table-responsive">
         <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
@@ -35,19 +28,28 @@
             </tr>
           </thead>
           <tbody>
+            <span
+              v-if="!isFetching && hasError"
+              class="text-center com-font-s13-w700"
+              v-text="message"
+              data-test="has-error"
+            />
             <CellBlocksRow
+              v-else-if="!isFetching && !hasError && blocksList.length > 0"
               v-for="(block,index) in blocksList"
               :key="index"
               :block="block"
+              data-test="items"
+            />
+            <span
+              v-else
+              class="text-center com-font-s13-w700"
+              v-text="$t('messages.noItems')"
+              data-test="no-items"
             />
           </tbody>
         </table>
       </div>
-      <div
-        v-else
-        class="text-center com-font-s13-w700"
-        v-text="$t('messages.noItems')"
-      />
     </div>
   </TableCell>
 </template>

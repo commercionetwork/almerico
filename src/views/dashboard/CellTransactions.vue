@@ -28,10 +28,24 @@
             </tr>
           </thead>
           <tbody>
+            <span
+              v-if="!isFetching && hasError"
+              class="text-center com-font-s13-w700"
+              v-text="message"
+              data-test="has-error"
+            />
             <CellTransactionsRow
+              v-else-if="!isFetching && !hasError && transactions.length > 0"
               v-for="transaction in transactions"
               :key="transaction.txhash"
               :transaction="transaction"
+              data-test="items"
+            />
+            <span
+              v-else
+              class="text-center com-font-s13-w700"
+              v-text="$t('messages.noItems')"
+              data-test="no-items"
             />
           </tbody>
         </table>
@@ -58,6 +72,7 @@ export default {
   },
   data() {
     return {
+      hasError: false,
       isFetching: false
     };
   },
@@ -106,7 +121,7 @@ export default {
           }
         });
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
