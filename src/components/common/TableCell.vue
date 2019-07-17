@@ -2,14 +2,18 @@
   <div>
     <div
       v-if="isFetching"
-      v-html="$t('messages.loading')"
+      v-text="$t('messages.loading')"
+      data-test="loading"
     />
-    <div v-else>
+    <div
+      v-else
+      data-test="items"
+    >
       <div class="row py-1 d-flex align-items-center">
         <div class="col-12 d-flex justify-content-start">
           <h2
             class="com-font-s16-w700"
-            v-html="title"
+            v-text="title"
           />
         </div>
       </div>
@@ -22,7 +26,7 @@
         <div class="col-12 d-flex justify-content-center">
           <router-link
             class="btn btn-outline-primary com-font-s14-w700"
-            v-html="$t('buttons.showMore')"
+            v-text="$t('buttons.showMore')"
             :to="link"
           />
         </div>
