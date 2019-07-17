@@ -14,10 +14,17 @@
     <div
       v-if="isFetching"
       v-text="$t('messages.loading')"
+      data-test="loading"
+    />
+    <div
+      v-else-if="!isFetching && hasError"
+      v-text="$t('messages.fetchingError')"
+      data-test="has-error"
     />
     <div
       v-else
       class="row rounded bg-light"
+      data-test="item"
     >
       <div class="col-12 p-0">
         <div class="row">
@@ -54,9 +61,11 @@ export default {
   },
   data() {
     return {
+      block: {},
+      hasBlockError: false,
+      hasTransactionsError: false,
       isFetchingBlock: false,
       isFetchingTransactions: false,
-      block: null,
       transactions: []
     };
   },
@@ -64,6 +73,9 @@ export default {
     ...mapGetters("validators", {
       validators: "validators"
     }),
+    hasError() {
+      return this.hasBlockError || this.hasTransactionsError;
+    },
     isFetching() {
       return this.isFetchingBlock || this.isFetchingTransactions;
     },
@@ -83,7 +95,7 @@ export default {
         const response = await apiBlocks.requestBlock(height);
         this.block = response.data.block;
       } catch (error) {
-        this.block = {};
+        this.hasBlockError = true;
       } finally {
         this.isFetchingBlock = false;
       }
@@ -96,7 +108,7 @@ export default {
         );
         this.transactions = response.data;
       } catch (error) {
-        console.log(error);
+        this.hasTransactionsError = true;
       } finally {
         this.isFetchingTransactions = false;
       }

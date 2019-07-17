@@ -1,5 +1,6 @@
 export const messages = {
   ago: "ago",
+  fetchingError: "Error fetching data",
   loading: "Loading...",
   noItems: "No items",
   notFound: "Resource not found",
