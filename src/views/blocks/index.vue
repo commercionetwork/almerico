@@ -20,7 +20,11 @@
             v-text="$t('messages.loading')"
           />
           <div
-            v-else-if="!isFetching && blocks.length > 0"
+            v-else-if="!isFetching && hasError"
+            v-text="message"
+          />
+          <div
+            v-else-if="!isFetching && !hasError && blocks.length > 0"
             class="table-responsive"
           >
             <table class="table table-striped">
@@ -50,7 +54,7 @@
               </thead>
               <tbody>
                 <TableBlocksRow
-                  v-for="(block, index) in blocksPage"
+                  v-for="(block, index) in blocksList"
                   :key="index"
                   :block="block"
                 />
@@ -86,6 +90,8 @@ export default {
   },
   data() {
     return {
+      allBlocks: [],
+      hasError: false,
       limit: 20,
       page: 1
     };
@@ -93,10 +99,11 @@ export default {
   computed: {
     ...mapGetters("blocks", {
       blocks: "blocks",
+      isFetching: "isFetching",
       lastBlock: "lastBlock",
-      isFetching: "isFetching"
+      message: "message"
     }),
-    blocksPage() {
+    blocksList() {
       const blocks = arrayManager.uniqueByKey(this.blocks, JSON.stringify);
       return blocks
         .sort(function(a, b) {
@@ -108,23 +115,33 @@ export default {
       return parseInt(this.lastBlock.header.height);
     }
   },
+  watch: {
+    lastBlock(value) {
+      if (this.page === 1) this.allBlocks.push(value);
+    }
+  },
   methods: {
     ...mapActions("blocks", {
       fetchBlocks: "fetchBlocks"
     }),
+    async getBlocks(limit, page) {
+      try {
+        await this.fetchBlocks({
+          limit,
+          page
+        });
+        this.allBlocks = this.blocks;
+      } catch (error) {
+        this.hasError = true;
+      }
+    },
     changePage(page) {
       this.page = page;
-      this.fetchBlocks({
-        limit: this.limit,
-        page: this.page
-      });
+      this.getBlocks(this.limit, this.page);
     }
   },
   created() {
-    this.fetchBlocks({
-      limit: this.limit,
-      page: this.page
-    });
+    this.getBlocks(this.limit, this.page);
   }
 };
 </script>
