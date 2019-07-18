@@ -4,42 +4,50 @@
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <router-link
         v-else
         :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, block.header.height)"
         v-text="block.header.height"
+        data-test="item-height"
       />
     </td>
     <td class="align-middle">
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <router-link
         v-else
         :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, proposerAddress)"
         v-text="proposer"
+        data-test="item-proposer"
       />
     </td>
     <td class="align-middle">
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <span
         v-else
         v-text="block.header.num_txs"
+        data-test="item-txs"
       />
     </td>
     <td class="align-middle">
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <span
         v-else
-        v-text="blockTime"
+        v-text="blockDate"
+        data-test="item-date"
       />
     </td>
   </tr>
@@ -64,6 +72,7 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
+      hasError: false,
       isFetching: false,
       proposer: "",
       proposerAddress: ""
@@ -73,7 +82,7 @@ export default {
     ...mapGetters("validators", {
       validators: "validators"
     }),
-    blockTime() {
+    blockDate() {
       return new Date(this.block.header.time).toLocaleDateString();
     }
   },
@@ -96,7 +105,7 @@ export default {
           : "proposer name";
         this.proposerAddress = proposer ? proposer.operator_address : "";
       } catch (error) {
-        console.log("Get validator sets: ", error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }

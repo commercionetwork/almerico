@@ -1,6 +1,7 @@
 <template>
   <TableCell
     :hasError="hasError"
+    :hasItems="blocks.length > 0"
     :isFetching="isFetching"
     :link="linkToBlocks"
     :title="$t('titles.blocks')"
@@ -29,19 +30,11 @@
             </tr>
           </thead>
           <tbody>
-            <span v-if="!isFetching && !hasError && blocksList.length > 0">
-              <CellBlocksRow
-                v-for="(block,index) in blocksList"
-                :key="index"
-                :block="block"
-                data-test="items"
-              />
-            </span>
-            <span
-              v-else
-              class="text-center com-font-s13-w700"
-              v-text="$t('messages.noItems')"
-              data-test="no-items"
+            <CellBlocksRow
+              v-for="(block,index) in blocksList"
+              :key="index"
+              :block="block"
+              data-test="items"
             />
           </tbody>
         </table>

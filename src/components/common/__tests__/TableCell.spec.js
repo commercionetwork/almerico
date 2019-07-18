@@ -26,6 +26,7 @@ describe("components/common/TableCell.vue", () => {
       propsData: {
         ...props,
         hasError: false,
+        hasItems: false,
         isFetching: true
       }
     });
@@ -34,6 +35,7 @@ describe("components/common/TableCell.vue", () => {
     expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
 
   it("Check if error message is displayed", () => {
@@ -43,6 +45,7 @@ describe("components/common/TableCell.vue", () => {
       propsData: {
         ...props,
         hasError: true,
+        hasItems: false,
         isFetching: false
       }
     });
@@ -51,6 +54,7 @@ describe("components/common/TableCell.vue", () => {
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
 
   it("Check if items are displayed", () => {
@@ -60,6 +64,7 @@ describe("components/common/TableCell.vue", () => {
       propsData: {
         ...props,
         hasError: false,
+        hasItems: true,
         isFetching: false
       }
     });
@@ -67,5 +72,25 @@ describe("components/common/TableCell.vue", () => {
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
+  });
+
+  it("Check if no items message is displayed", () => {
+    const wrapper = shallowMount(TableCell, {
+      localVue,
+      mocks,
+      propsData: {
+        ...props,
+        hasError: false,
+        hasItems: false,
+        isFetching: false
+      }
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="no-items"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="no-items"]').text()).toEqual('messages.noItems');
   });
 });
