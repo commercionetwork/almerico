@@ -20,7 +20,30 @@ const mockUnbondings = (unbondings = 10) => {
   return list;
 };
 
+const mockConvertedUnbonding = (balance) => {
+  let item = {
+    validator_address: "comnetvaloper17d5g4e5q42k6e07klet4gpm0dxlja2mth3h8wl",
+    entry: {
+      creation_height: "123456",
+      completion_time: new Date(),
+      initial_balance: `${balance}0000000`,
+      balance: `${balance}0000000`
+    }
+  };
+  return item;
+};
+
+const mockConvertedUnbondings = (unbondings = 10) => {
+  let counter = 1;
+  let list = new Array(unbondings).fill(null).map(() => {
+    return mockConvertedUnbonding(counter++);
+  });
+  return list;
+};
+
 export {
+  mockConvertedUnbonding,
+  mockConvertedUnbondings,
   mockUnbonding,
   mockUnbondings
 };

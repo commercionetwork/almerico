@@ -1,13 +1,22 @@
 <template>
   <tr
     v-if="isFetching"
-    class="text-center com-font-s12-w400"
+    class="text-center com-font-s14-w400"
+    data-test="loading"
   >
     <td v-text="$t('messages.loading')" />
   </tr>
   <tr
+    v-else-if="!isFetching && hasError"
+    class="text-center text-danger com-font-s14-w400"
+    data-test="has-error"
+  >
+    <td v-text="$t('messages.fetchingError')" />
+  </tr>
+  <tr
     v-else
     class="text-center com-font-s12-w400"
+    data-test="item"
   >
     <td class="text-left">
       <router-link
@@ -50,8 +59,9 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
-      moniker: "",
-      isFetching: false
+      hasError: false,
+      isFetching: false,
+      moniker: ""
     };
   },
   computed: {
@@ -71,7 +81,9 @@ export default {
       return this.delegation.entry.creation_height;
     },
     finalDate() {
-      return new Date(this.delegation.entry.completion_time).toLocaleDateString();
+      return new Date(
+        this.delegation.entry.completion_time
+      ).toLocaleDateString();
     }
   },
   methods: {
@@ -83,7 +95,7 @@ export default {
         );
         if (response.data) this.moniker = response.data.description.moniker;
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
@@ -98,7 +110,7 @@ export default {
       };
     }
   },
-  created() {
+  mounted() {
     this.getMoniker();
   }
 };
