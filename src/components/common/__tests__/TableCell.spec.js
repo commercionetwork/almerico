@@ -25,12 +25,31 @@ describe("components/common/TableCell.vue", () => {
       mocks,
       propsData: {
         ...props,
+        hasError: false,
         isFetching: true
       }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+  });
+
+  it("Check if error message is displayed", () => {
+    const wrapper = shallowMount(TableCell, {
+      localVue,
+      mocks,
+      propsData: {
+        ...props,
+        hasError: true,
+        isFetching: false
+      }
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
   });
 
@@ -40,11 +59,13 @@ describe("components/common/TableCell.vue", () => {
       mocks,
       propsData: {
         ...props,
+        hasError: false,
         isFetching: false
       }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(true);
   });
 });
