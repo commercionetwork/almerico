@@ -55,7 +55,7 @@
         </div>
          <div
           v-else
-          class="text-center com-font-s13-w700"
+          class="text-center text-info com-font-s13-w700"
           v-text="$t('messages.noItems')"
         />
       </div>

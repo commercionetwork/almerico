@@ -76,7 +76,7 @@
         </div>
         <div
           v-else
-          class="text-center com-font-s14-w700"
+          class="text-center text-info com-font-s14-w700"
           v-text="$t('messages.noItems')"
           data-test="no-items"
         />

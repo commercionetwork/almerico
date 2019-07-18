@@ -35,6 +35,7 @@
           </div>
           <div
             v-else
+            class="text-info"
             v-text="$t('messages.noItems')"
           />
         </div>
