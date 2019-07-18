@@ -25,18 +25,22 @@
           </div>
           <div
             v-if="isFetching"
+            class="com-font-s14-w400"
             v-text="$t('messages.loading')"
+            data-test="loading"
           />
           <div
             v-else-if="!isFetching && filteredValidators.length > 0"
             class="table-responsive"
+            data-test="items"
           >
             <TableValidators :validators="filteredValidators" />
           </div>
           <div
             v-else
-            class="text-info"
+            class="text-center text-info com-font-s14-w700"
             v-text="$t('messages.noItems')"
+            data-test="no-items"
           />
         </div>
       </div>
