@@ -58,7 +58,7 @@ import AccountUnbondings from "./AccountUnbondings.vue";
 import AccountValues from "./AccountValues.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
-import api from "Store/delegators/api";
+import api from "Store/account/api";
 import { arrayManager } from "Utils";
 import { mapActions } from "vuex";
 

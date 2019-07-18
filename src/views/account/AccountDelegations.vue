@@ -14,6 +14,7 @@
           :page="page"
           :total="total"
           v-on:change-page="changePage"
+          data-test="pagination"
         />
       </div>
     </div>
@@ -22,6 +23,7 @@
         <div
           v-if="delegations.length > 0"
           class="table-responsive"
+          data-test="items"
         >
           <table class="table table-striped">
             <thead>
@@ -49,6 +51,7 @@
           v-else
           class="text-center com-font-s13-w700"
           v-text="$t('messages.noItems')"
+          data-test="no-items"
         />
       </div>
     </div>

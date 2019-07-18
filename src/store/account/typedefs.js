@@ -6,3 +6,8 @@
  * @property {Boolean} isFetching
  * @property {String} message
  */
+/** @typedef {Object} Delegations
+* @property {String} delegator_address 
+* @property {String} shares 
+* @property {String} validator_address 
+*/
