@@ -19,6 +19,12 @@
         v-text="$t('messages.loading')"
         data-test="loading"
       />
+      <span
+        v-else-if="!isFetching && hasError"
+        class="text-danger"
+        v-text="$t('messages.fetchingError')"
+        data-test="has-error"
+      />
       <router-link
         v-else
         :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, proposerAddress)"
