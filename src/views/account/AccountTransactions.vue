@@ -1,80 +1,87 @@
 <template>
   <div>
-    <div
-      v-if="isFetching"
-      v-html="$t('messages.loading')"
-    />
-    <div v-else>
-      <div class="row align-items-center">
-        <div class="col-12 col-md-4">
-          <h2
-            class="com-font-s16-w700"
-            v-text="$t('titles.transactions')"
-          />
-        </div>
-        <div class="col-12 col-md-8">
-          <Pagination
-            v-if="transactions.length > 0"
-            :limit="limit"
-            :page="page"
-            :total="total"
-            v-on:change-page="changePage"
-          />
-        </div>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
+        <h2
+          class="com-font-s16-w700"
+          v-text="$t('titles.transactions')"
+        />
       </div>
-      <div class="row">
-        <div class="col-12">
-          <div
-            v-if="transactions.length > 0"
-            class="table-responsive"
-          >
-            <table class="table table-striped">
-              <thead>
-                <tr class="text-center com-font-s13-w700">
-                  <th
-                    scope="col"
-                    v-text="$t('labels.hash')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.height')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.type')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.result')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.fee')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.date')"
-                  />
-                </tr>
-              </thead>
-              <tbody>
-                <AccountTransactionsRow
-                  v-for="(transaction,index) in transactionsPage"
-                  :key="index"
-                  :transaction="transaction"
-                />
-              </tbody>
-            </table>
-          </div>
-          <div
-            v-else
-            class="text-center com-font-s13-w700"
-            v-text="$t('messages.noItems')"
-          />
-        </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          v-if="transactions.length > 0"
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
+        />
       </div>
     </div>
-
+    <div class="row">
+      <div class="col-12">
+        <div
+          v-if="isFetching"
+          class="com-font-s14-w400"
+          v-text="$t('messages.loading')"
+          data-test="loading"
+        />
+        <div
+          v-else-if="!isFetching && hasError"
+          class="text-center text-danger com-font-s14-w400"
+          v-text="$t('messages.fetchingError')"
+          data-test="has-error"
+        />
+        <div
+          v-else-if="!isFetching && !hasError && transactions.length > 0"
+          class="table-responsive"
+          data-test="items"
+        >
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-center com-font-s13-w700">
+                <th
+                  scope="col"
+                  v-text="$t('labels.hash')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.height')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.type')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.result')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.fee')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.date')"
+                />
+              </tr>
+            </thead>
+            <tbody>
+              <AccountTransactionsRow
+                v-for="(transaction,index) in transactionsPage"
+                :key="index"
+                :transaction="transaction"
+              />
+            </tbody>
+          </table>
+        </div>
+        <div
+          v-else
+          class="text-center com-font-s14-w700"
+          v-text="$t('messages.noItems')"
+          data-test="no-items"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -102,13 +109,18 @@ export default {
   },
   data() {
     return {
-      isFetching: false,
       allTransactions: [],
+      hasErrorData: false,
+      hasErrorTxs: false,
+      isFetching: false,
       limit: 5,
       page: 1
     };
   },
   computed: {
+    hasError() {
+      return this.hasErrorData || this.hasErrorTxs;
+    },
     transactionsPage() {
       return this.transactions.slice(
         (this.page - 1) * this.limit,
@@ -136,7 +148,7 @@ export default {
         });
         if (response.data) this.allTransactions.push(...response.data);
       } catch (error) {
-        console.log(error);
+        this.hasErrorTxs = true;
       }
     },
     getData() {
@@ -146,7 +158,7 @@ export default {
           this.getTxs(role, this.address);
         });
       } catch (error) {
-        console.log(error);
+        this.hasErrorData = true;
       } finally {
         this.isFetching = false;
       }
