@@ -34,7 +34,24 @@ describe("views/account/index.vue", () => {
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+  });
+
+  it("Check if error message is displayed", () => {
+    const wrapper = shallowMount(Account, {
+      localVue,
+      methods,
+      mocks,
+    });
+    wrapper.setData({
+      hasError: true
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
+    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
   });
 
   it("Check if item data are displayed", () => {
@@ -45,6 +62,7 @@ describe("views/account/index.vue", () => {
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="items"]').exists()).toBe(true);
   });
 });

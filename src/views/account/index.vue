@@ -7,13 +7,20 @@
     </div>
     <div
       v-if="isFetching"
+      class="com-font-s14-w400"
       v-text="$t('messages.loading')"
       data-test="loading"
     />
     <div
+      v-else-if="!isFetching && hasError"
+      class="text-center text-danger com-font-s14-w400"
+      v-text="$t('messages.fetchingError')"
+      data-test="has-error"
+    />
+    <div
       v-else
       class="row rounded bg-light"
-      data-test="item"
+      data-test="items"
     >
       <div class="col-12 p-0">
         <div class="row">
@@ -76,9 +83,10 @@ export default {
   data() {
     return {
       allDelegations: [],
-      rewards: [],
       allUnbondings: [],
-      isFetching: false
+      hasError: false,
+      isFetching: false,
+      rewards: []
     };
   },
   computed: {
@@ -139,7 +147,7 @@ export default {
         response = await api.requestDelegatorRewards(this.address);
         if (response.data) this.rewards = response.data;
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
