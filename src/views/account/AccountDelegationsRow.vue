@@ -77,7 +77,7 @@ export default {
         );
         if (response.data) this.moniker = response.data.description.moniker;
       } catch (error) {
-        hasError = true;
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
