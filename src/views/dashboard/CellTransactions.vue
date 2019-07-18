@@ -1,5 +1,7 @@
 <template>
   <TableCell
+    :hasError="hasError"
+    :hasItems="transactions.length > 0"
     :isFetching="isFetching"
     :link="linkToTransactions"
     :title="$t('titles.transactions')"
@@ -28,24 +30,10 @@
             </tr>
           </thead>
           <tbody>
-            <span
-              v-if="!isFetching && hasError"
-              class="text-center text-danger com-font-s14-w400"
-              v-text="message"
-              data-test="has-error"
-            />
             <CellTransactionsRow
-              v-else-if="!isFetching && !hasError && transactions.length > 0"
-              v-for="transaction in transactions"
-              :key="transaction.txhash"
+              v-for="(transaction, index) in transactionsList"
+              :key="index"
               :transaction="transaction"
-              data-test="items"
-            />
-            <span
-              v-else
-              class="text-center com-font-s13-w700"
-              v-text="$t('messages.noItems')"
-              data-test="no-items"
             />
           </tbody>
         </table>
@@ -78,14 +66,14 @@ export default {
   },
   computed: {
     ...mapGetters("transactions", {
-      allTransactions: "transactions"
+      transactions: "transactions"
     }),
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
-    transactions() {
+    transactionsList() {
       let transactions = arrayManager.uniqueByKey(
-        this.allTransactions,
+        this.transactions,
         JSON.stringify
       );
       return transactions
@@ -128,8 +116,7 @@ export default {
     }
   },
   created() {
-    if (this.allTransactions.length === 0)
-      this.getTransactions(Object.values(TX_TYPES));
+    this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>

@@ -31,10 +31,9 @@
           </thead>
           <tbody>
             <CellBlocksRow
-              v-for="(block,index) in blocksList"
+              v-for="(block, index) in blocksList"
               :key="index"
               :block="block"
-              data-test="items"
             />
           </tbody>
         </table>
