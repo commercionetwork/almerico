@@ -7,11 +7,20 @@
     </div>
     <div
       v-if="isFetching"
+      class="com-font-s14-w400"
       v-text="$t('messages.loading')"
+      data-test="loading"
+    />
+    <div
+      v-else-if="!isFetching && hasError"
+      class="text-center text-danger com-font-s14-w400"
+      v-text="$t('messages.fetchingError')"
+      data-test="has-error"
     />
     <div
       v-else
       class="row rounded bg-light"
+      data-test="item"
     >
       <div class="col-12 p-0">
         <div class="row">
@@ -91,9 +100,10 @@ export default {
   data() {
     return {
       TX_TYPES,
+      hasError: false,
       isFetching: false,
       messages: [],
-      transaction: null
+      transaction: {}
     };
   },
   computed: {
@@ -157,7 +167,7 @@ export default {
         this.transaction = response.data;
         this.messages = this.transaction.tx.value.msg;
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
