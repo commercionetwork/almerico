@@ -42,28 +42,30 @@
                   />
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-if="isFetching">
                 <span
-                  v-if="isFetching"
                   class="com-font-s14-w400"
                   v-text="$t('messages.loading')"
                   data-test="loading"
                 />
+              </tbody>
+              <tbody v-else-if="!isFetching && hasError">
                 <span
-                  v-else-if="!isFetching && hasError"
                   class="text-danger com-font-s14-w400"
                   v-text="message"
                   data-test="has-error"
                 />
+              </tbody>
+              <tbody v-else-if="!isFetching && !hasError && blocks.length > 0">
                 <TableBlocksRow
-                  v-else-if="!isFetching && !hasError && blocks.length > 0"
                   v-for="(block, index) in blocksList"
                   :key="index"
                   :block="block"
                   data-test="items"
                 />
+              </tbody>
+              <tbody v-else>
                 <span
-                  v-else
                   class="text-center text-info com-font-s14-w700"
                   v-text="$t('messages.noItems')"
                   data-test="no-items"
