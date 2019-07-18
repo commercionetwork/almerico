@@ -1,5 +1,6 @@
 <template>
   <TableCell
+    :hasError="hasError"
     :isFetching="isFetching"
     :link="linkToBlocks"
     :title="$t('titles.blocks')"
@@ -28,19 +29,14 @@
             </tr>
           </thead>
           <tbody>
-            <span
-              v-if="!isFetching && hasError"
-              class="text-center text-danger com-font-s14-w400"
-              v-text="message"
-              data-test="has-error"
-            />
-            <CellBlocksRow
-              v-else-if="!isFetching && !hasError && blocksList.length > 0"
-              v-for="(block,index) in blocksList"
-              :key="index"
-              :block="block"
-              data-test="items"
-            />
+            <span v-if="!isFetching && !hasError && blocksList.length > 0">
+              <CellBlocksRow
+                v-for="(block,index) in blocksList"
+                :key="index"
+                :block="block"
+                data-test="items"
+              />
+            </span>
             <span
               v-else
               class="text-center com-font-s13-w700"
@@ -80,8 +76,7 @@ export default {
     ...mapGetters("blocks", {
       blocks: "blocks",
       isFetching: "isFetching",
-      lastBlock: "lastBlock",
-      message: "message"
+      lastBlock: "lastBlock"
     }),
     blocksList() {
       const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
