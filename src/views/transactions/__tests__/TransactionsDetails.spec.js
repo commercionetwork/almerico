@@ -1,6 +1,6 @@
 /* global describe, expect, it, jest */
 
-import TransactionsDetails from "../TransactionsDetails.vue";
+import TransactionDetails from "../TransactionDetails.vue";
 import {
   mockTransaction
 } from "Store/transactions/__mocks__/transactions";
@@ -11,7 +11,7 @@ import {
 
 const localVue = createLocalVue();
 
-describe("views/transactions/TransactionsDetails.vue", () => {
+describe("views/transactions/TransactionDetails.vue", () => {
   const methods = {
     getTransactions: jest.fn()
   };
@@ -25,7 +25,7 @@ describe("views/transactions/TransactionsDetails.vue", () => {
   };
 
   it("Check if loading message is displayed", () => {
-    const wrapper = shallowMount(TransactionsDetails, {
+    const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
       mocks
@@ -41,7 +41,7 @@ describe("views/transactions/TransactionsDetails.vue", () => {
   });
 
   it("Check if error message is displayed", () => {
-    const wrapper = shallowMount(TransactionsDetails, {
+    const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
       mocks
@@ -58,7 +58,7 @@ describe("views/transactions/TransactionsDetails.vue", () => {
   });
 
   it("Check if item data are displayed", () => {
-    const wrapper = shallowMount(TransactionsDetails, {
+    const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
       mocks,

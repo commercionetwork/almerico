@@ -15,7 +15,7 @@ const BlockDetails = loadView("blocks/BlockDetails");
 const Blocks = loadView("blocks/index");
 const Dashboard = loadView("dashboard/index");
 const Transactions = loadView("transactions/index");
-const TransactionsDetails = loadView("transactions/TransactionsDetails");
+const TransactionDetails = loadView("transactions/TransactionDetails");
 const Validators = loadView("validators/index");
 const ValidatorsDetails = loadView("validators/ValidatorsDetails");
 const Votings = loadView("votings/index");
@@ -59,9 +59,9 @@ export default new Router({
       component: Transactions,
     },
     {
-      path: ROUTES.TRANSACTIONS_DETAILS,
-      name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
-      component: TransactionsDetails,
+      path: ROUTES.TRANSACTION_DETAILS,
+      name: ROUTE_NAMES.TRANSACTION_DETAILS,
+      component: TransactionDetails,
     },
     {
       path: ROUTES.VALIDATORS,

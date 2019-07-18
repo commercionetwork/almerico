@@ -92,7 +92,7 @@ export default {
     },
     toTransactionDetails(id) {
       return {
-        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
+        name: ROUTE_NAMES.TRANSACTION_DETAILS,
         params: {
           lang: this.$i18n.locale,
           id: id

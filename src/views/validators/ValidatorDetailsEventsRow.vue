@@ -8,7 +8,7 @@
     </td>
     <td class="align-middle">
       <router-link
-        :to="toDetails(ROUTE_NAMES.TRANSACTIONS_DETAILS, event.txhash)"
+        :to="toDetails(ROUTE_NAMES.TRANSACTION_DETAILS, event.txhash)"
         v-text="event.txhash"
         class="d-block text-truncate"
         style="max-width: 120px;"

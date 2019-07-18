@@ -60,7 +60,7 @@ export default {
       } else if (accountRegEx.test(this.query)) {
         routeName = ROUTE_NAMES.ACCOUNT_DETAILS;
       } else if (hashRegEx.test(this.query)) {
-        routeName = ROUTE_NAMES.TRANSACTIONS_DETAILS;
+        routeName = ROUTE_NAMES.TRANSACTION_DETAILS;
       } else if (heightRegEx.test(this.query)) {
         routeName = ROUTE_NAMES.BLOCK_DETAILS;
       }

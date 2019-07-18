@@ -77,7 +77,7 @@ import api from "Store/transactions/api";
 import { TX_TYPES } from "Constants";
 
 export default {
-  name: "TransactionsDetails",
+  name: "TransactionDetails",
   description: "Display the transaction details",
   components: {
     MsgTxCreateAccount,
