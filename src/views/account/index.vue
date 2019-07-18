@@ -8,10 +8,12 @@
     <div
       v-if="isFetching"
       v-text="$t('messages.loading')"
+      data-test="loading"
     />
     <div
       v-else
       class="row rounded bg-light"
+      data-test="item"
     >
       <div class="col-12 p-0">
         <div class="row">
