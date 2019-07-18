@@ -53,6 +53,7 @@
         />
         <div
           v-else-if="!isFetching && hasError"
+          class="text-danger"
           v-text="$t('messages.fetchingError')"
           data-test="has-error"
         />

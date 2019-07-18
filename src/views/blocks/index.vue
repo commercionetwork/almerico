@@ -45,11 +45,13 @@
               <tbody>
                 <span
                   v-if="isFetching"
+                  class="com-font-s14-w400"
                   v-text="$t('messages.loading')"
                   data-test="loading"
                 />
                 <span
                   v-else-if="!isFetching && hasError"
+                  class="text-danger com-font-s14-w400"
                   v-text="message"
                   data-test="has-error"
                 />
