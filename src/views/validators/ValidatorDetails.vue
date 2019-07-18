@@ -76,7 +76,7 @@ import { PREFIX, TX_TYPES } from "Constants";
 import { bech32Manager } from "Utils";
 
 export default {
-  name: "ValidatorsDetails",
+  name: "ValidatorDetails",
   description: "Display the validator details",
   components: {
     ValidatorDetailsDelegated,

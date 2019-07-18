@@ -13,7 +13,7 @@ export const ROUTES = {
   TRANSACTIONS: "/:lang/transactions",
   TRANSACTION_DETAILS: "/:lang/transaction/:id",
   VALIDATORS: "/:lang/validators",
-  VALIDATORS_DETAILS: "/:lang/validator/:id",
+  VALIDATOR_DETAILS: "/:lang/validator/:id",
   VOTINGS: "/:lang/votings",
   VOTINGS_DETAILS: "/:lang/voting/:id"
 };
@@ -31,7 +31,7 @@ export const ROUTE_NAMES = {
   TRANSACTIONS: "transactions",
   TRANSACTION_DETAILS: "transactionDetails",
   VALIDATORS: "validators",
-  VALIDATORS_DETAILS: "validatorsDetails",
+  VALIDATOR_DETAILS: "validatorDetails",
   VOTINGS: "votings",
   VOTINGS_DETAILS: "votingsDetails"
 };

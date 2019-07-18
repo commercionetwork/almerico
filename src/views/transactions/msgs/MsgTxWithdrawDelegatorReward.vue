@@ -20,7 +20,7 @@
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, validatorAddress)"
+            :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, validatorAddress)"
             v-text="validatorAddress"
           />
         </div>

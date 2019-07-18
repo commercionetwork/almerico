@@ -76,7 +76,7 @@ export default {
   methods: {
     toValidatorDetails(id) {
       return {
-        name: ROUTE_NAMES.VALIDATORS_DETAILS,
+        name: ROUTE_NAMES.VALIDATOR_DETAILS,
         params: {
           lang: this.$i18n.locale,
           id

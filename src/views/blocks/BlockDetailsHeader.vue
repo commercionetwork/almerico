@@ -59,7 +59,7 @@
         />
         <router-link
           v-else
-          :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, proposerAddress)"
+          :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, proposerAddress)"
           v-text="proposer"
           data-test="item"
         />

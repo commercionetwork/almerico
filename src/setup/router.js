@@ -17,7 +17,7 @@ const Dashboard = loadView("dashboard/index");
 const Transactions = loadView("transactions/index");
 const TransactionDetails = loadView("transactions/TransactionDetails");
 const Validators = loadView("validators/index");
-const ValidatorsDetails = loadView("validators/ValidatorsDetails");
+const ValidatorDetails = loadView("validators/ValidatorDetails");
 const Votings = loadView("votings/index");
 const VotingsDetails = loadView("votings/VotingsDetails");
 // error
@@ -69,9 +69,9 @@ export default new Router({
       component: Validators,
     },
     {
-      path: ROUTES.VALIDATORS_DETAILS,
-      name: ROUTE_NAMES.VALIDATORS_DETAILS,
-      component: ValidatorsDetails,
+      path: ROUTES.VALIDATOR_DETAILS,
+      name: ROUTE_NAMES.VALIDATOR_DETAILS,
+      component: ValidatorDetails,
     },
     {
       path: ROUTES.VOTINGS,

@@ -20,7 +20,7 @@
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, validatorSrcAddress)"
+            :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, validatorSrcAddress)"
             v-text="validatorSrcAddress"
           />
         </div>
@@ -32,7 +32,7 @@
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, validatorDstAddress)"
+            :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, validatorDstAddress)"
             v-text="validatorDstAddress"
           />
         </div>

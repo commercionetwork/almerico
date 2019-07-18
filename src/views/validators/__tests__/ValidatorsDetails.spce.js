@@ -1,6 +1,6 @@
 /* global describe, expect, it, jest */
 
-import ValidatorsDetails from "../ValidatorsDetails.vue";
+import ValidatorDetails from "../ValidatorDetails.vue";
 import {
   mockDelegations
 } from "Store/account/__mocks__/delegations";
@@ -17,7 +17,7 @@ import {
 
 const localVue = createLocalVue();
 
-describe("views/validators/ValidatorsDetails.vue", () => {
+describe("views/validators/ValidatorDetails.vue", () => {
   const methods = {
     getValidatorData: jest.fn()
   };
@@ -31,7 +31,7 @@ describe("views/validators/ValidatorsDetails.vue", () => {
   };
 
   it("Check if loading message is displayed", () => {
-    const wrapper = shallowMount(ValidatorsDetails, {
+    const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       methods,
       mocks,
@@ -47,7 +47,7 @@ describe("views/validators/ValidatorsDetails.vue", () => {
   });
 
   it("Check if error message is displayed", () => {
-    const wrapper = shallowMount(ValidatorsDetails, {
+    const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       methods,
       mocks,
@@ -63,7 +63,7 @@ describe("views/validators/ValidatorsDetails.vue", () => {
   });
 
   it("Check if item data are displayed", () => {
-    const wrapper = shallowMount(ValidatorsDetails, {
+    const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       methods,
       mocks,

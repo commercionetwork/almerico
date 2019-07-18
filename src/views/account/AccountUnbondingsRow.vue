@@ -20,7 +20,7 @@
   >
     <td class="text-left">
       <router-link
-        :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, delegation.validator_address)"
+        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, delegation.validator_address)"
         v-text="moniker"
       />
     </td>

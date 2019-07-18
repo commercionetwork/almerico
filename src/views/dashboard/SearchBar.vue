@@ -56,7 +56,7 @@ export default {
 
       let routeName = null;
       if (validatorRegEx.test(this.query)) {
-        routeName = ROUTE_NAMES.VALIDATORS_DETAILS;
+        routeName = ROUTE_NAMES.VALIDATOR_DETAILS;
       } else if (accountRegEx.test(this.query)) {
         routeName = ROUTE_NAMES.ACCOUNT_DETAILS;
       } else if (hashRegEx.test(this.query)) {
