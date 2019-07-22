@@ -5,6 +5,7 @@ const KEYBASE_VERSION = "/1.0";
 /**
  * URLs
  */
+const API_KEYBASE = `https://keybase.io/_/api${KEYBASE_VERSION}`;
 const API_LCD_BASE = (process.env.VUE_APP_LCD !== undefined) ?
   process.env.VUE_APP_LCD :
   "";
@@ -14,7 +15,6 @@ const API_RPC_BASE = (process.env.VUE_APP_RPC !== undefined) ?
 export const WS = (process.env.VUE_APP_WS !== undefined) ?
   process.env.VUE_APP_WS :
   "";
-const API_KEYBASE = `https://keybase.io/_/api${KEYBASE_VERSION}`;
 /**
  * APIs
  */
