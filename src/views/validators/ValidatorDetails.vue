@@ -111,11 +111,12 @@ export default {
         response = await api.requestValidator(address);
         this.validator = response.data;
         if (this.validator.description.identity.length > 0) {
-          const key = await api.requestValidatorKey(
+          const res = await api.requestValidatorIdentity(
             this.validator.description.identity
           );
-          const imageUrl = await api.requestValidatorLookup(key);
-          this.validator.imageUrl = imageUrl;
+          if (res.data.completions[0].thumbnail) {
+            this.validator.imageUrl = res.data.completions[0].thumbnail;
+          }
         }
         // get delegations
         response = await api.requestValidatorDelegations(address);
