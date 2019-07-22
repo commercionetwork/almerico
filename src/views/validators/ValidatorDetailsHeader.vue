@@ -1,12 +1,19 @@
 <template>
   <div class="p-3">
     <div class="row d-flex align-items-center">
-      <div class="col-6 order-1 col-md-2 order-md-1">
+      <div class="col-6 order-1 col-md-2 order-md-1 d-flex justify-content-md-center">
         <span class="p-1">
           <img
-            src="@/assets/img/logo.png"
+            v-if="hasImage"
+            :src="validator.imageUrl"
             alt="validator logo"
             class="com-image-h50-w50"
+          />
+          <Icon
+            v-else
+            name="bezier-curve"
+            scale="3"
+            class="text-black-50"
           />
         </span>
       </div>
@@ -87,6 +94,9 @@
 </template>
 
 <script>
+import Icon from "vue-awesome/components/Icon.vue";
+import "vue-awesome/icons/bezier-curve";
+
 import { ROUTE_NAMES, SETUP } from "Constants";
 import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
@@ -94,6 +104,9 @@ import { mapGetters } from "vuex";
 export default {
   name: "ValidatorDetailsHeader",
   description: "Display the validator header",
+  components: {
+    Icon
+  },
   props: {
     address: {
       type: String,
@@ -110,10 +123,8 @@ export default {
     ...mapGetters("stake", {
       pool: "pool"
     }),
-    status() {
-      return this.validator.status === 2
-        ? this.$t("buttons.active")
-        : this.$t("buttons.inactive");
+    bonded() {
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     commission() {
       return this.$n(parseFloat(this.validator.commission.rate), {
@@ -122,8 +133,13 @@ export default {
         maximumFractionDigits: 2
       });
     },
-    bonded() {
-      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
+    hasImage() {
+      return this.validator.imageUrl;
+    },
+    status() {
+      return this.validator.status === 2
+        ? this.$t("buttons.active")
+        : this.$t("buttons.inactive");
     },
     votingPower() {
       let percent =

@@ -110,6 +110,13 @@ export default {
         // get validator
         response = await api.requestValidator(address);
         this.validator = response.data;
+        if (this.validator.description.identity.length > 0) {
+          const key = await api.requestValidatorKey(
+            this.validator.description.identity
+          );
+          const imageUrl = await api.requestValidatorLookup(key);
+          this.validator.imageUrl = imageUrl;
+        }
         // get delegations
         response = await api.requestValidatorDelegations(address);
         this.delegations = response.data;
