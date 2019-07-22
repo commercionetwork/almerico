@@ -11,7 +11,7 @@
           />
           <Icon
             v-else
-            name="bezier-curve"
+            name="brands/hubspot"
             scale="3"
             class="text-black-50"
           />
@@ -95,7 +95,7 @@
 
 <script>
 import Icon from "vue-awesome/components/Icon.vue";
-import "vue-awesome/icons/bezier-curve";
+import "vue-awesome/icons/brands/hubspot";
 
 import { ROUTE_NAMES, SETUP } from "Constants";
 import { coinConverter } from "Utils";
