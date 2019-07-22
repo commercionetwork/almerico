@@ -88,5 +88,23 @@ export default {
    */
   requestValidatorsetsFromHeight(height) {
     return instance.get(`${API.VALIDATORSETS}/${height}`);
+  },
+  /**
+   * Handle ajax request to get key by PGP id from Keybase
+   * 
+   * @param {String} id 
+   * @return {Promise} 
+   */
+  requestValidatorKey(id) {
+    return instance.get(`${API.KEY_FETCH}?pgp_key_ids=${id}`);
+  },
+  /**
+   * Handle ajax request to get user lookup by finger print from Keybase
+   * 
+   * @param {String} fingerPrint 
+   * @return {Promise} 
+   */
+  requestValidatorLookup(fingerPrint) {
+    return instance.get(`${API.USER_LOOKUP}?key_fingerprint=${fingerPrint}`);
   }
 };
