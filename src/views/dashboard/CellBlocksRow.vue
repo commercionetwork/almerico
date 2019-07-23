@@ -9,7 +9,7 @@
       <router-link
         v-else
         :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, block.header.height)"
-        v-text="block.header.height"
+        v-text="blockHeight"
         data-test="item-height"
       />
     </td>
@@ -27,8 +27,8 @@
       />
       <router-link
         v-else
-        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, proposerAddress)"
-        v-text="proposer"
+        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, blockValidator)"
+        v-text="blockMoniker"
         data-test="item-proposer"
       />
     </td>
@@ -40,7 +40,7 @@
       />
       <span
         v-else
-        v-text="block.header.num_txs"
+        v-text="blockTxs"
         data-test="item-txs"
       />
     </td>
@@ -80,8 +80,7 @@ export default {
       ROUTE_NAMES,
       hasError: false,
       isFetching: false,
-      proposer: "",
-      proposerAddress: ""
+      proposer: null
     };
   },
   computed: {
@@ -89,7 +88,19 @@ export default {
       validators: "validators"
     }),
     blockDate() {
-      return new Date(this.block.header.time).toLocaleDateString();
+      return new Date(this.block.header.time).toLocaleDateString() || "-";
+    },
+    blockHeight() {
+      return this.block.header.height || "-";
+    },
+    blockMoniker() {
+      return this.proposer ? this.proposer.description.moniker : "-";
+    },
+    blockTxs() {
+      return this.block.header.num_txs || "-";
+    },
+    blockValidator() {
+      return this.proposer ? this.proposer.operator_address : "";
     }
   },
   watch: {
@@ -110,11 +121,9 @@ export default {
         );
         let pubKey = response.data.validators.find(x => x.address === address)
           .pub_key;
-        let proposer = this.validators.find(x => x.consensus_pubkey === pubKey);
-        this.proposer = proposer
-          ? proposer.description.moniker
-          : "proposer name";
-        this.proposerAddress = proposer ? proposer.operator_address : "";
+        this.proposer = this.validators.find(
+          x => x.consensus_pubkey === pubKey
+        );
       } catch (error) {
         this.hasError = true;
       } finally {
