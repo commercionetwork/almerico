@@ -92,16 +92,21 @@ export default {
       return new Date(this.block.header.time).toLocaleDateString();
     }
   },
+  watch: {
+    block(value) {
+      this.getProposer(value);
+    }
+  },
   methods: {
-    async getProposer() {
+    async getProposer(block) {
       this.isFetching = true;
       let address = bech32Manager.encode(
-        this.block.header.proposer_address,
+        block.header.proposer_address,
         PREFIX.COMNETVALCONS
       );
       try {
         const response = await api.requestValidatorsetsFromHeight(
-          this.block.header.height
+          block.header.height
         );
         let pubKey = response.data.validators.find(x => x.address === address)
           .pub_key;
@@ -127,7 +132,7 @@ export default {
     }
   },
   created() {
-    this.getProposer();
+    this.getProposer(this.block);
   }
 };
 </script>
