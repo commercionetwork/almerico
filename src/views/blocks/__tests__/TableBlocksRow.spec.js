@@ -22,7 +22,8 @@ describe("views/blocks/TableBlocksRow.vue", () => {
     $t: messageId => messageId
   };
   const props = {
-    block: mockBlock(new Date(), 1)
+    block: mockBlock(new Date(), 1),
+    rank: 0
   };
 
   it("Check if loading messages are displayed", () => {
@@ -45,9 +46,36 @@ describe("views/blocks/TableBlocksRow.vue", () => {
     expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
     expect(wrapper.find('[data-test="item-height"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item-hash"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item-proposer"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item-txs"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item-date"]').exists()).toBe(false);
+  });
+
+  it("Check if error message are displayed", () => {
+    const wrapper = shallowMount(TableBlocksRow, {
+      computed: {
+        validators: () => ({})
+      },
+      localVue,
+      methods,
+      mocks,
+      propsData: {
+        ...props
+      }
+    });
+    wrapper.setData({
+      hasError: true
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="item-height"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="item-hash"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
+    expect(wrapper.find('[data-test="item-proposer"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="item-txs"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="item-date"]').exists()).toBe(true);
   });
 
   it("Check if item data are displayed", () => {
@@ -66,6 +94,7 @@ describe("views/blocks/TableBlocksRow.vue", () => {
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item-height"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="item-hash"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item-proposer"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="item-txs"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="item-date"]').exists()).toBe(true);

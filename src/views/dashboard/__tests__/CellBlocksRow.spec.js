@@ -22,7 +22,8 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
     $t: messageId => messageId
   };
   const props = {
-    block: mockBlock(new Date(), 1)
+    block: mockBlock(new Date(), 1),
+    rank: 0
   };
 
   it("Check if loading messages are displayed", () => {

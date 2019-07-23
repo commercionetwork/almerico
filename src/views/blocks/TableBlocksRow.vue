@@ -9,7 +9,7 @@
       <router-link
         v-else
         :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, block.header.height)"
-        v-text="block.header.height"
+        v-text="blockHeight"
         data-test="item-height"
       />
     </td>
@@ -23,8 +23,8 @@
         v-else
         class="d-inline-block text-truncate"
         style="max-width: 120px;"
-        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, block.header.height)"
-        v-text="block.last_commit.block_id.hash"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, blockHeight)"
+        v-text="blockHash"
         data-test="item-hash"
       />
     </td>
@@ -34,10 +34,16 @@
         v-text="$t('messages.loading')"
         data-test="loading"
       />
+      <span
+        v-else-if="!isFetching && hasError"
+        class="text-danger"
+        v-text="$t('messages.fetchingError')"
+        data-test="has-error"
+      />
       <router-link
         v-else
-        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, proposerAddress)"
-        v-text="proposer"
+        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, blockValidator)"
+        v-text="blockMoniker"
         data-test="item-proposer"
       />
     </td>
@@ -49,7 +55,7 @@
       />
       <span
         v-else
-        v-text="block.header.num_txs"
+        v-text="blockTxs"
         data-test="item-txs"
       />
     </td>
@@ -61,7 +67,7 @@
       />
       <span
         v-else
-        v-text="blockTime"
+        v-text="blockDate"
         data-test="item-date"
       />
     </td>
@@ -82,44 +88,68 @@ export default {
       type: Object,
       required: true,
       note: "Object representing a block"
+    },
+    rank: {
+      type: Number,
+      required: true,
+      note: "Block index inside list"
     }
   },
   data() {
     return {
       ROUTE_NAMES,
+      hasError: false,
       isFetching: false,
-      proposer: "",
-      proposerAddress: ""
+      proposer: null
     };
   },
   computed: {
     ...mapGetters("validators", {
       validators: "validators"
     }),
-    blockTime() {
-      return new Date(this.block.header.time).toLocaleDateString();
+    blockDate() {
+      return new Date(this.block.header.time).toLocaleDateString() || "-";
+    },
+    blockHash() {
+      return this.block.last_commit.block_id.hash || "-";
+    },
+    blockHeight() {
+      return this.block.header.height || "-";
+    },
+    blockMoniker() {
+      return this.proposer ? this.proposer.description.moniker : "-";
+    },
+    blockTxs() {
+      return this.block.header.num_txs || "-";
+    },
+    blockValidator() {
+      return this.proposer ? this.proposer.operator_address : "";
+    }
+  },
+  watch: {
+    block(value) {
+      let isFetching = this.rank === 0 ? true : false;
+      this.getProposer(value, isFetching);
     }
   },
   methods: {
-    async getProposer() {
-      this.isFetching = true;
+    async getProposer(block, isFetching) {
+      this.isFetching = isFetching;
       let address = bech32Manager.encode(
-        this.block.header.proposer_address,
+        block.header.proposer_address,
         PREFIX.COMNETVALCONS
       );
       try {
         const response = await api.requestValidatorsetsFromHeight(
-          this.block.header.height
+          block.header.height
         );
         let pubKey = response.data.validators.find(x => x.address === address)
           .pub_key;
-        let proposer = this.validators.find(x => x.consensus_pubkey === pubKey);
-        this.proposer = proposer
-          ? proposer.description.moniker
-          : "proposer name";
-        this.proposerAddress = proposer ? proposer.operator_address : "";
+        this.proposer = this.validators.find(
+          x => x.consensus_pubkey === pubKey
+        );
       } catch (error) {
-        console.log("Get validator sets: ", error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
@@ -135,7 +165,7 @@ export default {
     }
   },
   created() {
-    this.getProposer();
+    this.getProposer(this.block, true);
   }
 };
 </script>

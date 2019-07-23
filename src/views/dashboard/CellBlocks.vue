@@ -34,6 +34,7 @@
               v-for="(block, index) in blocksList"
               :key="index"
               :block="block"
+              :rank="index"
             />
           </tbody>
         </table>
