@@ -73,6 +73,11 @@ export default {
       type: Object,
       required: true,
       note: "Object representing a block"
+    },
+    rank: {
+      type: Number,
+      required: true,
+      note: "Block index inside list"
     }
   },
   data() {
@@ -105,12 +110,13 @@ export default {
   },
   watch: {
     block(value) {
-      this.getProposer(value);
+      let isFetching = this.rank === 0 ? true : false;
+      this.getProposer(value, isFetching);
     }
   },
   methods: {
-    async getProposer(block) {
-      this.isFetching = true;
+    async getProposer(block, isFetching) {
+      this.isFetching = isFetching;
       let address = bech32Manager.encode(
         block.header.proposer_address,
         PREFIX.COMNETVALCONS
@@ -141,7 +147,7 @@ export default {
     }
   },
   created() {
-    this.getProposer(this.block);
+    this.getProposer(this.block, true);
   }
 };
 </script>
