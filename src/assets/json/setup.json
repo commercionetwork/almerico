@@ -88,7 +88,7 @@
         "name": "MsgTxEditValidator"
       },
       {
-        "type": "cosmos-sdk/MsgRedelegate",
+        "type": "cosmos-sdk/MsgBeginRedelegate",
         "name": "MsgTxRedelegate"
       },
       {
@@ -96,7 +96,7 @@
         "name": "MsgTxSend"
       },
       {
-        "type": "cosmos-sdk/MsgUnbonding",
+        "type": "cosmos-sdk/MsgUndelegate",
         "name": "MsgTxUnbonding"
       },
       {
@@ -104,7 +104,7 @@
         "name": "MsgTxUnjail"
       },
       {
-        "type": "cosmos-sdk/MsgWithdrawDelegatorReward",
+        "type": "cosmos-sdk/MsgWithdrawDelegationReward",
         "name": "MsgTxWithdrawDelegatorReward"
       },
       {
