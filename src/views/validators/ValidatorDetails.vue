@@ -1,14 +1,14 @@
 <template>
   <div class="container com-container">
     <div class="row py-3 d-flex align-items-center">
-      <div class="col-12 col-md-8 d-flex justify-content-start">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
         <h1
           class="text-uppercase com-font-s20-w800"
-          v-text="$t('titles.validatorDetails')"
+          v-html="$t('titles.validatorDetails')"
         />
       </div>
-      <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end">
-        &nbsp;
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
       </div>
     </div>
     <div
@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import SearchBar from "Components/common/SearchBar.vue";
 import ValidatorDetailsDelegated from "./ValidatorDetailsDelegated.vue";
 import ValidatorDetailsDelegators from "./ValidatorDetailsDelegators.vue";
 import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
@@ -79,6 +80,7 @@ export default {
   name: "ValidatorDetails",
   description: "Display the validator details",
   components: {
+    SearchBar,
     ValidatorDetailsDelegated,
     ValidatorDetailsDelegators,
     ValidatorDetailsEvents,
