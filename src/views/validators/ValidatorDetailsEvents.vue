@@ -1,103 +1,110 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
-    <div
-      v-if="isFetching"
-      v-html="$t('messages.loading')"
-    />
-    <div v-else>
-      <div class="row py-1 d-flex align-items-center">
-        <div class="col-12 d-flex justify-content-start">
-          <h2
-            class="com-font-s16-w700"
-            v-html="'Power events'"
-          />
-        </div>
+  <div>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
+        <h2
+          v-text="$t('titles.powerEvents')"
+          class="com-font-s16-w700"
+        />
       </div>
-      <div class="row py-1">
-        <div class="col-12">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr class="text-center com-font-s13-w700">
-                  <th scope="col">Height</th>
-                  <th scope="col">TxHash</th>
-                  <th scope="col">Amount</th>
-                  <th scope="col">Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  class="text-center com-font-s13-w400"
-                  v-for="transaction in transactions.slice().reverse()"
-                  :key="transaction.id"
-                >
-                  <td class="align-middle">
-                    <router-link
-                      :to="toBlockDetails(transaction.height)"
-                      v-text="transaction.height"
-                    />
-                  </td>
-                  <td class="align-middle">
-                    <router-link
-                      :to="toTransactionDetails(transaction.hash)"
-                      v-text="transaction.hash"
-                      class="d-inline-block text-truncate com-font-s13-w400"
-                      style="max-width: 120px;"
-                    />
-                  </td>
-                  <td
-                    class="align-middle"
-                    v-text="`${transaction.amount} ATOM`"
-                  />
-                  <td
-                    class="align-middle"
-                    v-text="transaction.time.toLocaleString()"
-                  />
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          v-if="events.length > 0"
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
+          data-test="pagination"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div
+          v-if="events.length > 0"
+          class="table-responsive"
+          data-test="items"
+        >
+          <table class="table">
+            <thead>
+              <tr class="text-center com-font-s13-w700">
+                <th
+                  scope="col"
+                  v-text="$t('labels.height')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.hash')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.amount')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.date')"
+                />
+              </tr>
+            </thead>
+            <tbody>
+              <ValidatorDetailsEventsRow
+                v-for="(event, index) in orderedEvents"
+                :key="index"
+                :event="event"
+              />
+            </tbody>
+          </table>
         </div>
+        <div
+          v-else
+          class="text-center text-info com-font-s14-w700"
+          v-text="$t('messages.noItems')"
+          data-test="no-items"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ROUTE_NAMES } from "Constants";
-
-//TODO: remove
-import { mockTransactions } from "Store/transactions/__mocks__/transactionsOld";
+import Pagination from "Components/common/Pagination.vue";
+import ValidatorDetailsEventsRow from "./ValidatorDetailsEventsRow.vue";
 
 export default {
   name: "ValidatorDetailsEvents",
   description: "Display an events list",
+  components: {
+    Pagination,
+    ValidatorDetailsEventsRow
+  },
+  props: {
+    events: {
+      type: Array,
+      required: true,
+      note: "List of power event transactions"
+    }
+  },
+  data() {
+    return {
+      limit: 5,
+      page: 1
+    };
+  },
   computed: {
-    isFetching() {
-      return false;
+    orderedEvents() {
+      const events = [...this.events];
+      events.sort(function(a, b) {
+        return b.height - a.height;
+      });
+      return events.slice((this.page - 1) * this.limit, this.page * this.limit);
     },
-    transactions() {
-      return mockTransactions(5);
+    total() {
+      return this.events.length;
     }
   },
   methods: {
-    toBlockDetails(id) {
-      return {
-        name: ROUTE_NAMES.BLOCKS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
-    },
-    toTransactionDetails(id) {
-      return {
-        name: ROUTE_NAMES.TRANSACTIONS_DETAILS,
-        params: {
-          lang: this.$i18n.locale,
-          id: id
-        }
-      };
+    changePage(page) {
+      this.page = page;
     }
   }
 };

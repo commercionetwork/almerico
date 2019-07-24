@@ -1,5 +1,5 @@
 # Almerico
-
+![GitHub release](https://img.shields.io/github/release/commercionetwork/almerico.svg)
 ![GitHub](https://img.shields.io/github/license/commercionetwork/almerico.svg)
 ![GitHub top language](https://img.shields.io/github/languages/top/Commercionetwork/almerico.svg)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/Commercionetwork/Almerico.svg)

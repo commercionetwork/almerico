@@ -1,5 +1,7 @@
 <template>
   <TableCell
+    :hasError="hasError"
+    :hasItems="blocks.length > 0"
     :isFetching="isFetching"
     :link="linkToBlocks"
     :title="$t('titles.blocks')"
@@ -9,17 +11,30 @@
         <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
-              <th scope="col">Height</th>
-              <th scope="col">Proposer</th>
-              <th scope="col">Txs</th>
-              <th scope="col">Time</th>
+              <th
+                scope="col"
+                v-text="$t('labels.height')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.proposer')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.txs')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.date')"
+              />
             </tr>
           </thead>
           <tbody>
             <CellBlocksRow
-              v-for="block in blocks"
-              :key="block.header.height"
+              v-for="(block, index) in blocksList"
+              :key="index"
               :block="block"
+              :rank="index"
             />
           </tbody>
         </table>
@@ -43,18 +58,26 @@ export default {
     CellBlocksRow,
     TableCell
   },
+  data() {
+    return {
+      allBlocks: [],
+      hasError: false,
+      limit: 10
+    };
+  },
   computed: {
     ...mapGetters("blocks", {
-      allBlocks: "blocks",
-      isFetching: "isFetching"
+      blocks: "blocks",
+      isFetching: "isFetching",
+      lastBlock: "lastBlock"
     }),
-    blocks() {
+    blocksList() {
       const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
       return blocks
         .sort(function(a, b) {
           return b.header.height - a.header.height;
         })
-        .slice(0, 10);
+        .slice(0, this.limit);
     },
     linkToBlocks() {
       return {
@@ -65,13 +88,29 @@ export default {
       };
     }
   },
+  watch: {
+    lastBlock(value) {
+      this.allBlocks.push(value);
+    }
+  },
   methods: {
     ...mapActions("blocks", {
       fetchBlocks: "fetchBlocks"
-    })
+    }),
+    async getBlocks(limit, page) {
+      try {
+        await this.fetchBlocks({
+          limit,
+          page
+        });
+        this.allBlocks = this.blocks;
+      } catch (error) {
+        this.hasError = true;
+      }
+    }
   },
   created() {
-    if (this.allBlocks.length === 0) this.fetchBlocks();
+    this.getBlocks(this.limit, 1);
   }
 };
 </script>

@@ -1,29 +1,46 @@
 <template>
-  <div class="p-1">
-    <div class="row p-1 d-flex align-items-center">
-      <div class="col-12">
+  <div>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
         <h2
           class="com-font-s16-w700"
-          v-text="'Delegations'"
+          v-text="$t('titles.delegations')"
+        />
+      </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          v-if="delegations.length > 0"
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
+          data-test="pagination"
         />
       </div>
     </div>
-    <div class="row p-1">
+    <div class="row">
       <div class="col-12">
         <div
           v-if="delegations.length > 0"
           class="table-responsive"
+          data-test="items"
         >
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
-                <th scope="col">Validator</th>
-                <th scope="col">Amount</th>
+                <th
+                  scope="col"
+                  v-text="$t('labels.validator')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.amount')"
+                />
               </tr>
             </thead>
             <tbody>
               <AccountDelegationsRow
-                v-for="(delegation, index) in lastDelegations"
+                v-for="(delegation, index) in delegationsPage"
                 :key="index"
                 :delegation="delegation"
               />
@@ -32,8 +49,9 @@
         </div>
         <div
           v-else
-          class="text-center com-font-s13-w700"
+          class="text-center text-info com-font-s14-w700"
           v-text="$t('messages.noItems')"
+          data-test="no-items"
         />
       </div>
     </div>
@@ -42,12 +60,14 @@
 
 <script>
 import AccountDelegationsRow from "./AccountDelegationsRow.vue";
+import Pagination from "Components/common/Pagination.vue";
 
 export default {
   name: "AccountDelegations",
   description: "Display the account delegations list",
   components: {
-    AccountDelegationsRow
+    AccountDelegationsRow,
+    Pagination
   },
   props: {
     delegations: {
@@ -56,12 +76,26 @@ export default {
       note: "Delegations list"
     }
   },
+  data() {
+    return {
+      limit: 5,
+      page: 1
+    };
+  },
   computed: {
-    lastDelegations() {
+    delegationsPage() {
       return this.delegations.slice(
-        this.delegations.length - 10,
-        this.delegations.length
+        (this.page - 1) * this.limit,
+        this.page * this.limit
       );
+    },
+    total() {
+      return this.delegations.length;
+    }
+  },
+  methods: {
+    changePage(page) {
+      this.page = page;
     }
   }
 };

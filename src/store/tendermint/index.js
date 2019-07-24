@@ -30,9 +30,6 @@ export default {
         query: "tm.event = 'NewBlock'"
       }, event => {
         let block = event.block;
-        commit("blocks/addNewBlock", block, {
-          root: true
-        });
         commit("blocks/setLastBlock", block, {
           root: true
         });

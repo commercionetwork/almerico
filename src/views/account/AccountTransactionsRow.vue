@@ -2,7 +2,7 @@
   <tr class="text-center com-font-s13-w400">
     <td class="align-middle">
       <router-link
-        :to="toDetails(ROUTE_NAMES.TRANSACTIONS_DETAILS, transaction.txhash)"
+        :to="toDetails(ROUTE_NAMES.TRANSACTION_DETAILS, transaction.txhash)"
         v-text="transaction.txhash"
         class="d-inline-block text-truncate"
         style="max-width: 150px;"
@@ -10,7 +10,7 @@
     </td>
     <td class="align-middle">
       <router-link
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, transaction.height)"
         v-text="transaction.height"
       />
     </td>
@@ -35,6 +35,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "AccountTransactionsRow",
@@ -53,19 +54,23 @@ export default {
   },
   computed: {
     fee() {
-      let fee = 0;
-      if (this.transaction.tx.value.fee.amount) {
-        fee = this.transaction.tx.value.fee.amount / 1000000;
+      let fee = {
+        denom: "",
+        amount: 0
+      };
+      if (
+        Array.isArray(this.transaction.tx.value.fee.amount) &&
+        this.transaction.tx.value.fee.amount.length > 0
+      ) {
+        fee = coinConverter(this.transaction.tx.value.fee.amount[0]);
       }
-      if (Array.isArray(this.transaction.tx.value.fee.amount)) {
-        fee = this.transaction.tx.value.fee.amount[0].amount / 1000000;
-      }
-      let formatFee = this.$n(fee, {
+
+      let formatFee = this.$n(fee.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatFee} COMM`;
+      return `${formatFee} ${fee.denom}`;
     },
     result() {
       return this.transaction.logs.find(log => typeof log.success !== undefined)
@@ -74,13 +79,13 @@ export default {
         : "fail";
     },
     time() {
-      return new Date(this.transaction.timestamp).toLocaleString();
+      return new Date(this.transaction.timestamp).toLocaleDateString();
     },
     type() {
-      let t = this.transaction.tx.value.msg.find(
+      let type = this.transaction.tx.value.msg.find(
         msg => typeof msg.type !== undefined
       ).type;
-      return t.split("/").pop();
+      return type.split("/").pop();
     }
   },
   methods: {

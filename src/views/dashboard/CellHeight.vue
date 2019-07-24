@@ -2,7 +2,7 @@
   <HeaderCell :chart='false'>
     <div
       slot="header"
-      v-text="'Height'"
+      v-text="$t('labels.height')"
     />
     <div
       slot="body"
@@ -47,7 +47,7 @@ export default {
           time = `${seconds.toFixed(0)}s`;
       }
 
-      return time ? `Last ${time} ago` : "";
+      return time ? `${time} ${this.$t("messages.ago")}` : "";
     }
   }
 };

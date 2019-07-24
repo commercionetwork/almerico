@@ -1,43 +1,33 @@
 <template>
-  <div>
-    <div class="row p-1 d-flex align-items-center">
-      <div class="col-12 col-md-2 d-flex justify-content-md-center">
-        <span
-          class="p-1 com-pointer"
-          @click="addModQrCode"
-          data-toggle="modal"
-          :data-target="modalId"
-        >
-          <Icon
-            name="qrcode"
-            scale="2"
-            class="text-primary"
-          />
-        </span>
-      </div>
-      <div class="col-12 col-md-10 d-flex flex-column align-items-start">
-        <span
-          class="com-font-s14-w700"
-          v-text="$t('labels.address')"
+  <div class="row p-3 d-flex align-items-center">
+    <div class="col-12 col-md-1 d-flex justify-content-md-center">
+      <span
+        class="p-1 com-pointer"
+        @click="addModQrCode"
+        data-toggle="modal"
+        :data-target="modalId"
+      >
+        <Icon
+          name="qrcode"
+          scale="2"
+          class="text-primary"
         />
-        <span
-          class="text-break com-font-s14-w400"
-          v-text="address"
-        />
-      </div>
+      </span>
     </div>
-    <div class="container">
-      <AccountHeaderChart
-        :delegations="delegations"
-        :rewards="rewards"
-        :unbondings="unbondings"
+    <div class="col-12 col-md-11 d-flex flex-column align-items-start">
+      <span
+        class="com-font-s14-w700"
+        v-text="$t('labels.address')"
+      />
+      <span
+        class="text-break com-font-s14-w400"
+        v-text="address"
       />
     </div>
   </div>
 </template>
 
 <script>
-import AccountHeaderChart from "./AccountHeaderChart.vue";
 import ModalQrCode from "Components/modals/ModalQrCode.vue";
 
 import Icon from "vue-awesome/components/Icon.vue";
@@ -50,7 +40,6 @@ export default {
   name: "AccountHeader",
   description: "Display the account header data",
   components: {
-    AccountHeaderChart,
     Icon
   },
   props: {
@@ -58,21 +47,6 @@ export default {
       type: String,
       required: true,
       note: "The account address"
-    },
-    delegations: {
-      type: Array,
-      required: true,
-      note: "Delegations list"
-    },
-    rewards: {
-      type: Array,
-      required: true,
-      note: "Rewards list"
-    },
-    unbondings: {
-      type: Array,
-      required: true,
-      note: "Unbonding delegations list"
     }
   },
   computed: {

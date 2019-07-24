@@ -2,13 +2,13 @@
   <tr class="text-center com-font-s13-w400">
     <td class="align-middle">
       <router-link
-        :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"
+        :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, transaction.height)"
         v-text="transaction.height"
       />
     </td>
     <td class="align-middle">
       <router-link
-        :to="toDetails(ROUTE_NAMES.TRANSACTIONS_DETAILS, transaction.txhash)"
+        :to="toDetails(ROUTE_NAMES.TRANSACTION_DETAILS, transaction.txhash)"
         v-text="transaction.txhash"
         class="d-block text-truncate"
         style="max-width: 120px;"
@@ -48,7 +48,7 @@ export default {
       return this.transaction.logs[0].success ? "success" : "fail";
     },
     time() {
-      return new Date(this.transaction.timestamp).toLocaleString();
+      return new Date(this.transaction.timestamp).toLocaleDateString();
     }
   },
   methods: {

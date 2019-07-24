@@ -8,12 +8,12 @@ export const ROUTES = {
   // sections
   ACCOUNT_DETAILS: "/:lang/account/:id",
   BLOCKS: "/:lang/blocks",
-  BLOCKS_DETAILS: "/:lang/block/:id",
+  BLOCK_DETAILS: "/:lang/block/:id",
   DASHBOARD: "/:lang/dashboard",
   TRANSACTIONS: "/:lang/transactions",
-  TRANSACTIONS_DETAILS: "/:lang/transaction/:id",
+  TRANSACTION_DETAILS: "/:lang/transaction/:id",
   VALIDATORS: "/:lang/validators",
-  VALIDATORS_DETAILS: "/:lang/validator/:id",
+  VALIDATOR_DETAILS: "/:lang/validator/:id",
   VOTINGS: "/:lang/votings",
   VOTINGS_DETAILS: "/:lang/voting/:id"
 };
@@ -26,12 +26,12 @@ export const ROUTE_NAMES = {
   SERVER_UNREACHABLE: "serverUnreachable",
   ACCOUNT_DETAILS: "accountDetails",
   BLOCKS: "blocks",
-  BLOCKS_DETAILS: "blocksDetails",
+  BLOCK_DETAILS: "blockDetails",
   DASHBOARD: "dashboard",
   TRANSACTIONS: "transactions",
-  TRANSACTIONS_DETAILS: "transactionsDetails",
+  TRANSACTION_DETAILS: "transactionDetails",
   VALIDATORS: "validators",
-  VALIDATORS_DETAILS: "validatorsDetails",
+  VALIDATOR_DETAILS: "validatorDetails",
   VOTINGS: "votings",
   VOTINGS_DETAILS: "votingsDetails"
 };

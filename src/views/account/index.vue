@@ -1,33 +1,56 @@
 <template>
   <div class="container com-container">
-    <SectionHeader :title="$t('titles.accountDetails')" />
+    <div class="row">
+      <div class="col-12">
+        <SectionHeader :title="$t('titles.accountDetails')" />
+      </div>
+    </div>
     <div
       v-if="isFetching"
+      class="com-font-s14-w400"
       v-text="$t('messages.loading')"
+      data-test="loading"
+    />
+    <div
+      v-else-if="!isFetching && hasError"
+      class="text-center text-danger com-font-s14-w400"
+      v-text="$t('messages.fetchingError')"
+      data-test="has-error"
     />
     <div
       v-else
-      class="rounded bg-light"
+      class="row rounded bg-light"
+      data-test="items"
     >
-      <div>
-        <AccountHeader
-          :address="address"
-          :delegations="delegations"
-          :rewards="rewards"
-          :unbondings="unbondings"
-        />
-      </div>
-      <div class="bg-white">
+      <div class="col-12 p-0">
         <div class="row">
-          <div class="col-12 col-md-6 mt-3">
-            <AccountDelegations :delegations="delegations" />
-          </div>
-          <div class="col-12 col-md-6 mt-3">
-            <AccountUnbondings :delegations="unbondings" />
+          <div class="col-12">
+            <AccountHeader :address="address" />
           </div>
         </div>
-        <div class="mt-3">
-          <AccountTransactions :address="address" />
+        <div class="px-5 py-3 bg-white">
+          <div class="row py-3">
+            <div class="col-12">
+              <AccountValues
+                :delegations="delegations"
+                :rewards="rewards"
+                :unbondings="unbondings"
+              />
+            </div>
+          </div>
+          <div class="row py-3">
+            <div class="col-12 col-md-6">
+              <AccountDelegations :delegations="delegations" />
+            </div>
+            <div class="col-12 col-md-6">
+              <AccountUnbondings :delegations="unbondings" />
+            </div>
+          </div>
+          <div class="row py-3">
+            <div class="col-12">
+              <AccountTransactions :address="address" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -39,9 +62,11 @@ import AccountDelegations from "./AccountDelegations.vue";
 import AccountHeader from "./AccountHeader.vue";
 import AccountTransactions from "./AccountTransactions.vue";
 import AccountUnbondings from "./AccountUnbondings.vue";
+import AccountValues from "./AccountValues.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 
-import api from "Store/delegators/api";
+import api from "Store/account/api";
+import { arrayManager } from "Utils";
 import { mapActions } from "vuex";
 
 export default {
@@ -52,14 +77,16 @@ export default {
     AccountHeader,
     AccountTransactions,
     AccountUnbondings,
+    AccountValues,
     SectionHeader
   },
   data() {
     return {
       allDelegations: [],
-      rewards: [],
       allUnbondings: [],
-      isFetching: false
+      hasError: false,
+      isFetching: false,
+      rewards: []
     };
   },
   computed: {
@@ -67,7 +94,22 @@ export default {
       return this.$route.params.id;
     },
     delegations() {
-      let delegations = [...this.allDelegations];
+      const delegationsObj = arrayManager.groupBy(
+        this.allDelegations,
+        "validator_address"
+      );
+      const delegations = [];
+      Object.keys(delegationsObj).forEach(validator => {
+        const amounts = delegationsObj[validator];
+        let tot = 0;
+        amounts.forEach(item => {
+          tot += parseFloat(item.shares);
+        });
+        delegations.push({
+          validator_address: validator,
+          shares: tot
+        });
+      });
       return delegations.sort(function(a, b) {
         return b.shares - a.shares;
       });
@@ -105,7 +147,7 @@ export default {
         response = await api.requestDelegatorRewards(this.address);
         if (response.data) this.rewards = response.data;
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }

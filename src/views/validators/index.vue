@@ -20,37 +20,28 @@
         <div class="col-12">
           <div class="row py-1 d-flex justify-content-between">
             <div class="col-12 col-md-8 offset-md-4">
-              <SearchValidator />
+              <SearchValidator v-on:filter-validators="filterValidators" />
             </div>
           </div>
           <div
             v-if="isFetching"
+            class="com-font-s14-w400"
             v-text="$t('messages.loading')"
+            data-test="loading"
           />
           <div
-            v-else
+            v-else-if="!isFetching && filteredValidators.length > 0"
             class="table-responsive"
+            data-test="items"
           >
-            <table class="table table-striped">
-              <thead>
-                <tr class="text-center com-font-s13-w700">
-                  <th scope="col">Rank</th>
-                  <th scope="col">Validator</th>
-                  <th scope="col">Voting power</th>
-                  <th scope="col">% Cumulative share</th>
-                  <th scope="col">Commission</th>
-                </tr>
-              </thead>
-              <tbody>
-                <TableValidatorsRow
-                  v-for="(validator, index) in validators"
-                  :key="index"
-                  :validator="validator"
-                  :rank="index"
-                />
-              </tbody>
-            </table>
+            <TableValidators :validators="filteredValidators" />
           </div>
+          <div
+            v-else
+            class="text-center text-info com-font-s14-w700"
+            v-text="$t('messages.noItems')"
+            data-test="no-items"
+          />
         </div>
       </div>
     </div>
@@ -64,7 +55,7 @@ import CellTokens from "./CellTokens.vue";
 import CellValidators from "./CellValidators.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchValidator from "./SearchValidator.vue";
-import TableValidatorsRow from "./TableValidatorsRow.vue";
+import TableValidators from "./TableValidators.vue";
 
 import { mapGetters } from "vuex";
 
@@ -78,34 +69,60 @@ export default {
     CellValidators,
     SectionHeader,
     SearchValidator,
-    TableValidatorsRow
+    TableValidators
+  },
+  data() {
+    return {
+      filter: {
+        status: true,
+        moniker: ""
+      },
+      filteredValidators: []
+    };
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool",
-      isFetchingStake: "isFetching"
+      pool: "pool"
     }),
     ...mapGetters("validators", {
-      allValidators: "validators",
-      isFetchingValidators: "isFetching"
+      validators: "validators",
+      isFetching: "isFetching"
     }),
-    isFetching() {
-      return (this.isFetchingStake || this.isFetchingValidators) && this.allValidators.length === 0;
-    },
-    validators() {
+    bonded() {
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
+    }
+  },
+  watch: {
+    pool() {
+      this.filterValidators(this.filter);
+    }
+  },
+  methods: {
+    filterValidators(filter) {
+      const validators = [...this.validators];
+      const statusFilteredValidators = filter.status
+        ? validators.filter(validator => validator.status === 2)
+        : validators.filter(validator => validator.status !== 2);
       let cumulative = 0;
-      const bonded = new Number(this.pool.bonded_tokens);
-      const validators = [...this.allValidators];
-      return validators
+      const orderedValidators = statusFilteredValidators
         .sort(function(a, b) {
           return b.tokens - a.tokens;
         })
         .map(validator => {
-          cumulative += validator.tokens / bonded;
+          cumulative += validator.tokens / this.bonded;
           validator.cumulative = cumulative;
           return validator;
         });
+      this.filteredValidators = filter.moniker
+        ? orderedValidators.filter(
+            validator => validator.description.moniker === filter.moniker
+          )
+        : orderedValidators;
+      this.filter = filter;
     }
+  },
+  mounted() {
+    this.filterValidators(this.filter);
   }
 };
 </script>

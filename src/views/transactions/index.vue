@@ -2,34 +2,74 @@
   <div class="container com-container">
     <SectionHeader :title="$t('titles.transactions')" />
     <div class="py-3 px-5 rounded bg-white">
-      <div
-        v-if="isFetching"
-        v-text="$t('messages.loading')"
-      />
-      <div
-        v-else
-        class="table-responsive"
-      >
-        <table class="table">
-          <thead>
-            <tr class="text-center com-font-s13-w700">
-              <th scope="col">TxHash</th>
-              <th scope="col">Type</th>
-              <th scope="col">Result</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Fee</th>
-              <th scope="col">Height</th>
-              <th scope="col">Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            <TableTransactionsRow
-              v-for="transaction in transactions"
-              :key="transaction.txhash"
-              :transaction="transaction"
-            />
-          </tbody>
-        </table>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr class="text-center com-font-s13-w700">
+                  <th
+                    scope="col"
+                    v-text="$t('labels.hash')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.type')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.result')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.amount')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.fee')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.height')"
+                  />
+                  <th
+                    scope="col"
+                    v-text="$t('labels.date')"
+                  />
+                </tr>
+              </thead>
+              <tbody v-if="isFetching">
+                <span
+                  class="com-font-s14-w400"
+                  v-text="$t('messages.loading')"
+                  data-test="loading"
+                />
+              </tbody>
+              <tbody v-else-if="!isFetching && hasError">
+                <span
+                  class="text-danger com-font-s14-w400"
+                  v-text="message"
+                  data-test="has-error"
+                />
+              </tbody>
+              <tbody v-else-if="!isFetching && !hasError && transactions.length > 0">
+                <TableTransactionsRow
+                  v-for="(transaction, index) in transactionsList"
+                  :key="index"
+                  :transaction="transaction"
+                  data-test="items"
+                />
+              </tbody>
+              <tbody v-else>
+                <span
+                  class="text-center text-info com-font-s14-w700"
+                  v-text="$t('messages.noItems')"
+                  data-test="no-items"
+                />
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -53,15 +93,20 @@ export default {
   },
   data() {
     return {
+      hasError: false,
       isFetching: false
     };
   },
   computed: {
     ...mapGetters("transactions", {
-      allTransactions: "transactions"
+      transactions: "transactions",
+      message: "message"
     }),
-    transactions() {
-      let transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
+    transactionsList() {
+      let transactions = arrayManager.uniqueByKey(
+        this.transactions,
+        JSON.stringify
+      );
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
@@ -77,7 +122,7 @@ export default {
       try {
         const response = await api.requestLastBlock();
         const totalTxs = parseInt(response.data.block.header.total_txs);
-        const page = Math.floor(totalTxs / limit) + 1;
+        const page = Math.ceil(totalTxs / limit);
         types.forEach(type => {
           this.fetchTransactions({
             tag: `action=${type}`,
@@ -93,15 +138,14 @@ export default {
           }
         });
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
     }
   },
   created() {
-    if (this.allTransactions.length === 0)
-      this.getTransactions(Object.values(TX_TYPES));
+    this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>

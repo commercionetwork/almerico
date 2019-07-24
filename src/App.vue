@@ -7,7 +7,7 @@
 <script>
 import ApplicationLayout from "Components/layout/application/index.vue";
 import ErrorLayout from "Components/layout/error/index.vue";
-import { ROUTE_NAMES, ROUTES } from "Constants";
+import { ROUTE_NAMES, ROUTES, VALIDATOR_STATUS } from "Constants";
 import { localizedRoute } from "Utils";
 import { mapGetters, mapActions } from "vuex";
 
@@ -48,6 +48,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions("blocks", {
+      fetchLastBlock: "fetchLastBlock"
+    }),
     ...mapActions("tendermint", {
       subNewClient: "subNewClient"
     }),
@@ -56,11 +59,20 @@ export default {
     }),
     ...mapActions("validators", {
       getValidators: "getValidators"
-    }),
+    })
   },
-  mounted(){
+  mounted() {
+    this.fetchLastBlock();
+    if (!this.validators.length > 0) {
+      this.getValidators({
+        status: [
+          VALIDATOR_STATUS.BONDED,
+          VALIDATOR_STATUS.UNBONDED,
+          VALIDATOR_STATUS.UNBONDING
+        ]
+      });
+    }
     this.fetchPool();
-    if (this.validators.length === 0) this.getValidators({});
     this.subNewClient();
   }
 };

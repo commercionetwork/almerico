@@ -1,54 +1,63 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
-    <div class="row p-1">
-      <div class="col-12">
-        <h2
-          class="com-font-s16-w700"
-          v-text="$t('titles.information')"
-        />
-      </div>
-    </div>
-    <hr>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">TxHash</div>
+  <div class="p-3">
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.hash')"
+      />
       <div
         class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="transaction.txhash"
       />
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Status</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.status')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="result"
       >
       </div>
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.height')"
+      />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <router-link
-          :to="toDetails(ROUTE_NAMES.BLOCKS_DETAILS, transaction.height)"
+          :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, transaction.height)"
           v-text="transaction.height"
         />
       </div>
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Time</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.date')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="time"
       />
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Fee</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.fee')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="fee"
       />
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Gas (used/wanted)</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.gasUsedWanted')"
+      />
       <div class="col-12 col-md-9 com-font-s14-w400">
         {{ gasUsed }}{{ "/" }}{{ gasWanted}}
       </div>
@@ -68,6 +77,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "TransactionsDetailsInfo",
@@ -86,19 +96,23 @@ export default {
   },
   computed: {
     fee() {
-      let fee = 0;
-      if (this.transaction.tx.value.fee.amount) {
-        fee = this.transaction.tx.value.fee.amount / 1000000;
+      let fee = {
+        denom: "",
+        amount: 0
+      };
+      if (
+        Array.isArray(this.transaction.tx.value.fee.amount) &&
+        this.transaction.tx.value.fee.amount.length > 0
+      ) {
+        fee = coinConverter(this.transaction.tx.value.fee.amount[0]);
       }
-      if (Array.isArray(this.transaction.tx.value.fee.amount)) {
-        fee = this.transaction.tx.value.fee.amount[0].amount / 1000000;
-      }
-      let formatFee = this.$n(fee, {
+
+      let formatFee = this.$n(fee.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatFee} COMM`;
+      return `${formatFee} ${fee.denom}`;
     },
     gasWanted() {
       return this.$n(this.transaction.gas_wanted, {
@@ -116,7 +130,10 @@ export default {
       return this.transaction.tx.value.memo;
     },
     result() {
-      return this.transaction.logs[0].success ? "success" : "fail";
+      return this.transaction.logs.find(log => typeof log.success !== undefined)
+        .success
+        ? "success"
+        : "fail";
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleString();

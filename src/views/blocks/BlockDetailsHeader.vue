@@ -1,50 +1,67 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
-    <div class="row p-1">
-      <div class="col-12">
-        <h2 class="com-font-s16-w700">Header</h2>
-      </div>
-    </div>
-    <hr>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Height</div>
+  <div class="p-3">
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.height')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockHeight"
       />
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Block time</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.date')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockTime"
       />
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Block hash</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.hash')"
+      />
       <div
         class="col-12 col-md-9 text-break com-font-s14-w400"
         v-text="blockHash"
       />
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Number of transactions</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.txsNumber')"
+      />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="blockTransactions"
       />
     </div>
-    <div class="row p-1">
-      <div class="col-12 col-md-3 com-font-s14-w700">Proposer</div>
+    <div class="row py-1">
+      <div
+        class="col-12 col-md-3 com-font-s14-w700"
+        v-text="$t('labels.proposer')"
+      />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <div
           v-if="isFetching"
           v-text="$t('messages.loading')"
+          data-test="loading"
+        />
+        <div
+          v-else-if="!isFetching && hasError"
+          class="text-danger"
+          v-text="$t('messages.fetchingError')"
+          data-test="has-error"
         />
         <router-link
           v-else
-          :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, proposerAddress)"
+          :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, proposerAddress)"
           v-text="proposer"
+          data-test="item"
         />
       </div>
     </div>
@@ -70,6 +87,7 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
+      hasError: false,
       isFetching: false,
       proposer: "",
       proposerAddress: ""
@@ -113,7 +131,7 @@ export default {
           : "proposer name";
         this.proposerAddress = proposer ? proposer.operator_address : "";
       } catch (error) {
-        console.log("Get validator sets: ", error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }

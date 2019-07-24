@@ -2,7 +2,7 @@
   <HeaderCell :chart='true'>
     <div
       slot="header"
-      v-text="'Price'"
+      v-text="$t('labels.price')"
     />
     <div
       slot="body"

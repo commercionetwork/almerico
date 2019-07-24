@@ -1,18 +1,27 @@
 <template>
   <tr
     v-if="isFetching"
-    class="text-center com-font-s12-w400"
+    class="text-center com-font-s14-w400"
+    data-test="loading"
   >
     <td v-text="$t('messages.loading')" />
   </tr>
   <tr
+    v-else-if="!isFetching && hasError"
+    class="text-center text-danger com-font-s14-w400"
+    data-test="has-error"
+  >
+    <td v-text="$t('messages.fetchingError')" />
+  </tr>
+  <tr
     v-else
     class="text-center com-font-s12-w400"
+    data-test="item"
   >
     <td class="text-left">
       <router-link
-        :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, delegation.validator_address)"
-        v-text="name"
+        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, delegation.validator_address)"
+        v-text="moniker"
       />
     </td>
     <td
@@ -24,7 +33,8 @@
 
 <script>
 import api from "Store/validators/api";
-import { ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES, SETUP } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "AccountDelegationsRow",
@@ -39,30 +49,35 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
-      name: "",
-      isFetching: false
+      hasError: false,
+      isFetching: false,
+      moniker: ""
     };
   },
   computed: {
     amount() {
-      let amount = this.$n(this.delegation.shares / 1000000, {
+      let amount = coinConverter({
+        denom: SETUP.MICRO_COIN,
+        amount: this.delegation.shares
+      });
+      let formatAmount = this.$n(amount.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${amount} COMM`;
+      return `${formatAmount} ${amount.denom}`;
     }
   },
   methods: {
-    async getName() {
+    async getMoniker() {
       this.isFetching = true;
       try {
         const response = await api.requestValidator(
           this.delegation.validator_address
         );
-        if (response.data) this.name = response.data.description.moniker;
+        if (response.data) this.moniker = response.data.description.moniker;
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
@@ -78,7 +93,7 @@ export default {
     }
   },
   mounted() {
-    this.getName();
+    this.getMoniker();
   }
 };
 </script>

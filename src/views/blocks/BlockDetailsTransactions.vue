@@ -1,33 +1,55 @@
 <template>
-  <div class="my-3 p-1 rounded-lg bg-light">
-    <div class="row p-1">
+  <div>
+    <div class="row">
       <div class="col-12">
-        <h2 class="com-font-s16-w700">Transactions</h2>
+        <h2
+          v-text="$t('titles.transactions')"
+          class="com-font-s16-w700"
+        />
       </div>
     </div>
-    <div
-      v-if="transactions.length > 0"
-      class="table-responsive"
-    >
-      <table class="table">
-        <thead>
-          <tr class="text-center com-font-s13-w700">
-            <th scope="col">TxHash</th>
-            <th scope="col">Type</th>
-            <th scope="col">Result</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Fee</th>
-            <th scope="col">Time</th>
-          </tr>
-        </thead>
-        <tbody>
-          <BlockDetailsTransactionsRow
-            v-for="transaction in transactions"
-            :key="transaction.txhash"
-            :transaction="transaction"
-          />
-        </tbody>
-      </table>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr class="text-center com-font-s13-w700">
+                <th
+                  scope="col"
+                  v-text="$t('labels.hash')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.type')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.result')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.amount')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.fee')"
+                />
+                <th
+                  scope="col"
+                  v-text="$t('labels.date')"
+                />
+              </tr>
+            </thead>
+            <tbody>
+              <BlockDetailsTransactionsRow
+                v-for="(transaction, index) in transactions"
+                :key="index"
+                :transaction="transaction"
+              />
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </template>

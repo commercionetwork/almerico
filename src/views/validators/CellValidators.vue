@@ -9,7 +9,7 @@
       </span>
       <span
         class="pl-1"
-        v-text="'Validators'"
+        v-text="$t('labels.validators')"
       />
     </div>
     <div slot="body">
@@ -37,12 +37,14 @@ export default {
     ...mapGetters("validators", {
       validators: "validators"
     }),
-    unjailedValidators() {
-      const unjaileds = this.validators.filter(validator => !validator.jailed);
-      return unjaileds.length;
+    bondedValidators() {
+      const bonded = this.validators.filter(
+        validator => validator.status === 2
+      );
+      return bonded.length;
     },
     proportion() {
-      return `${this.unjailedValidators}/${this.validators.length}`;
+      return `${this.bondedValidators}/${this.validators.length}`;
     }
   }
 };

@@ -1,5 +1,7 @@
 <template>
   <TableCell
+    :hasError="hasError"
+    :hasItems="transactions.length > 0"
     :isFetching="isFetching"
     :link="linkToTransactions"
     :title="$t('titles.transactions')"
@@ -9,16 +11,28 @@
         <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
-              <th scope="col">Height</th>
-              <th scope="col">TxHash</th>
-              <th scope="col">Result</th>
-              <th scope="col">Time</th>
+              <th
+                scope="col"
+                v-text="$t('labels.height')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.hash')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.result')"
+              />
+              <th
+                scope="col"
+                v-text="$t('labels.date')"
+              />
             </tr>
           </thead>
           <tbody>
             <CellTransactionsRow
-              v-for="transaction in transactions"
-              :key="transaction.txhash"
+              v-for="(transaction, index) in transactionsList"
+              :key="index"
               :transaction="transaction"
             />
           </tbody>
@@ -46,18 +60,22 @@ export default {
   },
   data() {
     return {
+      hasError: false,
       isFetching: false
     };
   },
   computed: {
     ...mapGetters("transactions", {
-      allTransactions: "transactions"
+      transactions: "transactions"
     }),
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
-    transactions() {
-      let transactions = arrayManager.uniqueByKey(this.allTransactions, JSON.stringify);
+    transactionsList() {
+      let transactions = arrayManager.uniqueByKey(
+        this.transactions,
+        JSON.stringify
+      );
       return transactions
         .sort(function(a, b) {
           return b.height - a.height;
@@ -91,15 +109,14 @@ export default {
           }
         });
       } catch (error) {
-        console.log(error);
+        this.hasError = true;
       } finally {
         this.isFetching = false;
       }
     }
   },
   created() {
-    if (this.allTransactions.length === 0)
-      this.getTransactions(Object.values(TX_TYPES));
+    this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>

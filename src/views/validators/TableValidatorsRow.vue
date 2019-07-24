@@ -29,7 +29,8 @@
 </template>
 
 <script>
-import { ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES, SETUP } from "Constants";
+import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -58,32 +59,34 @@ export default {
         maximumFractionDigits: 2
       });
     },
-    cumulative(){
+    cumulative() {
       return this.$n(this.validator.cumulative, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
     },
-    bonded() { 
-      return this.pool ? new Number(this.pool.bonded_tokens) : 0;
+    bonded() {
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     validatorRank() {
       return this.rank + 1;
     },
     votingPower() {
-      return this.$n(this.validator.tokens / 1000000, {
+      let power = coinConverter({
+        denom: SETUP.MICRO_COIN,
+        amount: this.validator.tokens
+      });
+      let formatPower = this.$n(power.amount, {
         style: "decimal",
-        minimumFractionDigits: 0,
         maximumFractionDigits: 0
       });
+      return `${formatPower} ${power.denom}`;
     },
     powerPercent() {
       let percent =
-        this.validator.tokens && this.bonded
-          ? this.validator.tokens / this.bonded
-          : 0;
-      return percent > 0
+        this.bonded > 0 ? parseFloat(this.validator.tokens) / this.bonded : 0;
+      return percent >= 0
         ? this.$n(percent, {
             style: "percent",
             minimumFractionDigits: 2,
@@ -95,7 +98,7 @@ export default {
   methods: {
     toValidatorDetails(id) {
       return {
-        name: ROUTE_NAMES.VALIDATORS_DETAILS,
+        name: ROUTE_NAMES.VALIDATOR_DETAILS,
         params: {
           lang: this.$i18n.locale,
           id: id

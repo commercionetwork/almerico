@@ -11,14 +11,36 @@
         &nbsp;
       </div>
     </div>
-    <div class="py-3 px-5 rounded bg-white">
-      <div
-        v-if="isFetching"
-        v-text="$t('messages.loading')"
-      />
-      <div v-else>
-        <BlockDetailsHeader :block="block" />
-        <BlockDetailsTransactions :transactions="transactions" />
+    <div
+      v-if="isFetching"
+      class="com-font-s14-w400"
+      v-text="$t('messages.loading')"
+      data-test="loading"
+    />
+    <div
+      v-else-if="!isFetching && hasError"
+      class="text-danger com-font-s14-w400"
+      v-text="$t('messages.fetchingError')"
+      data-test="has-error"
+    />
+    <div
+      v-else
+      class="row rounded bg-light"
+      data-test="item"
+    >
+      <div class="col-12 p-0">
+        <div class="row">
+          <div class="col-12">
+            <BlockDetailsHeader :block="block" />
+          </div>
+        </div>
+        <div class="py-3 px-5 rounded bg-white">
+          <div class="row py-1">
+            <div class="col-12">
+              <BlockDetailsTransactions :transactions="transactions" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -33,7 +55,7 @@ import apiBlocks from "Store/blocks/api";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: "BlocksDetails",
+  name: "BlockDetails",
   description: "Display the block details",
   components: {
     BlockDetailsHeader,
@@ -41,9 +63,11 @@ export default {
   },
   data() {
     return {
+      block: {},
+      hasBlockError: false,
+      hasTransactionsError: false,
       isFetchingBlock: false,
       isFetchingTransactions: false,
-      block: null,
       transactions: []
     };
   },
@@ -51,6 +75,9 @@ export default {
     ...mapGetters("validators", {
       validators: "validators"
     }),
+    hasError() {
+      return this.hasBlockError || this.hasTransactionsError;
+    },
     isFetching() {
       return this.isFetchingBlock || this.isFetchingTransactions;
     },
@@ -70,7 +97,7 @@ export default {
         const response = await apiBlocks.requestBlock(height);
         this.block = response.data.block;
       } catch (error) {
-        this.block = {};
+        this.hasBlockError = true;
       } finally {
         this.isFetchingBlock = false;
       }
@@ -83,7 +110,7 @@ export default {
         );
         this.transactions = response.data;
       } catch (error) {
-        console.log(error);
+        this.hasTransactionsError = true;
       } finally {
         this.isFetchingTransactions = false;
       }
@@ -92,7 +119,6 @@ export default {
   created() {
     this.fetchBlock(this.$route.params.id);
     this.fetchTransactions(this.$route.params.id);
-    if (this.validators.length === 0) this.getValidators({});
   }
 };
 </script>

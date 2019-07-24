@@ -20,7 +20,7 @@
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(ROUTE_NAMES.VALIDATORS_DETAILS, validatorAddress)"
+            :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, validatorAddress)"
             v-text="validatorAddress"
           />
         </div>
@@ -43,6 +43,7 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 import { ROUTE_NAMES } from "Constants";
+import { coinConverter } from "Utils";
 
 export default {
   name: "MsgTxUnbonding",
@@ -64,16 +65,19 @@ export default {
   },
   computed: {
     amount() {
-      const amount = this.message.value.amount.amount
-        ? this.message.value.amount.amount
-        : "0";
-      const comm = parseFloat(amount) / 1000000;
-      const formatComm = this.$n(comm, {
+      let amount = {
+        denom: "",
+        amount: 0
+      };
+      if (this.message.value.amount instanceof Object) {
+        amount = coinConverter(this.message.value.amount);
+      }
+      let formatAmount = this.$n(amount.amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatComm} COMM`;
+      return `${formatAmount} ${amount.denom}`;
     },
     delegatorAddress() {
       return this.message.value.delegator_address
