@@ -1,14 +1,14 @@
 <template>
   <div class="container com-container">
     <div class="row py-3 d-flex align-items-center">
-      <div class="col-12 col-md-8 d-flex justify-content-start">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
         <h1
           class="text-uppercase com-font-s20-w800"
-          v-html="title"
+          v-text="title"
         />
       </div>
-      <div class="col-12 col-md-4 d-flex justify-content-start justify-content-md-end">
-        &nbsp;
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
       </div>
     </div>
     <div
@@ -49,6 +49,7 @@
 <script>
 import BlockDetailsHeader from "./BlockDetailsHeader.vue";
 import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
+import SearchBar from "Components/common/SearchBar.vue";
 
 import apiTransactions from "Store/transactions/api";
 import apiBlocks from "Store/blocks/api";
@@ -59,7 +60,8 @@ export default {
   description: "Display the block details",
   components: {
     BlockDetailsHeader,
-    BlockDetailsTransactions
+    BlockDetailsTransactions,
+    SearchBar
   },
   data() {
     return {
@@ -75,6 +77,9 @@ export default {
     ...mapGetters("validators", {
       validators: "validators"
     }),
+    blockId() {
+      return this.$route.params.id;
+    },
     hasError() {
       return this.hasBlockError || this.hasTransactionsError;
     },
@@ -85,6 +90,12 @@ export default {
       let label = this.$t("titles.detailsForBlock");
       let height = this.$route.params.id;
       return `${label} #${height}`;
+    }
+  },
+  watch: {
+    blockId(value) {
+      this.fetchBlock(value);
+      this.fetchTransactions(value);
     }
   },
   methods: {
@@ -117,8 +128,8 @@ export default {
     }
   },
   created() {
-    this.fetchBlock(this.$route.params.id);
-    this.fetchTransactions(this.$route.params.id);
+    this.fetchBlock(this.blockId);
+    this.fetchTransactions(this.blockId);
   }
 };
 </script>
