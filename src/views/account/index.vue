@@ -1,8 +1,14 @@
 <template>
   <div class="container com-container">
-    <div class="row">
-      <div class="col-12">
-        <SectionHeader :title="$t('titles.accountDetails')" />
+    <div class="row py-3 d-flex align-items-center">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
+        <h1
+          class="text-uppercase com-font-s20-w800"
+          v-html="$t('titles.accountDetails')"
+        />
+      </div>
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
       </div>
     </div>
     <div
@@ -63,7 +69,7 @@ import AccountHeader from "./AccountHeader.vue";
 import AccountTransactions from "./AccountTransactions.vue";
 import AccountUnbondings from "./AccountUnbondings.vue";
 import AccountValues from "./AccountValues.vue";
-import SectionHeader from "Components/common/SectionHeader.vue";
+import SearchBar from "Components/common/SearchBar.vue";
 
 import api from "Store/account/api";
 import { arrayManager } from "Utils";
@@ -78,7 +84,7 @@ export default {
     AccountTransactions,
     AccountUnbondings,
     AccountValues,
-    SectionHeader
+    SearchBar
   },
   data() {
     return {
