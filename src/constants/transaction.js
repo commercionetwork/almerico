@@ -1,12 +1,11 @@
 export const TX_TYPES = {
   // cosmos
+  BEGIN_REDELEGATE: "begin_redelegate",
+  BEGIN_UNBONDING: "begin_unbonding",
   CREATE_VALIDATOR: "create_validator",
   DELEGATE: "delegate",
   EDIT_VALIDATOR: "edit_validator",
-  REDELEGATE: "begin_redelegate",
-  REWARDS: "rewards",
   SEND: "send",
-  UNBONDING: "begin_unbonding",
   UNJAIL: "unjail",
   WITHDRAW_DELEGATOR_REWARD: "withdraw_delegator_reward",
   // commercio
