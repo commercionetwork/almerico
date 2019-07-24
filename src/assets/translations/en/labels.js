@@ -27,6 +27,7 @@ export const labels = {
   keyValue: "Key value",
   metadata: "Metadata",
   minSelfDelegation: "Min self delegation",
+  moniker: "Moniker",
   operatorAddress: "Operator address",
   others: "Others",
   outstandingRewards: "Outstanding rewards",
