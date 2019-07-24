@@ -104,6 +104,11 @@ export default {
       return this.$route.params.id;
     }
   },
+  watch:{
+    validatorAddress(value){
+      this.getValidatorData(value);
+    }
+  },
   methods: {
     async getValidatorData(address) {
       let response = null;
