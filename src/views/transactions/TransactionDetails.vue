@@ -1,8 +1,14 @@
 <template>
   <div class="container com-container">
-    <div class="row">
-      <div class="col-12">
-        <SectionHeader :title="$t('titles.transactionDetails')" />
+    <div class="row py-3 d-flex align-items-center">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
+        <h1
+          class="text-uppercase com-font-s20-w800"
+          v-html="$t('titles.transactionDetails')"
+        />
+      </div>
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
       </div>
     </div>
     <div
@@ -64,7 +70,7 @@ supportedTypes.forEach(component => {
 });
 
 import MsgDefault from "./msgs/MsgDefault.vue";
-import SectionHeader from "Components/common/SectionHeader.vue";
+import SearchBar from "Components/common/SearchBar.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
 import api from "Store/transactions/api";
@@ -75,7 +81,7 @@ export default {
   components: {
     ...components,
     MsgDefault,
-    SectionHeader,
+    SearchBar,
     TransactionsDetailsInfo
   },
   data() {
@@ -88,6 +94,16 @@ export default {
         components: supportedTypes
       }
     };
+  },
+  computed: {
+    txId() {
+      return this.$route.params.id;
+    }
+  },
+  watch: {
+    txId(value) {
+      this.getTransaction(value);
+    }
   },
   methods: {
     async getTransaction(hash) {
@@ -110,7 +126,7 @@ export default {
     }
   },
   created() {
-    this.getTransaction(this.$route.params.id);
+    this.getTransaction(this.txId);
   }
 };
 </script>
