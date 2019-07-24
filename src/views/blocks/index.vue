@@ -1,6 +1,17 @@
 <template>
   <div class="container com-container">
-    <SectionHeader :title="$t('titles.blocks')" />
+    <div class="row py-3 d-flex align-items-center">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
+        <h1
+          class="text-uppercase com-font-s20-w800"
+          v-html="$t('titles.blocks')"
+        />
+      </div>
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
+      </div>
+    </div>
+    <SectionHeader />
     <div class="py-3 px-5 rounded bg-white">
       <div class="row">
         <div class="col-12">
@@ -83,6 +94,7 @@
 <script>
 import Pagination from "Components/common/Pagination.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
+import SearchBar from "Components/common/SearchBar.vue";
 import TableBlocksRow from "./TableBlocksRow.vue";
 
 import { arrayManager } from "Utils";
@@ -94,6 +106,7 @@ export default {
   components: {
     Pagination,
     SectionHeader,
+    SearchBar,
     TableBlocksRow
   },
   data() {

@@ -1,6 +1,16 @@
 <template>
   <div class="container com-container">
-    <SectionHeader :title="$t('titles.validators')" />
+    <div class="row py-3 d-flex align-items-center">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
+        <h1
+          class="text-uppercase com-font-s20-w800"
+          v-html="$t('titles.validators')"
+        />
+      </div>
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
+      </div>
+    </div>
     <div class="container rounded bg-light">
       <div class="row py-3 px-5">
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
@@ -53,7 +63,7 @@ import CellHeight from "./CellHeight.vue";
 import CellTime from "./CellTime.vue";
 import CellTokens from "./CellTokens.vue";
 import CellValidators from "./CellValidators.vue";
-import SectionHeader from "Components/common/SectionHeader.vue";
+import SearchBar from "Components/common/SearchBar.vue";
 import SearchValidator from "./SearchValidator.vue";
 import TableValidators from "./TableValidators.vue";
 
@@ -67,7 +77,7 @@ export default {
     CellTime,
     CellTokens,
     CellValidators,
-    SectionHeader,
+    SearchBar,
     SearchValidator,
     TableValidators
   },
