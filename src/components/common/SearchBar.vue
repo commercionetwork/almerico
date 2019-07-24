@@ -38,7 +38,7 @@ import { PREFIX, ROUTE_NAMES } from "Constants";
 
 export default {
   name: "SearchBar",
-  description: "Display the dashboard search bar",
+  description: "Display the bar to search by address, block, height and hash",
   components: {
     Icon
   },

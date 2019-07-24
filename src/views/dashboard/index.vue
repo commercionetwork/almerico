@@ -43,7 +43,7 @@ import CellBonded from "./CellBonded.vue";
 import CellHeight from "./CellHeight.vue";
 import CellPrice from "./CellPrice.vue";
 import CellTransactions from "./CellTransactions.vue";
-import SearchBar from "./SearchBar.vue";
+import SearchBar from "Components/common/SearchBar.vue";
 
 export default {
   name: "Dashboard",
