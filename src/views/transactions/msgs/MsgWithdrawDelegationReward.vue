@@ -25,16 +25,6 @@
           />
         </div>
       </div>
-      <div class="row p-1">
-        <div
-          class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.amount')"
-        />
-        <div
-          class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="amount"
-        />
-      </div>
     </div>
   </MsgTx>
 </template>
@@ -43,11 +33,10 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
 
 export default {
-  name: "MsgTxDelegate",
-  description: "Display a delegate transaction message",
+  name: "MsgWithdrawDelegationReward",
+  description: "Display a withdraw delegation reward transaction message",
   components: {
     MsgTx
   },
@@ -55,7 +44,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a delegate message"
+      note: "Object representing a withdraw delegation reward message"
     }
   },
   data() {
@@ -64,21 +53,6 @@ export default {
     };
   },
   computed: {
-    amount() {
-      let amount = {
-        denom: "",
-        amount: 0
-      };
-      if (this.message.value.amount instanceof Object) {
-        amount = coinConverter(this.message.value.amount);
-      }
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return `${formatAmount} ${amount.denom}`;
-    },
     delegatorAddress() {
       return this.message.value.delegator_address
         ? this.message.value.delegator_address

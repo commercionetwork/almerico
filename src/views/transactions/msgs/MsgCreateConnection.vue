@@ -4,16 +4,6 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.address')"
-        />
-        <div
-          class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="address"
-        />
-      </div>
-      <div class="row p-1">
-        <div
-          class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.signer')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
@@ -26,21 +16,21 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.keyType')"
+          v-text="$t('labels.firstUser')"
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="keyType"
+          v-text="firstUser"
         />
       </div>
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.keyValue')"
+          v-text="$t('labels.secondUser')"
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="keyValue"
+          v-text="secondUser"
         />
       </div>
     </div>
@@ -53,8 +43,8 @@ import MsgTx from "Components/common/MsgTx.vue";
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTxCreateAccount",
-  description: "Display a create account transaction message",
+  name: "MsgCreateConnection",
+  description: "Display a create connection transaction message",
   components: {
     MsgTx
   },
@@ -62,18 +52,19 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a create account message"
+      note: "Object representing a create connection message"
     }
   },
   computed: {
-    address() {
-      return this.message.value.address ? this.message.value.address : "-";
+    firstUser() {
+      return this.message.value.first_user
+        ? this.message.value.first_user
+        : "-";
     },
-    keyType() {
-      return this.message.value.key_type ? this.message.value.key_type : "-";
-    },
-    keyValue() {
-      return this.message.value.key_value ? this.message.value.key_value : "-";
+    secondUser() {
+      return this.message.value.second_user
+        ? this.message.value.second_user
+        : "-";
     },
     signer() {
       return this.message.value.signer ? this.message.value.signer : "-";

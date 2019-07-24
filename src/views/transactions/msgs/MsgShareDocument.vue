@@ -57,7 +57,7 @@ import MsgTx from "Components/common/MsgTx.vue";
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTxShareDocument",
+  name: "MsgShareDocument",
   description: "Display a share document transaction message",
   components: {
     MsgTx

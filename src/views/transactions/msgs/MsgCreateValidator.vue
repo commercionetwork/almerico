@@ -86,7 +86,7 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "MsgTxCreateValidator",
+  name: "MsgCreateValidator",
   description: "Display a create validator transaction message",
   components: {
     MsgTx

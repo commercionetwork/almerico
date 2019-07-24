@@ -91,7 +91,7 @@ import MsgTx from "Components/common/MsgTx.vue";
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTxEditValidator",
+  name: "MsgEditValidator",
   description: "Display an edit validator transaction message",
   components: {
     MsgTx

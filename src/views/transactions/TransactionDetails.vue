@@ -63,7 +63,7 @@ supportedTypes.forEach(component => {
   components[component.name] = () => import(`./msgs/${component.name}.vue`);
 });
 
-import MsgTxDefault from "./msgs/MsgTxDefault.vue";
+import MsgDefault from "./msgs/MsgDefault.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
@@ -74,7 +74,7 @@ export default {
   description: "Display the transaction details",
   components: {
     ...components,
-    MsgTxDefault,
+    MsgDefault,
     SectionHeader,
     TransactionsDetailsInfo
   },
@@ -106,7 +106,7 @@ export default {
       let component = this.data.components.find(
         component => component.type === message.type
       );
-      return component ? component : MsgTxDefault;
+      return component ? component : MsgDefault;
     }
   },
   created() {

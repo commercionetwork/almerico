@@ -23,7 +23,7 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 export default {
-  name: "MsgTxDefault",
+  name: "MsgDefault",
   description: "Display a not handled transaction message",
   components: {
     MsgTx

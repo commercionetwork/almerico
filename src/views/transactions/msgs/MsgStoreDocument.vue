@@ -53,7 +53,7 @@ import MsgTx from "Components/common/MsgTx.vue";
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTxStoreDocument",
+  name: "MsgStoreDocument",
   description: "Display a store document transaction message",
   components: {
     MsgTx

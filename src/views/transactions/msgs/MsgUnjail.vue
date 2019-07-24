@@ -23,7 +23,7 @@ import MsgTx from "Components/common/MsgTx.vue";
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTxUnjail",
+  name: "MsgUnjail",
   description: "Display an unjail transaction message",
   components: {
     MsgTx

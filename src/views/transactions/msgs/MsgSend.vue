@@ -50,7 +50,7 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "MsgTxSend",
+  name: "MsgSend",
   description: "Display a send transaction message",
   components: {
     MsgTx

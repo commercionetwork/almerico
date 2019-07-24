@@ -43,7 +43,7 @@ import MsgTx from "Components/common/MsgTx.vue";
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "MsgTxSetIdentity",
+  name: "MsgSetIdentity",
   description: "Display a set identity transaction message",
   components: {
     MsgTx

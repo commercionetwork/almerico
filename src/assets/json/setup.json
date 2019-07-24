@@ -76,56 +76,55 @@
       "gas"
     ],
     "supported_types": [{
+        "type": "cosmos-sdk/MsgBeginRedelegate",
+        "name": "MsgBeginRedelegate"
+      }, {
         "type": "cosmos-sdk/MsgCreateValidator",
-        "name": "MsgTxCreateValidator"
+        "name": "MsgCreateValidator"
       },
       {
         "type": "cosmos-sdk/MsgDelegate",
-        "name": "MsgTxDelegate"
+        "name": "MsgDelegate"
       },
       {
         "type": "cosmos-sdk/MsgEditValidator",
-        "name": "MsgTxEditValidator"
-      },
-      {
-        "type": "cosmos-sdk/MsgBeginRedelegate",
-        "name": "MsgTxRedelegate"
+        "name": "MsgEditValidator"
       },
       {
         "type": "cosmos-sdk/MsgSend",
-        "name": "MsgTxSend"
+        "name": "MsgSend"
       },
       {
         "type": "cosmos-sdk/MsgUndelegate",
-        "name": "MsgTxUnbonding"
+        "name": "MsgUndelegate"
       },
       {
         "type": "cosmos-sdk/MsgUnjail",
-        "name": "MsgTxUnjail"
+        "name": "MsgUnjail"
       },
       {
         "type": "cosmos-sdk/MsgWithdrawDelegationReward",
-        "name": "MsgTxWithdrawDelegatorReward"
+        "name": "MsgWithdrawDelegationReward"
       },
       {
         "type": "commercioauth/CreateAccount",
-        "name": "MsgTxCreateAccount"
+        "name": "MsgCreateAccount"
       },
       {
         "type": "commectioid/CreateConnection",
-        "name": "MsgTxCreateConnection"
+        "name": "MsgCreateConnection"
       },
       {
         "type": "commercioid/SetIdentity",
-        "name": "MsgTxSetIdentity"
+        "name": "MsgSetIdentity"
       },
       {
         "type": "commerciodocs/ShareDocument",
-        "name": "MsgTxShareDocument"
+        "name": "MsgShareDocument"
       },
       {
         "type": "commerciodocs/StoreDocument",
-        "name": "MsgTxStoreDocument"
+        "name": "MsgStoreDocument"
       }
     ]
   }

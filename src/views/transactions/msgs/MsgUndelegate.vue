@@ -16,24 +16,12 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.validatorSrcAddress')"
+          v-text="$t('labels.validatorAddress')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, validatorSrcAddress)"
-            v-text="validatorSrcAddress"
-          />
-        </div>
-      </div>
-      <div class="row p-1">
-        <div
-          class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.validatorDstAddress')"
-        />
-        <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <router-link
-            :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, validatorDstAddress)"
-            v-text="validatorDstAddress"
+            :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, validatorAddress)"
+            v-text="validatorAddress"
           />
         </div>
       </div>
@@ -58,8 +46,8 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "MsgTxRedelegate",
-  description: "Display a redelegate transaction message",
+  name: "MsgUndelegate",
+  description: "Display an unbonding transaction message",
   components: {
     MsgTx
   },
@@ -67,7 +55,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a redelegate message"
+      note: "Object representing an unbonding message"
     }
   },
   data() {
@@ -96,14 +84,9 @@ export default {
         ? this.message.value.delegator_address
         : "-";
     },
-    validatorDstAddress() {
-      return this.message.value.validator_dst_address
-        ? this.message.value.validator_dst_address
-        : "-";
-    },
-    validatorSrcAddress() {
-      return this.message.value.validator_src_address
-        ? this.message.value.validator_src_address
+    validatorAddress() {
+      return this.message.value.validator_address
+        ? this.message.value.validator_address
         : "-";
     },
     title() {
