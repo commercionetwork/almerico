@@ -1,0 +1,132 @@
+{
+  "generic": {
+    "logo": "https://commercio.network/wp-content/uploads/2018/04/logo_commercio_300-150x150.png",
+    "theme": "light",
+    "colors": {
+      "icons": "#38BA8C",
+      "links": "#49C1B2",
+      "texts": "#000000"
+    }
+  },
+  "dashboard": {
+    "graphs": {
+      "price": true,
+      "block_height": false,
+      "bounded_tokens": false
+    },
+    "live_data": {
+      "blocks": true,
+      "transactions": true
+    }
+  },
+  "validators": {
+    "live_data": {
+      "block_height": true,
+      "count": false,
+      "bounded_tokens": false,
+      "time_since_last_block": true
+    },
+    "table": {
+      "columns": [
+        "ordering",
+        "name",
+        "voting_power",
+        "share_percentage",
+        "commission",
+        "up_time"
+      ]
+    }
+  },
+  "blocks": {
+    "table": {
+      "columns": [
+        "height",
+        "hash",
+        "validator",
+        "txs_count",
+        "data"
+      ]
+    },
+    "details": [
+      "height",
+      "date",
+      "hash",
+      "txs_number",
+      "txs_list",
+      "proposing_node"
+    ]
+  },
+  "transactions": {
+    "table": {
+      "columns": [
+        "hash",
+        "type",
+        "result",
+        "fee",
+        "block_height",
+        "date"
+      ]
+    },
+    "details": [
+      "hash",
+      "status",
+      "block_height",
+      "date",
+      "fee",
+      "gas"
+    ],
+    "supported_types": [{
+        "type": "cosmos-sdk/MsgCreateValidator",
+        "name": "MsgTxCreateValidator"
+      },
+      {
+        "type": "cosmos-sdk/MsgDelegate",
+        "name": "MsgTxDelegate"
+      },
+      {
+        "type": "cosmos-sdk/MsgEditValidator",
+        "name": "MsgTxEditValidator"
+      },
+      {
+        "type": "cosmos-sdk/MsgRedelegate",
+        "name": "MsgTxRedelegate"
+      },
+      {
+        "type": "cosmos-sdk/MsgSend",
+        "name": "MsgTxSend"
+      },
+      {
+        "type": "cosmos-sdk/MsgUnbonding",
+        "name": "MsgTxUnbonding"
+      },
+      {
+        "type": "cosmos-sdk/MsgUnjail",
+        "name": "MsgTxUnjail"
+      },
+      {
+        "type": "cosmos-sdk/MsgWithdrawDelegatorReward",
+        "name": "MsgTxWithdrawDelegatorReward"
+      },
+      {
+        "type": "commercioauth/CreateAccount",
+        "name": "MsgTxCreateAccount"
+      },
+      {
+        "type": "commectioid/CreateConnection",
+        "name": "MsgTxCreateConnection"
+      },
+      {
+        "type": "commercioid/SetIdentity",
+        "name": "MsgTxSetIdentity"
+      },
+      {
+        "type": "commerciodocs/ShareDocument",
+        "name": "MsgTxShareDocument"
+      },
+      {
+        "type": "commerciodocs/StoreDocument",
+        "name": "MsgTxStoreDocument"
+      }
+    ]
+  }
+}

@@ -44,7 +44,7 @@
           >
             <div class="col-12">
               <component
-                v-bind:is="msgComponent"
+                v-bind:is="getComponent(message).name"
                 :message="message"
               />
             </div>
@@ -56,108 +56,38 @@
 </template>
 
 <script>
-import MsgTxCreateAccount from "./msgs/MsgTxCreateAccount.vue";
-import MsgTxCreateConnection from "./msgs/MsgTxCreateConnection.vue";
-import MsgTxCreateValidator from "./msgs/MsgTxCreateValidator.vue";
+import Data from "Assets/json/setup.json";
+let supportedTypes = Data.transactions.supported_types;
+let components = {};
+supportedTypes.forEach(component => {
+  components[component.name] = () => import(`./msgs/${component.name}.vue`);
+});
+
 import MsgTxDefault from "./msgs/MsgTxDefault.vue";
-import MsgTxDelegate from "./msgs/MsgTxDelegate.vue";
-import MsgTxEditValidator from "./msgs/MsgTxEditValidator.vue";
-import MsgTxRedelegate from "./msgs/MsgTxRedelegate.vue";
-import MsgTxSend from "./msgs/MsgTxSend.vue";
-import MsgTxSetIdentity from "./msgs/MsgTxSetIdentity.vue";
-import MsgTxShareDocument from "./msgs/MsgTxShareDocument.vue";
-import MsgTxStoreDocument from "./msgs/MsgTxStoreDocument.vue";
-import MsgTxUnbonding from "./msgs/MsgTxUnbonding.vue";
-import MsgTxUnjail from "./msgs/MsgTxUnjail.vue";
-import MsgTxWithdrawDelegatorReward from "./msgs/MsgTxWithdrawDelegatorReward.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
 import api from "Store/transactions/api";
-import { TX_TYPES } from "Constants";
 
 export default {
   name: "TransactionDetails",
   description: "Display the transaction details",
   components: {
-    MsgTxCreateAccount,
-    MsgTxCreateConnection,
-    MsgTxCreateValidator,
-    MsgTxDelegate,
-    MsgTxEditValidator,
+    ...components,
     MsgTxDefault,
-    MsgTxRedelegate,
-    MsgTxSend,
-    MsgTxSetIdentity,
-    MsgTxShareDocument,
-    MsgTxStoreDocument,
-    MsgTxUnbonding,
-    MsgTxUnjail,
-    MsgTxWithdrawDelegatorReward,
     SectionHeader,
     TransactionsDetailsInfo
   },
   data() {
     return {
-      TX_TYPES,
       hasError: false,
       isFetching: false,
       messages: [],
-      transaction: {}
-    };
-  },
-  computed: {
-    msgComponent() {
-      let component = null;
-      switch (this.type) {
-        case TX_TYPES.CREATE_ACCOUNT:
-          component = MsgTxCreateAccount;
-          break;
-        case TX_TYPES.CREATE_CONNECTION:
-          component = MsgTxCreateConnection;
-          break;
-        case TX_TYPES.CREATE_VALIDATOR:
-          component = MsgTxCreateValidator;
-          break;
-        case TX_TYPES.DELEGATE:
-          component = MsgTxDelegate;
-          break;
-        case TX_TYPES.EDIT_VALIDATOR:
-          component = MsgTxEditValidator;
-          break;
-        case TX_TYPES.REDELEGATE:
-          component = MsgTxRedelegate;
-          break;
-        case TX_TYPES.SEND:
-          component = MsgTxSend;
-          break;
-        case TX_TYPES.SET_IDENTITY:
-          component = MsgTxSetIdentity;
-          break;
-        case TX_TYPES.SHARE_DOCUMENT:
-          component = MsgTxShareDocument;
-          break;
-        case TX_TYPES.STORE_DOCUMENT:
-          component = MsgTxStoreDocument;
-          break;
-        case TX_TYPES.UNBONDING:
-          component = MsgTxUnbonding;
-          break;
-        case TX_TYPES.UNJAIL:
-          component = MsgTxUnjail;
-          break;
-        case TX_TYPES.WITHDRAW_DELEGATOR_REWARD:
-          component = MsgTxWithdrawDelegatorReward;
-          break;
-        default:
-          component = MsgTxDefault;
-          break;
+      transaction: {},
+      data: {
+        components: supportedTypes
       }
-      return component;
-    },
-    type() {
-      return this.transaction.tags.find(tag => tag.key === "action").value;
-    }
+    };
   },
   methods: {
     async getTransaction(hash) {
@@ -171,6 +101,12 @@ export default {
       } finally {
         this.isFetching = false;
       }
+    },
+    getComponent(message) {
+      let component = this.data.components.find(
+        component => component.type === message.type
+      );
+      return component ? component : MsgTxDefault;
     }
   },
   created() {
