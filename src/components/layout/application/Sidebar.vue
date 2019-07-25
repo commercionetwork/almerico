@@ -26,6 +26,7 @@
     </div>
     <!-- validators -->
     <div
+      v-if="Config.validators.enabled"
       class="m-4"
       @click="closeSidebar"
     >
@@ -45,6 +46,7 @@
     </div>
     <!-- blocks -->
     <div
+      v-if="Config.blocks.enabled"
       class="m-4"
       @click="closeSidebar"
     >
@@ -64,6 +66,7 @@
     </div>
     <!-- transactions -->
     <div
+      v-if="Config.transactions.enabled"
       class="m-4"
       @click="closeSidebar"
     >
@@ -81,16 +84,38 @@
         </div>
       </router-link>
     </div>
+    <!-- votings -->
+    <div
+      v-if="Config.votings.enabled"
+      class="m-4"
+      @click="closeSidebar"
+    >
+      <router-link :to="toSection(ROUTE_NAMES.VOTINGS)">
+        <div class="row d-flex flex-row align-items-center">
+          <Icon
+            name="poll-h"
+            scale="1.5"
+            class="pr-2 text-primary"
+          />
+          <span
+            class="flex-grow-1 text-secondary com-font-s14-w700"
+            v-html="$t('titles.votings')"
+          />
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
+import Config from "Assets/json/config.json"
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/angle-down";
 import "vue-awesome/icons/exchange-alt";
+import "vue-awesome/icons/poll-h";
 import "vue-awesome/icons/shapes";
 import "vue-awesome/icons/th-large";
 import "vue-awesome/icons/users-cog";
@@ -114,6 +139,7 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
+      Config,
       open: false
     };
   },

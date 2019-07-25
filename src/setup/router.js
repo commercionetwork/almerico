@@ -5,7 +5,7 @@ import {
   ROUTE_NAMES,
   ROUTE_TITLES,
 } from "Constants";
-import Setup from "Assets/json/config.json";
+import Config from "Assets/json/config.json";
 
 Vue.use(Router)
 
@@ -43,7 +43,7 @@ export default new Router({
       name: ROUTE_NAMES.ACCOUNT_DETAILS,
       component: AccountDetails,
       meta: {
-        egnition: Setup.account_details.enabled,
+        egnition: Config.account_details.enabled,
         title: ROUTE_TITLES.ACCOUNT_DETAILS
       }
     },
@@ -52,7 +52,7 @@ export default new Router({
       name: ROUTE_NAMES.BLOCKS,
       component: Blocks,
       meta: {
-        egnition: Setup.blocks.enabled,
+        egnition: Config.blocks.enabled,
         title: ROUTE_TITLES.BLOCKS
       }
     },
@@ -61,7 +61,7 @@ export default new Router({
       name: ROUTE_NAMES.BLOCK_DETAILS,
       component: BlockDetails,
       meta: {
-        egnition: Setup.block_details.enabled,
+        egnition: Config.block_details.enabled,
         title: ROUTE_TITLES.BLOCK_DETAILS
       }
     },
@@ -79,7 +79,7 @@ export default new Router({
       name: ROUTE_NAMES.TRANSACTIONS,
       component: Transactions,
       meta: {
-        egnition: Setup.transactions.enabled,
+        egnition: Config.transactions.enabled,
         title: ROUTE_TITLES.TRANSACTIONS
       }
     },
@@ -88,7 +88,7 @@ export default new Router({
       name: ROUTE_NAMES.TRANSACTION_DETAILS,
       component: TransactionDetails,
       meta: {
-        egnition: Setup.transaction_details.enabled,
+        egnition: Config.transaction_details.enabled,
         title: ROUTE_TITLES.TRANSACTION_DETAILS
       }
     },
@@ -97,7 +97,7 @@ export default new Router({
       name: ROUTE_NAMES.VALIDATORS,
       component: Validators,
       meta: {
-        egnition: Setup.validators.enabled,
+        egnition: Config.validators.enabled,
         title: ROUTE_TITLES.VALIDATORS
       }
     },
@@ -106,7 +106,7 @@ export default new Router({
       name: ROUTE_NAMES.VALIDATOR_DETAILS,
       component: ValidatorDetails,
       meta: {
-        egnition: Setup.validator_details.enabled,
+        egnition: Config.validator_details.enabled,
         title: ROUTE_TITLES.VALIDATOR_DETAILS
       }
     },
@@ -115,7 +115,7 @@ export default new Router({
       name: ROUTE_NAMES.VOTINGS,
       component: Votings,
       meta: {
-        egnition: Setup.votings.enabled,
+        egnition: Config.votings.enabled,
         title: ROUTE_TITLES.VOTINGS
       }
     },
@@ -124,7 +124,7 @@ export default new Router({
       name: ROUTE_NAMES.VOTING_DETAILS,
       component: VotingsDetails,
       meta: {
-        egnition: Setup.voting_details.enabled,
+        egnition: Config.voting_details.enabled,
         title: ROUTE_TITLES.VOTING_DETAILS
       }
     },

@@ -68,8 +68,8 @@ import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
 import api from "Store/transactions/api";
 
-import Setup from "Assets/json/config.json";
-let supportedTypes = Setup.transactions.supported_types;
+import Config from "Assets/json/config.json";
+let supportedTypes = Config.transactions.supported_types;
 let components = {};
 supportedTypes.forEach(component => {
   components[component.name] = () => import(`./msgs/${component.name}.vue`);
@@ -86,7 +86,7 @@ export default {
   },
   data() {
     return {
-      setup: {
+      config: {
         components: supportedTypes
       },
       hasError: false,
@@ -119,7 +119,7 @@ export default {
       }
     },
     getComponentName(message) {
-      let component = this.setup.components.find(
+      let component = this.config.components.find(
         component => component.type === message.type
       );
       return component ? component.name : MsgDefault.name;

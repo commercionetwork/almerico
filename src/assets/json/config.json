@@ -20,8 +20,8 @@
   "dashboard": {
     "graphs": {
       "price": true,
-      "block_height": false,
-      "bounded_tokens": false
+      "block_height": true,
+      "bounded_tokens": true
     },
     "live_data": {
       "blocks": true,
@@ -134,8 +134,8 @@
     "enabled": true,
     "live_data": {
       "block_height": true,
-      "count": false,
-      "bounded_tokens": false,
+      "count": true,
+      "bounded_tokens": true,
       "time_since_last_block": true
     },
     "table": {
