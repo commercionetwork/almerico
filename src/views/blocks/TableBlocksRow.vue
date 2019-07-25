@@ -1,6 +1,10 @@
 <template>
   <tr class="text-center com-font-s13-w400">
-    <td class="align-middle">
+    <td
+      v-if="Config.blocks.table.columns.height"
+      class="align-middle"
+      data-test="table-column-height"
+    >
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
@@ -13,7 +17,11 @@
         data-test="item-height"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="Config.blocks.table.columns.hash"
+      class="align-middle"
+      data-test="table-column-hash"
+    >
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
@@ -28,7 +36,11 @@
         data-test="item-hash"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="Config.blocks.table.columns.proposer"
+      class="align-middle"
+      data-test="table-column-proposer"
+    >
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
@@ -47,7 +59,11 @@
         data-test="item-proposer"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="Config.blocks.table.columns.txs"
+      class="align-middle"
+      data-test="table-column-txs"
+    >
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
@@ -59,7 +75,11 @@
         data-test="item-txs"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="Config.blocks.table.columns.date"
+      class="align-middle"
+      data-test="table-column-date"
+    >
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
@@ -75,6 +95,8 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import api from "Store/validators/api";
 import { PREFIX, ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
@@ -97,6 +119,7 @@ export default {
   },
   data() {
     return {
+      Config,
       ROUTE_NAMES,
       hasError: false,
       isFetching: false,

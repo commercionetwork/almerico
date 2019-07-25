@@ -34,22 +34,22 @@
   "blocks": {
     "enabled": true,
     "table": {
-      "columns": [
-        "height",
-        "hash",
-        "validator",
-        "txs_count",
-        "data"
-      ]
+      "columns": {
+        "height": true,
+        "hash": true,
+        "proposer": true,
+        "txs": true,
+        "date": true
+      }
     },
-    "details": [
-      "height",
-      "date",
-      "hash",
-      "txs_number",
-      "txs_list",
-      "proposing_node"
-    ]
+    "details": {
+      "height": true,
+      "date": true,
+      "hash": true,
+      "txs_number": true,
+      "txs_list": true,
+      "proposing_node": true
+    }
   },
   "block_details": {
     "enabled": true

@@ -106,4 +106,74 @@ describe("views/blocks/index.vue", () => {
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="no-items"]').text()).toEqual('messages.noItems');
   });
+
+  it("Check if table columns are displayed", () => {
+    const wrapper = shallowMount(Blocks, {
+      computed: {
+        blocks: () => [],
+        isFetching: () => false,
+        lastBlock: () => ({}),
+        message: () => ""
+      },
+      localVue,
+      methods,
+      mocks,
+    });
+    wrapper.setData({
+      Config: {
+        blocks: {
+          table: {
+            columns: {
+              height: true,
+              hash: true,
+              proposer: true,
+              txs: true,
+              date: true
+            }
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="table-column-height"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="table-column-hash"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="table-column-proposer"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="table-column-txs"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="table-column-date"]').exists()).toBe(true);
+  });
+
+  it("Check if table columns are not displayed", () => {
+    const wrapper = shallowMount(Blocks, {
+      computed: {
+        blocks: () => [],
+        isFetching: () => false,
+        lastBlock: () => ({}),
+        message: () => ""
+      },
+      localVue,
+      methods,
+      mocks,
+    });
+    wrapper.setData({
+      Config: {
+        blocks: {
+          table: {
+            columns: {
+              height: false,
+              hash: false,
+              proposer: false,
+              txs: false,
+              date: false
+            }
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="table-column-height"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="table-column-hash"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="table-column-proposer"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="table-column-txs"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="table-column-date"]').exists()).toBe(false);
+  });
 });
