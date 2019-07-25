@@ -10,9 +10,11 @@
     }],
     "theme": "light",
     "colors": {
-      "icons": "#38BA8C",
-      "links": "#49C1B2",
-      "texts": "#000000"
+      "primary": "#38ba8c",
+      "success": "#33cc99",
+      "info": "#3399ff",
+      "warning": "#ffcc00",
+      "danger": "#cc3333"
     }
   },
   "dashboard": {
