@@ -109,6 +109,7 @@
 
 <script>
 import Config from "Assets/json/config.json"
+
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 

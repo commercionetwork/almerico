@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json"
+
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/bars";
 
@@ -49,7 +51,7 @@ export default {
   },
   computed: {
     logoSrc() {
-      return require("Assets/img/logo-white.png");
+      return Config.generic.logo;
     },
   },
   methods: {
