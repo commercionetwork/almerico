@@ -50,7 +50,7 @@
           >
             <div class="col-12">
               <component
-                v-bind:is="getComponent(message).name"
+                v-bind:is="getComponentName(message)"
                 :message="message"
               />
             </div>
@@ -62,18 +62,18 @@
 </template>
 
 <script>
-import Data from "Assets/json/setup.json";
-let supportedTypes = Data.transactions.supported_types;
-let components = {};
-supportedTypes.forEach(component => {
-  components[component.name] = () => import(`./msgs/${component.name}.vue`);
-});
-
 import MsgDefault from "./msgs/MsgDefault.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
 import api from "Store/transactions/api";
+
+import Setup from "Assets/json/setup.json";
+let supportedTypes = Setup.transactions.supported_types;
+let components = {};
+supportedTypes.forEach(component => {
+  components[component.name] = () => import(`./msgs/${component.name}.vue`);
+});
 
 export default {
   name: "TransactionDetails",
@@ -86,13 +86,13 @@ export default {
   },
   data() {
     return {
+      setup: {
+        components: supportedTypes
+      },
       hasError: false,
       isFetching: false,
       messages: [],
-      transaction: {},
-      data: {
-        components: supportedTypes
-      }
+      transaction: {}
     };
   },
   computed: {
@@ -118,11 +118,11 @@ export default {
         this.isFetching = false;
       }
     },
-    getComponent(message) {
-      let component = this.data.components.find(
+    getComponentName(message) {
+      let component = this.setup.components.find(
         component => component.type === message.type
       );
-      return component ? component : MsgDefault;
+      return component ? component.name : MsgDefault.name;
     }
   },
   created() {
