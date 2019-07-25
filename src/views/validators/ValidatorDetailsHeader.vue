@@ -152,7 +152,7 @@ export default {
         maximumFractionDigits: 2
       });
       let power = coinConverter({
-        denom: Config.coin.name.long,
+        denom: Config.generic.coin.name.long,
         amount: this.validator.tokens
       });
       let formatPower = this.$n(power.amount, {

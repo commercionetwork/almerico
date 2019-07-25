@@ -46,7 +46,7 @@ export default {
     },
     amount() {
       let amount = coinConverter({
-        denom: Config.coin.name.long,
+        denom: Config.generic.coin.name.long,
         amount: this.delegator.shares
       });
       let formatAmount = this.$n(amount.amount, {

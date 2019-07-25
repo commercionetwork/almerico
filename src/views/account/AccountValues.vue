@@ -100,7 +100,7 @@ export default {
     }),
     availablesAmount() {
       let amount = {
-        denom: Config.coin.name.short,
+        denom: Config.generic.coin.name.short,
         amount: 0
       };
       if (this.balances && this.balances.length > 0) {
@@ -119,7 +119,7 @@ export default {
         tot += parseFloat(element.shares);
       });
       let amount = coinConverter({
-        denom: Config.coin.name.long,
+        denom: Config.generic.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -135,7 +135,7 @@ export default {
         tot += parseFloat(element.amount);
       });
       let amount = coinConverter({
-        denom: Config.coin.name.long,
+        denom: Config.generic.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -153,7 +153,7 @@ export default {
         });
       });
       let amount = coinConverter({
-        denom: Config.coin.name.long,
+        denom: Config.generic.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -169,7 +169,7 @@ export default {
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${Config.coin.name.short}`;
+      return `${formatAmount} ${Config.generic.coin.name.short}`;
     },
     totals() {
       return (
