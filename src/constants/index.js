@@ -11,7 +11,8 @@ import {
 } from "./prefix";
 import {
   ROUTES,
-  ROUTE_NAMES
+  ROUTE_NAMES,
+  ROUTE_TITLES
 } from "./route";
 import {
   SETUP
@@ -33,6 +34,7 @@ export {
   PREFIX,
   ROUTES,
   ROUTE_NAMES,
+  ROUTE_TITLES,
   SETUP,
   TX_TYPES,
   VALIDATOR_ROLES,

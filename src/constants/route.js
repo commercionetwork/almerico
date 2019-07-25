@@ -15,7 +15,7 @@ export const ROUTES = {
   VALIDATORS: "/:lang/validators",
   VALIDATOR_DETAILS: "/:lang/validator/:id",
   VOTINGS: "/:lang/votings",
-  VOTINGS_DETAILS: "/:lang/voting/:id"
+  VOTING_DETAILS: "/:lang/voting/:id"
 };
 
 /**
@@ -33,5 +33,23 @@ export const ROUTE_NAMES = {
   VALIDATORS: "validators",
   VALIDATOR_DETAILS: "validatorDetails",
   VOTINGS: "votings",
-  VOTINGS_DETAILS: "votingsDetails"
+  VOTING_DETAILS: "votingDetails"
+};
+
+/**
+ * Titles of the routes
+ */
+export const ROUTE_TITLES = {
+  NOT_FOUND: "Not found",
+  SERVER_UNREACHABLE: "Server unreachable",
+  ACCOUNT_DETAILS: "Account details",
+  BLOCKS: "Blocks",
+  BLOCK_DETAILS: "Block details",
+  DASHBOARD: "Dashboard",
+  TRANSACTIONS: "Transactions",
+  TRANSACTION_DETAILS: "Transaction details",
+  VALIDATORS: "Validators",
+  VALIDATOR_DETAILS: "Validator details",
+  VOTINGS: "Votings",
+  VOTING_DETAILS: "Voting details"
 };

@@ -3,7 +3,7 @@
     "logo": "https://commercio.network/wp-content/uploads/2018/04/logo_commercio_300-150x150.png",
     "coins": [{
       "name": {
-        "long": "atom",
+        "long": "ucommercio",
         "short": "commercio",
         "ticker": "cmc"
       }
@@ -26,25 +26,11 @@
       "transactions": true
     }
   },
-  "validators": {
-    "live_data": {
-      "block_height": true,
-      "count": false,
-      "bounded_tokens": false,
-      "time_since_last_block": true
-    },
-    "table": {
-      "columns": [
-        "ordering",
-        "name",
-        "voting_power",
-        "share_percentage",
-        "commission",
-        "up_time"
-      ]
-    }
+  "account_details": {
+    "enabled": true
   },
   "blocks": {
+    "enabled": true,
     "table": {
       "columns": [
         "height",
@@ -63,7 +49,11 @@
       "proposing_node"
     ]
   },
+  "block_details": {
+    "enabled": true
+  },
   "transactions": {
+    "enabled": true,
     "table": {
       "columns": [
         "hash",
@@ -134,5 +124,36 @@
         "name": "MsgStoreDocument"
       }
     ]
+  },
+  "transaction_details": {
+    "enabled": true
+  },
+  "validators": {
+    "enabled": true,
+    "live_data": {
+      "block_height": true,
+      "count": false,
+      "bounded_tokens": false,
+      "time_since_last_block": true
+    },
+    "table": {
+      "columns": [
+        "ordering",
+        "name",
+        "voting_power",
+        "share_percentage",
+        "commission",
+        "up_time"
+      ]
+    }
+  },
+  "validator_details": {
+    "enabled": true
+  },
+  "votings": {
+    "enabled": false
+  },
+  "voting_details": {
+    "enabled": false
   }
 }
