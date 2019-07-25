@@ -57,78 +57,93 @@
   "transactions": {
     "enabled": true,
     "table": {
-      "columns": [
-        "hash",
-        "type",
-        "result",
-        "fee",
-        "block_height",
-        "date"
-      ]
+      "columns": {
+        "hash": true,
+        "type": true,
+        "result": true,
+        "amount": true,
+        "fee": true,
+        "block_height": true,
+        "date": true
+      }
     },
-    "details": [
-      "hash",
-      "status",
-      "block_height",
-      "date",
-      "fee",
-      "gas"
-    ],
     "supported_types": [{
-        "type": "cosmos-sdk/MsgBeginRedelegate",
-        "name": "MsgBeginRedelegate"
+        "name": "MsgBeginRedelegate",
+        "tag": "begin_redelegate",
+        "type": "cosmos-sdk/MsgBeginRedelegate"
       }, {
-        "type": "cosmos-sdk/MsgCreateValidator",
-        "name": "MsgCreateValidator"
+        "name": "MsgCreateValidator",
+        "tag": "create_validator",
+        "type": "cosmos-sdk/MsgCreateValidator"
       },
       {
-        "type": "cosmos-sdk/MsgDelegate",
-        "name": "MsgDelegate"
+        "name": "MsgDelegate",
+        "tag": "delegate",
+        "type": "cosmos-sdk/MsgDelegate"
       },
       {
-        "type": "cosmos-sdk/MsgEditValidator",
-        "name": "MsgEditValidator"
+        "name": "MsgEditValidator",
+        "tag": "edit_validator",
+        "type": "cosmos-sdk/MsgEditValidator"
       },
       {
-        "type": "cosmos-sdk/MsgSend",
-        "name": "MsgSend"
+        "name": "MsgSend",
+        "tag": "send",
+        "type": "cosmos-sdk/MsgSend"
       },
       {
-        "type": "cosmos-sdk/MsgUndelegate",
-        "name": "MsgUndelegate"
+        "name": "MsgUndelegate",
+        "tag": "begin_unbonding",
+        "type": "cosmos-sdk/MsgUndelegate"
       },
       {
-        "type": "cosmos-sdk/MsgUnjail",
-        "name": "MsgUnjail"
+        "name": "MsgUnjail",
+        "tag": "unjail",
+        "type": "cosmos-sdk/MsgUnjail"
       },
       {
-        "type": "cosmos-sdk/MsgWithdrawDelegationReward",
-        "name": "MsgWithdrawDelegationReward"
+        "name": "MsgWithdrawDelegationReward",
+        "tag": "withdraw_delegator_reward",
+        "type": "cosmos-sdk/MsgWithdrawDelegationReward"
       },
       {
-        "type": "commercioauth/CreateAccount",
-        "name": "MsgCreateAccount"
+        "name": "MsgCreateAccount",
+        "tag": "create_account",
+        "type": "commercioauth/CreateAccount"
       },
       {
-        "type": "commectioid/CreateConnection",
-        "name": "MsgCreateConnection"
+        "name": "MsgCreateConnection",
+        "tag": "create_connection",
+        "type": "commercioid/CreateConnection"
       },
       {
-        "type": "commercioid/SetIdentity",
-        "name": "MsgSetIdentity"
+        "name": "MsgSetIdentity",
+        "tag": "set_identity",
+        "type": "commercioid/SetIdentity"
       },
       {
-        "type": "commerciodocs/ShareDocument",
-        "name": "MsgShareDocument"
+        "name": "MsgShareDocument",
+        "tag": "share_document",
+        "type": "commerciodocs/ShareDocument"
       },
       {
-        "type": "commerciodocs/StoreDocument",
-        "name": "MsgStoreDocument"
+        "name": "MsgStoreDocument",
+        "tag": "store_document",
+        "type": "commerciodocs/StoreDocument"
       }
     ]
   },
   "transaction_details": {
-    "enabled": true
+    "enabled": true,
+    "rows": {
+      "hash": true,
+      "status": true,
+      "block_height": true,
+      "date": true,
+      "fee": true,
+      "gas": true
+    },
+    "msgs_details": true
   },
   "validators": {
     "enabled": true,
@@ -139,14 +154,15 @@
       "time_since_last_block": true
     },
     "table": {
-      "columns": [
-        "ordering",
-        "name",
-        "voting_power",
-        "share_percentage",
-        "commission",
-        "up_time"
-      ]
+      "columns": {
+        "ordering": true,
+        "name": true,
+        "voting_power": true,
+        "share_percentage": true,
+        "commission": true,
+        "up_time": true
+      }
+
     }
   },
   "validator_details": {

@@ -1,6 +1,10 @@
 <template>
   <div class="p-3">
-    <div class="row py-1">
+    <div
+      v-if="Config.transaction_details.rows.hash"
+      class="row py-1"
+      data-test="row-hash"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.hash')"
@@ -10,7 +14,11 @@
         v-text="transaction.txhash"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.transaction_details.rows.status"
+      class="row py-1"
+      data-test="row-status"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.status')"
@@ -18,10 +26,13 @@
       <div
         class="col-12 col-md-9 com-font-s14-w400"
         v-text="result"
-      >
-      </div>
+      />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.transaction_details.rows.block_height"
+      class="row py-1"
+      data-test="row-block-height"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.height')"
@@ -33,17 +44,25 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.transaction_details.rows.date"
+      class="row py-1"
+      data-test="row-date"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.date')"
       />
       <div
         class="col-12 col-md-9 com-font-s14-w400"
-        v-text="time"
+        v-text="date"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.transaction_details.rows.fee"
+      class="row py-1"
+      data-test="row-fee"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.fee')"
@@ -53,34 +72,30 @@
         v-text="fee"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.transaction_details.rows.gas"
+      class="row py-1"
+      data-test="row-gas"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.gasUsedWanted')"
       />
       <div class="col-12 col-md-9 com-font-s14-w400">
-        {{ gasUsed }}{{ "/" }}{{ gasWanted}}
+        {{ gasUsed }}{{ "/" }}{{ gasWanted }}
       </div>
-    </div>
-    <div
-      v-if="memo"
-      class="row p-1"
-    >
-      <div class="col-12 col-md-3 com-font-s14-w700">Memo</div>
-      <div
-        class="col-12 col-md-9 text-lowercase com-font-s14-w400"
-        v-text="memo"
-      />
     </div>
   </div>
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "TransactionsDetailsInfo",
+  name: "TransactionDetailsInfo",
   description: "Display the transaction's information",
   props: {
     transaction: {
@@ -91,10 +106,14 @@ export default {
   },
   data() {
     return {
-      ROUTE_NAMES
+      ROUTE_NAMES,
+      Config
     };
   },
   computed: {
+    date() {
+      return new Date(this.transaction.timestamp).toLocaleString();
+    },
     fee() {
       let fee = {
         denom: "",
@@ -126,17 +145,11 @@ export default {
         maximumFractionDigits: 0
       });
     },
-    memo() {
-      return this.transaction.tx.value.memo;
-    },
     result() {
       return this.transaction.logs.find(log => typeof log.success !== undefined)
         .success
         ? "success"
         : "fail";
-    },
-    time() {
-      return new Date(this.transaction.timestamp).toLocaleString();
     }
   },
   methods: {

@@ -31,10 +31,14 @@
       <div class="col-12 p-0">
         <div class="row">
           <div class="col-12">
-            <TransactionsDetailsInfo :transaction="transaction" />
+            <TransactionDetailsInfo :transaction="transaction" />
           </div>
         </div>
-        <div class="py-3 px-5 rounded bg-white">
+        <div
+          v-if="Config.transaction_details.msgs_details"
+          class="py-3 px-5 rounded bg-white"
+          data-test="msgs-details"
+        >
           <div class="row py-1">
             <div class="col-12">
               <h2
@@ -66,7 +70,7 @@ import Config from "Assets/json/config.json";
 
 import MsgDefault from "./msgs/MsgDefault.vue";
 import SearchBar from "Components/common/SearchBar.vue";
-import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
+import TransactionDetailsInfo from "./TransactionDetailsInfo.vue";
 
 import api from "Store/transactions/api";
 
@@ -83,17 +87,18 @@ export default {
     ...components,
     MsgDefault,
     SearchBar,
-    TransactionsDetailsInfo
+    TransactionDetailsInfo
   },
   data() {
     return {
-      config: {
-        components: supportedTypes
-      },
+      Config,
       hasError: false,
       isFetching: false,
       messages: [],
-      transaction: {}
+      transaction: {},
+      model: {
+        components: supportedTypes
+      }
     };
   },
   computed: {
@@ -120,7 +125,7 @@ export default {
       }
     },
     getComponentName(message) {
-      let component = this.config.components.find(
+      let component = this.model.components.find(
         component => component.type === message.type
       );
       return component ? component.name : MsgDefault.name;

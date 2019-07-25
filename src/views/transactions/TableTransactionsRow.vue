@@ -1,6 +1,10 @@
 <template>
   <tr class="text-center com-font-s13-w400">
-    <td class="align-middle">
+    <td
+      v-if="Config.transactions.table.columns.hash"
+      class="align-middle"
+      data-test="table-column-hash"
+    >
       <router-link
         :to="toDetails(ROUTE_NAMES.TRANSACTION_DETAILS, transaction.txhash)"
         v-text="transaction.txhash"
@@ -9,35 +13,56 @@
       />
     </td>
     <td
+      v-if="Config.transactions.table.columns.type"
       class="align-middle"
-      v-text="type"
-    />
+      data-test="table-column-type"
+    >
+      <span v-text="type" />
+    </td>
     <td
+      v-if="Config.transactions.table.columns.result"
       class="align-middle"
-      v-text="result"
-    />
+      data-test="table-column-result"
+    >
+      <span v-text="result" />
+    </td>
     <td
+      v-if="Config.transactions.table.columns.amount"
       class="align-middle"
-      v-text="amount"
-    />
+      data-test="table-column-amount"
+    >
+      <span v-text="amount" />
+    </td>
     <td
+      v-if="Config.transactions.table.columns.fee"
       class="align-middle"
-      v-text="fee"
-    />
-    <td class="align-middle">
+      data-test="table-column-fee"
+    >
+      <span v-text="fee" />
+    </td>
+    <td
+      v-if="Config.transactions.table.columns.block_height"
+      class="align-middle"
+      data-test="table-column-height"
+    >
       <router-link
         :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, transaction.height)"
         v-text="transaction.height"
       />
     </td>
     <td
+      v-if="Config.transactions.table.columns.date"
       class="align-middle"
-      v-text="time"
-    />
+      data-test="table-column-date"
+    >
+      <span v-text="date" />
+    </td>
   </tr>
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
@@ -53,7 +78,8 @@ export default {
   },
   data() {
     return {
-      ROUTE_NAMES
+      ROUTE_NAMES,
+      Config
     };
   },
   computed: {
@@ -106,7 +132,7 @@ export default {
         ? "success"
         : "fail";
     },
-    time() {
+    date() {
       return new Date(this.transaction.timestamp).toLocaleDateString();
     },
     type() {

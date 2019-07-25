@@ -72,4 +72,42 @@ describe("views/transactions/TransactionDetails.vue", () => {
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item"]').exists()).toBe(true);
   });
+
+  it("Check if transaction messages are displayed", () => {
+    const wrapper = shallowMount(TransactionDetails, {
+      localVue,
+      methods,
+      mocks,
+    });
+    wrapper.setData({
+      isFetching: false,
+      transaction: mockTransaction(),
+      Config: {
+        transaction_details: {
+          msgs_details: true
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(true);
+  });
+
+  it("Check if transaction messages are not displayed", () => {
+    const wrapper = shallowMount(TransactionDetails, {
+      localVue,
+      methods,
+      mocks,
+    });
+    wrapper.setData({
+      isFetching: false,
+      transaction: mockTransaction(),
+      Config: {
+        transaction_details: {
+          msgs_details: false
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(false);
+  });
 });
