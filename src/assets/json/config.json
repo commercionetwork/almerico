@@ -1,13 +1,13 @@
 {
   "generic": {
     "logo": "https://commercio.network/wp-content/uploads/2018/04/logo_commercio_300-150x150.png",
-    "coins": [{
+    "coin": {
       "name": {
         "long": "ucommercio",
         "short": "commercio",
         "ticker": "cmc"
       }
-    }],
+    },
     "theme": "light",
     "colors": {
       "primary": "#38ba8c",

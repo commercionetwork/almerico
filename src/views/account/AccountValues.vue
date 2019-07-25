@@ -64,9 +64,10 @@
 
 
 <script>
+import Config from "Assets/json/config.json";
+
 import AccountValuesChart from "./AccountValuesChart.vue";
 
-import { SETUP } from "Constants";
 import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
@@ -99,7 +100,7 @@ export default {
     }),
     availablesAmount() {
       let amount = {
-        denom: SETUP.COIN,
+        denom: Config.coin.name.short,
         amount: 0
       };
       if (this.balances && this.balances.length > 0) {
@@ -118,7 +119,7 @@ export default {
         tot += parseFloat(element.shares);
       });
       let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
+        denom: Config.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -134,7 +135,7 @@ export default {
         tot += parseFloat(element.amount);
       });
       let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
+        denom: Config.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -152,7 +153,7 @@ export default {
         });
       });
       let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
+        denom: Config.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -168,7 +169,7 @@ export default {
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${SETUP.COIN}`;
+      return `${formatAmount} ${Config.coin.name.short}`;
     },
     totals() {
       return (

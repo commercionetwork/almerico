@@ -94,10 +94,12 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/brands/hubspot";
 
-import { ROUTE_NAMES, SETUP } from "Constants";
+import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
 
@@ -150,7 +152,7 @@ export default {
         maximumFractionDigits: 2
       });
       let power = coinConverter({
-        denom: SETUP.MICRO_COIN,
+        denom: Config.coin.name.long,
         amount: this.validator.tokens
       });
       let formatPower = this.$n(power.amount, {

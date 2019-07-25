@@ -20,7 +20,9 @@
 </template>
 
 <script>
-import { ROUTE_NAMES, SETUP } from "Constants";
+import Config from "Assets/json/config.json";
+
+import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
@@ -44,7 +46,7 @@ export default {
     },
     amount() {
       let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
+        denom: Config.coin.name.long,
         amount: this.delegator.shares
       });
       let formatAmount = this.$n(amount.amount, {

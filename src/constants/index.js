@@ -15,9 +15,6 @@ import {
   ROUTE_TITLES
 } from "./route";
 import {
-  SETUP
-} from "./setup";
-import {
   TX_TYPES,
   ACCOUNT_ROLES,
   VALIDATOR_ROLES
@@ -35,7 +32,6 @@ export {
   ROUTES,
   ROUTE_NAMES,
   ROUTE_TITLES,
-  SETUP,
   TX_TYPES,
   VALIDATOR_ROLES,
   VALIDATOR_STATUS,

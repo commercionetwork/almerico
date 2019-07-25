@@ -64,9 +64,10 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import ValidatorDetailsDelegatedChart from "./ValidatorDetailsDelegatedChart";
 
-import { SETUP } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
@@ -96,7 +97,7 @@ export default {
           tot += parseFloat(delegation.shares);
         });
       let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
+        denom: Config.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -114,7 +115,7 @@ export default {
           tot += parseFloat(delegation.shares);
         });
       let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
+        denom: Config.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -130,7 +131,7 @@ export default {
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${SETUP.COIN}`;
+      return `${formatAmount} ${Config.coin.name.short}`;
     },
     totals() {
       return this.othersAmount.value + this.selfAmount.value;
