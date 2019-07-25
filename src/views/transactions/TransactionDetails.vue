@@ -68,7 +68,7 @@ import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
 import api from "Store/transactions/api";
 
-import Setup from "Assets/json/setup.json";
+import Setup from "Assets/json/config.json";
 let supportedTypes = Setup.transactions.supported_types;
 let components = {};
 supportedTypes.forEach(component => {

@@ -1,6 +1,13 @@
 {
   "generic": {
     "logo": "https://commercio.network/wp-content/uploads/2018/04/logo_commercio_300-150x150.png",
+    "coins": [{
+      "name": {
+        "long": "atom",
+        "short": "commercio",
+        "ticker": "cmc"
+      }
+    }],
     "theme": "light",
     "colors": {
       "icons": "#38BA8C",
