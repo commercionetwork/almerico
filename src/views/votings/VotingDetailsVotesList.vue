@@ -67,10 +67,10 @@
 import { ROUTE_NAMES } from "Constants";
 
 //TODO: remove
-import { mockVotes } from "Store/votings/__mocks__/votes";
+import { mockVotes } from "Store/votings/__mocks__/proposals";
 
 export default {
-  name: "VotingsDetailsVotesList",
+  name: "VotingDetailsVotesList",
   description: "Diplay the votes list",
   computed: {
     isFetching() {

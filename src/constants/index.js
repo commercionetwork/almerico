@@ -22,6 +22,9 @@ import {
 import {
   VALIDATOR_STATUS
 } from "./validator";
+import {
+  VOTING_STATUS
+} from "./voting";
 
 export {
   ACCOUNT_ROLES,
@@ -35,5 +38,6 @@ export {
   TX_TYPES,
   VALIDATOR_ROLES,
   VALIDATOR_STATUS,
+  VOTING_STATUS,
   WS
 };

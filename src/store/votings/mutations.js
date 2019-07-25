@@ -1,6 +1,7 @@
 /**
  * Votings mutations
  */
+
 export default {
   /**
    * Set votings isFetching state to true
@@ -19,10 +20,19 @@ export default {
     state.isFetching = false;
   },
   /**
+   * Set votings message
+   *
+   * @param {VotingsState} state
+   * @param {String} message
+   */
+  setMessage(state, message) {
+    state.message = message;
+  },
+  /**
    * Set votings data
    * 
    * @param {VotingsState} state 
-   * @param {Array} data 
+   * @param {Array.<Proposal>} data 
    */
   setVotings(state, data) {
     state.all = data;

@@ -5,13 +5,13 @@
     />
     <div class="py-3 px-5 rounded bg-white">
       <div>
-        <VotingsDetailsHeader :voting="voting" />
+        <VotingDetailsHeader :voting="voting" />
       </div>
       <div class="mt-3">
-        <VotingsDetailsVote :voting="voting" />
+        <VotingDetailsVote :voting="voting" />
       </div>
       <div class="mt-3">
-        <VotingsDetailsVotesList />
+        <VotingDetailsVotesList />
       </div>
     </div>
   </div>
@@ -19,25 +19,25 @@
 
 <script>
 import SectionHeader from "Components/common/SectionHeader.vue";
-import VotingsDetailsHeader from "./VotingsDetailsHeader.vue";
-import VotingsDetailsVote from "./VotingsDetailsVote.vue";
-import VotingsDetailsVotesList from "./VotingsDetailsVotesList.vue";
+import VotingDetailsHeader from "./VotingDetailsHeader.vue";
+import VotingDetailsVote from "./VotingDetailsVote.vue";
+import VotingDetailsVotesList from "./VotingDetailsVotesList.vue";
 
 //TODO: remove
-import { mockVoting } from "Store/votings/__mocks__/votings";
+import { mockProposal } from "Store/votings/__mocks__/proposals";
 
 export default {
-  name: "VotingsDetails",
+  name: "VotingDetails",
   description: "Display the voting details",
   components: {
     SectionHeader,
-    VotingsDetailsHeader,
-    VotingsDetailsVote,
-    VotingsDetailsVotesList
+    VotingDetailsHeader,
+    VotingDetailsVote,
+    VotingDetailsVotesList
   },
   computed: {
     voting() {
-      return mockVoting(this.votingId);
+      return mockProposal(this.votingId);
     },
     votingId() {
       return this.$route.params.id;

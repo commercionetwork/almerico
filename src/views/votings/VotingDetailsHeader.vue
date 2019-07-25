@@ -133,7 +133,7 @@
 import { ROUTE_NAMES } from "Constants";
 
 export default {
-  name: "VotingsDetailsHeader",
+  name: "VotingDetailsHeader",
   description: "Display the voting header",
   props: {
     voting: {
