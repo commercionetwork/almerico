@@ -62,13 +62,14 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import MsgDefault from "./msgs/MsgDefault.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TransactionsDetailsInfo from "./TransactionsDetailsInfo.vue";
 
 import api from "Store/transactions/api";
 
-import Config from "Assets/json/config.json";
 let supportedTypes = Config.transactions.supported_types;
 let components = {};
 supportedTypes.forEach(component => {

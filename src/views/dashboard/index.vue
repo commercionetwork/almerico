@@ -15,21 +15,36 @@
       <div class="col-12">
         <div class="row py-3 px-5">
           <div class="col-12 col-lg-5 my-1 my-lg-0">
-            <CellPrice />
+            <CellPrice
+              v-if="Config.dashboard.graphs.price"
+              data-test="graphs-price"
+            />
           </div>
           <div class="col-12 col-lg-2 my-1 my-lg-0">
-            <CellHeight />
+            <CellHeight
+              v-if="Config.dashboard.graphs.block_height"
+              data-test="graphs-block-height"
+            />
           </div>
           <div class="col-12 col-lg-5 my-1 my-lg-0">
-            <CellBonded />
+            <CellBonded
+              v-if="Config.dashboard.graphs.bounded_tokens"
+              data-test="graphs-bounded-tokens"
+            />
           </div>
         </div>
         <div class="row py-3 px-5 bg-white">
           <div class="col-12 col-md-6 my-1 my-md-0">
-            <CellBlocks />
+            <CellBlocks
+              v-if="Config.dashboard.live_data.blocks"
+              data-test="live-data-blocks"
+            />
           </div>
           <div class="col-12 col-md-6 my-1 my-md-0">
-            <CellTransactions />
+            <CellTransactions
+              v-if="Config.dashboard.live_data.transactions"
+              data-test="live-data-transactions"
+            />
           </div>
         </div>
       </div>
@@ -38,6 +53,8 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import CellBlocks from "./CellBlocks.vue";
 import CellBonded from "./CellBonded.vue";
 import CellHeight from "./CellHeight.vue";
@@ -55,6 +72,11 @@ export default {
     CellPrice,
     CellTransactions,
     SearchBar
+  },
+  data() {
+    return {
+      Config
+    };
   }
 };
 </script>
