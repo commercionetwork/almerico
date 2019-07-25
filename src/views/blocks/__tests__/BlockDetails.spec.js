@@ -77,4 +77,50 @@ describe("views/blocks/BlockDetails.vue", () => {
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item"]').exists()).toBe(true);
   });
+
+  it("Check if transactions list is displayed", () => {
+    const wrapper = shallowMount(BlockDetails, {
+      computed: {
+        validators: () => [],
+        isFetching: () => false,
+        hasError: () => false,
+        title: () => "title"
+      },
+      localVue,
+      methods,
+      mocks,
+    });
+    wrapper.setData({
+      Config: {
+        block_details: {
+          txs_list: true
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="txs-list"]').exists()).toBe(true);
+  });
+
+  it("Check if transactions list is not displayed", () => {
+    const wrapper = shallowMount(BlockDetails, {
+      computed: {
+        validators: () => [],
+        isFetching: () => false,
+        hasError: () => false,
+        title: () => "title"
+      },
+      localVue,
+      methods,
+      mocks,
+    });
+    wrapper.setData({
+      Config: {
+        block_details: {
+          txs_list: false
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="txs-list"]').exists()).toBe(false);
+  });
 });

@@ -34,7 +34,11 @@
             <BlockDetailsHeader :block="block" />
           </div>
         </div>
-        <div class="py-3 px-5 rounded bg-white">
+        <div
+          v-if="Config.block_details.txs_list"
+          class="py-3 px-5 rounded bg-white"
+          data-test="txs-list"
+        >
           <div class="row py-1">
             <div class="col-12">
               <BlockDetailsTransactions :transactions="transactions" />
@@ -47,6 +51,8 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import BlockDetailsHeader from "./BlockDetailsHeader.vue";
 import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 import SearchBar from "Components/common/SearchBar.vue";
@@ -65,6 +71,7 @@ export default {
   },
   data() {
     return {
+      Config,
       block: {},
       hasBlockError: false,
       hasTransactionsError: false,

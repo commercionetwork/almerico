@@ -86,4 +86,70 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item"]').exists()).toBe(true);
   });
+
+  it("Check if header rows are displayed", () => {
+    const wrapper = shallowMount(BlockDetailsHeader, {
+      computed: {
+        validators: () => []
+      },
+      localVue,
+      methods,
+      mocks,
+      propsData: {
+        ...props
+      }
+    });
+    wrapper.setData({
+      Config: {
+        block_details: {
+          rows: {
+            height: true,
+            date: true,
+            hash: true,
+            txs_number: true,
+            proposing_node: true
+          },
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="row-height"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="row-date"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="row-hash"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="row-txs-number"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="row-proposing-node"]').exists()).toBe(true);
+  });
+
+  it("Check if header rows are not displayed", () => {
+    const wrapper = shallowMount(BlockDetailsHeader, {
+      computed: {
+        validators: () => []
+      },
+      localVue,
+      methods,
+      mocks,
+      propsData: {
+        ...props
+      }
+    });
+    wrapper.setData({
+      Config: {
+        block_details: {
+          rows: {
+            height: false,
+            date: false,
+            hash: false,
+            txs_number: false,
+            proposing_node: false
+          },
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="row-height"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-date"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-hash"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-txs-number"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-proposing-node"]').exists()).toBe(false);
+  });
 });

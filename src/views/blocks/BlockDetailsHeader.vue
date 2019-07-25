@@ -1,6 +1,10 @@
 <template>
   <div class="p-3">
-    <div class="row py-1">
+    <div
+      v-if="Config.block_details.rows.height"
+      class="row py-1"
+      data-test="row-height"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.height')"
@@ -10,7 +14,11 @@
         v-text="blockHeight"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.block_details.rows.date"
+      class="row py-1"
+      data-test="row-date"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.date')"
@@ -20,7 +28,11 @@
         v-text="blockTime"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.block_details.rows.hash"
+      class="row py-1"
+      data-test="row-hash"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.hash')"
@@ -30,7 +42,11 @@
         v-text="blockHash"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.block_details.rows.txs_number"
+      class="row py-1"
+      data-test="row-txs-number"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.txsNumber')"
@@ -40,7 +56,11 @@
         v-text="blockTransactions"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="Config.block_details.rows.proposing_node"
+      class="row py-1"
+      data-test="row-proposing-node"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.proposer')"
@@ -69,6 +89,8 @@
 </template>
 
 <script>
+import Config from "Assets/json/config.json";
+
 import api from "Store/validators/api";
 import { PREFIX, ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
@@ -87,6 +109,7 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
+      Config,
       hasError: false,
       isFetching: false,
       proposer: "",

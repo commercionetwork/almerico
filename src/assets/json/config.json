@@ -41,18 +41,18 @@
         "txs": true,
         "date": true
       }
-    },
-    "details": {
+    }
+  },
+  "block_details": {
+    "enabled": true,
+    "rows": {
       "height": true,
       "date": true,
       "hash": true,
       "txs_number": true,
-      "txs_list": true,
       "proposing_node": true
-    }
-  },
-  "block_details": {
-    "enabled": true
+    },
+    "txs_list": true
   },
   "transactions": {
     "enabled": true,
