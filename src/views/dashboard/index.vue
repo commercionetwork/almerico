@@ -28,8 +28,8 @@
           </div>
           <div class="col-12 col-lg-5 my-1 my-lg-0">
             <CellBonded
-              v-if="Config.dashboard.graphs.bounded_tokens"
-              data-test="graphs-bounded-tokens"
+              v-if="Config.dashboard.graphs.bonded_tokens"
+              data-test="graphs-bonded-tokens"
             />
           </div>
         </div>

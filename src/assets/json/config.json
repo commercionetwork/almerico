@@ -21,7 +21,7 @@
     "graphs": {
       "price": true,
       "block_height": true,
-      "bounded_tokens": true
+      "bonded_tokens": true
     },
     "live_data": {
       "blocks": true,
