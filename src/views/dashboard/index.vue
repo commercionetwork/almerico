@@ -53,8 +53,6 @@
 </template>
 
 <script>
-// import Config from "Assets/json/config.json";
-
 import CellBlocks from "./CellBlocks.vue";
 import CellBonded from "./CellBonded.vue";
 import CellHeight from "./CellHeight.vue";

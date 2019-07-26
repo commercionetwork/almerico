@@ -16,19 +16,19 @@ describe("views/dashboard/index.vue", () => {
   it("Check if sections are displayed", () => {
     const wrapper = shallowMount(Dashboard, {
       localVue,
-      mocks
-    });
-    wrapper.setData({
-      Config: {
-        dashboard: {
-          graphs: {
-            price: true,
-            block_height: true,
-            bonded_tokens: true
-          },
-          live_data: {
-            blocks: true,
-            transactions: true
+      mocks: {
+        ...mocks,
+        $config: {
+          dashboard: {
+            graphs: {
+              price: true,
+              block_height: true,
+              bonded_tokens: true
+            },
+            live_data: {
+              blocks: true,
+              transactions: true
+            }
           }
         }
       }
@@ -44,19 +44,19 @@ describe("views/dashboard/index.vue", () => {
   it("Check if sections are not displayed", () => {
     const wrapper = shallowMount(Dashboard, {
       localVue,
-      mocks
-    });
-    wrapper.setData({
-      Config: {
-        dashboard: {
-          graphs: {
-            price: false,
-            block_height: false,
-            bonded_tokens: false
-          },
-          live_data: {
-            blocks: false,
-            transactions: false
+      mocks: {
+        ...mocks,
+        $config: {
+          dashboard: {
+            graphs: {
+              price: false,
+              block_height: false,
+              bonded_tokens: false
+            },
+            live_data: {
+              blocks: false,
+              transactions: false
+            }
           }
         }
       }
