@@ -19,7 +19,8 @@
       </div>
       <div class="col-6 order-2 col-md-2 order-md-3 d-flex justify-content-end">
         <span
-          class="px-3 py-1 rounded-pill bg-success text-white com-font-s13-w700"
+          class="px-3 py-1 rounded-pill com-font-s13-w700"
+          :class="validator.status === 2 ? 'bg-success text-white' : 'bg-warning'"
           v-text="status"
         />
       </div>
@@ -94,8 +95,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/brands/hubspot";
 
@@ -152,7 +151,7 @@ export default {
         maximumFractionDigits: 2
       });
       let power = coinConverter({
-        denom: Config.generic.coin.name.long,
+        denom: this.$config.generic.coin.name.long,
         amount: this.validator.tokens
       });
       let formatPower = this.$n(power.amount, {

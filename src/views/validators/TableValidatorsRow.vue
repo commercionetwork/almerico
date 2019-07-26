@@ -29,8 +29,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 import { mapGetters } from "vuex";
@@ -76,7 +74,7 @@ export default {
     },
     votingPower() {
       let power = coinConverter({
-        denom: Config.generic.coin.name.long,
+        denom: this.$config.generic.coin.name.long,
         amount: this.validator.tokens
       });
       let formatPower = this.$n(power.amount, {

@@ -20,8 +20,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
@@ -46,7 +44,7 @@ export default {
     },
     amount() {
       let amount = coinConverter({
-        denom: Config.generic.coin.name.long,
+        denom: this.$config.generic.coin.name.long,
         amount: this.delegator.shares
       });
       let formatAmount = this.$n(amount.amount, {
