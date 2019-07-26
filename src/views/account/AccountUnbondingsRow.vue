@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
 
 import api from "Store/validators/api";
 import { ROUTE_NAMES } from "Constants";
@@ -69,7 +68,7 @@ export default {
   computed: {
     amount() {
       let amount = coinConverter({
-        denom: Config.generic.coin.name.long,
+        denom: this.$config.generic.coin.name.long,
         amount: this.delegation.entry.balance
       });
       let formatAmount = this.$n(amount.amount, {

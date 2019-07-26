@@ -64,8 +64,6 @@
 
 
 <script>
-import Config from "Assets/json/config.json";
-
 import AccountValuesChart from "./AccountValuesChart.vue";
 
 import { coinConverter } from "Utils";
@@ -100,7 +98,7 @@ export default {
     }),
     availablesAmount() {
       let amount = {
-        denom: Config.generic.coin.name.short,
+        denom: this.$config.generic.coin.name.short,
         amount: 0
       };
       if (this.balances && this.balances.length > 0) {
@@ -119,7 +117,7 @@ export default {
         tot += parseFloat(element.shares);
       });
       let amount = coinConverter({
-        denom: Config.generic.coin.name.long,
+        denom: this.$config.generic.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -135,7 +133,7 @@ export default {
         tot += parseFloat(element.amount);
       });
       let amount = coinConverter({
-        denom: Config.generic.coin.name.long,
+        denom: this.$config.generic.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -153,7 +151,7 @@ export default {
         });
       });
       let amount = coinConverter({
-        denom: Config.generic.coin.name.long,
+        denom: this.$config.generic.coin.name.long,
         amount: tot
       });
       let formatAmount = this.$n(amount.amount, {
@@ -169,7 +167,7 @@ export default {
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${Config.generic.coin.name.short}`;
+      return `${formatAmount} ${this.$config.generic.coin.name.short}`;
     },
     totals() {
       return (

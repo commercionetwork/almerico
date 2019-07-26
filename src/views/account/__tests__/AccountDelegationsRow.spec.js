@@ -20,7 +20,16 @@ describe("views/account/AccountDelegationsRow.vue", () => {
   const mocks = {
     $i18n: messageId => messageId,
     $n: messageId => messageId,
-    $t: messageId => messageId
+    $t: messageId => messageId,
+    $config: {
+      generic: {
+        coin: {
+          name: {
+            long: "commercio"
+          }
+        }
+      }
+    }
   };
   const props = {
     delegation: mockDelegation()
