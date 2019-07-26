@@ -26,7 +26,7 @@
     </div>
     <!-- validators -->
     <div
-      v-if="Config.validators.enabled"
+      v-if="$config.validators.enabled"
       class="m-4"
       @click="closeSidebar"
     >
@@ -46,7 +46,7 @@
     </div>
     <!-- blocks -->
     <div
-      v-if="Config.blocks.enabled"
+      v-if="$config.blocks.enabled"
       class="m-4"
       @click="closeSidebar"
     >
@@ -66,7 +66,7 @@
     </div>
     <!-- transactions -->
     <div
-      v-if="Config.transactions.enabled"
+      v-if="$config.transactions.enabled"
       class="m-4"
       @click="closeSidebar"
     >
@@ -86,7 +86,7 @@
     </div>
     <!-- votings -->
     <div
-      v-if="Config.votings.enabled"
+      v-if="$config.votings.enabled"
       class="m-4"
       @click="closeSidebar"
     >
@@ -108,8 +108,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json"
-
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
 
@@ -140,7 +138,6 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
-      Config,
       open: false
     };
   },
