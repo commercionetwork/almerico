@@ -27,7 +27,24 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            table: {
+              columns: {
+                hash: true,
+                type: true,
+                result: true,
+                amount: true,
+                fee: true,
+                block_height: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
     wrapper.setData({
       isFetching: true
@@ -49,7 +66,24 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            table: {
+              columns: {
+                hash: true,
+                type: true,
+                result: true,
+                amount: true,
+                fee: true,
+                block_height: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
     wrapper.setData({
       hasError: true
@@ -70,7 +104,24 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            table: {
+              columns: {
+                hash: true,
+                type: true,
+                result: true,
+                amount: true,
+                fee: true,
+                block_height: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -87,7 +138,24 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            table: {
+              columns: {
+                hash: true,
+                type: true,
+                result: true,
+                amount: true,
+                fee: true,
+                block_height: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -105,20 +173,20 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-    });
-    wrapper.setData({
-      Config: {
-        transactions: {
-          table: {
-            columns: {
-              hash: true,
-              type: true,
-              result: true,
-              amount: true,
-              fee: true,
-              block_height: true,
-              date: true
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            table: {
+              columns: {
+                hash: true,
+                type: true,
+                result: true,
+                amount: true,
+                fee: true,
+                block_height: true,
+                date: true
+              }
             }
           }
         }
@@ -142,20 +210,20 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-    });
-    wrapper.setData({
-      Config: {
-        transactions: {
-          table: {
-            columns: {
-              hash: false,
-              type: false,
-              result: false,
-              amount: false,
-              fee: false,
-              block_height: false,
-              date: false
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            table: {
+              columns: {
+                hash: false,
+                type: false,
+                result: false,
+                amount: false,
+                fee: false,
+                block_height: false,
+                date: false
+              }
             }
           }
         }

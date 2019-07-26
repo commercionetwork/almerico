@@ -1,7 +1,7 @@
 <template>
   <div class="p-3">
     <div
-      v-if="Config.transaction_details.rows.hash"
+      v-if="$config.transaction_details.rows.hash"
       class="row py-1"
       data-test="row-hash"
     >
@@ -15,7 +15,7 @@
       />
     </div>
     <div
-      v-if="Config.transaction_details.rows.status"
+      v-if="$config.transaction_details.rows.status"
       class="row py-1"
       data-test="row-status"
     >
@@ -29,7 +29,7 @@
       />
     </div>
     <div
-      v-if="Config.transaction_details.rows.block_height"
+      v-if="$config.transaction_details.rows.block_height"
       class="row py-1"
       data-test="row-block-height"
     >
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div
-      v-if="Config.transaction_details.rows.date"
+      v-if="$config.transaction_details.rows.date"
       class="row py-1"
       data-test="row-date"
     >
@@ -59,7 +59,7 @@
       />
     </div>
     <div
-      v-if="Config.transaction_details.rows.fee"
+      v-if="$config.transaction_details.rows.fee"
       class="row py-1"
       data-test="row-fee"
     >
@@ -73,7 +73,7 @@
       />
     </div>
     <div
-      v-if="Config.transaction_details.rows.gas"
+      v-if="$config.transaction_details.rows.gas"
       class="row py-1"
       data-test="row-gas"
     >
@@ -89,8 +89,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
@@ -106,8 +104,7 @@ export default {
   },
   data() {
     return {
-      ROUTE_NAMES,
-      Config
+      ROUTE_NAMES
     };
   },
   computed: {

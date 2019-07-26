@@ -20,43 +20,43 @@
               <thead>
                 <tr class="text-center com-font-s13-w700">
                   <th
-                    v-if="Config.transactions.table.columns.hash"
+                    v-if="$config.transactions.table.columns.hash"
                     scope="col"
                     v-text="$t('labels.hash')"
                     data-test="table-column-hash"
                   />
                   <th
-                    v-if="Config.transactions.table.columns.type"
+                    v-if="$config.transactions.table.columns.type"
                     scope="col"
                     v-text="$t('labels.type')"
                     data-test="table-column-type"
                   />
                   <th
-                    v-if="Config.transactions.table.columns.result"
+                    v-if="$config.transactions.table.columns.result"
                     scope="col"
                     v-text="$t('labels.result')"
                     data-test="table-column-result"
                   />
                   <th
-                    v-if="Config.transactions.table.columns.amount"
+                    v-if="$config.transactions.table.columns.amount"
                     scope="col"
                     v-text="$t('labels.amount')"
                     data-test="table-column-amount"
                   />
                   <th
-                    v-if="Config.transactions.table.columns.fee"
+                    v-if="$config.transactions.table.columns.fee"
                     scope="col"
                     v-text="$t('labels.fee')"
                     data-test="table-column-fee"
                   />
                   <th
-                    v-if="Config.transactions.table.columns.block_height"
+                    v-if="$config.transactions.table.columns.block_height"
                     scope="col"
                     v-text="$t('labels.height')"
                     data-test="table-column-height"
                   />
                   <th
-                    v-if="Config.transactions.table.columns.date"
+                    v-if="$config.transactions.table.columns.date"
                     scope="col"
                     v-text="$t('labels.date')"
                     data-test="table-column-date"
@@ -101,8 +101,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactionsRow from "./TableTransactionsRow.vue";
@@ -122,7 +120,6 @@ export default {
   },
   data() {
     return {
-      Config,
       hasError: false,
       isFetching: false
     };

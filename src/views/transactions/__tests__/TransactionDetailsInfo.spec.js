@@ -32,23 +32,23 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
         result: () => "success"
       },
       localVue,
-      mocks,
+      mocks:{
+        ...mocks,
+        $config: {
+          transaction_details: {
+            rows: {
+              hash: true,
+              status: true,
+              block_height: true,
+              date: true,
+              fee: true,
+              gas: true
+            },
+          }
+        }
+      },
       propsData: {
         ...props
-      }
-    });
-    wrapper.setData({
-      Config: {
-        transaction_details: {
-          rows: {
-            hash: true,
-            status: true,
-            block_height: true,
-            date: true,
-            fee: true,
-            gas: true
-          },
-        }
       }
     });
 
@@ -58,5 +58,42 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
     expect(wrapper.find('[data-test="row-date"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="row-fee"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="row-gas"]').exists()).toBe(true);
+  });
+
+  it("Check if header rows are not displayed", () => {
+    const wrapper = shallowMount(TransactionDetailsInfo, {
+      computed: {
+        fee: () => "fee",
+        gasWanted: () => "0",
+        gasUsed: () => "0",
+        result: () => "success"
+      },
+      localVue,
+      mocks:{
+        ...mocks,
+        $config: {
+          transaction_details: {
+            rows: {
+              hash: false,
+              status: false,
+              block_height: false,
+              date: false,
+              fee: false,
+              gas: false
+            },
+          }
+        }
+      },
+      propsData: {
+        ...props
+      }
+    });
+
+    expect(wrapper.find('[data-test="row-hash"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-status"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-block-height"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-date"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-fee"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-gas"]').exists()).toBe(false);
   });
 });

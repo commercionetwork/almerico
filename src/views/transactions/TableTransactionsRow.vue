@@ -1,7 +1,7 @@
 <template>
   <tr class="text-center com-font-s13-w400">
     <td
-      v-if="Config.transactions.table.columns.hash"
+      v-if="$config.transactions.table.columns.hash"
       class="align-middle"
       data-test="table-column-hash"
     >
@@ -13,35 +13,35 @@
       />
     </td>
     <td
-      v-if="Config.transactions.table.columns.type"
+      v-if="$config.transactions.table.columns.type"
       class="align-middle"
       data-test="table-column-type"
     >
       <span v-text="type" />
     </td>
     <td
-      v-if="Config.transactions.table.columns.result"
+      v-if="$config.transactions.table.columns.result"
       class="align-middle"
       data-test="table-column-result"
     >
       <span v-text="result" />
     </td>
     <td
-      v-if="Config.transactions.table.columns.amount"
+      v-if="$config.transactions.table.columns.amount"
       class="align-middle"
       data-test="table-column-amount"
     >
       <span v-text="amount" />
     </td>
     <td
-      v-if="Config.transactions.table.columns.fee"
+      v-if="$config.transactions.table.columns.fee"
       class="align-middle"
       data-test="table-column-fee"
     >
       <span v-text="fee" />
     </td>
     <td
-      v-if="Config.transactions.table.columns.block_height"
+      v-if="$config.transactions.table.columns.block_height"
       class="align-middle"
       data-test="table-column-height"
     >
@@ -51,7 +51,7 @@
       />
     </td>
     <td
-      v-if="Config.transactions.table.columns.date"
+      v-if="$config.transactions.table.columns.date"
       class="align-middle"
       data-test="table-column-date"
     >
@@ -61,8 +61,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
@@ -78,8 +76,7 @@ export default {
   },
   data() {
     return {
-      ROUTE_NAMES,
-      Config
+      ROUTE_NAMES
     };
   },
   computed: {
