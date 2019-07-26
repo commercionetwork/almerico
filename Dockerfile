@@ -1,4 +1,4 @@
-FROM node:12.6.0
+FROM node:12.7.0
 
 # Read the set variables
 ARG LCD_URL
