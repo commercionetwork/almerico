@@ -35,7 +35,7 @@
           </div>
         </div>
         <div
-          v-if="Config.block_details.txs_list"
+          v-if="$config.block_details.txs_list"
           class="py-3 px-5 rounded bg-white"
           data-test="txs-list"
         >
@@ -51,8 +51,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import BlockDetailsHeader from "./BlockDetailsHeader.vue";
 import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 import SearchBar from "Components/common/SearchBar.vue";
@@ -71,7 +69,6 @@ export default {
   },
   data() {
     return {
-      Config,
       block: {},
       hasBlockError: false,
       hasTransactionsError: false,

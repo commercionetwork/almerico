@@ -1,7 +1,7 @@
 <template>
   <div class="p-3">
     <div
-      v-if="Config.block_details.rows.height"
+      v-if="$config.block_details.rows.height"
       class="row py-1"
       data-test="row-height"
     >
@@ -15,7 +15,7 @@
       />
     </div>
     <div
-      v-if="Config.block_details.rows.date"
+      v-if="$config.block_details.rows.date"
       class="row py-1"
       data-test="row-date"
     >
@@ -29,7 +29,7 @@
       />
     </div>
     <div
-      v-if="Config.block_details.rows.hash"
+      v-if="$config.block_details.rows.hash"
       class="row py-1"
       data-test="row-hash"
     >
@@ -43,7 +43,7 @@
       />
     </div>
     <div
-      v-if="Config.block_details.rows.txs_number"
+      v-if="$config.block_details.rows.txs_number"
       class="row py-1"
       data-test="row-txs-number"
     >
@@ -57,7 +57,7 @@
       />
     </div>
     <div
-      v-if="Config.block_details.rows.proposing_node"
+      v-if="$config.block_details.rows.proposing_node"
       class="row py-1"
       data-test="row-proposing-node"
     >
@@ -89,8 +89,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import api from "Store/validators/api";
 import { PREFIX, ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
@@ -109,7 +107,6 @@ export default {
   data() {
     return {
       ROUTE_NAMES,
-      Config,
       hasError: false,
       isFetching: false,
       proposer: "",

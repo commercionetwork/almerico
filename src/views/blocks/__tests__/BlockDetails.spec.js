@@ -32,7 +32,14 @@ describe("views/blocks/BlockDetails.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            txs_list: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -51,7 +58,14 @@ describe("views/blocks/BlockDetails.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            txs_list: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -70,7 +84,14 @@ describe("views/blocks/BlockDetails.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            txs_list: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -88,12 +109,12 @@ describe("views/blocks/BlockDetails.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-    });
-    wrapper.setData({
-      Config: {
-        block_details: {
-          txs_list: true
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            txs_list: true
+          }
         }
       }
     });
@@ -111,12 +132,12 @@ describe("views/blocks/BlockDetails.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-    });
-    wrapper.setData({
-      Config: {
-        block_details: {
-          txs_list: false
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            txs_list: false
+          }
         }
       }
     });

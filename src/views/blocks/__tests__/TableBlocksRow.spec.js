@@ -33,7 +33,22 @@ describe("views/blocks/TableBlocksRow.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
+            }
+          }
+        }
+      },
       propsData: {
         ...props
       }
@@ -59,7 +74,22 @@ describe("views/blocks/TableBlocksRow.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
+            }
+          }
+        }
+      },
       propsData: {
         ...props
       }
@@ -85,7 +115,22 @@ describe("views/blocks/TableBlocksRow.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
+            }
+          }
+        }
+      },
       propsData: {
         ...props
       }
@@ -107,24 +152,24 @@ describe("views/blocks/TableBlocksRow.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-      propsData: {
-        ...props
-      }
-    });
-    wrapper.setData({
-      Config: {
-        blocks: {
-          table: {
-            columns: {
-              height: true,
-              hash: true,
-              proposer: true,
-              txs: true,
-              date: true
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
             }
           }
         }
+      },
+      propsData: {
+        ...props
       }
     });
 
@@ -142,24 +187,24 @@ describe("views/blocks/TableBlocksRow.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-      propsData: {
-        ...props
-      }
-    });
-    wrapper.setData({
-      Config: {
-        blocks: {
-          table: {
-            columns: {
-              height: false,
-              hash: false,
-              proposer: false,
-              txs: false,
-              date: false
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: false,
+                hash: false,
+                proposer: false,
+                txs: false,
+                date: false
+              }
             }
           }
         }
+      },
+      propsData: {
+        ...props
       }
     });
 

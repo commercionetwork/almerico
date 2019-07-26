@@ -30,7 +30,22 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="pagination"]').exists()).toBe(false);
@@ -52,7 +67,22 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
     wrapper.setData({
       hasError: true
@@ -76,7 +106,22 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="pagination"]').exists()).toBe(true);
@@ -96,7 +141,22 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
+            }
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="pagination"]').exists()).toBe(false);
@@ -117,18 +177,18 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-    });
-    wrapper.setData({
-      Config: {
-        blocks: {
-          table: {
-            columns: {
-              height: true,
-              hash: true,
-              proposer: true,
-              txs: true,
-              date: true
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: true,
+                hash: true,
+                proposer: true,
+                txs: true,
+                date: true
+              }
             }
           }
         }
@@ -152,18 +212,18 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
-    });
-    wrapper.setData({
-      Config: {
-        blocks: {
-          table: {
-            columns: {
-              height: false,
-              hash: false,
-              proposer: false,
-              txs: false,
-              date: false
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            table: {
+              columns: {
+                height: false,
+                hash: false,
+                proposer: false,
+                txs: false,
+                date: false
+              }
             }
           }
         }

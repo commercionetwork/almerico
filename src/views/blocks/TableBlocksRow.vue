@@ -1,7 +1,7 @@
 <template>
   <tr class="text-center com-font-s13-w400">
     <td
-      v-if="Config.blocks.table.columns.height"
+      v-if="$config.blocks.table.columns.height"
       class="align-middle"
       data-test="table-column-height"
     >
@@ -18,7 +18,7 @@
       />
     </td>
     <td
-      v-if="Config.blocks.table.columns.hash"
+      v-if="$config.blocks.table.columns.hash"
       class="align-middle"
       data-test="table-column-hash"
     >
@@ -37,7 +37,7 @@
       />
     </td>
     <td
-      v-if="Config.blocks.table.columns.proposer"
+      v-if="$config.blocks.table.columns.proposer"
       class="align-middle"
       data-test="table-column-proposer"
     >
@@ -60,7 +60,7 @@
       />
     </td>
     <td
-      v-if="Config.blocks.table.columns.txs"
+      v-if="$config.blocks.table.columns.txs"
       class="align-middle"
       data-test="table-column-txs"
     >
@@ -76,7 +76,7 @@
       />
     </td>
     <td
-      v-if="Config.blocks.table.columns.date"
+      v-if="$config.blocks.table.columns.date"
       class="align-middle"
       data-test="table-column-date"
     >
@@ -95,8 +95,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import api from "Store/validators/api";
 import { PREFIX, ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
@@ -119,7 +117,6 @@ export default {
   },
   data() {
     return {
-      Config,
       ROUTE_NAMES,
       hasError: false,
       isFetching: false,

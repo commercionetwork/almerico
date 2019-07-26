@@ -32,7 +32,20 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            rows: {
+              height: true,
+              date: true,
+              hash: true,
+              txs_number: true,
+              proposing_node: true
+            },
+          }
+        }
+      },
       propsData: {
         ...props
       }
@@ -54,7 +67,20 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            rows: {
+              height: true,
+              date: true,
+              hash: true,
+              txs_number: true,
+              proposing_node: true
+            },
+          }
+        }
+      },
       propsData: {
         ...props
       }
@@ -76,7 +102,20 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            rows: {
+              height: true,
+              date: true,
+              hash: true,
+              txs_number: true,
+              proposing_node: true
+            },
+          }
+        }
+      },
       propsData: {
         ...props
       }
@@ -94,22 +133,22 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            rows: {
+              height: true,
+              date: true,
+              hash: true,
+              txs_number: true,
+              proposing_node: true
+            },
+          }
+        }
+      },
       propsData: {
         ...props
-      }
-    });
-    wrapper.setData({
-      Config: {
-        block_details: {
-          rows: {
-            height: true,
-            date: true,
-            hash: true,
-            txs_number: true,
-            proposing_node: true
-          },
-        }
       }
     });
 
@@ -127,22 +166,22 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          block_details: {
+            rows: {
+              height: false,
+              date: false,
+              hash: false,
+              txs_number: false,
+              proposing_node: false
+            },
+          }
+        }
+      },
       propsData: {
         ...props
-      }
-    });
-    wrapper.setData({
-      Config: {
-        block_details: {
-          rows: {
-            height: false,
-            date: false,
-            hash: false,
-            txs_number: false,
-            proposing_node: false
-          },
-        }
       }
     });
 

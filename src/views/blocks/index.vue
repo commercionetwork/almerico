@@ -32,31 +32,31 @@
               <thead>
                 <tr class="text-center com-font-s13-w700">
                   <th
-                    v-if="Config.blocks.table.columns.height"
+                    v-if="$config.blocks.table.columns.height"
                     scope="col"
                     v-text="$t('labels.height')"
                     data-test="table-column-height"
                   />
                   <th
-                    v-if="Config.blocks.table.columns.hash"
+                    v-if="$config.blocks.table.columns.hash"
                     scope="col"
                     v-text="$t('labels.hash')"
                     data-test="table-column-hash"
                   />
                   <th
-                    v-if="Config.blocks.table.columns.proposer"
+                    v-if="$config.blocks.table.columns.proposer"
                     scope="col"
                     v-text="$t('labels.proposer')"
                     data-test="table-column-proposer"
                   />
                   <th
-                    v-if="Config.blocks.table.columns.txs"
+                    v-if="$config.blocks.table.columns.txs"
                     scope="col"
                     v-text="$t('labels.txs')"
                     data-test="table-column-txs"
                   />
                   <th
-                    v-if="Config.blocks.table.columns.date"
+                    v-if="$config.blocks.table.columns.date"
                     scope="col"
                     v-text="$t('labels.date')"
                     data-test="table-column-date"
@@ -102,8 +102,6 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
-
 import Pagination from "Components/common/Pagination.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
@@ -123,7 +121,6 @@ export default {
   },
   data() {
     return {
-      Config,
       allBlocks: [],
       hasError: false,
       limit: 20,
