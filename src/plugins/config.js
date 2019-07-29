@@ -1,7 +1,7 @@
-import Config from "Assets/json/config.json";
+import config from "Assets/json/config.json";
 
 export default {
-  install(vue) {
-    vue.prototype.$config = Config;
+  install(vueInstance) {
+    vueInstance.prototype.$config = config;
   }
 };
