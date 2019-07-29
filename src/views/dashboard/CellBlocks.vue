@@ -11,22 +11,18 @@
         <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
-              <th
-                scope="col"
-                v-text="$t('labels.height')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.proposer')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.txs')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.date')"
-              />
+              <th scope="col">
+                <span v-text="$t('labels.height')" />
+              </th>
+              <th scope="col">
+                <span v-text="$t('labels.proposer')" />
+              </th>
+              <th scope="col">
+                <span v-text="$t('labels.txs')" />
+              </th>
+              <th scope="col">
+                <span v-text="$t('labels.date')" />
+              </th>
             </tr>
           </thead>
           <tbody>

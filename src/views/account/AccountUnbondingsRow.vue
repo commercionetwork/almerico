@@ -4,14 +4,18 @@
     class="text-center com-font-s14-w400"
     data-test="loading"
   >
-    <td v-text="$t('messages.loading')" />
+    <td>
+      <span v-text="$t('messages.loading')" />
+    </td>
   </tr>
   <tr
     v-else-if="!isFetching && hasError"
     class="text-center text-danger com-font-s14-w400"
     data-test="has-error"
   >
-    <td v-text="$t('messages.fetchingError')" />
+    <td>
+      <span v-text="$t('messages.fetchingError')" />
+    </td>
   </tr>
   <tr
     v-else
@@ -30,19 +34,16 @@
         v-text="height"
       />
     </td>
-    <td
-      class="text-right"
-      v-text="amount"
-    />
-    <td
-      class="text-right"
-      v-text="finalDate"
-    />
+    <td class="text-right">
+      <span v-text="amount" />
+    </td>
+    <td class="text-right">
+      <span v-text="finalDate" />
+    </td>
   </tr>
 </template>
 
 <script>
-
 import api from "Store/validators/api";
 import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";

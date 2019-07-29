@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
+  <div class="p-1 rounded-lg">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -16,7 +16,7 @@
             </div>
             <div class="col-6 d-flex justify-content-end">
               <span
-                class="px-3 rounded-pill bg-dark text-white com-font-s11-w400"
+                class="px-3 rounded-pill com-font-s11-w400"
                 v-text="voting.status"
               />
             </div>

@@ -28,22 +28,18 @@
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
-                <th
-                  scope="col"
-                  v-text="$t('labels.validator')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.height')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.amount')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.finalDate')"
-                />
+                <th scope="col">
+                  <span v-text="$t('labels.validator')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.height')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.amount')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.finalDate')" />
+                </th>
               </tr>
             </thead>
             <tbody>

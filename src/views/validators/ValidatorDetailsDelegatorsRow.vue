@@ -8,14 +8,12 @@
         style="max-width: 120px;"
       />
     </td>
-    <td
-      class="align-middle"
-      v-text="amount"
-    />
-    <td
-      class="align-middle"
-      v-text="share"
-    />
+    <td class="align-middle">
+      <span v-text="amount" />
+    </td>
+    <td class="align-middle">
+      <span v-text="share" />
+    </td>
   </tr>
 </template>
 

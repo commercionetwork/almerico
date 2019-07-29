@@ -19,10 +19,9 @@
       :class="event.plus ? 'text-success' : 'text-danger'"
       v-text="amount"
     />
-    <td
-      class="align-middle"
-      v-text="time"
-    />
+    <td class="align-middle">
+      <span v-text="time" />
+    </td>
   </tr>
 </template>
 

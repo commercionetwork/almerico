@@ -14,30 +14,24 @@
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
-                <th
-                  scope="col"
-                  v-text="$t('labels.hash')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.type')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.result')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.amount')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.fee')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.date')"
-                />
+                <th scope="col">
+                  <span v-text="$t('labels.hash')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.type')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.result')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.amount')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.fee')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.date')" />
+                </th>
               </tr>
             </thead>
             <tbody>

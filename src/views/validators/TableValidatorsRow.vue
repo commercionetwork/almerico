@@ -3,9 +3,10 @@
     <td
       v-if="$config.validators.table.columns.ordering"
       class="align-middle"
-      v-text="validatorRank"
       data-test="table-column-ordering"
-    />
+    >
+      <span v-text="validatorRank" />
+    </td>
     <td
       v-if="$config.validators.table.columns.name"
       class="align-middle"
@@ -22,23 +23,22 @@
       data-test="table-column-power"
     >
       <div v-text="votingPower" />
-      <div
-        class="text-black-50"
-        v-text="powerPercent"
-      />
+      <div v-text="powerPercent" />
     </td>
     <td
       v-if="$config.validators.table.columns.share_percentage"
       class="align-middle"
-      v-text="cumulative"
       data-test="table-column-share"
-    />
+    >
+      <span v-text="cumulative" />
+    </td>
     <td
       v-if="$config.validators.table.columns.commission"
       class="align-middle"
-      v-text="commission"
       data-test="table-column-commission"
-    />
+    >
+      <span v-text="commission" />
+    </td>
   </tr>
 </template>
 

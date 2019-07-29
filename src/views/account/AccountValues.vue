@@ -1,5 +1,5 @@
 <template>
-  <div class="row bg-white">
+  <div class="row">
     <div class="col-12 col-md-6 px-1 py-3 px-md-3">
       <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center border-bottom">
         <span

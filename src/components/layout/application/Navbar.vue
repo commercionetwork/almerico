@@ -70,7 +70,7 @@ export default {
   @include z-index(navbar);
 }
 .navbar-icon {
-  color: $white;
+  color: $nav-bars;
 }
 .navbar-brand {
   position: absolute;

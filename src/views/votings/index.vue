@@ -1,7 +1,7 @@
 <template>
   <div class="container com-container">
     <SectionHeader :title="$t('titles.votings')" />
-    <div class="py-3 px-5 rounded bg-white">
+    <div class="py-3 px-5 rounded">
       <div
         v-if="isFetching"
         class="com-font-s14-w400"

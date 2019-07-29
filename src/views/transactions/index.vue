@@ -12,7 +12,7 @@
       </div>
     </div>
     <SectionHeader />
-    <div class="py-3 px-5 rounded bg-white">
+    <div class="py-3 px-5 rounded">
       <div class="row">
         <div class="col-12">
           <div class="table-responsive">
@@ -22,45 +22,52 @@
                   <th
                     v-if="$config.transactions.table.columns.hash"
                     scope="col"
-                    v-text="$t('labels.hash')"
                     data-test="table-column-hash"
-                  />
+                  >
+                    <span v-text="$t('labels.hash')" />
+                  </th>
                   <th
                     v-if="$config.transactions.table.columns.type"
                     scope="col"
-                    v-text="$t('labels.type')"
                     data-test="table-column-type"
-                  />
+                  >
+                    <span v-text="$t('labels.type')" />
+                  </th>
                   <th
                     v-if="$config.transactions.table.columns.result"
                     scope="col"
-                    v-text="$t('labels.result')"
                     data-test="table-column-result"
-                  />
+                  >
+                    <span v-text="$t('labels.result')" />
+                  </th>
                   <th
                     v-if="$config.transactions.table.columns.amount"
                     scope="col"
-                    v-text="$t('labels.amount')"
                     data-test="table-column-amount"
-                  />
+                  >
+                    <span v-text="$t('labels.amount')" />
+                  </th>
                   <th
                     v-if="$config.transactions.table.columns.fee"
                     scope="col"
-                    v-text="$t('labels.fee')"
                     data-test="table-column-fee"
-                  />
+                  >
+                    <span v-text="$t('labels.fee')" />
+                  </th>
                   <th
                     v-if="$config.transactions.table.columns.block_height"
                     scope="col"
-                    v-text="$t('labels.height')"
                     data-test="table-column-height"
-                  />
+                  >
+                    <span v-text="$t('labels.height')" />
+                  </th>
                   <th
                     v-if="$config.transactions.table.columns.date"
                     scope="col"
-                    v-text="$t('labels.date')"
                     data-test="table-column-date"
-                  />
+                  >
+                    <span v-text="$t('labels.date')" />
+                  </th>
                 </tr>
               </thead>
               <tbody v-if="isFetching">

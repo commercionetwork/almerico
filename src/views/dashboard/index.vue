@@ -11,7 +11,7 @@
         <SearchBar />
       </div>
     </div>
-    <div class="row rounded bg-light">
+    <div class="row rounded">
       <div class="col-12">
         <div class="row py-3 px-5">
           <div class="col-12 col-lg-5 my-1 my-lg-0">
@@ -33,7 +33,7 @@
             />
           </div>
         </div>
-        <div class="row py-3 px-5 bg-white">
+        <div class="row py-3 px-5">
           <div class="col-12 col-md-6 my-1 my-md-0">
             <CellBlocks
               v-if="$config.dashboard.live_data.blocks"

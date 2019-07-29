@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
+  <div class="p-1 rounded-lg">
     <div class="row d-flex align-items-center">
       <div class="col-12 col-sm-6 d-flex justify-content-start">
         <span
@@ -66,10 +66,10 @@
 </template>
 
 <script>
-import DoughnutChart from "Components/common/DoughnutChart.vue";
+// import DoughnutChart from "Components/common/DoughnutChart.vue";
 
-import Icon from "vue-awesome/components/Icon.vue";
-import "vue-awesome/icons/chevron-right";
+// import Icon from "vue-awesome/components/Icon.vue";
+// import "vue-awesome/icons/chevron-right";
 
 import { ROUTE_NAMES, VOTING_STATUS } from "Constants";
 
@@ -77,8 +77,8 @@ export default {
   name: "CellVoting",
   description: "Display a voting",
   components: {
-    DoughnutChart,
-    Icon
+    // DoughnutChart,
+    // Icon
   },
   props: {
     voting: {

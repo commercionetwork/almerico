@@ -25,7 +25,7 @@
     />
     <div
       v-else
-      class="row rounded bg-light"
+      class="row rounded"
       data-test="items"
     >
       <div class="col-12 p-0">
@@ -34,7 +34,7 @@
             <AccountHeader :address="address" />
           </div>
         </div>
-        <div class="px-5 py-3 bg-white">
+        <div class="px-5 py-3">
           <div class="row py-3">
             <div class="col-12">
               <AccountValues

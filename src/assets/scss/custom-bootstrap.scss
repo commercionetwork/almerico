@@ -27,14 +27,38 @@ $com-green: #38BA8C;
 // BRAND COLORS //
 //////////////////
 $primary: $com-green;
-$secondary: $gray-darkest;
-$light: $gray-lightest;
+$secondary: lighten($primary, 10);
 $success: $green;
 $info: $blue;
 $warning: $yellow;
 $danger: $red;
-$text: $secondary;
+///////////
+// THEME //
+///////////
+$theme: "dark";
+
 $background: $gray-lighter;
+$text: $gray-darkest;
+$nav-bars: $white;
+
+@if $theme=="light" {
+  $background: $gray-lighter;
+} @else {
+  $background: $gray-darker;
+}
+
+@if lightness($background) <= lightness($gray-darker) {
+  $text: $white;
+} @else {
+  $text: $gray-darkest;
+}
+
+@if lightness($primary) <= lightness($gray-light) {
+  $nav-bars: $white;
+} @else {
+  $nav-bars: $gray-darker;
+}
+
 /////////////////////
 // OVERRIDE COLORS //
 /////////////////////
@@ -57,9 +81,12 @@ $badge-padding-y: 0.4em;
 // Don't make badges normal instead of bold
 $badge-font-weight: normal;
 // Override fonts
-$font-family-sans-serif: 'Open Sans', sans-serif;
-$font-family-serif: 'Liberation Serif', serif;
-$font-family-monospace: 'Roboto Mono', monospace;
+$font-family-sans-serif: 'Open Sans',
+sans-serif;
+$font-family-serif: 'Liberation Serif',
+serif;
+$font-family-monospace: 'Roboto Mono',
+monospace;
 $font-family-base: $font-family-sans-serif;
 // Set global options
 $enable-shadows: false;

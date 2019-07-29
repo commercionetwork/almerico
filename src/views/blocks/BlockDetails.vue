@@ -25,7 +25,7 @@
     />
     <div
       v-else
-      class="row rounded bg-light"
+      class="row rounded"
       data-test="item"
     >
       <div class="col-12 p-0">
@@ -36,7 +36,7 @@
         </div>
         <div
           v-if="$config.block_details.txs_list"
-          class="py-3 px-5 rounded bg-white"
+          class="py-3 px-5 rounded"
           data-test="txs-list"
         >
           <div class="row py-1">

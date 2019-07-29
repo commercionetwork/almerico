@@ -8,26 +8,21 @@
         style="max-width: 150px;"
       />
     </td>
-    <td
-      class="align-middle"
-      v-text="type"
-    />
-    <td
-      class="align-middle"
-      v-text="result"
-    />
-    <td
-      class="align-middle"
-      v-text="amount"
-    />
-    <td
-      class="align-middle"
-      v-text="fee"
-    />
-    <td
-      class="align-middle"
-      v-text="time"
-    />
+    <td class="align-middle">
+      <span v-text="type" />
+    </td>
+    <td class="align-middle">
+      <span v-text="result" />
+    </td>
+    <td class="align-middle">
+      <span v-text="amount" />
+    </td>
+    <td class="align-middle">
+      <span v-text="fee" />
+    </td>
+    <td class="align-middle">
+      <span v-text="time" />
+    </td>
   </tr>
 </template>
 

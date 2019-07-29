@@ -1,7 +1,7 @@
 <template>
   <footer class="footer text-center">
-    <span 
-      class="text-muted" 
+    <span
+      class="com-font-s13-w300"
       v-html="footerText"
     />
   </footer>
@@ -21,7 +21,7 @@ export default {
       return `${this.year}&nbsp;Commercio.network`;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -12,7 +12,7 @@
       </div>
     </div>
     <SectionHeader />
-    <div class="py-3 px-5 rounded bg-white">
+    <div class="py-3 px-5 rounded">
       <div class="row">
         <div class="col-12">
           <Pagination
@@ -34,33 +34,38 @@
                   <th
                     v-if="$config.blocks.table.columns.height"
                     scope="col"
-                    v-text="$t('labels.height')"
                     data-test="table-column-height"
-                  />
+                  >
+                    <span v-text="$t('labels.height')" />
+                  </th>
                   <th
                     v-if="$config.blocks.table.columns.hash"
                     scope="col"
-                    v-text="$t('labels.hash')"
                     data-test="table-column-hash"
-                  />
+                  >
+                    <span v-text="$t('labels.hash')" />
+                  </th>
                   <th
                     v-if="$config.blocks.table.columns.proposer"
                     scope="col"
-                    v-text="$t('labels.proposer')"
                     data-test="table-column-proposer"
-                  />
+                  >
+                    <span v-text="$t('labels.proposer')" />
+                  </th>
                   <th
                     v-if="$config.blocks.table.columns.txs"
                     scope="col"
-                    v-text="$t('labels.txs')"
                     data-test="table-column-txs"
-                  />
+                  >
+                    <span v-text="$t('labels.txs')" />
+                  </th>
                   <th
                     v-if="$config.blocks.table.columns.date"
                     scope="col"
-                    v-text="$t('labels.date')"
                     data-test="table-column-date"
-                  />
+                  >
+                    <span v-text="$t('labels.date')" />
+                  </th>
                 </tr>
               </thead>
               <tbody v-if="isFetching">

@@ -5,33 +5,38 @@
         <th
           v-if="$config.validators.table.columns.ordering"
           scope="col"
-          v-text="$t('labels.rank')"
           data-test="table-column-ordering"
-        />
+        >
+          <span v-text="$t('labels.rank')" />
+        </th>
         <th
           v-if="$config.validators.table.columns.name"
           scope="col"
-          v-text="$t('labels.validator')"
           data-test="table-column-name"
-        />
+        >
+          <span v-text="$t('labels.validator')" />
+        </th>
         <th
           v-if="$config.validators.table.columns.voting_power"
           scope="col"
-          v-text="$t('labels.votingPower')"
           data-test="table-column-power"
-        />
+        >
+          <span v-text="$t('labels.votingPower')" />
+        </th>
         <th
           v-if="$config.validators.table.columns.share_percentage"
           scope="col"
-          v-text="$t('labels.cumulativeShare')"
           data-test="table-column-share"
-        />
+        >
+          <span v-text="$t('labels.cumulativeShare')" />
+        </th>
         <th
           v-if="$config.validators.table.columns.commission"
           scope="col"
-          v-text="$t('labels.commission')"
           data-test="table-column-commission"
-        />
+        >
+          <span v-text="$t('labels.commission')" />
+        </th>
       </tr>
     </thead>
     <tbody>

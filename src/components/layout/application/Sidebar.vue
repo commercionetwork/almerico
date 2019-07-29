@@ -39,7 +39,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-secondary com-font-s14-w700"
+            class="flex-grow-1 com-font-s14-w700"
             v-html="$t('titles.validators')"
           />
         </div>
@@ -60,7 +60,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-secondary com-font-s14-w700"
+            class="flex-grow-1 com-font-s14-w700"
             v-html="$t('titles.blocks')"
           />
         </div>
@@ -81,7 +81,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-secondary com-font-s14-w700"
+            class="flex-grow-1 com-font-s14-w700"
             v-html="$t('titles.transactions')"
           />
         </div>
@@ -102,7 +102,7 @@
             class="pr-2 text-primary"
           />
           <span
-            class="flex-grow-1 text-secondary com-font-s14-w700"
+            class="flex-grow-1 com-font-s14-w700"
             v-html="$t('titles.votings')"
           />
         </div>
@@ -163,9 +163,8 @@ export default {
   padding: 10px 10px 10px 10px;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
-  border-top: 1px solid $gray-lighter;
-  border-right: 1px solid $gray-lighter;
-  background: $white;
+  border-right: 1px solid $gray-light;
+  background: $background;
   @include z-index(sidebar);
 }
 .open {

@@ -28,18 +28,15 @@
           <table class="table table-striped">
             <thead>
               <tr class="text-center com-font-s13-w700">
-                <th
-                  scope="col"
-                  v-text="$t('labels.delegator')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.amount')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.share')"
-                />
+                <th scope="col">
+                  <span v-text="$t('labels.delegator')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.amount')" />
+                </th>
+                <th scope="col">
+                  <span v-text="$t('labels.share')" />
+                </th>
               </tr>
             </thead>
             <tbody>

@@ -24,10 +24,9 @@
         v-text="moniker"
       />
     </td>
-    <td
-      class="text-right"
-      v-text="amount"
-    />
+    <td class="text-right">
+      <span v-text="amount" />
+    </td>
   </tr>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-1 rounded-lg bg-light">
+  <div class="p-1 rounded-lg">
     <div
       v-if="isFetching"
       v-html="$t('messages.loading')"
@@ -13,7 +13,7 @@
           />
         </div>
         <div class="col-6 d-flex justify-content-end">
-          <span class="px-3 border rounded-pill text-secondary bg-light com-font-s13-w400">Quorum: {{ voting.poll.quorum }}%</span>
+          <span class="px-3 border rounded-pill com-font-s13-w400">Quorum: {{ voting.poll.quorum }}%</span>
         </div>
       </div>
       <div class="row p-1">
