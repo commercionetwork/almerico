@@ -14,16 +14,28 @@
     <div class="container rounded bg-light">
       <div class="row py-3 px-5">
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellHeight />
+          <CellHeight
+            v-if="$config.validators.live_data.block_height"
+            data-test="live-block-height"
+          />
         </div>
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellValidators />
+          <CellValidators
+            v-if="$config.validators.live_data.count"
+            data-test="live-count"
+          />
         </div>
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellTokens />
+          <CellTokens
+            v-if="$config.validators.live_data.bounded_tokens"
+            data-test="live-bounded_tokens"
+          />
         </div>
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellTime />
+          <CellTime
+            v-if="$config.validators.live_data.time_since_last_block"
+            data-test="live-time_since_last_block"
+          />
         </div>
       </div>
       <div class="row py-3 px-5 bg-white">
