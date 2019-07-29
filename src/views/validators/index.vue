@@ -16,7 +16,7 @@
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellHeight
             v-if="$config.validators.live_data.block_height"
-            data-test="live-block-height"
+            data-test="live-height"
           />
         </div>
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
@@ -27,14 +27,14 @@
         </div>
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellTokens
-            v-if="$config.validators.live_data.bounded_tokens"
-            data-test="live-bounded_tokens"
+            v-if="$config.validators.live_data.bonded_tokens"
+            data-test="live-tokens"
           />
         </div>
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellTime
             v-if="$config.validators.live_data.time_since_last_block"
-            data-test="live-time_since_last_block"
+            data-test="live-time"
           />
         </div>
       </div>

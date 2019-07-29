@@ -31,7 +31,19 @@ describe("views/validators/index.vue", () => {
       },
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          validators: {
+            live_data: {
+              block_height: true,
+              count: true,
+              bounded_tokens: true,
+              time_since_last_block: true
+            },
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -49,7 +61,19 @@ describe("views/validators/index.vue", () => {
       },
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          validators: {
+            live_data: {
+              block_height: true,
+              count: true,
+              bounded_tokens: true,
+              time_since_last_block: true
+            },
+          }
+        }
+      }
     });
     wrapper.setData({
       filteredValidators: mockValidators()
@@ -69,12 +93,84 @@ describe("views/validators/index.vue", () => {
       },
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          validators: {
+            live_data: {
+              block_height: true,
+              count: true,
+              bounded_tokens: true,
+              time_since_last_block: true
+            },
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="no-items"]').text()).toEqual('messages.noItems');
+  });
+
+  it("Check if live data are displayed", () => {
+    const wrapper = shallowMount(Validators, {
+      computed: {
+        pool: () => {},
+        isFetching: () => false,
+        validators: () => []
+      },
+      localVue,
+      methods,
+      mocks: {
+        ...mocks,
+        $config: {
+          validators: {
+            live_data: {
+              block_height: true,
+              count: true,
+              bonded_tokens: true,
+              time_since_last_block: true
+            },
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-height"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="live-count"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="live-tokens"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="live-time"]').exists()).toBe(true);
+  });
+
+  it("Check if live data are not displayed", () => {
+    const wrapper = shallowMount(Validators, {
+      computed: {
+        pool: () => {},
+        isFetching: () => false,
+        validators: () => []
+      },
+      localVue,
+      methods,
+      mocks: {
+        ...mocks,
+        $config: {
+          validators: {
+            live_data: {
+              block_height: false,
+              count: false,
+              bonded_tokens: false,
+              time_since_last_block: false
+            },
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-height"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="live-count"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="live-tokens"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="live-time"]').exists()).toBe(false);
   });
 });
