@@ -29,6 +29,7 @@
       v-if="$config.validators.enabled"
       class="m-4"
       @click="closeSidebar"
+      data-test="link-validators"
     >
       <router-link :to="toSection(ROUTE_NAMES.VALIDATORS)">
         <div class="row d-flex flex-row align-items-center">
@@ -49,6 +50,7 @@
       v-if="$config.blocks.enabled"
       class="m-4"
       @click="closeSidebar"
+      data-test="link-blocks"
     >
       <router-link :to="toSection(ROUTE_NAMES.BLOCKS)">
         <div class="row d-flex flex-row align-items-center">
@@ -69,6 +71,7 @@
       v-if="$config.transactions.enabled"
       class="m-4"
       @click="closeSidebar"
+      data-test="link-transactions"
     >
       <router-link :to="toSection(ROUTE_NAMES.TRANSACTIONS)">
         <div class="row d-flex flex-row align-items-center">
@@ -89,6 +92,7 @@
       v-if="$config.votings.enabled"
       class="m-4"
       @click="closeSidebar"
+      data-test="link-votings"
     >
       <router-link :to="toSection(ROUTE_NAMES.VOTINGS)">
         <div class="row d-flex flex-row align-items-center">
