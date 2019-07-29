@@ -35,7 +35,7 @@
           </div>
         </div>
         <div
-          v-if="Config.transaction_details.msgs_details"
+          v-if="$config.transaction_details.msgs_details"
           class="py-3 px-5 rounded bg-white"
           data-test="msgs-details"
         >
@@ -91,7 +91,6 @@ export default {
   },
   data() {
     return {
-      Config,
       hasError: false,
       isFetching: false,
       messages: [],
