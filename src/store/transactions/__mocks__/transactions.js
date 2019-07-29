@@ -6,39 +6,65 @@ const mockTransaction = (txhash = randomDataGenerator.makeId(40), height = rando
   let amount = (randomDataGenerator.intFromInterval(100, 10000)) / 100;
 
   let item = {
-    txhash,
     height,
-    tx: {
-      msg: [
-        "string"
-      ],
-      fee: {
-        gas,
-        amount: [{
-          denom: "stake",
-          amount
-        }]
+    txhash,
+    raw_log: [{
+      msg_index: "0",
+      success: true,
+      log: ""
+    }],
+    logs: [{
+      msg_index: "0",
+      success: true,
+      log: ""
+    }],
+    gas_wanted: "100000",
+    gas_used: "10000",
+    tags: [{
+        key: "action",
+        value: "send"
       },
-      memo,
-      signature: {
-        signature: "MEUCIQD02fsDPra8MtbRsyB1w7bqTM55Wu138zQbFcWx4+CFyAIge5WNPfKIuvzBZ69MyqHsqD8S1IwiEp+iUb6VSdtlpgY=",
-        pub_key: {
-          type: "tendermint/PubKeySecp256k1",
-          value: "Avz04VhtKJh8ACCVzlI8aTosGy0ikFXKIVHQ3jKMrosH"
+      {
+        key: "sender",
+        value: "comnet1r7clpxcnxna5q7d6ux7dp9jqeu6rqv49rxuwh2"
+      },
+      {
+        key: "recipient",
+        value: "comnet1l0xuxycj63gqdcru06fhpr98v0lexnzzd5nxt2"
+      }
+    ],
+    tx: {
+      type: "auth/StdTx",
+      value: {
+        msg: [{
+          type: "cosmos-sdk/MsgSend",
+          value: {
+            from_address: "comnet1r7clpxcnxna5q7d6ux7dp9jqeu6rqv49rxuwh2",
+            to_address: "comnet1l0xuxycj63gqdcru06fhpr98v0lexnzzd5nxt2",
+            amount: [{
+              denom: "ucommercio",
+              amount: "100000000"
+            }]
+          }
+        }],
+        fee: {
+          amount: [{
+            denom: "stake",
+            amount
+          }],
+          gas
         },
-        account_number: "0",
-        sequence: "0"
+        signatures: [{
+          pub_key: {
+            type: "tendermint/PubKeySecp256k1",
+            value: "Au3Y4Dipdd2sqRYje0d0QHiUTLKS7OvbVWYnQ1LYwEp9"
+          },
+          signature: "+kjExItp6m3/2NI6KsDp5pxQWsbwgZxdD2Lcl2CtuAE3+ImmbdcpTlfTwnYJuWLimG8FnqOJ3c/biWKSe5eNXw=="
+        }],
+        memo
       }
     },
-    result: {
-      log: "string",
-      gas_wanted: "200000",
-      gas_used: "26354",
-      tags: [{
-        key: "string",
-        value: "string"
-      }]
-    }
+    timestamp: "2019-06-14T07:05:38Z"
   };
   return item;
 };

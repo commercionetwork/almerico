@@ -1,4 +1,4 @@
-/* global describe, expect, it, jest */
+/* global describe, expect, it */
 
 import TransactionDetailsInfo from "../TransactionDetailsInfo.vue";
 import {
