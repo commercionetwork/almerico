@@ -13,7 +13,7 @@ const localVue = createLocalVue();
 
 describe("views/transactions/TransactionDetails.vue", () => {
   const methods = {
-    getTransactions: jest.fn()
+    getTransaction: jest.fn()
   };
   const mocks = {
     $route: {
@@ -28,7 +28,14 @@ describe("views/transactions/TransactionDetails.vue", () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          transaction_details: {
+            msgs_details: true
+          }
+        }
+      }
     });
     wrapper.setData({
       isFetching: true
@@ -44,7 +51,14 @@ describe("views/transactions/TransactionDetails.vue", () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          transaction_details: {
+            msgs_details: true
+          }
+        }
+      }
     });
     wrapper.setData({
       isFetching: false,
@@ -61,7 +75,14 @@ describe("views/transactions/TransactionDetails.vue", () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transaction_details: {
+            msgs_details: true
+          }
+        }
+      }
     });
     wrapper.setData({
       isFetching: false,
@@ -77,16 +98,18 @@ describe("views/transactions/TransactionDetails.vue", () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transaction_details: {
+            msgs_details: true
+          }
+        }
+      }
     });
     wrapper.setData({
       isFetching: false,
-      transaction: mockTransaction(),
-      Config: {
-        transaction_details: {
-          msgs_details: true
-        }
-      }
+      transaction: mockTransaction()
     });
 
     expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(true);
@@ -96,16 +119,18 @@ describe("views/transactions/TransactionDetails.vue", () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transaction_details: {
+            msgs_details: false
+          }
+        }
+      }
     });
     wrapper.setData({
       isFetching: false,
-      transaction: mockTransaction(),
-      Config: {
-        transaction_details: {
-          msgs_details: false
-        }
-      }
+      transaction: mockTransaction()
     });
 
     expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(false);
