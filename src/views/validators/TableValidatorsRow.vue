@@ -1,16 +1,26 @@
 <template>
   <tr class="text-center com-font-s13-w400">
     <td
+      v-if="$config.validators.table.columns.ordering"
       class="align-middle"
       v-text="validatorRank"
+      data-test="table-column-ordering"
     />
-    <td class="align-middle">
+    <td
+      v-if="$config.validators.table.columns.name"
+      class="align-middle"
+      data-test="table-column-name"
+    >
       <router-link
         :to="toValidatorDetails(validator.operator_address)"
         v-text="validator.description.moniker"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="$config.validators.table.columns.voting_power"
+      class="align-middle"
+      data-test="table-column-power"
+    >
       <div v-text="votingPower" />
       <div
         class="text-black-50"
@@ -18,12 +28,16 @@
       />
     </td>
     <td
+      v-if="$config.validators.table.columns.share_percentage"
       class="align-middle"
       v-text="cumulative"
+      data-test="table-column-share"
     />
     <td
+      v-if="$config.validators.table.columns.commission"
       class="align-middle"
       v-text="commission"
+      data-test="table-column-commission"
     />
   </tr>
 </template>

@@ -159,8 +159,7 @@
         "name": true,
         "voting_power": true,
         "share_percentage": true,
-        "commission": true,
-        "up_time": true
+        "commission": true
       }
 
     }
