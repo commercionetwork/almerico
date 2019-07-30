@@ -14,11 +14,11 @@
     <div class="modal-footer">
       <div class="mx-auto d-flex flex-column align-items-center">
         <span
-          class="com-font-s14-w400"
+          class="text-black-50 com-font-s14-w400"
           v-text="$t('messages.scanAddress')"
         />
         <span
-          class="com-font-s12-w700"
+          class="text-dark com-font-s12-w700"
           v-text="code"
         />
       </div>
