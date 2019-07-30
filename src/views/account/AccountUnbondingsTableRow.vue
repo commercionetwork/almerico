@@ -24,7 +24,7 @@
   >
     <td class="text-left">
       <router-link
-        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, delegation.validator_address)"
+        :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, unbonding.validator_address)"
         v-text="moniker"
       />
     </td>
@@ -49,10 +49,10 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "AccountUnbondingsRow",
+  name: "AccountUnbondingsTableRow",
   description: "Display a row of unbonding delegations list",
   props: {
-    delegation: {
+    unbonding: {
       type: Object,
       required: true,
       note: "The unbonding delegation to show"
@@ -70,7 +70,7 @@ export default {
     amount() {
       let amount = coinConverter({
         denom: this.$config.generic.coin.name.long,
-        amount: this.delegation.entry.balance
+        amount: this.unbonding.entry.balance
       });
       let formatAmount = this.$n(amount.amount, {
         style: "decimal",
@@ -80,11 +80,11 @@ export default {
       return `${formatAmount} ${amount.denom}`;
     },
     height() {
-      return this.delegation.entry.creation_height;
+      return this.unbonding.entry.creation_height;
     },
     finalDate() {
       return new Date(
-        this.delegation.entry.completion_time
+        this.unbonding.entry.completion_time
       ).toLocaleDateString();
     }
   },
@@ -93,7 +93,7 @@ export default {
       this.isFetching = true;
       try {
         const response = await api.requestValidator(
-          this.delegation.validator_address
+          this.unbonding.validator_address
         );
         if (response.data) this.moniker = response.data.description.moniker;
       } catch (error) {

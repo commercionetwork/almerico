@@ -3,7 +3,7 @@
     <div class="row align-items-center">
       <div class="col-12 col-md-4">
         <h2
-          class="com-font-s16-w700"
+          class="py-3 com-font-s16-w700"
           v-text="$t('titles.transactions')"
         />
       </div>

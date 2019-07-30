@@ -1,6 +1,6 @@
 /* global describe, expect, it, jest */
 
-import AccountUnbondingsRow from "../AccountUnbondingsRow.vue";
+import AccountUnbondingsTableRow from "../AccountUnbondingsTableRow.vue";
 import {
   mockConvertedUnbonding
 } from "Store/account/__mocks__/unbondings";
@@ -13,7 +13,7 @@ import VueRouter from "vue-router";
 const localVue = createLocalVue();
 localVue.use(VueRouter);
 
-describe("views/account/AccountUnbondingsRow.vue", () => {
+describe("views/account/AccountUnbondingsTableRow.vue", () => {
   const methods = {
     getMoniker: jest.fn()
   };
@@ -32,11 +32,11 @@ describe("views/account/AccountUnbondingsRow.vue", () => {
     }
   };
   const props = {
-    delegation: mockConvertedUnbonding()
+    unbonding: mockConvertedUnbonding()
   };
 
   it("Check if loading message is displayed", () => {
-    const wrapper = shallowMount(AccountUnbondingsRow, {
+    const wrapper = shallowMount(AccountUnbondingsTableRow, {
       localVue,
       methods,
       mocks,
@@ -55,7 +55,7 @@ describe("views/account/AccountUnbondingsRow.vue", () => {
   });
 
   it("Check if error message is displayed", () => {
-    const wrapper = shallowMount(AccountUnbondingsRow, {
+    const wrapper = shallowMount(AccountUnbondingsTableRow, {
       localVue,
       methods,
       mocks,
@@ -74,7 +74,7 @@ describe("views/account/AccountUnbondingsRow.vue", () => {
   });
 
   it("Check if item data are displayed", () => {
-    const wrapper = shallowMount(AccountUnbondingsRow, {
+    const wrapper = shallowMount(AccountUnbondingsTableRow, {
       localVue,
       methods,
       mocks,
