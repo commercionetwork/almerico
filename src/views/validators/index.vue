@@ -11,59 +11,61 @@
         <SearchBar />
       </div>
     </div>
-    <div class="container rounded">
-      <div class="row py-3 px-5 com-bg-header">
-        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellHeight
-            v-if="$config.validators.live_data.block_height"
-            data-test="live-height"
-          />
+    <div class="row rounded com-bg-header">
+      <div class="col-12">
+        <div class="row py-3 px-5">
+          <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
+            <CellHeight
+              v-if="$config.validators.live_data.block_height"
+              data-test="live-height"
+            />
+          </div>
+          <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
+            <CellValidators
+              v-if="$config.validators.live_data.count"
+              data-test="live-count"
+            />
+          </div>
+          <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
+            <CellTokens
+              v-if="$config.validators.live_data.bonded_tokens"
+              data-test="live-tokens"
+            />
+          </div>
+          <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
+            <CellTime
+              v-if="$config.validators.live_data.time_since_last_block"
+              data-test="live-time"
+            />
+          </div>
         </div>
-        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellValidators
-            v-if="$config.validators.live_data.count"
-            data-test="live-count"
-          />
-        </div>
-        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellTokens
-            v-if="$config.validators.live_data.bonded_tokens"
-            data-test="live-tokens"
-          />
-        </div>
-        <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
-          <CellTime
-            v-if="$config.validators.live_data.time_since_last_block"
-            data-test="live-time"
-          />
-        </div>
-      </div>
-      <div class="row py-3 px-5 com-bg-body">
-        <div class="col-12">
-          <div class="row py-1 d-flex justify-content-between">
-            <div class="col-12 col-md-8 offset-md-4">
-              <SearchValidator v-on:filter-validators="filterValidators" />
+        <div class="row py-3 px-5 com-bg-body">
+          <div class="col-12">
+            <div class="row py-1 d-flex justify-content-between">
+              <div class="col-12 col-md-8 offset-md-4">
+                <SearchValidator v-on:filter-validators="filterValidators" />
+              </div>
             </div>
+            <div
+              v-if="isFetching"
+              class="com-font-s14-w400"
+              v-text="$t('messages.loading')"
+              data-test="loading"
+            />
+            <div
+              v-else-if="!isFetching && filteredValidators.length > 0"
+              class="table-responsive"
+              data-test="items"
+            >
+              <TableValidators :validators="filteredValidators" />
+            </div>
+            <div
+              v-else
+              class="text-center text-info com-font-s14-w700"
+              v-text="$t('messages.noItems')"
+              data-test="no-items"
+            />
           </div>
-          <div
-            v-if="isFetching"
-            class="com-font-s14-w400"
-            v-text="$t('messages.loading')"
-            data-test="loading"
-          />
-          <div
-            v-else-if="!isFetching && filteredValidators.length > 0"
-            class="table-responsive"
-            data-test="items"
-          >
-            <TableValidators :validators="filteredValidators" />
-          </div>
-          <div
-            v-else
-            class="text-center text-info com-font-s14-w700"
-            v-text="$t('messages.noItems')"
-            data-test="no-items"
-          />
         </div>
       </div>
     </div>

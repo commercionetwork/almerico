@@ -11,94 +11,100 @@
         <SearchBar />
       </div>
     </div>
-    <SectionHeader />
-    <div class="py-3 px-5 rounded com-bg-body">
-      <div class="row">
-        <div class="col-12">
-          <Pagination
-            v-if="blocks.length > 0"
-            :limit="limit"
-            :page="page"
-            :total="total"
-            v-on:change-page="changePage"
-            data-test="pagination"
-          />
-        </div>
+    <div class="row my-1">
+      <div class="col-12">
+        <SectionHeader />
       </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr class="text-center com-font-s13-w700">
-                  <th
-                    v-if="$config.blocks.table.columns.height"
-                    scope="col"
-                    data-test="table-column-height"
-                  >
-                    <span v-text="$t('labels.height')" />
-                  </th>
-                  <th
-                    v-if="$config.blocks.table.columns.hash"
-                    scope="col"
-                    data-test="table-column-hash"
-                  >
-                    <span v-text="$t('labels.hash')" />
-                  </th>
-                  <th
-                    v-if="$config.blocks.table.columns.proposer"
-                    scope="col"
-                    data-test="table-column-proposer"
-                  >
-                    <span v-text="$t('labels.proposer')" />
-                  </th>
-                  <th
-                    v-if="$config.blocks.table.columns.txs"
-                    scope="col"
-                    data-test="table-column-txs"
-                  >
-                    <span v-text="$t('labels.txs')" />
-                  </th>
-                  <th
-                    v-if="$config.blocks.table.columns.date"
-                    scope="col"
-                    data-test="table-column-date"
-                  >
-                    <span v-text="$t('labels.date')" />
-                  </th>
-                </tr>
-              </thead>
-              <tbody v-if="isFetching">
-                <span
-                  class="com-font-s14-w400"
-                  v-text="$t('messages.loading')"
-                  data-test="loading"
-                />
-              </tbody>
-              <tbody v-else-if="!isFetching && hasError">
-                <span
-                  class="text-danger com-font-s14-w400"
-                  v-text="message"
-                  data-test="has-error"
-                />
-              </tbody>
-              <tbody v-else-if="!isFetching && !hasError && blocks.length > 0">
-                <TableBlocksRow
-                  v-for="(block, index) in blocksList"
-                  :key="index"
-                  :block="block"
-                  :rank="index"
-                  data-test="items"
-                />
-              </tbody>
-              <tbody v-else>
-                <span
-                  class="text-center text-info com-font-s14-w700"
-                  v-text="$t('messages.noItems')"
-                  data-test="no-items"
-                />
-              </tbody>
-            </table>
+    </div>
+    <div class="row rounded com-bg-body">
+      <div class="col-12">
+        <div class="row py-3 px-5">
+          <div class="col-12">
+            <Pagination
+              v-if="blocks.length > 0"
+              :limit="limit"
+              :page="page"
+              :total="total"
+              v-on:change-page="changePage"
+              data-test="pagination"
+            />
+          </div>
+        </div>
+        <div class="row py-3 px-5">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr class="text-center com-font-s13-w700">
+                    <th
+                      v-if="$config.blocks.table.columns.height"
+                      scope="col"
+                      data-test="table-column-height"
+                    >
+                      <span v-text="$t('labels.height')" />
+                    </th>
+                    <th
+                      v-if="$config.blocks.table.columns.hash"
+                      scope="col"
+                      data-test="table-column-hash"
+                    >
+                      <span v-text="$t('labels.hash')" />
+                    </th>
+                    <th
+                      v-if="$config.blocks.table.columns.proposer"
+                      scope="col"
+                      data-test="table-column-proposer"
+                    >
+                      <span v-text="$t('labels.proposer')" />
+                    </th>
+                    <th
+                      v-if="$config.blocks.table.columns.txs"
+                      scope="col"
+                      data-test="table-column-txs"
+                    >
+                      <span v-text="$t('labels.txs')" />
+                    </th>
+                    <th
+                      v-if="$config.blocks.table.columns.date"
+                      scope="col"
+                      data-test="table-column-date"
+                    >
+                      <span v-text="$t('labels.date')" />
+                    </th>
+                  </tr>
+                </thead>
+                <tbody v-if="isFetching">
+                  <span
+                    class="com-font-s14-w400"
+                    v-text="$t('messages.loading')"
+                    data-test="loading"
+                  />
+                </tbody>
+                <tbody v-else-if="!isFetching && hasError">
+                  <span
+                    class="text-danger com-font-s14-w400"
+                    v-text="message"
+                    data-test="has-error"
+                  />
+                </tbody>
+                <tbody v-else-if="!isFetching && !hasError && blocks.length > 0">
+                  <TableBlocksRow
+                    v-for="(block, index) in blocksList"
+                    :key="index"
+                    :block="block"
+                    :rank="index"
+                    data-test="items"
+                  />
+                </tbody>
+                <tbody v-else>
+                  <span
+                    class="text-center text-info com-font-s14-w700"
+                    v-text="$t('messages.noItems')"
+                    data-test="no-items"
+                  />
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
