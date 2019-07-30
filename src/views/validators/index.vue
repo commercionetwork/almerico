@@ -41,7 +41,7 @@
         </div>
         <div class="row py-3 px-5 com-bg-body">
           <div class="col-12">
-            <div class="row py-1 d-flex justify-content-between">
+            <div class="row pb-3 d-flex justify-content-between">
               <div class="col-12 col-md-8 offset-md-4">
                 <SearchValidator v-on:filter-validators="filterValidators" />
               </div>
@@ -61,7 +61,7 @@
             </div>
             <div
               v-else
-              class="text-center text-info com-font-s14-w700"
+              class="py-1 text-center text-info border-top com-font-s14-w700"
               v-text="$t('messages.noItems')"
               data-test="no-items"
             />
