@@ -1,6 +1,6 @@
 /* global describe, expect, it, jest */
 
-import AccountDelegationsRow from "../AccountDelegationsRow.vue";
+import AccountDelegationsTableRow from "../AccountDelegationsTableRow.vue";
 import {
   mockDelegation
 } from "Store/account/__mocks__/delegations";
@@ -13,7 +13,7 @@ import VueRouter from "vue-router";
 const localVue = createLocalVue();
 localVue.use(VueRouter);
 
-describe("views/account/AccountDelegationsRow.vue", () => {
+describe("views/account/AccountDelegationsTableRow.vue", () => {
   const methods = {
     getMoniker: jest.fn()
   };
@@ -36,7 +36,7 @@ describe("views/account/AccountDelegationsRow.vue", () => {
   };
 
   it("Check if loading message is displayed", () => {
-    const wrapper = shallowMount(AccountDelegationsRow, {
+    const wrapper = shallowMount(AccountDelegationsTableRow, {
       localVue,
       methods,
       mocks,
@@ -55,7 +55,7 @@ describe("views/account/AccountDelegationsRow.vue", () => {
   });
 
   it("Check if error message is displayed", () => {
-    const wrapper = shallowMount(AccountDelegationsRow, {
+    const wrapper = shallowMount(AccountDelegationsTableRow, {
       localVue,
       methods,
       mocks,
@@ -74,7 +74,7 @@ describe("views/account/AccountDelegationsRow.vue", () => {
   });
 
   it("Check if item data are displayed", () => {
-    const wrapper = shallowMount(AccountDelegationsRow, {
+    const wrapper = shallowMount(AccountDelegationsTableRow, {
       localVue,
       methods,
       mocks,

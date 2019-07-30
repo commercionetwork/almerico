@@ -36,7 +36,7 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "AccountDelegationsRow",
+  name: "AccountDelegationsTableRow",
   description: "Display a row of delegations list",
   props: {
     delegation: {
