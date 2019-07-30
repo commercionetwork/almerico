@@ -20,13 +20,13 @@
       <div class="col-12">
         <div class="row py-3 px-5">
           <div class="col-12">
-            <span
+            <div
               v-if="isFetching"
               class="text-info com-font-s14-w400"
               v-text="$t('messages.loading')"
               data-test="loading"
             />
-            <span
+            <div
               v-else-if="!isFetching && hasError"
               class="text-danger com-font-s14-w400"
               v-text="message"
@@ -37,9 +37,9 @@
               :transactions="transactionsList"
               data-test="items"
             />
-            <span
+            <div
               v-else
-              class="text-info com-font-s14-w700"
+              class="py-1 text-center text-info border-top com-font-s14-w700"
               v-text="$t('messages.noItems')"
               data-test="no-items"
             />

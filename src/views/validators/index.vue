@@ -41,30 +41,32 @@
         </div>
         <div class="row py-3 px-5 com-bg-body">
           <div class="col-12">
-            <div class="row pb-3 d-flex justify-content-between">
+            <div class="row py-1 d-flex justify-content-between">
               <div class="col-12 col-md-8 offset-md-4">
                 <SearchValidator v-on:filter-validators="filterValidators" />
               </div>
             </div>
-            <div
-              v-if="isFetching"
-              class="com-font-s14-w400"
-              v-text="$t('messages.loading')"
-              data-test="loading"
-            />
-            <div
-              v-else-if="!isFetching && filteredValidators.length > 0"
-              class="table-responsive"
-              data-test="items"
-            >
-              <TableValidators :validators="filteredValidators" />
+            <div class="row py-1">
+              <div class="col-12">
+                <div
+                  v-if="isFetching"
+                  class="text-info com-font-s14-w400"
+                  v-text="$t('messages.loading')"
+                  data-test="loading"
+                />
+                <TableValidators
+                  v-else-if="!isFetching && filteredValidators.length > 0"
+                  :validators="filteredValidators"
+                  data-test="items"
+                />
+                <div
+                  v-else
+                  class="py-1 text-center text-info border-top com-font-s14-w700"
+                  v-text="$t('messages.noItems')"
+                  data-test="no-items"
+                />
+              </div>
             </div>
-            <div
-              v-else
-              class="py-1 text-center text-info border-top com-font-s14-w700"
-              v-text="$t('messages.noItems')"
-              data-test="no-items"
-            />
           </div>
         </div>
       </div>
