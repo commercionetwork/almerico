@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="container rounded">
-      <div class="row py-3 px-5">
+      <div class="row py-3 px-5 com-bg-header">
         <div class="col-12 col-md-6 col-xl-3 my-1 my-md-0">
           <CellHeight
             v-if="$config.validators.live_data.block_height"
@@ -38,7 +38,7 @@
           />
         </div>
       </div>
-      <div class="row py-3 px-5">
+      <div class="row py-3 px-5 com-bg-body">
         <div class="col-12">
           <div class="row py-1 d-flex justify-content-between">
             <div class="col-12 col-md-8 offset-md-4">

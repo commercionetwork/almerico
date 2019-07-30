@@ -1,5 +1,5 @@
 <template>
-  <div class="row mx-auto my-1 p-1 d-flex align-items-center rounded">
+  <div class="row mx-auto my-1 p-1 d-flex align-items-center rounded com-bg-body">
     <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
       <span
         class="com-font-s14-w700"

@@ -25,7 +25,7 @@
     />
     <div
       v-else
-      class="row rounded"
+      class="row rounded com-bg-header"
       data-test="items"
     >
       <div class="col-12 p-0">
@@ -37,7 +37,7 @@
             />
           </div>
         </div>
-        <div class="px-5 py-3">
+        <div class="px-5 py-3 com-bg-body">
           <div class="row py-3">
             <div class="col-12">
               <ValidatorDetailsDelegated

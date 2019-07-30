@@ -15,6 +15,12 @@ p, div, span {
 .com-container {
   @include page-container();
 }
+.com-bg-header {
+  background-color: $background-header;
+}
+.com-bg-body {
+  background-color: $background-body;
+}
 .com-pointer {  
   cursor: pointer;
 }

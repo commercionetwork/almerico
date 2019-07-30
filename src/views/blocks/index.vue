@@ -12,7 +12,7 @@
       </div>
     </div>
     <SectionHeader />
-    <div class="py-3 px-5 rounded">
+    <div class="py-3 px-5 rounded com-bg-body">
       <div class="row">
         <div class="col-12">
           <Pagination

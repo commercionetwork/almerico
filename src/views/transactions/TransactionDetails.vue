@@ -25,7 +25,7 @@
     />
     <div
       v-else
-      class="row rounded"
+      class="row rounded com-bg-header"
       data-test="item"
     >
       <div class="col-12 p-0">
@@ -36,7 +36,7 @@
         </div>
         <div
           v-if="$config.transaction_details.msgs_details"
-          class="py-3 px-5 rounded"
+          class="py-3 px-5 rounded com-bg-body"
           data-test="msgs-details"
         >
           <div class="row py-1">
