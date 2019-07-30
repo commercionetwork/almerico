@@ -35,12 +35,45 @@ export default {
   },
   data() {
     return {
-      labels: [this.$t("labels.others"), this.$t("labels.self")],
-      options: {
+      chartdata: null,
+      options: null
+    };
+  },
+  computed: {
+    legendColor() {
+      return this.$config.generic.theme_light ? "#303030" : "#FFF";
+    }
+  },
+  methods: {
+    getPercent(value, total) {
+      return total > 0 ? ((value / total) * 100).toFixed(2) : 0;
+    },
+    setChartData() {
+      let data = [
+        this.getPercent(this.others, this.totals),
+        this.getPercent(this.self, this.totals)
+      ];
+      this.chartdata = {
+        labels: [this.$t("labels.others"), this.$t("labels.self")],
+        datasets: [
+          {
+            data,
+            backgroundColor: [
+              this.$config.generic.colors.success,
+              this.$config.generic.colors.info
+            ]
+          }
+        ]
+      };
+      this.options = {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
-          position: "left"
+          position: "left",
+          labels: {
+            fontColor: this.legendColor,
+            fontSize: 13
+          }
         },
         tooltips: {
           callbacks: {
@@ -54,30 +87,11 @@ export default {
             }
           }
         }
-      }
-    };
-  },
-  computed: {
-    chartdata() {
-      let data = [
-        this.getPercent(this.others, this.totals),
-        this.getPercent(this.self, this.totals)
-      ];
-      return {
-        labels: this.labels,
-        datasets: [
-          {
-            data,
-            backgroundColor: ["#33cc99", "#3399ff"]
-          }
-        ]
       };
     }
   },
-  methods: {
-    getPercent(value, total) {
-      return total > 0 ? ((value / total) * 100).toFixed(2) : 0;
-    }
+  mounted() {
+    this.setChartData();
   }
 };
 </script>
