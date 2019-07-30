@@ -8,7 +8,7 @@
         "ticker": "cmc"
       }
     },
-    "theme": "light",
+    "theme_light": false,
     "colors": {
       "primary": "#38ba8c",
       "success": "#33cc99",
