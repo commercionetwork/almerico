@@ -5,11 +5,11 @@ html, body, #app {
 h1, a {
   color: $primary;
 }
-h2, h3, h4, h5, h6, a:hover {
+a:hover {
   color: $secondary;
   text-decoration: none;
 }
-p, div, span {
+h2, h3, h4, h5, h6, p, div, span {
   color: $text;
 }
 .com-container {
