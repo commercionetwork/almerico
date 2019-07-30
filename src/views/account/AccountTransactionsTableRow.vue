@@ -34,7 +34,7 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "AccountTransactionsRow",
+  name: "AccountTransactionsTableRow",
   description: "Display a row of transactions list",
   props: {
     transaction: {

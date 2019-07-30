@@ -21,7 +21,7 @@
       <div class="col-12">
         <div
           v-if="isFetching"
-          class="com-font-s14-w400"
+          class="text-info com-font-s14-w400"
           v-text="$t('messages.loading')"
           data-test="loading"
         />
@@ -31,46 +31,14 @@
           v-text="$t('messages.fetchingError')"
           data-test="has-error"
         />
-        <div
+        <AccountTransactionsTable
           v-else-if="!isFetching && !hasError && transactions.length > 0"
-          class="table-responsive"
+          :transactions="transactionsPage"
           data-test="items"
-        >
-          <table class="table table-striped">
-            <thead>
-              <tr class="text-center com-font-s13-w700">
-                <th scope="col">
-                  <span v-text="$t('labels.hash')" />
-                </th>
-                <th scope="col">
-                  <span v-text="$t('labels.height')" />
-                </th>
-                <th scope="col">
-                  <span v-text="$t('labels.type')" />
-                </th>
-                <th scope="col">
-                  <span v-text="$t('labels.result')" />
-                </th>
-                <th scope="col">
-                  <span v-text="$t('labels.fee')" />
-                </th>
-                <th scope="col">
-                  <span v-text="$t('labels.date')" />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <AccountTransactionsRow
-                v-for="(transaction,index) in transactionsPage"
-                :key="index"
-                :transaction="transaction"
-              />
-            </tbody>
-          </table>
-        </div>
+        />
         <div
           v-else
-          class="text-center text-info com-font-s14-w700"
+          class="py-1 text-center text-info border-top com-font-s14-w700"
           v-text="$t('messages.noItems')"
           data-test="no-items"
         />
@@ -80,7 +48,7 @@
 </template>
 
 <script>
-import AccountTransactionsRow from "./AccountTransactionsRow.vue";
+import AccountTransactionsTable from "./AccountTransactionsTable.vue";
 import Pagination from "Components/common/Pagination.vue";
 
 import api from "Store/transactions/api";
@@ -91,7 +59,7 @@ export default {
   name: "AccountTransactions",
   description: "Display the account transactions list",
   components: {
-    AccountTransactionsRow,
+    AccountTransactionsTable,
     Pagination
   },
   props: {
