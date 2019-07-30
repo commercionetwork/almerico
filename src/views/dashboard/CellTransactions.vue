@@ -43,7 +43,7 @@ import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
 import api from "Store/blocks/api";
-import { ROUTE_NAMES, TX_TYPES } from "Constants";
+import { ROUTE_NAMES } from "Constants";
 import { arrayManager, localizedRoute } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
@@ -83,7 +83,10 @@ export default {
     ...mapActions("transactions", {
       fetchTransactions: "fetchTransactions"
     }),
-    async getTransactions(types) {
+    async getTransactions() {
+      let types = this.$config.transactions.supported_types.map(
+        type => type.tag
+      );
       this.isFetching = true;
       const limit = 20;
       try {
@@ -112,7 +115,7 @@ export default {
     }
   },
   created() {
-    this.getTransactions(Object.values(TX_TYPES));
+    this.getTransactions();
   }
 };
 </script>

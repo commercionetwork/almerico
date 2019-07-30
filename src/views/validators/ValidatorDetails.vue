@@ -73,7 +73,7 @@ import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 
 import api from "Store/validators/api";
 import apiTxs from "Store/transactions/api";
-import { PREFIX, TX_TYPES } from "Constants";
+import { PREFIX } from "Constants";
 import { bech32Manager } from "Utils";
 
 export default {
@@ -104,14 +104,17 @@ export default {
       return this.$route.params.id;
     }
   },
-  watch:{
-    validatorAddress(value){
+  watch: {
+    validatorAddress(value) {
       this.getValidatorData(value);
     }
   },
   methods: {
     async getValidatorData(address) {
       let response = null;
+      let types = this.$config.transactions.supported_types.map(
+        type => type.tag
+      );
       this.isFetching = true;
       try {
         // get validator
@@ -129,7 +132,7 @@ export default {
         response = await api.requestValidatorDelegations(address);
         this.delegations = response.data;
         // get plus events
-        Object.values(TX_TYPES).forEach(async type => {
+        types.forEach(async type => {
           response = await apiTxs.requestTransactions({
             tag: `action=${type}&destination-validator=${this.validatorAddress}`
           });
@@ -139,7 +142,7 @@ export default {
           });
         });
         // get minus events
-        Object.values(TX_TYPES).forEach(async type => {
+        types.forEach(async type => {
           response = await apiTxs.requestTransactions({
             tag: `action=${type}&source-validator=${this.validatorAddress}`
           });

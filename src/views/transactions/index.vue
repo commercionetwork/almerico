@@ -113,7 +113,6 @@ import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactionsRow from "./TableTransactionsRow.vue";
 
 import api from "Store/blocks/api";
-import { TX_TYPES } from "Constants";
 import { arrayManager } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
@@ -150,7 +149,10 @@ export default {
     ...mapActions("transactions", {
       fetchTransactions: "fetchTransactions"
     }),
-    async getTransactions(types) {
+    async getTransactions() {
+      let types = this.$config.transactions.supported_types.map(
+        type => type.tag
+      );
       this.isFetching = true;
       const limit = 20;
       try {
@@ -179,7 +181,7 @@ export default {
     }
   },
   created() {
-    this.getTransactions(Object.values(TX_TYPES));
+    this.getTransactions();
   }
 };
 </script>

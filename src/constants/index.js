@@ -15,7 +15,6 @@ import {
   ROUTE_TITLES
 } from "./route";
 import {
-  TX_TYPES,
   ACCOUNT_ROLES,
   VALIDATOR_ROLES
 } from "./transaction";
@@ -35,7 +34,6 @@ export {
   ROUTES,
   ROUTE_NAMES,
   ROUTE_TITLES,
-  TX_TYPES,
   VALIDATOR_ROLES,
   VALIDATOR_STATUS,
   VOTING_STATUS,
