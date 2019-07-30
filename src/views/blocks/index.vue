@@ -18,7 +18,7 @@
     </div>
     <div class="row rounded com-bg-body">
       <div class="col-12">
-        <div class="row py-3 px-5">
+        <div class="row pt-3 pb-0 px-5">
           <div class="col-12">
             <Pagination
               v-if="blocks.length > 0"
@@ -30,81 +30,31 @@
             />
           </div>
         </div>
-        <div class="row py-3 px-5">
+        <div class="row pt-0 pb-1 px-5">
           <div class="col-12">
-            <div class="table-responsive">
-              <table class="table table-striped">
-                <thead>
-                  <tr class="text-center com-font-s13-w700">
-                    <th
-                      v-if="$config.blocks.table.columns.height"
-                      scope="col"
-                      data-test="table-column-height"
-                    >
-                      <span v-text="$t('labels.height')" />
-                    </th>
-                    <th
-                      v-if="$config.blocks.table.columns.hash"
-                      scope="col"
-                      data-test="table-column-hash"
-                    >
-                      <span v-text="$t('labels.hash')" />
-                    </th>
-                    <th
-                      v-if="$config.blocks.table.columns.proposer"
-                      scope="col"
-                      data-test="table-column-proposer"
-                    >
-                      <span v-text="$t('labels.proposer')" />
-                    </th>
-                    <th
-                      v-if="$config.blocks.table.columns.txs"
-                      scope="col"
-                      data-test="table-column-txs"
-                    >
-                      <span v-text="$t('labels.txs')" />
-                    </th>
-                    <th
-                      v-if="$config.blocks.table.columns.date"
-                      scope="col"
-                      data-test="table-column-date"
-                    >
-                      <span v-text="$t('labels.date')" />
-                    </th>
-                  </tr>
-                </thead>
-                <tbody v-if="isFetching">
-                  <span
-                    class="com-font-s14-w400"
-                    v-text="$t('messages.loading')"
-                    data-test="loading"
-                  />
-                </tbody>
-                <tbody v-else-if="!isFetching && hasError">
-                  <span
-                    class="text-danger com-font-s14-w400"
-                    v-text="message"
-                    data-test="has-error"
-                  />
-                </tbody>
-                <tbody v-else-if="!isFetching && !hasError && blocks.length > 0">
-                  <TableBlocksRow
-                    v-for="(block, index) in blocksList"
-                    :key="index"
-                    :block="block"
-                    :rank="index"
-                    data-test="items"
-                  />
-                </tbody>
-                <tbody v-else>
-                  <span
-                    class="text-center text-info com-font-s14-w700"
-                    v-text="$t('messages.noItems')"
-                    data-test="no-items"
-                  />
-                </tbody>
-              </table>
-            </div>
+            <span
+              v-if="isFetching"
+              class="text-info com-font-s14-w400"
+              v-text="$t('messages.loading')"
+              data-test="loading"
+            />
+            <span
+              v-else-if="!isFetching && hasError"
+              class="text-danger com-font-s14-w400"
+              v-text="message"
+              data-test="has-error"
+            />
+            <TableBlocks
+              v-else-if="!isFetching && !hasError && blocks.length > 0"
+              :blocks="blocksList"
+              data-test="items"
+            />
+            <span
+              v-else
+              class="text-info com-font-s14-w700"
+              v-text="$t('messages.noItems')"
+              data-test="no-items"
+            />
           </div>
         </div>
       </div>
@@ -116,7 +66,7 @@
 import Pagination from "Components/common/Pagination.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
-import TableBlocksRow from "./TableBlocksRow.vue";
+import TableBlocks from "./TableBlocks.vue";
 
 import { arrayManager } from "Utils";
 import { mapActions, mapGetters } from "vuex";
@@ -128,7 +78,7 @@ export default {
     Pagination,
     SectionHeader,
     SearchBar,
-    TableBlocksRow
+    TableBlocks
   },
   data() {
     return {
