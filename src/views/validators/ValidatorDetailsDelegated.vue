@@ -4,7 +4,7 @@
       <div class="col-12">
         <h2
           v-text="$t('titles.delegated')"
-          class="pb-2 border-bottom com-font-s16-w700"
+          class="py-3 border-bottom com-font-s16-w700"
         />
       </div>
     </div>

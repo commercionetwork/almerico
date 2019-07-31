@@ -4,7 +4,7 @@
       <div class="col-12 col-md-4">
         <h2
           v-text="$t('titles.delegators')"
-          class="com-font-s16-w700"
+          class="py-3 com-font-s16-w700"
         />
       </div>
       <div class="col-12 col-md-8">
