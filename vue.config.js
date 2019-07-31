@@ -1,4 +1,5 @@
 const path = require("path");
+const jsonImporter = require('node-sass-json-importer');
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -39,6 +40,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
+        importer: jsonImporter(),
         data: `
           @import "@/assets/scss/_mixins.scss";
           @import "@/assets/scss/_z-index.scss";

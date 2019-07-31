@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono');
+@import "src/assets/json/theme.json";
 
-///////////
-//COLORS //
-///////////
-$black: #000000;
-$blue: #3399ff;
-$green: #33cc99;
-$red: #cc3333;
-$white: #ffffff;
-$yellow: #ffcc00;
+//////////////////
+// BRAND COLORS //
+//////////////////
+$primary: $primary;
+$secondary: lighten($primary, 10);
+$danger: $danger;
+$info: $info;
+$success: $success;
+$warning: $warning;
 ////////////////
 // GRAY SCALE //
 ////////////////
+$black: #000000;
 $gray-darkest: #202020;
 $gray-darker: #333333;
 $gray-dark: #4c4c4c;
@@ -19,23 +21,11 @@ $gray: #6f6f6f;
 $gray-light: #7e7e7e;
 $gray-lighter: #ededed;
 $gray-lightest: #fafafa;
-///////////////////////
-// COMMERC.IO COLORS //
-///////////////////////
-$com-green: #38ba8c;
-//////////////////
-// BRAND COLORS //
-//////////////////
-$primary: $com-green;
-$secondary: lighten($primary, 10);
-$danger: $red;
-$info: $blue;
-$success: $green;
-$warning: $yellow;
+$white: #ffffff;
 ///////////
 // THEME //
 ///////////
-$theme-light: true;
+$theme-light: $theme-light;
 
 $background: $gray-lighter;
 $background-header: $gray-lightest;
@@ -47,21 +37,27 @@ $nav-bars: $white;
   $background: $gray-lighter;
   $background-header: $gray-lightest;
   $background-body: $white;
-} @else {
+}
+
+@else {
   $background: $gray-darker;
   $background-header: $black;
   $background-body: $gray-darkest;
 }
 
-@if lightness($background) <= lightness($gray-darker) {
+@if lightness($background) <=lightness($gray-darker) {
   $text: $white;
-} @else {
+}
+
+@else {
   $text: $gray-darkest;
 }
 
-@if lightness($primary) <= lightness($gray-light) {
+@if lightness($primary) <=lightness($gray-light) {
   $nav-bars: $white;
-} @else {
+}
+
+@else {
   $nav-bars: $gray-darker;
 }
 

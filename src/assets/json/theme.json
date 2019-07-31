@@ -1,0 +1,8 @@
+{
+  "theme_light": true,
+  "primary": "#38ba8c",
+  "danger": "#cc3333",
+  "info": "#3399ff",
+  "success": "#33cc99",
+  "warning": "#ffcc00"
+}
