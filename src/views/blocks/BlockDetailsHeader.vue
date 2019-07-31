@@ -68,6 +68,7 @@
       <div class="col-12 col-md-9 com-font-s14-w400">
         <div
           v-if="isFetching"
+          class="text-info"
           v-text="$t('messages.loading')"
           data-test="loading"
         />

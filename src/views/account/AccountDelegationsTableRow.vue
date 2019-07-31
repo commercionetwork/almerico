@@ -1,31 +1,42 @@
 <template>
   <tr
     v-if="isFetching"
-    class="text-center com-font-s14-w400"
     data-test="loading"
   >
-    <td v-text="$t('messages.loading')" />
+    <td class="text-center">
+      <span
+        class="text-info com-font-s14-w400"
+        v-text="$t('messages.loading')"
+      />
+    </td>
   </tr>
   <tr
     v-else-if="!isFetching && hasError"
-    class="text-center text-danger com-font-s14-w400"
     data-test="has-error"
   >
-    <td v-text="$t('messages.fetchingError')" />
+    <td class="text-center">
+      <span
+        class="text-danger com-font-s14-w400"
+        v-text="$t('messages.fetchingError')"
+      />
+    </td>
   </tr>
   <tr
     v-else
-    class="text-center com-font-s12-w400"
     data-test="item"
   >
     <td class="text-left">
       <router-link
         :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, delegation.validator_address)"
+        class=" com-font-s12-w400"
         v-text="moniker"
       />
     </td>
     <td class="text-right">
-      <span v-text="amount" />
+      <span
+        class=" com-font-s12-w400"
+        v-text="amount"
+      />
     </td>
   </tr>
 </template>

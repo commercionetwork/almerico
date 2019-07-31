@@ -13,7 +13,7 @@
     </div>
     <div
       v-if="isFetching"
-      class="com-font-s14-w400"
+      class="text-center text-info com-font-s14-w400"
       v-text="$t('messages.loading')"
       data-test="loading"
     />

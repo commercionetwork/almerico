@@ -1,44 +1,55 @@
 <template>
   <tr
     v-if="isFetching"
-    class="text-center com-font-s14-w400"
     data-test="loading"
   >
-    <td>
-      <span v-text="$t('messages.loading')" />
+    <td class="text-center">
+      <span
+        class="text-info com-font-s14-w400"
+        v-text="$t('messages.loading')"
+      />
     </td>
   </tr>
   <tr
     v-else-if="!isFetching && hasError"
-    class="text-center text-danger com-font-s14-w400"
     data-test="has-error"
   >
-    <td>
-      <span v-text="$t('messages.fetchingError')" />
+    <td class="text-center">
+      <span
+        class="text-danger com-font-s14-w400"
+        v-text="$t('messages.fetchingError')"
+      />
     </td>
   </tr>
   <tr
     v-else
-    class="text-center com-font-s12-w400"
     data-test="item"
   >
     <td class="text-left">
       <router-link
         :to="toDetails(ROUTE_NAMES.VALIDATOR_DETAILS, unbonding.validator_address)"
+        class="com-font-s12-w400"
         v-text="moniker"
       />
     </td>
     <td class="text-center">
       <router-link
         :to="toDetails(ROUTE_NAMES.BLOCK_DETAILS, height)"
+        class="com-font-s12-w400"
         v-text="height"
       />
     </td>
     <td class="text-right">
-      <span v-text="amount" />
+      <span
+        class="com-font-s12-w400"
+        v-text="amount"
+      />
     </td>
     <td class="text-right">
-      <span v-text="finalDate" />
+      <span
+        class="com-font-s12-w400"
+        v-text="finalDate"
+      />
     </td>
   </tr>
 </template>
