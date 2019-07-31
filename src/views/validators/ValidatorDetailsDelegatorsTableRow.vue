@@ -22,7 +22,7 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "ValidatorDetailsDelegatorsRow",
+  name: "ValidatorDetailsDelegatorsTableRow",
   description: "Display a delegators list row of validators",
   props: {
     delegator: {
@@ -30,10 +30,10 @@ export default {
       required: true,
       note: "Object representing a delegator"
     },
-    totals: {
+    totalShares: {
       type: Number,
       required: true,
-      note: "All delegated tokens"
+      note: "All delegated tokens of a validator"
     }
   },
   computed: {
@@ -53,7 +53,7 @@ export default {
       return `${formatAmount} ${amount.denom}`;
     },
     share() {
-      let share = this.delegator.shares / this.totals;
+      let share = this.delegator.shares / this.totalShares;
       return this.$n(share, {
         style: "percent",
         minimumFractionDigits: 2,

@@ -20,38 +20,15 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div
-          v-if="filteredDelegations.length > 0"
-          class="table-responsive"
+        <ValidatorDetailsDelegatorsTable
+          v-if="delegators.length > 0"
+          :delegators="delegators"
+          :totalShares="totalShares"
           data-test="items"
-        >
-          <table class="table table-striped">
-            <thead>
-              <tr class="text-center com-font-s13-w700">
-                <th scope="col">
-                  <span v-text="$t('labels.delegator')" />
-                </th>
-                <th scope="col">
-                  <span v-text="$t('labels.amount')" />
-                </th>
-                <th scope="col">
-                  <span v-text="$t('labels.share')" />
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <ValidatorDetailsDelegatorsRow
-                v-for="(delegator, index) in delegators"
-                :key="index"
-                :delegator="delegator"
-                :totals="totalShares"
-              />
-            </tbody>
-          </table>
-        </div>
+        />
         <div
           v-else
-          class="text-center text-info com-font-s14-w700"
+          class="py-1 text-center text-info border-top com-font-s14-w700"
           v-text="$t('messages.noItems')"
           data-test="no-items"
         />
@@ -62,7 +39,7 @@
 
 <script>
 import Pagination from "Components/common/Pagination.vue";
-import ValidatorDetailsDelegatorsRow from "./ValidatorDetailsDelegatorsRow.vue";
+import ValidatorDetailsDelegatorsTable from "./ValidatorDetailsDelegatorsTable.vue";
 
 import { arrayManager } from "Utils";
 
@@ -71,7 +48,7 @@ export default {
   description: "Display a delegators list",
   components: {
     Pagination,
-    ValidatorDetailsDelegatorsRow
+    ValidatorDetailsDelegatorsTable
   },
   props: {
     address: {
