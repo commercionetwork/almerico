@@ -30,7 +30,7 @@ import { ROUTE_NAMES } from "Constants";
 import { coinConverter } from "Utils";
 
 export default {
-  name: "ValidatorDetailsEventsRow",
+  name: "ValidatorDetailsEventsTableRow",
   description: "Display a power event row of validator details",
   props: {
     event: {
