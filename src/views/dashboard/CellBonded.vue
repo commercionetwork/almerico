@@ -45,10 +45,10 @@ export default {
       pool: "pool"
     }),
     axesColor() {
-      return this.$config.generic.theme_light ? "#303030" : "#FFF";
+      return this.$theme.theme_light ? "#303030" : "#FFF";
     },
     chartColor() {
-      return this.$config.generic.colors.primary;
+      return this.$theme.primary;
     },
     bonded() {
       return this.pool ? new Number(this.pool.bonded_tokens) : 0;

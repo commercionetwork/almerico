@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     legendColor() {
-      return this.$config.generic.theme_light ? "#303030" : "#FFF";
+      return this.$theme.theme_light ? "#303030" : "#FFF";
     }
   },
   methods: {
@@ -59,8 +59,8 @@ export default {
           {
             data,
             backgroundColor: [
-              this.$config.generic.colors.success,
-              this.$config.generic.colors.info
+              this.$theme.success,
+              this.$theme.info
             ]
           }
         ]

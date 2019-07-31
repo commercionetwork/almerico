@@ -40,10 +40,10 @@ export default {
   },
   computed: {
     axesColor() {
-      return this.$config.generic.theme_light ? "#303030" : "#FFF";
+      return this.$theme.theme_light ? "#303030" : "#FFF";
     },
     chartColor() {
-      return this.$config.generic.colors.primary;
+      return this.$theme.primary;
     },
     price() {
       return 1;
