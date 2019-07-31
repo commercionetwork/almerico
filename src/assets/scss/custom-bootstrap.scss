@@ -13,19 +13,19 @@ $warning: $warning;
 ////////////////
 // GRAY SCALE //
 ////////////////
-$black: #000000;
-$gray-darkest: #202020;
-$gray-darker: #333333;
-$gray-dark: #4c4c4c;
-$gray: #6f6f6f;
-$gray-light: #7e7e7e;
-$gray-lighter: #ededed;
-$gray-lightest: #fafafa;
-$white: #ffffff;
+$black: $black;
+$gray-darkest: $gray-darkest;
+$gray-darker: $gray-darker;
+$gray-dark: $gray-dark;
+$gray: $gray;
+$gray-light: $gray-light;
+$gray-lighter: $gray-lighter;
+$gray-lightest: $gray-lightest;
+$white: $white;
 ///////////
 // THEME //
 ///////////
-$theme-light: $theme-light;
+$theme-light: $theme_light;
 
 $background: $gray-lighter;
 $background-header: $gray-lightest;
