@@ -11,10 +11,10 @@
     "theme_light": false,
     "colors": {
       "primary": "#38ba8c",
-      "success": "#33cc99",
+      "danger": "#cc3333",
       "info": "#3399ff",
-      "warning": "#ffcc00",
-      "danger": "#cc3333"
+      "success": "#33cc99",
+      "warning": "#ffcc00"
     }
   },
   "dashboard": {

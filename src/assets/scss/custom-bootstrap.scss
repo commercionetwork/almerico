@@ -22,16 +22,16 @@ $gray-lightest: #fafafa;
 ///////////////////////
 // COMMERC.IO COLORS //
 ///////////////////////
-$com-green: #38BA8C;
+$com-green: #38ba8c;
 //////////////////
 // BRAND COLORS //
 //////////////////
 $primary: $com-green;
 $secondary: lighten($primary, 10);
-$success: $green;
-$info: $blue;
-$warning: $yellow;
 $danger: $red;
+$info: $blue;
+$success: $green;
+$warning: $yellow;
 ///////////
 // THEME //
 ///////////
