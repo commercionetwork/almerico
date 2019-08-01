@@ -7,9 +7,6 @@ import {
   MODAL_SIZE
 } from "./modal";
 import {
-  PREFIX
-} from "./prefix";
-import {
   ROUTES,
   ROUTE_NAMES,
   ROUTE_TITLES
@@ -30,7 +27,6 @@ export {
   API,
   MODAL_ID,
   MODAL_SIZE,
-  PREFIX,
   ROUTES,
   ROUTE_NAMES,
   ROUTE_TITLES,

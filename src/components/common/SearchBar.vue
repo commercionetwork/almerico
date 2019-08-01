@@ -34,7 +34,7 @@
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/search";
 
-import { PREFIX, ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES } from "Constants";
 
 export default {
   name: "SearchBar",
@@ -49,8 +49,14 @@ export default {
   },
   methods: {
     onSubmit() {
-      const validatorRegEx = new RegExp(PREFIX.COMNETVALOPER + ".*$", "igm");
-      const accountRegEx = new RegExp(PREFIX.COMNET + ".*$", "igm");
+      const validatorRegEx = new RegExp(
+        this.$config.generic.prefixes.validator.operator.address + ".*$",
+        "igm"
+      );
+      const accountRegEx = new RegExp(
+        this.$config.generic.prefixes.account.address + ".*$",
+        "igm"
+      );
       const hashRegEx = new RegExp(/[0-9A-F]{64}$/, "igm");
       const heightRegEx = new RegExp(/[0-9]{1,}$/, "igm");
 

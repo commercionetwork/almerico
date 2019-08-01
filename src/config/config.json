@@ -7,6 +7,22 @@
         "short": "commercio",
         "ticker": "cmc"
       }
+    },
+    "prefixes": {
+      "account": {
+        "address": "comnet",
+        "key": "comnetpub"
+      },
+      "validator": {
+        "consensus": {
+          "address": "comnetvalcons",
+          "key": "comnetvalconspub"
+        },
+        "operator": {
+          "address": "comnetvaloper",
+          "key": "comnetvaloperpub"
+        }
+      }
     }
   },
   "dashboard": {

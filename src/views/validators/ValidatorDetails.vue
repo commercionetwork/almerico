@@ -73,7 +73,6 @@ import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 
 import api from "Store/validators/api";
 import apiTxs from "Store/transactions/api";
-import { PREFIX } from "Constants";
 import { bech32Manager } from "Utils";
 
 export default {
@@ -98,7 +97,10 @@ export default {
   computed: {
     accountAddress() {
       let hexValue = bech32Manager.decode(this.validatorAddress);
-      return bech32Manager.encode(hexValue, PREFIX.COMNET);
+      return bech32Manager.encode(
+        hexValue,
+        this.$config.generic.prefixes.account.address
+      );
     },
     validatorAddress() {
       return this.$route.params.id;

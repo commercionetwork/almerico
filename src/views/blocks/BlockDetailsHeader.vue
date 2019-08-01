@@ -91,7 +91,7 @@
 
 <script>
 import api from "Store/validators/api";
-import { PREFIX, ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
 
@@ -138,7 +138,7 @@ export default {
       this.isFetching = true;
       let address = bech32Manager.encode(
         this.block.header.proposer_address,
-        PREFIX.COMNETVALCONS
+        this.$config.generic.prefixes.validator.consensus.address
       );
       try {
         const response = await api.requestValidatorsetsFromHeight(
