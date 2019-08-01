@@ -1,4 +1,4 @@
-import theme from "Assets/json/theme.json";
+import theme from "../config/theme.json";
 
 export default {
   install(vueInstance) {

@@ -5,7 +5,7 @@ import {
   ROUTE_NAMES,
   ROUTE_TITLES,
 } from "Constants";
-import Config from "Assets/json/config.json";
+import Config from "../config/config.json";
 
 Vue.use(Router)
 

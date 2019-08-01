@@ -1,4 +1,4 @@
-import config from "Assets/json/config.json";
+import config from "../config/config.json";
 
 export default {
   install(vueInstance) {

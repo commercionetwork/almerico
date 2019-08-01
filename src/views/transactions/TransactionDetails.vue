@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json";
+import Config from "../../config/config.json";
 
 import MsgDefault from "./msgs/MsgDefault.vue";
 import SearchBar from "Components/common/SearchBar.vue";
