@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar fixed-top navbar-toggleable-md navbar-dark d-flex align-items-center">
-    <button 
-      type="button" 
-      class="navbar-toggler navbar-toggler-right ml-3 my-auto p-0" 
+    <button
+      type="button"
+      class="navbar-toggler navbar-toggler-right ml-3 my-auto p-0 border-0"
       @click.stop="toggleSidebar"
     >
       <Icon
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import Config from "Assets/json/config.json"
+import Config from "Assets/json/config.json";
 
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/bars";
@@ -47,19 +47,19 @@ export default {
   data() {
     return {
       ROUTE_NAMES
-    }
+    };
   },
   computed: {
     logoSrc() {
       return Config.generic.logo;
-    },
+    }
   },
   methods: {
     toSection(route) {
       return localizedRoute(route, this.$i18n.locale);
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -76,6 +76,11 @@ export default {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
 }
 .com-logo {
   max-height: 50px;
