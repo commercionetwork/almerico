@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     axesColor() {
-      return this.$theme.theme_light ? "#303030" : "#FFF";
+      return this.$theme.theme_light === "true" ? "#303030" : "#FFF";
     },
     lineColor() {
       return this.$theme.primary;
