@@ -47,7 +47,7 @@ export default {
     axesColor() {
       return this.$theme.theme_light ? "#303030" : "#FFF";
     },
-    chartColor() {
+    lineColor() {
       return this.$theme.primary;
     },
     bonded() {
@@ -103,9 +103,10 @@ export default {
                 y: this.percentValue * 100
               }
             ],
-            backgroundColor: this.chartColor,
-            borderColor: this.axesColor,
-            borderWidth: 1
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            borderColor: this.lineColor,
+            borderWidth: 2,
+            pointRadius: 0
           }
         ]
       };
