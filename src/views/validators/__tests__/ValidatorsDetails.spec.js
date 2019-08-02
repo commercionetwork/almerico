@@ -34,7 +34,18 @@ describe("views/validators/ValidatorDetails.vue", () => {
     const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          generic: {
+            prefixes: {
+              account: {
+                address: "comnet"
+              }
+            }
+          },
+        }
+      }
     });
     wrapper.setData({
       isFetching: true
@@ -50,7 +61,18 @@ describe("views/validators/ValidatorDetails.vue", () => {
     const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          generic: {
+            prefixes: {
+              account: {
+                address: "comnet"
+              }
+            }
+          },
+        }
+      }
     });
     wrapper.setData({
       hasError: true
@@ -66,7 +88,18 @@ describe("views/validators/ValidatorDetails.vue", () => {
     const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          generic: {
+            prefixes: {
+              account: {
+                address: "comnet"
+              }
+            }
+          },
+        }
+      }
     });
     wrapper.setData({
       delegations: mockDelegations(),
