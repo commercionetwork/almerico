@@ -92,7 +92,7 @@ export default {
     },
     othersAmount() {
       let denom = this.coin ? this.coin.denom : "";
-      let exponent = this.coin ? this.coin.exponent : "";
+      let exponent = this.coin ? this.coin.exponent : 0;
       let tot = 0;
       this.delegations
         .filter(delegation => delegation.delegator_address !== this.address)
