@@ -75,8 +75,10 @@ export default {
       });
       if (amounts.length > 0) {
         denom = amounts[0].denom;
-        exponent = this.$config.generic.coins.find(coin => coin.denom === denom)
-          .exponent;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
         amounts.forEach(amount => {
           tot += parseFloat(amount.amount);
         });
@@ -94,8 +96,10 @@ export default {
         this.transaction.tx.value.fee.amount.length > 0
       ) {
         denom = this.transaction.tx.value.fee.amount[0].denom;
-        exponent = this.$config.generic.coins.find(coin => coin.denom === denom)
-          .exponent;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
         this.transaction.tx.value.fee.amount.forEach(amount => {
           tot += parseFloat(amount.amount);
         });

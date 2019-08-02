@@ -49,10 +49,10 @@ const mockTransaction = (txhash = randomDataGenerator.makeId(40), height = rando
         }],
         fee: {
           amount: [{
-            denom: "stake",
-            amount
+            denom: "ucommercio",
+            amount: "5000"
           }],
-          gas
+          gas: "200000"
         },
         signatures: [{
           pub_key: {

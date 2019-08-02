@@ -14,6 +14,9 @@ const localVue = createLocalVue();
 localVue.use(VueRouter);
 
 describe("views/transactions/TableTransactionsRow.vue", () => {
+  const methods = {
+    getAmountLabel: () => "0"
+  };
   const mocks = {
     $i18n: messageId => messageId,
     $n: messageId => messageId,
@@ -26,9 +29,19 @@ describe("views/transactions/TableTransactionsRow.vue", () => {
   it("Check if table columns are displayed", () => {
     const wrapper = shallowMount(TableTransactionsRow, {
       localVue,
+      methods,
       mocks: {
         ...mocks,
         $config: {
+          generic: {
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
+          },
           transactions: {
             table: {
               columns: {
@@ -61,9 +74,19 @@ describe("views/transactions/TableTransactionsRow.vue", () => {
   it("Check if table columns are not displayed", () => {
     const wrapper = shallowMount(TableTransactionsRow, {
       localVue,
+      methods,
       mocks: {
         ...mocks,
         $config: {
+          generic: {
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
+          },
           transactions: {
             table: {
               columns: {
