@@ -43,7 +43,7 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "MsgDelegate",
@@ -65,19 +65,20 @@ export default {
   },
   computed: {
     amount() {
-      let amount = {
-        denom: "",
-        amount: 0
-      };
+      let denom = "";
+      let exponent = 0;
+      let tot = 0;
       if (this.message.value.amount instanceof Object) {
-        amount = coinConverter(this.message.value.amount);
+        denom = this.message.value.amount.denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        tot = parseFloat(this.message.value.amount.amount);
       }
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return `${formatAmount} ${amount.denom}`;
+      let amount = coinsManager(denom, exponent, tot);
+
+      return this.getAmountLabel(amount.amount, amount.denom);
     },
     delegatorAddress() {
       return this.message.value.delegator_address
@@ -94,6 +95,14 @@ export default {
     }
   },
   methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toDetails(name, id) {
       return {
         name,
