@@ -3,15 +3,15 @@
  *
  * @param {String} coin
  * @param {Number} exponent
- * @param {String} amount
+ * @param {Number} amount
  */
 
 const coinsManager = (coin, exponent, amount) => {
   return coin.charAt(0) === "u" ? {
-    amount: parseFloat(amount) / Math.pow(10, exponent),
+    amount: amount / Math.pow(10, exponent),
     denom: coin.substring(1)
   } : {
-    amount: parseFloat(amount),
+    amount: amount,
     denom: coin
   };
 };
