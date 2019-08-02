@@ -76,10 +76,12 @@
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.votingPower')"
       />
-      <div
-        class="col-12 col-md-9 com-font-s14-w400"
-        v-text="votingPower"
-      />
+      <div class="col-12 col-md-9 com-font-s14-w400">
+        <span v-text="powerPercent" />
+        <span v-text="' ('" />
+        <span v-text="votingPower" />
+        <span v-text="')'" />
+      </div>
     </div>
     <div class="row p-1">
       <div
@@ -99,7 +101,7 @@ import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/brands/hubspot";
 
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -143,26 +145,34 @@ export default {
         : this.$t("buttons.inactive");
     },
     votingPower() {
+      let coin = this.$config.generic.coins.find(coin => coin.stakeable);
+      let denom = coin ? coin.denom : "";
+      let exponent = coin ? coin.exponent : "";
+      let amount = parseFloat(this.validator.tokens);
+
+      let power = coinsManager(denom, exponent, amount);
+
+      return this.getPowerLabel(power.amount, power.denom);
+    },
+    powerPercent() {
       let percent =
         this.bonded > 0 ? parseFloat(this.validator.tokens) / this.bonded : 0;
-      let formatPercent = this.$n(percent, {
+      return this.$n(percent, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
-      let power = coinConverter({
-        denom: this.$config.generic.coin.name.long,
-        amount: this.validator.tokens
-      });
-      let formatPower = this.$n(power.amount, {
+    }
+  },
+  methods: {
+    getPowerLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatPercent} (${formatPower} ${power.denom})`;
-    }
-  },
-  methods: {
+      return `${formatAmount} ${denom}`;
+    },
     toAccountDetails() {
       return {
         name: ROUTE_NAMES.ACCOUNT_DETAILS,
