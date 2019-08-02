@@ -164,12 +164,13 @@ export default {
       return { label: `${formatAmount}`, value: amount.amount };
     },
     totalsAmount() {
+      let name = this.coin ? this.coin.name : "";
       let formatAmount = this.$n(this.totals, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${this.$config.generic.coin.name.short}`;
+      return `${formatAmount} ${name}`;
     },
     totals() {
       return (
