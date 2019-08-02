@@ -27,7 +27,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "ValidatorDetailsEventsTableRow",
@@ -46,32 +46,45 @@ export default {
   },
   computed: {
     amount() {
-      let amount = {
-        denom: "",
-        amount: 0
-      };
-      if (
-        Array.isArray(this.event.tx.value.msg[0].value.amount) &&
-        this.event.tx.value.msg[0].value.amount.length > 0
-      ) {
-        amount = coinConverter(this.event.tx.value.msg[0].value.amount[0]);
-      } else if (this.event.tx.value.msg[0].value.amount instanceof Object) {
-        amount = coinConverter(this.event.tx.value.msg[0].value.amount);
-      }
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
+      let denom = "";
+      let exponent = 0;
+      let tot = 0;
+      let amounts = [];
+      this.event.tx.value.msg.forEach(message => {
+        if (Array.isArray(message.value.amount)) {
+          message.value.amount.forEach(amount => amounts.push(amount));
+        } else if (message.value.amount instanceof Object) {
+          amounts.push(message.value.amount);
+        }
       });
-      return this.event.plus
-        ? `+ ${formatAmount} ${amount.denom}`
-        : `- ${formatAmount} ${amount.denom}`;
+      if (amounts.length > 0) {
+        denom = amounts[0].denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        amounts.forEach(amount => {
+          tot += parseFloat(amount.amount);
+        });
+      }
+      let amount = coinsManager(denom, exponent, tot);
+
+      let label = this.getAmountLabel(amount.amount, amount.denom);
+      return this.event.plus ? `+ ${label}` : `- ${label}`;
     },
     time() {
       return new Date(this.event.timestamp).toLocaleDateString();
     }
   },
   methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toDetails(name, id) {
       return {
         name,
