@@ -47,7 +47,7 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "MsgSend",
@@ -82,19 +82,28 @@ export default {
   },
   methods: {
     amountValue(data) {
-      let amount = {
-        denom: "",
-        amount: 0
-      };
+      let denom = "";
+      let exponent = 0;
+      let tot = 0;
       if (data instanceof Object) {
-        amount = coinConverter(data);
+        denom = data.denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        tot = parseFloat(data.amount);
       }
-      let formatAmount = this.$n(amount.amount, {
+      let amount = coinsManager(denom, exponent, tot);
+
+      return this.getAmountLabel(amount.amount, amount.denom);
+    },
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${amount.denom}`;
+      return `${formatAmount} ${denom}`;
     },
     toAccountDetails(id) {
       return {
