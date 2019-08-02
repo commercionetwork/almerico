@@ -90,7 +90,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "TransactionDetailsInfo",
@@ -111,25 +111,6 @@ export default {
     date() {
       return new Date(this.transaction.timestamp).toLocaleString();
     },
-    fee() {
-      let fee = {
-        denom: "",
-        amount: 0
-      };
-      if (
-        Array.isArray(this.transaction.tx.value.fee.amount) &&
-        this.transaction.tx.value.fee.amount.length > 0
-      ) {
-        fee = coinConverter(this.transaction.tx.value.fee.amount[0]);
-      }
-
-      let formatFee = this.$n(fee.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return `${formatFee} ${fee.denom}`;
-    },
     gasWanted() {
       return this.$n(this.transaction.gas_wanted, {
         style: "decimal",
@@ -147,9 +128,38 @@ export default {
         .success
         ? "success"
         : "fail";
+    },
+    fee() {
+      let denom = "";
+      let exponent = 0;
+      let tot = 0;
+      if (
+        Array.isArray(this.transaction.tx.value.fee.amount) &&
+        this.transaction.tx.value.fee.amount.length > 0
+      ) {
+        denom = this.transaction.tx.value.fee.amount[0].denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        this.transaction.tx.value.fee.amount.forEach(amount => {
+          tot += parseFloat(amount.amount);
+        });
+      }
+      let fee = coinsManager(denom, exponent, tot);
+
+      return this.getAmountLabel(fee.amount, fee.denom);
     }
   },
   methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toDetails(name, id) {
       return {
         name,
