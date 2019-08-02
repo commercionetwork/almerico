@@ -38,13 +38,13 @@ describe("views/validators/TableValidatorsRow.vue", () => {
         ...mocks,
         $config: {
           generic: {
-            coin: {
-              name: {
-                long: "ucommercio",
-                short: "commercio",
-                ticker: "cmc"
-              }
-            }
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
           },
           validators: {
             table: {
@@ -79,13 +79,13 @@ describe("views/validators/TableValidatorsRow.vue", () => {
         ...mocks,
         $config: {
           generic: {
-            coin: {
-              name: {
-                long: "ucommercio",
-                short: "commercio",
-                ticker: "cmc"
-              }
-            }
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
           },
           validators: {
             table: {

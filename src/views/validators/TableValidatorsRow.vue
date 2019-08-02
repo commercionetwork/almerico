@@ -44,7 +44,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -87,15 +87,14 @@ export default {
       return this.rank + 1;
     },
     votingPower() {
-      let power = coinConverter({
-        denom: this.$config.generic.coin.name.long,
-        amount: this.validator.tokens
-      });
-      let formatPower = this.$n(power.amount, {
-        style: "decimal",
-        maximumFractionDigits: 0
-      });
-      return `${formatPower} ${power.denom}`;
+      let coin = this.$config.generic.coins.find(coin => coin.stakeable);
+      let denom = coin ? coin.denom : "";
+      let exponent = coin ? coin.exponent : "";
+      let amount = parseFloat(this.validator.tokens);
+
+      let power = coinsManager(denom, exponent, amount);
+
+      return this.getPowerLabel(power.amount, power.denom);
     },
     powerPercent() {
       let percent =
@@ -110,6 +109,14 @@ export default {
     }
   },
   methods: {
+    getPowerLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toValidatorDetails(id) {
       return {
         name: ROUTE_NAMES.VALIDATOR_DETAILS,
