@@ -23,11 +23,13 @@ describe("views/account/AccountUnbondingsTableRow.vue", () => {
     $t: messageId => messageId,
     $config: {
       generic: {
-        coin: {
-          name: {
-            long: "commercio"
-          }
-        }
+        coins: [{
+          name: "commercio",
+          symbol: "CNT",
+          denom: "ucommercio",
+          exponent: 6,
+          stakeable: true
+        }]
       }
     }
   };

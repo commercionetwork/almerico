@@ -57,7 +57,7 @@
 <script>
 import api from "Store/validators/api";
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "AccountUnbondingsTableRow",
@@ -78,17 +78,16 @@ export default {
     };
   },
   computed: {
+    coin() {
+      return this.$config.generic.coins.find(coin => coin.stakeable);
+    },
     amount() {
-      let amount = coinConverter({
-        denom: this.$config.generic.coin.name.long,
-        amount: this.unbonding.entry.balance
-      });
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      });
-      return `${formatAmount} ${amount.denom}`;
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : "";
+      let balance = parseFloat(this.unbonding.entry.balance);
+
+      let amount = coinsManager(denom, exponent, balance);
+      return this.getAmountLabel(amount.amount, amount.denom);
     },
     height() {
       return this.unbonding.entry.creation_height;
@@ -112,6 +111,14 @@ export default {
       } finally {
         this.isFetching = false;
       }
+    },
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      });
+      return `${formatAmount} ${denom}`;
     },
     toDetails(name, id) {
       return {
