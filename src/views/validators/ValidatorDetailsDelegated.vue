@@ -66,7 +66,7 @@
 <script>
 import ValidatorDetailsDelegatedChart from "./ValidatorDetailsDelegatedChart";
 
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "ValidatorDetailsDelegated",
@@ -87,52 +87,56 @@ export default {
     }
   },
   computed: {
+    coin() {
+      return this.$config.generic.coins.find(coin => coin.stakeable);
+    },
     othersAmount() {
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : "";
       let tot = 0;
       this.delegations
         .filter(delegation => delegation.delegator_address !== this.address)
         .forEach(delegation => {
           tot += parseFloat(delegation.shares);
         });
-      let amount = coinConverter({
-        denom: this.$config.generic.coin.name.long,
-        amount: tot
-      });
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
+      let amount = coinsManager(denom, exponent, tot);
+      let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
+      return { label: `${formatAmount}`, value: amount.amount };
     },
     selfAmount() {
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : "";
       let tot = 0;
       this.delegations
         .filter(delegation => delegation.delegator_address === this.address)
         .forEach(delegation => {
           tot += parseFloat(delegation.shares);
         });
-      let amount = coinConverter({
-        denom: this.$config.generic.coin.name.long,
-        amount: tot
-      });
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
+      let amount = coinsManager(denom, exponent, tot);
+      let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
+      return { label: `${formatAmount}`, value: amount.amount };
     },
     totalsAmount() {
+      let name = this.coin ? this.coin.name : "";
       let formatAmount = this.$n(this.totals, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${this.$config.generic.coin.name.short}`;
+      return `${formatAmount} ${name}`;
     },
     totals() {
       return this.othersAmount.value + this.selfAmount.value;
+    }
+  },
+  methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${denom}`;
     }
   }
 };
