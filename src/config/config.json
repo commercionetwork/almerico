@@ -8,13 +8,6 @@
       "exponent": 6,
       "stakeable": true
     }],
-    "coin": {
-      "name": {
-        "long": "ucommercio",
-        "short": "commercio",
-        "ticker": "cmc"
-      }
-    },
     "prefixes": {
       "account": {
         "address": "comnet",
