@@ -83,7 +83,7 @@
 import MsgTx from "Components/common/MsgTx.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "MsgCreateValidator",
