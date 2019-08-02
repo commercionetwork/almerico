@@ -20,7 +20,7 @@
       <div class="col-6 order-2 col-md-2 order-md-3 d-flex justify-content-end">
         <span
           class="px-3 py-1 rounded-pill com-font-s13-w700"
-          :class="validator.status === 2 ? 'bg-success text-white' : 'bg-warning'"
+          :class="validator.status === 2 ? 'bg-success' : 'bg-warning'"
           v-text="status"
         />
       </div>

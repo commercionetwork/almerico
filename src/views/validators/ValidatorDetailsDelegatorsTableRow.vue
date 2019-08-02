@@ -19,7 +19,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "ValidatorDetailsDelegatorsTableRow",
@@ -41,16 +41,15 @@ export default {
       return this.delegator.address;
     },
     amount() {
-      let amount = coinConverter({
-        denom: this.$config.generic.coin.name.long,
-        amount: this.delegator.shares
-      });
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return `${formatAmount} ${amount.denom}`;
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : "";
+      let shares = parseFloat(this.delegator.shares);
+
+      let amount = coinsManager(denom, exponent, shares);
+      return this.getAmountLabel(amount.amount, amount.denom);
+    },
+    coin() {
+      return this.$config.generic.coins.find(coin => coin.stakeable);
     },
     share() {
       let share = this.delegator.shares / this.totalShares;
@@ -62,6 +61,14 @@ export default {
     }
   },
   methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toAccountDetails() {
       return {
         name: ROUTE_NAMES.ACCOUNT_DETAILS,
