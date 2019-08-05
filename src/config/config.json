@@ -43,7 +43,12 @@
   },
   "blocks": {
     "enabled": true,
-    "live_data": true,
+    "live_data": {
+      "enabled": true,
+      "bonded": true,
+      "height": true,
+      "price": true
+    },
     "table": {
       "columns": {
         "height": true,
@@ -67,7 +72,12 @@
   },
   "transactions": {
     "enabled": true,
-    "live_data": true,
+    "live_data": {
+      "enabled": true,
+      "bonded": true,
+      "height": true,
+      "price": true
+    },
     "table": {
       "columns": {
         "hash": true,

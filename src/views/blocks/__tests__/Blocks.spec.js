@@ -20,7 +20,7 @@ describe("views/blocks/index.vue", () => {
     $t: messageId => messageId
   };
 
-  it("Check if live data are displayed", ()=>{
+  it("Check if live data are displayed", () => {
     const wrapper = shallowMount(Blocks, {
       computed: {
         blocks: () => [],
@@ -34,7 +34,9 @@ describe("views/blocks/index.vue", () => {
         ...mocks,
         $config: {
           blocks: {
-            live_data: true
+            live_data: {
+              enabled: true
+            }
           }
         }
       }
@@ -43,7 +45,7 @@ describe("views/blocks/index.vue", () => {
     expect(wrapper.find('[data-test="live-data"]').exists()).toBe(true);
   });
 
-  it("Check if live data are not displayed", ()=>{
+  it("Check if live data are not displayed", () => {
     const wrapper = shallowMount(Blocks, {
       computed: {
         blocks: () => [],
@@ -57,7 +59,9 @@ describe("views/blocks/index.vue", () => {
         ...mocks,
         $config: {
           blocks: {
-            live_data: false
+            live_data: {
+              enabled: false
+            }
           }
         }
       }

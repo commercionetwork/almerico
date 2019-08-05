@@ -31,7 +31,9 @@ describe("views/transactions/index.vue", () => {
         ...mocks,
         $config: {
           transactions: {
-            live_data: true
+            live_data: {
+              enabled: true
+            }
           }
         }
       }
@@ -52,7 +54,9 @@ describe("views/transactions/index.vue", () => {
         ...mocks,
         $config: {
           transactions: {
-            live_data: false
+            live_data: {
+              enabled: false
+            }
           }
         }
       }

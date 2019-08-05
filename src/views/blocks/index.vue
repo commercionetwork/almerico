@@ -12,12 +12,16 @@
       </div>
     </div>
     <div
-      v-if="$config.blocks.live_data"
+      v-if="$config.blocks.live_data.enabled"
       class="row my-1"
       data-test="live-data"
     >
       <div class="col-12">
-        <SectionHeader />
+        <SectionHeader
+          :bondedEnabled="$config.blocks.live_data.bonded"
+          :heightEnabled="$config.blocks.live_data.height"
+          :priceEnabled="$config.blocks.live_data.price"
+        />
       </div>
     </div>
     <div class="row rounded com-bg-body">
