@@ -5,8 +5,6 @@ import axios from "axios";
 import {
   API
 } from "Constants";
-//TODO:remove
-const TEST_API = "https://stargate.cosmos.network/gov/proposals";
 
 const instance = axios.create({
   headers: {
@@ -29,7 +27,7 @@ export default {
     depositor,
     status
   }) {
-    return instance.get(TEST_API, {
+    return instance.get(API, {
       params: {
         voter,
         depositor,
@@ -44,7 +42,7 @@ export default {
    * @return {Promise}
    */
   requestProposal(proposalId) {
-    return instance.get(`${TEST_API}/${proposalId}`);
+    return instance.get(`${API}/${proposalId}`);
   },
   /**
    * Handle ajax request to get a proposer by proposal id
@@ -53,7 +51,7 @@ export default {
    * @return {Promise}
    */
   requestProposer(proposalId) {
-    return instance.get(`${TEST_API}/${proposalId}/proposer`);
+    return instance.get(`${API}/${proposalId}/proposer`);
   },
   /**
    * Handle ajax request to get deposits by proposal id
@@ -62,7 +60,7 @@ export default {
    * @return {Promise}
    */
   requestDeposits(proposalId) {
-    return instance.get(`${TEST_API}/${proposalId}/deposits`);
+    return instance.get(`${API}/${proposalId}/deposits`);
   },
   /**
    * Handle ajax request to get votes by proposal id
@@ -71,7 +69,7 @@ export default {
    * @return {Promise}
    */
   requestVotes(proposalId) {
-    return instance.get(`${TEST_API}/${proposalId}/votes`);
+    return instance.get(`${API}/${proposalId}/votes`);
   },
   /**
    * Handle ajax request to get tally result by proposal id
@@ -80,6 +78,6 @@ export default {
    * @return {Promise}
    */
   requestTally(proposalId) {
-    return instance.get(`${TEST_API}/${proposalId}/tally`);
+    return instance.get(`${API}/${proposalId}/tally`);
   },
 };
