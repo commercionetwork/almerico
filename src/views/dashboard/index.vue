@@ -13,38 +13,51 @@
     </div>
     <div class="row rounded com-bg-header">
       <div class="col-12">
-        <div class="row py-3 px-5">
-          <div class="col-12 col-lg-5 my-1 my-lg-0">
-            <CellPrice
-              v-if="$config.dashboard.graphs.price"
-              data-test="graphs-price"
-            />
+        <div
+          v-if="$config.dashboard.graphs.enabled"
+          class="row py-3 px-5"
+        >
+          <div
+            v-if="$config.dashboard.graphs.price"
+            class="col-12 col-lg-5 my-1 my-lg-0"
+            data-test="graphs-price"
+          >
+            <CellPrice />
           </div>
-          <div class="col-12 col-lg-2 my-1 my-lg-0">
-            <CellHeight
-              v-if="$config.dashboard.graphs.block_height"
-              data-test="graphs-block-height"
-            />
+          <div
+            v-if="$config.dashboard.graphs.block_height"
+            class="col-12 col-lg-2 my-1 my-lg-0"
+            data-test="graphs-block-height"
+          >
+            <CellHeight />
           </div>
-          <div class="col-12 col-lg-5 my-1 my-lg-0">
-            <CellBonded
-              v-if="$config.dashboard.graphs.bonded_tokens"
-              data-test="graphs-bonded-tokens"
-            />
+          <div
+            v-if="$config.dashboard.graphs.bonded_tokens"
+            class="col-12 col-lg-5 my-1 my-lg-0"
+            data-test="graphs-bonded-tokens"
+          >
+            <CellBonded />
           </div>
         </div>
-        <div class="row py-3 px-5 com-bg-body">
-          <div class="col-12 col-md-6 my-1 my-md-0">
-            <CellBlocks
-              v-if="$config.dashboard.live_data.blocks"
-              data-test="live-data-blocks"
-            />
+        <div
+          v-if="$config.dashboard.live_data.enabled"
+          class="row py-3 px-5 com-bg-body"
+        >
+          <div
+            v-if="$config.dashboard.live_data.blocks"
+            class="col-12 my-1 my-md-0"
+            :class="{ 'col-md-6': $config.dashboard.live_data.transactions }"
+            data-test="live-data-blocks"
+          >
+            <CellBlocks />
           </div>
-          <div class="col-12 col-md-6 my-1 my-md-0">
-            <CellTransactions
-              v-if="$config.dashboard.live_data.transactions"
-              data-test="live-data-transactions"
-            />
+          <div
+            v-if="$config.dashboard.live_data.transactions"
+            class="col-12 my-1 my-md-0"
+            :class="{ 'col-md-6': $config.dashboard.live_data.blocks }"
+            data-test="live-data-transactions"
+          >
+            <CellTransactions />
           </div>
         </div>
       </div>

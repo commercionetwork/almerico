@@ -27,11 +27,13 @@
   },
   "dashboard": {
     "graphs": {
+      "enabled": true,
       "price": true,
       "block_height": true,
       "bonded_tokens": true
     },
     "live_data": {
+      "enabled": true,
       "blocks": true,
       "transactions": true
     }

@@ -21,11 +21,13 @@ describe("views/dashboard/index.vue", () => {
         $config: {
           dashboard: {
             graphs: {
+              enabled: true,
               price: true,
               block_height: true,
               bonded_tokens: true
             },
             live_data: {
+              enabled: true,
               blocks: true,
               transactions: true
             }
@@ -49,11 +51,43 @@ describe("views/dashboard/index.vue", () => {
         $config: {
           dashboard: {
             graphs: {
+              enabled: false,
+              price: true,
+              block_height: true,
+              bonded_tokens: true
+            },
+            live_data: {
+              enabled: false,
+              blocks: true,
+              transactions: true
+            }
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="graphs-price"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="graphs-block-height"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="graphs-bonded-tokens"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="live-data-blocks"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="live-data-transactions"]').exists()).toBe(false);
+  });
+
+  it("Check if single sections are not displayed", () => {
+    const wrapper = shallowMount(Dashboard, {
+      localVue,
+      mocks: {
+        ...mocks,
+        $config: {
+          dashboard: {
+            graphs: {
+              enabled: true,
               price: false,
               block_height: false,
               bonded_tokens: false
             },
             live_data: {
+              enabled: true,
               blocks: false,
               transactions: false
             }
