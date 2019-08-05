@@ -28,7 +28,7 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.publickey')"
+          v-text="$t('labels.publicKey')"
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
@@ -50,20 +50,76 @@
           class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.commission')"
         />
-        <div
-          class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="commission"
-        />
+        <div class="col-12 col-md-9">
+          <dl>
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.rate')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="rate"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.maxRate')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="rateMax"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.maxChangeRate')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="rateChange"
+            />
+          </dl>
+        </div>
       </div>
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.description')"
         />
-        <div
-          class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="description"
-        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <dl>
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.moniker')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="descriptionMoniker"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.identity')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="descriptionIdentity"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.website')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="descriptionWebsite"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.details')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="descriptionDetails"
+            />
+          </dl>
+        </div>
       </div>
       <div class="row p-1">
         <div
@@ -120,19 +176,29 @@ export default {
 
       return this.getAmountLabel(amount.amount, amount.denom);
     },
-    commission() {
-      return this.message.value.commission
-        ? this.message.value.commission
-        : "-";
-    },
     delegatorAddress() {
       return this.message.value.delegator_address
         ? this.message.value.delegator_address
         : "-";
     },
-    description() {
-      return this.message.value.description
-        ? this.message.value.description
+    descriptionMoniker() {
+      return this.message.value.description.moniker
+        ? this.message.value.description.moniker
+        : "-";
+    },
+    descriptionIdentity() {
+      return this.message.value.description.identity
+        ? this.message.value.description.identity
+        : "-";
+    },
+    descriptionWebsite() {
+      return this.message.value.description.website
+        ? this.message.value.description.website
+        : "-";
+    },
+    descriptionDetails() {
+      return this.message.value.description.details
+        ? this.message.value.description.details
         : "-";
     },
     minSelfDelegation() {
@@ -142,6 +208,33 @@ export default {
     },
     pubkey() {
       return this.message.value.pubkey ? this.message.value.pubkey : "-";
+    },
+    rate() {
+      return this.message.value.commission.rate
+        ? this.$n(this.message.value.commission.rate, {
+            style: "percent",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })
+        : "-";
+    },
+    rateChange() {
+      return this.message.value.commission.max_change_rate
+        ? this.$n(this.message.value.commission.max_change_rate, {
+            style: "percent",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })
+        : "-";
+    },
+    rateMax() {
+      return this.message.value.commission.max_rate
+        ? this.$n(this.message.value.commission.max_rate, {
+            style: "percent",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })
+        : "-";
     },
     validatorAddress() {
       return this.message.value.validator_address

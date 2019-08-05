@@ -63,4 +63,7 @@ export const labels = {
   votingPower: "Potere voto",
   votingStart: "Inizio votazione",
   website: "Sito internet",
+  rate: "Tasso",
+  maxRate: "Tasso massimo",
+  maxChangeRate: "Tasso di variazione massimo",
 };
