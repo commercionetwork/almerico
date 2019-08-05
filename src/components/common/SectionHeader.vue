@@ -1,6 +1,10 @@
 <template>
   <div class="row p-1 d-flex align-items-center rounded com-bg-body">
-    <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
+    <div
+      v-if="priceEnabled"
+      class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center"
+      data-test="live-price"
+    >
       <span
         class="com-font-s14-w700"
         v-text="$t('labels.price')"
@@ -10,7 +14,11 @@
         v-text="price"
       />
     </div>
-    <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
+    <div
+      v-if="heightEnabled"
+      class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center"
+      data-test="live-height"
+    >
       <span
         class="com-font-s14-w700"
         v-text="$t('labels.height')"
@@ -20,7 +28,11 @@
         v-text="height"
       />
     </div>
-    <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
+    <div
+      v-if="bondedEnabled"
+      class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center"
+      data-test="live-bonded"
+    >
       <span
         class="com-font-s14-w700"
         v-text="$t('labels.bonded')"
@@ -39,6 +51,23 @@ import { mapGetters } from "vuex";
 export default {
   name: "SectionHeader",
   description: "Display the section header with title and values bar",
+  props: {
+    bondedEnabled: {
+      type: Boolean,
+      default: true,
+      note: "Toggle bonded visibility"
+    },
+    heightEnabled: {
+      type: Boolean,
+      default: true,
+      note: "Toggle height visibility"
+    },
+    priceEnabled: {
+      type: Boolean,
+      default: true,
+      note: "Toggle price visibility"
+    }
+  },
   computed: {
     ...mapGetters("stake", {
       pool: "pool"
