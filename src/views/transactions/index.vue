@@ -11,7 +11,11 @@
         <SearchBar />
       </div>
     </div>
-    <div class="row my-1">
+    <div
+      v-if="$config.transactions.live_data"
+      class="row my-1"
+      data-test="live-data"
+    >
       <div class="col-12">
         <SectionHeader />
       </div>

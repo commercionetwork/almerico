@@ -43,6 +43,7 @@
   },
   "blocks": {
     "enabled": true,
+    "live_data": true,
     "table": {
       "columns": {
         "height": true,
@@ -66,6 +67,7 @@
   },
   "transactions": {
     "enabled": true,
+    "live_data": true,
     "table": {
       "columns": {
         "hash": true,

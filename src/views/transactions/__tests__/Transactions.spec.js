@@ -19,6 +19,48 @@ describe("views/transactions/index.vue", () => {
     $t: messageId => messageId
   };
 
+  it("Check if live data are displayed", () => {
+    const wrapper = shallowMount(Transactions, {
+      computed: {
+        transactions: () => [],
+        message: () => ""
+      },
+      localVue,
+      methods,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-data"]').exists()).toBe(true);
+  });
+
+  it("Check if live data are not displayed", () => {
+    const wrapper = shallowMount(Transactions, {
+      computed: {
+        transactions: () => [],
+        message: () => ""
+      },
+      localVue,
+      methods,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: false
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-data"]').exists()).toBe(false);
+  });
+
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(Transactions, {
       computed: {
@@ -27,7 +69,14 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
     wrapper.setData({
       isFetching: true
@@ -49,7 +98,14 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
     wrapper.setData({
       hasError: true
@@ -70,7 +126,14 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -87,7 +150,14 @@ describe("views/transactions/index.vue", () => {
       },
       localVue,
       methods,
-      mocks
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
