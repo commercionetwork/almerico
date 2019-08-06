@@ -130,7 +130,7 @@ export default {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     commission() {
-      return this.$n(parseFloat(this.validator.commission.rate), {
+      return this.$n(parseFloat(this.validator.commission.CommissionRates.rate), {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2

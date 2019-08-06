@@ -138,7 +138,7 @@ export default {
           response = await apiTxs.requestTransactions({
             tag: `action=${type}&destination-validator=${this.validatorAddress}`
           });
-          response.data.forEach(event => {
+          response.data.txs.forEach(event => {
             event.plus = true;
             this.events.push(event);
           });
@@ -148,7 +148,7 @@ export default {
           response = await apiTxs.requestTransactions({
             tag: `action=${type}&source-validator=${this.validatorAddress}`
           });
-          response.data.forEach(event => {
+          response.data.txs.forEach(event => {
             event.plus = false;
             this.events.push(event);
           });
