@@ -131,17 +131,17 @@ export default {
       return { label: `${formatAmount}`, value: amount.amount };
     },
     rewardsAmount() {
-      let denom = "";
+      let denom = this.coin ? this.coin.denom : "";
       let exponent = 0;
       let tot = 0;
       if (this.rewards && this.rewards.length > 0) {
-        denom = this.rewards[0].denom;
+        if (this.rewards[0].reward) denom = this.rewards[0].reward.denom;
         let coin = this.$config.generic.coins.find(
           coin => coin.denom === denom
         );
         exponent = coin ? coin.exponent : 0;
         this.rewards.forEach(reward => {
-          tot += parseFloat(reward.amount);
+          if (reward.reward) tot += parseFloat(reward.reward.amount);
         });
       }
       let amount = coinsManager(denom, exponent, tot);

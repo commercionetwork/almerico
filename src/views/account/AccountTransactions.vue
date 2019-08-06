@@ -108,7 +108,7 @@ export default {
         const response = await api.requestTransactions({
           tag: `${role}=${address}`
         });
-        if (response.data) this.allTransactions.push(...response.data);
+        if (response.data.txs) this.allTransactions.push(...response.data.txs);
       } catch (error) {
         this.hasErrorTxs = true;
       }
