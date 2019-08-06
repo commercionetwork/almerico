@@ -67,7 +67,7 @@ export default {
       pool: "pool"
     }),
     commission() {
-      return this.$n(parseFloat(this.validator.commission.rate), {
+      return this.$n(parseFloat(this.validator.commission.CommissionRates.rate), {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
