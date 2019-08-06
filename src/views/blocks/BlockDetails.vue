@@ -123,7 +123,7 @@ export default {
         const response = await apiTransactions.requestTransactionsByHeight(
           height
         );
-        this.transactions = response.data;
+        this.transactions = response.data.txs;
       } catch (error) {
         this.hasTransactionsError = true;
       } finally {
