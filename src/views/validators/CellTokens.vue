@@ -38,10 +38,10 @@ export default {
       pool: "pool"
     }),
     bonded() {
-      return this.pool ? new Number(this.pool.bonded_tokens) : 0;
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     notBonded() {
-      return this.pool ? new Number(this.pool.not_bonded_tokens) : 0;
+      return this.pool ? parseFloat(this.pool.not_bonded_tokens) : 0;
     },
     totalToken() {
       return this.bonded + this.notBonded;
