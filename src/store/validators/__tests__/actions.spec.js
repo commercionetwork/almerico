@@ -54,7 +54,7 @@ describe("store/validators/actions", () => {
       commit
     });
 
-    expect(commit).toHaveBeenCalledWith("addValidators", mockResponse.data);
+    expect(commit).toHaveBeenCalledWith("addValidators", mockResponse.data.result);
   });
 
   it("Check if 'actions.fetchValidators' has an error", async () => {
@@ -127,7 +127,10 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockValidators()
+          data: {
+            height: "1",
+            result: mockValidators()
+          }
         };
         resolve(mockResponse);
       }, 1);
