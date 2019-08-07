@@ -112,13 +112,13 @@ export default {
         const page = Math.ceil(totalTxs / limit);
         types.forEach(type => {
           this.fetchTransactions({
-            tag: `action=${type}`,
+            tag: `message.action=${type}`,
             page,
             limit
           });
           if (page > 1) {
             this.fetchTransactions({
-              tag: `action=${type}`,
+              tag: `message.action=${type}`,
               page: page - 1,
               limit
             });
