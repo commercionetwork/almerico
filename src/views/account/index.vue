@@ -92,7 +92,7 @@ export default {
       allUnbondings: [],
       hasError: false,
       isFetching: false,
-      rewards: ""
+      rewards: []
     };
   },
   computed: {
@@ -143,15 +143,15 @@ export default {
       try {
         // get all delegations
         response = await api.requestDelegatorDelegations(this.address);
-        if (response.data) this.allDelegations = response.data;
+        if (response.data) this.allDelegations = response.data.result;
 
         // get unbonding delegations
         response = await api.requestDelegatorUnbondingDelegations(this.address);
-        if (response.data) this.allUnbondings = response.data;
+        if (response.data) this.allUnbondings = response.data.result;
 
         // get rewards
         response = await api.requestDelegatorRewards(this.address);
-        if (response.data) this.rewards = response.data.total;
+        if (response.data) this.rewards = response.data.result.total;
       } catch (error) {
         this.hasError = true;
       } finally {

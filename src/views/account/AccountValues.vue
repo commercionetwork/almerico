@@ -82,8 +82,8 @@ export default {
       note: "Delegations list"
     },
     rewards: {
-      type: String,
-      default: null,
+      type: Array,
+      required: true,
       note: "Rewards list"
     },
     unbondings: {
@@ -131,11 +131,18 @@ export default {
       return { label: `${formatAmount}`, value: amount.amount };
     },
     rewardsAmount() {
-      let denom = this.coin ? this.coin.denom : "";
-      let exponent = this.coin ? this.coin.exponent : 0;
+      let denom = "";
+      let exponent = 0;
       let tot = 0;
-      if (this.rewards) {
-        tot = parseFloat(this.rewards);
+      if (this.rewards && this.rewards.length > 0) {
+        denom = this.rewards[0].denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        this.rewards.forEach(reward => {
+          tot += parseFloat(reward.amount);
+        });
       }
       let amount = coinsManager(denom, exponent, tot);
       let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
