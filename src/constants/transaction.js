@@ -1,11 +1,5 @@
 export const ACCOUNT_ROLES = {
-  DELEGATOR: "delegator",
-  RECIPIENT: "recipient",
-  SENDER: "sender",
-};
-
-export const VALIDATOR_ROLES = {
-  DESTINATION_VALIDATOR: "destination-validator",
-  SOURCE_VALIDATOR: "source-validator",
-  VALIDATOR: "validator"
+  MESSAGE_DELEGATOR: "message.delegator",
+  MESSAGE_SENDER: "message.sender",
+  TRANSFER_RECIPIENT: "transfer.recipient",
 };

@@ -84,7 +84,7 @@ export default {
         const response = await api.requestValidator(
           this.delegation.validator_address
         );
-        if (response.data) this.moniker = response.data.description.moniker;
+        if (response.data.result) this.moniker = response.data.result.description.moniker;
       } catch (error) {
         this.hasError = true;
       } finally {

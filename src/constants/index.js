@@ -12,8 +12,7 @@ import {
   ROUTE_TITLES
 } from "./route";
 import {
-  ACCOUNT_ROLES,
-  VALIDATOR_ROLES
+  ACCOUNT_ROLES
 } from "./transaction";
 import {
   VALIDATOR_STATUS
@@ -30,7 +29,6 @@ export {
   ROUTES,
   ROUTE_NAMES,
   ROUTE_TITLES,
-  VALIDATOR_ROLES,
   VALIDATOR_STATUS,
   VOTING_STATUS,
   WS
