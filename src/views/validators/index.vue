@@ -115,7 +115,7 @@ export default {
       isFetching: "isFetching"
     }),
     bonded() {
-      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
+      return this.pool ? parseFloat(this.pool.result.bonded_tokens) : 0;
     }
   },
   watch: {
