@@ -121,7 +121,7 @@ export default {
       try {
         // get validator
         response = await api.requestValidator(address);
-        this.validator = response.data;
+        this.validator = response.data.result;
         if (this.validator.description.identity.length > 0) {
           const res = await api.requestValidatorIdentity(
             this.validator.description.identity
@@ -132,11 +132,11 @@ export default {
         }
         // get delegations
         response = await api.requestValidatorDelegations(address);
-        this.delegations = response.data;
+        this.delegations = response.data.result;
         // get plus events
         types.forEach(async type => {
           response = await apiTxs.requestTransactions({
-            tag: `action=${type}&destination-validator=${this.validatorAddress}`
+            tag: `message.action=${type}&transfer.recipient=${this.accountAddress}`
           });
           response.data.txs.forEach(event => {
             event.plus = true;
@@ -146,7 +146,7 @@ export default {
         // get minus events
         types.forEach(async type => {
           response = await apiTxs.requestTransactions({
-            tag: `action=${type}&source-validator=${this.validatorAddress}`
+            tag: `message.action=${type}&message.sender=${this.accountAddress}`
           });
           response.data.txs.forEach(event => {
             event.plus = false;
