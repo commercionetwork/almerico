@@ -129,7 +129,7 @@ export default {
         const response = await api.requestValidatorsetsFromHeight(
           block.header.height
         );
-        let pubKey = response.data.validators.find(x => x.address === address)
+        let pubKey = response.data.result.validators.find(x => x.address === address)
           .pub_key;
         this.proposer = this.validators.find(
           x => x.consensus_pubkey === pubKey
