@@ -7,24 +7,28 @@
  * @property {String} message
  */
 /** @typedef {Object} Transaction
+ * @property {Array.<TxEvent>} events 
  * @property {String} gas_used 
  * @property {String} gas_wanted 
  * @property {String} height 
  * @property {Array.<Log>} logs 
  * @property {String} raw_log 
- * @property {Array.<Tag>} tags 
  * @property {String} timestamp 
  * @property {Tx} tx 
  * @property {String} txhash 
+ */
+/** @typedef {Object} TxEvent
+ * @property {Array.<Attribute>} attributes 
+ * @property {String} type 
+ */
+/** @typedef {Object} Attribute
+ * @property {String} key 
+ * @property {String} value 
  */
 /** @typedef {Object} Log 
  * @property {String} log 
  * @property {String} msg_index 
  * @property {Boolean} success 
- */
-/** @typedef {Object} Tag
- * @property {String} key 
- * @property {String} value 
  */
 /** @typedef {Object} Tx 
  * @property {String} type 
