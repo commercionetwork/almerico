@@ -92,7 +92,7 @@ export default {
       allUnbondings: [],
       hasError: false,
       isFetching: false,
-      rewards: []
+      rewards: ""
     };
   },
   computed: {
