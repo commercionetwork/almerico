@@ -68,7 +68,7 @@ export default {
     });
     try {
       const response = await api.requestValidators(filters);
-      commit("addValidators", response.data);
+      if (response.data.result.length > 0) commit("addValidators", response.data.result);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);
