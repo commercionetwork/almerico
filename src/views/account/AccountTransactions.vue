@@ -34,7 +34,7 @@
           data-test="has-error"
         />
         <AccountTransactionsTable
-          v-else-if="!isFetching && !hasError && transactions.length > 0"
+          v-else-if="!isFetching && !hasError && transactionsPage.length > 0"
           :transactions="transactionsPage"
           data-test="items"
         />
@@ -56,7 +56,6 @@ import Pagination from "Components/common/Pagination.vue";
 
 import api from "Store/transactions/api";
 import { ACCOUNT_ROLES } from "Constants";
-import { arrayManager } from "Utils";
 
 export default {
   name: "AccountTransactions",
@@ -74,12 +73,12 @@ export default {
   },
   data() {
     return {
-      allTransactions: [],
       hasErrorData: false,
       hasErrorTxs: false,
       isFetching: false,
       limit: 5,
-      page: 1
+      page: 1,
+      transactions: []
     };
   },
   computed: {
@@ -87,16 +86,13 @@ export default {
       return this.hasErrorData || this.hasErrorTxs;
     },
     transactionsPage() {
-      return this.transactions.slice(
+      return this.orderedTransactions.slice(
         (this.page - 1) * this.limit,
         this.page * this.limit
       );
     },
-    transactions() {
-      const transactions = arrayManager.uniqueByKey(
-        this.allTransactions,
-        JSON.stringify
-      );
+    orderedTransactions() {
+      const transactions = [...this.transactions];
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
@@ -106,25 +102,38 @@ export default {
     }
   },
   methods: {
-    async getTxs(role, address) {
+    async fetchTransactions(role) {
       try {
         const response = await api.requestTransactions({
-          tag: `${role}=${address}`,
-          page: this.page,
+          tag: `${role}=${this.address}`,
+          page: 1,
           limit: this.limit
         });
-        return response;
+        const totalPage = parseInt(response.data.page_total);
+        if (totalPage > 0) {
+          this.transactions.push(...response.data.txs);
+          if (totalPage > 1) {
+            let page = 2;
+            while (page <= totalPage) {
+              const res = await api.requestTransactions({
+                tag: `${role}=${this.address}`,
+                page,
+                limit: this.limit
+              });
+              this.transactions.push(...res.data.txs);
+              page++;
+            }
+          }
+        }
       } catch (error) {
         this.hasErrorTxs = true;
       }
     },
-    getData() {
+    getTransactions() {
       this.isFetching = true;
       try {
-        Object.values(ACCOUNT_ROLES).forEach(async (role) => {
-          const response = await this.getTxs(role, this.address);
-          if (response.data.txs)
-            this.allTransactions.push(...response.data.txs);
+        Object.values(ACCOUNT_ROLES).forEach(role => {
+          this.fetchTransactions(role);
         });
       } catch (error) {
         this.hasErrorData = true;
@@ -137,7 +146,7 @@ export default {
     }
   },
   created() {
-    this.getData();
+    this.getTransactions();
   }
 };
 </script>
