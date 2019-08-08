@@ -113,7 +113,7 @@ export default {
           page: this.page,
           limit: this.limit
         });
-        if (response.data.txs) this.allTransactions.push(...response.data.txs);
+        return response;
       } catch (error) {
         this.hasErrorTxs = true;
       }
@@ -121,8 +121,10 @@ export default {
     getData() {
       this.isFetching = true;
       try {
-        Object.values(ACCOUNT_ROLES).forEach(role => {
-          this.getTxs(role, this.address);
+        Object.values(ACCOUNT_ROLES).forEach(async (role) => {
+          const response = await this.getTxs(role, this.address);
+          if (response.data.txs)
+            this.allTransactions.push(...response.data.txs);
         });
       } catch (error) {
         this.hasErrorData = true;
