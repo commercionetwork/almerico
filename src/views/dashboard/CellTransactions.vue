@@ -103,10 +103,14 @@ export default {
           } else if (pageTotal === 1 || pageTotal === 2) {
             this.transactions.push(...response.data.txs);
             if (pageTotal === 2) {
-              const response_2 = await this.fetchTransactions(type, 2, 10);
+              const response_2 = await this.fetchTransactions(
+                type,
+                pageTotal,
+                10
+              );
               this.transactions.push(...response_2.data.txs);
             }
-          } else {
+          } else if (pageTotal > 2) {
             let response_3 = await this.fetchTransactions(type, pageTotal, 10);
             this.transactions.push(...response_3.data.txs);
             response_3 = await this.fetchTransactions(type, pageTotal - 1, 10);

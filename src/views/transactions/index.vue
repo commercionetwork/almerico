@@ -26,7 +26,37 @@
     </div>
     <div class="row rounded com-bg-body">
       <div class="col-12">
-        <div class="row py-3 px-5">
+        <div class="row py-1 px-5">
+          <div class="col-12 col-md-6 py-1">
+            <select
+              class="custom-select"
+              v-model="selectedType"
+            >
+              <option
+                disabled
+                :value="null"
+                v-text="$t('messages.selectType')"
+              />
+              <option
+                v-for="(type, index) in $config.transactions.supported_types"
+                :key="index"
+                v-text="type.name"
+                :value="type.tag"
+              />
+            </select>
+          </div>
+          <div class="col-12 col-md-6 py-1">
+            <Pagination
+              v-if="transactions.length > 0"
+              :limit="limit"
+              :page="page"
+              :total="total"
+              v-on:change-page="changePage"
+              data-test="pagination"
+            />
+          </div>
+        </div>
+        <div class="row pt-0 pb-1 px-5">
           <div class="col-12">
             <div
               v-if="isFetching"
@@ -37,12 +67,12 @@
             <div
               v-else-if="!isFetching && hasError"
               class="text-danger com-font-s14-w400"
-              v-text="message"
+              v-text="$t('messages.fetchingError')"
               data-test="has-error"
             />
             <TableTransactions
               v-else-if="!isFetching && !hasError && transactions.length > 0"
-              :transactions="transactionsList"
+              :transactions="transactions"
               data-test="items"
             />
             <div
@@ -59,18 +89,19 @@
 </template>
 
 <script>
+import Pagination from "Components/common/Pagination.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactions from "./TableTransactions.vue";
 
-import api from "Store/blocks/api";
+import api from "Store/transactions/api";
 import { arrayManager } from "Utils";
-import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Transactions",
   description: "Container for transactions' section",
   components: {
+    Pagination,
     SectionHeader,
     SearchBar,
     TableTransactions
@@ -78,61 +109,52 @@ export default {
   data() {
     return {
       hasError: false,
-      isFetching: false
+      isFetching: false,
+      limit: 20,
+      page: 1,
+      total: 0,
+      selectedType: null,
+      transactions: []
     };
   },
-  computed: {
-    ...mapGetters("transactions", {
-      transactions: "transactions",
-      message: "message"
-    }),
-    transactionsList() {
-      let transactions = arrayManager.uniqueByKey(
-        this.transactions,
-        JSON.stringify
-      );
-      return transactions.sort(function(a, b) {
-        return b.height - a.height;
-      });
+  watch: {
+    selectedType() {
+      this.page = 1;
+      this.getTransactions(1);
     }
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    async getTransactions() {
-      let types = this.$config.transactions.supported_types.map(
-        type => type.tag
-      );
-      this.isFetching = true;
-      const limit = 20;
+    async fetchTransactions(type, page) {
       try {
-        const response = await api.requestLastBlock();
-        const totalTxs = parseInt(response.data.block.header.total_txs);
-        const page = Math.ceil(totalTxs / limit);
-        types.forEach(type => {
-          this.fetchTransactions({
-            tag: `message.action=${type}`,
-            page,
-            limit
-          });
-          if (page > 1) {
-            this.fetchTransactions({
-              tag: `message.action=${type}`,
-              page: page - 1,
-              limit
-            });
-          }
+        const response = await api.requestTransactions({
+          tag: `message.action=${type}`,
+          page,
+          limit: this.limit
         });
+        return response;
+      } catch (error) {
+        this.hasError = true;
+      }
+    },
+    async getTransactions(page) {
+      this.isFetching = true;
+      try {
+        const response = await this.fetchTransactions(
+          this.selectedType,
+          page
+        );
+        this.total = response.data.total_count;
+        this.transactions = response.data.txs;
       } catch (error) {
         this.hasError = true;
       } finally {
         this.isFetching = false;
       }
+    },
+    changePage(page) {
+      this.page = page;
+      this.getTransactions(page);
     }
-  },
-  created() {
-    this.getTransactions();
   }
 };
 </script>

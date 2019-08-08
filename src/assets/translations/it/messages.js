@@ -7,6 +7,7 @@ export const messages = {
   scanAddress: "Scansiona l'indirizzo",
   search: "Cerca per Address, Block Height, TxHash",
   searchValidator: "Cerca validatore",
+  selectType: "Selezionare un tipo",
   serverUnreachable: "Server temporaneamente irraggiungibile, riprova più tardi",
   toStart: "Vai all'inizio",
 };
