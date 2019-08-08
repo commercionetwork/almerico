@@ -109,7 +109,9 @@ export default {
     async getTxs(role, address) {
       try {
         const response = await api.requestTransactions({
-          tag: `${role}=${address}`
+          tag: `${role}=${address}`,
+          page: this.page,
+          limit: this.limit
         });
         if (response.data.txs) this.allTransactions.push(...response.data.txs);
       } catch (error) {
