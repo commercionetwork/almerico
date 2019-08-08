@@ -60,13 +60,13 @@
           <div class="col-12">
             <div
               v-if="!selectedType"
-              class="alert alert-primary" role="alert"
+              class="alert alert-info" role="alert"
               v-text="$t('messages.selectTypeToView')"
               data-test="info-message"
             />
             <div
               v-else-if="isFetching"
-              class="alert alert-info" role="alert"
+              class="alert alert-warning" role="alert"
               v-text="$t('messages.loading')"
               data-test="loading"
             />
@@ -83,7 +83,7 @@
             />
             <div
               v-else
-              class="alert alert-warning" role="alert"
+              class="alert alert-info" role="alert"
               v-text="$t('messages.noItems')"
               data-test="no-items"
             />

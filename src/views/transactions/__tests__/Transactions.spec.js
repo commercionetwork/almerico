@@ -21,10 +21,6 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if live data are displayed", () => {
     const wrapper = shallowMount(Transactions, {
-      computed: {
-        transactions: () => [],
-        message: () => ""
-      },
       localVue,
       methods,
       mocks: {
@@ -44,10 +40,6 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if live data are not displayed", () => {
     const wrapper = shallowMount(Transactions, {
-      computed: {
-        transactions: () => [],
-        message: () => ""
-      },
       localVue,
       methods,
       mocks: {
@@ -65,12 +57,29 @@ describe("views/transactions/index.vue", () => {
     expect(wrapper.find('[data-test="live-data"]').exists()).toBe(false);
   });
 
+  it("Check if info message is displayed", () => {
+    const wrapper = shallowMount(Transactions, {
+      localVue,
+      methods,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
+  });
+
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(Transactions, {
-      computed: {
-        transactions: () => [],
-        message: () => ""
-      },
       localVue,
       methods,
       mocks: {
@@ -83,9 +92,11 @@ describe("views/transactions/index.vue", () => {
       }
     });
     wrapper.setData({
+      selectedType: "type",
       isFetching: true
     });
 
+    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
@@ -94,12 +105,7 @@ describe("views/transactions/index.vue", () => {
   });
 
   it("Check if error message is displayed", () => {
-    const message = "error";
     const wrapper = shallowMount(Transactions, {
-      computed: {
-        transactions: () => [],
-        message: () => message
-      },
       localVue,
       methods,
       mocks: {
@@ -112,22 +118,20 @@ describe("views/transactions/index.vue", () => {
       }
     });
     wrapper.setData({
+      selectedType: "type",
       hasError: true
     });
 
+    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="has-error"]').text()).toEqual(message);
+    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
 
   it("Check if items list with pagination is displayed", () => {
     const wrapper = shallowMount(Transactions, {
-      computed: {
-        transactions: () => mockTransactions(),
-        message: () => ""
-      },
       localVue,
       methods,
       mocks: {
@@ -139,7 +143,12 @@ describe("views/transactions/index.vue", () => {
         }
       }
     });
+    wrapper.setData({
+      selectedType: "type",
+      transactions: mockTransactions()
+    });
 
+    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(true);
@@ -148,10 +157,6 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if no items message is displayed when list is empty", () => {
     const wrapper = shallowMount(Transactions, {
-      computed: {
-        transactions: () => [],
-        message: () => ""
-      },
       localVue,
       methods,
       mocks: {
@@ -163,7 +168,11 @@ describe("views/transactions/index.vue", () => {
         }
       }
     });
+    wrapper.setData({
+      selectedType: "type"
+    });
 
+    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
