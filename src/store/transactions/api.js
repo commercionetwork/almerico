@@ -25,8 +25,8 @@ export default {
    */
   requestTransactions({
     tag,
-    page = 1,
-    limit = 20
+    page,
+    limit
   }) {
     return instance.get(`${API.TXS}?${tag}&page=${page}&limit=${limit}`);
   },
