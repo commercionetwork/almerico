@@ -27,7 +27,8 @@
         />
         <div
           v-else
-          class="py-1 text-center text-info border-top com-font-s14-w700"
+          class="alert alert-info"
+          role="alert"
           v-text="$t('messages.noItems')"
           data-test="no-items"
         />

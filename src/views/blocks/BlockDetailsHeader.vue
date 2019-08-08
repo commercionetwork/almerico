@@ -68,13 +68,15 @@
       <div class="col-12 col-md-9 com-font-s14-w400">
         <div
           v-if="isFetching"
-          class="text-info"
+          class="alert alert-warning"
+          role="alert"
           v-text="$t('messages.loading')"
           data-test="loading"
         />
         <div
           v-else-if="!isFetching && hasError"
-          class="text-danger"
+          class="alert alert-danger"
+          role="alert"
           v-text="$t('messages.fetchingError')"
           data-test="has-error"
         />
@@ -144,8 +146,9 @@ export default {
         const response = await api.requestValidatorsetsFromHeight(
           this.block.header.height
         );
-        let pubKey = response.data.result.validators.find(x => x.address === address)
-          .pub_key;
+        let pubKey = response.data.result.validators.find(
+          x => x.address === address
+        ).pub_key;
         let proposer = this.validators.find(x => x.consensus_pubkey === pubKey);
         this.proposer = proposer
           ? proposer.description.moniker
