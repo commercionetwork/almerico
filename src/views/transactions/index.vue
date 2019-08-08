@@ -59,14 +59,20 @@
         <div class="row pt-0 pb-1 px-5">
           <div class="col-12">
             <div
-              v-if="isFetching"
-              class="text-info com-font-s14-w400"
+              v-if="!selectedType"
+              class="alert alert-primary" role="alert"
+              v-text="$t('messages.selectTypeToView')"
+              data-test="info-message"
+            />
+            <div
+              v-else-if="isFetching"
+              class="alert alert-info" role="alert"
               v-text="$t('messages.loading')"
               data-test="loading"
             />
             <div
               v-else-if="!isFetching && hasError"
-              class="text-danger com-font-s14-w400"
+              class="alert alert-danger" role="alert"
               v-text="$t('messages.fetchingError')"
               data-test="has-error"
             />
@@ -77,7 +83,7 @@
             />
             <div
               v-else
-              class="py-1 text-center text-info border-top com-font-s14-w700"
+              class="alert alert-warning" role="alert"
               v-text="$t('messages.noItems')"
               data-test="no-items"
             />
@@ -138,10 +144,7 @@ export default {
     async getTransactions(page) {
       this.isFetching = true;
       try {
-        const response = await this.fetchTransactions(
-          this.selectedType,
-          page
-        );
+        const response = await this.fetchTransactions(this.selectedType, page);
         this.total = response.data.total_count;
         this.transactions = response.data.txs;
       } catch (error) {
@@ -152,7 +155,9 @@ export default {
     },
     changePage(page) {
       this.page = page;
-      this.getTransactions(page);
+      if (this.selectedType) {
+        this.getTransactions(page);
+      }
     }
   }
 };
