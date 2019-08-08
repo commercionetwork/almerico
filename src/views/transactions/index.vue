@@ -95,7 +95,6 @@ import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactions from "./TableTransactions.vue";
 
 import api from "Store/transactions/api";
-import { arrayManager } from "Utils";
 
 export default {
   name: "Transactions",
