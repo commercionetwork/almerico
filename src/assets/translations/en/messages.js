@@ -7,6 +7,7 @@ export const messages = {
   scanAddress: "Scan for address",
   search: "Search by Address, Block Height, TxHash",
   searchValidator: "Search validator",
+  selectLimit: "Items per page",
   selectType: "Select type",
   selectTypeToView: "Select a transaction type to display the relative list.",
   serverUnreachable: "Server temporarily unreachable, please try again later",

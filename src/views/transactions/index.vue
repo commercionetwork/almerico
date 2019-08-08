@@ -27,7 +27,7 @@
     <div class="row rounded com-bg-body">
       <div class="col-12">
         <div class="row py-1 px-5">
-          <div class="col-12 col-md-6 py-1">
+          <div class="col-12 col-md-5 py-1">
             <select
               class="custom-select"
               v-model="selectedType"
@@ -45,7 +45,35 @@
               />
             </select>
           </div>
-          <div class="col-12 col-md-6 py-1">
+          <div class="col-12 col-md-2 py-1">
+            <select
+              class="custom-select"
+              v-model="limit"
+            >
+              <option
+                disabled
+                :value="null"
+                v-text="$t('messages.selectLimit')"
+              />
+              <option
+                v-text="'1'"
+                value=1
+              />
+              <option
+                v-text="'10'"
+                value=10
+              />
+              <option
+                v-text="'20'"
+                value=20
+              />
+              <option
+                v-text="'30'"
+                value=30
+              />
+            </select>
+          </div>
+          <div class="col-12 col-md-5 py-1">
             <Pagination
               v-if="transactions.length > 0"
               :limit="limit"
@@ -60,19 +88,22 @@
           <div class="col-12">
             <div
               v-if="!selectedType"
-              class="alert alert-info" role="alert"
+              class="alert alert-info"
+              role="alert"
               v-text="$t('messages.selectTypeToView')"
               data-test="info-message"
             />
             <div
               v-else-if="isFetching"
-              class="alert alert-warning" role="alert"
+              class="alert alert-warning"
+              role="alert"
               v-text="$t('messages.loading')"
               data-test="loading"
             />
             <div
               v-else-if="!isFetching && hasError"
-              class="alert alert-danger" role="alert"
+              class="alert alert-danger"
+              role="alert"
               v-text="$t('messages.fetchingError')"
               data-test="has-error"
             />
@@ -83,7 +114,8 @@
             />
             <div
               v-else
-              class="alert alert-info" role="alert"
+              class="alert alert-info"
+              role="alert"
               v-text="$t('messages.noItems')"
               data-test="no-items"
             />
@@ -123,6 +155,10 @@ export default {
     };
   },
   watch: {
+    limit() {
+      this.page = 1;
+      this.getTransactions(1);
+    },
     selectedType() {
       this.page = 1;
       this.getTransactions(1);
