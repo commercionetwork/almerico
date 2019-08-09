@@ -12,7 +12,8 @@ import {
   ROUTE_TITLES
 } from "./route";
 import {
-  ACCOUNT_ROLES
+  ACCOUNT_ROLES,
+  LIMITS_LIST
 } from "./transaction";
 import {
   VALIDATOR_STATUS
@@ -24,6 +25,7 @@ import {
 export {
   ACCOUNT_ROLES,
   API,
+  LIMITS_LIST,
   MODAL_ID,
   MODAL_SIZE,
   ROUTES,

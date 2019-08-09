@@ -56,20 +56,10 @@
                 v-text="$t('messages.selectLimit')"
               />
               <option
-                v-text="'1'"
-                value=1
-              />
-              <option
-                v-text="'10'"
-                value=10
-              />
-              <option
-                v-text="'20'"
-                value=20
-              />
-              <option
-                v-text="'30'"
-                value=30
+                v-for="(limit, index) in LIMITS_LIST.VALUES"
+                :key="index"
+                v-text="limit"
+                :value="limit"
               />
             </select>
           </div>
@@ -87,14 +77,7 @@
         <div class="row pt-0 pb-1 px-5">
           <div class="col-12">
             <div
-              v-if="!selectedType"
-              class="alert alert-info"
-              role="alert"
-              v-text="$t('messages.selectTypeToView')"
-              data-test="info-message"
-            />
-            <div
-              v-else-if="isFetching"
+              v-if="isFetching"
               class="alert alert-warning"
               role="alert"
               v-text="$t('messages.loading')"
@@ -108,8 +91,8 @@
               data-test="has-error"
             />
             <TableTransactions
-              v-else-if="!isFetching && !hasError && transactions.length > 0"
-              :transactions="transactions"
+              v-else-if="!isFetching && !hasError && transactionsPage.length > 0"
+              :transactions="transactionsPage"
               data-test="items"
             />
             <div
@@ -132,7 +115,8 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactions from "./TableTransactions.vue";
 
-import api from "Store/transactions/api";
+import { txsManager } from "Apis";
+import { LIMITS_LIST } from "Constants";
 
 export default {
   name: "Transactions",
@@ -145,56 +129,62 @@ export default {
   },
   data() {
     return {
+      LIMITS_LIST,
       hasError: false,
       isFetching: false,
-      limit: 20,
+      limit: LIMITS_LIST.DEFAULT,
       page: 1,
-      total: 0,
       selectedType: null,
       transactions: []
     };
   },
+  computed: {
+    transactionsPage() {
+      return this.orderedTransactions.slice(
+        (this.page - 1) * this.limit,
+        this.page * this.limit
+      );
+    },
+    orderedTransactions() {
+      const transactions = [...this.transactions];
+      return transactions.sort(function(a, b) {
+        return b.height - a.height;
+      });
+    },
+    total() {
+      return this.transactions.length;
+    }
+  },
   watch: {
     limit() {
-      this.page = 1;
-      this.getTransactions(1);
-    },
-    selectedType() {
+      this.transactions = [];
       this.page = 1;
       this.getTransactions(1);
     }
   },
   methods: {
-    async fetchTransactions(type, page) {
-      try {
-        const response = await api.requestTransactions({
-          tag: `message.action=${type}`,
-          page,
-          limit: this.limit
-        });
-        return response;
-      } catch (error) {
-        this.hasError = true;
-      }
-    },
-    async getTransactions(page) {
+    getTransactions() {
+      let types = this.$config.transactions.supported_types.map(
+        type => type.tag
+      );
       this.isFetching = true;
-      try {
-        const response = await this.fetchTransactions(this.selectedType, page);
-        this.total = response.data.total_count;
-        this.transactions = response.data.txs;
-      } catch (error) {
-        this.hasError = true;
-      } finally {
-        this.isFetching = false;
-      }
+      types.forEach(async type => {
+        const tag = `message.action=${type}`;
+        const response = await txsManager.fetchTransactions(tag, this.limit);
+        if (response.err) {
+          this.hasError = true;
+        } else {
+          this.transactions.push(...response.txs);
+        }
+      });
+      this.isFetching = false;
     },
     changePage(page) {
       this.page = page;
-      if (this.selectedType) {
-        this.getTransactions(page);
-      }
     }
+  },
+  created() {
+    this.getTransactions();
   }
 };
 </script>
