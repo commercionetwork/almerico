@@ -24,9 +24,6 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
-      computed: {
-        transactions: () => []
-      },
       localVue,
       methods,
       mocks,
@@ -47,16 +44,16 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if error message is displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
-      computed: {
-        hasError: () => true,
-        transactions: () => []
-      },
       localVue,
       methods,
       mocks,
       propsData: {
         ...props
       }
+    });
+
+    wrapper.setData({
+      hasError: true
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -68,15 +65,16 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if items data are displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
-      computed: {
-        transactions: () => mockTransactions()
-      },
       localVue,
       methods,
       mocks,
       propsData: {
         ...props
       }
+    });
+
+    wrapper.setData({
+      transactions: mockTransactions()
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -87,9 +85,6 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if no items message is displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
-      computed: {
-        transactions: () => []
-      },
       localVue,
       methods,
       mocks,
