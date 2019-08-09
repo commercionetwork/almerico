@@ -74,7 +74,7 @@ import MsgDefault from "./msgs/MsgDefault.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TransactionDetailsInfo from "./TransactionDetailsInfo.vue";
 
-import api from "Store/transactions/api";
+import { txsManager } from "Apis";
 
 let supportedTypes = Config.transactions.supported_types;
 let components = {};
@@ -115,15 +115,14 @@ export default {
   methods: {
     async getTransaction(hash) {
       this.isFetching = true;
-      try {
-        const response = await api.requestTransactionByHash(hash);
-        this.transaction = response.data;
-        this.messages = this.transaction.tx.value.msg;
-      } catch (error) {
+      const response = await txsManager.fetchTransaction(hash);
+      if (response.err) {
         this.hasError = true;
-      } finally {
-        this.isFetching = false;
+      } else {
+        this.transaction = response.tx;
+        this.messages = this.transaction.tx.value.msg;
       }
+      this.isFetching = false;
     },
     getComponentName(message) {
       let component = this.model.components.find(
