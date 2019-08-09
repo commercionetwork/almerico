@@ -42,9 +42,9 @@
 import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import api from "Store/transactions/api";
+import { txsManager } from "Apis";
 import { ROUTE_NAMES } from "Constants";
-import { arrayManager, localizedRoute } from "Utils";
+import { localizedRoute } from "Utils";
 
 export default {
   name: "CellTransactions",
@@ -57,6 +57,7 @@ export default {
     return {
       hasError: false,
       isFetching: false,
+      limit: 10,
       transactions: []
     };
   },
@@ -65,63 +66,29 @@ export default {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactionsList() {
-      let transactions = arrayManager.uniqueByKey(
-        this.transactions,
-        JSON.stringify
-      );
-      return transactions
-        .sort(function(a, b) {
-          return b.height - a.height;
-        })
-        .slice(0, 10);
+      const transactions = [...this.transactions];
+      transactions.sort(function(a, b) {
+        return b.height - a.height;
+      });
+      return transactions.slice(0, 10);
     }
   },
   methods: {
-    async fetchTransactions(type, page, limit) {
-      try {
-        const response = await api.requestTransactions({
-          tag: `message.action=${type}`,
-          page,
-          limit
-        });
-        return response;
-      } catch (error) {
-        this.hasError = true;
-      }
-    },
     getTransactions() {
       let types = this.$config.transactions.supported_types.map(
         type => type.tag
       );
       this.isFetching = true;
-      try {
-        types.forEach(async type => {
-          const response = await this.fetchTransactions(type, 1, 10);
-          const pageTotal = parseInt(response.data.page_total);
-          if (pageTotal === 0) {
-            return;
-          } else if (pageTotal === 1 || pageTotal === 2) {
-            this.transactions.push(...response.data.txs);
-            if (pageTotal === 2) {
-              const response_2 = await this.fetchTransactions(
-                type,
-                pageTotal,
-                10
-              );
-              this.transactions.push(...response_2.data.txs);
-            }
-          } else if (pageTotal > 2) {
-            let response_3 = await this.fetchTransactions(type, pageTotal, 10);
-            this.transactions.push(...response_3.data.txs);
-            response_3 = await this.fetchTransactions(type, pageTotal - 1, 10);
-            this.transactions.push(...response_3.data.txs);
-          }
-        });
-      } catch (error) {
-        this.hasError = true;
-      } finally {
-        this.isFetching = false;
-      }
+      types.forEach(async type => {
+        const tag = `message.action=${type}`;
+        const response = await txsManager.fetchTransactions(tag, this.limit);
+        if (response.err) {
+          this.hasError = true;
+        } else {
+          this.transactions.push(...response.txs);
+        }
+      });
+      this.isFetching = false;
     }
   },
   created() {
