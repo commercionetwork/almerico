@@ -54,7 +54,7 @@
 import AccountTransactionsTable from "./AccountTransactionsTable.vue";
 import Pagination from "Components/common/Pagination.vue";
 
-import { txsManager } from "Api";
+import { txsManager } from "Apis";
 import { ACCOUNT_ROLES } from "Constants";
 
 export default {

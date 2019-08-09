@@ -8,7 +8,7 @@ function resolve(dir) {
 module.exports = {
   chainWebpack: config => {
     config.resolve.alias
-      .set("Api", resolve("./src/api/"))
+      .set("Apis", resolve("./src/apis/"))
       .set("Assets", resolve("./src/assets/"))
       .set("Components", resolve("./src/components/"))
       .set("Constants", resolve("./src/constants/"))
