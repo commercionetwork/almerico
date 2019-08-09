@@ -1,5 +1,6 @@
 export const messages = {
   ago: "trascorsi",
+  all: "Tutti",
   fetchingError: "Errore nel recuperare i dati",
   loading: "Caricando...",
   noItems: "Nessun elemento",

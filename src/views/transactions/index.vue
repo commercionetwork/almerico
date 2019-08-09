@@ -34,8 +34,12 @@
             >
               <option
                 disabled
-                :value="null"
                 v-text="$t('messages.selectType')"
+                :value="null"
+              />
+              <option
+                v-text="$t('messages.all')"
+                :value="null"
               />
               <option
                 v-for="(type, index) in $config.transactions.supported_types"
@@ -52,8 +56,8 @@
             >
               <option
                 disabled
-                :value="null"
                 v-text="$t('messages.selectLimit')"
+                :value="null"
               />
               <option
                 v-for="(limit, index) in LIMITS_LIST.VALUES"
