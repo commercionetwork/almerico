@@ -1,9 +1,5 @@
-import {
-  fetchTransaction,
-  fetchTransactions
-} from './transactions/txs';
+import txsManager from './transactions/txs';
 
 export {
-  fetchTransaction,
-  fetchTransactions
+  txsManager
 };

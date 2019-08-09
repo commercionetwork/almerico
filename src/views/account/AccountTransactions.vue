@@ -54,7 +54,7 @@
 import AccountTransactionsTable from "./AccountTransactionsTable.vue";
 import Pagination from "Components/common/Pagination.vue";
 
-import { fetchTransactions } from "Api";
+import { txsManager } from "Api";
 import { ACCOUNT_ROLES } from "Constants";
 
 export default {
@@ -102,7 +102,7 @@ export default {
       this.isFetching = true;
       Object.values(ACCOUNT_ROLES).forEach(async role => {
         const tag = `${role}=${this.address}`;
-        const response = await fetchTransactions(tag, this.limit);
+        const response = await txsManager.fetchTransactions(tag, this.limit);
         if (response.err) {
           this.hasError = true;
         } else {
