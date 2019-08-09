@@ -146,7 +146,16 @@ export default {
       );
     },
     orderedTransactions() {
-      const transactions = [...this.transactions];
+      let transactions = [...this.transactions];
+      if (this.selectedType) {
+        const txs = transactions.filter(tx => {
+          let message = tx.events.find(event => event.type === "message");
+          return message.attributes.find(
+            attribute => attribute.value === this.selectedType
+          );
+        });
+        transactions = txs;
+      }
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });

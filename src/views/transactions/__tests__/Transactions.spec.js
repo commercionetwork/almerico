@@ -57,27 +57,6 @@ describe("views/transactions/index.vue", () => {
     expect(wrapper.find('[data-test="live-data"]').exists()).toBe(false);
   });
 
-  it("Check if info message is displayed", () => {
-    const wrapper = shallowMount(Transactions, {
-      localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          transactions: {
-            live_data: true
-          }
-        }
-      }
-    });
-
-    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
-  });
-
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(Transactions, {
       localVue,
@@ -92,11 +71,9 @@ describe("views/transactions/index.vue", () => {
       }
     });
     wrapper.setData({
-      selectedType: "type",
       isFetching: true
     });
 
-    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
@@ -118,11 +95,9 @@ describe("views/transactions/index.vue", () => {
       }
     });
     wrapper.setData({
-      selectedType: "type",
       hasError: true
     });
 
-    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
@@ -144,11 +119,9 @@ describe("views/transactions/index.vue", () => {
       }
     });
     wrapper.setData({
-      selectedType: "type",
       transactions: mockTransactions()
     });
 
-    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(true);
@@ -168,11 +141,7 @@ describe("views/transactions/index.vue", () => {
         }
       }
     });
-    wrapper.setData({
-      selectedType: "type"
-    });
 
-    expect(wrapper.find('[data-test="info-message"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
