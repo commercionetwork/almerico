@@ -74,7 +74,7 @@ import MsgDefault from "./msgs/MsgDefault.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TransactionDetailsInfo from "./TransactionDetailsInfo.vue";
 
-import { txsManager } from "Apis";
+import { mapActions, mapGetters } from "vuex";
 
 let supportedTypes = Config.transactions.supported_types;
 let components = {};
@@ -93,16 +93,23 @@ export default {
   },
   data() {
     return {
-      hasError: false,
-      isFetching: false,
-      messages: [],
-      transaction: {},
       model: {
         components: supportedTypes
       }
     };
   },
   computed: {
+    ...mapGetters("transactions", {
+      isFetching: "isFetching",
+      message: "message",
+      transaction: "details"
+    }),
+    hasError() {
+      return this.message ? true : false;
+    },
+    messages() {
+      return this.transaction.tx.value.msg;
+    },
     txId() {
       return this.$route.params.id;
     }
@@ -113,17 +120,9 @@ export default {
     }
   },
   methods: {
-    async getTransaction(hash) {
-      this.isFetching = true;
-      const response = await txsManager.fetchTransaction(hash);
-      if (response.err) {
-        this.hasError = true;
-      } else {
-        this.transaction = response.tx;
-        this.messages = this.transaction.tx.value.msg;
-      }
-      this.isFetching = false;
-    },
+    ...mapActions("transactions", {
+      fetchTransaction: "fetchTransaction"
+    }),
     getComponentName(message) {
       let component = this.model.components.find(
         component => component.type === message.type
@@ -132,7 +131,7 @@ export default {
     }
   },
   created() {
-    this.getTransaction(this.txId);
+    this.fetchTransaction(this.txId);
   }
 };
 </script>
