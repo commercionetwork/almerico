@@ -6,22 +6,41 @@ import api from "./api";
 
 export default {
   /**
-   * Action to fetch transactions
+   * Action to fetch all transactions
    * 
    * @param {Function} commit 
-   * @param {Object} filters // tag, page, limit
+   * @param {String} tag
+   * @param {Number} limit 
    */
   async fetchTransactions({
     commit
-  }, filters) {
+  }, { tag, limit }) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
     try {
-      const response = await api.requestTransactions(filters);
-      const txs = Array.isArray(response.data) ? response.data : response.data.txs;
-      commit("addTransactions", txs);
+      let response = await api.requestTransactions({
+        tag,
+        page: 1,
+        limit
+      });
+      const totalPage = parseInt(response.data.page_total);
+      if (totalPage > 0) {
+        commit("addTransactions", response.data.txs);
+        if (totalPage > 1) {
+          let page = 2;
+          while (page <= totalPage) {
+            response = await api.requestTransactions({
+              tag,
+              page,
+              limit
+            });
+            commit("addTransactions", response.data.txs);
+            page++;
+          }
+        }
+      }
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);
@@ -37,21 +56,21 @@ export default {
     }
   },
   /**
-   * Action to add transactions
+   * Action to fetch a transaction by hash
    * 
    * @param {Function} commit 
-   * @param {Number} height 
+   * @param {String} hash 
    */
-  async updateTransactions({
+  async fetchTransaction({
     commit
-  }, height) {
+  }, hash) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
     try {
-      const response = await api.requestTransactionsByHeight(height);
-      commit("addTransactions", response.data);
+      const response = await api.requestTransaction(hash);
+      commit("setDetails", response.data);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);
@@ -65,5 +84,5 @@ export default {
     } finally {
       commit("stopLoading");
     }
-  },
+  }
 };

@@ -3,6 +3,7 @@
  */
 /** @typedef {Object} TransactionsState
  * @property {Array.<Transaction>} transactions
+ * @property {Transaction} details
  * @property {Boolean} isFetching
  * @property {String} message
  */
