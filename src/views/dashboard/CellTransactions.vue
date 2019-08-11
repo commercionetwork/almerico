@@ -42,9 +42,9 @@
 import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import { txsManager } from "Apis";
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CellTransactions",
@@ -55,13 +55,18 @@ export default {
   },
   data() {
     return {
-      hasError: false,
-      isFetching: false,
-      limit: 10,
-      transactions: []
+      limit: 10
     };
   },
   computed: {
+    ...mapGetters("transactions", {
+      isFetching: "isFetching",
+      message: "message",
+      transactions: "transactions"
+    }),
+    hasError() {
+      return this.message ? true : false;
+    },
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
@@ -74,25 +79,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions("transactions", {
+      fetchTransactions: "fetchTransactions"
+    }),
     getTransactions() {
       let types = this.$config.transactions.supported_types.map(
         type => type.tag
       );
-      this.isFetching = true;
       types.forEach(async type => {
         const tag = `message.action=${type}`;
-        const response = await txsManager.fetchTransactions(tag, this.limit);
-        if (response.err) {
-          this.hasError = true;
-        } else {
-          this.transactions.push(...response.txs);
-        }
+        this.fetchTransactions(tag, this.limit);
       });
-      this.isFetching = false;
     }
   },
   created() {
-    this.getTransactions();
+    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>

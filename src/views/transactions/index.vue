@@ -119,8 +119,8 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactions from "./TableTransactions.vue";
 
-import { txsManager } from "Apis";
 import { LIMITS_LIST } from "Constants";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Transactions",
@@ -134,15 +134,20 @@ export default {
   data() {
     return {
       LIMITS_LIST,
-      hasError: false,
-      isFetching: false,
       limit: LIMITS_LIST.DEFAULT,
       page: 1,
-      selectedType: null,
-      transactions: []
+      selectedType: null
     };
   },
   computed: {
+    ...mapGetters("transactions", {
+      isFetching: "isFetching",
+      message: "message",
+      transactions: "transactions"
+    }),
+    hasError() {
+      return this.message ? true : false;
+    },
     transactionsPage() {
       return this.orderedTransactions.slice(
         (this.page - 1) * this.limit,
@@ -170,34 +175,29 @@ export default {
   },
   watch: {
     limit() {
-      this.transactions = [];
       this.page = 1;
-      this.getTransactions(1);
+      this.getTransactions();
     }
   },
   methods: {
+    ...mapActions("transactions", {
+      fetchTransactions: "fetchTransactions"
+    }),
     getTransactions() {
       let types = this.$config.transactions.supported_types.map(
         type => type.tag
       );
-      this.isFetching = true;
       types.forEach(async type => {
         const tag = `message.action=${type}`;
-        const response = await txsManager.fetchTransactions(tag, this.limit);
-        if (response.err) {
-          this.hasError = true;
-        } else {
-          this.transactions.push(...response.txs);
-        }
+        this.fetchTransactions(tag, this.limit);
       });
-      this.isFetching = false;
     },
     changePage(page) {
       this.page = page;
     }
   },
   created() {
-    this.getTransactions();
+    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>
