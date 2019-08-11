@@ -54,8 +54,7 @@
 import AccountTransactionsTable from "./AccountTransactionsTable.vue";
 import Pagination from "Components/common/Pagination.vue";
 
-import { txsManager } from "Apis";
-import { ACCOUNT_ROLES } from "Constants";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AccountTransactions",
@@ -73,14 +72,19 @@ export default {
   },
   data() {
     return {
-      hasError: false,
-      isFetching: false,
       limit: 5,
-      page: 1,
-      transactions: []
+      page: 1
     };
   },
   computed: {
+    ...mapGetters("transactions", {
+      isFetching: "isFetching",
+      message: "message",
+      transactions: "transactions"
+    }),
+    hasError() {
+      return this.message ? true : false;
+    },
     transactionsPage() {
       return this.orderedTransactions.slice(
         (this.page - 1) * this.limit,
@@ -88,7 +92,11 @@ export default {
       );
     },
     orderedTransactions() {
-      const transactions = [...this.transactions];
+      const transactions = this.transactions.filter(transaction => {
+        return transaction.events.find(event =>
+          event.attributes.find(attribute => attribute.value === this.address)
+        );
+      });
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
@@ -98,25 +106,24 @@ export default {
     }
   },
   methods: {
+    ...mapActions("transactions", {
+      fetchTransactions: "fetchTransactions"
+    }),
     getTransactions() {
-      this.isFetching = true;
-      Object.values(ACCOUNT_ROLES).forEach(async role => {
-        const tag = `${role}=${this.address}`;
-        const response = await txsManager.fetchTransactions(tag, this.limit);
-        if (response.err) {
-          this.hasError = true;
-        } else {
-          this.transactions.push(...response.txs);
-        }
+      let types = this.$config.transactions.supported_types.map(
+        type => type.tag
+      );
+      types.forEach(async type => {
+        const tag = `message.action=${type}`;
+        this.fetchTransactions({ tag: tag, limit: this.limit });
       });
-      this.isFetching = false;
     },
     changePage(page) {
       this.page = page;
     }
   },
   created() {
-    this.getTransactions();
+    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>

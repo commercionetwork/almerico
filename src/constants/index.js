@@ -12,7 +12,6 @@ import {
   ROUTE_TITLES
 } from "./route";
 import {
-  ACCOUNT_ROLES,
   LIMITS_LIST
 } from "./transaction";
 import {
@@ -23,7 +22,6 @@ import {
 } from "./voting";
 
 export {
-  ACCOUNT_ROLES,
   API,
   LIMITS_LIST,
   MODAL_ID,

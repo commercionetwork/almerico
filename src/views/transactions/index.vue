@@ -176,7 +176,6 @@ export default {
   watch: {
     limit() {
       this.page = 1;
-      this.getTransactions();
     }
   },
   methods: {
@@ -189,7 +188,7 @@ export default {
       );
       types.forEach(async type => {
         const tag = `message.action=${type}`;
-        this.fetchTransactions(tag, this.limit);
+        this.fetchTransactions({ tag: tag, limit: this.limit });
       });
     },
     changePage(page) {
