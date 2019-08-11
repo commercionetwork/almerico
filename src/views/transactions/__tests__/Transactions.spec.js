@@ -21,6 +21,11 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if live data are displayed", () => {
     const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => true,
+        message: () => "",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks: {
@@ -40,6 +45,11 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if live data are not displayed", () => {
     const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => true,
+        message: () => "",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks: {
@@ -59,6 +69,11 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => true,
+        message: () => "",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks: {
@@ -69,9 +84,6 @@ describe("views/transactions/index.vue", () => {
           }
         }
       }
-    });
-    wrapper.setData({
-      isFetching: true
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -83,6 +95,11 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if error message is displayed", () => {
     const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => false,
+        message: () => "error",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks: {
@@ -93,9 +110,6 @@ describe("views/transactions/index.vue", () => {
           }
         }
       }
-    });
-    wrapper.setData({
-      hasError: true
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -107,6 +121,12 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if items list with pagination is displayed", () => {
     const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => false,
+        message: () => "",
+        orderedTransactions: () => mockTransactions(),
+        transactions: () => mockTransactions()
+      },
       localVue,
       methods,
       mocks: {
@@ -118,9 +138,6 @@ describe("views/transactions/index.vue", () => {
         }
       }
     });
-    wrapper.setData({
-      transactions: mockTransactions()
-    });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
@@ -130,6 +147,11 @@ describe("views/transactions/index.vue", () => {
 
   it("Check if no items message is displayed when list is empty", () => {
     const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => false,
+        message: () => "",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks: {

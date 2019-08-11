@@ -13,7 +13,7 @@ const localVue = createLocalVue();
 
 describe("views/account/AccountTransactions.vue", () => {
   const methods = {
-    getData: jest.fn()
+    getTransactions: jest.fn()
   };
   const mocks = {
     $t: messageId => messageId
@@ -24,15 +24,17 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
+      computed: {
+        isFetching: () => true,
+        message: () => "",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks,
       propsData: {
         ...props
       }
-    });
-    wrapper.setData({
-      isFetching: true
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -44,16 +46,17 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if error message is displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
+      computed: {
+        isFetching: () => false,
+        message: () => "error",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks,
       propsData: {
         ...props
       }
-    });
-
-    wrapper.setData({
-      hasError: true
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -65,16 +68,18 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if items data are displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
+      computed: {
+        isFetching: () => false,
+        message: () => "",
+        orderedTransactions: () => mockTransactions(),
+        transactions: () => mockTransactions()
+      },
       localVue,
       methods,
       mocks,
       propsData: {
         ...props
       }
-    });
-
-    wrapper.setData({
-      transactions: mockTransactions()
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -85,6 +90,11 @@ describe("views/account/AccountTransactions.vue", () => {
 
   it("Check if no items message is displayed", () => {
     const wrapper = shallowMount(AccountTransactions, {
+      computed: {
+        isFetching: () => false,
+        message: () => "",
+        transactions: () => []
+      },
       localVue,
       methods,
       mocks,
