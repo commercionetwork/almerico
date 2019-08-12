@@ -74,8 +74,8 @@ import ValidatorDetailsEvents from "./ValidatorDetailsEvents.vue";
 import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 
 import api from "Store/validators/api";
-import apiTxs from "Store/transactions/api";
 import { bech32Manager } from "Utils";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "ValidatorDetails",
@@ -89,14 +89,54 @@ export default {
   },
   data() {
     return {
-      hasError: false,
-      isFetching: false,
+      hasErrorValidator: false,
+      isFetchingValidator: false,
       delegations: [],
-      events: [],
       validator: {}
     };
   },
   computed: {
+    ...mapGetters("transactions", {
+      isFetchingTxs: "isFetching",
+      message: "message",
+      transactions: "transactions"
+    }),
+    isFetching() {
+      return this.isFetchingValidator || this.isFetchingTxs;
+    },
+    hasError() {
+      return this.hasErrorValidator || this.message;
+    },
+    events() {
+      const events = [];
+      const plusEvents = this.transactions.filter(transaction => {
+        return transaction.events.find(event =>
+          event.attributes.find(
+            attribute =>
+              attribute.key === "recipient" &&
+              attribute.value === this.accountAddress
+          )
+        );
+      });
+      plusEvents.forEach(event => {
+        event.plus = true;
+        events.push(event);
+      });
+      const minusEvents = this.transactions.filter(transaction => {
+        return transaction.events.find(event =>
+          event.attributes.find(
+            attribute =>
+              attribute.key === "sender" &&
+              attribute.value === this.accountAddress
+          )
+        );
+      });
+      minusEvents.forEach(event => {
+        event.plus = false;
+        events.push(event);
+      });
+      return events;
+    },
     accountAddress() {
       let hexValue = bech32Manager.decode(this.validatorAddress);
       return bech32Manager.encode(
@@ -114,12 +154,21 @@ export default {
     }
   },
   methods: {
-    async getValidatorData(address) {
-      let response = null;
+    ...mapActions("transactions", {
+      fetchTransactions: "fetchTransactions"
+    }),
+    getTransactions() {
       let types = this.$config.transactions.supported_types.map(
         type => type.tag
       );
-      this.isFetching = true;
+      types.forEach(async type => {
+        const tag = `message.action=${type}`;
+        this.fetchTransactions({ tag: tag, limit: 30 });
+      });
+    },
+    async getValidatorData(address) {
+      let response = null;
+      this.isFetchingValidator = true;
       try {
         // get validator
         response = await api.requestValidator(address);
@@ -135,35 +184,16 @@ export default {
         // get delegations
         response = await api.requestValidatorDelegations(address);
         this.delegations = response.data.result;
-        // get plus events
-        types.forEach(async type => {
-          response = await apiTxs.requestTransactions({
-            tag: `message.action=${type}&transfer.recipient=${this.accountAddress}`
-          });
-          response.data.txs.forEach(event => {
-            event.plus = true;
-            this.events.push(event);
-          });
-        });
-        // get minus events
-        types.forEach(async type => {
-          response = await apiTxs.requestTransactions({
-            tag: `message.action=${type}&message.sender=${this.accountAddress}`
-          });
-          response.data.txs.forEach(event => {
-            event.plus = false;
-            this.events.push(event);
-          });
-        });
       } catch (error) {
-        this.hasError = true;
+        this.hasErrorValidator = true;
       } finally {
-        this.isFetching = false;
+        this.isFetchingValidator = false;
       }
     }
   },
   created() {
     this.getValidatorData(this.validatorAddress);
+    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>
