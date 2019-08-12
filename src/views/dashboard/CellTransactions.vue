@@ -53,11 +53,6 @@ export default {
     CellTransactionsRow,
     TableCell
   },
-  data() {
-    return {
-      limit: 10
-    };
-  },
   computed: {
     ...mapGetters("transactions", {
       isFetching: "isFetching",
@@ -88,7 +83,7 @@ export default {
       );
       types.forEach(async type => {
         const tag = `message.action=${type}`;
-        this.fetchTransactions({ tag: tag, limit: this.limit });
+        this.fetchTransactions({ tag: tag, limit: 30 });
       });
     }
   },

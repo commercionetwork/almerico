@@ -37,7 +37,8 @@ export default {
           root: true
         });
         if (parseInt(block.header.num_txs) > 0) {
-          dispatch("transactions/updateTransactions", block.header.height, {
+          const tag = `tx.height=${block.header.height}`;
+          dispatch("transactions/fetchTransactions", { tag: tag, limit: 30 }, {
             root: true
           });
         }
