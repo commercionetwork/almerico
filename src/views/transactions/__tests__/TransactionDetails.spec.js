@@ -8,19 +8,19 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import VueRouter from "vue-router";
 
 const localVue = createLocalVue();
+localVue.use(VueRouter);
+const router = new VueRouter();
 
 describe("views/transactions/TransactionDetails.vue", () => {
   const methods = {
     fetchTransaction: jest.fn()
   };
   const mocks = {
-    $route: {
-      params: {
-        id: "1"
-      }
-    },
+    $i18n: messageId => messageId,
+    $n: messageId => messageId,
     $t: messageId => messageId
   };
 
@@ -29,18 +29,31 @@ describe("views/transactions/TransactionDetails.vue", () => {
       computed: {
         isFetching: () => true,
         message: () => "",
-        transaction: () => null 
+        transaction: () => null,
+        txId: () => "1"
       },
       localVue,
       methods,
       mocks: {
         ...mocks,
         $config: {
+          generic: {
+            coins: [
+              {
+                name: "commercio",
+                symbol: "CNT",
+                denom: "ucommercio",
+                exponent: 6,
+                stakeable: true
+              }
+            ]
+          },
           transaction_details: {
             msgs_details: true
           }
         }
-      }
+      },
+      router
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -54,18 +67,31 @@ describe("views/transactions/TransactionDetails.vue", () => {
       computed: {
         isFetching: () => false,
         message: () => "error",
-        transaction: () => null
+        transaction: () => null,
+        txId: () => "1"
       },
       localVue,
       methods,
       mocks: {
         ...mocks,
         $config: {
+          generic: {
+            coins: [
+              {
+                name: "commercio",
+                symbol: "CNT",
+                denom: "ucommercio",
+                exponent: 6,
+                stakeable: true
+              }
+            ]
+          },
           transaction_details: {
             msgs_details: true
           }
         }
-      }
+      },
+      router
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -79,18 +105,31 @@ describe("views/transactions/TransactionDetails.vue", () => {
       computed: {
         isFetching: () => false,
         message: () => "",
-        transaction: () => mockTransaction()
+        transaction: () => mockTransaction(),
+        txId: () => "1"
       },
       localVue,
       methods,
       mocks: {
         ...mocks,
         $config: {
+          generic: {
+            coins: [
+              {
+                name: "commercio",
+                symbol: "CNT",
+                denom: "ucommercio",
+                exponent: 6,
+                stakeable: true
+              }
+            ]
+          },
           transaction_details: {
             msgs_details: true
           }
         }
-      }
+      },
+      router
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -103,19 +142,31 @@ describe("views/transactions/TransactionDetails.vue", () => {
       computed: {
         isFetching: () => false,
         message: () => "",
-        messages: () => [],
-        transaction: () => mockTransaction()
+        transaction: () => mockTransaction(),
+        txId: () => "1"
       },
       localVue,
       methods,
       mocks: {
         ...mocks,
         $config: {
+          generic: {
+            coins: [
+              {
+                name: "commercio",
+                symbol: "CNT",
+                denom: "ucommercio",
+                exponent: 6,
+                stakeable: true
+              }
+            ]
+          },
           transaction_details: {
             msgs_details: true
           }
         }
-      }
+      },
+      router
     });
 
     expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(true);
@@ -126,19 +177,31 @@ describe("views/transactions/TransactionDetails.vue", () => {
       computed: {
         isFetching: () => false,
         message: () => "",
-        messages: () => [],
-        transaction: () => mockTransaction()
+        transaction: () => mockTransaction(),
+        txId: () => "1"
       },
       localVue,
       methods,
       mocks: {
         ...mocks,
         $config: {
+          generic: {
+            coins: [
+              {
+                name: "commercio",
+                symbol: "CNT",
+                denom: "ucommercio",
+                exponent: 6,
+                stakeable: true
+              }
+            ]
+          },
           transaction_details: {
             msgs_details: false
           }
         }
-      }
+      },
+      router
     });
 
     expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(false);
