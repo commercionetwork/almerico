@@ -5,26 +5,28 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import { mockTransactions } from "Store/transactions/__mocks__/transactions";
 
 const localVue = createLocalVue();
 
 describe("views/blocks/BlockDetails.vue", () => {
+  const computed = {
+    blockId: () => "1",
+    blockTxs: () => mockTransactions(),
+    transactions: () => mockTransactions()
+  };
   const methods = {
     fetchBlock: jest.fn(),
-    fetchTransactions: jest.fn()
+    getTransactions: jest.fn()
   };
   const mocks = {
-    $route: {
-      params: {
-        id: "1"
-      }
-    },
     $t: messageId => messageId
   };
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(BlockDetails, {
       computed: {
+        ...computed,
         validators: () => [],
         isFetching: () => true,
         hasError: () => false,
@@ -51,6 +53,7 @@ describe("views/blocks/BlockDetails.vue", () => {
   it("Check if error message is displayed", () => {
     const wrapper = shallowMount(BlockDetails, {
       computed: {
+        ...computed,
         validators: () => [],
         isFetching: () => false,
         hasError: () => true,
@@ -77,6 +80,7 @@ describe("views/blocks/BlockDetails.vue", () => {
   it("Check if item data are displayed", () => {
     const wrapper = shallowMount(BlockDetails, {
       computed: {
+        ...computed,
         validators: () => [],
         isFetching: () => false,
         hasError: () => false,
@@ -102,6 +106,7 @@ describe("views/blocks/BlockDetails.vue", () => {
   it("Check if transactions list is displayed", () => {
     const wrapper = shallowMount(BlockDetails, {
       computed: {
+        ...computed,
         validators: () => [],
         isFetching: () => false,
         hasError: () => false,
@@ -125,6 +130,7 @@ describe("views/blocks/BlockDetails.vue", () => {
   it("Check if transactions list is not displayed", () => {
     const wrapper = shallowMount(BlockDetails, {
       computed: {
+        ...computed,
         validators: () => [],
         isFetching: () => false,
         hasError: () => false,

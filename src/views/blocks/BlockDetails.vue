@@ -43,7 +43,7 @@
         >
           <div class="row py-1">
             <div class="col-12">
-              <BlockDetailsTransactions :transactions="transactions" />
+              <BlockDetailsTransactions :transactions="blockTxs" />
             </div>
           </div>
         </div>
@@ -57,7 +57,6 @@ import BlockDetailsHeader from "./BlockDetailsHeader.vue";
 import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 
-import apiTransactions from "Store/transactions/api";
 import apiBlocks from "Store/blocks/api";
 import { mapActions, mapGetters } from "vuex";
 
@@ -73,24 +72,31 @@ export default {
     return {
       block: {},
       hasBlockError: false,
-      hasTransactionsError: false,
-      isFetchingBlock: false,
-      isFetchingTransactions: false,
-      transactions: []
+      isFetchingBlock: false
     };
   },
   computed: {
+    ...mapGetters("transactions", {
+      isFetchingTxs: "isFetching",
+      message: "message",
+      transactions: "transactions"
+    }),
     ...mapGetters("validators", {
       validators: "validators"
     }),
     blockId() {
       return this.$route.params.id;
     },
+    blockTxs() {
+      return this.transactions.filter(
+        transaction => transaction.height === this.blockId
+      );
+    },
     hasError() {
-      return this.hasBlockError || this.hasTransactionsError;
+      return this.hasBlockError || this.message;
     },
     isFetching() {
-      return this.isFetchingBlock || this.isFetchingTransactions;
+      return this.isFetchingBlock || this.isFetchingTxs;
     },
     title() {
       let label = this.$t("titles.detailsForBlock");
@@ -101,10 +107,12 @@ export default {
   watch: {
     blockId(value) {
       this.fetchBlock(value);
-      this.fetchTransactions(value);
     }
   },
   methods: {
+    ...mapActions("transactions", {
+      fetchTransactions: "fetchTransactions"
+    }),
     ...mapActions("validators", {
       getValidators: "getValidators"
     }),
@@ -119,23 +127,19 @@ export default {
         this.isFetchingBlock = false;
       }
     },
-    async fetchTransactions(height) {
-      this.isFetchingTransactions = true;
-      try {
-        const response = await apiTransactions.requestTransactionsByHeight(
-          height
-        );
-        this.transactions = response.data.txs;
-      } catch (error) {
-        this.hasTransactionsError = true;
-      } finally {
-        this.isFetchingTransactions = false;
-      }
+     getTransactions() {
+      let types = this.$config.transactions.supported_types.map(
+        type => type.tag
+      );
+      types.forEach(async type => {
+        const tag = `message.action=${type}`;
+        this.fetchTransactions({ tag: tag, limit: 30 });
+      });
     }
   },
   created() {
     this.fetchBlock(this.blockId);
-    this.fetchTransactions(this.blockId);
+    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>
