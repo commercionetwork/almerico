@@ -16,11 +16,10 @@ describe("store/transactions/actions", () => {
   it("Check if 'actions.fetchTransactions' updates transactions", async () => {
     const commit = jest.fn();
     const tag = "tag";
-    const limit = 1;
 
     await actions.fetchTransactions({
       commit
-    }, { tag, limit });
+    }, tag);
 
     expect(commit).toHaveBeenCalledWith("addTransactions", mockResponse.data.txs);
   });
@@ -28,12 +27,11 @@ describe("store/transactions/actions", () => {
   it("Check if 'actions.fetchTransactions' has an error", async () => {
     const commit = jest.fn();
     const tag = "tag";
-    const limit = 1;
     mockError = true;
 
     await actions.fetchTransactions({
       commit
-    }, { tag, limit });
+    }, tag);
 
     expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
   });
@@ -41,12 +39,11 @@ describe("store/transactions/actions", () => {
   it("Check if 'actions.fetchTransactions' has a request error", async () => {
     const commit = jest.fn();
     const tag = "tag";
-    const limit = 1;
     mockErrorRequest = true;
 
     await actions.fetchTransactions({
       commit
-    }, { tag, limit });
+    }, tag);
 
     expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
   });
@@ -54,12 +51,11 @@ describe("store/transactions/actions", () => {
   it("Check 'actions.fetchTransactions' when server is unreachable", async () => {
     const commit = jest.fn();
     const tag = "tag";
-    const limit = 1;
     mockErrorServer = true;
 
     await actions.fetchTransactions({
       commit
-    }, { tag, limit });
+    }, tag);
 
     expect(commit).toBeCalledWith("setServerReachability", false, {
       root: true

@@ -54,7 +54,7 @@
 import AccountTransactionsTable from "./AccountTransactionsTable.vue";
 import Pagination from "Components/common/Pagination.vue";
 
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "AccountTransactions",
@@ -106,24 +106,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    getTransactions() {
-      let types = this.$config.transactions.supported_types.map(
-        type => type.tag
-      );
-      types.forEach(async type => {
-        const tag = `message.action=${type}`;
-        this.fetchTransactions({ tag: tag, limit: 30 });
-      });
-    },
     changePage(page) {
       this.page = page;
     }
-  },
-  created() {
-    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>

@@ -58,7 +58,7 @@ import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 
 import apiBlocks from "Store/blocks/api";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "BlockDetails",
@@ -80,9 +80,6 @@ export default {
       isFetchingTxs: "isFetching",
       message: "message",
       transactions: "transactions"
-    }),
-    ...mapGetters("validators", {
-      validators: "validators"
     }),
     blockId() {
       return this.$route.params.id;
@@ -110,12 +107,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    ...mapActions("validators", {
-      getValidators: "getValidators"
-    }),
     async fetchBlock(height) {
       this.isFetchingBlock = true;
       try {
@@ -126,20 +117,10 @@ export default {
       } finally {
         this.isFetchingBlock = false;
       }
-    },
-     getTransactions() {
-      let types = this.$config.transactions.supported_types.map(
-        type => type.tag
-      );
-      types.forEach(async type => {
-        const tag = `message.action=${type}`;
-        this.fetchTransactions({ tag: tag, limit: 30 });
-      });
     }
   },
   created() {
     this.fetchBlock(this.blockId);
-    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>

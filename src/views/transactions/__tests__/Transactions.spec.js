@@ -12,9 +12,6 @@ import {
 const localVue = createLocalVue();
 
 describe("views/transactions/index.vue", () => {
-  const methods = {
-    getTransactions: jest.fn()
-  };
   const mocks = {
     $t: messageId => messageId
   };
@@ -27,7 +24,6 @@ describe("views/transactions/index.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -51,7 +47,6 @@ describe("views/transactions/index.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -75,7 +70,6 @@ describe("views/transactions/index.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -101,7 +95,6 @@ describe("views/transactions/index.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -128,7 +121,6 @@ describe("views/transactions/index.vue", () => {
         transactions: () => mockTransactions()
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -153,7 +145,6 @@ describe("views/transactions/index.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

@@ -12,9 +12,6 @@ import {
 const localVue = createLocalVue();
 
 describe("views/account/AccountTransactions.vue", () => {
-  const methods = {
-    getTransactions: jest.fn()
-  };
   const mocks = {
     $t: messageId => messageId
   };
@@ -30,7 +27,6 @@ describe("views/account/AccountTransactions.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
@@ -52,7 +48,6 @@ describe("views/account/AccountTransactions.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
@@ -75,7 +70,6 @@ describe("views/account/AccountTransactions.vue", () => {
         transactions: () => mockTransactions()
       },
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
@@ -96,7 +90,6 @@ describe("views/account/AccountTransactions.vue", () => {
         transactions: () => []
       },
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props

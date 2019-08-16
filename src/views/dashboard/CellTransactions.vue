@@ -44,7 +44,7 @@ import TableCell from "Components/common/TableCell.vue";
 
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CellTransactions",
@@ -72,23 +72,6 @@ export default {
       });
       return transactions.slice(0, 10);
     }
-  },
-  methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    getTransactions() {
-      let types = this.$config.transactions.supported_types.map(
-        type => type.tag
-      );
-      types.forEach(async type => {
-        const tag = `message.action=${type}`;
-        this.fetchTransactions({ tag: tag, limit: 30 });
-      });
-    }
-  },
-  created() {
-    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>

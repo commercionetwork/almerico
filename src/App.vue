@@ -18,6 +18,9 @@ export default {
     ErrorLayout
   },
   computed: {
+    ...mapGetters("transactions", {
+      transactions: "transactions"
+    }),
     ...mapGetters("validators", {
       validators: "validators"
     }),
@@ -51,29 +54,51 @@ export default {
     ...mapActions("blocks", {
       fetchLastBlock: "fetchLastBlock"
     }),
-    ...mapActions("tendermint", {
-      subNewClient: "subNewClient"
-    }),
     ...mapActions("stake", {
       fetchPool: "fetchPool"
     }),
+    ...mapActions("tendermint", {
+      subNewClient: "subNewClient"
+    }),
+    ...mapActions("transactions", {
+      fetchTransactions: "fetchTransactions"
+    }),
     ...mapActions("validators", {
       getValidators: "getValidators"
-    })
-  },
-  mounted() {
-    this.fetchLastBlock();
-    if (!this.validators.length > 0) {
-      this.getValidators({
-        status: [
-          VALIDATOR_STATUS.BONDED,
-          VALIDATOR_STATUS.UNBONDED,
-          VALIDATOR_STATUS.UNBONDING
-        ]
+    }),
+    async getData() {
+      try {
+        await this.fetchLastBlock();
+        await this.fetchPool();
+        if (this.transactions.length === 0) await this.getTransactions();
+        if (this.validators.length === 0) {
+          this.getValidators({
+            status: [
+              VALIDATOR_STATUS.BONDED,
+              VALIDATOR_STATUS.UNBONDED,
+              VALIDATOR_STATUS.UNBONDING
+            ]
+          });
+        }
+      } catch (error) {
+        //TODO: implement
+        console.log(error);
+      } finally {
+        this.subNewClient();
+      }
+    },
+    getTransactions() {
+      let types = this.$config.transactions.supported_types.map(
+        type => type.tag
+      );
+      types.forEach(async type => {
+        const tag = `message.action=${type}`;
+        this.fetchTransactions(tag);
       });
     }
-    this.fetchPool();
-    this.subNewClient();
+  },
+  mounted() {
+    this.getData();
   }
 };
 </script>

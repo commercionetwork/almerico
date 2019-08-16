@@ -120,7 +120,7 @@ import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactions from "./TableTransactions.vue";
 
 import { LIMITS_LIST } from "Constants";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Transactions",
@@ -179,24 +179,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    getTransactions() {
-      let types = this.$config.transactions.supported_types.map(
-        type => type.tag
-      );
-      types.forEach(async type => {
-        const tag = `message.action=${type}`;
-        this.fetchTransactions({ tag: tag, limit: 30 });
-      });
-    },
     changePage(page) {
       this.page = page;
     }
-  },
-  created() {
-    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>

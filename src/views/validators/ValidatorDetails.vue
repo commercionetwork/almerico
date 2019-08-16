@@ -75,7 +75,7 @@ import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 
 import api from "Store/validators/api";
 import { bech32Manager } from "Utils";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "ValidatorDetails",
@@ -154,18 +154,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    getTransactions() {
-      let types = this.$config.transactions.supported_types.map(
-        type => type.tag
-      );
-      types.forEach(async type => {
-        const tag = `message.action=${type}`;
-        this.fetchTransactions({ tag: tag, limit: 30 });
-      });
-    },
     async getValidatorData(address) {
       let response = null;
       this.isFetchingValidator = true;
@@ -193,7 +181,6 @@ export default {
   },
   created() {
     this.getValidatorData(this.validatorAddress);
-    if (this.transactions.length === 0) this.getTransactions();
   }
 };
 </script>

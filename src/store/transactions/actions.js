@@ -10,11 +10,10 @@ export default {
    * 
    * @param {Function} commit 
    * @param {String} tag
-   * @param {Number} limit 
    */
   async fetchTransactions({
     commit
-  }, { tag, limit }) {
+  }, tag) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
@@ -23,7 +22,7 @@ export default {
       let response = await api.requestTransactions({
         tag,
         page: 1,
-        limit
+        limit: 30
       });
       const totalPage = parseInt(response.data.page_total);
       if (totalPage > 0) {
@@ -34,7 +33,7 @@ export default {
             response = await api.requestTransactions({
               tag,
               page,
-              limit
+              limit: 30
             });
             commit("addTransactions", response.data.txs);
             page++;

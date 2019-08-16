@@ -16,8 +16,7 @@ describe("views/blocks/BlockDetails.vue", () => {
     transactions: () => mockTransactions()
   };
   const methods = {
-    fetchBlock: jest.fn(),
-    getTransactions: jest.fn()
+    fetchBlock: jest.fn()
   };
   const mocks = {
     $t: messageId => messageId
