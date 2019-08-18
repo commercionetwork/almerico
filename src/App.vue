@@ -72,7 +72,7 @@ export default {
         await this.fetchPool();
         if (this.transactions.length === 0) await this.getTransactions();
         if (this.validators.length === 0) {
-          this.getValidators({
+          await this.getValidators({
             status: [
               VALIDATOR_STATUS.BONDED,
               VALIDATOR_STATUS.UNBONDED,
