@@ -10,17 +10,17 @@
     }],
     "prefixes": {
       "account": {
-        "address": "comnet",
-        "key": "comnetpub"
+        "address": "did:com:",
+        "key": "did:com:pub"
       },
       "validator": {
         "consensus": {
-          "address": "comnetvalcons",
-          "key": "comnetvalconspub"
+          "address": "did:com:valcons",
+          "key": "did:com:valconspub"
         },
         "operator": {
-          "address": "comnetvaloper",
-          "key": "comnetvaloperpub"
+          "address": "did:com:valoper",
+          "key": "did:com:valoperpub"
         }
       }
     }
