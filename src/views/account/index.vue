@@ -94,7 +94,7 @@ export default {
       allUnbondings: [],
       hasError: false,
       isFetching: false,
-      rewards: []
+      rewards: "0"
     };
   },
   computed: {
@@ -153,7 +153,7 @@ export default {
 
         // get rewards
         response = await api.requestDelegatorRewards(this.address);
-        if (response.data) this.rewards = response.data.result.total;
+        if (response.data && response.data.result.total) this.rewards = response.data.result.total;
       } catch (error) {
         this.hasError = true;
       } finally {

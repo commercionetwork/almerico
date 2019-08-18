@@ -92,17 +92,18 @@ export default {
       );
     },
     orderedTransactions() {
-      const transactions = this.transactions.filter(transaction => {
+      let transactions = [...this.transactions];
+      const txs =  transactions.filter(transaction => {
         return transaction.events.find(event =>
           event.attributes.find(attribute => attribute.value === this.address)
         );
       });
-      return transactions.sort(function(a, b) {
+      return txs.sort(function(a, b) {
         return b.height - a.height;
       });
     },
     total() {
-      return this.transactions.length;
+      return this.orderedTransactions.length;
     }
   },
   methods: {
