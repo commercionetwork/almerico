@@ -9,11 +9,12 @@
       </div>
       <div class="col-12 col-md-8">
         <Pagination
-          v-if="transactions.length > 0"
+          v-if="orderedTransactions.length > 0"
           :limit="limit"
           :page="page"
           :total="total"
           v-on:change-page="changePage"
+          data-test="pagination"
         />
       </div>
     </div>
@@ -34,7 +35,7 @@
           data-test="has-error"
         />
         <AccountTransactionsTable
-          v-else-if="!isFetching && !hasError && transactionsPage.length > 0"
+          v-else-if="!isFetching && !hasError && orderedTransactions.length > 0"
           :transactions="transactionsPage"
           data-test="items"
         />
