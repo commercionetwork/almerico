@@ -16,10 +16,12 @@
       <span
         v-if="isFetching"
         v-text="$t('messages.loading')"
+        data-test="loading"
       />
       <span
         v-else
         v-text="proportion"
+        data-test="items"
       />
     </div>
   </HeaderCell>
@@ -57,16 +59,20 @@ export default {
     },
     totalToken() {
       let tot = 0;
-      const accounts = this.genesis.genesis.app_state.accounts;
-      accounts.forEach(account => {
-        tot += parseFloat(account.coins[0].amount);
-      });
+      const accounts = this.genesis
+        ? this.genesis.genesis.app_state.accounts
+        : [];
+      if (accounts.length > 0) {
+        accounts.forEach(account => {
+          tot += parseFloat(account.coins[0].amount);
+        });
+      }
       return tot;
     },
     proportion() {
       let bonded = (this.bonded / 1000000000).toFixed(0);
       let total = (this.totalToken / 1000000000).toFixed(0);
-      return `${bonded}M/${total}M`;
+      return total > 0 ? `${bonded}M/${total}M` : "-";
     }
   }
 };
