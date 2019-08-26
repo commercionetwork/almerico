@@ -37,14 +37,19 @@ export default {
     ...mapGetters("stake", {
       pool: "pool"
     }),
+    ...mapGetters("tendermint", {
+      genesis: "genesis"
+    }),
     bonded() {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
-    notBonded() {
-      return this.pool ? parseFloat(this.pool.not_bonded_tokens) : 0;
-    },
     totalToken() {
-      return this.bonded + this.notBonded;
+      let tot = 0;
+      const accounts = this.genesis.genesis.app_state.accounts;
+      accounts.forEach(account => {
+        tot += parseFloat(account.coins[0].amount);
+      });
+      return tot;
     },
     proportion() {
       let bonded = (this.bonded / 1000000000).toFixed(0);
