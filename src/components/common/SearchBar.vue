@@ -81,9 +81,6 @@ export default {
         });
       }
     }
-  },
-  mounted() {
-    this.$refs.inputSearch.focus();
   }
 };
 </script>
