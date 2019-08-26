@@ -58,6 +58,7 @@ export default {
       fetchPool: "fetchPool"
     }),
     ...mapActions("tendermint", {
+      fetchGenesis: "fetchGenesis",
       subNewClient: "subNewClient"
     }),
     ...mapActions("transactions", {
@@ -68,6 +69,7 @@ export default {
     }),
     async getData() {
       try {
+        await this.fetchGenesis();
         await this.fetchLastBlock();
         await this.fetchPool();
         if (this.transactions.length === 0) await this.getTransactions();
