@@ -9,11 +9,18 @@
       </span>
       <span
         class="pl-1"
-         v-text="$t('labels.bonded')"
+        v-text="$t('labels.bonded')"
       />
     </div>
     <div slot="body">
-      <span v-text="proportion" />
+      <span
+        v-if="isFetching"
+        v-text="$t('messages.loading')"
+      />
+      <span
+        v-else
+        v-text="proportion"
+      />
     </div>
   </HeaderCell>
 </template>
@@ -35,13 +42,18 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool"
+      pool: "pool",
+      isFetchingPool: "isFetching"
     }),
     ...mapGetters("tendermint", {
-      genesis: "genesis"
+      genesis: "genesis",
+      isFetchingGenesis: "isFetching"
     }),
     bonded() {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
+    },
+    isFetching() {
+      return this.isFetchingPool || this.isFetchingGenesis;
     },
     totalToken() {
       let tot = 0;
