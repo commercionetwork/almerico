@@ -100,7 +100,7 @@ export default {
       return this.$config.generic.coins.find(coin => coin.stakeable);
     },
     availablesAmount() {
-      let denom = "";
+      let denom = this.coin.denom;
       let exponent = 0;
       let tot = 0;
       if (this.balances && this.balances.length > 0) {
