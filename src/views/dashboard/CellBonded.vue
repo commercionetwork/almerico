@@ -87,10 +87,14 @@ export default {
     },
     totalToken() {
       let tot = 0;
-      const accounts = this.genesis.genesis.app_state.accounts;
-      accounts.forEach(account => {
-        tot += parseFloat(account.coins[0].amount);
-      });
+      const accounts = this.genesis
+        ? this.genesis.genesis.app_state.accounts
+        : [];
+      if (accounts.length > 0) {
+        accounts.forEach(account => {
+          tot += parseFloat(account.coins[0].amount);
+        });
+      }
       return tot;
     }
   },

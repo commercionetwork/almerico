@@ -58,6 +58,11 @@ export default {
     isFetching() {
       return this.isFetchingPool || this.isFetchingGenesis;
     },
+    proportion() {
+      let bonded = (this.bonded / 1000000000).toFixed(0);
+      let total = (this.totalToken / 1000000000).toFixed(0);
+      return total > 0 ? `${bonded}M/${total}M` : "-";
+    },
     totalToken() {
       let tot = 0;
       const accounts = this.genesis
@@ -69,11 +74,6 @@ export default {
         });
       }
       return tot;
-    },
-    proportion() {
-      let bonded = (this.bonded / 1000000000).toFixed(0);
-      let total = (this.totalToken / 1000000000).toFixed(0);
-      return total > 0 ? `${bonded}M/${total}M` : "-";
     }
   }
 };
