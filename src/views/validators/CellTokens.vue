@@ -15,6 +15,7 @@
     <div slot="body">
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />

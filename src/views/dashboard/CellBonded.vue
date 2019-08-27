@@ -8,10 +8,19 @@
       slot="body"
       v-text="percent"
     />
-    <div
-      slot="footer"
-      v-text="proportion"
-    />
+    <div slot="footer">
+      <span
+        v-if="isFetching"
+        class="text-info"
+        v-text="$t('messages.loading')"
+        data-test="loading"
+      />
+      <span
+        v-else
+        v-text="proportion"
+        data-test="items"
+      />
+    </div>
     <div slot="chart">
       <LineChart
         :chartdata="chartdata"
@@ -42,27 +51,24 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool"
+      pool: "pool",
+      isFetchingPool: "isFetching"
     }),
     ...mapGetters("tendermint", {
-      genesis: "genesis"
+      genesis: "genesis",
+      isFetchingGenesis: "isFetching"
     }),
     axesColor() {
       return this.$theme.theme_light === "true" ? "#303030" : "#FFF";
     },
-    lineColor() {
-      return this.$theme.primary;
-    },
     bonded() {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
-    totalToken() {
-      let tot = 0;
-      const accounts = this.genesis.genesis.app_state.accounts;
-      accounts.forEach(account => {
-        tot += parseFloat(account.coins[0].amount);
-      });
-      return tot;
+    isFetching() {
+      return this.isFetchingPool || this.isFetchingGenesis;
+    },
+    lineColor() {
+      return this.$theme.primary;
     },
     percent() {
       return this.$n(this.percentValue, {
@@ -78,6 +84,14 @@ export default {
       let bonded = (this.bonded / 1000000000).toFixed(0);
       let total = (this.totalToken / 1000000000).toFixed(0);
       return total > 0 ? `${bonded}M/${total}M` : "-";
+    },
+    totalToken() {
+      let tot = 0;
+      const accounts = this.genesis.genesis.app_state.accounts;
+      accounts.forEach(account => {
+        tot += parseFloat(account.coins[0].amount);
+      });
+      return tot;
     }
   },
   watch: {
