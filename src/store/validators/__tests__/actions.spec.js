@@ -27,9 +27,7 @@ describe("store/validators/actions", () => {
 
     expect(commit).toBeCalledWith("setValidators", []);
     expect(dispatch).toBeCalledWith("fetchValidators", {
-      status: VALIDATOR_STATUS.BONDED,
-      page: 1,
-      limit: 20
+      status: VALIDATOR_STATUS.BONDED
     });
   });
 
@@ -41,9 +39,7 @@ describe("store/validators/actions", () => {
     });
 
     expect(dispatch).toBeCalledWith("fetchValidators", {
-      status: VALIDATOR_STATUS.BONDED,
-      page: 1,
-      limit: 20
+      status: VALIDATOR_STATUS.BONDED
     });
   });
 
