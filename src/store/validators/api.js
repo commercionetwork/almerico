@@ -15,6 +15,23 @@ const instance = axios.create({
 
 export default {
   /**
+   * Handle ajax request to get latest validator sets
+   * 
+   * @return {Promise} 
+   */
+  requestValidatorsetsLatest() {
+    return instance.get(`${API.VALIDATORSETS}/latest`);
+  },
+  /**
+   * Handle ajax request to get validator sets concerning an height
+   * 
+   * @param {Number} height
+   * @return {Promise} 
+   */
+  requestValidatorsetsFromHeight(height) {
+    return instance.get(`${API.VALIDATORSETS}/${height}`);
+  },
+  /**
    * Handle ajax request to get a validators list
    * 
    * @param {String} status 
@@ -79,15 +96,6 @@ export default {
    */
   requestValidatorUnbondingDelegations(address) {
     return instance.get(`${API.STAKING_VALIDATORS}/${address}/unbonding_delegations`);
-  },
-  /**
-   * Handle ajax request to get validator sets concerning an height
-   * 
-   * @param {Number} height
-   * @return {Promise} 
-   */
-  requestValidatorsetsFromHeight(height) {
-    return instance.get(`${API.VALIDATORSETS}/${height}`);
   },
   /**
    * Handle ajax request to get validator details from Keybase
