@@ -77,7 +77,7 @@ export default {
     proportion() {
       let bonded = (this.bonded / 1000000000).toFixed(0);
       let total = (this.totalToken / 1000000000).toFixed(0);
-      return `${bonded}M/${total}M`;
+      return total > 0 ? `${bonded}M/${total}M` : "-";
     }
   },
   watch: {
