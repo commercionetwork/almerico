@@ -119,8 +119,8 @@ export default {
     }
   },
   methods: {
-    async getProposer(block, isFetching) {
-      this.isFetching = isFetching;
+    async getProposer(block) {
+      this.isFetching = true;
       let address = bech32Manager.encode(
         block.header.proposer_address,
         this.$config.generic.prefixes.validator.consensus.address
@@ -151,7 +151,7 @@ export default {
     }
   },
   created() {
-    this.getProposer(this.block, true);
+    this.getProposer(this.block);
   }
 };
 </script>
