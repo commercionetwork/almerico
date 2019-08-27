@@ -119,8 +119,8 @@ export default {
     }
   },
   methods: {
-    async getProposer(block) {
-      this.isFetching = true;
+    async getProposer(block, isFetching) {
+      this.isFetching = isFetching;
       let address = bech32Manager.encode(
         block.header.proposer_address,
         this.$config.generic.prefixes.validator.consensus.address
@@ -129,8 +129,9 @@ export default {
         const response = await api.requestValidatorsetsFromHeight(
           block.header.height
         );
-        let pubKey = response.data.result.validators.find(x => x.address === address)
-          .pub_key;
+        let pubKey = response.data.result.validators.find(
+          x => x.address === address
+        ).pub_key;
         this.proposer = this.validators.find(
           x => x.consensus_pubkey === pubKey
         );
@@ -151,7 +152,7 @@ export default {
     }
   },
   created() {
-    this.getProposer(this.block);
+    this.getProposer(this.block, true);
   }
 };
 </script>
