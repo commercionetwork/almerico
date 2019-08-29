@@ -92,7 +92,11 @@ export default {
   },
   watch: {
     lastBlock(value) {
-      this.allBlocks.push(value);
+      if (this.allBlocks.length > 0) {
+        this.allBlocks.push(value);
+      } else {
+        this.getBlocks(this.limit, 1);
+      }
     }
   },
   methods: {

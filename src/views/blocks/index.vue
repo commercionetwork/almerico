@@ -120,7 +120,11 @@ export default {
   },
   watch: {
     lastBlock(value) {
-      if (this.page === 1) this.allBlocks.push(value);
+      if (this.page === 1 && this.allBlocks.length > 0) {
+        this.allBlocks.push(value);
+      } else {
+        this.getBlocks(this.limit, this.page);
+      }
     }
   },
   methods: {
