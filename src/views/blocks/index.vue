@@ -102,9 +102,12 @@ export default {
   computed: {
     ...mapGetters("blocks", {
       blocks: "blocks",
-      isFetching: "isFetching",
+      isFetchingBlocks: "isFetching",
       lastBlock: "lastBlock",
       message: "message"
+    }),
+    ...mapGetters("validators", {
+      isFetchingValidators: "isFetching"
     }),
     blocksList() {
       const blocks = arrayManager.uniqueByKey(this.blocks, JSON.stringify);
@@ -113,6 +116,9 @@ export default {
           return b.header.height - a.header.height;
         })
         .slice(0, this.limit);
+    },
+    isFetching() {
+      return this.isFetchingBlocks || this.isFetchingValidators;
     },
     total() {
       return parseInt(this.lastBlock.header.height);
