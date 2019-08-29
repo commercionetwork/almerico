@@ -114,6 +114,11 @@
         "type": "cosmos-sdk/MsgSend"
       },
       {
+        "name": "MsgSubmitProposal",
+        "tag": "submit_proposal",
+        "type": "cosmos-sdk/TextProposal"
+      },
+      {
         "name": "MsgUndelegate",
         "tag": "begin_unbonding",
         "type": "cosmos-sdk/MsgUndelegate"
