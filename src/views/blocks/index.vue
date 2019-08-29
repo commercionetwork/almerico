@@ -110,7 +110,7 @@ export default {
       isFetchingValidators: "isFetching"
     }),
     blocksList() {
-      const blocks = arrayManager.uniqueByKey(this.blocks, JSON.stringify);
+      const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
       return blocks
         .sort(function(a, b) {
           return b.header.height - a.header.height;
@@ -128,15 +128,27 @@ export default {
     lastBlock(value) {
       if (this.allBlocks.length === 0) {
         this.getBlocks(this.limit, this.page);
-      } else if (this.page === 1 && this.allBlocks.length > 0) {
+      } else if (this.page === 1) {
         this.allBlocks.push(value);
+      } else {
+        const height = parseInt(this.blocksList[0].header.height);
+        this.getBlock(height + 1);
       }
     }
   },
   methods: {
     ...mapActions("blocks", {
-      fetchBlocks: "fetchBlocks"
+      fetchBlock: "fetchBlock",
+      fetchBlocks: "fetchBlocks",
     }),
+    async getBlock(height) {
+      try {
+        await this.fetchBlock(height);
+        this.allBlocks = this.blocks;
+      } catch (error) {
+        this.hasError = true;
+      }
+    },
     async getBlocks(limit, page) {
       try {
         await this.fetchBlocks({
