@@ -126,10 +126,10 @@ export default {
   },
   watch: {
     lastBlock(value) {
-      if (this.page === 1 && this.allBlocks.length > 0) {
-        this.allBlocks.push(value);
-      } else {
+      if (this.allBlocks.length === 0) {
         this.getBlocks(this.limit, this.page);
+      } else if (this.page === 1 && this.allBlocks.length > 0) {
+        this.allBlocks.push(value);
       }
     }
   },
