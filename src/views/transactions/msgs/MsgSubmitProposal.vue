@@ -4,25 +4,40 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.proposal')"
-        />
-        <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <router-link
-            :to="toDetails(ROUTE_NAMES.VOTING_DETAILS, proposal)"
-            v-text="proposal"
-          />
-        </div>
-      </div>
-      <div class="row p-1">
-        <div
-          class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.depositor')"
+          v-text="$t('labels.proposer')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
             :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, address)"
             v-text="address"
           />
+        </div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.title')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <span v-text="proposalTitle" />
+        </div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.type')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <span v-text="proposalType" />
+        </div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.description')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <span v-text="proposalDescription" />
         </div>
       </div>
       <div
@@ -32,7 +47,7 @@
       >
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.amount')"
+          v-text="$t('labels.deposit')"
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
@@ -50,8 +65,8 @@ import { ROUTE_NAMES } from "Constants";
 import { coinsManager } from "Utils";
 
 export default {
-  name: "MsgDeposit",
-  description: "Display a deposit transaction message",
+  name: "MsgSubmitProposal",
+  description: "Display a submit proposal transaction message",
   components: {
     MsgTx
   },
@@ -59,7 +74,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a deposit message"
+      note: "Object representing a submit proposal message"
     }
   },
   data() {
@@ -69,14 +84,26 @@ export default {
   },
   computed: {
     address() {
-      return this.message.value.depositor ? this.message.value.depositor : "-";
+      return this.message.value.proposer ? this.message.value.proposer : "-";
     },
     amounts() {
-      return this.message.value.amount ? this.message.value.amount : [];
+      return this.message.value.initial_deposit
+        ? this.message.value.initial_deposit
+        : [];
     },
-    proposal() {
-      return this.message.value.proposal_id
-        ? this.message.value.proposal_id
+    proposalDescription() {
+      return this.message.value.content.value.description
+        ? this.message.value.content.value.description
+        : "-";
+    },
+    proposalType() {
+      return this.message.value.content.type
+        ? this.message.value.content.type
+        : "-";
+    },
+    proposalTitle() {
+      return this.message.value.content.value.title
+        ? this.message.value.content.value.title
         : "-";
     },
     title() {

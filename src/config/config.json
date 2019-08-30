@@ -121,7 +121,7 @@
       {
         "name": "MsgSubmitProposal",
         "tag": "submit_proposal",
-        "type": "cosmos-sdk/TextProposal"
+        "type": "cosmos-sdk/MsgSubmitProposal"
       },
       {
         "name": "MsgUndelegate",

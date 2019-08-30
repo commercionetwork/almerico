@@ -53,7 +53,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: "Object representing an unjail message"
+      note: "Object representing a vote message"
     }
   },
   data() {
