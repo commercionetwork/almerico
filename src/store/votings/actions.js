@@ -44,7 +44,7 @@ export default {
         depositor,
         status
       });
-      commit("setVotings", response.data);
+      commit("setVotings", response.data.result);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);

@@ -27,7 +27,7 @@ export default {
     depositor,
     status
   }) {
-    return instance.get(API, {
+    return instance.get(API.GOV_PROPOSALS, {
       params: {
         voter,
         depositor,
@@ -42,7 +42,7 @@ export default {
    * @return {Promise}
    */
   requestProposal(proposalId) {
-    return instance.get(`${API}/${proposalId}`);
+    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}`);
   },
   /**
    * Handle ajax request to get a proposer by proposal id
@@ -51,7 +51,7 @@ export default {
    * @return {Promise}
    */
   requestProposer(proposalId) {
-    return instance.get(`${API}/${proposalId}/proposer`);
+    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/proposer`);
   },
   /**
    * Handle ajax request to get deposits by proposal id
@@ -60,7 +60,7 @@ export default {
    * @return {Promise}
    */
   requestDeposits(proposalId) {
-    return instance.get(`${API}/${proposalId}/deposits`);
+    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/deposits`);
   },
   /**
    * Handle ajax request to get votes by proposal id
@@ -69,7 +69,7 @@ export default {
    * @return {Promise}
    */
   requestVotes(proposalId) {
-    return instance.get(`${API}/${proposalId}/votes`);
+    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/votes`);
   },
   /**
    * Handle ajax request to get tally result by proposal id
@@ -78,6 +78,6 @@ export default {
    * @return {Promise}
    */
   requestTally(proposalId) {
-    return instance.get(`${API}/${proposalId}/tally`);
+    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/tally`);
   },
 };

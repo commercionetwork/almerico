@@ -205,9 +205,9 @@
     "enabled": true
   },
   "votings": {
-    "enabled": false
+    "enabled": true
   },
   "voting_details": {
-    "enabled": false
+    "enabled": true
   }
 }

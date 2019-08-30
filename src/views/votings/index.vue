@@ -62,7 +62,7 @@ export default {
     })
   },
   created() {
-    this.getVotings();
+    this.getVotings({});
   }
 };
 </script>
