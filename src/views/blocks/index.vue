@@ -79,6 +79,7 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 import TableBlocks from "./TableBlocks.vue";
 
+import api from "Store/blocks/api";
 import { arrayManager } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
@@ -131,20 +132,20 @@ export default {
       } else if (this.page === 1) {
         this.allBlocks.push(value);
       } else {
-        const height = parseInt(this.blocksList[0].header.height);
-        this.getBlock(height + 1);
+        const lastHeight = parseInt(value.header.height);
+        const height = lastHeight - this.limit * (this.page - 1);
+        this.addBlock(height);
       }
     }
   },
   methods: {
     ...mapActions("blocks", {
-      fetchBlock: "fetchBlock",
-      fetchBlocks: "fetchBlocks",
+      fetchBlocks: "fetchBlocks"
     }),
-    async getBlock(height) {
+    async addBlock(height) {
       try {
-        await this.fetchBlock(height);
-        this.allBlocks = this.blocks;
+        const response = await api.requestBlock(height);
+        this.allBlocks.push(response.data.block);
       } catch (error) {
         this.hasError = true;
       }
