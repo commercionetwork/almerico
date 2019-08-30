@@ -64,7 +64,6 @@ import SectionHeader from "Components/common/SectionHeader.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 
 import { mapActions, mapGetters } from "vuex";
-import votings from "../../store/votings";
 
 export default {
   name: "Votings",
