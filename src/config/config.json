@@ -104,6 +104,11 @@
         "type": "cosmos-sdk/MsgDelegate"
       },
       {
+        "name": "MsgDeposit",
+        "tag": "deposit",
+        "type": "cosmos-sdk/MsgDeposit"
+      },
+      {
         "name": "MsgEditValidator",
         "tag": "edit_validator",
         "type": "cosmos-sdk/MsgEditValidator"
@@ -127,6 +132,11 @@
         "name": "MsgUnjail",
         "tag": "unjail",
         "type": "cosmos-sdk/MsgUnjail"
+      },
+      {
+        "name": "MsgVote",
+        "tag": "vote",
+        "type": "cosmos-sdk/MsgVote"
       },
       {
         "name": "MsgWithdrawDelegationReward",
