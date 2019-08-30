@@ -205,7 +205,13 @@
     "enabled": true
   },
   "votings": {
-    "enabled": true
+    "enabled": true,
+    "live_data": {
+      "enabled": true,
+      "bonded": true,
+      "height": true,
+      "price": true
+    }
   },
   "voting_details": {
     "enabled": true
