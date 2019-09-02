@@ -214,6 +214,18 @@
     }
   },
   "voting_details": {
-    "enabled": true
+    "enabled": true,
+    "rows": {
+      "title": true,
+      "type": true,
+      "state": true,
+      "submit_time": true,
+      "deposit_end_time": true,
+      "deposit": true,
+      "voting_start_time": true,
+      "voting_end_time": true,
+      "description": true
+    },
+    "chart": true
   }
 }
