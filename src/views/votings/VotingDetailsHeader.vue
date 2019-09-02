@@ -74,6 +74,20 @@
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
+          v-text="$t('labels.deposit')"
+        />
+      </div>
+      <div class="col-12 col-md-9">
+        <span
+          class="com-font-s14-w400"
+          v-text="deposit"
+        />
+      </div>
+    </div>
+    <div class="row py-1">
+      <div class="col-12 col-md-3">
+        <span
+          class="com-font-s14-w700"
           v-text="$t('labels.votingStartTime')"
         />
       </div>
@@ -117,6 +131,7 @@
 
 <script>
 import { ROUTE_NAMES } from "Constants";
+import { coinsManager } from "Utils";
 
 export default {
   name: "VotingDetailsHeader",
@@ -129,6 +144,24 @@ export default {
     }
   },
   computed: {
+    deposit() {
+      let denom = "";
+      let exponent = 0;
+      let tot = 0;
+      if (this.voting.total_deposit.length > 0) {
+        denom = this.voting.total_deposit[0].denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        this.voting.total_deposit.forEach(amount => {
+          tot += parseFloat(amount.amount);
+        });
+      }
+      let deposit = coinsManager(denom, exponent, tot);
+
+      return this.getAmountLabel(deposit.amount, deposit.denom);
+    },
     depositEndTime() {
       return new Date(this.voting.deposit_end_time).toLocaleString();
     },
@@ -159,6 +192,14 @@ export default {
     }
   },
   methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toAccountDetails(id) {
       return {
         name: ROUTE_NAMES.ACCOUNT_DETAILS,
