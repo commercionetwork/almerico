@@ -1,7 +1,10 @@
 <template>
   <div class="card m-2">
     <div class="card-header text-center">
-      <span v-text="votingTitle" />
+      <span
+        class="text-dark"
+        v-text="votingTitle"
+      />
     </div>
     <div class="card-body">
       <div>
@@ -12,20 +15,20 @@
       </div>
       <div class="row p-1 d-flex align-items-center">
         <div
-          class="col-12 col-md-3"
+          class="col-12 col-md-3 text-dark"
           v-text="$t('labels.type')"
         />
         <div class="col-12 col-md-9">
-          <span v-text="votingType" />
+          <span class="text-dark" v-text="votingType" />
         </div>
       </div>
       <div class="row p-1 d-flex align-items-center">
         <div
-          class="col-12 col-md-3"
+          class="col-12 col-md-3 text-dark"
           v-text="$t('labels.description')"
         />
         <div class="col-12 col-md-9">
-          <span v-text="votingDescription" />
+          <span class="text-dark" v-text="votingDescription" />
         </div>
       </div>
     </div>
