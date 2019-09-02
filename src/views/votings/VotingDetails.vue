@@ -1,47 +1,96 @@
 <template>
   <div class="container com-container">
-    <SectionHeader
-      :title="$t('titles.votingDetails')"
+    <div class="row py-3 d-flex align-items-center">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
+        <h1
+          class="text-uppercase com-font-s20-w800"
+          v-text="title"
+        />
+      </div>
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
+      </div>
+    </div>
+    <div
+      v-if="isFetching"
+      class="alert alert-warning"
+      role="alert"
+      v-text="$t('messages.loading')"
+      data-test="loading"
     />
-    <div class="py-3 px-5 rounded bg-white">
-      <div>
-        <VotingDetailsHeader :voting="voting" />
-      </div>
-      <div class="mt-3">
-        <VotingDetailsVote :voting="voting" />
-      </div>
-      <div class="mt-3">
-        <VotingDetailsVotesList />
+    <div
+      v-else-if="!isFetching && hasError"
+      class="alert alert-danger"
+      role="alert"
+      v-text="$t('messages.fetchingError')"
+      data-test="has-error"
+    />
+    <div
+      v-else
+      class="row rounded com-bg-header"
+      data-test="item"
+    >
+      <div class="col-12 p-0">
+        <div class="row">
+          <div class="col-12">
+            <VotingDetailsHeader :voting="voting" />
+          </div>
+        </div>
+        
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SectionHeader from "Components/common/SectionHeader.vue";
+import SearchBar from "Components/common/SearchBar.vue";
 import VotingDetailsHeader from "./VotingDetailsHeader.vue";
 import VotingDetailsVote from "./VotingDetailsVote.vue";
 import VotingDetailsVotesList from "./VotingDetailsVotesList.vue";
 
-//TODO: remove
-import { mockProposal } from "Store/votings/__mocks__/proposals";
+import api from "Store/votings/api";
 
 export default {
   name: "VotingDetails",
   description: "Display the voting details",
   components: {
-    SectionHeader,
+    SearchBar,
     VotingDetailsHeader,
     VotingDetailsVote,
     VotingDetailsVotesList
   },
+  data() {
+    return {
+      hasError: false,
+      isFetching: false,
+      voting: {}
+    };
+  },
   computed: {
-    voting() {
-      return mockProposal(this.votingId);
+    title() {
+      let label = this.$t("titles.votingDetails");
+      return `${label} #${this.votingId}`;
     },
     votingId() {
       return this.$route.params.id;
     }
+  },
+  watch: {},
+  methods: {
+    async fetchVoting(id) {
+      this.isFetching = true;
+      try {
+        const response = await api.requestProposal(id);
+        this.voting = response.data.result;
+      } catch (error) {
+        this.hasError = true;
+      } finally {
+        this.isFetching = false;
+      }
+    }
+  },
+  created() {
+    this.fetchVoting(this.votingId);
   }
 };
 </script>

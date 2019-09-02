@@ -68,8 +68,8 @@ export const labels = {
   validators: "Validators",
   vote: "Vote",
   voter: "Voter",
-  votingEnd: "Voting end",
+  votingEndTime: "Voting end time",
   votingPower: "Voting power",
-  votingStart: "Voting start",
+  votingStartTime: "Voting start time",
   website: "Website",
 };
