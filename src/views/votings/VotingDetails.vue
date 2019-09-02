@@ -36,7 +36,14 @@
             <VotingDetailsHeader :voting="voting" />
           </div>
         </div>
-        
+        <div class="px-5 py-3 com-bg-body">
+          <div class="row py-3">
+            <div class="col-12">
+              <VotingDetailsVote :voting="voting" />
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

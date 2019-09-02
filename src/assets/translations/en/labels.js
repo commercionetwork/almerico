@@ -1,4 +1,5 @@
 export const labels = {
+  abstain: "Abstain",
   address: "Address",
   amount: "Amount",
   availables: "Availables",
@@ -32,6 +33,8 @@ export const labels = {
   metadata: "Metadata",
   minSelfDelegation: "Min self delegation",
   moniker: "Moniker",
+  no: "No",
+  noWithVeto: "No with veto",
   operatorAddress: "Operator address",
   others: "Others",
   outstandingRewards: "Outstanding rewards",
@@ -72,4 +75,5 @@ export const labels = {
   votingPower: "Voting power",
   votingStartTime: "Voting start time",
   website: "Website",
+  yes: "Yes",
 };

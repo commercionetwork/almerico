@@ -11,6 +11,7 @@ export const titles = {
   notManagedType: "Not managed type",
   powerEvents: "Power events",
   qrCode: "QR Code",
+  result: "Result",
   transactionDetails: "Transaction details",
   transactions: "Transactions",
   unbondings: "Unbondings",

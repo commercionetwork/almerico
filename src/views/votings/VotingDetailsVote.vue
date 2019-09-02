@@ -1,122 +1,89 @@
 <template>
-  <div class="p-1 rounded-lg">
-    <div
-      v-if="isFetching"
-      v-html="$t('messages.loading')"
-    />
-    <div v-else>
-      <div class="row p-1 d-flex align-items-center">
-        <div class="col-6">
-          <h2
-            class="com-font-s16-w700"
-            v-text="$t('titles.vote')"
-          />
-        </div>
-        <div class="col-6 d-flex justify-content-end">
-          <span class="px-3 border rounded-pill com-font-s13-w400">Quorum: {{ voting.poll.quorum }}%</span>
-        </div>
+  <div>
+    <div class="row">
+      <div class="col-12">
+        <h2
+          v-text="$t('titles.result')"
+          class="py-3 border-bottom com-font-s16-w700"
+        />
       </div>
-      <div class="row p-1">
-        <div class="col-12 d-flex flex-column">
-          <span
-            class="com-font-s14-w700"
-            v-text="$t('labels.total')"
-          />
-          <span
-            class="com-font-s14-w400"
-            v-text="total"
-          />
-        </div>
-      </div>
-      <div class="row p-1 d-flex align-items-center">
-        <div class="col-3">
-          <span class="p-0">
-            <DoughnutChart
-              :chartdata="chartdata"
-              :options="options"
-              height="125"
-              width="125"
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-6 px-1 py-3 px-md-3">
+        <div class="row mx-1 py-1 align-items-center border-bottom">
+          <div class="col-12 col-md-3">
+            <span
+              class="com-font-s14-w700"
+              v-text="$t('labels.yes')"
             />
-          </span>
+          </div>
+          <div class="col-12 col-md-9 d-flex justify-content-md-end">
+            <span
+              class="com-font-s14-w400"
+              v-text="getAmountLabel(voting.final_tally_result.yes)"
+            />
+          </div>
         </div>
-        <div class="col-9">
-          <div class="row">
-            <div class="col-12 col-md-3">
-              <div class="p-1 d-flex flex-column border-left border-primary com-border-w10">
-                <div
-                  class="com-font-s13-w700"
-                  v-text="votes[0].label"
-                />
-                <div class="d-none d-md-block">
-                  <div
-                    class="com-font-s13-w400"
-                    v-text="votes[0].count.toLocaleString()"
-                  />
-                  <div class="com-font-s13-w400">{{ votes[0].percent }}%</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-3">
-              <div class="p-1 d-flex flex-column border-left border-warning com-border-w10">
-                <div
-                  class="com-font-s13-w700"
-                  v-text="votes[1].label"
-                />
-                <div class="d-none d-md-block">
-                  <div
-                    class="com-font-s13-w400"
-                    v-text="votes[1].count.toLocaleString()"
-                  />
-                  <div class="com-font-s13-w400">{{ votes[1].percent }}%</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-3">
-              <div class="p-1 d-flex flex-column border-left border-danger com-border-w10">
-                <div
-                  class="com-font-s13-w700"
-                  v-text="votes[2].label"
-                />
-                <div class="d-none d-md-block">
-                  <div
-                    class="com-font-s13-w400"
-                    v-text="votes[2].count.toLocaleString()"
-                  />
-                  <div class="com-font-s13-w400">{{ votes[2].percent }}%</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-3">
-              <div class="p-1 d-flex flex-column border-left border-secondary com-border-w10">
-                <div
-                  class="com-font-s13-w700"
-                  v-text="votes[3].label"
-                />
-                <div class="d-none d-md-block">
-                  <div
-                    class="com-font-s13-w400"
-                    v-text="votes[3].count.toLocaleString()"
-                  />
-                  <div class="com-font-s13-w400">{{ votes[3].percent }}%</div>
-                </div>
-              </div>
-            </div>
+        <div class="row mx-1 py-1 align-items-center border-bottom">
+          <div class="col-12 col-md-3">
+            <span
+              class="com-font-s14-w700"
+              v-text="$t('labels.abstain')"
+            />
+          </div>
+          <div class="col-12 col-md-9 d-flex justify-content-md-end">
+            <span
+              class="com-font-s14-w400"
+              v-text="getAmountLabel(voting.final_tally_result.abstain)"
+            />
+          </div>
+        </div>
+        <div class="row mx-1 py-1 align-items-center border-bottom">
+          <div class="col-12 col-md-3">
+            <span
+              class="com-font-s14-w700"
+              v-text="$t('labels.no')"
+            />
+          </div>
+          <div class="col-12 col-md-9 d-flex justify-content-md-end">
+            <span
+              class="com-font-s14-w400"
+              v-text="getAmountLabel(voting.final_tally_result.no)"
+            />
+          </div>
+        </div>
+        <div class="row mx-1 py-1 align-items-center border-bottom">
+          <div class="col-12 col-md-3">
+            <span
+              class="com-font-s14-w700"
+              v-text="$t('labels.noWithVeto')"
+            />
+          </div>
+          <div class="col-12 col-md-9 d-flex justify-content-md-end">
+            <span
+              class="com-font-s14-w400"
+              v-text="getAmountLabel(voting.final_tally_result.no_with_veto)"
+            />
           </div>
         </div>
       </div>
+
+      <div class="col-12 d-md-none">
+        <hr>
+      </div>
+      <div class="col-md-1 d-none d-md-block border-left" />
+
     </div>
   </div>
 </template>
 
 <script>
-import DoughnutChart from "Components/common/DoughnutChart.vue";
+import { coinsManager } from "Utils";
 
 export default {
   name: "VotingDetailsVote",
   description: "Display the voting data",
-  components: {
-    DoughnutChart
-  },
+  components: {},
   props: {
     voting: {
       type: Object,
@@ -124,75 +91,23 @@ export default {
       note: "Object representing a voting"
     }
   },
-  data() {
-    return {
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-              return (
-                data["labels"][tooltipItem["index"]] +
-                ": " +
-                data["datasets"][0]["data"][tooltipItem["index"]] +
-                "%"
-              );
-            }
-          }
-        }
-      }
-    };
-  },
   computed: {
-    isFetching() {
-      return false;
-    },
-    quorum() {
-      let quorum = this.voting.poll.quorum;
-      return `${quorum}%`;
-    },
-    total() {
-      let total = this.voting.poll.total.toLocaleString();
-      return `${total} ATOM`;
-    },
-    votes() {
-      return this.voting.poll.votes;
-    },
-    labels() {
-      let labels = [];
-      this.votes.forEach(vote => {
-        labels.push(vote.label);
+    coin() {
+      return this.$config.generic.coins.find(coin => coin.stakeable);
+    }
+  },
+  methods: {
+    getAmountLabel(vote) {
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : 0;
+      let amount = coinsManager(denom, exponent, vote);
+      let formatAmount = this.$n(amount.amount, {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
       });
-      return labels;
-    },
-    data() {
-      let data = [];
-      this.votes.forEach(vote => {
-        data.push(vote.percent);
-      });
-      return data;
-    },
-    chartdata() {
-      return {
-        labels: this.labels,
-        datasets: [
-          {
-            data: this.data,
-            backgroundColor: ["#38BA8C", "#FFCC33", "#CC3333", "#3C3C3C"]
-          }
-        ]
-      };
+      return `${formatAmount} ${amount.denom}`;
     }
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.com-border-w10 {
-  border-width: 10px !important;
-}
-</style>

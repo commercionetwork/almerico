@@ -1,4 +1,5 @@
 export const labels = {
+  abstain: "Astenuti",
   address: "Indirizzo",
   amount: "Importo",
   availables: "Disponibili",
@@ -32,6 +33,8 @@ export const labels = {
   metadata: "Metadati",
   minSelfDelegation: "Min. auto delega",
   moniker: "Moniker",
+  no: "No",
+  noWithVeto: "No con veto",
   operatorAddress: "Operatore",
   others: "Altri",
   outstandingRewards: "Premi straordinari",
@@ -72,4 +75,5 @@ export const labels = {
   votingPower: "Potere voto",
   votingStartTime: "Ora inizio votazione",
   website: "Sito internet",
+  yes: "Si",
 };
