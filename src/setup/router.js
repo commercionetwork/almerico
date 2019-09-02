@@ -21,7 +21,7 @@ const TransactionDetails = loadView("transactions/TransactionDetails");
 const Validators = loadView("validators/index");
 const ValidatorDetails = loadView("validators/ValidatorDetails");
 const Votings = loadView("votings/index");
-const VotingsDetails = loadView("votings/VotingsDetails");
+const VotingDetails = loadView("votings/VotingDetails");
 // error
 const NotFound = loadView("NotFound");
 const ServerUnreachable = loadView("ServerUnreachable");
@@ -122,7 +122,7 @@ export default new Router({
     {
       path: ROUTES.VOTING_DETAILS,
       name: ROUTE_NAMES.VOTING_DETAILS,
-      component: VotingsDetails,
+      component: VotingDetails,
       meta: {
         egnition: Config.voting_details.enabled,
         title: ROUTE_TITLES.VOTING_DETAILS
