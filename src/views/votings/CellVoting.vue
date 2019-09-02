@@ -1,47 +1,39 @@
 <template>
-  <div class="p-1 bg-white rounded-lg">
-    <div class="row p-1 d-flex align-items-center">
-      <div class="col-12 col-sm-6 d-flex justify-content-start">
+  <div class="card m-2">
+    <div class="card-header text-center">
+      <span v-text="votingTitle" />
+    </div>
+    <div class="card-body">
+      <div>
         <router-link
           :to="toDetails(ROUTE_NAMES.VOTING_DETAILS, id)"
-          class="com-font-s14-w700"
           v-text="hashtag"
         />
       </div>
-      <div class="col-12 col-sm-6 d-flex justify-content-start justify-content-sm-end">
-        <span
-          class="px-3 py-auto rounded-pill text-white com-font-s12-w400"
-          :class="statusStyle"
-          v-text="status"
+      <div class="row p-1 d-flex align-items-center">
+        <div
+          class="col-12 col-md-3"
+          v-text="$t('labels.type')"
         />
+        <div class="col-12 col-md-9">
+          <span v-text="votingType" />
+        </div>
+      </div>
+      <div class="row p-1 d-flex align-items-center">
+        <div
+          class="col-12 col-md-3"
+          v-text="$t('labels.description')"
+        />
+        <div class="col-12 col-md-9">
+          <span v-text="votingDescription" />
+        </div>
       </div>
     </div>
-    <div class="row p-1 d-flex align-items-center">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.title')"
-      />
-      <div class="col-12 col-md-9 com-font-s14-w400">
-        <span v-text="votingTitle" />
-      </div>
-    </div>
-    <div class="row p-1 d-flex align-items-center">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.type')"
-      />
-      <div class="col-12 col-md-9 com-font-s14-w400">
-        <span v-text="votingType" />
-      </div>
-    </div>
-    <div class="row p-1 d-flex align-items-center">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.description')"
-      />
-      <div class="col-12 col-md-9 com-font-s14-w400">
-        <span v-text="votingDescription" />
-      </div>
+    <div
+      class="card-footer"
+      :class="statusStyle"
+    >
+      <span v-text="status" />
     </div>
   </div>
 </template>
@@ -103,7 +95,7 @@ export default {
           style = "bg-warning";
           break;
         default:
-          style = "bg-dark";
+          style = "bg-info";
           break;
       }
       return style;

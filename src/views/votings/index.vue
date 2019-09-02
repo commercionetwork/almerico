@@ -39,7 +39,7 @@
           data-test="items"
         >
           <div
-            class="col-12 col-md-6 p-1"
+            class="col-12 col-md-6"
             v-for="(voting, index) in votingsList"
             :key="index"
           >
