@@ -226,6 +226,9 @@
       "voting_end_time": true,
       "description": true
     },
-    "chart": true
+    "result": {
+      "enabled": true,
+      "chart": true
+    }
   }
 }

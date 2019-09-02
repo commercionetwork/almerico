@@ -74,7 +74,7 @@
       <div class="col-md-1 d-none d-md-block border-left" />
 
       <div class="col-12 col-md-5 px-1 py-3 px-md-3">
-        <VotingDetailsVoteChart
+        <VotingDetailsResultChart
           :abstain="voteAbstain"
           :no="voteNo"
           :noWithVeto="voteNoWithVeto"
@@ -86,15 +86,15 @@
 </template>
 
 <script>
-import VotingDetailsVoteChart from "./VotingDetailsVoteChart.vue";
+import VotingDetailsResultChart from "./VotingDetailsResultChart.vue";
 
 import { coinsManager } from "Utils";
 
 export default {
-  name: "VotingDetailsVote",
+  name: "VotingDetailsResult",
   description: "Display the voting data",
   components: {
-    VotingDetailsVoteChart
+    VotingDetailsResultChart
   },
   props: {
     voting: {

@@ -11,8 +11,8 @@
 import DoughnutChart from "Components/common/DoughnutChart.vue";
 
 export default {
-  name: "VotingDetailsVoteChart",
-  description: "Display a voting's chart",
+  name: "VotingDetailsResultChart",
+  description: "Display a result voting's chart",
   components: {
     DoughnutChart
   },
