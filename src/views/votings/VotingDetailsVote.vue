@@ -20,7 +20,7 @@
           <div class="col-12 col-md-9 d-flex justify-content-md-end">
             <span
               class="com-font-s14-w400"
-              v-text="getAmountLabel(voting.final_tally_result.yes)"
+              v-text="getAmountLabel(voteYes)"
             />
           </div>
         </div>
@@ -34,7 +34,7 @@
           <div class="col-12 col-md-9 d-flex justify-content-md-end">
             <span
               class="com-font-s14-w400"
-              v-text="getAmountLabel(voting.final_tally_result.abstain)"
+              v-text="getAmountLabel(voteAbstain)"
             />
           </div>
         </div>
@@ -48,11 +48,11 @@
           <div class="col-12 col-md-9 d-flex justify-content-md-end">
             <span
               class="com-font-s14-w400"
-              v-text="getAmountLabel(voting.final_tally_result.no)"
+              v-text="getAmountLabel(voteNo)"
             />
           </div>
         </div>
-        <div class="row mx-1 py-1 align-items-center border-bottom">
+        <div class="row mx-1 py-1 align-items-center">
           <div class="col-12 col-md-3">
             <span
               class="com-font-s14-w700"
@@ -62,7 +62,7 @@
           <div class="col-12 col-md-9 d-flex justify-content-md-end">
             <span
               class="com-font-s14-w400"
-              v-text="getAmountLabel(voting.final_tally_result.no_with_veto)"
+              v-text="getAmountLabel(voteNoWithVeto)"
             />
           </div>
         </div>
@@ -73,17 +73,29 @@
       </div>
       <div class="col-md-1 d-none d-md-block border-left" />
 
+      <div class="col-12 col-md-5 px-1 py-3 px-md-3">
+        <VotingDetailsVoteChart
+          :abstain="voteAbstain"
+          :no="voteNo"
+          :noWithVeto="voteNoWithVeto"
+          :yes="voteYes"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import VotingDetailsVoteChart from "./VotingDetailsVoteChart.vue";
+
 import { coinsManager } from "Utils";
 
 export default {
   name: "VotingDetailsVote",
   description: "Display the voting data",
-  components: {},
+  components: {
+    VotingDetailsVoteChart
+  },
   props: {
     voting: {
       type: Object,
@@ -94,6 +106,18 @@ export default {
   computed: {
     coin() {
       return this.$config.generic.coins.find(coin => coin.stakeable);
+    },
+    voteAbstain() {
+      return parseFloat(this.voting.final_tally_result.abstain);
+    },
+    voteNo() {
+      return parseFloat(this.voting.final_tally_result.no);
+    },
+    voteNoWithVeto() {
+      return parseFloat(this.voting.final_tally_result.no_with_veto);
+    },
+    voteYes() {
+      return parseFloat(this.voting.final_tally_result.yes);
     }
   },
   methods: {
