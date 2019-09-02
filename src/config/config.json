@@ -218,7 +218,7 @@
     "rows": {
       "title": true,
       "type": true,
-      "state": true,
+      "status": true,
       "submit_time": true,
       "deposit_end_time": true,
       "deposit": true,

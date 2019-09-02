@@ -1,6 +1,10 @@
 <template>
   <div class="p-3">
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.title"
+      class="row py-1"
+      data-test="row-title"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -14,7 +18,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.type"
+      class="row py-1"
+      data-test="row-type"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -28,7 +36,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.status"
+      class="row py-1"
+      data-test="row-status"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -42,7 +54,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.submit_time"
+      class="row py-1"
+      data-test="row-submit-time"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -56,7 +72,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.deposit_end_time"
+      class="row py-1"
+      data-test="row-deposit-end-time"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -70,7 +90,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.deposit"
+      class="row py-1"
+      data-test="row-deposit"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -84,7 +108,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.voting_start_time"
+      class="row py-1"
+      data-test="row-voting-start-time"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -98,7 +126,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.voting_end_time"
+      class="row py-1"
+      data-test="row-voting-end-time"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"
@@ -112,7 +144,11 @@
         />
       </div>
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.voting_details.rows.description"
+      class="row py-1"
+      data-test="row-description"
+    >
       <div class="col-12 col-md-3">
         <span
           class="com-font-s14-w700"

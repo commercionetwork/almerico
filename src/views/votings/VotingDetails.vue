@@ -39,7 +39,11 @@
         <div class="px-5 py-3 com-bg-body">
           <div class="row py-3">
             <div class="col-12">
-              <VotingDetailsResult :voting="voting" />
+              <VotingDetailsResult
+                v-if="$config.voting_details.result.enabled"
+                :voting="voting"
+                data_test="result"
+              />
             </div>
           </div>
         </div>
