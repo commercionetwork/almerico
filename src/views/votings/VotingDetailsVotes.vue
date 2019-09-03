@@ -31,12 +31,12 @@
           v-else-if="!isFetching && hasError"
           class="alert alert-danger"
           role="alert"
-          v-text="message"
+          v-text="$t('messages.fetchingError')"
           data-test="has-error"
         />
         <div
           v-else-if="!isFetching && !hasError && votes.length > 0"
-          data-test="item"
+          data-test="items"
         >
           <VotingDetailsVotesTable :votes="votesPage" />
         </div>
