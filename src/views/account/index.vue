@@ -153,7 +153,8 @@ export default {
 
         // get rewards
         response = await api.requestDelegatorRewards(this.address);
-        if (response.data && response.data.result.total) this.rewards = response.data.result.total;
+        if (response.data && typeof response.data.result.total === "string")
+          this.rewards = response.data.result.total;
       } catch (error) {
         this.hasError = true;
       } finally {
