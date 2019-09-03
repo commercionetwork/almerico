@@ -38,7 +38,7 @@ describe("views/validators/index.vue", () => {
             live_data: {
               block_height: true,
               count: true,
-              bounded_tokens: true,
+              bonded_tokens: true,
               time_since_last_block: true
             },
           }
@@ -68,7 +68,7 @@ describe("views/validators/index.vue", () => {
             live_data: {
               block_height: true,
               count: true,
-              bounded_tokens: true,
+              bonded_tokens: true,
               time_since_last_block: true
             },
           }
@@ -100,7 +100,7 @@ describe("views/validators/index.vue", () => {
             live_data: {
               block_height: true,
               count: true,
-              bounded_tokens: true,
+              bonded_tokens: true,
               time_since_last_block: true
             },
           }

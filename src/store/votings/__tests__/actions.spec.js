@@ -38,7 +38,7 @@ describe("store/votings/actions", () => {
       commit
     });
 
-    expect(commit).toHaveBeenCalledWith("setVotings", mockResponse.data);
+    expect(commit).toHaveBeenCalledWith("setVotings", mockResponse.data.result);
   });
 
   it("Check if 'actions.fetchVotings' has an error", async () => {
@@ -111,7 +111,10 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockProposals()
+          data: {
+            height: "1",
+            result: mockProposals()
+          }
         };
         resolve(mockResponse);
       }, 1);
