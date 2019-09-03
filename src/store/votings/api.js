@@ -45,15 +45,6 @@ export default {
     return instance.get(`${API.GOV_PROPOSALS}/${proposalId}`);
   },
   /**
-   * Handle ajax request to get a proposer by proposal id
-   * 
-   * @param {String} proposalId 
-   * @return {Promise}
-   */
-  requestProposer(proposalId) {
-    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/proposer`);
-  },
-  /**
    * Handle ajax request to get deposits by proposal id
    * 
    * @param {String} proposalId 
@@ -70,14 +61,5 @@ export default {
    */
   requestVotes(proposalId) {
     return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/votes`);
-  },
-  /**
-   * Handle ajax request to get tally result by proposal id
-   * 
-   * @param {String} proposalId 
-   * @return {Promise}
-   */
-  requestTally(proposalId) {
-    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/tally`);
-  },
+  }
 };

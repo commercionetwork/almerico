@@ -75,12 +75,10 @@
 
       <div class="col-12 col-md-5 px-1 py-3 px-md-3">
         <VotingDetailsResultChart
-          v-if="$config.voting_details.result.chart"
           :abstain="voteAbstain"
           :no="voteNo"
           :noWithVeto="voteNoWithVeto"
           :yes="voteYes"
-          data-test="chart"
         />
       </div>
     </div>
