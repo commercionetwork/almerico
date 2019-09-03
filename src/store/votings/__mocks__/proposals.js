@@ -16,14 +16,14 @@ const mockProposal = (id = 1) => {
   let proposal_status = (yes_percent > 50) ? "Passed" : "Rejected";
 
   let item = {
-    proposal_content: {
+    content: {
       type: "gov/TextProposal",
       value: {
         title: `Title #${id}`,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       }
     },
-    proposal_id: `${id}`,
+    id: `${id}`,
     proposal_status,
     final_tally_result: {
       yes,
