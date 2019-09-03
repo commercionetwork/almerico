@@ -227,6 +227,7 @@
       "description": true
     },
     "result": true,
-    "votes": true
+    "votes": true,
+    "deposits": true
   }
 }

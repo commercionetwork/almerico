@@ -5,6 +5,7 @@ export const titles = {
   delegated: "Delegated",
   delegations: "Delegations",
   delegators: "Delegators",
+  deposits: "Deposits",
   detailsForBlock: "Details for block",
   information: "Information",
   messages: "Messages",

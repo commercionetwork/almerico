@@ -7,21 +7,21 @@
             scope="col"
             data-test="table-column-height"
           >
-            <span v-text="$t('labels.voter')" />
+            <span v-text="$t('labels.depositor')" />
           </th>
           <th
             scope="col"
             data-test="table-column-hash"
           >
-            <span v-text="$t('labels.vote')" />
+            <span v-text="$t('labels.amount')" />
           </th>
         </tr>
       </thead>
       <tbody>
-        <VotingDetailsVotesTableRow
-          v-for="(vote, index) in votes"
+        <VotingDetailsDepositsTableRow
+          v-for="(deposit, index) in deposits"
           :key="index"
-          :vote="vote"
+          :deposit="deposit"
         />
       </tbody>
     </table>
@@ -29,19 +29,19 @@
 </template>
 
 <script>
-import VotingDetailsVotesTableRow from "./VotingDetailsVotesTableRow.vue";
+import VotingDetailsDepositsTableRow from "./VotingDetailsDepositsTableRow.vue";
 
 export default {
-  name: "VotingDetailsVotesTable",
-  description: "Display the votes table of a voting",
+  name: "VotingDetailsDepositsTable",
+  description: "Display the deposits table of a voting",
   components: {
-    VotingDetailsVotesTableRow
+    VotingDetailsDepositsTableRow
   },
   props: {
-    votes: {
+    deposits: {
       type: Array,
       required: true,
-      note: "The votes list to display"
+      note: "The deposits list to display"
     }
   }
 };

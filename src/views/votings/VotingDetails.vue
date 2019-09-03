@@ -42,16 +42,24 @@
               <VotingDetailsResult
                 v-if="$config.voting_details.result"
                 :voting="voting"
-                data_test="result"
+                data-test="result"
               />
             </div>
           </div>
           <div class="row py-3">
-            <div class="col-12 col-md-6 py-md-1">
-              <VotingDetailsVotes :votingId="votingId"/>
+            <div class="col-12 col-md-6">
+              <VotingDetailsVotes
+                v-if="$config.voting_details.votes"
+                :votingId="votingId"
+                data-test="votes"
+              />
             </div>
-            <div class="col-12 col-md-6 py-md-1">
-              //TODO: add deposits list
+            <div class="col-12 col-md-6">
+              <VotingDetailsDeposits
+                v-if="$config.voting_details.deposits"
+                :votingId="votingId"
+                data-test="deposits"
+              />
             </div>
           </div>
         </div>
@@ -63,6 +71,7 @@
 
 <script>
 import SearchBar from "Components/common/SearchBar.vue";
+import VotingDetailsDeposits from "./VotingDetailsDeposits.vue";
 import VotingDetailsHeader from "./VotingDetailsHeader.vue";
 import VotingDetailsResult from "./VotingDetailsResult.vue";
 import VotingDetailsVotes from "./VotingDetailsVotes.vue";
@@ -74,6 +83,7 @@ export default {
   description: "Display the voting details",
   components: {
     SearchBar,
+    VotingDetailsDeposits,
     VotingDetailsHeader,
     VotingDetailsResult,
     VotingDetailsVotes
