@@ -16,7 +16,7 @@
     </td>
     <td
       class="align-middle"
-      :class="event.plus ? 'text-success' : 'text-danger'"
+      :class="amountStyle"
       v-text="amount"
     />
     <td class="align-middle">
@@ -67,10 +67,20 @@ export default {
           tot += parseFloat(amount.amount);
         });
       }
+      if (tot === 0) return "*";
       let amount = coinsManager(denom, exponent, tot);
 
       let label = this.getAmountLabel(amount.amount, amount.denom);
       return this.event.plus ? `+ ${label}` : `- ${label}`;
+    },
+    amountStyle() {
+      if (this.amount === "*") {
+        return "text-black-50";
+      } else if (this.event.plus) {
+        return "text-success";
+      } else {
+        return "text-danger";
+      }
     },
     time() {
       return new Date(this.event.timestamp).toLocaleDateString();
@@ -80,8 +90,8 @@ export default {
     getAmountLabel(amount, denom) {
       let formatAmount = this.$n(amount, {
         style: "decimal",
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
       });
       return `${formatAmount} ${denom}`;
     },
