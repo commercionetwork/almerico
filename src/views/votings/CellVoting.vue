@@ -14,18 +14,24 @@
             v-text="hashtag"
           />
         </div>
-        <div class="col-10  d-flex flex-column text-dark">
+        <div class="col-10 d-flex flex-column">
           <span
-            class="font-weight-bold"
+            class="font-weight-bold text-dark"
             v-text="$t('labels.type')"
           />
-          <span v-text="votingType" />
-          <span class="my-1"/>
           <span
-            class="font-weight-bold"
+            class="text-dark"
+            v-text="votingType"
+          />
+          <span class="my-1" />
+          <span
+            class="font-weight-bold text-dark"
             v-text="$t('labels.description')"
           />
-          <span v-text="votingDescription" />
+          <span
+            class="text-dark"
+            v-text="votingDescription"
+          />
         </div>
       </div>
     </div>
