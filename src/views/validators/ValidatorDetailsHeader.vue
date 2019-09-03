@@ -56,7 +56,8 @@
       />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <a
-          :href="validator.description.website"
+          :href="'//' + validator.description.website"
+          target="_blank"
           v-text="validator.description.website"
         />
       </div>
