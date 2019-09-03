@@ -41,7 +41,7 @@
             <div
               v-if="$config.voting_details.result"
               class="col-12"
-              data-test="data-result"
+              data-test="result"
             >
               <VotingDetailsResult :voting="voting" />
             </div>
@@ -51,7 +51,7 @@
               v-if="$config.voting_details.votes"
               class="col-12 my-1 my-md-0"
               :class="{ 'col-md-6': $config.voting_details.deposits }"
-              data-test="data-votes"
+              data-test="votes"
             >
               <VotingDetailsVotes :votingId="votingId" />
             </div>
@@ -59,13 +59,12 @@
               v-if="$config.voting_details.deposits"
               class="col-12 my-1 my-md-0"
               :class="{ 'col-md-6': $config.voting_details.votes }"
-              data-test="data-deposits"
+              data-test="deposits"
             >
               <VotingDetailsDeposits :votingId="votingId" />
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -106,7 +105,6 @@ export default {
       return this.$route.params.id;
     }
   },
-  watch: {},
   methods: {
     async fetchVoting(id) {
       this.isFetching = true;
