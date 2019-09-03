@@ -74,7 +74,7 @@ describe("views/votings/VotingDetails.vue", () => {
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
-    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
   });
 
   it("Check if item data are displayed", () => {
