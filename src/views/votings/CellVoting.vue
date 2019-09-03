@@ -1,39 +1,36 @@
 <template>
   <div class="card m-2">
-    <div class="card-header text-center">
+    <div class="card-header">
       <span
         class="text-dark"
         v-text="votingTitle"
       />
     </div>
     <div class="card-body">
-      <div>
-        <router-link
-          :to="toDetails(ROUTE_NAMES.VOTING_DETAILS, id)"
-          v-text="hashtag"
-        />
-      </div>
-      <div class="row p-1 d-flex align-items-center">
-        <div
-          class="col-12 col-md-3 text-dark"
-          v-text="$t('labels.type')"
-        />
-        <div class="col-12 col-md-9">
-          <span class="text-dark" v-text="votingType" />
+      <div class="row">
+        <div class="col-2 d-flex align-items-center">
+          <router-link
+            :to="toDetails(ROUTE_NAMES.VOTING_DETAILS, id)"
+            v-text="hashtag"
+          />
         </div>
-      </div>
-      <div class="row p-1 d-flex align-items-center">
-        <div
-          class="col-12 col-md-3 text-dark"
-          v-text="$t('labels.description')"
-        />
-        <div class="col-12 col-md-9">
-          <span class="text-dark" v-text="votingDescription" />
+        <div class="col-10  d-flex flex-column text-dark">
+          <span
+            class="font-weight-bold"
+            v-text="$t('labels.type')"
+          />
+          <span v-text="votingType" />
+          <span class="my-1"/>
+          <span
+            class="font-weight-bold"
+            v-text="$t('labels.description')"
+          />
+          <span v-text="votingDescription" />
         </div>
       </div>
     </div>
     <div
-      class="card-footer"
+      class="card-footer text-center"
       :class="statusStyle"
     >
       <span v-text="status" />

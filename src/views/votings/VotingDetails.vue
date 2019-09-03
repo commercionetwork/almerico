@@ -38,28 +38,30 @@
         </div>
         <div class="px-5 py-3 com-bg-body">
           <div class="row py-3">
-            <div class="col-12">
-              <VotingDetailsResult
-                v-if="$config.voting_details.result"
-                :voting="voting"
-                data-test="result"
-              />
+            <div
+              v-if="$config.voting_details.result"
+              class="col-12"
+              data-test="data-result"
+            >
+              <VotingDetailsResult :voting="voting" />
             </div>
           </div>
           <div class="row py-3">
-            <div class="col-12 col-md-6">
-              <VotingDetailsVotes
-                v-if="$config.voting_details.votes"
-                :votingId="votingId"
-                data-test="votes"
-              />
+            <div
+              v-if="$config.voting_details.votes"
+              class="col-12 my-1 my-md-0"
+              :class="{ 'col-md-6': $config.voting_details.deposits }"
+              data-test="data-votes"
+            >
+              <VotingDetailsVotes :votingId="votingId" />
             </div>
-            <div class="col-12 col-md-6">
-              <VotingDetailsDeposits
-                v-if="$config.voting_details.deposits"
-                :votingId="votingId"
-                data-test="deposits"
-              />
+            <div
+              v-if="$config.voting_details.deposits"
+              class="col-12 my-1 my-md-0"
+              :class="{ 'col-md-6': $config.voting_details.votes }"
+              data-test="data-deposits"
+            >
+              <VotingDetailsDeposits :votingId="votingId" />
             </div>
           </div>
         </div>
