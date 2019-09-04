@@ -70,7 +70,7 @@ VUE_APP_WS=ws://rpc.com
 ```
 
 #### Building
-In order tto build the project run `npm build`.
+In order to build the project run `npm build`.
 
 ## Performing link checks and fixes 
 In order to perform a lint check on all your files and fix any problem, you can run the following command.
@@ -99,6 +99,20 @@ docker build -t almerico \
 ```shell
 docker run --name almerico --rm almerico 
 ```
+
+## Customize the explorer
+### Theme
+To customize the theme edit the `theme.json` file which is in the `/src/config` folder; the dark theme can be enabled by setting the property `theme_light` to `false`.
+
+### Configuration
+To customize the configuration edit the `config.json` file which is in the `/src/config` folder; logo, coins, address prefixes and sections to be displayed can be customized. Customized transactions are also supported.
+
+#### Customized transactions
+To support a custom transaction, first create a new Vue component inside the `/src/views/transactions/msgs` folder. Then update the `config.json` file changing the `supported_types` key, located inside the `transactions` key; add to the array a new object that must have 3 keys:
+- `name`, for the name of the previously added Vue component;
+- `tag`, for the search string of this kind of transaction;
+- `type`, for the custom transaction type.
+
 
 ## Customize the Vue.js CLI configuration
 In order to properly customize the Vue.js CLI configuration please refer to 

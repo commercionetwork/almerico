@@ -20,7 +20,7 @@ export default {
     });
     try {
       const response = await api.requestBalances(address);
-      commit("setBalances", response.data);
+      commit("setBalances", response.data.result);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);

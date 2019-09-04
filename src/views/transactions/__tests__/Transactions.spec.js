@@ -12,25 +12,72 @@ import {
 const localVue = createLocalVue();
 
 describe("views/transactions/index.vue", () => {
-  const methods = {
-    getTransactions: jest.fn()
-  };
   const mocks = {
     $t: messageId => messageId
   };
 
+  it("Check if live data are displayed", () => {
+    const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => true,
+        message: () => "",
+        transactions: () => []
+      },
+      localVue,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: {
+              enabled: true
+            }
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-data"]').exists()).toBe(true);
+  });
+
+  it("Check if live data are not displayed", () => {
+    const wrapper = shallowMount(Transactions, {
+      computed: {
+        isFetching: () => true,
+        message: () => "",
+        transactions: () => []
+      },
+      localVue,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: {
+              enabled: false
+            }
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-data"]').exists()).toBe(false);
+  });
+
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(Transactions, {
       computed: {
-        transactions: () => [],
-        message: () => ""
+        isFetching: () => true,
+        message: () => "",
+        transactions: () => []
       },
       localVue,
-      methods,
-      mocks,
-    });
-    wrapper.setData({
-      isFetching: true
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -41,23 +88,26 @@ describe("views/transactions/index.vue", () => {
   });
 
   it("Check if error message is displayed", () => {
-    const message = "error";
     const wrapper = shallowMount(Transactions, {
       computed: {
-        transactions: () => [],
-        message: () => message
+        isFetching: () => false,
+        message: () => "error",
+        transactions: () => []
       },
       localVue,
-      methods,
-      mocks,
-    });
-    wrapper.setData({
-      hasError: true
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="has-error"]').text()).toEqual(message);
+    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
@@ -65,12 +115,20 @@ describe("views/transactions/index.vue", () => {
   it("Check if items list with pagination is displayed", () => {
     const wrapper = shallowMount(Transactions, {
       computed: {
-        transactions: () => mockTransactions(),
-        message: () => ""
+        isFetching: () => false,
+        message: () => "",
+        orderedTransactions: () => mockTransactions(),
+        transactions: () => mockTransactions()
       },
       localVue,
-      methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -82,12 +140,19 @@ describe("views/transactions/index.vue", () => {
   it("Check if no items message is displayed when list is empty", () => {
     const wrapper = shallowMount(Transactions, {
       computed: {
-        transactions: () => [],
-        message: () => ""
+        isFetching: () => false,
+        message: () => "",
+        transactions: () => []
       },
       localVue,
-      methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          transactions: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);

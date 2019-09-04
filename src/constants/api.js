@@ -1,6 +1,11 @@
 /**
+ * Versions
+ */
+const KEYBASE_VERSION = "/1.0";
+/**
  * URLs
  */
+const API_KEYBASE = `https://keybase.io/_/api${KEYBASE_VERSION}`;
 const API_LCD_BASE = (process.env.VUE_APP_LCD !== undefined) ?
   process.env.VUE_APP_LCD :
   "";
@@ -8,14 +13,14 @@ const API_RPC_BASE = (process.env.VUE_APP_RPC !== undefined) ?
   process.env.VUE_APP_RPC :
   "";
 export const WS = (process.env.VUE_APP_WS !== undefined) ?
-process.env.VUE_APP_WS :
-"";
+  process.env.VUE_APP_WS :
+  "";
 /**
  * APIs
  */
 export const API = {
   // Cosmos
-  AUTH:`${API_LCD_BASE}/auth/accounts`,
+  AUTH: `${API_LCD_BASE}/auth/accounts`,
   BANK: `${API_LCD_BASE}/bank/balances`,
   BLOCKS: `${API_LCD_BASE}/blocks`,
   BLOCKS_LATEST: `${API_LCD_BASE}/blocks/latest`,
@@ -25,11 +30,11 @@ export const API = {
   DISTRIBUTION_VALIDATORS: `${API_LCD_BASE}/distribution/validators`,
   GOV_PARAMETERS: `${API_LCD_BASE}/gov/parameters`,
   GOV_PROPOSALS: `${API_LCD_BASE}/gov/proposals`,
-  MINTING_INFLATION:`${API_LCD_BASE}/minting/inflation`,
-  MINTING_PARAMETERS:`${API_LCD_BASE}/minting/parameters`,
-  MINTING_PROVISIONS:`${API_LCD_BASE}/minting/annual-provisions`,
+  MINTING_INFLATION: `${API_LCD_BASE}/minting/inflation`,
+  MINTING_PARAMETERS: `${API_LCD_BASE}/minting/parameters`,
+  MINTING_PROVISIONS: `${API_LCD_BASE}/minting/annual-provisions`,
   NODE_INFO: `${API_LCD_BASE}/node_info`,
-  NODE_VERSION:`${API_LCD_BASE}/node_version`,
+  NODE_VERSION: `${API_LCD_BASE}/node_version`,
   SLASHING_PARAMETERS: `${API_LCD_BASE}/slashing/parameters`,
   SLASHING_SIGNING: `${API_LCD_BASE}/slashing/signing_infos`,
   STAKING_DELEGATORS: `${API_LCD_BASE}/staking/delegators`,
@@ -41,7 +46,7 @@ export const API = {
   TXS: `${API_LCD_BASE}/txs`,
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
   VALIDATORSETS_LATEST: `${API_LCD_BASE}/validatorsets/latest`,
-  VERSION:`${API_LCD_BASE}/version`,
+  VERSION: `${API_LCD_BASE}/version`,
   // Tendermint
   ABCI_INFO: `${API_RPC_BASE}/abci_info`,
   ABCI_QUERY: `${API_RPC_BASE}/abci_query`,
@@ -67,4 +72,6 @@ export const API = {
   UNSUBSCRIBE: `${API_RPC_BASE}/unsubscribe`,
   UNSUBSCRIBE_ALL: `${API_RPC_BASE}/unsubscribe_all`,
   VALIDATORS: `${API_RPC_BASE}/validators`,
+  // keybase
+  USER_AUTOCOMPLETE: `${API_KEYBASE}/user/autocomplete.json`,
 };

@@ -27,9 +27,7 @@ describe("store/validators/actions", () => {
 
     expect(commit).toBeCalledWith("setValidators", []);
     expect(dispatch).toBeCalledWith("fetchValidators", {
-      status: VALIDATOR_STATUS.BONDED,
-      page: 1,
-      limit: 20
+      status: VALIDATOR_STATUS.BONDED
     });
   });
 
@@ -41,9 +39,7 @@ describe("store/validators/actions", () => {
     });
 
     expect(dispatch).toBeCalledWith("fetchValidators", {
-      status: VALIDATOR_STATUS.BONDED,
-      page: 1,
-      limit: 20
+      status: VALIDATOR_STATUS.BONDED
     });
   });
 
@@ -54,7 +50,7 @@ describe("store/validators/actions", () => {
       commit
     });
 
-    expect(commit).toHaveBeenCalledWith("addValidators", mockResponse.data);
+    expect(commit).toHaveBeenCalledWith("addValidators", mockResponse.data.result);
   });
 
   it("Check if 'actions.fetchValidators' has an error", async () => {
@@ -127,7 +123,10 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockValidators()
+          data: {
+            height: "1",
+            result: mockValidators()
+          }
         };
         resolve(mockResponse);
       }, 1);

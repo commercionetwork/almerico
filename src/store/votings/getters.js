@@ -1,7 +1,9 @@
 /**
  * Votings getters
  */
+
 export default {
-  allVotings: state => state.all,
+  votings: state => state.all,
   isFetching: state => state.isFetching,
+  message: state => state.message,
 };

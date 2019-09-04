@@ -1,73 +1,111 @@
 <template>
   <div class="container com-container">
-    <SectionHeader :title="$t('titles.transactions')" />
-    <div class="py-3 px-5 rounded bg-white">
-      <div class="row">
-        <div class="col-12">
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr class="text-center com-font-s13-w700">
-                  <th
-                    scope="col"
-                    v-text="$t('labels.hash')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.type')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.result')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.amount')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.fee')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.height')"
-                  />
-                  <th
-                    scope="col"
-                    v-text="$t('labels.date')"
-                  />
-                </tr>
-              </thead>
-              <tbody v-if="isFetching">
-                <span
-                  class="com-font-s14-w400"
-                  v-text="$t('messages.loading')"
-                  data-test="loading"
-                />
-              </tbody>
-              <tbody v-else-if="!isFetching && hasError">
-                <span
-                  class="text-danger com-font-s14-w400"
-                  v-text="message"
-                  data-test="has-error"
-                />
-              </tbody>
-              <tbody v-else-if="!isFetching && !hasError && transactions.length > 0">
-                <TableTransactionsRow
-                  v-for="(transaction, index) in transactionsList"
-                  :key="index"
-                  :transaction="transaction"
-                  data-test="items"
-                />
-              </tbody>
-              <tbody v-else>
-                <span
-                  class="text-center text-info com-font-s14-w700"
-                  v-text="$t('messages.noItems')"
-                  data-test="no-items"
-                />
-              </tbody>
-            </table>
+    <div class="row py-3 d-flex align-items-center">
+      <div class="col-12 col-md-4 d-flex justify-content-start">
+        <h1
+          class="text-uppercase com-font-s20-w800"
+          v-html="$t('titles.transactions')"
+        />
+      </div>
+      <div class="col-12 col-md-8 d-flex justify-content-start justify-content-md-end">
+        <SearchBar />
+      </div>
+    </div>
+    <div
+      v-if="$config.transactions.live_data.enabled"
+      class="row my-1"
+      data-test="live-data"
+    >
+      <div class="col-12">
+        <SectionHeader
+          :bondedEnabled="$config.transactions.live_data.bonded"
+          :heightEnabled="$config.transactions.live_data.height"
+          :priceEnabled="$config.transactions.live_data.price"
+        />
+      </div>
+    </div>
+    <div class="row rounded com-bg-body">
+      <div class="col-12">
+        <div class="row py-1 px-5">
+          <div class="col-12 col-md-5 py-1">
+            <select
+              class="custom-select"
+              v-model="selectedType"
+            >
+              <option
+                disabled
+                v-text="$t('messages.selectType')"
+                :value="null"
+              />
+              <option
+                v-text="$t('messages.all')"
+                :value="null"
+              />
+              <option
+                v-for="(type, index) in $config.transactions.supported_types"
+                :key="index"
+                v-text="type.name"
+                :value="type.tag"
+              />
+            </select>
+          </div>
+          <div class="col-12 col-md-2 py-1">
+            <select
+              class="custom-select"
+              v-model="limit"
+            >
+              <option
+                disabled
+                v-text="$t('messages.selectLimit')"
+                :value="null"
+              />
+              <option
+                v-for="(limit, index) in LIMITS_LIST.VALUES"
+                :key="index"
+                v-text="limit"
+                :value="limit"
+              />
+            </select>
+          </div>
+          <div class="col-12 col-md-5 py-1">
+            <Pagination
+              v-if="transactions.length > 0"
+              :limit="limit"
+              :page="page"
+              :total="total"
+              v-on:change-page="changePage"
+              data-test="pagination"
+            />
+          </div>
+        </div>
+        <div class="row pt-0 pb-1 px-5">
+          <div class="col-12">
+            <div
+              v-if="isFetching"
+              class="alert alert-warning"
+              role="alert"
+              v-text="$t('messages.loading')"
+              data-test="loading"
+            />
+            <div
+              v-else-if="!isFetching && hasError"
+              class="alert alert-danger"
+              role="alert"
+              v-text="$t('messages.fetchingError')"
+              data-test="has-error"
+            />
+            <TableTransactions
+              v-else-if="!isFetching && !hasError && transactionsPage.length > 0"
+              :transactions="transactionsPage"
+              data-test="items"
+            />
+            <div
+              v-else
+              class="alert alert-info"
+              role="alert"
+              v-text="$t('messages.noItems')"
+              data-test="no-items"
+            />
           </div>
         </div>
       </div>
@@ -76,76 +114,74 @@
 </template>
 
 <script>
+import Pagination from "Components/common/Pagination.vue";
 import SectionHeader from "Components/common/SectionHeader.vue";
-import TableTransactionsRow from "./TableTransactionsRow.vue";
+import SearchBar from "Components/common/SearchBar.vue";
+import TableTransactions from "./TableTransactions.vue";
 
-import api from "Store/blocks/api";
-import { TX_TYPES } from "Constants";
-import { arrayManager } from "Utils";
-import { mapActions, mapGetters } from "vuex";
+import { LIMITS_LIST } from "Constants";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Transactions",
   description: "Container for transactions' section",
   components: {
+    Pagination,
     SectionHeader,
-    TableTransactionsRow
+    SearchBar,
+    TableTransactions
   },
   data() {
     return {
-      hasError: false,
-      isFetching: false
+      LIMITS_LIST,
+      limit: LIMITS_LIST.DEFAULT,
+      page: 1,
+      selectedType: null
     };
   },
   computed: {
     ...mapGetters("transactions", {
-      transactions: "transactions",
-      message: "message"
+      isFetching: "isFetching",
+      message: "message",
+      transactions: "transactions"
     }),
-    transactionsList() {
-      let transactions = arrayManager.uniqueByKey(
-        this.transactions,
-        JSON.stringify
+    hasError() {
+      return this.message ? true : false;
+    },
+    transactionsPage() {
+      return this.orderedTransactions.slice(
+        (this.page - 1) * this.limit,
+        this.page * this.limit
       );
+    },
+    orderedTransactions() {
+      let transactions = [...this.transactions];
+      if (this.selectedType) {
+        const txs = transactions.filter(tx => {
+          let message = tx.events.find(event => event.type === "message");
+          return message.attributes.find(
+            attribute => attribute.value === this.selectedType
+          );
+        });
+        transactions = txs;
+      }
       return transactions.sort(function(a, b) {
         return b.height - a.height;
       });
+    },
+    total() {
+      return this.transactions.length;
+    }
+  },
+  watch: {
+    limit() {
+      this.page = 1;
     }
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    async getTransactions(types) {
-      this.isFetching = true;
-      const limit = 20;
-      try {
-        const response = await api.requestLastBlock();
-        const totalTxs = parseInt(response.data.block.header.total_txs);
-        const page = Math.ceil(totalTxs / limit);
-        types.forEach(type => {
-          this.fetchTransactions({
-            tag: `action=${type}`,
-            page,
-            limit
-          });
-          if (page > 1) {
-            this.fetchTransactions({
-              tag: `action=${type}`,
-              page: page - 1,
-              limit
-            });
-          }
-        });
-      } catch (error) {
-        this.hasError = true;
-      } finally {
-        this.isFetching = false;
-      }
+    changePage(page) {
+      this.page = page;
     }
-  },
-  created() {
-    this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>

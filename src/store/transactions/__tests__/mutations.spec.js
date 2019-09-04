@@ -56,4 +56,14 @@ describe("store/transactions/mutations", () => {
 
     expect(state.all).toEqual(expectTxs);
   });
+
+  it("Check mutations.setDetails", () => {
+    const data = {
+      id: 1
+    };
+
+    mutations.setDetails(state, data);
+
+    expect(state.details).toEqual(data);
+  });
 });

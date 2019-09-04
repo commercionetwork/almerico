@@ -7,35 +7,29 @@ import {
   MODAL_SIZE
 } from "./modal";
 import {
-  PREFIX
-} from "./prefix";
-import {
   ROUTES,
-  ROUTE_NAMES
+  ROUTE_NAMES,
+  ROUTE_TITLES
 } from "./route";
 import {
-  SETUP
-} from "./setup";
-import {
-  TX_TYPES,
-  ACCOUNT_ROLES,
-  VALIDATOR_ROLES
+  LIMITS_LIST
 } from "./transaction";
 import {
   VALIDATOR_STATUS
 } from "./validator";
+import {
+  VOTING_STATUS
+} from "./voting";
 
 export {
-  ACCOUNT_ROLES,
   API,
+  LIMITS_LIST,
   MODAL_ID,
   MODAL_SIZE,
-  PREFIX,
   ROUTES,
   ROUTE_NAMES,
-  SETUP,
-  TX_TYPES,
-  VALIDATOR_ROLES,
+  ROUTE_TITLES,
   VALIDATOR_STATUS,
+  VOTING_STATUS,
   WS
 };

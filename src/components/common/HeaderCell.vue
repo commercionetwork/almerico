@@ -2,6 +2,7 @@
   <div class="p-1">
     <div
       v-if="isFetching"
+      class="text-info"
       v-text="$t('messages.loading')"
       data-test="loading"
     />

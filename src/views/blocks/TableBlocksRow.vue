@@ -1,8 +1,13 @@
 <template>
   <tr class="text-center com-font-s13-w400">
-    <td class="align-middle">
+    <td
+      v-if="$config.blocks.table.columns.height"
+      class="align-middle"
+      data-test="table-column-height"
+    >
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -13,9 +18,14 @@
         data-test="item-height"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="$config.blocks.table.columns.hash"
+      class="align-middle"
+      data-test="table-column-hash"
+    >
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -28,9 +38,14 @@
         data-test="item-hash"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="$config.blocks.table.columns.proposer"
+      class="align-middle"
+      data-test="table-column-proposer"
+    >
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -47,9 +62,14 @@
         data-test="item-proposer"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="$config.blocks.table.columns.txs"
+      class="align-middle"
+      data-test="table-column-txs"
+    >
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -59,9 +79,14 @@
         data-test="item-txs"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="$config.blocks.table.columns.date"
+      class="align-middle"
+      data-test="table-column-date"
+    >
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -76,7 +101,7 @@
 
 <script>
 import api from "Store/validators/api";
-import { PREFIX, ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
 
@@ -137,13 +162,13 @@ export default {
       this.isFetching = isFetching;
       let address = bech32Manager.encode(
         block.header.proposer_address,
-        PREFIX.COMNETVALCONS
+        this.$config.generic.prefixes.validator.consensus.address
       );
       try {
         const response = await api.requestValidatorsetsFromHeight(
           block.header.height
         );
-        let pubKey = response.data.validators.find(x => x.address === address)
+        let pubKey = response.data.result.validators.find(x => x.address === address)
           .pub_key;
         this.proposer = this.validators.find(
           x => x.consensus_pubkey === pubKey

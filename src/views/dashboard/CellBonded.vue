@@ -8,10 +8,19 @@
       slot="body"
       v-text="percent"
     />
-    <div
-      slot="footer"
-      v-text="proportion"
-    />
+    <div slot="footer">
+      <span
+        v-if="isFetching"
+        class="text-info"
+        v-text="$t('messages.loading')"
+        data-test="loading"
+      />
+      <span
+        v-else
+        v-text="proportion"
+        data-test="items"
+      />
+    </div>
     <div slot="chart">
       <LineChart
         :chartdata="chartdata"
@@ -37,46 +46,29 @@ export default {
   data() {
     return {
       chartdata: null,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [
-            {
-              type: "linear",
-              ticks: {
-                max: 24,
-                min: 0,
-                fontSize: 8
-              }
-            }
-          ],
-          yAxes: [
-            {
-              ticks: {
-                fontSize: 8
-              }
-            }
-          ]
-        }
-      }
+      options: null
     };
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool"
+      pool: "pool",
+      isFetchingPool: "isFetching"
     }),
+    ...mapGetters("tendermint", {
+      genesis: "genesis",
+      isFetchingGenesis: "isFetching"
+    }),
+    axesColor() {
+      return this.$theme.theme_light === "true" ? "#303030" : "#FFF";
+    },
     bonded() {
-      return this.pool ? new Number(this.pool.bonded_tokens) : 0;
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
-    notBonded() {
-      return this.pool ? new Number(this.pool.not_bonded_tokens) : 0;
+    isFetching() {
+      return this.isFetchingPool || this.isFetchingGenesis;
     },
-    totalToken() {
-      return this.bonded + this.notBonded;
+    lineColor() {
+      return this.$theme.primary;
     },
     percent() {
       return this.$n(this.percentValue, {
@@ -91,7 +83,19 @@ export default {
     proportion() {
       let bonded = (this.bonded / 1000000000).toFixed(0);
       let total = (this.totalToken / 1000000000).toFixed(0);
-      return `${bonded}M/${total}M`;
+      return total > 0 ? `${bonded}M/${total}M` : "-";
+    },
+    totalToken() {
+      let tot = 0;
+      const accounts = this.genesis
+        ? this.genesis.genesis.app_state.accounts
+        : [];
+      if (accounts.length > 0) {
+        accounts.forEach(account => {
+          tot += parseFloat(account.coins[0].amount);
+        });
+      }
+      return tot;
     }
   },
   watch: {
@@ -122,11 +126,48 @@ export default {
                 y: this.percentValue * 100
               }
             ],
-            backgroundColor: "#38BA8C",
-            borderColor: "#237659",
-            borderWidth: 1
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            borderColor: this.lineColor,
+            borderWidth: 2,
+            pointRadius: 0
           }
         ]
+      };
+      this.options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [
+            {
+              type: "linear",
+              gridLines: {
+                display: false,
+                color: this.axesColor
+              },
+              ticks: {
+                max: 24,
+                min: 0,
+                fontSize: 9,
+                fontColor: this.axesColor
+              }
+            }
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: this.axesColor
+              },
+              ticks: {
+                fontSize: 9,
+                fontColor: this.axesColor
+              }
+            }
+          ]
+        }
       };
     }
   },

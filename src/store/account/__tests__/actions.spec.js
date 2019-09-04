@@ -20,7 +20,7 @@ describe("store/account/actions", () => {
       commit
     }, "address");
 
-    expect(commit).toHaveBeenCalledWith("setBalances", mockResponse.data);
+    expect(commit).toHaveBeenCalledWith("setBalances", mockResponse.data.result);
   });
 
   it("Check if 'actions.fetchBalances' has an error", async () => {
@@ -93,7 +93,10 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockBalances()
+          data: {
+            height: "1",
+            result: mockBalances()
+          }
         };
         resolve(mockResponse);
       }, 1);

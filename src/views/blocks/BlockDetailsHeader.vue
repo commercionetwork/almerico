@@ -1,6 +1,10 @@
 <template>
   <div class="p-3">
-    <div class="row py-1">
+    <div
+      v-if="$config.block_details.rows.height"
+      class="row py-1"
+      data-test="row-height"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.height')"
@@ -10,7 +14,11 @@
         v-text="blockHeight"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.block_details.rows.date"
+      class="row py-1"
+      data-test="row-date"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.date')"
@@ -20,7 +28,11 @@
         v-text="blockTime"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.block_details.rows.hash"
+      class="row py-1"
+      data-test="row-hash"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.hash')"
@@ -30,7 +42,11 @@
         v-text="blockHash"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.block_details.rows.txs_number"
+      class="row py-1"
+      data-test="row-txs-number"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.txsNumber')"
@@ -40,7 +56,11 @@
         v-text="blockTransactions"
       />
     </div>
-    <div class="row py-1">
+    <div
+      v-if="$config.block_details.rows.proposing_node"
+      class="row py-1"
+      data-test="row-proposing-node"
+    >
       <div
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.proposer')"
@@ -48,12 +68,15 @@
       <div class="col-12 col-md-9 com-font-s14-w400">
         <div
           v-if="isFetching"
+          class="alert alert-warning"
+          role="alert"
           v-text="$t('messages.loading')"
           data-test="loading"
         />
         <div
           v-else-if="!isFetching && hasError"
-          class="text-danger"
+          class="alert alert-danger"
+          role="alert"
           v-text="$t('messages.fetchingError')"
           data-test="has-error"
         />
@@ -70,7 +93,7 @@
 
 <script>
 import api from "Store/validators/api";
-import { PREFIX, ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
 
@@ -117,14 +140,15 @@ export default {
       this.isFetching = true;
       let address = bech32Manager.encode(
         this.block.header.proposer_address,
-        PREFIX.COMNETVALCONS
+        this.$config.generic.prefixes.validator.consensus.address
       );
       try {
         const response = await api.requestValidatorsetsFromHeight(
           this.block.header.height
         );
-        let pubKey = response.data.validators.find(x => x.address === address)
-          .pub_key;
+        let pubKey = response.data.result.validators.find(
+          x => x.address === address
+        ).pub_key;
         let proposer = this.validators.find(x => x.consensus_pubkey === pubKey);
         this.proposer = proposer
           ? proposer.description.moniker

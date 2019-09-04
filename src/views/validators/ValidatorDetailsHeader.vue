@@ -1,18 +1,26 @@
 <template>
   <div class="p-3">
     <div class="row d-flex align-items-center">
-      <div class="col-6 order-1 col-md-2 order-md-1">
+      <div class="col-6 order-1 col-md-2 order-md-1 d-flex justify-content-md-center">
         <span class="p-1">
           <img
-            src="@/assets/img/logo.png"
+            v-if="hasImage"
+            :src="validator.imageUrl"
             alt="validator logo"
             class="com-image-h50-w50"
+          />
+          <Icon
+            v-else
+            name="brands/hubspot"
+            scale="3"
+            class="text-black-50"
           />
         </span>
       </div>
       <div class="col-6 order-2 col-md-2 order-md-3 d-flex justify-content-end">
         <span
-          class="px-3 py-1 rounded-pill bg-success text-white com-font-s13-w700"
+          class="px-3 py-1 rounded-pill com-font-s13-w700"
+          :class="validator.status === 2 ? 'bg-success' : 'bg-warning'"
           v-text="status"
         />
       </div>
@@ -48,7 +56,8 @@
       />
       <div class="col-12 col-md-9 com-font-s14-w400">
         <a
-          :href="validator.description.website"
+          :href="'//' + validator.description.website"
+          target="_blank"
           v-text="validator.description.website"
         />
       </div>
@@ -68,10 +77,12 @@
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.votingPower')"
       />
-      <div
-        class="col-12 col-md-9 com-font-s14-w400"
-        v-text="votingPower"
-      />
+      <div class="col-12 col-md-9 com-font-s14-w400">
+        <span v-text="powerPercent" />
+        <span v-text="' ('" />
+        <span v-text="votingPower" />
+        <span v-text="')'" />
+      </div>
     </div>
     <div class="row p-1">
       <div
@@ -87,13 +98,19 @@
 </template>
 
 <script>
-import { ROUTE_NAMES, SETUP } from "Constants";
-import { coinConverter } from "Utils";
+import Icon from "vue-awesome/components/Icon.vue";
+import "vue-awesome/icons/brands/hubspot";
+
+import { ROUTE_NAMES } from "Constants";
+import { coinsManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
   name: "ValidatorDetailsHeader",
   description: "Display the validator header",
+  components: {
+    Icon
+  },
   props: {
     address: {
       type: String,
@@ -110,42 +127,53 @@ export default {
     ...mapGetters("stake", {
       pool: "pool"
     }),
+    bonded() {
+      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
+    },
+    commission() {
+      return this.$n(parseFloat(this.validator.commission.commission_rates.rate), {
+        style: "percent",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    },
+    hasImage() {
+      return this.validator.imageUrl;
+    },
     status() {
       return this.validator.status === 2
         ? this.$t("buttons.active")
         : this.$t("buttons.inactive");
     },
-    commission() {
-      return this.$n(parseFloat(this.validator.commission.rate), {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    },
-    bonded() {
-      return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
-    },
     votingPower() {
+      let coin = this.$config.generic.coins.find(coin => coin.stakeable);
+      let denom = coin ? coin.denom : "";
+      let exponent = coin ? coin.exponent : "";
+      let amount = parseFloat(this.validator.tokens);
+
+      let power = coinsManager(denom, exponent, amount);
+
+      return this.getPowerLabel(power.amount, power.denom);
+    },
+    powerPercent() {
       let percent =
         this.bonded > 0 ? parseFloat(this.validator.tokens) / this.bonded : 0;
-      let formatPercent = this.$n(percent, {
+      return this.$n(percent, {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
       });
-      let power = coinConverter({
-        denom: SETUP.MICRO_COIN,
-        amount: this.validator.tokens
-      });
-      let formatPower = this.$n(power.amount, {
+    }
+  },
+  methods: {
+    getPowerLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatPercent} (${formatPower} ${power.denom})`;
-    }
-  },
-  methods: {
+      return `${formatAmount} ${denom}`;
+    },
     toAccountDetails() {
       return {
         name: ROUTE_NAMES.ACCOUNT_DETAILS,

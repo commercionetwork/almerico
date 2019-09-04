@@ -8,32 +8,27 @@
         style="max-width: 150px;"
       />
     </td>
-    <td
-      class="align-middle"
-      v-text="type"
-    />
-    <td
-      class="align-middle"
-      v-text="result"
-    />
-    <td
-      class="align-middle"
-      v-text="amount"
-    />
-    <td
-      class="align-middle"
-      v-text="fee"
-    />
-    <td
-      class="align-middle"
-      v-text="time"
-    />
+    <td class="align-middle">
+      <span v-text="type" />
+    </td>
+    <td class="align-middle">
+      <span v-text="result" />
+    </td>
+    <td class="align-middle">
+      <span v-text="amount" />
+    </td>
+    <td class="align-middle">
+      <span v-text="fee" />
+    </td>
+    <td class="align-middle">
+      <span v-text="date" />
+    </td>
   </tr>
 </template>
 
 <script>
 import { ROUTE_NAMES } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 
 export default {
   name: "BlockDetailsTransactionsRow",
@@ -51,48 +46,8 @@ export default {
     };
   },
   computed: {
-    amount() {
-      let amount = {
-        denom: "",
-        amount: 0
-      };
-      if (
-        Array.isArray(this.transaction.tx.value.msg[0].value.amount) &&
-        this.transaction.tx.value.msg[0].value.amount.length > 0
-      ) {
-        amount = coinConverter(
-          this.transaction.tx.value.msg[0].value.amount[0]
-        );
-      } else if (
-        this.transaction.tx.value.msg[0].value.amount instanceof Object
-      ) {
-        amount = coinConverter(this.transaction.tx.value.msg[0].value.amount);
-      }
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return `${formatAmount} ${amount.denom}`;
-    },
-    fee() {
-      let fee = {
-        denom: "",
-        amount: 0
-      };
-      if (
-        Array.isArray(this.transaction.tx.value.fee.amount) &&
-        this.transaction.tx.value.fee.amount.length > 0
-      ) {
-        fee = coinConverter(this.transaction.tx.value.fee.amount[0]);
-      }
-
-      let formatFee = this.$n(fee.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return `${formatFee} ${fee.denom}`;
+    date() {
+      return new Date(this.transaction.timestamp).toLocaleDateString();
     },
     result() {
       return this.transaction.logs.find(log => typeof log.success !== undefined)
@@ -100,17 +55,69 @@ export default {
         ? "success"
         : "fail";
     },
-    time() {
-      return new Date(this.transaction.timestamp).toLocaleDateString();
-    },
     type() {
       let type = this.transaction.tx.value.msg.find(
         msg => typeof msg.type !== undefined
       ).type;
       return type.split("/").pop();
+    },
+    amount() {
+      let denom = "";
+      let exponent = 0;
+      let tot = 0;
+      let amounts = [];
+      this.transaction.tx.value.msg.forEach(message => {
+        if (Array.isArray(message.value.amount)) {
+          message.value.amount.forEach(amount => amounts.push(amount));
+        } else if (message.value.amount instanceof Object) {
+          amounts.push(message.value.amount);
+        }
+      });
+      if (amounts.length > 0) {
+        denom = amounts[0].denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        amounts.forEach(amount => {
+          tot += parseFloat(amount.amount);
+        });
+      }
+      let amount = coinsManager(denom, exponent, tot);
+
+      return this.getAmountLabel(amount.amount, amount.denom);
+    },
+    fee() {
+      let denom = "";
+      let exponent = 0;
+      let tot = 0;
+      if (
+        Array.isArray(this.transaction.tx.value.fee.amount) &&
+        this.transaction.tx.value.fee.amount.length > 0
+      ) {
+        denom = this.transaction.tx.value.fee.amount[0].denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        this.transaction.tx.value.fee.amount.forEach(amount => {
+          tot += parseFloat(amount.amount);
+        });
+      }
+      let fee = coinsManager(denom, exponent, tot);
+
+      return this.getAmountLabel(fee.amount, fee.denom);
     }
   },
   methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toDetails(name, id) {
       return {
         name,

@@ -20,6 +20,56 @@ describe("views/blocks/index.vue", () => {
     $t: messageId => messageId
   };
 
+  it("Check if live data are displayed", () => {
+    const wrapper = shallowMount(Blocks, {
+      computed: {
+        blocks: () => [],
+        isFetching: () => false,
+        lastBlock: () => ({}),
+        message: () => ""
+      },
+      localVue,
+      methods,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            live_data: {
+              enabled: true
+            }
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-data"]').exists()).toBe(true);
+  });
+
+  it("Check if live data are not displayed", () => {
+    const wrapper = shallowMount(Blocks, {
+      computed: {
+        blocks: () => [],
+        isFetching: () => false,
+        lastBlock: () => ({}),
+        message: () => ""
+      },
+      localVue,
+      methods,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            live_data: {
+              enabled: false
+            }
+          }
+        }
+      }
+    });
+
+    expect(wrapper.find('[data-test="live-data"]').exists()).toBe(false);
+  });
+
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(Blocks, {
       computed: {
@@ -30,7 +80,14 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="pagination"]').exists()).toBe(false);
@@ -52,7 +109,14 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            live_data: true
+          }
+        }
+      }
     });
     wrapper.setData({
       hasError: true
@@ -76,7 +140,14 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="pagination"]').exists()).toBe(true);
@@ -96,7 +167,14 @@ describe("views/blocks/index.vue", () => {
       },
       localVue,
       methods,
-      mocks,
+      mocks: {
+        ...mocks,
+        $config: {
+          blocks: {
+            live_data: true
+          }
+        }
+      }
     });
 
     expect(wrapper.find('[data-test="pagination"]').exists()).toBe(false);

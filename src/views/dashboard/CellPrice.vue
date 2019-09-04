@@ -35,35 +35,16 @@ export default {
   data() {
     return {
       chartdata: null,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          display: false
-        },
-        scales: {
-          xAxes: [
-            {
-              type: "linear",
-              ticks: {
-                max: 24,
-                min: 0,
-                fontSize: 8
-              }
-            }
-          ],
-          yAxes: [
-            {
-              ticks: {
-                fontSize: 8
-              }
-            }
-          ]
-        }
-      }
+      options: null
     };
   },
   computed: {
+    axesColor() {
+      return this.$theme.theme_light === "true" ? "#303030" : "#FFF";
+    },
+    lineColor() {
+      return this.$theme.primary;
+    },
     price() {
       return 1;
     }
@@ -91,11 +72,48 @@ export default {
                 y: this.price
               }
             ],
-            backgroundColor: "#38BA8C",
-            borderColor: "#237659",
-            borderWidth: 1
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            borderColor: this.lineColor,
+            borderWidth: 2,
+            pointRadius: 0
           }
         ]
+      };
+      this.options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [
+            {
+              type: "linear",
+              gridLines: {
+                display: false,
+                color: this.axesColor
+              },
+              ticks: {
+                max: 24,
+                min: 0,
+                fontSize: 9,
+                fontColor: this.axesColor
+              }
+            }
+          ],
+          yAxes: [
+            {
+              gridLines: {
+                display: false,
+                color: this.axesColor
+              },
+              ticks: {
+                fontSize: 9,
+                fontColor: this.axesColor
+              }
+            }
+          ]
+        }
       };
     }
   },

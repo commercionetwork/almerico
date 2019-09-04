@@ -3,7 +3,7 @@
     <div class="row align-items-center">
       <div class="col-12 col-md-4">
         <h2
-          class="com-font-s16-w700"
+          class="py-3 com-font-s16-w700"
           v-text="$t('titles.unbondings')"
         />
       </div>
@@ -20,44 +20,15 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <div
+        <AccountUnbondingsTable
           v-if="delegations.length > 0"
-          class="table-responsive"
+          :unbondings="delegationsPage"
           data-test="items"
-        >
-          <table class="table table-striped">
-            <thead>
-              <tr class="text-center com-font-s13-w700">
-                <th
-                  scope="col"
-                  v-text="$t('labels.validator')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.height')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.amount')"
-                />
-                <th
-                  scope="col"
-                  v-text="$t('labels.finalDate')"
-                />
-              </tr>
-            </thead>
-            <tbody>
-              <AccountUnbondingsRow
-                v-for="(delegation, index) in delegationsPage"
-                :key="index"
-                :delegation="delegation"
-              />
-            </tbody>
-          </table>
-        </div>
+        />
         <div
           v-else
-          class="text-center text-info com-font-s14-w700"
+          class="alert alert-info"
+          role="alert"
           v-text="$t('messages.noItems')"
           data-test="no-items"
         />
@@ -67,14 +38,14 @@
 </template>
 
 <script>
-import AccountUnbondingsRow from "./AccountUnbondingsRow.vue";
+import AccountUnbondingsTable from "./AccountUnbondingsTable.vue";
 import Pagination from "Components/common/Pagination.vue";
 
 export default {
   name: "AccountUnbondings",
   description: "Display the account unbondings list",
   components: {
-    AccountUnbondingsRow,
+    AccountUnbondingsTable,
     Pagination
   },
   props: {

@@ -12,13 +12,14 @@ const instance = axios.create({
   }
 });
 
+
 export default {
   /**
    * Handle ajax request to get a proposals list
    * 
-   * @param {string} voter 
-   * @param {string} depositor 
-   * @param {string} status valid values can be "deposit_period", "voting_period", "passed", "rejected"
+   * @param {String} voter 
+   * @param {String} depositor 
+   * @param {String} status valid values can be "deposit_period", "voting_period", "passed", "rejected"
    * @return {Promise}
    */
   requestProposals({
@@ -35,12 +36,30 @@ export default {
     });
   },
   /**
-   * handle ajax request to get a proposal by id
+   * Handle ajax request to get a proposal by id
    * 
-   * @param {string} proposalId 
+   * @param {String} proposalId 
    * @return {Promise}
    */
   requestProposal(proposalId) {
     return instance.get(`${API.GOV_PROPOSALS}/${proposalId}`);
+  },
+  /**
+   * Handle ajax request to get deposits by proposal id
+   * 
+   * @param {String} proposalId 
+   * @return {Promise}
+   */
+  requestDeposits(proposalId) {
+    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/deposits`);
+  },
+  /**
+   * Handle ajax request to get votes by proposal id
+   * 
+   * @param {String} proposalId 
+   * @return {Promise}
+   */
+  requestVotes(proposalId) {
+    return instance.get(`${API.GOV_PROPOSALS}/${proposalId}/votes`);
   }
 };

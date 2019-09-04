@@ -1,40 +1,66 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono');
+@import "src/config/theme.json";
 
-///////////
-//COLORS //
-///////////
-$black: #000000;
-$blue: #3399ff;
-$green: #33cc99;
-$red: #cc3333;
-$white: #ffffff;
-$yellow: #ffcc00;
-////////////////
-// GRAY SCALE //
-////////////////
-$gray-darkest: #202020;
-$gray-darker: #3c3c3c;
-$gray-dark: #4f4f4f;
-$gray: #6f6f6f;
-$gray-light: #7e7e7e;
-$gray-lighter: #ededed;
-$gray-lightest: #fafafa;
-///////////////////////
-// COMMERC.IO COLORS //
-///////////////////////
-$com-green: #38BA8C;
 //////////////////
 // BRAND COLORS //
 //////////////////
-$primary: $com-green;
-$secondary: $gray-darkest;
-$light: $gray-lightest;
-$success: $green;
-$info: $blue;
-$warning: $yellow;
-$danger: $red;
-$text: $secondary;
+$primary: $primary;
+$secondary: lighten($primary, 10);
+$danger: $danger;
+$info: $info;
+$success: $success;
+$warning: $warning;
+////////////////
+// GRAY SCALE //
+////////////////
+$black: $black;
+$gray-darkest: $gray-darkest;
+$gray-darker: $gray-darker;
+$gray-dark: $gray-dark;
+$gray: $gray;
+$gray-light: $gray-light;
+$gray-lighter: $gray-lighter;
+$gray-lightest: $gray-lightest;
+$white: $white;
+///////////
+// THEME //
+///////////
+$theme-light: $theme_light;
+
 $background: $gray-lighter;
+$background-header: $gray-lightest;
+$background-body: $white;
+$text: $gray-darkest;
+$nav-bars: $white;
+
+@if $theme-light {
+  $background: $gray-lighter;
+  $background-header: $gray-lightest;
+  $background-body: $white;
+}
+
+@else {
+  $background: $gray-darker;
+  $background-header: $black;
+  $background-body: $gray-darkest;
+}
+
+@if lightness($background) <=lightness($gray-darker) {
+  $text: $white;
+}
+
+@else {
+  $text: $gray-darkest;
+}
+
+@if lightness($primary) <=lightness($gray-light) {
+  $nav-bars: $white;
+}
+
+@else {
+  $nav-bars: $gray-darker;
+}
+
 /////////////////////
 // OVERRIDE COLORS //
 /////////////////////
@@ -57,9 +83,12 @@ $badge-padding-y: 0.4em;
 // Don't make badges normal instead of bold
 $badge-font-weight: normal;
 // Override fonts
-$font-family-sans-serif: 'Open Sans', sans-serif;
-$font-family-serif: 'Liberation Serif', serif;
-$font-family-monospace: 'Roboto Mono', monospace;
+$font-family-sans-serif: 'Open Sans',
+sans-serif;
+$font-family-serif: 'Liberation Serif',
+serif;
+$font-family-monospace: 'Roboto Mono',
+monospace;
 $font-family-base: $font-family-sans-serif;
 // Set global options
 $enable-shadows: false;
