@@ -165,7 +165,10 @@ export default {
           const res = await api.requestValidatorIdentity(
             this.validator.description.identity
           );
-          if (res.data.completions[0].thumbnail) {
+          if (
+            res.data.completions.length > 0 &&
+            res.data.completions[0].thumbnail
+          ) {
             this.validator.imageUrl = res.data.completions[0].thumbnail;
           }
         }
