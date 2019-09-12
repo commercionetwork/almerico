@@ -98,18 +98,24 @@
               class="com-font-s14-w700"
               v-text="$t('labels.identity')"
             />
-            <dd
-              class="com-font-s14-w400"
-              v-text="descriptionIdentity"
-            />
+            <dd class="com-font-s14-w400">
+              <a
+                :href="descriptionIdentity"
+                target="_blank"
+                v-text="descriptionIdentity"
+              />
+            </dd>
             <dt
               class="com-font-s14-w700"
               v-text="$t('labels.website')"
             />
-            <dd
-              class="com-font-s14-w400"
-              v-text="descriptionWebsite"
-            />
+            <dd class="com-font-s14-w400">
+              <a
+                :href="descriptionWebsite"
+                target="_blank"
+                v-text="descriptionWebsite"
+              />
+            </dd>
             <dt
               class="com-font-s14-w700"
               v-text="$t('labels.details')"
