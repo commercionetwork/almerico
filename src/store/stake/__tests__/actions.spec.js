@@ -20,7 +20,7 @@ describe("store/stake/actions", () => {
       commit
     });
 
-    expect(commit).toHaveBeenCalledWith("setPool", mockResponse.data);
+    expect(commit).toHaveBeenCalledWith("setPool", mockResponse.data.result);
   });
 
   it("Check if 'actions.fetchPool' has an error", async () => {
@@ -93,7 +93,10 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockPool()
+          data: {
+            height: "1",
+            result: mockPool()
+          }
         };
         resolve(mockResponse);
       }, 1);

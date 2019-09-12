@@ -37,5 +37,14 @@ export default {
    */
   addTransactions(state, data) {
     state.all.push(...data);
+  },
+  /**
+   * Set transaction data
+   *
+   * @param {TransactionsState} state
+   * @param {Transaction} data
+   */
+  setDetails(state, data) {
+    state.details = data;
   }
 };

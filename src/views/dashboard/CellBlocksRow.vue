@@ -3,6 +3,7 @@
     <td class="align-middle">
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -16,6 +17,7 @@
     <td class="align-middle">
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -35,6 +37,7 @@
     <td class="align-middle">
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -47,6 +50,7 @@
     <td class="align-middle">
       <span
         v-if="isFetching"
+        class="text-info"
         v-text="$t('messages.loading')"
         data-test="loading"
       />
@@ -61,7 +65,7 @@
 
 <script>
 import api from "Store/validators/api";
-import { PREFIX, ROUTE_NAMES } from "Constants";
+import { ROUTE_NAMES } from "Constants";
 import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
 
@@ -119,14 +123,15 @@ export default {
       this.isFetching = isFetching;
       let address = bech32Manager.encode(
         block.header.proposer_address,
-        PREFIX.COMNETVALCONS
+        this.$config.generic.prefixes.validator.consensus.address
       );
       try {
         const response = await api.requestValidatorsetsFromHeight(
           block.header.height
         );
-        let pubKey = response.data.validators.find(x => x.address === address)
-          .pub_key;
+        let pubKey = response.data.result.validators.find(
+          x => x.address === address
+        ).pub_key;
         this.proposer = this.validators.find(
           x => x.consensus_pubkey === pubKey
         );

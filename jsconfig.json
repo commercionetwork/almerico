@@ -4,6 +4,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
+      "Apis/*": ["src/apis/*"],
       "Assets/*": ["src/assets/*"],
       "Components/*": ["src/components/*"],
       "Constants/*": ["src/constants/*"],

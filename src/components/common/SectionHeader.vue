@@ -1,44 +1,46 @@
 <template>
-  <div class="row py-3 d-flex align-items-center">
-    <div class="col-12 col-md-4">
-      <h1
-        class="text-uppercase com-font-s20-w800"
-        v-text="title"
+  <div class="row p-1 d-flex align-items-center rounded com-bg-body">
+    <div
+      v-if="priceEnabled"
+      class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center"
+      data-test="live-price"
+    >
+      <span
+        class="com-font-s14-w700"
+        v-text="$t('labels.price')"
+      />
+      <span
+        class="pl-1 com-font-s14-w400"
+        v-text="price"
       />
     </div>
-    <div class="col-12 col-md-8">
-      <div class="row mx-auto p-1 w-100 rounded bg-white">
-        <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span
-            class="com-font-s14-w700"
-            v-text="$t('labels.price')"
-          />
-          <span
-            class="pl-1 com-font-s14-w400"
-            v-text="price"
-          />
-        </div>
-        <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span
-            class="com-font-s14-w700"
-            v-text="$t('labels.height')"
-          />
-          <span
-            class="pl-1 com-font-s14-w400"
-            v-text="height"
-          />
-        </div>
-        <div class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center">
-          <span
-            class="com-font-s14-w700"
-            v-text="$t('labels.bonded')"
-          />
-          <span
-            class="pl-1 com-font-s14-w400"
-            v-text="bonded"
-          />
-        </div>
-      </div>
+    <div
+      v-if="heightEnabled"
+      class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center"
+      data-test="live-height"
+    >
+      <span
+        class="com-font-s14-w700"
+        v-text="$t('labels.height')"
+      />
+      <span
+        class="pl-1 com-font-s14-w400"
+        v-text="height"
+      />
+    </div>
+    <div
+      v-if="bondedEnabled"
+      class="col-12 col-md-4 d-flex justify-content-between justify-content-md-center"
+      data-test="live-bonded"
+    >
+      <span
+        class="com-font-s14-w700"
+        v-text="$t('labels.bonded')"
+      />
+      <span
+        class="pl-1 com-font-s14-w400"
+        v-text="bonded"
+      />
     </div>
   </div>
 </template>
@@ -50,10 +52,20 @@ export default {
   name: "SectionHeader",
   description: "Display the section header with title and values bar",
   props: {
-    title: {
-      type: String,
-      required: true,
-      note: "The section's title"
+    bondedEnabled: {
+      type: Boolean,
+      default: true,
+      note: "Toggle bonded visibility"
+    },
+    heightEnabled: {
+      type: Boolean,
+      default: true,
+      note: "Toggle height visibility"
+    },
+    priceEnabled: {
+      type: Boolean,
+      default: true,
+      note: "Toggle price visibility"
     }
   },
   computed: {

@@ -22,8 +22,8 @@ export default {
     dispatch
   }, {
     status = [VALIDATOR_STATUS.BONDED],
-    page = 1,
-    limit = 20
+    page,
+    limit
   } = {}) {
     commit("setValidators", []);
     [...status].forEach(element => dispatch("fetchValidators", {
@@ -44,8 +44,8 @@ export default {
     dispatch
   }, {
     status = [VALIDATOR_STATUS.BONDED],
-    page = 1,
-    limit = 20
+    page,
+    limit
   } = {}) {
     [...status].forEach(element => dispatch("fetchValidators", {
       status: element,
@@ -57,18 +57,18 @@ export default {
    * Action to fetch a validators list
    * 
    * @param {Function} commit 
-   * @param {Object} filters // status, page, limit
+   * @param {Object} filter // status, page, limit
    */
   async fetchValidators({
     commit
-  }, filters) {
+  }, filter) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
     try {
-      const response = await api.requestValidators(filters);
-      commit("addValidators", response.data);
+      const response = await api.requestValidators(filter);
+      if (response.data.result.length > 0) commit("addValidators", response.data.result);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);

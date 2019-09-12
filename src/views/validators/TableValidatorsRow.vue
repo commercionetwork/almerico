@@ -1,36 +1,50 @@
 <template>
   <tr class="text-center com-font-s13-w400">
     <td
+      v-if="$config.validators.table.columns.ordering"
       class="align-middle"
-      v-text="validatorRank"
-    />
-    <td class="align-middle">
+      data-test="table-column-ordering"
+    >
+      <span v-text="validatorRank" />
+    </td>
+    <td
+      v-if="$config.validators.table.columns.name"
+      class="align-middle"
+      data-test="table-column-name"
+    >
       <router-link
         :to="toValidatorDetails(validator.operator_address)"
         v-text="validator.description.moniker"
       />
     </td>
-    <td class="align-middle">
+    <td
+      v-if="$config.validators.table.columns.voting_power"
+      class="align-middle"
+      data-test="table-column-power"
+    >
       <div v-text="votingPower" />
-      <div
-        class="text-black-50"
-        v-text="powerPercent"
-      />
+      <div v-text="powerPercent" />
     </td>
     <td
+      v-if="$config.validators.table.columns.share_percentage"
       class="align-middle"
-      v-text="cumulative"
-    />
+      data-test="table-column-share"
+    >
+      <span v-text="cumulative" />
+    </td>
     <td
+      v-if="$config.validators.table.columns.commission"
       class="align-middle"
-      v-text="commission"
-    />
+      data-test="table-column-commission"
+    >
+      <span v-text="commission" />
+    </td>
   </tr>
 </template>
 
 <script>
-import { ROUTE_NAMES, SETUP } from "Constants";
-import { coinConverter } from "Utils";
+import { ROUTE_NAMES } from "Constants";
+import { coinsManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -53,7 +67,7 @@ export default {
       pool: "pool"
     }),
     commission() {
-      return this.$n(parseFloat(this.validator.commission.rate), {
+      return this.$n(parseFloat(this.validator.commission.commission_rates.rate), {
         style: "percent",
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -73,15 +87,14 @@ export default {
       return this.rank + 1;
     },
     votingPower() {
-      let power = coinConverter({
-        denom: SETUP.MICRO_COIN,
-        amount: this.validator.tokens
-      });
-      let formatPower = this.$n(power.amount, {
-        style: "decimal",
-        maximumFractionDigits: 0
-      });
-      return `${formatPower} ${power.denom}`;
+      let coin = this.$config.generic.coins.find(coin => coin.stakeable);
+      let denom = coin ? coin.denom : "";
+      let exponent = coin ? coin.exponent : "";
+      let amount = parseFloat(this.validator.tokens);
+
+      let power = coinsManager(denom, exponent, amount);
+
+      return this.getPowerLabel(power.amount, power.denom);
     },
     powerPercent() {
       let percent =
@@ -96,6 +109,14 @@ export default {
     }
   },
   methods: {
+    getPowerLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      });
+      return `${formatAmount} ${denom}`;
+    },
     toValidatorDetails(id) {
       return {
         name: ROUTE_NAMES.VALIDATOR_DETAILS,

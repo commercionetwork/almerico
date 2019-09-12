@@ -52,9 +52,6 @@ export default {
         moniker: this.moniker
       });
     }
-  },
-  mounted() {
-    this.$refs.inputSearch.focus();
   }
 };
 </script>

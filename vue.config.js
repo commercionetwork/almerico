@@ -1,4 +1,5 @@
 const path = require("path");
+const jsonImporter = require('node-sass-json-importer');
 
 function resolve(dir) {
   return path.join(__dirname, dir)
@@ -7,6 +8,7 @@ function resolve(dir) {
 module.exports = {
   chainWebpack: config => {
     config.resolve.alias
+      .set("Apis", resolve("./src/apis/"))
       .set("Assets", resolve("./src/assets/"))
       .set("Components", resolve("./src/components/"))
       .set("Constants", resolve("./src/constants/"))
@@ -39,6 +41,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
+        importer: jsonImporter(),
         data: `
           @import "@/assets/scss/_mixins.scss";
           @import "@/assets/scss/_z-index.scss";

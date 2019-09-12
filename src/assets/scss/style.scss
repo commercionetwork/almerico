@@ -6,17 +6,20 @@ h1, a {
   color: $primary;
 }
 a:hover {
-  color: $primary;
+  color: $secondary;
   text-decoration: none;
 }
-h2, h3, h4, h5, h6 {
-  color: $secondary;
-}
-p, div, span {
+h2, h3, h4, h5, h6, p, div, span {
   color: $text;
 }
 .com-container {
   @include page-container();
+}
+.com-bg-header {
+  background-color: $background-header;
+}
+.com-bg-body {
+  background-color: $background-body;
 }
 .com-pointer {  
   cursor: pointer;
@@ -37,31 +40,6 @@ p, div, span {
   position: absolute;
   bottom: -3px;
   left: 0;
-}
-// colors
-.com-white-background {
-  background-color: $white;
-}
-.com-gray-darkest {
-  color: $gray-darkest;
-}
-.com-gray-darker {
-  color: $gray-darker;
-}
-.com-gray-dark {
-  color: $gray-dark;
-}
-.com-gray {
-  color: $gray;
-}
-.com-gray-light {
-  color: $gray-light;
-}
-.com-gray-lighter {
-  color: $gray-lighter;
-}
-.com-gray-lightest {
-  color: $gray-lightest;
 }
 // fonts
 .com-font-s30-w900 {

@@ -28,6 +28,14 @@ describe("store/votings/mutations", () => {
     expect(state.isFetching).toBeFalsy();
   });
 
+  it("Check mutations.setMessage", () => {
+    const message = "mutations.setMessage error";
+
+    mutations.setMessage(state, message);
+
+    expect(state.message).toEqual(message);
+  });
+
   it("Check mutations.setVotings", () => {
     const data = [{
       id: 1

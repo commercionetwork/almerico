@@ -1,5 +1,5 @@
 <template>
-  <div class="row bg-white">
+  <div class="row">
     <div class="col-12 col-md-6 px-1 py-3 px-md-3">
       <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center border-bottom">
         <span
@@ -66,8 +66,7 @@
 <script>
 import AccountValuesChart from "./AccountValuesChart.vue";
 
-import { SETUP } from "Constants";
-import { coinConverter } from "Utils";
+import { coinsManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -83,9 +82,9 @@ export default {
       note: "Delegations list"
     },
     rewards: {
-      type: Array,
+      type: String,
       required: true,
-      note: "Rewards list"
+      note: "Total rewards"
     },
     unbondings: {
       type: Array,
@@ -97,78 +96,71 @@ export default {
     ...mapGetters("account", {
       balances: "balances"
     }),
+    coin() {
+      return this.$config.generic.coins.find(coin => coin.stakeable);
+    },
     availablesAmount() {
-      let amount = {
-        denom: SETUP.COIN,
-        amount: 0
-      };
+      let denom = this.coin.denom;
+      let exponent = 0;
+      let tot = 0;
       if (this.balances && this.balances.length > 0) {
-        amount = coinConverter(this.balances[0]);
+        denom = this.balances[0].denom;
+        let coin = this.$config.generic.coins.find(
+          coin => coin.denom === denom
+        );
+        exponent = coin ? coin.exponent : 0;
+        this.balances.forEach(balanace => {
+          tot += parseFloat(balanace.amount);
+        });
       }
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
+      let amount = coinsManager(denom, exponent, tot);
+      let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
+      return { label: `${formatAmount}`, value: amount.amount };
     },
     delegationsAmount() {
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : 0;
       let tot = 0;
-      this.delegations.forEach(element => {
-        tot += parseFloat(element.shares);
-      });
-      let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
-        amount: tot
-      });
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
+      if (this.delegations && this.delegations.length > 0) {
+        this.delegations.forEach(delegation => {
+          tot += parseFloat(delegation.shares);
+        });
+      }
+      let amount = coinsManager(denom, exponent, tot);
+      let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
+      return { label: `${formatAmount}`, value: amount.amount };
     },
     rewardsAmount() {
-      let tot = 0;
-      this.rewards.forEach(element => {
-        tot += parseFloat(element.amount);
-      });
-      let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
-        amount: tot
-      });
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : 0;
+      let rewards = parseFloat(this.rewards);
+      let amount = coinsManager(denom, exponent, rewards);
+      let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
+      return { label: `${formatAmount}`, value: amount.amount };
     },
     unbondingDelegationsAmount() {
+      let denom = this.coin ? this.coin.denom : "";
+      let exponent = this.coin ? this.coin.exponent : 0;
       let tot = 0;
-      this.unbondings.forEach(element => {
-        element.entries.forEach(entry => {
-          tot += parseFloat(entry.balance);
+      if (this.unbondings && this.unbondings.length > 0) {
+        this.unbondings.forEach(unbonded => {
+          unbonded.entries.forEach(entry => {
+            tot += parseFloat(entry.balance);
+          });
         });
-      });
-      let amount = coinConverter({
-        denom: SETUP.MICRO_COIN,
-        amount: tot
-      });
-      let formatAmount = this.$n(amount.amount, {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
-      });
-      return { label: `${formatAmount} ${amount.denom}`, value: amount.amount };
+      }
+      let amount = coinsManager(denom, exponent, tot);
+      let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
+      return { label: `${formatAmount}`, value: amount.amount };
     },
     totalsAmount() {
+      let name = this.coin ? this.coin.name : "";
       let formatAmount = this.$n(this.totals, {
         style: "decimal",
         minimumFractionDigits: 6,
         maximumFractionDigits: 6
       });
-      return `${formatAmount} ${SETUP.COIN}`;
+      return `${formatAmount} ${name}`;
     },
     totals() {
       return (
@@ -177,6 +169,16 @@ export default {
         this.rewardsAmount.value +
         this.unbondingDelegationsAmount.value
       );
+    }
+  },
+  methods: {
+    getAmountLabel(amount, denom) {
+      let formatAmount = this.$n(amount, {
+        style: "decimal",
+        minimumFractionDigits: 6,
+        maximumFractionDigits: 6
+      });
+      return `${formatAmount} ${denom}`;
     }
   }
 };

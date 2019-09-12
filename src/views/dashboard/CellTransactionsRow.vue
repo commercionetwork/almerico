@@ -14,14 +14,12 @@
         style="max-width: 120px;"
       />
     </td>
-    <td
-      class="align-middle"
-      v-text="result"
-    />
-    <td
-      class="align-middle"
-      v-text="time"
-    />
+    <td class="align-middle">
+      <span v-text="result" />
+    </td>
+    <td class="align-middle">
+      <span v-text="time" />
+    </td>
   </tr>
 </template>
 

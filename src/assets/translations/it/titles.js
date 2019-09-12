@@ -5,12 +5,14 @@ export const titles = {
   delegated: "Delegati",
   delegations: "Delegazioni",
   delegators: "Deleganti",
+  deposits: "Depositi",
   detailsForBlock: "Dettagli del blocco",
   information: "Informazione",
   messages: "Messaggi",
   notManagedType: "Tipo non gestito",
   powerEvents: "Eventi di potere",
   qrCode: "QR Code",
+  result: "Risultato",
   transactionDetails: "Dettagli transazione",
   transactions: "Transazioni",
   unbondings: "Svincolati",
@@ -19,5 +21,5 @@ export const titles = {
   vote: "Voto",
   votes: "Voti",
   votingDetails: "Dettagli votazione",
-  votings: "Votazioni",
+  votings: "Votazioni"
 };

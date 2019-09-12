@@ -6,6 +6,7 @@ import i18n from "Setup/i18n";
 import directives from "Setup/directives";
 import "bootstrap";
 import "Setup/navigationGuard";
+import "./plugins"
 
 Vue.config.productionTip = false
 

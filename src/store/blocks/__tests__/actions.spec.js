@@ -13,79 +13,28 @@ describe("store/blocks/actions", () => {
     mockResponse = null;
   });
 
-  it("Check if 'actions.fetchBlocks' add blocks", async () => {
+  it("Check if 'actions.fetchBlocks' reset the blocks list and dispatch the action to fetch a block", () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
+    const height = 123456;
+    const state = {
+      last: mockBlock(new Date(), height)
+    };
     const page = 1;
     const limit = 10;
 
-    await actions.fetchBlocks({
+    actions.fetchBlocks({
       commit,
-      dispatch
+      dispatch,
+      state
     }, {
       page,
       limit
     });
 
     expect(commit).toHaveBeenCalledWith("deleteBlocks");
-    expect(dispatch).toHaveBeenCalledWith("fetchBlock", mockResponse.data.block.header.height);
+    expect(dispatch).toHaveBeenCalledWith("fetchBlock", (height - (limit * (page - 1))));
     expect(dispatch).toBeCalledTimes(limit);
-  });
-
-  it("Check if 'actions.fetchBlocks' has an error", async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const page = 1;
-    const limit = 10;
-    mockError = true;
-
-    await actions.fetchBlocks({
-      commit,
-      dispatch
-    }, {
-      page,
-      limit
-    });
-
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
-  });
-
-  it("Check if 'actions.fetchBlocks' has a request error", async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const page = 1;
-    const limit = 10;
-    mockErrorRequest = true;
-
-    await actions.fetchBlocks({
-      commit,
-      dispatch
-    }, {
-      page,
-      limit
-    });
-
-    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
-  });
-
-  it("Check 'actions.fetchBlocks' when server is unreachable", async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const page = 1;
-    const limit = 10;
-    mockErrorServer = true;
-
-    await actions.fetchBlocks({
-      commit,
-      dispatch
-    }, {
-      page,
-      limit
-    });
-
-    expect(commit).toBeCalledWith("setServerReachability", false, {
-      root: true
-    });
   });
 
   it("Check if 'actions.fetchBlock' add new block", async () => {

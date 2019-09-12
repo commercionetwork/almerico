@@ -11,22 +11,18 @@
         <table class="table table-striped">
           <thead>
             <tr class="text-center com-font-s13-w700">
-              <th
-                scope="col"
-                v-text="$t('labels.height')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.hash')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.result')"
-              />
-              <th
-                scope="col"
-                v-text="$t('labels.date')"
-              />
+              <th scope="col">
+                <span v-text="$t('labels.height')" />
+              </th>
+              <th scope="col">
+                <span v-text="$t('labels.hash')" />
+              </th>
+              <th scope="col">
+                <span v-text="$t('labels.result')" />
+              </th>
+              <th scope="col">
+                <span v-text="$t('labels.date')" />
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -46,10 +42,9 @@
 import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
-import api from "Store/blocks/api";
-import { ROUTE_NAMES, TX_TYPES } from "Constants";
-import { arrayManager, localizedRoute } from "Utils";
-import { mapActions, mapGetters } from "vuex";
+import { ROUTE_NAMES } from "Constants";
+import { localizedRoute } from "Utils";
+import { mapGetters } from "vuex";
 
 export default {
   name: "CellTransactions",
@@ -58,65 +53,25 @@ export default {
     CellTransactionsRow,
     TableCell
   },
-  data() {
-    return {
-      hasError: false,
-      isFetching: false
-    };
-  },
   computed: {
     ...mapGetters("transactions", {
+      isFetching: "isFetching",
+      message: "message",
       transactions: "transactions"
     }),
+    hasError() {
+      return this.message ? true : false;
+    },
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactionsList() {
-      let transactions = arrayManager.uniqueByKey(
-        this.transactions,
-        JSON.stringify
-      );
-      return transactions
-        .sort(function(a, b) {
-          return b.height - a.height;
-        })
-        .slice(0, 10);
+      const transactions = [...this.transactions];
+      transactions.sort(function(a, b) {
+        return b.height - a.height;
+      });
+      return transactions.slice(0, 10);
     }
-  },
-  methods: {
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    async getTransactions(types) {
-      this.isFetching = true;
-      const limit = 20;
-      try {
-        const response = await api.requestLastBlock();
-        const totalTxs = parseInt(response.data.block.header.total_txs);
-        const page = Math.floor(totalTxs / limit) + 1;
-        types.forEach(type => {
-          this.fetchTransactions({
-            tag: `action=${type}`,
-            page,
-            limit
-          });
-          if (page > 1) {
-            this.fetchTransactions({
-              tag: `action=${type}`,
-              page: page - 1,
-              limit
-            });
-          }
-        });
-      } catch (error) {
-        this.hasError = true;
-      } finally {
-        this.isFetching = false;
-      }
-    }
-  },
-  created() {
-    this.getTransactions(Object.values(TX_TYPES));
   }
 };
 </script>

@@ -19,7 +19,7 @@ export default {
     });
     try {
       const response = await api.requestPool();
-      commit("setPool", response.data);
+      commit("setPool", response.data.result);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);

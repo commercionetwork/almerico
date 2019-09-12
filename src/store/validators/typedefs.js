@@ -21,10 +21,13 @@
  * @property {String} unbonding_time 
  */
 /** @typedef {Object} Commission
+ * @property {Rates} commission_rates
+ * @property {String} update_time
+ * /
+/** @typedef {Object} Rates
  * @property {String} max_change_rate 
  * @property {String} max_rate 
  * @property {String} rate 
- * @property {String} update_time 
  */
 /** @typedef {Object} Description
  * @property {String} details 

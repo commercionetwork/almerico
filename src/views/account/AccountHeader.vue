@@ -10,7 +10,6 @@
         <Icon
           name="qrcode"
           scale="2"
-          class="text-primary"
         />
       </span>
     </div>
