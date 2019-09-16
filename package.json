@@ -18,7 +18,7 @@
     "core-js": "^2.6.9",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
-    "qrcode.vue": "^1.6.2",
+    "qrcode.vue": "^1.6.3",
     "tendermint": "^4.0.8",
     "vue": "^2.6.10",
     "vue-awesome": "^3.5.4",
