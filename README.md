@@ -43,7 +43,7 @@ VUE_APP_WS=ws://rpc.com
 ```
 
 #### Running
-In order to run the project, simply execute the `npm serve` command.  
+In order to run the project, simply execute the `npm run serve` command.  
 This will start a local web server and publish a web page to http://localhost:8080. 
 
 ### Production
