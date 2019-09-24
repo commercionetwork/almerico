@@ -116,7 +116,7 @@ export default {
   },
   watch: {
     txId(value) {
-      this.getTransaction(value);
+      this.fetchTransaction(value);
     }
   },
   methods: {
