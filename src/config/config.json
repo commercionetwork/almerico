@@ -154,13 +154,18 @@
         "type": "commercioid/CreateConnection"
       },
       {
+        "name": "MsgSendDocumentReceipt",
+        "tag": "sendDocumentReceipt",
+        "type": "commerciodocs/SendDocumentReceipt"
+      },
+      {
         "name": "MsgSetIdentity",
         "tag": "set_identity",
         "type": "commercioid/SetIdentity"
       },
       {
         "name": "MsgShareDocument",
-        "tag": "share_document",
+        "tag": "shareDocument",
         "type": "commerciodocs/ShareDocument"
       },
       {
