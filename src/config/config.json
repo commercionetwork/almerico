@@ -146,32 +146,32 @@
       {
         "name": "MsgCreateAccount",
         "tag": "create_account",
-        "type": "commercioauth/CreateAccount"
+        "type": "commercio/MsgCreateAccount"
       },
       {
         "name": "MsgCreateConnection",
         "tag": "create_connection",
-        "type": "commercioid/CreateConnection"
+        "type": "commercio/MsgCreateConnection"
       },
       {
         "name": "MsgSendDocumentReceipt",
         "tag": "sendDocumentReceipt",
-        "type": "commerciodocs/SendDocumentReceipt"
+        "type": "commercio/MsgSendDocumentReceipt"
       },
       {
         "name": "MsgSetIdentity",
         "tag": "set_identity",
-        "type": "commercioid/SetIdentity"
+        "type": "commercio/MsgSetIdentity"
       },
       {
         "name": "MsgShareDocument",
         "tag": "shareDocument",
-        "type": "commerciodocs/ShareDocument"
+        "type": "commercio/MsgShareDocument"
       },
       {
         "name": "MsgStoreDocument",
         "tag": "store_document",
-        "type": "commerciodocs/StoreDocument"
+        "type": "commercio/MsgStoreDocument"
       }
     ]
   },
