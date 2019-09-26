@@ -18,6 +18,9 @@
                 <span v-text="$t('labels.hash')" />
               </th>
               <th scope="col">
+                <span v-text="$t('labels.type')" />
+              </th>
+              <th scope="col">
                 <span v-text="$t('labels.result')" />
               </th>
               <th scope="col">

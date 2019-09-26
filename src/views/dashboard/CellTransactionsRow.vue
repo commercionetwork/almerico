@@ -15,6 +15,9 @@
       />
     </td>
     <td class="align-middle">
+      <span v-text="type" />
+    </td>
+    <td class="align-middle">
       <span v-text="result" />
     </td>
     <td class="align-middle">
@@ -47,7 +50,13 @@ export default {
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleDateString();
-    }
+    },
+    type() {
+      let type = this.transaction.tx.value.msg.find(
+        msg => typeof msg.type !== undefined
+      ).type;
+      return type.split("/").pop();
+    },
   },
   methods: {
     toDetails(name, id) {
@@ -59,6 +68,6 @@ export default {
         }
       };
     }
-  }
+  },
 };
 </script>
