@@ -69,7 +69,7 @@
           </div>
           <div class="col-12 col-md-5 py-1">
             <Pagination
-              v-if="transactions.length > 0"
+              v-if="total > 0"
               :limit="limit"
               :page="page"
               :total="total"
@@ -170,7 +170,7 @@ export default {
       });
     },
     total() {
-      return this.transactions.length;
+      return this.orderedTransactions.length;
     }
   },
   watch: {
