@@ -29,9 +29,13 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
         fee: () => "fee",
         gasWanted: () => "0",
         gasUsed: () => "0",
-        result: () => "success"
+        result: () => "fail",
+        resultStatus: () => false
       },
       localVue,
+      methods: {
+        getLogMessage: () => "message"
+      },
       mocks:{
         ...mocks,
         $config: {
@@ -54,6 +58,7 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
 
     expect(wrapper.find('[data-test="row-hash"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="row-status"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="row-status-details"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="row-block-height"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="row-date"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="row-fee"]').exists()).toBe(true);
@@ -66,9 +71,13 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
         fee: () => "fee",
         gasWanted: () => "0",
         gasUsed: () => "0",
-        result: () => "success"
+        result: () => "fail",
+        resultStatus: () => false
       },
       localVue,
+      methods: {
+        getLogMessage: () => "message"
+      },
       mocks:{
         ...mocks,
         $config: {
@@ -91,6 +100,7 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
 
     expect(wrapper.find('[data-test="row-hash"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="row-status"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="row-status-details"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="row-block-height"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="row-date"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="row-fee"]').exists()).toBe(false);

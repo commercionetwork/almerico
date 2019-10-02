@@ -23,10 +23,24 @@
         class="col-12 col-md-3 com-font-s14-w700"
         v-text="$t('labels.status')"
       />
-      <div
-        class="col-12 col-md-9 com-font-s14-w400"
-        v-text="result"
-      />
+      <div class="col-12 col-md-9 com-font-s14-w400">
+        <div v-text="result" />
+        <div
+          v-if="!resultStatus"
+          data-test="row-status-details"
+        >
+          <span
+            class="com-font-s14-w700"
+            v-text="$t('labels.details')"
+          />
+          <div
+            v-for="(log, index) in transaction.logs"
+            :key="index"
+          >
+            <div v-text="getLogMessage(log)" />
+          </div>
+        </div>
+      </div>
     </div>
     <div
       v-if="$config.transaction_details.rows.block_height"
@@ -124,10 +138,13 @@ export default {
       });
     },
     result() {
+      return this.resultStatus
+        ? this.$t("labels.success")
+        : this.$t("labels.fail");
+    },
+    resultStatus() {
       return this.transaction.logs.find(log => typeof log.success !== undefined)
-        .success
-        ? "success"
-        : "fail";
+        .success;
     },
     fee() {
       let denom = "";
@@ -159,6 +176,10 @@ export default {
         maximumFractionDigits: 6
       });
       return `${formatAmount} ${denom}`;
+    },
+    getLogMessage(logData) {
+      const log = JSON.parse(logData.log);
+      return log["message"];
     },
     toDetails(name, id) {
       return {
