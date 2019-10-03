@@ -90,7 +90,7 @@ npm run test
 ```shell
 docker build -t almerico \
   --build-arg LCD_URL=<LCD URL> \
-  --build-arg RPC_URL_rpc=<RPC URL> \
+  --build-arg RPC_URL=<RPC URL> \
   --build-arg WS_URL=<WebSocket URL> \
   .
 ```
