@@ -17,6 +17,7 @@ after_success:
     --build-arg LCD_URL=${ALMERICO_LCD_URL}
     --build-arg RPC_URL=${ALMERICO_RPC_URL}
     --build-arg WS_URL=${ALMERICO_WS_URL}
+    --build-arg API_VERSION=${ALMERICO_API_VERSION}
     .
 
 deploy:

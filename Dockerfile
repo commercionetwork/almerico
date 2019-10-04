@@ -4,11 +4,13 @@ FROM node:12.10.0
 ARG LCD_URL
 ARG RPC_URL
 ARG WS_URL
+ARG API_VERSION
 
 # Copy all arguments into the environment variables
 ENV VUE_APP_LCD ${LCD_URL}
 ENV VUE_APP_RPC ${RPC_URL}
 ENV VUE_APP_WS ${WS_URL}
+ENV VUE_APP_API_VERSION ${API_VERSION}
 
 # Set unsafe perm in order to avoid npm errors
 RUN npm config set unsafe-perm true
