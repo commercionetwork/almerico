@@ -34,6 +34,7 @@
 import HeaderCell from "Components/common/HeaderCell.vue";
 import LineChart from "Components/common/LineChart.vue";
 
+import { API_VERSION } from "Constants";
 import { mapGetters } from "vuex";
 
 export default {

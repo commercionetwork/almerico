@@ -1,6 +1,9 @@
 /**
  * Versions
  */
+export const API_VERSION = (process.env.VUE_APP_API_VERSION !== undefined) ?
+  process.env.VUE_APP_API_VERSION :
+  "";
 const KEYBASE_VERSION = "/1.0";
 /**
  * URLs

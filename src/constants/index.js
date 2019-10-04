@@ -1,5 +1,6 @@
 import {
   API,
+  API_VERSION,
   WS
 } from "./api";
 import {
@@ -23,6 +24,7 @@ import {
 
 export {
   API,
+  API_VERSION,
   LIMITS_LIST,
   MODAL_ID,
   MODAL_SIZE,
