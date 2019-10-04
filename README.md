@@ -32,7 +32,11 @@ cp .env .env.development.local
 VUE_APP_LCD=<YOUR_LCD_ULR>
 VUE_APP_RPC=<YOUR_RPC_URL>
 VUE_APP_WS=<YOUR_WS_URL>
+VUE_APP_API_VERSION=<Sdk Api version>
 ```
+The supported API versions are:
+* 0.36
+* 0.38
   
 Example
 
@@ -40,6 +44,7 @@ Example
 VUE_APP_LCD=https://lcd.com
 VUE_APP_RPC=https://rpc.com
 VUE_APP_WS=ws://rpc.com
+VUE_APP_API_VERSION=0.36
 ```
 
 #### Running
@@ -59,7 +64,11 @@ cp .env .env.production
 VUE_APP_LCD=<YOUR_LCD_ULR>
 VUE_APP_RPC=<YOUR_RPC_URL>
 VUE_APP_WS=<YOUR_WS_URL>
+VUE_APP_API_VERSION=<Sdk Api version>
 ```
+The supported API versions are:
+* 0.36
+* 0.38
   
 Example
 
@@ -67,6 +76,7 @@ Example
 VUE_APP_LCD=https://lcd.com
 VUE_APP_RPC=https://rpc.com
 VUE_APP_WS=ws://rpc.com
+VUE_APP_API_VERSION=0.36
 ```
 
 #### Building
@@ -92,6 +102,7 @@ docker build -t almerico \
   --build-arg LCD_URL=<LCD URL> \
   --build-arg RPC_URL=<RPC URL> \
   --build-arg WS_URL=<WebSocket URL> \
+  --build-arg API_VERSION=<Sdk Api version> \
   .
 ```
 
