@@ -5,8 +5,8 @@ export const API_VERSION = (process.env.VUE_APP_API_VERSION !== undefined) ?
   process.env.VUE_APP_API_VERSION :
   "";
 export const SUPPORTED_API_VERSION = {
-  V036: 0.36,
-  V038: 0.38
+  V036: "0.36",
+  V038: "0.38"
 };
 const KEYBASE_VERSION = "/1.0";
 /**

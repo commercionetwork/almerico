@@ -91,21 +91,21 @@ export default {
       let accounts = [];
       switch (API_VERSION) {
         case SUPPORTED_API_VERSION.V036:
-          console.log("036: ",this.genesis);
           if (this.genesis) accounts = this.genesis.genesis.app_state.accounts;
           if (accounts.length > 0) {
             accounts.forEach(account => {
-              tot += parseFloat(account.coins[0].amount);
+              if (account.coins && account.coins.length > 0)
+                tot += parseFloat(account.coins[0].amount);
             });
           }
           break;
         case SUPPORTED_API_VERSION.V038:
-          console.log("038: ",this.genesis);
           if (this.genesis)
             accounts = this.genesis.genesis.app_state.auth.accounts;
           if (accounts.length > 0) {
             accounts.forEach(account => {
-              tot += parseFloat(account.value.coins[0].amount);
+              if (account.value.coins && account.value.coins.length > 0)
+                tot += parseFloat(account.value.coins[0].amount);
             });
           }
           break;
@@ -113,7 +113,8 @@ export default {
           if (this.genesis) accounts = this.genesis.genesis.app_state.accounts;
           if (accounts.length > 0) {
             accounts.forEach(account => {
-              tot += parseFloat(account.coins[0].amount);
+              if (account.coins && account.coins.length > 0)
+                tot += parseFloat(account.coins[0].amount);
             });
           }
           break;
