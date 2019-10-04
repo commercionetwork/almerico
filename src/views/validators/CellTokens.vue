@@ -34,6 +34,7 @@ import HeaderCell from "Components/common/HeaderCell.vue";
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/coins";
 
+import { API_VERSION, SUPPORTED_API_VERSION } from "Constants";
 import { mapGetters } from "vuex";
 
 export default {
@@ -65,14 +66,38 @@ export default {
     },
     totalToken() {
       let tot = 0;
-      const accounts = this.genesis
-        ? this.genesis.genesis.app_state.accounts
-        : [];
-      if (accounts.length > 0) {
-        accounts.forEach(account => {
-          tot += parseFloat(account.coins[0].amount);
-        });
+      let accounts = [];
+      switch (API_VERSION) {
+        case SUPPORTED_API_VERSION.V036:
+          if (this.genesis) accounts = this.genesis.genesis.app_state.accounts;
+          if (accounts.length > 0) {
+            accounts.forEach(account => {
+              if (account.coins && account.coins.length > 0)
+                tot += parseFloat(account.coins[0].amount);
+            });
+          }
+          break;
+        case SUPPORTED_API_VERSION.V038:
+          if (this.genesis)
+            accounts = this.genesis.genesis.app_state.auth.accounts;
+          if (accounts.length > 0) {
+            accounts.forEach(account => {
+              if (account.value.coins && account.value.coins.length > 0)
+                tot += parseFloat(account.value.coins[0].amount);
+            });
+          }
+          break;
+        default:
+          if (this.genesis) accounts = this.genesis.genesis.app_state.accounts;
+          if (accounts.length > 0) {
+            accounts.forEach(account => {
+              if (account.coins && account.coins.length > 0)
+                tot += parseFloat(account.coins[0].amount);
+            });
+          }
+          break;
       }
+
       return tot;
     }
   }
