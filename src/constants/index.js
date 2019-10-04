@@ -1,6 +1,7 @@
 import {
   API,
   API_VERSION,
+  SUPPORTED_API_VERSION,
   WS
 } from "./api";
 import {
@@ -31,6 +32,7 @@ export {
   ROUTES,
   ROUTE_NAMES,
   ROUTE_TITLES,
+  SUPPORTED_API_VERSION,
   VALIDATOR_STATUS,
   VOTING_STATUS,
   WS
