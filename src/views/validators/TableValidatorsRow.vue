@@ -55,11 +55,6 @@ export default {
       type: Object,
       required: true,
       note: "Object representing a validator"
-    },
-    rank: {
-      type: Number,
-      required: true,
-      note: "The validator rank"
     }
   },
   computed: {
@@ -67,24 +62,29 @@ export default {
       pool: "pool"
     }),
     commission() {
-      return this.$n(parseFloat(this.validator.commission.commission_rates.rate), {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      return this.$n(
+        parseFloat(this.validator.commission.commission_rates.rate),
+        {
+          style: "percent",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      );
     },
     cumulative() {
-      return this.$n(this.validator.cumulative, {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      return this.validator.cumulative
+        ? this.$n(this.validator.cumulative, {
+            style: "percent",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+          })
+        : "-";
     },
     bonded() {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     validatorRank() {
-      return this.rank + 1;
+      return this.validator.rank;
     },
     votingPower() {
       let coin = this.$config.generic.coins.find(coin => coin.stakeable);

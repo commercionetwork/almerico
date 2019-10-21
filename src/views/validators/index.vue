@@ -127,25 +127,34 @@ export default {
   },
   methods: {
     filterValidators(filter) {
-      const validators = [...this.validators];
-      const statusFilteredValidators = filter.status
-        ? validators.filter(validator => validator.status === 2)
-        : validators.filter(validator => validator.status !== 2);
       let cumulative = 0;
-      const orderedValidators = statusFilteredValidators
+      let rank = 0;
+      const validators = this.validators
         .sort(function(a, b) {
           return b.tokens - a.tokens;
         })
         .map(validator => {
-          cumulative += validator.tokens / this.bonded;
-          validator.cumulative = cumulative;
+          if (validator.status === 2) {
+            validator.rank = ++rank;
+            cumulative += validator.tokens / this.bonded;
+            validator.cumulative = cumulative;
+          }
           return validator;
-        });
+        })
+        .map(validator => {
+          if (validator.status !== 2) {
+            validator.rank = ++rank;
+          }
+          return validator;
+        })
+      const statusFilteredValidators = filter.status
+        ? validators.filter(validator => validator.status === 2)
+        : validators.filter(validator => validator.status !== 2);
       this.filteredValidators = filter.moniker
-        ? orderedValidators.filter(
+        ? statusFilteredValidators.filter(
             validator => validator.description.moniker === filter.moniker
           )
-        : orderedValidators;
+        : statusFilteredValidators;
       this.filter = filter;
     }
   },

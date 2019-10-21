@@ -45,7 +45,6 @@
           v-for="(validator, index) in validators"
           :key="index"
           :validator="validator"
-          :rank="index"
         />
       </tbody>
     </table>
