@@ -56,8 +56,8 @@
                   data-test="loading"
                 />
                 <TableValidators
-                  v-else-if="!isFetching && filteredValidators.length > 0"
-                  :validators="filteredValidators"
+                  v-else-if="!isFetching && validatorsList.length > 0"
+                  :validators="validatorsList"
                   data-test="items"
                 />
                 <div
@@ -118,12 +118,15 @@ export default {
     }),
     bonded() {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
+    },
+    validatorsList() {
+      return this.filteredValidators;
     }
   },
   watch: {
     pool() {
       this.filterValidators(this.filter);
-    }
+    },
   },
   methods: {
     filterValidators(filter) {
