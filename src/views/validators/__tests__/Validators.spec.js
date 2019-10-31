@@ -75,9 +75,6 @@ describe("views/validators/index.vue", () => {
         }
       }
     });
-    wrapper.setData({
-      filteredValidators: mockValidators()
-    });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="items"]').exists()).toBe(true);
