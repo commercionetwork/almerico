@@ -109,8 +109,7 @@ export default {
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool",
-      isFetchingPool: "isFetching"
+      pool: "pool"
     }),
     ...mapGetters("validators", {
       validators: "validators",
