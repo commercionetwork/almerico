@@ -43,7 +43,7 @@
           <div class="col-12">
             <div class="row py-1 d-flex justify-content-between">
               <div class="col-12 col-md-8 offset-md-4">
-                <SearchValidator v-on:filter-validators="filterValidators" />
+                <SearchValidator v-on:filter-validators="setFilter" />
               </div>
             </div>
             <div class="row py-1">
@@ -56,8 +56,8 @@
                   data-test="loading"
                 />
                 <TableValidators
-                  v-else-if="!isFetching && validatorsList.length > 0"
-                  :validators="validatorsList"
+                  v-else-if="!isFetching && filteredValidators.length > 0"
+                  :validators="filteredValidators"
                   data-test="items"
                 />
                 <div
@@ -104,13 +104,13 @@ export default {
       filter: {
         status: true,
         moniker: ""
-      },
-      filteredValidators: []
+      }
     };
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool"
+      pool: "pool",
+      isFetchingPool: "isFetching"
     }),
     ...mapGetters("validators", {
       validators: "validators",
@@ -119,20 +119,12 @@ export default {
     bonded() {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
-    validatorsList() {
-      return this.filteredValidators;
-    }
-  },
-  watch: {
-    pool() {
-      this.filterValidators(this.filter);
-    },
-  },
-  methods: {
-    filterValidators(filter) {
+    filteredValidators() {
+      const validators = [...this.validators];
       let cumulative = 0;
       let rank = 0;
-      const validators = this.validators
+
+      const orderedValidators = validators
         .sort(function(a, b) {
           return b.tokens - a.tokens;
         })
@@ -149,20 +141,23 @@ export default {
             validator.rank = ++rank;
           }
           return validator;
-        })
-      const statusFilteredValidators = filter.status
-        ? validators.filter(validator => validator.status === 2)
-        : validators.filter(validator => validator.status !== 2);
-      this.filteredValidators = filter.moniker
+        });
+
+      const statusFilteredValidators = this.filter.status
+        ? orderedValidators.filter(validator => validator.status === 2)
+        : orderedValidators.filter(validator => validator.status !== 2);
+
+      return this.filter.moniker
         ? statusFilteredValidators.filter(
-            validator => validator.description.moniker === filter.moniker
+            validator => validator.description.moniker === this.filter.moniker
           )
         : statusFilteredValidators;
-      this.filter = filter;
     }
   },
-  mounted() {
-    this.filterValidators(this.filter);
+  methods: {
+    setFilter(filter) {
+      this.filter = filter;
+    }
   }
 };
 </script>
