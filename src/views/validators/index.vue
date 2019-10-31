@@ -131,7 +131,7 @@ export default {
         .map(validator => {
           if (validator.status === 2) {
             validator.rank = ++rank;
-            cumulative += validator.tokens / this.bonded;
+            if (this.bonded > 0) cumulative += validator.tokens / this.bonded;
             validator.cumulative = cumulative;
           }
           return validator;
