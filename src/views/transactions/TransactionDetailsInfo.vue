@@ -26,7 +26,7 @@
       <div class="col-12 col-md-9 com-font-s14-w400">
         <div v-text="result" />
         <div
-          v-if="!resultStatus && transaction.logs"
+          v-if="!resultStatus"
           data-test="row-status-details"
         >
           <span
@@ -34,10 +34,10 @@
             v-text="$t('labels.details')"
           />
           <div
-            v-for="(log, index) in transaction.logs"
+            v-for="(log, index) in logs"
             :key="index"
           >
-            <div v-text="getLogMessage(log)" />
+            <div v-text="log.message" />
           </div>
         </div>
       </div>
@@ -137,6 +137,16 @@ export default {
         maximumFractionDigits: 0
       });
     },
+    logs() {
+      const logData = JSON.parse(this.transaction.raw_log);
+      let logs = [];
+      if (logData instanceof Array) {
+        logData.forEach(data => logs.push(JSON.parse(data.log)));
+      } else if (typeof logData === "object") {
+        logs.push(logData);
+      }
+      return logs;
+    },
     result() {
       return this.resultStatus
         ? this.$t("labels.success")
@@ -178,10 +188,6 @@ export default {
         maximumFractionDigits: 6
       });
       return `${formatAmount} ${denom}`;
-    },
-    getLogMessage(logData) {
-      const log = JSON.parse(logData.log);
-      return log["message"];
     },
     toDetails(name, id) {
       return {
