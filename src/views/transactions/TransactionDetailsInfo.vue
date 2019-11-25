@@ -26,7 +26,7 @@
       <div class="col-12 col-md-9 com-font-s14-w400">
         <div v-text="result" />
         <div
-          v-if="!resultStatus"
+          v-if="!resultStatus && transaction.logs"
           data-test="row-status-details"
         >
           <span
@@ -143,8 +143,10 @@ export default {
         : this.$t("labels.fail");
     },
     resultStatus() {
-      return this.transaction.logs.find(log => typeof log.success !== undefined)
-        .success;
+      return this.transaction.logs
+        ? this.transaction.logs.find(log => typeof log.success !== undefined)
+            .success
+        : false;
     },
     fee() {
       let denom = "";

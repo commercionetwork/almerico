@@ -50,10 +50,15 @@ export default {
       return new Date(this.transaction.timestamp).toLocaleDateString();
     },
     result() {
-      return this.transaction.logs.find(log => typeof log.success !== undefined)
-        .success
-        ? "success"
-        : "fail";
+      return this.resultStatus
+        ? this.$t("labels.success")
+        : this.$t("labels.fail");
+    },
+    resultStatus() {
+      return this.transaction.logs
+        ? this.transaction.logs.find(log => typeof log.success !== undefined)
+            .success
+        : false;
     },
     type() {
       let type = this.transaction.tx.value.msg.find(
