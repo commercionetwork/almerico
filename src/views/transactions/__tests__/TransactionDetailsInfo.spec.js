@@ -29,6 +29,7 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
         fee: () => "fee",
         gasWanted: () => "0",
         gasUsed: () => "0",
+        logs: () => [],
         result: () => "fail",
         resultStatus: () => false
       },
