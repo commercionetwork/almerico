@@ -31,14 +31,59 @@
           class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.publicKey')"
         />
-        <div class="col-12 col-md-9 text-break com-font-s14-w400"></div>
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <dl
+            class="border-bottom"
+            v-for="(pubKey, index) in publicKeys"
+            :key="index"
+          >
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.id')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="pubKey.id"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.type')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="pubKey.type"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.controller')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="pubKey.controller"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.publicKeyHex')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="pubKey.publicKeyHex"
+            />
+          </dl>
+        </div>
       </div>
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.authentication')"
         />
-        <div class="col-12 col-md-9 text-break com-font-s14-w400"></div>
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <div
+            v-for="(auth, index) in authentications"
+            :key="index"
+            v-text="auth"
+          />
+        </div>
       </div>
       <div class="row p-1">
         <div

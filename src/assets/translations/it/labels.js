@@ -1,4 +1,6 @@
 export const labels = {
+  controller: "Controllore",
+  publicKeyHex: "Esadecimale chiave pubblica",
   abstain: "Astenuti",
   address: "Indirizzo",
   algorithm: "Algoritmo",
