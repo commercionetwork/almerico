@@ -160,7 +160,7 @@
       },
       {
         "name": "MsgSetIdentity",
-        "tag": "set_identity",
+        "tag": "setIdentity",
         "type": "commercio/MsgSetIdentity"
       },
       {
