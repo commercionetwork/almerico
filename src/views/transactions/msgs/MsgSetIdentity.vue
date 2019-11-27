@@ -4,33 +4,92 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.owner')"
+          v-text="$t('labels.context')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <router-link
-            :to="toDetails(owner)"
-            v-text="owner"
+          <a
+            :href="context"
+            target="_blank"
+            v-text="context"
           />
         </div>
       </div>
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.did')"
+          v-text="$t('labels.id')"
         />
-        <div
-          class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="did"
-        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <router-link
+            :to="toDetails(id)"
+            v-text="id"
+          />
+        </div>
       </div>
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.ddoReference')"
+          v-text="$t('labels.publicKey')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400"></div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.authentication')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400"></div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.proof')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <dl>
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.type')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="proofType"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.created')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="proofCreated"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.creator')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="proofCreator"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.signatureValue')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="proofSig"
+            />
+          </dl>
+        </div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.service')"
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="ddoReference"
+          v-text="service"
         />
       </div>
     </div>
@@ -56,16 +115,44 @@ export default {
     }
   },
   computed: {
-    did() {
-      return this.message.value.did ? this.message.value.did : "-";
+    authentications() {
+      return this.message.value.authentication
+        ? this.message.value.authentication
+        : [];
     },
-    ddoReference() {
-      return this.message.value.ddo_reference
-        ? this.message.value.ddo_reference
+    context() {
+      return this.message.value["@context"]
+        ? this.message.value["@context"]
         : "-";
     },
-    owner() {
-      return this.message.value.owner ? this.message.value.owner : "-";
+    id() {
+      return this.message.value.id ? this.message.value.id : "-";
+    },
+    proofType() {
+      return this.message.value.proof && this.message.value.proof.type
+        ? this.message.value.proof.type
+        : "-";
+    },
+    proofCreated() {
+      return this.message.value.proof && this.message.value.proof.created
+        ? this.$d(new Date(this.message.value.proof.created))
+        : "-";
+    },
+    proofCreator() {
+      return this.message.value.proof && this.message.value.proof.creator
+        ? this.message.value.proof.creator
+        : "-";
+    },
+    proofSig() {
+      return this.message.value.proof && this.message.value.proof.signatureValue
+        ? this.message.value.proof.signatureValue
+        : "-";
+    },
+    publicKeys() {
+      return this.message.value.publicKey ? this.message.value.publicKey : [];
+    },
+    service() {
+      return this.message.value.service ? this.message.value.service : "-";
     },
     title() {
       return this.message.type ? this.message.type.split("/").pop() : "-";
