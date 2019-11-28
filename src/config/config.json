@@ -150,7 +150,7 @@
       },
       {
         "name": "MsgCreateConnection",
-        "tag": "create_connection",
+        "tag": "createConnection",
         "type": "commercio/MsgCreateConnection"
       },
       {
@@ -170,7 +170,7 @@
       },
       {
         "name": "MsgStoreDocument",
-        "tag": "store_document",
+        "tag": "storeDocument",
         "type": "commercio/MsgStoreDocument"
       }
     ]
