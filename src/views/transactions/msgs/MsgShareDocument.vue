@@ -173,12 +173,14 @@ export default {
         : "-";
     },
     metaSchemaUri() {
-      return this.message.value.metadata.schema.uri
+      return this.message.value.metadata.schema &&
+        this.message.value.metadata.schema.uri
         ? this.message.value.metadata.schema.uri
         : "-";
     },
     metaSchemaVersion() {
-      return this.message.value.metadata.schema.version
+      return this.message.value.metadata.schema &&
+        this.message.value.metadata.schema.version
         ? this.message.value.metadata.schema.version
         : "-";
     },
@@ -193,12 +195,12 @@ export default {
         : "-";
     },
     checksumValue() {
-      return this.message.value.checksum.value
+      return this.message.value.checksum && this.message.value.checksum.value
         ? this.message.value.checksum.value
         : "-";
     },
     checksumAlgorithm() {
-      return this.message.value.checksum.algorithm
+      return this.message.value.checksum && this.message.value.checksum
         ? this.message.value.checksum.algorithm
         : "-";
     },
