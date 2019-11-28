@@ -176,6 +176,9 @@ export default {
   watch: {
     limit() {
       this.page = 1;
+    },
+    selectedType() {
+      this.page = 1;
     }
   },
   methods: {
