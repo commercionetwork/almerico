@@ -27,6 +27,7 @@ export const labels = {
   description: "Descrizione",
   details: "Dettagli",
   did: "DID",
+  documentUuid: "UUID documento",
   fail: "Fallito",
   fee: "Fee",
   finalDate: "Data finale",

@@ -4,11 +4,21 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.uuid')"
+        />
+        <div
+          class="col-12 col-md-9 text-break com-font-s14-w400"
+          v-text="uuid"
+        />
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.sender')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(sender)"
+            :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, sender)"
             v-text="sender"
           />
         </div>
@@ -20,7 +30,7 @@
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(recipient)"
+            :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, recipient)"
             v-text="recipient"
           />
         </div>
@@ -28,106 +38,36 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.uuid')"
-        />
-        <div
-          class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="uuid"
-        />
-      </div>
-      <div class="row p-1">
-        <div
-          class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.contentUri')"
+          v-text="$t('labels.hash')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <a
-            :href="contentUri"
-            target="_blank"
-            v-text="contentUri"
+          <router-link
+            :to="toDetails(ROUTE_NAMES.TRANSACTION_DETAILS, txHash)"
+            v-text="txHash"
           />
         </div>
       </div>
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.metadata')"
+          v-text="$t('labels.documentUuid')"
         />
-        <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <dl>
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.contentUri')"
-            />
-            <dd class="com-font-s14-w400">
-              <a
-                :href="metaContentUri"
-                target="_blank"
-                v-text="metaContentUri"
-              />
-            </dd>
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.schemaType')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="metaSchemaType"
-            />
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.schemaUri')"
-            />
-            <dd class="com-font-s14-w400">
-              <a
-                :href="metaSchemaUri"
-                target="_blank"
-                v-text="metaSchemaUri"
-              />
-            </dd>
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.schemaVersion')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="metaSchemaVersion"
-            />
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.proof')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="metaProof"
-            />
-          </dl>
-        </div>
+        <div
+          class="col-12 col-md-9 text-break com-font-s14-w400"
+          v-text="documentUuid"
+        />
       </div>
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.checksum')"
+          v-text="$t('labels.proof')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <dl>
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.value')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="checksumValue"
-            />
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.algorithm')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="checksumAlgorithm"
-            />
-          </dl>
+          <a
+            :href="proof"
+            target="_blank"
+            v-text="proof"
+          />
         </div>
       </div>
     </div>
@@ -152,64 +92,40 @@ export default {
       note: "Object representing a send document message"
     }
   },
+  data() {
+    return {
+      ROUTE_NAMES
+    };
+  },
   computed: {
+    uuid() {
+      return this.message.value.uuid ? this.message.value.uuid : "-";
+    },
     sender() {
       return this.message.value.sender ? this.message.value.sender : "-";
     },
     recipient() {
       return this.message.value.recipient ? this.message.value.recipient : "-";
     },
-    uuid() {
-      return this.message.value.uuid ? this.message.value.uuid : "-";
+    txHash() {
+      return this.message.value.tx_hash ? this.message.value.tx_hash : "-";
     },
-    metaContentUri() {
-      return this.message.value.metadata.content_uri
-        ? this.message.value.metadata.content_uri
+    documentUuid() {
+      return this.message.value.document_uuid
+        ? this.message.value.document_uuid
         : "-";
     },
-    metaSchemaType() {
-      return this.message.value.metadata.schema_type
-        ? this.message.value.metadata.schema_type
-        : "-";
-    },
-    metaSchemaUri() {
-      return this.message.value.metadata.schema.uri
-        ? this.message.value.metadata.schema.uri
-        : "-";
-    },
-    metaSchemaVersion() {
-      return this.message.value.metadata.schema.version
-        ? this.message.value.metadata.schema.version
-        : "-";
-    },
-    metaProof() {
-      return this.message.value.metadata.proof
-        ? this.message.value.metadata.proof
-        : "-";
-    },
-    contentUri() {
-      return this.message.value.content_uri
-        ? this.message.value.content_uri
-        : "-";
-    },
-    checksumValue() {
-      return this.message.value.checksum.value
-        ? this.message.value.checksum.value
-        : "-";
-    },
-    checksumAlgorithm() {
-      return this.message.value.checksum.algorithm
-        ? this.message.value.checksum.algorithm
-        : "-";
+    proof() {
+      return this.message.value.proof ? this.message.value.proof : "-";
     },
     title() {
       return this.message.type ? this.message.type.split("/").pop() : "-";
     }
   },
   methods: {
-    toDetails(id) {
+    toDetails(name, id) {
       return {
-        name: ROUTE_NAMES.ACCOUNT_DETAILS,
+        name,
         params: {
           lang: this.$i18n.locale,
           id
