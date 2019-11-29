@@ -93,6 +93,16 @@
         "name": "MsgBeginRedelegate",
         "tag": "begin_redelegate",
         "type": "cosmos-sdk/MsgBeginRedelegate"
+      },
+      {
+        "name": "MsgBuyMembership",
+        "tag": "buyMembership",
+        "type": "commercio/MsgBuyMembership"
+      },
+      {
+        "name": "MsgCloseCdp",
+        "tag": "closeCdp",
+        "type": "commercio/MsgCloseCdp"
       }, {
         "name": "MsgCreateValidator",
         "tag": "create_validator",
@@ -112,46 +122,6 @@
         "name": "MsgEditValidator",
         "tag": "edit_validator",
         "type": "cosmos-sdk/MsgEditValidator"
-      },
-      {
-        "name": "MsgSend",
-        "tag": "send",
-        "type": "cosmos-sdk/MsgSend"
-      },
-      {
-        "name": "MsgSubmitProposal",
-        "tag": "submit_proposal",
-        "type": "cosmos-sdk/MsgSubmitProposal"
-      },
-      {
-        "name": "MsgUndelegate",
-        "tag": "begin_unbonding",
-        "type": "cosmos-sdk/MsgUndelegate"
-      },
-      {
-        "name": "MsgUnjail",
-        "tag": "unjail",
-        "type": "cosmos-sdk/MsgUnjail"
-      },
-      {
-        "name": "MsgVote",
-        "tag": "vote",
-        "type": "cosmos-sdk/MsgVote"
-      },
-      {
-        "name": "MsgWithdrawDelegationReward",
-        "tag": "withdraw_delegator_reward",
-        "type": "cosmos-sdk/MsgWithdrawDelegationReward"
-      },
-      {
-        "name": "MsgBuyMembership",
-        "tag": "buyMembership",
-        "type": "commercio/MsgBuyMembership"
-      },
-      {
-        "name": "MsgCloseCdp",
-        "tag": "closeCdp",
-        "type": "commercio/MsgCloseCdp"
       },
       {
         "name": "MsgInviteUser",
@@ -184,6 +154,11 @@
         "type": "commercio/MsgRequestDidPowerUp"
       },
       {
+        "name": "MsgSend",
+        "tag": "send",
+        "type": "cosmos-sdk/MsgSend"
+      },
+      {
         "name": "MsgSendDocumentReceipt",
         "tag": "sendDocumentReceipt",
         "type": "commercio/MsgSendDocumentReceipt"
@@ -202,6 +177,31 @@
         "name": "MsgShareDocument",
         "tag": "shareDocument",
         "type": "commercio/MsgShareDocument"
+      },
+      {
+        "name": "MsgSubmitProposal",
+        "tag": "submit_proposal",
+        "type": "cosmos-sdk/MsgSubmitProposal"
+      },
+      {
+        "name": "MsgUndelegate",
+        "tag": "begin_unbonding",
+        "type": "cosmos-sdk/MsgUndelegate"
+      },
+      {
+        "name": "MsgUnjail",
+        "tag": "unjail",
+        "type": "cosmos-sdk/MsgUnjail"
+      },
+      {
+        "name": "MsgVote",
+        "tag": "vote",
+        "type": "cosmos-sdk/MsgVote"
+      },
+      {
+        "name": "MsgWithdrawDelegationReward",
+        "tag": "withdraw_delegator_reward",
+        "type": "cosmos-sdk/MsgWithdrawDelegationReward"
       }
     ]
   },
