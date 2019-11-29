@@ -8,7 +8,7 @@
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
           <router-link
-            :to="toDetails(sender)"
+            :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, sender)"
             v-text="sender"
           />
         </div>
@@ -19,10 +19,15 @@
           v-text="$t('labels.recipient')"
         />
         <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <router-link
-            :to="toDetails(recipient)"
-            v-text="recipient"
-          />
+          <div
+            v-for="(recipient, index) in recipients"
+            :key="index"
+          >
+            <router-link
+              :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, recipient)"
+              v-text="recipient"
+            />
+          </div>
         </div>
       </div>
       <div class="row p-1">
@@ -80,14 +85,6 @@
               class="com-font-s14-w400"
               v-text="metaSchemaVersion"
             />
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.proof')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="metaProof"
-            />
           </dl>
         </div>
       </div>
@@ -130,6 +127,51 @@
           </dl>
         </div>
       </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.encryptionKeys')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <dl
+            v-for="(key, index) in encryptionDataKeys"
+            :key="index"
+          >
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.recipient')"
+            />
+            <dd class="com-font-s14-w400">
+              <router-link
+                :to="toDetails(ROUTE_NAMES.ACCOUNT_DETAILS, key.recipient)"
+                v-text="key.recipient"
+              />
+            </dd>
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.value')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="key.value"
+            />
+          </dl>
+        </div>
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.encryptedData')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <div
+            v-for="(data, index) in encryptionDataEnData"
+            :key="index"
+          >
+            <span v-text="data" />
+          </div>
+        </div>
+      </div>
     </div>
   </MsgTx>
 </template>
@@ -152,48 +194,12 @@ export default {
       note: "Object representing a share document message"
     }
   },
+  data() {
+    return {
+      ROUTE_NAMES
+    };
+  },
   computed: {
-    sender() {
-      return this.message.value.sender ? this.message.value.sender : "-";
-    },
-    recipient() {
-      return this.message.value.recipient ? this.message.value.recipient : "-";
-    },
-    uuid() {
-      return this.message.value.uuid ? this.message.value.uuid : "-";
-    },
-    metaContentUri() {
-      return this.message.value.metadata.content_uri
-        ? this.message.value.metadata.content_uri
-        : "-";
-    },
-    metaSchemaType() {
-      return this.message.value.metadata.schema_type
-        ? this.message.value.metadata.schema_type
-        : "-";
-    },
-    metaSchemaUri() {
-      return this.message.value.metadata.schema &&
-        this.message.value.metadata.schema.uri
-        ? this.message.value.metadata.schema.uri
-        : "-";
-    },
-    metaSchemaVersion() {
-      return this.message.value.metadata.schema &&
-        this.message.value.metadata.schema.version
-        ? this.message.value.metadata.schema.version
-        : "-";
-    },
-    metaProof() {
-      return this.message.value.metadata.proof
-        ? this.message.value.metadata.proof
-        : "-";
-    },
-    contentUri() {
-      return this.message.value.content_uri
-        ? this.message.value.content_uri
-        : "-";
-    },
     checksumValue() {
       return this.message.value.checksum && this.message.value.checksum.value
         ? this.message.value.checksum.value
@@ -204,14 +210,66 @@ export default {
         ? this.message.value.checksum.algorithm
         : "-";
     },
+    contentUri() {
+      return this.message.value.content_uri
+        ? this.message.value.content_uri
+        : "-";
+    },
+    encryptionDataEnData() {
+      return this.message.value.encryption_data &&
+        this.message.value.encryption_data.encrypted_data
+        ? this.message.value.encryption_data.encrypted_data
+        : "-";
+    },
+    encryptionDataKeys() {
+      return this.message.value.encryption_data &&
+        this.message.value.encryption_data.keys
+        ? this.message.value.encryption_data.keys
+        : "-";
+    },
+    metaContentUri() {
+      return this.message.value.metadata &&
+        this.message.value.metadata.content_uri
+        ? this.message.value.metadata.content_uri
+        : "-";
+    },
+    metaSchemaType() {
+      return this.message.value.metadata &&
+        this.message.value.metadata.schema_type
+        ? this.message.value.metadata.schema_type
+        : "-";
+    },
+    metaSchemaUri() {
+      return this.message.value.metadata &&
+        this.message.value.metadata.schema &&
+        this.message.value.metadata.schema.uri
+        ? this.message.value.metadata.schema.uri
+        : "-";
+    },
+    metaSchemaVersion() {
+      return this.message.value.metadata &&
+        this.message.value.metadata.schema &&
+        this.message.value.metadata.schema.version
+        ? this.message.value.metadata.schema.version
+        : "-";
+    },
+    recipients() {
+      return this.message.value.recipients ? this.message.value.recipients : [];
+    },
+    sender() {
+      return this.message.value.sender ? this.message.value.sender : "-";
+    },
+    uuid() {
+      return this.message.value.uuid ? this.message.value.uuid : "-";
+    },
     title() {
       return this.message.type ? this.message.type.split("/").pop() : "-";
     }
   },
   methods: {
-    toDetails(id) {
+    toDetails(name, id) {
       return {
-        name: ROUTE_NAMES.ACCOUNT_DETAILS,
+        name,
         params: {
           lang: this.$i18n.locale,
           id
