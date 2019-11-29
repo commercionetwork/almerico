@@ -30,6 +30,8 @@
 <script>
 import MsgTx from "Components/common/MsgTx.vue";
 
+import { ROUTE_NAMES } from "Constants";
+
 export default {
   name: "MsgBuyMembership",
   description: "Display a buy membership transaction message",
@@ -42,6 +44,11 @@ export default {
       required: true,
       note: "Object representing a buy membership message"
     }
+  },
+  data() {
+    return {
+      ROUTE_NAMES
+    };
   },
   computed: {
     buyer() {
