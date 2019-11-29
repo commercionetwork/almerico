@@ -31,6 +31,7 @@ export const labels = {
   details: "Dettagli",
   did: "DID",
   documentUuid: "UUID documento",
+  encryptionKey: "Chiave di crittografia",
   fail: "Fallito",
   fee: "Fee",
   finalDate: "Data finale",
