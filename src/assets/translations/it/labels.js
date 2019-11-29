@@ -24,6 +24,7 @@ export const labels = {
   delegatorAddress: "Delegante",
   deposit: "Deposito",
   depositEndTime: "Ora termine deposito",
+  depositProof: "Prova di deposito",
   depositor: "Depositante",
   description: "Descrizione",
   details: "Dettagli",
