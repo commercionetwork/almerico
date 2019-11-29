@@ -10,6 +10,7 @@ export const labels = {
   buyer: "Buyer",
   cdpTimestamp: "CDP timestamp",
   checksum: "Checksum",
+  claimant: "Claimant",
   commission: "Commission",
   commissionRate: "Commission rate",
   contentUri: "Content URI",
