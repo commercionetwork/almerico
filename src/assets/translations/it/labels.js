@@ -1,5 +1,6 @@
 export const labels = {
   abstain: "Astenuti",
+  activationReference: "Riferimento attivazione",
   address: "Indirizzo",
   algorithm: "Algoritmo",
   amount: "Importo",

@@ -1,5 +1,6 @@
 export const labels = {
   abstain: "Abstain",
+  activationReference: "Activation reference",
   address: "Address",
   algorithm: "Algorithm",
   amount: "Amount",
