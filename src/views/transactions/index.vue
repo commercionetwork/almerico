@@ -120,6 +120,7 @@ import SearchBar from "Components/common/SearchBar.vue";
 import TableTransactions from "./TableTransactions.vue";
 
 import { LIMITS_LIST } from "Constants";
+import { arrayManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -155,7 +156,9 @@ export default {
       );
     },
     orderedTransactions() {
-      let transactions = [...this.transactions];
+      let transactions = arrayManager.uniqueValuesArrayFromObjectsArray(
+        this.transactions
+      );
       if (this.selectedType) {
         const txs = transactions.filter(tx => {
           let message = tx.events.find(event => event.type === "message");

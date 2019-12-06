@@ -58,6 +58,7 @@ import BlockDetailsTransactions from "./BlockDetailsTransactions.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 
 import apiBlocks from "Store/blocks/api";
+import { arrayManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -85,9 +86,10 @@ export default {
       return this.$route.params.id;
     },
     blockTxs() {
-      return this.transactions.filter(
+      const transactions = this.transactions.filter(
         transaction => transaction.height === this.blockId
       );
+      return arrayManager.uniqueValuesArrayFromObjectsArray(transactions);
     },
     hasError() {
       return this.hasBlockError || this.message;

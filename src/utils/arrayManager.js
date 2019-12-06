@@ -26,6 +26,15 @@ const arrayManager = {
   uniqueByKey(a, key) {
     return [...new Map(a.map(x => [key(x), x])).values()];
   },
+  /**
+   * Function that removes duplicates from an array of objects
+   * 
+   * @param {Array.<Object>} arr
+   * @returns {Array.<Object>}
+   */
+  uniqueValuesArrayFromObjectsArray(arr) {
+    return Array.from(new Set(arr.map(JSON.stringify))).map(JSON.parse);
+  }
 };
 
 export default arrayManager;

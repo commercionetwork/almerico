@@ -55,6 +55,7 @@
 import AccountTransactionsTable from "./AccountTransactionsTable.vue";
 import Pagination from "Components/common/Pagination.vue";
 
+import { arrayManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -93,8 +94,10 @@ export default {
       );
     },
     orderedTransactions() {
-      let transactions = [...this.transactions];
-      const txs =  transactions.filter(transaction => {
+      const transactions = arrayManager.uniqueValuesArrayFromObjectsArray(
+        this.transactions
+      );
+      const txs = transactions.filter(transaction => {
         return transaction.events.find(event =>
           event.attributes.find(attribute => attribute.value === this.address)
         );

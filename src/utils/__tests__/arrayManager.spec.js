@@ -49,4 +49,19 @@ describe("utils/arrayManager", () => {
 
     expect(response).toEqual(expectValue);
   });
+
+  it("Check if the function 'uniqueValuesArrayFromObjectsArray' returns an array without duplicated", () => {
+    const a = [{
+      id: 1
+    }, {
+      id: 1
+    }];
+    const expectValue = [{
+      id: 1
+    }];
+
+    const response = arrayManager.uniqueValuesArrayFromObjectsArray(a);
+
+    expect(response).toEqual(expectValue);
+  });
 });

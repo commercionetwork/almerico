@@ -46,7 +46,7 @@ import CellTransactionsRow from "./CellTransactionsRow.vue";
 import TableCell from "Components/common/TableCell.vue";
 
 import { ROUTE_NAMES } from "Constants";
-import { localizedRoute } from "Utils";
+import { arrayManager, localizedRoute } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -69,7 +69,9 @@ export default {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);
     },
     transactionsList() {
-      const transactions = [...this.transactions];
+      const transactions = arrayManager.uniqueValuesArrayFromObjectsArray(
+        this.transactions
+      );
       transactions.sort(function(a, b) {
         return b.height - a.height;
       });
