@@ -111,7 +111,7 @@ export default {
       isFetchingValidators: "isFetching"
     }),
     blocksList() {
-      const blocks = arrayManager.uniqueByKey(this.allBlocks, JSON.stringify);
+      const blocks = arrayManager.uniqueValuesArrayFromObjectsArray(this.allBlocks);
       return blocks
         .sort(function(a, b) {
           return b.header.height - a.header.height;
