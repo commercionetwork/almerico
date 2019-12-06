@@ -95,7 +95,8 @@ export default {
       return new Date(this.transaction.timestamp).toLocaleDateString();
     },
     type() {
-      if (this.transaction.tx.value.msg.length > 1) return this.$t("messages.multiTypes");
+      if (this.transaction.tx.value.msg.length > 1)
+        return this.$t("messages.multiTypes");
       let type = this.transaction.tx.value.msg.find(
         msg => typeof msg.type !== undefined
       ).type;
