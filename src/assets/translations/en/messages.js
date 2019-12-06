@@ -3,6 +3,7 @@ export const messages = {
   all: "All",
   fetchingError: "Error fetching data",
   loading: "Loading...",
+  multiTypes: "Multi types",
   noItems: "No items",
   notFound: "Resource not found",
   scanAddress: "Scan for address",

@@ -3,6 +3,7 @@ export const messages = {
   all: "Tutti",
   fetchingError: "Errore nel recuperare i dati",
   loading: "Caricando...",
+  multiTypes: "Multi tipi",
   noItems: "Nessun elemento",
   notFound: "Risorsa non trovata",
   scanAddress: "Scansiona l'indirizzo",
