@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Mono');
+@import "src/config/theme.json";
+
+//////////////////
+// BRAND COLORS //
+//////////////////
+$primary: $primary;
+$secondary: lighten($primary, 10);
+$danger: $danger;
+$info: $info;
+$success: $success;
+$warning: $warning;
+////////////////
+// GRAY SCALE //
+////////////////
+$black: $black;
+$gray-darkest: $gray-darkest;
+$gray-darker: $gray-darker;
+$gray-dark: $gray-dark;
+$gray: $gray;
+$gray-light: $gray-light;
+$gray-lighter: $gray-lighter;
+$gray-lightest: $gray-lightest;
+$white: $white;
+///////////
+// THEME //
+///////////
+$theme-light: $theme_light;
+
+$background: $gray-lighter;
+$background-header: $gray-lightest;
+$background-body: $white;
+$text: $gray-darkest;
+$nav-bars: $white;
+
+@if $theme-light {
+  $background: $gray-lighter;
+  $background-header: $gray-lightest;
+  $background-body: $white;
+}
+
+@else {
+  $background: $gray-darker;
+  $background-header: $black;
+  $background-body: $gray-darkest;
+}
+
+@if lightness($background) <=lightness($gray-darker) {
+  $text: $white;
+}
+
+@else {
+  $text: $gray-darkest;
+}
+
+@if lightness($primary) <=lightness($gray-light) {
+  $nav-bars: $white;
+}
+
+@else {
+  $nav-bars: $gray-darker;
+}
+
+/////////////////////
+// OVERRIDE COLORS //
+/////////////////////
+// Override alert background colors
+$state-success-bg: lighten($success, 30);
+$state-info-bg: lighten($info, 30);
+$state-warning-bg: lighten($warning, 30);
+$state-danger-bg: lighten($danger, 45);
+// Override alert text colors
+$state-success-text: darken($success, 30);
+$state-info-text: darken($info, 30);
+$state-warning-text: darken($warning, 30);
+$state-danger-text: darken($danger, 10);
+//////////////////////
+// GENERAL SETTINGS //
+//////////////////////
+// Override badges padding (doubled because otherwise too crammed)
+$badge-padding-x: 0.8em;
+$badge-padding-y: 0.4em;
+// Don't make badges normal instead of bold
+$badge-font-weight: normal;
+// Override fonts
+$font-family-sans-serif: 'Open Sans',
+sans-serif;
+$font-family-serif: 'Liberation Serif',
+serif;
+$font-family-monospace: 'Roboto Mono',
+monospace;
+$font-family-base: $font-family-sans-serif;
+// Set global options
+$enable-shadows: false;
+$enable-gradients: true;

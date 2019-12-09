@@ -1,0 +1,81 @@
+<template>
+  <div>
+    <div class="row align-items-center">
+      <div class="col-12 col-md-4">
+        <h2
+          class="py-3 com-font-s16-w700"
+          v-text="$t('titles.delegations')"
+        />
+      </div>
+      <div class="col-12 col-md-8">
+        <Pagination
+          v-if="delegations.length > 0"
+          :limit="limit"
+          :page="page"
+          :total="total"
+          v-on:change-page="changePage"
+          data-test="pagination"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <AccountDelegationsTable
+          v-if="delegations.length > 0"
+          :delegations="delegationsPage"
+          data-test="items"
+        />
+        <div
+          v-else
+          class="alert alert-info"
+          role="alert"
+          v-text="$t('messages.noItems')"
+          data-test="no-items"
+        />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import AccountDelegationsTable from "./AccountDelegationsTable.vue";
+import Pagination from "Components/common/Pagination.vue";
+
+export default {
+  name: "AccountDelegations",
+  description: "Display the account delegations list",
+  components: {
+    AccountDelegationsTable,
+    Pagination
+  },
+  props: {
+    delegations: {
+      type: Array,
+      required: true,
+      note: "Delegations list"
+    }
+  },
+  data() {
+    return {
+      limit: 5,
+      page: 1
+    };
+  },
+  computed: {
+    delegationsPage() {
+      return this.delegations.slice(
+        (this.page - 1) * this.limit,
+        this.page * this.limit
+      );
+    },
+    total() {
+      return this.delegations.length;
+    }
+  },
+  methods: {
+    changePage(page) {
+      this.page = page;
+    }
+  }
+};
+</script>
