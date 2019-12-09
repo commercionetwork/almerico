@@ -15,7 +15,6 @@ module.exports = {
   ],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    "^Apis(.*)$": "<rootDir>/src/apis$1",
     "^Assets(.*)$": "<rootDir>/src/assets$1",
     "^Components(.*)$": "<rootDir>/src/components$1",
     "^Constants(.*)$": "<rootDir>/src/constants$1",
