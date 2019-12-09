@@ -19,29 +19,32 @@ module.exports = {
       .rule('vue')
       .use('vue-loader')
       .tap(options => {
-        options.compilerOptions.modules = [
-          {
-            preTransformNode(astEl) {
-              if (process.env.NODE_ENV === 'production') {
-                const { attrsMap, attrsList } = astEl;
-                if (attrsMap['data-test']) {
-                  delete attrsMap['data-test'];
-                  const index = attrsList.findIndex(x => x.name === 'data-test');
-                  attrsList.splice(index, 1);
-                }
+        options.compilerOptions.modules = [{
+          preTransformNode(astEl) {
+            if (process.env.NODE_ENV === 'production') {
+              const {
+                attrsMap,
+                attrsList
+              } = astEl;
+              if (attrsMap['data-test']) {
+                delete attrsMap['data-test'];
+                const index = attrsList.findIndex(x => x.name === 'data-test');
+                attrsList.splice(index, 1);
               }
-              return astEl;
             }
+            return astEl;
           }
-        ];
+        }];
         return options;
       });
   },
   css: {
     loaderOptions: {
       sass: {
-        importer: jsonImporter(),
-        data: `
+        sassOptions: {
+          importer: jsonImporter()
+        },
+        prependData: `
           @import "@/assets/scss/_mixins.scss";
           @import "@/assets/scss/_z-index.scss";
           @import "@/assets/scss/custom-bootstrap.scss";
