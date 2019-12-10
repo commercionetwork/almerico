@@ -10,4 +10,7 @@ module.exports = {
     "^Utils(.*)$": "<rootDir>/src/utils$1",
     "^Views(.*)$": "<rootDir>/src/views$1"
   },
+  transformIgnorePatterns: [
+    '/node_modules(?![\\\\/]vue-awesome[\\\\/])/'
+  ],
 }
