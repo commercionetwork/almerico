@@ -1,4 +1,4 @@
-/* global describe, expect, it, jest */
+/* global describe, expect, it */
 
 import Transactions from "../index.vue";
 import {

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "Apis/*": ["src/apis/*"],
+      "Assets/*": ["src/assets/*"],
+      "Components/*": ["src/components/*"],
+      "Constants/*": ["src/constants/*"],
+      "Setup/*": ["src/setup/*"],
+      "Store/*": ["src/store/*"],
+      "Utils/*": ["src/utils/*"],
+      "Views/*": ["src/views/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
