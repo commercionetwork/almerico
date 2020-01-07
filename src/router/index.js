@@ -26,8 +26,6 @@ const VotingDetails = loadView("votings/VotingDetails");
 const NotFound = loadView("NotFound");
 const ServerUnreachable = loadView("ServerUnreachable");
 
-Vue.use(VueRouter)
-
 const routes = [{
     path: ROUTES.ROOT,
     redirect: {
