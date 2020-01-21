@@ -63,7 +63,7 @@ export default {
       transactions: "transactions"
     }),
     hasError() {
-      return this.message ? true : false;
+      return this.message && !this.transactions.length > 0 ? true : false;
     },
     linkToTransactions() {
       return localizedRoute(ROUTE_NAMES.TRANSACTIONS, this.$i18n.locale);

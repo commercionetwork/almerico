@@ -147,7 +147,7 @@ export default {
       transactions: "transactions"
     }),
     hasError() {
-      return this.message ? true : false;
+      return this.message && !this.transactions.length > 0 ? true : false;
     },
     transactionsPage() {
       return this.orderedTransactions.slice(
