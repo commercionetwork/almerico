@@ -161,17 +161,18 @@ export default {
         // get validator
         response = await api.requestValidator(address);
         this.validator = response.data.result;
-        if (this.validator.description.identity.length > 0) {
-          const res = await api.requestValidatorIdentity(
-            this.validator.description.identity
-          );
-          if (
-            res.data.completions.length > 0 &&
-            res.data.completions[0].thumbnail
-          ) {
-            this.validator.imageUrl = res.data.completions[0].thumbnail;
-          }
-        }
+        // TODO: restore validator image
+        // if (this.validator.description.identity.length > 0) {
+        //   const res = await api.requestValidatorIdentity(
+        //     this.validator.description.identity
+        //   );
+        //   if (
+        //     res.data.completions.length > 0 &&
+        //     res.data.completions[0].thumbnail
+        //   ) {
+        //     this.validator.imageUrl = res.data.completions[0].thumbnail;
+        //   }
+        // }
         // get delegations
         response = await api.requestValidatorDelegations(address);
         this.delegations = response.data.result;
