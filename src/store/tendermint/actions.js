@@ -21,30 +21,29 @@ export default {
       }
     }
 
-    webSocketManager.subscribeWebSocketEvent(msg);
+    webSocketManager.subscribeWebSocketEvent(msg, function (data) {
+      let eventData = JSON.parse(data);
+      let result = eventData.result;
+      let block = (result.data && result.data.value.block)
+        ? result.data.value.block
+        : null;
+
+      if (block != null) {
+        commit("blocks/setLastBlock", block, {
+          root: true
+        });
+        dispatch("stake/fetchPool", null, {
+          root: true
+        });
+        if (block.data.txs != null && parseInt(block.data.txs) > 0) {
+          const tag = `tx.height=${block.header.height}`;
+          dispatch("transactions/fetchTransactions", tag, {
+            root: true
+          });
+        }
+      }
+    });
   },
-  // subNewClient({
-  //   commit,
-  //   dispatch
-  // }) {
-  //   client.subscribe({
-  //     query: "tm.event = 'NewBlock'"
-  //   }, event => {
-  //     let block = event.block;
-  //     commit("blocks/setLastBlock", block, {
-  //       root: true
-  //     });
-  //     dispatch("stake/fetchPool", null, {
-  //       root: true
-  //     });
-  //     if (parseInt(block.header.num_txs) > 0) {
-  //       const tag = `tx.height=${block.header.height}`;
-  //       dispatch("transactions/fetchTransactions", tag, {
-  //         root: true
-  //       });
-  //     }
-  //   });
-  // },
   /**
    * Action to fetch genesis data
    * 
