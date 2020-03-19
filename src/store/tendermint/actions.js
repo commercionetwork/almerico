@@ -11,7 +11,7 @@ export default {
    * 
    * @param {Function} commit
    */
-  subNewClient({ commit, dispatch }) {
+  subscribeWebSocketEvent({ commit, dispatch }) {
     const msg = {
       "jsonrpc": "2.0",
       "method": "subscribe",

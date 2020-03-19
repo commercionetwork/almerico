@@ -59,7 +59,7 @@ export default {
     }),
     ...mapActions("tendermint", {
       fetchGenesis: "fetchGenesis",
-      subNewClient: "subNewClient"
+      subscribeWebSocketEvent: "subscribeWebSocketEvent"
     }),
     ...mapActions("transactions", {
       fetchTransactions: "fetchTransactions"
@@ -86,7 +86,7 @@ export default {
         //TODO: implement
         console.log(error);
       } finally {
-        this.subNewClient();
+        this.subscribeWebSocketEvent();
       }
     },
     getTransactions() {
