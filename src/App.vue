@@ -83,8 +83,7 @@ export default {
           });
         }
       } catch (error) {
-        //TODO: implement
-        console.log(error);
+        throw error;
       } finally {
         this.subscribeWebSocketEvent();
       }
