@@ -3,14 +3,7 @@
  */
 
 import api from "./api";
-import {
-  RpcClient
-} from "tendermint";
-import {
-  WS
-} from "Constants";
-
-const client = RpcClient(WS);
+import { webSocketManager } from "Utils";
 
 export default {
   /**
@@ -18,28 +11,40 @@ export default {
    * 
    * @param {Function} commit
    */
-  subNewClient({
-    commit,
-    dispatch
-  }) {
-    client.subscribe({
-      query: "tm.event = 'NewBlock'"
-    }, event => {
-      let block = event.block;
-      commit("blocks/setLastBlock", block, {
-        root: true
-      });
-      dispatch("stake/fetchPool", null, {
-        root: true
-      });
-      if (parseInt(block.header.num_txs) > 0) {
-        const tag = `tx.height=${block.header.height}`;
-        dispatch("transactions/fetchTransactions", tag, {
-          root: true
-        });
+  subNewClient({ commit, dispatch }) {
+    const msg = {
+      "jsonrpc": "2.0",
+      "method": "subscribe",
+      "id": 0,
+      "params": {
+        "query": "tm.event='NewBlock'"
       }
-    });
+    }
+
+    webSocketManager.subscribeWebSocketEvent(msg);
   },
+  // subNewClient({
+  //   commit,
+  //   dispatch
+  // }) {
+  //   client.subscribe({
+  //     query: "tm.event = 'NewBlock'"
+  //   }, event => {
+  //     let block = event.block;
+  //     commit("blocks/setLastBlock", block, {
+  //       root: true
+  //     });
+  //     dispatch("stake/fetchPool", null, {
+  //       root: true
+  //     });
+  //     if (parseInt(block.header.num_txs) > 0) {
+  //       const tag = `tx.height=${block.header.height}`;
+  //       dispatch("transactions/fetchTransactions", tag, {
+  //         root: true
+  //       });
+  //     }
+  //   });
+  // },
   /**
    * Action to fetch genesis data
    * 
