@@ -162,6 +162,7 @@ export default {
         response = await api.requestValidator(address);
         this.validator = response.data.result;
         // TODO: restore validator image
+        //  console.log('VALIDATOR: ', this.validator);
         // if (this.validator.description.identity.length > 0) {
         //   const res = await api.requestValidatorIdentity(
         //     this.validator.description.identity
