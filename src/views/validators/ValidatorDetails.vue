@@ -161,23 +161,17 @@ export default {
         // get validator
         response = await api.requestValidator(address);
         this.validator = response.data.result;
-        // TODO: restore validator image
-        // if (this.validator.description.identity.length > 0) {
-        //   const res = await api.requestValidatorIdentity(
-        //     this.validator.description.identity
-        //   );
-        //   if (
-        //     res.data.completions.length > 0 &&
-        //     res.data.completions[0].thumbnail
-        //   ) {
-        //     this.validator.imageUrl = res.data.completions[0].thumbnail;
-        //   }
-        // }
+        if (this.validator.description.identity.length > 0) {
+          const imageUrl = await api.requestValidatorPictures(this.validator.description.identity);
+          this.validator.imageUrl = imageUrl;
+        }
         // get delegations
         response = await api.requestValidatorDelegations(address);
         this.delegations = response.data.result;
       } catch (error) {
-        this.hasErrorValidator = true;
+        console.log('ERROR: ', error);
+        
+        // this.hasErrorValidator = true;
       } finally {
         this.isFetchingValidator = false;
       }
