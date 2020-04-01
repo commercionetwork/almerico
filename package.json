@@ -19,7 +19,7 @@
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
     "qrcode.vue": "^1.7.0",
-    "tendermint": "^4.0.8",
+    "tendermint": "^5.0.2",
     "vue": "^2.6.11",
     "vue-awesome": "^4.0.2",
     "vue-chartjs": "^3.5.0",
