@@ -138,7 +138,7 @@ export default {
       });
     },
     hasImage() {
-      return this.validator.imageUrl;
+      return this.validator.imageUrl != null;
     },
     status() {
       return this.validator.status === 2

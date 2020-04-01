@@ -80,5 +80,5 @@ export const API = {
   UNSUBSCRIBE_ALL: `${API_RPC_BASE}/unsubscribe_all`,
   VALIDATORS: `${API_RPC_BASE}/validators`,
   // keybase
-  USER_AUTOCOMPLETE: `${API_KEYBASE}/user/autocomplete.json`,
+  USER_LOOKUP: `${API_KEYBASE}/user/lookup.json`,
 };

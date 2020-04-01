@@ -161,19 +161,24 @@ export default {
         // get validator
         response = await api.requestValidator(address);
         this.validator = response.data.result;
-        // TODO: restore validator image
-        //  console.log('VALIDATOR: ', this.validator);
-        // if (this.validator.description.identity.length > 0) {
-        //   const res = await api.requestValidatorIdentity(
-        //     this.validator.description.identity
-        //   );
-        //   if (
-        //     res.data.completions.length > 0 &&
-        //     res.data.completions[0].thumbnail
-        //   ) {
-        //     this.validator.imageUrl = res.data.completions[0].thumbnail;
-        //   }
-        // }
+        // get image
+        if (
+          this.validator.description.identity &&
+          this.validator.description.identity.length > 0
+        ) {
+          const res = await api.requestValidatorPictures(
+            this.validator.description.identity
+          );
+          if (res.data.them && res.data.them.length > 0) {
+            res.data.them.forEach(item => {
+              let pictures = item.pictures;
+              if ("primary" in pictures) {
+                this.validator.imageUrl = pictures.primary.url;
+                return;
+              }
+            });
+          }
+        }
         // get delegations
         response = await api.requestValidatorDelegations(address);
         this.delegations = response.data.result;

@@ -98,12 +98,12 @@ export default {
     return instance.get(`${API.STAKING_VALIDATORS}/${address}/unbonding_delegations`);
   },
   /**
-   * Handle ajax request to get validator details from Keybase
+   * Handle ajax request to get user pictures from Keybase
    * 
    * @param {String} id 
    * @return {Promise} 
    */
-  requestValidatorIdentity(id) {
-    return instance.get(`${API.USER_AUTOCOMPLETE}?q=${id}`);
+  requestValidatorPictures(id) {
+    return instance.get(`${API.USER_LOOKUP}?key_suffix=${id}&fields=pictures`);
   }
 };
