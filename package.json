@@ -40,6 +40,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "jest-websocket-mock": "^2.0.2",
+    "mock-socket": "^9.0.3",
     "node-sass": "^4.13.1",
     "node-sass-json-importer": "^4.1.2",
     "sass-loader": "^8.0.2",
