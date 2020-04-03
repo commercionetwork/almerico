@@ -1,31 +1,24 @@
-import {
-  WS
-} from "Constants";
-
-
 const webSocketManager = {
   /**
    * Function to subscribe WebSocket event  
    * 
-   * @param {Object} message
+   * @param {WebSocket} client
+   * @param {String} message
    * @param {Function} onMessage
    */
-  subscribeWebSocketEvent(message, onMessage) {
-    let webSocket = new WebSocket(WS);
-    let msg = JSON.stringify(message);
-
-    webSocket.onopen = function () {
-      webSocket.send(msg);
+  subscribeWebSocketEvent(client, message, onMessage) {
+    client.onopen = function () {
+      client.send(message);
     };
 
-    webSocket.onclose = function () { };
+    client.onclose = function () { };
 
-    webSocket.onmessage = function (evt) {
+    client.onmessage = function (evt) {
       let data = evt.data;
       onMessage(data);
     };
 
-    webSocket.onerror = function (evt) {
+    client.onerror = function (evt) {
       throw evt.data;
     };
   },

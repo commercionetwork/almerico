@@ -3,6 +3,7 @@
  */
 
 import api from "./api";
+import { WS } from "Constants";
 import { webSocketManager } from "Utils";
 
 export default {
@@ -12,16 +13,18 @@ export default {
    * @param {Function} commit
    */
   subscribeWebSocketEvent({ commit, dispatch }) {
-    const msg = {
+    const msg = JSON.stringify({
       "jsonrpc": "2.0",
       "method": "subscribe",
       "id": 0,
       "params": {
         "query": "tm.event='NewBlock'"
       }
-    }
+    });
 
-    webSocketManager.subscribeWebSocketEvent(msg, function (data) {
+    let client = new WebSocket(WS);
+
+    webSocketManager.subscribeWebSocketEvent(client, msg, function (data) {
       let eventData = JSON.parse(data);
       let result = eventData.result;
       let block = (result.data && result.data.value.block)
