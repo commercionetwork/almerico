@@ -3,7 +3,6 @@ import bech32Manager from "./bech32Manager";
 import coinsManager from "./coinsManager";
 import localeManager from "./localeManager";
 import localizedRoute from "./localizedRoute";
-import webSocketManager from "./webSocketManager";
 
 export {
   arrayManager,
@@ -11,5 +10,4 @@ export {
   coinsManager,
   localeManager,
   localizedRoute,
-  webSocketManager,
 };

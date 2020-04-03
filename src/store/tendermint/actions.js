@@ -4,7 +4,6 @@
 
 import api from "./api";
 import { WS } from "Constants";
-import { webSocketManager } from "Utils";
 
 export default {
   /**
@@ -13,19 +12,23 @@ export default {
    * @param {Function} commit
    */
   subscribeWebSocketEvent({ commit, dispatch }) {
-    const msg = JSON.stringify({
-      "jsonrpc": "2.0",
-      "method": "subscribe",
-      "id": 0,
-      "params": {
-        "query": "tm.event='NewBlock'"
-      }
-    });
+    const client = new WebSocket(WS);
 
-    let client = new WebSocket(WS);
+    client.onopen = function () {
+      const msg = JSON.stringify({
+        "jsonrpc": "2.0",
+        "method": "subscribe",
+        "id": 0,
+        "params": {
+          "query": "tm.event='NewBlock'"
+        }
+      });
 
-    webSocketManager.subscribeWebSocketEvent(client, msg, function (data) {
-      let eventData = JSON.parse(data);
+      client.send(msg);
+    };
+
+    client.onmessage = function (evt) {
+      let eventData = JSON.parse(evt.data);
       let result = eventData.result;
       let block = (result.data && result.data.value.block)
         ? result.data.value.block
@@ -45,7 +48,11 @@ export default {
           });
         }
       }
-    });
+    };
+
+    client.onerror = function (evt) {
+      throw evt.data;
+    };
   },
   /**
    * Action to fetch genesis data
