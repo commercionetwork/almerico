@@ -1,9 +1,10 @@
 /* global describe, beforeEach, it, expect, jest */
 
 import actions from "../actions.js";
-import {
-  mockGenesis
-} from "../__mocks__/genesis";
+import WS from "jest-websocket-mock";
+import { EVENTS } from "Constants";
+import { mockGenesis } from "../__mocks__/genesis";
+import { mockNewBlock } from "../__mocks__/events";
 
 describe("store/tendermint/actions", () => {
   beforeEach(() => {
@@ -11,6 +12,57 @@ describe("store/tendermint/actions", () => {
     mockErrorRequest = false;
     mockErrorServer = false;
     mockResponse = null;
+  });
+
+  it("Check if 'actions.subscribeNewBlockEvent' send event subscription", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const server = new WS("ws://localhost:1234");
+    const client = new WebSocket("ws://localhost:1234");
+
+    await actions.subscribeNewBlockEvent({ commit, dispatch }, { client: client, event: EVENTS.NEW_BLOCK });
+    await expect(server).toReceiveMessage(JSON.stringify(EVENTS.NEW_BLOCK));
+    expect(server).toHaveReceivedMessages([JSON.stringify(EVENTS.NEW_BLOCK)]);
+
+    WS.clean();
+  });
+
+  it("Check if 'actions.subscribeNewBlockEvent'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const server = new WS("ws://localhost:1234", { jsonProtocol: true });
+    const client = new WebSocket("ws://localhost:1234");
+
+    await actions.subscribeNewBlockEvent({ commit, dispatch }, { client: client, event: EVENTS.NEW_BLOCK });
+
+    const newEvent = mockNewBlock(1);
+    server.send(newEvent);
+    expect(commit).toHaveBeenCalledWith("blocks/setLastBlock", newEvent.result.data.value.block, {
+      root: true
+    });
+    expect(dispatch).toHaveBeenCalledWith("stake/fetchPool", null, {
+      root: true
+    });
+    const tag = `tx.height=${newEvent.result.data.value.block.header.height}`;
+    expect(dispatch).toHaveBeenCalledWith("transactions/fetchTransactions", tag, {
+      root: true
+    });
+
+    WS.clean();
+  });
+
+  it("Check if 'actions.subscribeNewBlockEvent' has an error", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const server = new WS("ws://localhost:1234");
+    const client = new WebSocket("ws://localhost:1234");
+
+    await actions.subscribeNewBlockEvent({ commit, dispatch }, { client: client, event: EVENTS.NEW_BLOCK });
+
+    server.error();
+    expect(commit).toHaveBeenCalledWith("setMessage", "null");
+
+    WS.clean();
   });
 
   it("Check if 'actions.fetchGenesis' set genesis", async () => {

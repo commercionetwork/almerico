@@ -24,7 +24,7 @@ export default {
       let result = eventData.result;
       let block = (result.data && result.data.value.block)
         ? result.data.value.block
-        : null;
+        : null;        
 
       if (block != null) {
         commit("blocks/setLastBlock", block, {
@@ -33,7 +33,7 @@ export default {
         dispatch("stake/fetchPool", null, {
           root: true
         });
-        if (block.data.txs != null && parseInt(block.data.txs) > 0) {
+        if (block.data && block.data.txs && parseInt(block.data.txs) > 0) {
           const tag = `tx.height=${block.header.height}`;
           dispatch("transactions/fetchTransactions", tag, {
             root: true
@@ -43,7 +43,7 @@ export default {
     };
 
     client.onerror = function (evt) {
-      throw evt.data;
+      commit("setMessage", evt.data);
     };
   },
   /**
