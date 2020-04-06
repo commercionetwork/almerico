@@ -19,9 +19,6 @@ const API_LCD_BASE = (process.env.VUE_APP_LCD !== undefined) ?
 const API_RPC_BASE = (process.env.VUE_APP_RPC !== undefined) ?
   process.env.VUE_APP_RPC :
   "";
-export const WS = (process.env.VUE_APP_WS !== undefined) ?
-  process.env.VUE_APP_WS :
-  "";
 /**
  * APIs
  */

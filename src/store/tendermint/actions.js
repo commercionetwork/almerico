@@ -3,27 +3,19 @@
  */
 
 import api from "./api";
-import { WS } from "Constants";
 
 export default {
   /**
-   * Action to subscribe new block web socket
+   * Action to subscribe web socket for new block event 
    * 
    * @param {Function} commit
+   * @param {Function} dispatch
+   * @param {WebSocket} client
+   * @param {Object} event
    */
-  subscribeWebSocketEvent({ commit, dispatch }) {
-    const client = new WebSocket(WS);
-
+  subscribeNewBlockEvent({ commit, dispatch }, { client, event }) {
     client.onopen = function () {
-      const msg = JSON.stringify({
-        "jsonrpc": "2.0",
-        "method": "subscribe",
-        "id": 0,
-        "params": {
-          "query": "tm.event='NewBlock'"
-        }
-      });
-
+      const msg = JSON.stringify(event);
       client.send(msg);
     };
 

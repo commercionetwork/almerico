@@ -7,7 +7,7 @@
 <script>
 import ApplicationLayout from "Components/layout/application/index.vue";
 import ErrorLayout from "Components/layout/error/index.vue";
-import { ROUTE_NAMES, ROUTES, VALIDATOR_STATUS } from "Constants";
+import { EVENTS, ROUTE_NAMES, ROUTES, VALIDATOR_STATUS, WS } from "Constants";
 import { localizedRoute } from "Utils";
 import { mapGetters, mapActions } from "vuex";
 
@@ -59,7 +59,7 @@ export default {
     }),
     ...mapActions("tendermint", {
       fetchGenesis: "fetchGenesis",
-      subscribeWebSocketEvent: "subscribeWebSocketEvent"
+      subscribeNewBlockEvent: "subscribeNewBlockEvent"
     }),
     ...mapActions("transactions", {
       fetchTransactions: "fetchTransactions"
@@ -85,7 +85,11 @@ export default {
       } catch (error) {
         throw error;
       } finally {
-        this.subscribeWebSocketEvent();
+        const client = new WebSocket(WS);
+        this.subscribeNewBlockEvent({
+          client: client,
+          event: EVENTS.NEW_BLOCK
+        });
       }
     },
     getTransactions() {

@@ -1,8 +1,7 @@
 import {
   API,
   API_VERSION,
-  SUPPORTED_API_VERSION,
-  WS
+  SUPPORTED_API_VERSION
 } from "./api";
 import {
   MODAL_ID,
@@ -22,10 +21,15 @@ import {
 import {
   VOTING_STATUS
 } from "./voting";
+import {
+  EVENTS,
+  WS
+} from "./websocket"
 
 export {
   API,
   API_VERSION,
+  EVENTS,
   LIMITS_LIST,
   MODAL_ID,
   MODAL_SIZE,
