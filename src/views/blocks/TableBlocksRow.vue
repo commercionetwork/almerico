@@ -145,7 +145,16 @@ export default {
       return this.proposer ? this.proposer.description.moniker : "-";
     },
     blockTxs() {
-      return this.block.header.num_txs || "-";
+      let txs;
+      if (this.block.header.num_txs) {
+        txs = this.block.header.num_txs;
+      } else if (this.block.header.data && this.block.header.data.txs) {
+        txs = this.block.header.data.txs;
+      } else {
+        txs  = "0";
+      }
+
+      return txs;
     },
     blockValidator() {
       return this.proposer ? this.proposer.operator_address : "";
