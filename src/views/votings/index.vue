@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="row rounded com-bg-body">
-      <div class="col-12">
+      <div class="col-12 py-1">
         <div
           v-if="isFetching"
           class="alert alert-warning"
