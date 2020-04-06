@@ -60,7 +60,7 @@ describe("store/tendermint/actions", () => {
     await actions.subscribeNewBlockEvent({ commit, dispatch }, { client: client, event: EVENTS.NEW_BLOCK });
 
     server.error();
-    expect(commit).toHaveBeenCalledWith("setMessage", "null");
+    expect(commit).toHaveBeenCalledWith("setMessage", "WebSocket error");
 
     WS.clean();
   });
