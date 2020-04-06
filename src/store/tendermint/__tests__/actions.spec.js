@@ -27,7 +27,7 @@ describe("store/tendermint/actions", () => {
     WS.clean();
   });
 
-  it("Check if 'actions.subscribeNewBlockEvent'", async () => {
+  it("Check if 'actions.subscribeNewBlockEvent' set last block, fetch pool and txs", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const server = new WS("ws://localhost:1234", { jsonProtocol: true });
