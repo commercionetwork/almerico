@@ -392,9 +392,24 @@ const mockNewBlock = (txs = null) => {
       }
     }
   };
+
+  return item;
+};
+
+const mockError = () => {
+  let item = {
+    jsonrpc: "2.0",
+    error: {
+      code: -32700,
+      message: "Parse error. Invalid JSON",
+      data: "error unmarshaling request: invalid character ':' after top-level value"
+    }
+  };
+
   return item;
 };
 
 export {
-  mockNewBlock
+  mockNewBlock,
+  mockError
 };

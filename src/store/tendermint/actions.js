@@ -47,8 +47,9 @@ export default {
       }
     };
 
-    client.onerror = function () {
-      commit("setMessage", "WebSocket error");
+    client.onerror = function (evt) {
+      const message = (evt.error && evt.error.message) ? `WebSocket error: ${evt.error.message}` : "WebSocket error";
+      commit("setMessage", message);
     };
 
     client.onclose = function () {
