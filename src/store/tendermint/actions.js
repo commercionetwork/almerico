@@ -14,9 +14,14 @@ export default {
    * @param {Object} event
    */
   subscribeNewBlockEvent({ commit, dispatch }, { client, event }) {
+    let connected = false;
+
     client.onopen = function () {
-      const msg = JSON.stringify(event);
-      client.send(msg);
+      if (!connected) {
+        const msg = JSON.stringify(event);
+        client.send(msg);
+        connected = true;
+      }
     };
 
     client.onmessage = function (evt) {
@@ -24,7 +29,7 @@ export default {
       let result = eventData.result;
       let block = (result.data && result.data.value.block)
         ? result.data.value.block
-        : null;        
+        : null;
 
       if (block != null) {
         commit("blocks/setLastBlock", block, {
@@ -44,6 +49,10 @@ export default {
 
     client.onerror = function (evt) {
       commit("setMessage", evt.data);
+    };
+
+    client.onclose = function () {
+      connected = false;
     };
   },
   /**
