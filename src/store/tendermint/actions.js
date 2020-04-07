@@ -38,7 +38,8 @@ export default {
         dispatch("stake/fetchPool", null, {
           root: true
         });
-        if (block.data && block.data.txs && parseInt(block.data.txs) > 0) {
+        if ((block.header.num_txs && parseInt(block.header.num_txs) > 0) ||
+          (block.data && block.data.txs && parseInt(block.data.txs) > 0)) {
           const tag = `tx.height=${block.header.height}`;
           dispatch("transactions/fetchTransactions", tag, {
             root: true
