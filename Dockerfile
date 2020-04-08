@@ -1,4 +1,4 @@
-FROM node:12.16.1
+FROM node:lts
 
 # Read the set variables
 ARG LCD_URL
