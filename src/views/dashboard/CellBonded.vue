@@ -169,8 +169,9 @@ export default {
             {
               type: "linear",
               gridLines: {
-                display: false,
-                color: this.axesColor
+                display: true,
+                color: "rgba(0, 0, 0, 0)",
+                zeroLineColor: this.axesColor
               },
               ticks: {
                 max: 24,
@@ -183,8 +184,8 @@ export default {
           yAxes: [
             {
               gridLines: {
-                display: false,
-                color: this.axesColor
+                display: true,
+                zeroLineColor: this.axesColor
               },
               ticks: {
                 fontSize: 9,
