@@ -34,7 +34,9 @@ const mockNewBlock = (txs = null) => {
               proposer_address: "F9742047DD71D328A1264B1FB0F63252D41852BB"
             },
             data: {
-              txs
+              "txs": [
+                "vQEoKBapCjBxWZ7oChQPRRseATU+wXVubFE16R6uY4kdZBIUFaB3UXTlwSHpK5y6v52lzr/K3ywSGQoTCgp1Y29tbWVyY2lvEgUxMDAwMBDAmgwaagom61rphyEDKoVUnke1cgwibBRFQmD36B8JAu+tMEsL8ag6fCwlnSkSQNRswfUXmhW7EpTw59RPa9/JUAmda9NwHOdX7s4OZTg6f/cy606dV1hGH+I2pdyYDNElOQyspRmzcizV0ri+9kc="
+              ]
             },
             evidence: {
               evidence: null
