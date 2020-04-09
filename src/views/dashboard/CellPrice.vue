@@ -40,6 +40,11 @@ export default {
   },
   computed: {
     axesColor() {
+      return this.$theme.theme_light === "true"
+        ? "rgba(20, 20, 20, 0.2)"
+        : "rgba(255, 255, 255, 0.4)";
+    },
+    axesZeroColor() {
       return this.$theme.theme_light === "true" ? "#303030" : "#FFF";
     },
     lineColor() {
@@ -92,13 +97,13 @@ export default {
               gridLines: {
                 display: true,
                 color: "rgba(0, 0, 0, 0)",
-                zeroLineColor: this.axesColor
+                zeroLineColor: this.axesZeroColor
               },
               ticks: {
                 max: 24,
                 min: 0,
                 fontSize: 9,
-                fontColor: this.axesColor
+                fontColor: this.axesZeroColor
               }
             }
           ],
@@ -106,11 +111,12 @@ export default {
             {
               gridLines: {
                 display: true,
-                zeroLineColor: this.axesColor
+                color: this.axesColor,
+                zeroLineColor: this.axesZeroColor
               },
               ticks: {
                 fontSize: 9,
-                fontColor: this.axesColor
+                fontColor: this.axesZeroColor
               }
             }
           ]

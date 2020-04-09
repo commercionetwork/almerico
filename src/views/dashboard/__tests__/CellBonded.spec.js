@@ -17,6 +17,7 @@ const localVue = createLocalVue();
 describe("views/dashboard/CellBonded.vue", () => {
   const computed = {
     axesColor: () => "#000",
+    axesZeroColor: () => "#000",
     lineColor: () => "#000",
     percentValue: () => 0,
   };
