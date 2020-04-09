@@ -106,13 +106,16 @@ export default {
       return this.proposer ? this.proposer.description.moniker : "-";
     },
     blockTxs() {
-      let txs;
-      if (this.block.header.num_txs) {
+      let txs = "0";
+      if (this.block.header && this.block.header.num_txs) {
         txs = this.block.header.num_txs;
-      } else if (this.block.header.data && this.block.header.data.txs) {
-        txs = this.block.header.data.txs;
-      } else {
-        txs  = "0";
+      }
+      if (
+        this.block.data &&
+        this.block.data.txs &&
+        this.block.data.txs.length > 0
+      ) {
+        txs = this.block.data.txs.length.toString();
       }
 
       return txs;
