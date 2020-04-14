@@ -33,7 +33,7 @@ export default {
    * Add block to blocks list
    * 
    * @param {BlocksState} state 
-   * @param {Block} data 
+   * @param {Object} data 
    */
   addNewBlock(state, data) {
     state.all.push(data);
@@ -42,7 +42,7 @@ export default {
    * Set last block
    * 
    * @param {BlocksState} state 
-   * @param {Block} data 
+   * @param {Object} data 
    */
   setLastBlock(state, data) {
     state.last = data;

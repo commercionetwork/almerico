@@ -32,7 +32,7 @@ export default {
   /** Set pool data
    * 
    * @param {StakeState} state 
-   * @param {Pool} data 
+   * @param {Object} data 
    */
   setPool(state, data) {
     state.pool = data;

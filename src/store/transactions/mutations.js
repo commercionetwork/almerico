@@ -33,7 +33,7 @@ export default {
    * Add transactions data
    *
    * @param {TransactionsState} state
-   * @param {Array.<Transaction>} data
+   * @param {Array.<Object>} data
    */
   addTransactions(state, data) {
     state.all.push(...data);
@@ -42,7 +42,7 @@ export default {
    * Set transaction data
    *
    * @param {TransactionsState} state
-   * @param {Transaction} data
+   * @param {Object} data
    */
   setDetails(state, data) {
     state.details = data;

@@ -32,7 +32,7 @@ export default {
    * Set votings data
    * 
    * @param {VotingsState} state 
-   * @param {Array.<Proposal>} data 
+   * @param {Array.<Object>} data 
    */
   setVotings(state, data) {
     state.all = data;

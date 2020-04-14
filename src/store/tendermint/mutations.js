@@ -33,7 +33,7 @@ export default {
    * Set tendermint genesis
    * 
    * @param {TendermintState} state 
-   * @param {Genesis} data 
+   * @param {Object} data 
    */
   setGenesis(state, data) {
     state.genesis = data;
