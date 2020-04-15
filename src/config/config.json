@@ -240,7 +240,7 @@
     "enabled": true
   },
   "votings": {
-    "enabled": true,
+    "enabled": false,
     "live_data": {
       "enabled": true,
       "bonded": true,
@@ -249,7 +249,7 @@
     }
   },
   "voting_details": {
-    "enabled": true,
+    "enabled": false,
     "rows": {
       "title": true,
       "type": true,
