@@ -76,6 +76,7 @@ import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 import api from "Store/validators/api";
 import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
+import transactions from "../../store/transactions";
 
 export default {
   name: "ValidatorDetails",
@@ -108,34 +109,36 @@ export default {
       return this.hasErrorValidator || this.message;
     },
     events() {
-      const events = [];
-      const plusEvents = this.transactions.filter(transaction => {
-        return transaction.events.find(event =>
-          event.attributes.find(
-            attribute =>
-              attribute.key === "recipient" &&
-              attribute.value === this.accountAddress
-          )
-        );
-      });
-      plusEvents.forEach(event => {
-        event.plus = true;
-        events.push(event);
-      });
-      const minusEvents = this.transactions.filter(transaction => {
-        return transaction.events.find(event =>
-          event.attributes.find(
-            attribute =>
-              attribute.key === "sender" &&
-              attribute.value === this.accountAddress
-          )
-        );
-      });
-      minusEvents.forEach(event => {
-        event.plus = false;
-        events.push(event);
-      });
-      return events;
+      return this.transactions.reduce((events, transaction) => {
+        if (transaction.logs && transaction.logs.length > 0) {
+          transaction.logs.forEach(log => {
+            if (log.events && log.events.length > 0) {
+              log.events.forEach(event => {
+                if (event.attributes && event.attributes.length > 0) {
+                  event.attributes.forEach(attribute => {
+                    if (
+                      attribute.key === "recipient" &&
+                      attribute.value === this.accountAddress
+                    ) {
+                      transaction.plus = true;
+                      events.push(transaction);
+                    }
+                    if (
+                      attribute.key === "sender" &&
+                      attribute.value === this.accountAddress
+                    ) {
+                      transaction.plus = false;
+                      events.push(transaction);
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+
+        return events;
+      }, []);
     },
     accountAddress() {
       let hexValue = bech32Manager.decode(this.validatorAddress);
