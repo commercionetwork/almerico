@@ -21,5 +21,13 @@ export default {
    */
   requestGenesis() {
     return instance.get(API.GENESIS);
+  },
+  /**
+   * Handle ajax request to get node info
+   * 
+   * @returns {Promise}
+   */
+  requestNodeInfo() {
+    return instance.get(API.NODE_INFO);
   }
 };

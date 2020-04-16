@@ -10,6 +10,7 @@ export const initialState = {
   genesis: null,
   isFetching: false,
   message: "",
+  nodeInfo: null,
 };
 
 export default {

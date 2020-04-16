@@ -4,6 +4,8 @@ import mutations from "../mutations";
 import {
   initialState
 } from "../index";
+import { mockGenesis } from "../__mocks__/genesis";
+import { mockNodeInfo } from "../__mocks__/node_info";
 
 describe("store/tendermint/mutations", () => {
   let state = {};
@@ -40,12 +42,18 @@ describe("store/tendermint/mutations", () => {
   });
 
   it("Check mutations.setGenesis", () => {
-    const data = {
-      id: "1"
-    };
+    const data = mockGenesis();
 
     mutations.setGenesis(state, data);
 
     expect(state.genesis).toEqual(data);
+  });
+
+  it("Check mutations.setNodeInfo",()=>{
+    const info = mockNodeInfo();
+
+    mutations.setNodeInfo(state, info);
+
+    expect(state.nodeInfo).toEqual(info);
   });
 });

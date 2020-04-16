@@ -37,5 +37,14 @@ export default {
    */
   setGenesis(state, data) {
     state.genesis = data;
-  }
+  },
+  /**
+   * Set node info
+   * 
+   * @param {TendermintState} state 
+   * @param {Object} info 
+   */
+  setNodeInfo(state, info) {
+    state.nodeInfo = info;
+  },
 };
