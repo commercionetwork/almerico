@@ -1,5 +1,13 @@
 <template>
   <div class="container com-container">
+    <div
+      v-if="$config.dashboard.chains.enabled"
+      class="row py-1 d-flex align-items-center"
+    >
+      <div class="col-12 d-flex justify-content-start">
+        <ChainChooser data-test="chain-chooser" />
+      </div>
+    </div>
     <div class="row py-3 d-flex align-items-center">
       <div class="col-12 col-md-4 d-flex justify-content-start">
         <h1
@@ -71,6 +79,7 @@ import CellBonded from "./CellBonded.vue";
 import CellHeight from "./CellHeight.vue";
 import CellPrice from "./CellPrice.vue";
 import CellTransactions from "./CellTransactions.vue";
+import ChainChooser from "./ChainChooser.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 
 export default {
@@ -82,6 +91,7 @@ export default {
     CellHeight,
     CellPrice,
     CellTransactions,
+    ChainChooser,
     SearchBar
   }
 };

@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "ChainChooser",
+  name: "ChainDropdown",
   description: "Display a drop down to change chain",
   props: {
     currentItem: {

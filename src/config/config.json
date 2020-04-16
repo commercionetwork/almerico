@@ -1,25 +1,6 @@
 {
   "generic": {
     "logo": "https://commercio.network/wp-content/uploads/2019/08/logo_commercio_Bianco.png",
-    "chains": [{
-        "id": 1,
-        "key": "dev",
-        "label": "Dev-net",
-        "url": "https://devnet.commercio.network/"
-      },
-      {
-        "id": 2,
-        "key": "main",
-        "label": "Main-net",
-        "url": "https://mainnet.commercio.network/"
-      },
-      {
-        "id": 3,
-        "key": "test",
-        "label": "Test-net",
-        "url": "https://testnet.commercio.network/"
-      }
-    ],
     "coins": [{
       "name": "commercio",
       "symbol": "CNT",
@@ -45,6 +26,28 @@
     }
   },
   "dashboard": {
+    "chains": {
+      "enabled": true,
+      "list": [{
+          "id": 1,
+          "key": "dev",
+          "label": "Dev-net",
+          "url": "https://devnet.commercio.network"
+        },
+        {
+          "id": 2,
+          "key": "main",
+          "label": "Main-net",
+          "url": "https://mainnet.commercio.network"
+        },
+        {
+          "id": 3,
+          "key": "test",
+          "label": "Test-net",
+          "url": "https://testnet.commercio.network"
+        }
+      ]
+    },
     "graphs": {
       "enabled": true,
       "price": true,
