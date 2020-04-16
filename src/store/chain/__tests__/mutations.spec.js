@@ -4,9 +4,9 @@ import mutations from "../mutations";
 import {
   initialState
 } from "../index";
-import { mockGenesis } from "../__mocks__/genesis";
+import { mockNodeInfo } from "../__mocks__/node_info";
 
-describe("store/tendermint/mutations", () => {
+describe("store/chain/mutations", () => {
   let state = {};
 
   beforeEach(() => {
@@ -40,11 +40,11 @@ describe("store/tendermint/mutations", () => {
     expect(state.message).toEqual(message);
   });
 
-  it("Check mutations.setGenesis", () => {
-    const data = mockGenesis();
+  it("Check mutations.setNodeInfo",()=>{
+    const info = mockNodeInfo();
 
-    mutations.setGenesis(state, data);
+    mutations.setNodeInfo(state, info);
 
-    expect(state.genesis).toEqual(data);
+    expect(state.nodeInfo).toEqual(info);
   });
 });

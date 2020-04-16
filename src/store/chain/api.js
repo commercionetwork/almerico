@@ -1,5 +1,5 @@
 /**
- * Tendermint APIs
+ * Chain APIs
  */
 
 import axios from "axios";
@@ -15,11 +15,11 @@ const instance = axios.create({
 
 export default {
   /**
-   * Handle ajax request to get genesis
+   * Handle ajax request to get node info
    * 
    * @returns {Promise}
    */
-  requestGenesis() {
-    return instance.get(API.GENESIS);
-  },
+  requestNodeInfo() {
+    return instance.get(API.NODE_INFO);
+  }
 };

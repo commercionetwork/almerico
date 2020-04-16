@@ -54,12 +54,14 @@ export default {
     ...mapActions("blocks", {
       fetchLastBlock: "fetchLastBlock"
     }),
+    ...mapActions("chain", {
+      fetchNodeInfo: "fetchNodeInfo"
+    }),
     ...mapActions("stake", {
       fetchPool: "fetchPool"
     }),
     ...mapActions("tendermint", {
       fetchGenesis: "fetchGenesis",
-      fetchNodeInfo: "fetchNodeInfo",
       subscribeNewBlockEvent: "subscribeNewBlockEvent"
     }),
     ...mapActions("transactions", {

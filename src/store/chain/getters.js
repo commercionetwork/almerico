@@ -1,9 +1,9 @@
 /**
- * Tendermint getters
+ * Chain getters
  */
 
 export default {
-  genesis: state => state.genesis,
   isFetching: state => state.isFetching,
   message: state => state.message,
+  nodeInfo: state => state.nodeInfo,
 };

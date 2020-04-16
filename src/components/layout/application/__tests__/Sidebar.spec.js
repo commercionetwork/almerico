@@ -19,11 +19,17 @@ describe("components/layout/application/Sidebar.vue", () => {
   const props = {
     closeSidebar: jest.fn()
   };
+  const computed = {
+    chainId: () => "chainId"
+  };
 
   it("Check if section links are displayed", () => {
     const wrapper = shallowMount(Sidebar, {
-      directives:{
-        'click-outside': clickOutside 
+      computed: {
+        ...computed,
+      },
+      directives: {
+        'click-outside': clickOutside
       },
       localVue,
       mocks: {
@@ -56,8 +62,11 @@ describe("components/layout/application/Sidebar.vue", () => {
 
   it("Check if section links are not displayed", () => {
     const wrapper = shallowMount(Sidebar, {
-      directives:{
-        'click-outside': clickOutside 
+      computed: {
+        ...computed,
+      },
+      directives: {
+        'click-outside': clickOutside
       },
       localVue,
       mocks: {

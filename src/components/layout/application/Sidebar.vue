@@ -15,7 +15,7 @@
         />
         <span
           class="flex-grow-1 font-italic"
-          v-text="chain"
+          v-text="chainId"
         />
       </div>
     </div>
@@ -163,10 +163,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("tendermint", {
-      info: "nodeInfo"
+    ...mapGetters("chain", {
+      info: "nodeInfo",
+      isFetching: "isFetching"
     }),
-    chain() {
+    chainId() {
       const name =
         this.info && this.info.node_info && this.info.node_info.network
           ? this.info.node_info.network
