@@ -3,7 +3,6 @@ import {
   API_VERSION,
   SUPPORTED_API_VERSION
 } from "./api";
-import { CHAINS_LIST } from "./chain";
 import {
   MODAL_ID,
   MODAL_SIZE
@@ -30,7 +29,6 @@ import {
 export {
   API,
   API_VERSION,
-  CHAINS_LIST,
   EVENTS,
   LIMITS_LIST,
   MODAL_ID,
