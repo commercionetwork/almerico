@@ -87,10 +87,9 @@ export default {
       return this.bonded && this.totalToken ? this.bonded / this.totalToken : 0;
     },
     proportion() {
-      return '-';
-      // let bonded = (this.bonded / 1000000000).toFixed(0);
-      // let total = (this.totalToken / 1000000000).toFixed(0);
-      // return total > 0 ? `${bonded}M/${total}M` : "-";
+      let bonded = (this.bonded / 1000000000).toFixed(0);
+      let total = (this.totalToken / 1000000000).toFixed(0);
+      return total > 0 ? `${bonded}M/${total}M` : "-";
     },
     totalToken() {
       let tot = 0;
