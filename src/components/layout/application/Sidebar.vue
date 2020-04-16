@@ -5,6 +5,21 @@
     :class="{ open: sideBarOpen }"
     v-click-outside="closeSidebar"
   >
+    <!-- chain -->
+    <div class="m-4">
+      <div class="row d-flex flex-row align-items-center">
+        <Icon
+          name="compress-arrows-alt"
+          scale="1.5"
+          class="pr-2 text-black-50"
+        />
+        <span
+          class="flex-grow-1 font-italic"
+          v-text="chain"
+        />
+      </div>
+    </div>
+    <hr>
     <!-- dashboard -->
     <div
       class="m-4"
@@ -114,9 +129,11 @@
 <script>
 import { ROUTE_NAMES } from "Constants";
 import { localizedRoute } from "Utils";
+import { mapGetters } from "vuex";
 
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/angle-down";
+import "vue-awesome/icons/compress-arrows-alt";
 import "vue-awesome/icons/exchange-alt";
 import "vue-awesome/icons/poll-h";
 import "vue-awesome/icons/shapes";
@@ -144,6 +161,24 @@ export default {
       ROUTE_NAMES,
       open: false
     };
+  },
+  computed: {
+    ...mapGetters("tendermint", {
+      info: "nodeInfo"
+    }),
+    chain() {
+      const name =
+        this.info && this.info.node_info && this.info.node_info.network
+          ? this.info.node_info.network
+          : "";
+      const version =
+        this.info &&
+        this.info.application_version &&
+        this.info.application_version.version
+          ? this.info.application_version.version
+          : "";
+      return this.info ? `${name} (${version})` : "-";
+    }
   },
   methods: {
     toSection(route) {

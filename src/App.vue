@@ -59,6 +59,7 @@ export default {
     }),
     ...mapActions("tendermint", {
       fetchGenesis: "fetchGenesis",
+      fetchNodeInfo: "fetchNodeInfo",
       subscribeNewBlockEvent: "subscribeNewBlockEvent"
     }),
     ...mapActions("transactions", {
@@ -70,6 +71,7 @@ export default {
     async getData() {
       try {
         await this.fetchGenesis();
+        await this.fetchNodeInfo();
         await this.fetchLastBlock();
         await this.fetchPool();
         if (this.transactions.length === 0) await this.getTransactions();
