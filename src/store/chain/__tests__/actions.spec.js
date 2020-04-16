@@ -18,7 +18,7 @@ describe("store/chain/actions", () => {
       commit
     });
 
-    expect(commit).toHaveBeenCalledWith("setNodeInfo", mockResponse.data.result);
+    expect(commit).toHaveBeenCalledWith("setNodeInfo", mockResponse.data);
   });
 
   it("Check if 'actions.fetchNodeInfo' has an error", async () => {
@@ -91,9 +91,7 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: {
-            result: mockNodeInfo()
-          }
+          data: mockNodeInfo()
         };
         resolve(mockResponse);
       }, 1)

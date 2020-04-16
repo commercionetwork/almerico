@@ -17,7 +17,7 @@ export default {
     });
     try {
       const response = await api.requestNodeInfo();
-      commit("setNodeInfo", response.data.result);
+      commit("setNodeInfo", response.data);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);

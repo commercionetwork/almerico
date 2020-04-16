@@ -14,7 +14,7 @@
           class="pr-2 text-black-50"
         />
         <span
-          class="flex-grow-1 font-italic"
+          class="flex-grow-1 com-font-s12-w300"
           v-text="chainId"
         />
       </div>
@@ -178,7 +178,8 @@ export default {
         this.info.application_version.version
           ? this.info.application_version.version
           : "";
-      return this.info ? `${name} (${version})` : "-";
+      const fullName = this.info ? `${name} (${version})` : "-";
+      return this.isFetching ? this.$t("messages.loading") : fullName;
     }
   },
   methods: {
