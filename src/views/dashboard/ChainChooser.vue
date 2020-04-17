@@ -18,17 +18,17 @@ export default {
   data() {
     return {
       CHAINS_LIST
-    }
+    };
   },
   computed: {
     currentItem() {
-      return CHAINS_LIST.DEFAULT;
+      const chainIndex = CHAINS_LIST.VALUES.findIndex(
+        item => item.lcd === process.env.VUE_APP_LCD
+      );
+      return chainIndex > -1
+        ? CHAINS_LIST.VALUES[chainIndex]
+        : CHAINS_LIST.DEFAULT;
     }
-  },
-  created() {
-    const lcd = process.env.VUE_APP_LCD;
-    let tmpStr = lcd.replace("lcd-", "");
-    console.log(tmpStr);
   }
 };
 </script>
