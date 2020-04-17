@@ -172,6 +172,11 @@
         "type": "commercio/MsgSetIdentity"
       },
       {
+        "name": "MsgSetMembership",
+        "tag": "setMembership",
+        "type": "commercio/MsgSetMembership"
+      },
+      {
         "name": "MsgSetUserVerified",
         "tag": "setUserVerified",
         "type": "commercio/MsgSetUserVerified"
