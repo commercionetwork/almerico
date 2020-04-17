@@ -156,19 +156,38 @@ export default {
       );
     },
     orderedTransactions() {
-      let transactions = arrayManager.uniqueValuesArrayFromObjectsArray(
+      let txs = arrayManager.uniqueValuesArrayFromObjectsArray(
         this.transactions
       );
       if (this.selectedType) {
-        const txs = transactions.filter(tx => {
-          let message = tx.events.find(event => event.type === "message");
-          return message.attributes.find(
-            attribute => attribute.value === this.selectedType
-          );
-        });
-        transactions = txs;
+        const filteredTransactions = txs.reduce((result, transaction) => {
+          if (transaction.logs && transaction.logs.length > 0) {
+            transaction.logs.forEach(log => {
+              if (log.events && log.events.length > 0) {
+                log.events.forEach(event => {
+                  if (
+                    event.type &&
+                    event.type === "message" &&
+                    event.attributes &&
+                    event.attributes.length > 0
+                  ) {
+                    event.attributes.forEach(attribute => {
+                      if (attribute.value === this.selectedType) {
+                        result.push(transaction);
+                      }
+                    });
+                  }
+                });
+              }
+            });
+          }
+
+          return result;
+        }, []);
+
+        txs = [...filteredTransactions];
       }
-      return transactions.sort(function(a, b) {
+      return txs.sort(function(a, b) {
         return b.height - a.height;
       });
     },
@@ -188,6 +207,9 @@ export default {
     changePage(page) {
       this.page = page;
     }
+  },
+  created() {
+    // console.log(this.transactions);
   }
 };
 </script>
