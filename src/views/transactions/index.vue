@@ -160,30 +160,10 @@ export default {
         this.transactions
       );
       if (this.selectedType) {
-        const filteredTransactions = txs.reduce((result, transaction) => {
-          if (transaction.logs && transaction.logs.length > 0) {
-            transaction.logs.forEach(log => {
-              if (log.events && log.events.length > 0) {
-                log.events.forEach(event => {
-                  if (
-                    event.type &&
-                    event.type === "message" &&
-                    event.attributes &&
-                    event.attributes.length > 0
-                  ) {
-                    event.attributes.forEach(attribute => {
-                      if (attribute.value === this.selectedType) {
-                        result.push(transaction);
-                      }
-                    });
-                  }
-                });
-              }
-            });
-          }
-
-          return result;
-        }, []);
+        const filteredTransactions = this.filterTransactionsByType(
+          txs,
+          this.selectedType
+        );
 
         txs = [...filteredTransactions];
       }
@@ -206,10 +186,33 @@ export default {
   methods: {
     changePage(page) {
       this.page = page;
+    },
+    filterTransactionsByType(transactions, type) {
+      return transactions.reduce((result, transaction) => {
+        if (transaction.logs && transaction.logs.length > 0) {
+          transaction.logs.forEach(log => {
+            if (log.events && log.events.length > 0) {
+              log.events.forEach(event => {
+                if (
+                  event.type &&
+                  event.type === "message" &&
+                  event.attributes &&
+                  event.attributes.length > 0
+                ) {
+                  event.attributes.forEach(attribute => {
+                    if (attribute.value === type) {
+                      result.push(transaction);
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+
+        return result;
+      }, []);
     }
-  },
-  created() {
-    // console.log(this.transactions);
   }
 };
 </script>
