@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     filterItems() {
-      return this.items.filter(item => item.key !== this.currentItem.key);
+      return this.items.filter(item => item.id !== this.currentItem.id);
     }
   }
 };

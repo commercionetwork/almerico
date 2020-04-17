@@ -27,26 +27,7 @@
   },
   "dashboard": {
     "chains": {
-      "enabled": true,
-      "list": [{
-          "id": 1,
-          "key": "dev",
-          "label": "Dev-net",
-          "url": "https://devnet.commercio.network"
-        },
-        {
-          "id": 2,
-          "key": "main",
-          "label": "Main-net",
-          "url": "https://mainnet.commercio.network"
-        },
-        {
-          "id": 3,
-          "key": "test",
-          "label": "Test-net",
-          "url": "https://testnet.commercio.network"
-        }
-      ]
+      "enabled": true
     },
     "graphs": {
       "enabled": true,
