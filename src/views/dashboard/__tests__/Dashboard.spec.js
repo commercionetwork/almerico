@@ -20,6 +20,9 @@ describe("views/dashboard/index.vue", () => {
         ...mocks,
         $config: {
           dashboard: {
+            chains: {
+              enabled: true
+            },
             graphs: {
               enabled: true,
               price: true,
@@ -36,6 +39,7 @@ describe("views/dashboard/index.vue", () => {
       }
     });
 
+    expect(wrapper.find('[data-test="chain-chooser"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="graphs-price"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="graphs-block-height"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="graphs-bonded-tokens"]').exists()).toBe(true);
@@ -50,6 +54,9 @@ describe("views/dashboard/index.vue", () => {
         ...mocks,
         $config: {
           dashboard: {
+            chains: {
+              enabled: false
+            },
             graphs: {
               enabled: false,
               price: true,
@@ -66,6 +73,7 @@ describe("views/dashboard/index.vue", () => {
       }
     });
 
+    expect(wrapper.find('[data-test="chain-chooser"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="graphs-price"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="graphs-block-height"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="graphs-bonded-tokens"]').exists()).toBe(false);
@@ -80,6 +88,9 @@ describe("views/dashboard/index.vue", () => {
         ...mocks,
         $config: {
           dashboard: {
+            chains: {
+              enabled: true
+            },
             graphs: {
               enabled: true,
               price: false,
