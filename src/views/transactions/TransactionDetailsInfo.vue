@@ -33,12 +33,7 @@
             class="com-font-s14-w700"
             v-text="$t('labels.details')"
           />
-          <div
-            v-for="(log, index) in logs"
-            :key="index"
-          >
-            <div v-text="log.message" />
-          </div>
+          <div v-text="transaction.raw_log" />
         </div>
       </div>
     </div>
@@ -137,16 +132,6 @@ export default {
         maximumFractionDigits: 0
       });
     },
-    logs() {
-      const logData = JSON.parse(this.transaction.raw_log);
-      let logs = [];
-      if (logData instanceof Array) {
-        logData.forEach(data => logs.push(JSON.parse(data.log)));
-      } else if (typeof logData === "object") {
-        logs.push(logData);
-      }
-      return logs;
-    },
     result() {
       return this.resultStatus
         ? this.$t("labels.success")
@@ -154,10 +139,6 @@ export default {
     },
     resultStatus() {
       return this.transaction.code ? false : true;
-      // return this.transaction.logs
-      //   ? this.transaction.logs.find(log => typeof log.success !== undefined)
-      //       .success
-      //   : false;
     },
     fee() {
       let denom = "";
