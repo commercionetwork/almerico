@@ -143,15 +143,13 @@ export default {
     unbondingDelegationsAmount() {
       let denom = this.coin ? this.coin.denom : "";
       let exponent = this.coin ? this.coin.exponent : 0;
-      let tot = 0;
-      if (this.unbondings && this.unbondings.length > 0) {
-        this.unbondings.forEach(unbonded => {
-          unbonded.entries.forEach(entry => {
-            tot += parseFloat(entry.balance);
-          });
+      let unbondings = this.unbondings.reduce((tot, unbonding) => {
+        unbonding.entries.forEach(entry => {
+          tot += parseFloat(entry.balance);
         });
-      }
-      let amount = coinsManager(denom, exponent, tot);
+        return tot;
+      }, 0);
+      let amount = coinsManager(denom, exponent, unbondings);
       let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
       return { label: `${formatAmount}`, value: amount.amount };
     },
