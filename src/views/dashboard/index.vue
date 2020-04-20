@@ -1,15 +1,11 @@
 <template>
   <div class="container com-container">
-    <div
-      v-if="$config.dashboard.chains.enabled"
-      class="row py-1 d-flex align-items-center"
-    >
-      <div class="col-12 d-flex justify-content-start">
-        <ChainChooser data-test="chain-chooser" />
-      </div>
-    </div>
     <div class="row py-3 d-flex align-items-center">
       <div class="col-12 col-md-4 d-flex justify-content-start">
+        <ChainChooser
+          v-if="$config.dashboard.chains.enabled"
+          data-test="chain-chooser"
+        />
         <h1
           class="text-uppercase com-font-s20-w800"
           v-html="$t('titles.dashboard')"

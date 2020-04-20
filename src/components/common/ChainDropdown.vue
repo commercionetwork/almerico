@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown">
     <h2
-      class=" dropdown-toggle text-primary com-font-s18-w700"
+      class=" dropdown-toggle text-primary text-uppercase com-font-s20-w800"
       v-html="currentItem.label"
       id="dropdownMenu"
       data-toggle="dropdown"
