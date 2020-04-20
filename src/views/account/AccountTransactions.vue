@@ -94,10 +94,7 @@ export default {
       );
     },
     orderedTransactions() {
-      const transactions = arrayManager.uniqueValuesArrayFromObjectsArray(
-        this.transactions
-      );
-      const txs = transactions.reduce((result, transaction) => {
+      const txs = this.transactions.reduce((result, transaction) => {
         if (transaction.logs && transaction.logs.length > 0) {
           transaction.logs.forEach(log => {
             if (log.events && log.events.length > 0) {
@@ -116,9 +113,12 @@ export default {
 
         return result;
       }, []);
-      return txs.sort(function(a, b) {
-        return b.height - a.height;
-      });
+
+      return arrayManager
+        .uniqueValuesArrayFromObjectsArray(txs)
+        .sort(function(a, b) {
+          return b.height - a.height;
+        });
     },
     total() {
       return this.orderedTransactions.length;

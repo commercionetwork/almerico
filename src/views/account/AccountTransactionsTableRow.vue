@@ -76,10 +76,7 @@ export default {
         : this.$t("labels.fail");
     },
     resultStatus() {
-      return this.transaction.logs
-        ? this.transaction.logs.find(log => typeof log.success !== undefined)
-            .success
-        : false;
+      return this.transaction.code ? false : true;
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleDateString();
