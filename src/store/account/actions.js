@@ -80,7 +80,13 @@ export default {
       const response = await api.requestMembership(address);
       commit("setMembership", response.data.result);
     } catch (error) {
-      commit("setMembership", "");
+      if (error.response) {
+        throw error;
+      } else if (error.request) {
+        commit("setMembership", "");
+      } else {
+        throw error;
+      }
     }
   },
   /**
