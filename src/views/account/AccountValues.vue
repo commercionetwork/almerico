@@ -82,7 +82,7 @@ export default {
       note: "Delegations list"
     },
     rewards: {
-      type: String,
+      type: Object,
       required: true,
       note: "Total rewards"
     },
@@ -120,20 +120,22 @@ export default {
     delegationsAmount() {
       let denom = this.coin ? this.coin.denom : "";
       let exponent = this.coin ? this.coin.exponent : 0;
-      let tot = 0;
-      if (this.delegations && this.delegations.length > 0) {
-        this.delegations.forEach(delegation => {
-          tot += parseFloat(delegation.shares);
-        });
-      }
-      let amount = coinsManager(denom, exponent, tot);
+      let delegations = this.delegations.reduce((tot, delegation) => {
+        tot += parseFloat(delegation.shares);
+        return tot;
+      }, 0);
+
+      let amount = coinsManager(denom, exponent, delegations);
       let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
       return { label: `${formatAmount}`, value: amount.amount };
     },
     rewardsAmount() {
       let denom = this.coin ? this.coin.denom : "";
       let exponent = this.coin ? this.coin.exponent : 0;
-      let rewards = parseFloat(this.rewards);
+      let rewards = this.rewards.total.reduce((tot, reward) => {
+        tot += parseFloat(reward.amount);
+        return tot;
+      }, 0);
       let amount = coinsManager(denom, exponent, rewards);
       let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
       return { label: `${formatAmount}`, value: amount.amount };
@@ -180,6 +182,9 @@ export default {
       });
       return `${formatAmount} ${denom}`;
     }
+  },
+  created() {
+    console.log("DELEGATIONS", this.delegations);
   }
 };
 </script>

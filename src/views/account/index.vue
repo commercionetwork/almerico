@@ -106,36 +106,6 @@ export default {
     isError() {
       return this.message.length > 0;
     }
-    // delegations() {
-    //   const delegationsObj = arrayManager.groupBy(
-    //     this.allDelegations,
-    //     "validator_address"
-    //   );
-    //   const delegations = [];
-    //   Object.keys(delegationsObj).forEach(validator => {
-    //     const amounts = delegationsObj[validator];
-    //     let tot = 0;
-    //     amounts.forEach(item => {
-    //       tot += parseFloat(item.shares);
-    //     });
-    //     delegations.push({
-    //       validator_address: validator,
-    //       shares: tot
-    //     });
-    //   });
-    //   return delegations.sort(function(a, b) {
-    //     return b.shares - a.shares;
-    //   });
-    // },
-    // rewards() {
-    //   return this.rewards.total[0].amount;
-    // },
-    // unbondings() {
-    //   let delegations = [...this.allUnbondings];
-    //   return delegations.sort(function(a, b) {
-    //     return b.creation_height - a.creation_height;
-    //   });
-    // }
   },
   watch: {
     address(value) {
