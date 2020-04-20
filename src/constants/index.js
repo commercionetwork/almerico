@@ -1,4 +1,4 @@
-import { MEMBESHIPS_LIST } from "./account";
+import { MEMBESHIPS_LIST, MEMBESHIPS_COLORS } from "./account";
 import {
   API,
   API_VERSION,
@@ -34,6 +34,7 @@ export {
   CHAINS_LIST,
   EVENTS,
   LIMITS_LIST,
+  MEMBESHIPS_COLORS,
   MEMBESHIPS_LIST,
   MODAL_ID,
   MODAL_SIZE,

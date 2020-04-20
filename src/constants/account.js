@@ -3,5 +3,13 @@ export const MEMBESHIPS_LIST = {
   BRONZE: "bornze",
   SILVER: "silver",
   GOLD: "gold",
-  BLACk: "black"
+  BLACK: "black"
+};
+
+export const MEMBESHIPS_COLORS = {
+  GREEN: "#38ba8c",
+  BRONZE: "#6a3805",
+  SILVER: "#B4B4B4",
+  GOLD: "#Af9500",
+  BLACK: "#000000"
 };
