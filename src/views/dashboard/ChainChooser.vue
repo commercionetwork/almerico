@@ -1,8 +1,10 @@
 <template>
-  <ChainDropdown
-    :currentItem="currentItem"
-    :items="CHAINS_LIST.VALUES"
-  />
+  <span class="pr-2">
+    <ChainDropdown
+      :currentItem="currentItem"
+      :items="CHAINS_LIST.VALUES"
+    />
+  </span>
 </template>
 
 <script>

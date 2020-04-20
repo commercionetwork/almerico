@@ -7,9 +7,13 @@ import getters from "./getters";
 import mutations from "./mutations";
 
 export const initialState = {
-  all: [],
+  balances: [],
+  delegations: [],
   isFetching: false,
+  membership: "",
   message: "",
+  rewards: null,
+  unbondingDelegations: [],
 };
 
 export default {

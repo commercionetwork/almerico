@@ -33,9 +33,45 @@ export default {
    * Set account balances
    * 
    * @param {AccountState} state 
-   * @param {Array.<Balance>} data 
+   * @param {Array.<Object>} data 
    */
   setBalances(state, data) {
-    state.all = data;
-  }
+    state.balances = data;
+  },
+  /**
+   * Set account delegations
+   * 
+   * @param {AccountState} state 
+   * @param {Array.<Object>} data 
+   */
+  setDelegations(state, data) {
+    state.delegations = data;
+  },
+  /**
+   * Set account membership
+   *
+   * @param {AccountState} state
+   * @param {Object} data
+   */
+  setMembership(state, data) {
+    state.membership = data.membership_type;
+  },
+  /**
+   * Set account rewards
+   * 
+   * @param {AccountState} state 
+   * @param {Object} data 
+   */
+  setRewards(state, data) {
+    state.rewards = data;
+  },
+  /**
+   * Set account unbondingDelegations
+   * 
+   * @param {AccountState} state 
+   * @param {Array.<Object>} data 
+   */
+  setUnbondingDelegations(state, data) {
+    state.unbondingDelegations = data;
+  },
 };

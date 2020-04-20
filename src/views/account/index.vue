@@ -19,7 +19,7 @@
       data-test="loading"
     />
     <div
-      v-else-if="!isFetching && hasError"
+      v-else-if="!isFetching && isError"
       class="alert alert-danger"
       role="alert"
       v-text="$t('messages.fetchingError')"
@@ -33,7 +33,10 @@
       <div class="col-12 p-0">
         <div class="row">
           <div class="col-12">
-            <AccountHeader :address="address" />
+            <AccountHeader
+              :address="address"
+              :membership="membership"
+            />
           </div>
         </div>
         <div class="px-5 py-3 com-bg-body">
@@ -75,7 +78,7 @@ import SearchBar from "Components/common/SearchBar.vue";
 
 import api from "Store/account/api";
 import { arrayManager } from "Utils";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Account",
@@ -88,83 +91,34 @@ export default {
     AccountValues,
     SearchBar
   },
-  data() {
-    return {
-      allDelegations: [],
-      allUnbondings: [],
-      hasError: false,
-      isFetching: false,
-      rewards: "0"
-    };
-  },
   computed: {
+    ...mapGetters("account", {
+      delegations: "delegations",
+      rewards: "rewards",
+      unbondings: "unbondingDelegations",
+      isFetching: "isFetching",
+      membership: "membership",
+      message: "message"
+    }),
     address() {
       return this.$route.params.id;
     },
-    delegations() {
-      const delegationsObj = arrayManager.groupBy(
-        this.allDelegations,
-        "validator_address"
-      );
-      const delegations = [];
-      Object.keys(delegationsObj).forEach(validator => {
-        const amounts = delegationsObj[validator];
-        let tot = 0;
-        amounts.forEach(item => {
-          tot += parseFloat(item.shares);
-        });
-        delegations.push({
-          validator_address: validator,
-          shares: tot
-        });
-      });
-      return delegations.sort(function(a, b) {
-        return b.shares - a.shares;
-      });
-    },
-    unbondings() {
-      let delegations = [...this.allUnbondings];
-      return delegations.sort(function(a, b) {
-        return b.creation_height - a.creation_height;
-      });
+    isError() {
+      return this.message.length > 0;
     }
   },
   watch: {
     address(value) {
-      this.fetchBalances(value);
-      this.getData();
+      this.fetchAccount(value);
     }
   },
   methods: {
     ...mapActions("account", {
-      fetchBalances: "fetchBalances"
-    }),
-    async getData() {
-      let response = null;
-      this.isFetching = true;
-      try {
-        // get all delegations
-        response = await api.requestDelegatorDelegations(this.address);
-        if (response.data) this.allDelegations = response.data.result;
-
-        // get unbonding delegations
-        response = await api.requestDelegatorUnbondingDelegations(this.address);
-        if (response.data) this.allUnbondings = response.data.result;
-
-        // get rewards
-        response = await api.requestDelegatorRewards(this.address);
-        if (response.data && typeof response.data.result.total === "string")
-          this.rewards = response.data.result.total;
-      } catch (error) {
-        this.hasError = true;
-      } finally {
-        this.isFetching = false;
-      }
-    }
+      fetchAccount: "fetchAccount"
+    })
   },
   created() {
-    this.fetchBalances(this.address);
-    this.getData();
+    this.fetchAccount(this.address);
   }
 };
 </script>

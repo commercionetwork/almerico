@@ -94,17 +94,31 @@ export default {
       );
     },
     orderedTransactions() {
-      const transactions = arrayManager.uniqueValuesArrayFromObjectsArray(
-        this.transactions
-      );
-      const txs = transactions.filter(transaction => {
-        return transaction.events.find(event =>
-          event.attributes.find(attribute => attribute.value === this.address)
-        );
-      });
-      return txs.sort(function(a, b) {
-        return b.height - a.height;
-      });
+      const txs = this.transactions.reduce((result, transaction) => {
+        if (transaction.logs && transaction.logs.length > 0) {
+          transaction.logs.forEach(log => {
+            if (log.events && log.events.length > 0) {
+              log.events.forEach(event => {
+                if (event.attributes && event.attributes.length > 0) {
+                  event.attributes.forEach(attribute => {
+                    if (attribute.value === this.address) {
+                      result.push(transaction);
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+
+        return result;
+      }, []);
+
+      return arrayManager
+        .uniqueValuesArrayFromObjectsArray(txs)
+        .sort(function(a, b) {
+          return b.height - a.height;
+        });
     },
     total() {
       return this.orderedTransactions.length;

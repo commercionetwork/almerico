@@ -23,7 +23,7 @@ const API_RPC_BASE = (process.env.VUE_APP_RPC !== undefined) ?
  * APIs
  */
 export const API = {
-  // Cosmos
+  // LCD
   AUTH: `${API_LCD_BASE}/auth/accounts`,
   BANK: `${API_LCD_BASE}/bank/balances`,
   BLOCKS: `${API_LCD_BASE}/blocks`,
@@ -34,6 +34,7 @@ export const API = {
   DISTRIBUTION_VALIDATORS: `${API_LCD_BASE}/distribution/validators`,
   GOV_PARAMETERS: `${API_LCD_BASE}/gov/parameters`,
   GOV_PROPOSALS: `${API_LCD_BASE}/gov/proposals`,
+  MEMBERSHIP: `${API_LCD_BASE}/membership`,
   MINTING_INFLATION: `${API_LCD_BASE}/minting/inflation`,
   MINTING_PARAMETERS: `${API_LCD_BASE}/minting/parameters`,
   MINTING_PROVISIONS: `${API_LCD_BASE}/minting/annual-provisions`,
@@ -51,7 +52,7 @@ export const API = {
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
   VALIDATORSETS_LATEST: `${API_LCD_BASE}/validatorsets/latest`,
   VERSION: `${API_LCD_BASE}/version`,
-  // Tendermint
+  // RPC
   ABCI_INFO: `${API_RPC_BASE}/abci_info`,
   ABCI_QUERY: `${API_RPC_BASE}/abci_query`,
   BLOCK: `${API_RPC_BASE}/block`,
@@ -76,6 +77,6 @@ export const API = {
   UNSUBSCRIBE: `${API_RPC_BASE}/unsubscribe`,
   UNSUBSCRIBE_ALL: `${API_RPC_BASE}/unsubscribe_all`,
   VALIDATORS: `${API_RPC_BASE}/validators`,
-  // keybase
+  // Keybase
   USER_LOOKUP: `${API_KEYBASE}/user/lookup.json`,
 };

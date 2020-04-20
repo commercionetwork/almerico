@@ -52,10 +52,6 @@ export default {
     },
     resultStatus() {
       return this.transaction.code ? false : true;
-      // return this.transaction.logs
-      //   ? this.transaction.logs.find(log => typeof log.success !== undefined)
-      //       .success
-      //   : false;
     },
     time() {
       return new Date(this.transaction.timestamp).toLocaleDateString();

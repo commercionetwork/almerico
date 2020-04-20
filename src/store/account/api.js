@@ -29,17 +29,17 @@ export default {
    * @param {String} address
    * @return {Promise}
    */
-  requestDelegatorDelegations(address) {
+  requestDelegations(address) {
     return instance.get(`${API.STAKING_DELEGATORS}/${address}/delegations`);
   },
   /**
-   * Handle ajax request to get unbonding delegations by delegator address
+   * Handle ajax request to get account membership
    * 
    * @param {String} address
    * @return {Promise}
    */
-  requestDelegatorUnbondingDelegations(address) {
-    return instance.get(`${API.STAKING_DELEGATORS}/${address}/unbonding_delegations`);
+  requestMembership(address) {
+    return instance.get(`${API.MEMBERSHIP}/${address}`);
   },
   /**
    * Handle ajax request to get rewards by delegator address
@@ -47,7 +47,16 @@ export default {
    * @param {String} address
    * @return {Promise}
    */
-  requestDelegatorRewards(address) {
+  requestRewards(address) {
     return instance.get(`${API.DISTRIBUTION_DELEGATORS}/${address}/rewards`);
+  },
+  /**
+   * Handle ajax request to get unbonding delegations by delegator address
+   * 
+   * @param {String} address
+   * @return {Promise}
+   */
+  requestUnbondingDelegations(address) {
+    return instance.get(`${API.STAKING_DELEGATORS}/${address}/unbonding_delegations`);
   }
 };
