@@ -9,9 +9,14 @@ import {
 const localVue = createLocalVue();
 
 describe("views/account/index.vue", () => {
+  const computed = {
+    delegations: () => [],
+    membership: () => "",
+    rewards: () => ({}),
+    unbondings: () => [],
+  };
   const methods = {
-    fetchBalances: jest.fn(),
-    getData: jest.fn()
+    fetchAccount: jest.fn()
   };
   const mocks = {
     $route: {
@@ -24,12 +29,14 @@ describe("views/account/index.vue", () => {
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(Account, {
+      computed: {
+        ...computed,
+        isFetching: () => true,
+        isError: () => false,
+      },
       localVue,
       methods,
       mocks,
-    });
-    wrapper.setData({
-      isFetching: true
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -40,12 +47,14 @@ describe("views/account/index.vue", () => {
 
   it("Check if error message is displayed", () => {
     const wrapper = shallowMount(Account, {
+      computed: {
+        ...computed,
+        isFetching: () => false,
+        isError: () => true,
+      },
       localVue,
       methods,
       mocks,
-    });
-    wrapper.setData({
-      hasError: true
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -56,6 +65,11 @@ describe("views/account/index.vue", () => {
 
   it("Check if item data are displayed", () => {
     const wrapper = shallowMount(Account, {
+      computed: {
+        ...computed,
+        isFetching: () => false,
+        isError: () => false,
+      },
       localVue,
       methods,
       mocks,
