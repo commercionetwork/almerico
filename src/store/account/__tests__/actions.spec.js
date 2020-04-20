@@ -31,47 +31,6 @@ describe("store/account/actions", () => {
     expect(dispatch).toHaveBeenCalledWith("fetchUnbondingDelegations", address);
   });
 
-  // it("Check if 'actions.fetchAccount' has an error", async () => {
-  //   const commit = jest.fn();
-  //   const dispatch = jest.fn();
-  //   const address = "address";
-  //   mockError = true;
-
-  //   await actions.fetchAccount({
-  //     commit, dispatch
-  //   }, address);
-
-  //   expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
-  // });
-
-  // it("Check if 'actions.fetchAccount' has a request error", async () => {
-  //   const commit = jest.fn();
-  //   const dispatch = jest.fn();
-  //   const address = "address";
-  //   mockErrorRequest = true;
-
-  //   await actions.fetchAccount({
-  //     commit, dispatch
-  //   }, address);
-
-  //   expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
-  // });
-
-  // it("Check 'actions.fetchAccount' when server is unreachable", async () => {
-  //   const commit = jest.fn();
-  //   const dispatch = jest.fn();
-  //   const address = "address";
-  //   mockErrorServer = true;
-
-  //   await actions.fetchAccount({
-  //     commit, dispatch
-  //   }, address);
-
-  //   expect(commit).toBeCalledWith("setServerReachability", false, {
-  //     root: true
-  //   });
-  // });
-
   it("Check if 'actions.fetchBalances' set balances", async () => {
     const commit = jest.fn();
 
@@ -101,15 +60,6 @@ describe("store/account/actions", () => {
 
     expect(commit).toHaveBeenCalledWith("setMembership", mockResponse.data.result);
   });
-
-  // it("Check if 'actions.fetchMembership' has an error", async () => {
-  //   const commit = jest.fn();
-  //   mockError = true;
-
-  //   expect(async () => await actions.fetchMembership({
-  //     commit
-  //   }, "address")).toThrow(TypeError);
-  // });
 
   it("Check if 'actions.fetchRewards' set rewards", async () => {
     const commit = jest.fn();
@@ -181,6 +131,12 @@ jest.mock("./../api", () => ({
         if (mockError) {
           reject(mockErrorResponse);
         }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
 
         mockResponse = {
           data: {
@@ -197,6 +153,12 @@ jest.mock("./../api", () => ({
       setTimeout(() => {
         if (mockError) {
           reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
         }
 
         mockResponse = {
@@ -215,6 +177,12 @@ jest.mock("./../api", () => ({
         if (mockError) {
           reject(mockErrorResponse);
         }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
 
         mockResponse = {
           data: {
@@ -231,6 +199,12 @@ jest.mock("./../api", () => ({
       setTimeout(() => {
         if (mockError) {
           reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
         }
 
         mockResponse = {
