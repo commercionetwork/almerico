@@ -182,9 +182,6 @@ export default {
       });
       return `${formatAmount} ${denom}`;
     }
-  },
-  created() {
-    console.log("DELEGATIONS", this.delegations);
   }
 };
 </script>
