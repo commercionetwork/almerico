@@ -40,6 +40,14 @@ describe("store/account/mutations", () => {
     expect(state.message).toEqual(message);
   });
 
+  it("Check mutations.setMembership", () => {
+    const membership = "black";
+
+    mutations.setMembership(state, membership);
+
+    expect(state.membership).toEqual(membership);
+  });
+
   it("Check mutations.setBalances", () => {
     const data = mockBalances();
 

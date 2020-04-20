@@ -30,6 +30,15 @@ export default {
     state.message = message;
   },
   /**
+   * Set account membership
+   *
+   * @param {AccountState} state
+   * @param {String} membership
+   */
+  setMembership(state, membership) {
+    state.membership = membership;
+  },
+  /**
    * Set account balances
    * 
    * @param {AccountState} state 

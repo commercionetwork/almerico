@@ -49,5 +49,14 @@ export default {
    */
   requestDelegatorRewards(address) {
     return instance.get(`${API.DISTRIBUTION_DELEGATORS}/${address}/rewards`);
+  },
+  /**
+   * Handle ajax request to get account membership
+   * 
+   * @param {String} address
+   * @return {Promise}
+   */
+  requestMembership(address) {
+    return instance.get(`${API.MEMBERSHIP}/${address}`);
   }
 };

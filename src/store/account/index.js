@@ -9,6 +9,7 @@ import mutations from "./mutations";
 export const initialState = {
   all: [],
   isFetching: false,
+  membership: "",
   message: "",
 };
 

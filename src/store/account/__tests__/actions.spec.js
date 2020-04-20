@@ -1,9 +1,8 @@
 /* global describe, beforeEach, it, expect, jest */
 
 import actions from "../actions.js";
-import {
-  mockBalances
-} from "../__mocks__/balances";
+import { mockBalances } from "../__mocks__/balances";
+import { mockMembership } from "../__mocks__/membership";
 
 describe("store/account/actions", () => {
   beforeEach(() => {
@@ -57,6 +56,51 @@ describe("store/account/actions", () => {
       root: true
     });
   });
+
+  it("Check if 'actions.fetchMembership' set membership", async () => {
+    const commit = jest.fn();
+
+    await actions.fetchMembership({
+      commit
+    }, "address");
+
+    expect(commit).toHaveBeenCalledWith("setMembership", mockResponse.data.result.membership_type);
+  });
+
+  it("Check if 'actions.fetchMembership' has an error", async () => {
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchMembership({
+      commit
+    }, "address");
+
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check if 'actions.fetchMembership' has a request error", async () => {
+    const commit = jest.fn();
+    mockErrorRequest = true;
+
+    await actions.fetchMembership({
+      commit
+    }, "address");
+
+    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+  });
+
+  it("Check 'actions.fetchMembership' when server is unreachable", async () => {
+    const commit = jest.fn();
+    mockErrorServer = true;
+
+    await actions.fetchMembership({
+      commit
+    }, "address");
+
+    expect(commit).toBeCalledWith("setServerReachability", false, {
+      root: true
+    });
+  });
 });
 
 let mockResponse = null;
@@ -96,6 +140,29 @@ jest.mock("./../api", () => ({
           data: {
             height: "1",
             result: mockBalances()
+          }
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestMembership: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
+
+        mockResponse = {
+          data: {
+            height: "0",
+            result: mockMembership()
           }
         };
         resolve(mockResponse);
