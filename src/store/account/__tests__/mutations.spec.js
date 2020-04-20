@@ -1,10 +1,12 @@
 /* global describe, beforeEach, it, expect */
 
 import mutations from "../mutations";
-import {
-  initialState
-} from "../index";
+import { initialState } from "../index";
 import { mockBalances } from "../__mocks__/balances";
+import { mockDelegations } from "../__mocks__/delegations";
+import { mockMembership } from "../__mocks__/membership";
+import { mockRewards, mockReward } from "../__mocks__/rewards";
+import { mockUnbondings } from "../__mocks__/unbondings";
 
 describe("store/account/mutations", () => {
   let state = {};
@@ -40,19 +42,43 @@ describe("store/account/mutations", () => {
     expect(state.message).toEqual(message);
   });
 
-  it("Check mutations.setMembership", () => {
-    const membership = "black";
-
-    mutations.setMembership(state, membership);
-
-    expect(state.membership).toEqual(membership);
-  });
-
   it("Check mutations.setBalances", () => {
     const data = mockBalances();
 
     mutations.setBalances(state, data);
 
-    expect(state.all).toEqual(data);
+    expect(state.balances).toEqual(data);
+  });
+
+  it("Check mutations.setDelegations", () => {
+    const data = mockDelegations();
+
+    mutations.setDelegations(state, data);
+
+    expect(state.delegations).toEqual(data);
+  });
+
+  it("Check mutations.setMembership", () => {
+    const data = mockMembership();
+
+    mutations.setMembership(state, data);
+
+    expect(state.membership).toEqual(data.membership_type);
+  });
+
+  it("Check mutations.setRewards", () => {
+    const data = mockRewards();
+
+    mutations.setRewards(state, data);
+
+    expect(state.rewards).toEqual(data);
+  });
+
+  it("Check mutations.setUnbondingDelegations", () => {
+    const data = mockUnbondings();
+
+    mutations.setUnbondingDelegations(state, data);
+
+    expect(state.unbondingDelegations).toEqual(data);
   });
 });

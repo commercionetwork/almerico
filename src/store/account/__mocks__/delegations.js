@@ -2,7 +2,11 @@ const mockDelegation = (shares) => {
   const item = {
     delegator_address: "comnet17d5g4e5q42k6e07klet4gpm0dxlja2mtjh9qdf",
     validator_address: "comnetvaloper17d5g4e5q42k6e07klet4gpm0dxlja2mth3h8wl",
-    shares: `${shares}00000000000.000000000000000000`
+    shares: `${shares}000.000000000000000000`,
+    balance: {
+      denom: "ucommercio",
+      amount: `${shares}000`
+    }
   };
   return item;
 };
