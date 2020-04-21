@@ -15,12 +15,12 @@ describe("store/account/actions", () => {
     mockResponse = null;
   });
 
-  it("Check if 'actions.fetchAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondingDelegations", async () => {
+  it("Check if 'actions.fetchAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondingDelegations", () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = "address";
 
-    await actions.fetchAccount({
+    actions.fetchAccount({
       commit, dispatch
     }, address);
 
@@ -30,6 +30,8 @@ describe("store/account/actions", () => {
     expect(dispatch).toHaveBeenCalledWith("fetchRewards", address);
     expect(dispatch).toHaveBeenCalledWith("fetchUnbondingDelegations", address);
   });
+
+
 
   it("Check if 'actions.fetchBalances' set balances", async () => {
     const commit = jest.fn();
