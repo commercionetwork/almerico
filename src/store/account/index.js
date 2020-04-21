@@ -12,7 +12,7 @@ export const initialState = {
   isFetching: false,
   membership: "",
   message: "",
-  rewards: null,
+  rewards: {},
   unbondingDelegations: [],
 };
 

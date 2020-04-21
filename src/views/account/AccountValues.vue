@@ -132,10 +132,12 @@ export default {
     rewardsAmount() {
       let denom = this.coin ? this.coin.denom : "";
       let exponent = this.coin ? this.coin.exponent : 0;
-      let rewards = this.rewards.total.reduce((tot, reward) => {
-        tot += parseFloat(reward.amount);
-        return tot;
-      }, 0);
+      let rewards = this.rewards.total
+        ? this.rewards.total.reduce((tot, reward) => {
+            tot += parseFloat(reward.amount);
+            return tot;
+          }, 0)
+        : 0;
       let amount = coinsManager(denom, exponent, rewards);
       let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
       return { label: `${formatAmount}`, value: amount.amount };
