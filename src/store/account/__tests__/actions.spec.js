@@ -8,31 +8,6 @@ import { mockRewards } from "../__mocks__/rewards";
 import { mockUnbondings } from "../__mocks__/unbondings";
 
 describe("store/account/actions", () => {
-  beforeEach(() => {
-    mockError = false;
-    mockErrorRequest = false;
-    mockErrorServer = false;
-    mockResponse = null;
-  });
-
-  it("Check if 'actions.fetchAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondingDelegations", () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const address = "address";
-
-    actions.fetchAccount({
-      commit, dispatch
-    }, address);
-
-    expect(dispatch).toHaveBeenCalledWith("fetchMembership", address);
-    expect(dispatch).toHaveBeenCalledWith("fetchBalances", address);
-    expect(dispatch).toHaveBeenCalledWith("fetchDelegations", address);
-    expect(dispatch).toHaveBeenCalledWith("fetchRewards", address);
-    expect(dispatch).toHaveBeenCalledWith("fetchUnbondingDelegations", address);
-  });
-
-
-
   it("Check if 'actions.fetchBalances' set balances", async () => {
     const commit = jest.fn();
 
@@ -81,6 +56,22 @@ describe("store/account/actions", () => {
     }, "address");
 
     expect(commit).toHaveBeenCalledWith("setUnbondingDelegations", mockResponse.data.result);
+  });
+
+  it("Check if 'actions.fetchAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondingDelegations", () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const address = "address";
+
+    actions.fetchAccount({
+      commit, dispatch
+    }, address);
+
+    expect(dispatch).toHaveBeenCalledWith("fetchMembership", address);
+    expect(dispatch).toHaveBeenCalledWith("fetchBalances", address);
+    expect(dispatch).toHaveBeenCalledWith("fetchDelegations", address);
+    expect(dispatch).toHaveBeenCalledWith("fetchRewards", address);
+    expect(dispatch).toHaveBeenCalledWith("fetchUnbondingDelegations", address);
   });
 });
 
