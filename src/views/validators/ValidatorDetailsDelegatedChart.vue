@@ -33,27 +33,13 @@ export default {
       note: "Total tokens"
     }
   },
-  data() {
-    return {
-      chartdata: null,
-      options: null
-    };
-  },
   computed: {
-    legendColor() {
-      return this.$theme.theme_light === "true" ? "#303030" : "#FFF";
-    }
-  },
-  methods: {
-    getPercent(value, total) {
-      return total > 0 ? ((value / total) * 100).toFixed(2) : 0;
-    },
-    setChartData() {
+    chartdata(){
       let data = [
         this.getPercent(this.others, this.totals),
         this.getPercent(this.self, this.totals)
       ];
-      this.chartdata = {
+      return {
         labels: [this.$t("labels.others"), this.$t("labels.self")],
         datasets: [
           {
@@ -65,13 +51,15 @@ export default {
           }
         ]
       };
-      this.options = {
+    },
+    options() {
+      return {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
           position: "left",
           labels: {
-            fontColor: this.legendColor,
+            fontColor: this.$theme.theme_light === "true" ? "#303030" : "#FFF",
             fontSize: 13
           }
         },
@@ -90,8 +78,10 @@ export default {
       };
     }
   },
-  mounted() {
-    this.setChartData();
-  }
+  methods: {
+    getPercent(value, total) {
+      return total > 0 ? ((value / total) * 100).toFixed(2) : 0;
+    },
+  },
 };
 </script>
