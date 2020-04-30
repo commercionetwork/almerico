@@ -16,7 +16,7 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.16.1",
     "qrcode.vue": "^1.7.0",
     "tendermint": "^4.0.8",
