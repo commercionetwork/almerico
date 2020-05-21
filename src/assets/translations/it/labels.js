@@ -115,4 +115,10 @@ export const labels = {
   votingStartTime: "Ora inizio votazione",
   website: "Sito internet",
   yes: "Si",
+  doSign: "Firmatario",
+  storageUri: "Storage uri",
+  signerInstance: "Istanza firmatario",
+  sdnData: "Dati SDN",
+  vcrId: "ID VCR",
+  certificateProfile: "Profilo certificato",
 };

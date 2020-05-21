@@ -58,33 +58,37 @@
                 v-text="metaContentUri"
               />
             </dd>
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.schemaType')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="metaSchemaType"
-            />
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.schemaUri')"
-            />
-            <dd class="com-font-s14-w400">
-              <a
-                :href="metaSchemaUri"
-                target="_blank"
-                v-text="metaSchemaUri"
+            <span v-if="metaSchemaType != '-'">
+              <dt
+                class="com-font-s14-w700"
+                v-text="$t('labels.schemaType')"
               />
-            </dd>
-            <dt
-              class="com-font-s14-w700"
-              v-text="$t('labels.schemaVersion')"
-            />
-            <dd
-              class="com-font-s14-w400"
-              v-text="metaSchemaVersion"
-            />
+              <dd
+                class="com-font-s14-w400"
+                v-text="metaSchemaType"
+              />
+            </span>
+            <span v-else>
+              <dt
+                class="com-font-s14-w700"
+                v-text="$t('labels.schemaUri')"
+              />
+              <dd class="com-font-s14-w400">
+                <a
+                  :href="metaSchemaUri"
+                  target="_blank"
+                  v-text="metaSchemaUri"
+                />
+              </dd>
+              <dt
+                class="com-font-s14-w700"
+                v-text="$t('labels.schemaVersion')"
+              />
+              <dd
+                class="com-font-s14-w400"
+                v-text="metaSchemaVersion"
+              />
+            </span>
           </dl>
         </div>
       </div>
@@ -172,6 +176,59 @@
           </div>
         </div>
       </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.doSign')"
+        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <dl>
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.storageUri')"
+            />
+            <dd class="com-font-s14-w400">
+              <a
+                :href="doSignStorage"
+                target="_blank"
+                v-text="doSignStorage"
+              />
+            </dd>
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.signerInstance')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="doSignSigner"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.sdnData')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="doSignSdn"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.vcrId')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="doSignVcr"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.certificateProfile')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="doSignCertificate"
+            />
+          </dl>
+        </div>
+      </div>
     </div>
   </MsgTx>
 </template>
@@ -200,32 +257,14 @@ export default {
     };
   },
   computed: {
-    checksumValue() {
-      return this.message.value.checksum && this.message.value.checksum.value
-        ? this.message.value.checksum.value
-        : "-";
+    sender() {
+      return this.message.value.sender ? this.message.value.sender : "-";
     },
-    checksumAlgorithm() {
-      return this.message.value.checksum && this.message.value.checksum
-        ? this.message.value.checksum.algorithm
-        : "-";
+    recipients() {
+      return this.message.value.recipients ? this.message.value.recipients : [];
     },
-    contentUri() {
-      return this.message.value.content_uri
-        ? this.message.value.content_uri
-        : "-";
-    },
-    encryptionDataEnData() {
-      return this.message.value.encryption_data &&
-        this.message.value.encryption_data.encrypted_data
-        ? this.message.value.encryption_data.encrypted_data
-        : "-";
-    },
-    encryptionDataKeys() {
-      return this.message.value.encryption_data &&
-        this.message.value.encryption_data.keys
-        ? this.message.value.encryption_data.keys
-        : "-";
+    uuid() {
+      return this.message.value.uuid ? this.message.value.uuid : "-";
     },
     metaContentUri() {
       return this.message.value.metadata &&
@@ -253,14 +292,62 @@ export default {
         ? this.message.value.metadata.schema.version
         : "-";
     },
-    recipients() {
-      return this.message.value.recipients ? this.message.value.recipients : [];
+    contentUri() {
+      return this.message.value.content_uri
+        ? this.message.value.content_uri
+        : "-";
     },
-    sender() {
-      return this.message.value.sender ? this.message.value.sender : "-";
+    checksumValue() {
+      return this.message.value.checksum && this.message.value.checksum.value
+        ? this.message.value.checksum.value
+        : "-";
     },
-    uuid() {
-      return this.message.value.uuid ? this.message.value.uuid : "-";
+    checksumAlgorithm() {
+      return this.message.value.checksum && this.message.value.checksum
+        ? this.message.value.checksum.algorithm
+        : "-";
+    },
+    encryptionDataKeys() {
+      return this.message.value.encryption_data &&
+        this.message.value.encryption_data.keys
+        ? this.message.value.encryption_data.keys
+        : [];
+    },
+    encryptionDataEnData() {
+      return this.message.value.encryption_data &&
+        this.message.value.encryption_data.encrypted_data
+        ? this.message.value.encryption_data.encrypted_data
+        : [];
+    },
+    doSignStorage() {
+      return this.message.value.do_sign &&
+        this.message.value.do_sign.storage_uri
+        ? this.message.value.do_sign.storage_uri
+        : "-";
+    },
+    doSignSigner() {
+      return this.message.value.do_sign &&
+        this.message.value.do_sign.signer_instance
+        ? this.message.value.do_sign.signer_instance
+        : "-";
+    },
+    doSignSdn() {
+      return this.message.value.do_sign &&
+        this.message.value.do_sign.sdn_data &&
+        this.message.value.do_sign.sdn_data.length > 0
+        ? this.message.value.do_sign.sdn_data.join(", ")
+        : "-";
+    },
+    doSignVcr() {
+      return this.message.value.do_sign && this.message.value.do_sign.vcr_id
+        ? this.message.value.do_sign.vcr_id
+        : "-";
+    },
+    doSignCertificate() {
+      return this.message.value.do_sign &&
+        this.message.value.do_sign.certificate_profile
+        ? this.message.value.do_sign.certificate_profile
+        : "-";
     },
     title() {
       return this.message.type ? this.message.type.split("/").pop() : "-";
