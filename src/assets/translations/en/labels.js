@@ -84,6 +84,7 @@ export const labels = {
   schemaVersion: "Schema version",
   sdnData: "SDN data",
   secondUser: "Second user",
+  securityContact: "Security contact",
   self: "Self",
   sender: "Sender",
   service: "Service",
