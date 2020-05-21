@@ -63,26 +63,13 @@
             />
             <dt
               class="com-font-s14-w700"
-              v-text="$t('labels.publicKeyHex')"
+              v-text="$t('labels.publicKey')"
             />
             <dd
               class="com-font-s14-w400"
-              v-text="pubKey.publicKeyHex"
+              v-text="pubKey.publicKeyPem"
             />
           </dl>
-        </div>
-      </div>
-      <div class="row p-1">
-        <div
-          class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.authentication')"
-        />
-        <div class="col-12 col-md-9 text-break com-font-s14-w400">
-          <div
-            v-for="(auth, index) in authentications"
-            :key="index"
-            v-text="auth"
-          />
         </div>
       </div>
       <div class="row p-1">
@@ -110,11 +97,27 @@
             />
             <dt
               class="com-font-s14-w700"
-              v-text="$t('labels.creator')"
+              v-text="$t('labels.proofPurpose')"
             />
             <dd
               class="com-font-s14-w400"
-              v-text="proofCreator"
+              v-text="proofPurpose"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.controller')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="proofController"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.verificationMethod')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="proofVerif"
             />
             <dt
               class="com-font-s14-w700"
@@ -160,11 +163,6 @@ export default {
     }
   },
   computed: {
-    authentications() {
-      return this.message.value.authentication
-        ? this.message.value.authentication
-        : [];
-    },
     context() {
       return this.message.value["@context"]
         ? this.message.value["@context"]
@@ -172,6 +170,9 @@ export default {
     },
     id() {
       return this.message.value.id ? this.message.value.id : "-";
+    },
+    publicKeys() {
+      return this.message.value.publicKey ? this.message.value.publicKey : [];
     },
     proofType() {
       return this.message.value.proof && this.message.value.proof.type
@@ -183,18 +184,25 @@ export default {
         ? this.$d(new Date(this.message.value.proof.created))
         : "-";
     },
-    proofCreator() {
-      return this.message.value.proof && this.message.value.proof.creator
-        ? this.message.value.proof.creator
+    proofPurpose() {
+      return this.message.value.proof && this.message.value.proof.proofPurpose
+        ? this.message.value.proof.proofPurpose
+        : "-";
+    },
+    proofController() {
+      return this.message.value.proof && this.message.value.proof.controller
+        ? this.message.value.proof.controller
+        : "-";
+    },
+    proofVerif() {
+      return this.message.value.proof && this.message.value.proof.verificationMethod
+        ? this.message.value.proof.verificationMethod
         : "-";
     },
     proofSig() {
       return this.message.value.proof && this.message.value.proof.signatureValue
         ? this.message.value.proof.signatureValue
         : "-";
-    },
-    publicKeys() {
-      return this.message.value.publicKey ? this.message.value.publicKey : [];
     },
     service() {
       return this.message.value.service ? this.message.value.service : "-";
