@@ -130,15 +130,46 @@
           </dl>
         </div>
       </div>
-      <div class="row p-1">
+      <div
+        v-if="services.length > 0"
+        class="row p-1"
+      >
         <div
           class="col-12 col-md-3 com-font-s14-w700"
           v-text="$t('labels.service')"
         />
-        <div
-          class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="service"
-        />
+        <div class="col-12 col-md-9 text-break com-font-s14-w400">
+          <dl
+            class="border-bottom"
+            v-for="(service, index) in services"
+            :key="index"
+          >
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.id')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="service.id"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.type')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="service.type"
+            />
+            <dt
+              class="com-font-s14-w700"
+              v-text="$t('labels.serviceEndpoint')"
+            />
+            <dd
+              class="com-font-s14-w400"
+              v-text="service.serviceEndpoint"
+            />
+          </dl>
+        </div>
       </div>
     </div>
   </MsgTx>
@@ -195,7 +226,8 @@ export default {
         : "-";
     },
     proofVerif() {
-      return this.message.value.proof && this.message.value.proof.verificationMethod
+      return this.message.value.proof &&
+        this.message.value.proof.verificationMethod
         ? this.message.value.proof.verificationMethod
         : "-";
     },
@@ -204,8 +236,8 @@ export default {
         ? this.message.value.proof.signatureValue
         : "-";
     },
-    service() {
-      return this.message.value.service ? this.message.value.service : "-";
+    services() {
+      return this.message.value.service ? this.message.value.service : [];
     },
     title() {
       return this.message.type ? this.message.type.split("/").pop() : "-";

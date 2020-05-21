@@ -86,6 +86,7 @@ export const labels = {
   self: "Self",
   sender: "Sender",
   service: "Service",
+  serviceEndpoint: "Service endpoint",
   share: "Share",
   signatureValue: "Signature value",
   signer: "Signer",
