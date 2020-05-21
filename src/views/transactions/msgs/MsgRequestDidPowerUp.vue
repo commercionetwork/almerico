@@ -40,11 +40,21 @@
       <div class="row p-1">
         <div
           class="col-12 col-md-3 com-font-s14-w700"
-          v-text="$t('labels.encryptionKey')"
+          v-text="$t('labels.id')"
         />
         <div
           class="col-12 col-md-9 text-break com-font-s14-w400"
-          v-text="encryptionKey"
+          v-text="id"
+        />
+      </div>
+      <div class="row p-1">
+        <div
+          class="col-12 col-md-3 com-font-s14-w700"
+          v-text="$t('labels.proofKey')"
+        />
+        <div
+          class="col-12 col-md-9 text-break com-font-s14-w400"
+          v-text="proofKey"
         />
       </div>
     </div>
@@ -81,10 +91,11 @@ export default {
     claimant() {
       return this.message.value.claimant ? this.message.value.claimant : "-";
     },
-    encryptionKey() {
-      return this.message.value.encryption_key
-        ? this.message.value.encryption_key
-        : "-";
+    proofKey() {
+      return this.message.value.proof_key ? this.message.value.proof_key : "-";
+    },
+    id() {
+      return this.message.value.id ? this.message.value.id : "-";
     },
     proof() {
       return this.message.value.proof ? this.message.value.proof : "-";
