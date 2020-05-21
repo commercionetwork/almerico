@@ -53,6 +53,7 @@ export const labels = {
   maxChangeRate: "Max change rate",
   maxRate: "Max rate",
   membershipType: "Membership type",
+  message: "Message",
   metadata: "Metadata",
   minSelfDelegation: "Min self delegation",
   moniker: "Moniker",

@@ -103,10 +103,16 @@
         "type": "commercio/MsgBuyMembership"
       },
       {
+        "name": "MsgChangePowerUpStatus",
+        "tag": "changePowerUpStatus",
+        "type": "commercio/MsgChangePowerUpStatus"
+      },
+      {
         "name": "MsgCloseCdp",
         "tag": "closeCdp",
         "type": "commercio/MsgCloseCdp"
-      }, {
+      },
+      {
         "name": "MsgCreateValidator",
         "tag": "create_validator",
         "type": "cosmos-sdk/MsgCreateValidator"
