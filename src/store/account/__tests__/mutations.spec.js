@@ -5,7 +5,7 @@ import { initialState } from "../index";
 import { mockBalances } from "../__mocks__/balances";
 import { mockDelegations } from "../__mocks__/delegations";
 import { mockMembership } from "../__mocks__/membership";
-import { mockRewards, mockReward } from "../__mocks__/rewards";
+import { mockRewards } from "../__mocks__/rewards";
 import { mockUnbondings } from "../__mocks__/unbondings";
 
 describe("store/account/mutations", () => {

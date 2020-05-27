@@ -1,4 +1,4 @@
-const mockNewBlock = (txs = null) => {
+const mockNewBlock = () => {
   let item = {
     jsonrpc: "2.0",
     id: 0,

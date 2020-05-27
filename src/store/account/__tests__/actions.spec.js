@@ -1,4 +1,4 @@
-/* global describe, beforeEach, it, expect, jest */
+/* global describe, it, expect, jest */
 
 import actions from "../actions.js";
 import { mockBalances } from "../__mocks__/balances";
