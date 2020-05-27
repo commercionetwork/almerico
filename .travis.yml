@@ -11,6 +11,7 @@ install:
 
 script: 
   - npm test
+  - npm run build
 
 after_success:
   - docker build -t $DOCKER_IMAGE
