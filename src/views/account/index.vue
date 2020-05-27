@@ -76,8 +76,6 @@ import AccountUnbondings from "./AccountUnbondings.vue";
 import AccountValues from "./AccountValues.vue";
 import SearchBar from "Components/common/SearchBar.vue";
 
-import api from "Store/account/api";
-import { arrayManager } from "Utils";
 import { mapActions, mapGetters } from "vuex";
 
 export default {

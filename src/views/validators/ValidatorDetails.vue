@@ -76,7 +76,6 @@ import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 import api from "Store/validators/api";
 import { bech32Manager } from "Utils";
 import { mapGetters } from "vuex";
-import transactions from "../../store/transactions";
 
 export default {
   name: "ValidatorDetails",
