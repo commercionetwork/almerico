@@ -1,6 +1,6 @@
 export const MEMBESHIPS_LIST = {
   GREEN: "green",
-  BRONZE: "bornze",
+  BRONZE: "bronze",
   SILVER: "silver",
   GOLD: "gold",
   BLACK: "black"
