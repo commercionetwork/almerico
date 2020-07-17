@@ -16,6 +16,7 @@ const localVue = createLocalVue();
 
 describe("views/validators/index.vue", () => {
   const methods = {
+    getLast100Blocks: jest.fn(),
     filterValidators: jest.fn()
   };
   const mocks = {

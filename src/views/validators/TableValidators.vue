@@ -38,6 +38,13 @@
           >
             <span v-text="$t('labels.commission')" />
           </th>
+          <th
+            v-if="$config.validators.table.columns.blocks"
+            scope="col"
+            data-test="table-column-blocks"
+          >
+            <span v-text="$t('labels.blocksPercentage')" />
+          </th>
         </tr>
       </thead>
       <tbody>

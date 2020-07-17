@@ -5,7 +5,11 @@ import {
   mockPool
 } from "Store/stake/__mocks__/pool";
 import {
-  mockValidator
+  mockBlocks
+} from "Store/blocks/__mocks__/blocks";
+import {
+  mockValidator,
+  mockValidatorSet
 } from "Store/validators/__mocks__/validators";
 import {
   createLocalVue,
@@ -18,7 +22,9 @@ localVue.use(VueRouter);
 
 describe("views/validators/TableValidatorsRow.vue", () => {
   const computed = {
-    pool: () => mockPool()
+    pool: () => mockPool(),
+    blocks: () => mockBlocks(100),
+    validatorSet: () => mockValidatorSet()
   };
   const mocks = {
     $i18n: messageId => messageId,
@@ -53,7 +59,8 @@ describe("views/validators/TableValidatorsRow.vue", () => {
                 name: true,
                 voting_power: true,
                 share_percentage: true,
-                commission: true
+                commission: true,
+                blocks: true
               }
             }
           },
@@ -69,6 +76,7 @@ describe("views/validators/TableValidatorsRow.vue", () => {
     expect(wrapper.find('[data-test="table-column-power"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="table-column-share"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="table-column-commission"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="table-column-blocks"]').exists()).toBe(true);
   });
 
   it("Check if columns of validators table row are not displayed", () => {
@@ -110,5 +118,6 @@ describe("views/validators/TableValidatorsRow.vue", () => {
     expect(wrapper.find('[data-test="table-column-power"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="table-column-share"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="table-column-commission"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="table-column-blocks"]').exists()).toBe(false);
   });
 });

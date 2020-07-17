@@ -6,6 +6,7 @@ export const labels = {
   amount: "Importo",
   authentication: "Autenticazione",
   availables: "Disponibili",
+  blocksPercentage: "% Blocchi",
   bonded: "Vincolati",
   buyer: "Acquirente",
   cdpTimestamp: "CDP timestamp",

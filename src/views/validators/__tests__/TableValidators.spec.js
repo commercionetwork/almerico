@@ -32,7 +32,8 @@ describe("views/validators/TableValidators.vue", () => {
                 name: true,
                 voting_power: true,
                 share_percentage: true,
-                commission: true
+                commission: true,
+                blocks: true
               }
             }
           },
@@ -48,6 +49,7 @@ describe("views/validators/TableValidators.vue", () => {
     expect(wrapper.find('[data-test="table-column-power"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="table-column-share"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="table-column-commission"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="table-column-blocks"]').exists()).toBe(true);
   });
 
   it("Check if columns of validators table are not displayed", () => {
@@ -63,7 +65,8 @@ describe("views/validators/TableValidators.vue", () => {
                 name: false,
                 voting_power: false,
                 share_percentage: false,
-                commission: false
+                commission: false,
+                blocks: false
               }
             }
           },
@@ -79,5 +82,6 @@ describe("views/validators/TableValidators.vue", () => {
     expect(wrapper.find('[data-test="table-column-power"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="table-column-share"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="table-column-commission"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="table-column-blocks"]').exists()).toBe(false);
   });
 });

@@ -1,13 +1,15 @@
 {
   "generic": {
     "logo": "https://commercio.network/wp-content/uploads/2019/08/logo_commercio_Bianco.png",
-    "coins": [{
-      "name": "commercio",
-      "symbol": "CNT",
-      "denom": "ucommercio",
-      "exponent": 6,
-      "stakeable": true
-    }],
+    "coins": [
+      {
+        "name": "commercio",
+        "symbol": "CNT",
+        "denom": "ucommercio",
+        "exponent": 6,
+        "stakeable": true
+      }
+    ],
     "prefixes": {
       "account": {
         "address": "did:com:",
@@ -92,7 +94,8 @@
         "date": true
       }
     },
-    "supported_types": [{
+    "supported_types": [
+      {
         "name": "MsgBeginRedelegate",
         "tag": "begin_redelegate",
         "type": "cosmos-sdk/MsgBeginRedelegate"
@@ -245,9 +248,9 @@
         "name": true,
         "voting_power": true,
         "share_percentage": true,
-        "commission": true
+        "commission": true,
+        "blocks": true
       }
-
     }
   },
   "validator_details": {

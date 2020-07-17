@@ -39,12 +39,19 @@
     >
       <span v-text="commission" />
     </td>
+    <td
+      v-if="$config.validators.table.columns.blocks"
+      class="align-middle"
+      data-test="table-column-blocks"
+    >
+      <span v-text="verifiedBlocks" />
+    </td>
   </tr>
 </template>
 
 <script>
 import { ROUTE_NAMES } from "Constants";
-import { coinsManager } from "Utils";
+import { bech32Manager, coinsManager } from "Utils";
 import { mapGetters } from "vuex";
 
 export default {
@@ -60,6 +67,12 @@ export default {
   computed: {
     ...mapGetters("stake", {
       pool: "pool"
+    }),
+    ...mapGetters("blocks", {
+      blocks: "blocks"
+    }),
+    ...mapGetters("validators", {
+      validatorSet: "validatorSet"
     }),
     commission() {
       return this.$n(
@@ -106,6 +119,28 @@ export default {
             maximumFractionDigits: 2
           })
         : "- %";
+    },
+    verifiedBlocks() {
+      let missingCounter = 0;
+      let pubKey = this.validator.consensus_pubkey;
+
+      let validatorIndex = this.validatorSet.findIndex(
+        validator => validator.pub_key === pubKey
+      );
+      if (validatorIndex < 0) return `${missingCounter} %`;
+
+      let hex = bech32Manager.decode(this.validatorSet[validatorIndex].address);
+      this.blocks.forEach(block => {
+        let signatures = block.last_commit.signatures;
+        let signatureIndex = signatures.findIndex(function(signature) {
+          return signature.validator_address === hex.toUpperCase();
+        });
+        if (signatureIndex > -1) {
+          missingCounter++;
+        }
+      });
+      console.log(missingCounter);
+      return `${missingCounter} %`;
     }
   },
   methods: {
