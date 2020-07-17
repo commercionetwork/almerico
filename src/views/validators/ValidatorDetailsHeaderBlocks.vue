@@ -27,13 +27,19 @@ export default {
     ...mapGetters("blocks", {
       blocks: "blocks"
     }),
+    ...mapGetters("validators", {
+      validatorSet: "validatorSet"
+    }),
     verifiedBlocks() {
+      let blocks = [];
       let pubKey = this.validator.consensus_pubkey;
 
+      let validatorIndex = this.validatorSet.findIndex(
+        validator => validator.pub_key === pubKey
+      );
+      if (validatorIndex < 0) return blocks;
 
-
-      let hex = bech32Manager.decode(this.validator.operator_address);
-      let blocks = [];
+      let hex = bech32Manager.decode(this.validatorSet[validatorIndex].address);
       this.blocks.forEach(block => {
         let newItem = {
           height: block.header.height,
@@ -41,7 +47,7 @@ export default {
         };
         let signatures = block.last_commit.signatures;
         let signatureIndex = signatures.findIndex(function(signature) {
-          return signature.validator_address === hex;
+          return signature.validator_address === hex.toUpperCase();
         });
         if (signatureIndex < 0) {
           newItem.missing = true;
@@ -50,7 +56,7 @@ export default {
       });
       return blocks;
     }
-  },
+  }
 };
 </script>
 

@@ -98,7 +98,6 @@ export default {
     try {
       const response = await api.requestValidatorsetsLatest();
       const data = response.data.result.validators;
-      console.log("FETCH_LAST_VALIDATOR_SET", data);
       commit("setValidatorSet", data);
     } catch (error) {
       if (error.response) {

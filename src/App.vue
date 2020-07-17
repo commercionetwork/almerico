@@ -68,7 +68,8 @@ export default {
       fetchTransactions: "fetchTransactions"
     }),
     ...mapActions("validators", {
-      getValidators: "getValidators"
+      getValidators: "getValidators",
+      fetchLastValidatorSet: "fetchLastValidatorSet"
     }),
     async getData() {
       try {
@@ -76,6 +77,7 @@ export default {
         await this.fetchNodeInfo();
         await this.fetchLastBlock();
         await this.fetchPool();
+        await this.fetchLastValidatorSet();
         if (this.transactions.length === 0) await this.getTransactions();
         if (this.validators.length === 0) {
           await this.getValidators({
