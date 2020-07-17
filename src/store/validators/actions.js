@@ -82,5 +82,36 @@ export default {
     } finally {
       commit("stopLoading");
     }
+  },
+  /**
+   * Action to fetch last validator set
+   * 
+   * @param {Function} commit 
+   */
+  async fetchLastValidatorSet({
+    commit
+  }) {
+    commit("startLoading");
+    commit("setServerReachability", true, {
+      root: true
+    });
+    try {
+      const response = await api.requestValidatorsetsLatest();
+      const data = response.data.result.validators;
+      console.log("FETCH_LAST_VALIDATOR_SET", data);
+      commit("setValidatorSet", data);
+    } catch (error) {
+      if (error.response) {
+        commit("setMessage", error.response.data.error);
+      } else if (error.request) {
+        commit("setMessage", "Request error");
+      } else {
+        commit("setServerReachability", false, {
+          root: true
+        });
+      }
+    } finally {
+      commit("stopLoading");
+    }
   }
 };

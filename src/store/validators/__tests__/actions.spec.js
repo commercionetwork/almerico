@@ -5,7 +5,8 @@ import {
   VALIDATOR_STATUS
 } from "Constants";
 import {
-  mockValidators
+  mockValidators,
+  mockValidatorSet
 } from "../__mocks__/validators";
 
 describe("store/validators/actions", () => {
@@ -87,6 +88,51 @@ describe("store/validators/actions", () => {
       root: true
     });
   });
+
+  it("Check if 'actions.fetchLastValidatorSet' adds validator set", async () => {
+    const commit = jest.fn();
+
+    await actions.fetchLastValidatorSet({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setValidatorSet", mockResponse.data.result.validators);
+  });
+
+  it("Check if 'actions.fetchLastValidatorSet' has an error", async () => {
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchLastValidatorSet({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+  });
+
+  it("Check if 'actions.fetchLastValidatorSet' has a request error", async () => {
+    const commit = jest.fn();
+    mockErrorRequest = true;
+
+    await actions.fetchLastValidatorSet({
+      commit
+    });
+
+    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+  });
+
+  it("Check 'actions.fetchLastValidatorSet' when server is unreachable", async () => {
+    const commit = jest.fn();
+    mockErrorServer = true;
+
+    await actions.fetchLastValidatorSet({
+      commit
+    });
+
+    expect(commit).toBeCalledWith("setServerReachability", false, {
+      root: true
+    });
+  });
 });
 
 let mockResponse = null;
@@ -126,6 +172,32 @@ jest.mock("./../api", () => ({
           data: {
             height: "1",
             result: mockValidators()
+          }
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestValidatorsetsLatest: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
+
+        mockResponse = {
+          data: {
+            height: "0",
+            result: {
+              block_height: "1",
+              validators: mockValidatorSet()
+            }
           }
         };
         resolve(mockResponse);

@@ -8,6 +8,7 @@ import mutations from "./mutations";
 
 export const initialState = {
   all: [],
+  set: [],
   isFetching: false,
   message: ""
 };

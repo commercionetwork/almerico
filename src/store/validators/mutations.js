@@ -47,4 +47,13 @@ export default {
   addValidators(state, data) {
     state.all.push(...data);
   },
+  /**
+   * Set validator set
+   * 
+   * @param {ValidatorsState} state 
+   * @param {Array} data 
+   */
+  setValidatorSet(state, data) {
+    state.set = data;
+  }
 };
