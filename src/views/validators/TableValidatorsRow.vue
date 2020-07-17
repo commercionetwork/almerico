@@ -139,7 +139,6 @@ export default {
           missingCounter++;
         }
       });
-      console.log(missingCounter);
       return `${missingCounter} %`;
     }
   },
