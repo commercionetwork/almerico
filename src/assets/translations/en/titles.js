@@ -8,6 +8,7 @@ export const titles = {
   deposits: "Deposits",
   detailsForBlock: "Details for block",
   information: "Information",
+  last100Blocks: "Last 100 blocks",
   messages: "Messages",
   notManagedType: "Not managed type",
   powerEvents: "Power events",

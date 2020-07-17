@@ -1,11 +1,17 @@
 <template>
-  <div class="grid">
+  <div>
     <div
-      v-for="(verified, index) in verifiedBlocks"
-      :key="index"
-      :class="(verified.missing) ? 'missing' : ''"
-      :title="verified.height"
-    ></div>
+      class="pb-1"
+      v-text="$t('titles.last100Blocks')"
+    />
+    <div class="grid">
+      <div
+        v-for="(verified, index) in verifiedBlocks"
+        :key="index"
+        :class="(verified.missing) ? 'missing' : ''"
+        :title="verified.height"
+      ></div>
+    </div>
   </div>
 </template>
 
@@ -54,7 +60,9 @@ export default {
         }
         blocks.push(newItem);
       });
-      return blocks;
+      return blocks.sort(function(a, b) {
+        return b.height - a.height;
+      });
     }
   }
 };
