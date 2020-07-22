@@ -120,9 +120,6 @@ export default {
     changePage(page) {
       this.page = page;
     }
-  },
-  created(){
-    console.log(this.validator);
   }
 };
 </script>
