@@ -90,7 +90,7 @@ export default {
         const amounts = delegatorsObj[delegator];
         let tot = 0;
         amounts.forEach(item => {
-          tot += parseFloat(item.shares);
+          tot += parseFloat(item.balance.amount);
         });
         delegators.push({
           address: delegator,
@@ -113,13 +113,16 @@ export default {
       return Object.keys(delegatorsObj).length;
     },
     totalShares() {
-      return parseFloat(this.validator.delegator_shares);
+      return parseFloat(this.validator.tokens);
     }
   },
   methods: {
     changePage(page) {
       this.page = page;
     }
+  },
+  created(){
+    console.log(this.validator);
   }
 };
 </script>
