@@ -8,6 +8,7 @@ export const titles = {
   deposits: "Depositi",
   detailsForBlock: "Dettagli del blocco",
   information: "Informazione",
+  last100Blocks: "Ultimi 100 blocchi",
   messages: "Messaggi",
   notManagedType: "Tipo non gestito",
   powerEvents: "Eventi di potere",
@@ -21,5 +22,5 @@ export const titles = {
   vote: "Voto",
   votes: "Voti",
   votingDetails: "Dettagli votazione",
-  votings: "Votazioni"
+  votings: "Votazioni",
 };

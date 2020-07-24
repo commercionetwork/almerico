@@ -49,55 +49,63 @@
       </div>
     </div>
     <hr class="d-none d-md-block">
-    <div class="row p-1">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.website')"
-      />
-      <div class="col-12 col-md-9 com-font-s14-w400">
-        <a
-          :href="validator.description.website"
-          target="_blank"
-          v-text="validator.description.website"
-        />
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="row p-1">
+          <div
+            class="col-12 col-md-3 com-font-s14-w700"
+            v-text="$t('labels.website')"
+          />
+          <div class="col-12 col-md-9 com-font-s14-w400">
+            <a
+              :href="validator.description.website"
+              target="_blank"
+              v-text="validator.description.website"
+            />
+          </div>
+        </div>
+        <div class="row p-1">
+          <div
+            class="col-12 col-md-3 com-font-s14-w700"
+            v-text="$t('labels.commission')"
+          />
+          <div
+            class="col-12 col-md-9 com-font-s14-w400"
+            v-text="commission"
+          />
+        </div>
+        <div class="row p-1">
+          <div
+            class="col-12 col-md-3 com-font-s14-w700"
+            v-text="$t('labels.votingPower')"
+          />
+          <div class="col-12 col-md-9 com-font-s14-w400">
+            <span v-text="powerPercent" />
+            <span v-text="' ('" />
+            <span v-text="votingPower" />
+            <span v-text="')'" />
+          </div>
+        </div>
+        <div class="row p-1">
+          <div
+            class="col-12 col-md-3 com-font-s14-w700"
+            v-text="$t('labels.details')"
+          />
+          <div
+            class="col-12 col-md-9 com-font-s14-w400"
+            v-text="validator.description.details"
+          />
+        </div>
       </div>
-    </div>
-    <div class="row p-1">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.commission')"
-      />
-      <div
-        class="col-12 col-md-9 com-font-s14-w400"
-        v-text="commission"
-      />
-    </div>
-    <div class="row p-1">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.votingPower')"
-      />
-      <div class="col-12 col-md-9 com-font-s14-w400">
-        <span v-text="powerPercent" />
-        <span v-text="' ('" />
-        <span v-text="votingPower" />
-        <span v-text="')'" />
+      <div class="col-12 col-md-4">
+        <ValidatorDetailsHeaderBlocks :validator="validator" />
       </div>
-    </div>
-    <div class="row p-1">
-      <div
-        class="col-12 col-md-3 com-font-s14-w700"
-        v-text="$t('labels.details')"
-      />
-      <div
-        class="col-12 col-md-9 com-font-s14-w400"
-        v-text="validator.description.details"
-      />
     </div>
   </div>
 </template>
 
 <script>
+import ValidatorDetailsHeaderBlocks from "./ValidatorDetailsHeaderBlocks";
 import Icon from "vue-awesome/components/Icon.vue";
 import "vue-awesome/icons/brands/hubspot";
 
@@ -109,7 +117,8 @@ export default {
   name: "ValidatorDetailsHeader",
   description: "Display the validator header",
   components: {
-    Icon
+    Icon,
+    ValidatorDetailsHeaderBlocks
   },
   props: {
     address: {
@@ -131,11 +140,14 @@ export default {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
     },
     commission() {
-      return this.$n(parseFloat(this.validator.commission.commission_rates.rate), {
-        style: "percent",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
+      return this.$n(
+        parseFloat(this.validator.commission.commission_rates.rate),
+        {
+          style: "percent",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }
+      );
     },
     hasImage() {
       return this.validator.imageUrl != null;

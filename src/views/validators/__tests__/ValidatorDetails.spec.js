@@ -24,7 +24,8 @@ describe("views/validators/ValidatorDetails.vue", () => {
     validatorAddress: () => "comnetvaloper1t8xx727yrvep0w7ylunz609vn2sarf5ckrval5"
   };
   const methods = {
-    getValidatorData: jest.fn()
+    getLast100Blocks: jest.fn(),
+    getValidatorData: jest.fn(),
   };
   const mocks = {
     $t: messageId => messageId

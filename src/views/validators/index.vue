@@ -85,7 +85,7 @@ import SearchBar from "Components/common/SearchBar.vue";
 import SearchValidator from "./SearchValidator.vue";
 import TableValidators from "./TableValidators.vue";
 
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Validators",
@@ -154,9 +154,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions("blocks", {
+      fetchBlocks: "fetchBlocks"
+    }),
+    getLast100Blocks() {
+      this.fetchBlocks({ page: 1, limit: 100 });
+    },
     setFilter(filter) {
       this.filter = filter;
     }
+  },
+  created() {
+    this.getLast100Blocks();
   }
 };
 </script>

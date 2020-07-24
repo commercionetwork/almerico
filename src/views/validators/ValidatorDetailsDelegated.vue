@@ -97,7 +97,7 @@ export default {
       this.delegations
         .filter(delegation => delegation.delegator_address !== this.address)
         .forEach(delegation => {
-          tot += parseFloat(delegation.shares);
+          tot += parseFloat(delegation.balance.amount);
         });
       let amount = coinsManager(denom, exponent, tot);
       let formatAmount = this.getAmountLabel(amount.amount, amount.denom);
@@ -110,7 +110,7 @@ export default {
       this.delegations
         .filter(delegation => delegation.delegator_address === this.address)
         .forEach(delegation => {
-          tot += parseFloat(delegation.shares);
+          tot += parseFloat(delegation.balance.amount);
         });
       let amount = coinsManager(denom, exponent, tot);
       let formatAmount = this.getAmountLabel(amount.amount, amount.denom);

@@ -75,7 +75,7 @@ import ValidatorDetailsHeader from "./ValidatorDetailsHeader.vue";
 
 import api from "Store/validators/api";
 import { bech32Manager } from "Utils";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "ValidatorDetails",
@@ -96,6 +96,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("blocks", {
+      lastBlock: "lastBlock"
+    }),
     ...mapGetters("transactions", {
       isFetchingTxs: "isFetching",
       message: "message",
@@ -156,6 +159,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions("blocks", {
+      fetchBlocks: "fetchBlocks"
+    }),
+    getLast100Blocks() {
+      this.fetchBlocks({ page: 1, limit: 100 });
+    },
     async getValidatorData(address) {
       let response = null;
       this.isFetchingValidator = true;
@@ -192,6 +201,7 @@ export default {
     }
   },
   created() {
+    this.getLast100Blocks();
     this.getValidatorData(this.validatorAddress);
   }
 };

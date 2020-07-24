@@ -4,6 +4,9 @@ import mutations from "../mutations";
 import {
   initialState
 } from "../index";
+import {
+  mockValidatorSet
+} from "../__mocks__/validators";
 
 describe("store/validators/mutations", () => {
   let state = {};
@@ -65,5 +68,13 @@ describe("store/validators/mutations", () => {
     mutations.addValidators(state, data);
 
     expect(state.all).toEqual(expectValidators);
+  });
+
+  it("Check mutations.setValidatorSet", () => {
+    const data = mockValidatorSet();
+
+    mutations.setValidatorSet(state, data);
+
+    expect(state.set).toStrictEqual(data);
   });
 });

@@ -37,7 +37,23 @@ const mockValidators = (validators = 10) => {
   return list;
 };
 
+const mockValidatorSet = (set = 10) => {
+  const item = {
+    address: "did:com:valcons1x8mj58trfal3wmsckppul0ahrlnm3fa07fc4ce",
+    pub_key: "did:com:valconspub1zcjduepqkk8pwgsm40cseee2p83m4rwp0l5dkmuc2hw2xpy6dmsjdtf2xg4shfpjn2",
+    proposer_priority: "225851",
+    voting_power: "100000"
+  };
+
+  let list = new Array(set).fill(null).map(() => {
+    return item;
+  });
+
+  return list;
+};
+
 export {
   mockValidator,
-  mockValidators
+  mockValidators,
+  mockValidatorSet
 };
