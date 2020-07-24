@@ -13,7 +13,7 @@ script:
   - npm test
 
 after_success:
-  - docker build -t $DOCKER_IMAGE
+  - docker build -t $DOCKER_IMAGE_SCW
     --build-arg LCD_URL=${ALMERICO_LCD_URL}
     --build-arg RPC_URL=${ALMERICO_RPC_URL}
     --build-arg WS_URL=${ALMERICO_WS_URL}
@@ -22,6 +22,8 @@ after_success:
 
 deploy:
   provider: script
-  script: docker push $DOCKER_IMAGE
+  script: 
+    echo "$DOCKER_PASSWORD" | docker login $DOCKER_REGISTRY -u "$DOCKER_USERNAME" --password-stdin
+    docker push $DOCKER_IMAGE_SCW
   on:
     branch: development
