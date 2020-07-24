@@ -22,8 +22,6 @@ after_success:
 
 deploy:
   provider: script
-  script: 
-    - echo "$DOCKER_PASSWORD" | docker login $DOCKER_REGISTRY -u "$DOCKER_USERNAME" --password-stdin
-    - docker push $DOCKER_IMAGE_SCW
+  script: bash docker_push_testnet.sh
   on:
     branch: development
