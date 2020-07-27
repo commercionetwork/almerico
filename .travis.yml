@@ -19,6 +19,15 @@ after_success:
     --build-arg WS_URL=${ALMERICO_WS_URL}
     --build-arg API_VERSION=${ALMERICO_API_VERSION}
     .
+  - docker build -t $DOCKER_IMAGE_DEVNET_SCW
+    --build-arg LCD_URL=${ALMERICO_DEVNET_LCD_URL}
+    --build-arg RPC_URL=${ALMERICO_DEVNET_RPC_URL}
+    --build-arg WS_URL=${ALMERICO_DEVNET_WS_URL}
+    --build-arg API_VERSION=${ALMERICO_API_VERSION}
+    .
+  - on:
+    branch: development
+  
 
 deploy:
   provider: script
