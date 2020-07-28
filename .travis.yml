@@ -13,24 +13,32 @@ script:
   - npm test
 
 after_success:
-  - docker build -t $DOCKER_IMAGE_SCW
+  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_SCW
     --build-arg LCD_URL=${ALMERICO_LCD_URL}
     --build-arg RPC_URL=${ALMERICO_RPC_URL}
     --build-arg WS_URL=${ALMERICO_WS_URL}
     --build-arg API_VERSION=${ALMERICO_API_VERSION}
     .
-  - docker build -t $DOCKER_IMAGE_DEVNET_SCW
+  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_DEVNET_SCW
     --build-arg LCD_URL=${ALMERICO_DEVNET_LCD_URL}
     --build-arg RPC_URL=${ALMERICO_DEVNET_RPC_URL}
     --build-arg WS_URL=${ALMERICO_DEVNET_WS_URL}
     --build-arg API_VERSION=${ALMERICO_API_VERSION}
     .
-  - on:
-    branch: development
-  
+  - test $TRAVIS_BRANCH = "master" && docker build -t $DOCKER_IMAGE_MAINNET_SCW
+    --build-arg LCD_URL=${ALMERICO_MAINNET_LCD_URL}
+    --build-arg RPC_URL=${ALMERICO_MAINNET_RPC_URL}
+    --build-arg WS_URL=${ALMERICO_MAINNET_WS_URL}
+    --build-arg API_VERSION=${ALMERICO_API_VERSION}
+    .  
 
 deploy:
-  provider: script
-  script: bash docker_push_testnet.sh
-  on:
-    branch: development
+  - provider: script
+    script: bash docker_push_testnet.sh
+    on:
+      branch: development
+  - provider: script
+    script: bash docker_push_mainnet.sh
+    on:
+      branch: master
+  
