@@ -8,14 +8,25 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import Vuex from "vuex";
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
 describe("views/votings/index.vue", () => {
-  const methods = {
+  const actions = {
     getVotings: jest.fn()
   };
+  const mockStore = new Vuex.Store({
+    modules: {
+      votings: {
+        namespaced: true,
+        actions,
+      }
+    }
+  });
   const mocks = {
+    $store: mockStore,
     $t: messageId => messageId
   };
 
@@ -26,7 +37,6 @@ describe("views/votings/index.vue", () => {
         votings: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -49,7 +59,6 @@ describe("views/votings/index.vue", () => {
         votings: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -72,7 +81,6 @@ describe("views/votings/index.vue", () => {
         votings: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -98,7 +106,6 @@ describe("views/votings/index.vue", () => {
         votings: () => mockProposals()
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -123,7 +130,6 @@ describe("views/votings/index.vue", () => {
         votings: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

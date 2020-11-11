@@ -14,8 +14,10 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import Vuex from "vuex";
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
 describe("views/validators/ValidatorDetails.vue", () => {
   const computed = {
@@ -24,10 +26,21 @@ describe("views/validators/ValidatorDetails.vue", () => {
     validatorAddress: () => "comnetvaloper1t8xx727yrvep0w7ylunz609vn2sarf5ckrval5"
   };
   const methods = {
-    getLast100Blocks: jest.fn(),
     getValidatorData: jest.fn(),
   };
+  const actions = {
+    fetchBlocks: jest.fn(),
+  };
+  const mockStore = new Vuex.Store({
+    modules: {
+      blocks: {
+        namespaced: true,
+        actions,
+      }
+    }
+  });
   const mocks = {
+    $store: mockStore,
     $t: messageId => messageId
   };
 

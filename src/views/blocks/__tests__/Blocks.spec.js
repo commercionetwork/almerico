@@ -9,14 +9,25 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import Vuex from "vuex";
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
 describe("views/blocks/index.vue", () => {
-  const methods = {
-    getBlocks: jest.fn()
+  const actions = {
+    fetchBlocks: jest.fn()
   };
+  const mockStore = new Vuex.Store({
+    modules: {
+      blocks: {
+        namespaced: true,
+        actions,
+      }
+    }
+  });
   const mocks = {
+    $store: mockStore,
     $t: messageId => messageId
   };
 
@@ -29,7 +40,6 @@ describe("views/blocks/index.vue", () => {
         message: () => ""
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -54,7 +64,6 @@ describe("views/blocks/index.vue", () => {
         message: () => ""
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -79,7 +88,6 @@ describe("views/blocks/index.vue", () => {
         message: () => ""
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -108,7 +116,6 @@ describe("views/blocks/index.vue", () => {
         message: () => message
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -139,7 +146,6 @@ describe("views/blocks/index.vue", () => {
         message: () => ""
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -166,7 +172,6 @@ describe("views/blocks/index.vue", () => {
         message: () => ""
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

@@ -8,17 +8,28 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 localVue.use(VueRouter);
 const router = new VueRouter();
 
 describe("views/transactions/TransactionDetails.vue", () => {
-  const methods = {
+  const actions = {
     fetchTransaction: jest.fn()
   };
+  const mockStore = new Vuex.Store({
+    modules: {
+      transactions: {
+        namespaced: true,
+        actions,
+      }
+    }
+  });
   const mocks = {
+    $store: mockStore,
     $i18n: messageId => messageId,
     $n: messageId => messageId,
     $t: messageId => messageId
@@ -33,20 +44,17 @@ describe("views/transactions/TransactionDetails.vue", () => {
         txId: () => "1"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
           generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
           },
           transaction_details: {
             msgs_details: true
@@ -71,20 +79,17 @@ describe("views/transactions/TransactionDetails.vue", () => {
         txId: () => "1"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
           generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
           },
           transaction_details: {
             msgs_details: true
@@ -109,20 +114,17 @@ describe("views/transactions/TransactionDetails.vue", () => {
         txId: () => "1"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
           generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
           },
           transaction_details: {
             msgs_details: true
@@ -146,20 +148,17 @@ describe("views/transactions/TransactionDetails.vue", () => {
         txId: () => "1"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
           generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
           },
           transaction_details: {
             msgs_details: true
@@ -181,20 +180,17 @@ describe("views/transactions/TransactionDetails.vue", () => {
         txId: () => "1"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
           generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
+            coins: [{
+              name: "commercio",
+              symbol: "CNT",
+              denom: "ucommercio",
+              exponent: 6,
+              stakeable: true
+            }]
           },
           transaction_details: {
             msgs_details: false

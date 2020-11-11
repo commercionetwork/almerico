@@ -11,15 +11,28 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import Vuex from "vuex";
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
 describe("views/validators/index.vue", () => {
   const methods = {
-    getLast100Blocks: jest.fn(),
     filterValidators: jest.fn()
   };
+  const actions = {
+    fetchBlocks: jest.fn(),
+  };
+  const mockStore = new Vuex.Store({
+    modules: {
+      blocks: {
+        namespaced: true,
+        actions,
+      }
+    }
+  });
   const mocks = {
+    $store: mockStore,
     $t: messageId => messageId
   };
 

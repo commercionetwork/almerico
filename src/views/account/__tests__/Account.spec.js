@@ -5,8 +5,10 @@ import {
   createLocalVue,
   shallowMount
 } from "@vue/test-utils";
+import Vuex from "vuex";
 
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
 describe("views/account/index.vue", () => {
   const computed = {
@@ -15,15 +17,24 @@ describe("views/account/index.vue", () => {
     rewards: () => ({}),
     unbondings: () => [],
   };
-  const methods = {
+  const actions = {
     fetchAccount: jest.fn()
   };
+  const mockStore = new Vuex.Store({
+    modules: {
+      account: {
+        namespaced: true,
+        actions,
+      }
+    }
+  });
   const mocks = {
     $route: {
       params: {
         id: "id"
       }
     },
+    $store: mockStore,
     $t: messageId => messageId
   };
 
@@ -35,7 +46,6 @@ describe("views/account/index.vue", () => {
         isError: () => false,
       },
       localVue,
-      methods,
       mocks,
     });
 
@@ -53,7 +63,6 @@ describe("views/account/index.vue", () => {
         isError: () => true,
       },
       localVue,
-      methods,
       mocks,
     });
 
@@ -71,7 +80,6 @@ describe("views/account/index.vue", () => {
         isError: () => false,
       },
       localVue,
-      methods,
       mocks,
     });
 
