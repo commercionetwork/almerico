@@ -1,6 +1,7 @@
 /* global describe, expect, it, jest */
 
 import BlockDetails from "../BlockDetails.vue";
+import api from "Store/blocks/api";
 import {
   createLocalVue,
   shallowMount
@@ -15,12 +16,10 @@ describe("views/blocks/BlockDetails.vue", () => {
     blockTxs: () => mockTransactions(),
     transactions: () => mockTransactions()
   };
-  const methods = {
-    fetchBlock: jest.fn()
-  };
   const mocks = {
     $t: messageId => messageId
   };
+  api.requestBlock = jest.fn();
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(BlockDetails, {
@@ -32,7 +31,6 @@ describe("views/blocks/BlockDetails.vue", () => {
         title: () => "title"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -59,7 +57,6 @@ describe("views/blocks/BlockDetails.vue", () => {
         title: () => "title"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -86,7 +83,6 @@ describe("views/blocks/BlockDetails.vue", () => {
         title: () => "title"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -112,7 +108,6 @@ describe("views/blocks/BlockDetails.vue", () => {
         title: () => "title"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -136,7 +131,6 @@ describe("views/blocks/BlockDetails.vue", () => {
         title: () => "title"
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

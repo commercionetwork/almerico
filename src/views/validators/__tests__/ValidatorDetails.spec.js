@@ -1,6 +1,7 @@
 /* global describe, expect, it, jest */
 
 import ValidatorDetails from "../ValidatorDetails.vue";
+import api from "Store/validators/api";
 import {
   mockDelegations
 } from "Store/account/__mocks__/delegations";
@@ -25,9 +26,6 @@ describe("views/validators/ValidatorDetails.vue", () => {
     transactions: () => mockTransactions(),
     validatorAddress: () => "comnetvaloper1t8xx727yrvep0w7ylunz609vn2sarf5ckrval5"
   };
-  const methods = {
-    getValidatorData: jest.fn(),
-  };
   const actions = {
     fetchBlocks: jest.fn(),
   };
@@ -43,6 +41,9 @@ describe("views/validators/ValidatorDetails.vue", () => {
     $store: mockStore,
     $t: messageId => messageId
   };
+  api.requestValidator = jest.fn();
+  api.requestValidatorPictures = jest.fn();
+  api.requestValidatorDelegations = jest.fn();
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(ValidatorDetails, {
@@ -52,7 +53,6 @@ describe("views/validators/ValidatorDetails.vue", () => {
         hasError: () => false
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -81,7 +81,6 @@ describe("views/validators/ValidatorDetails.vue", () => {
         hasError: () => true
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -110,7 +109,6 @@ describe("views/validators/ValidatorDetails.vue", () => {
         hasError: () => false
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

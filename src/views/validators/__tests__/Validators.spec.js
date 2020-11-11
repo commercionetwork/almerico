@@ -17,9 +17,6 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe("views/validators/index.vue", () => {
-  const methods = {
-    filterValidators: jest.fn()
-  };
   const actions = {
     fetchBlocks: jest.fn(),
   };
@@ -44,7 +41,6 @@ describe("views/validators/index.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -74,7 +70,6 @@ describe("views/validators/index.vue", () => {
         validators: () => mockValidators()
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -103,7 +98,6 @@ describe("views/validators/index.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -133,7 +127,6 @@ describe("views/validators/index.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -163,7 +156,6 @@ describe("views/validators/index.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

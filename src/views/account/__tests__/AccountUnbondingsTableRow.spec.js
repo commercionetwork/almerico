@@ -1,6 +1,7 @@
 /* global describe, expect, it, jest */
 
 import AccountUnbondingsTableRow from "../AccountUnbondingsTableRow.vue";
+import api from "Store/validators/api";
 import {
   mockConvertedUnbonding
 } from "Store/account/__mocks__/unbondings";
@@ -14,9 +15,6 @@ const localVue = createLocalVue();
 localVue.use(VueRouter);
 
 describe("views/account/AccountUnbondingsTableRow.vue", () => {
-  const methods = {
-    getMoniker: jest.fn()
-  };
   const mocks = {
     $i18n: messageId => messageId,
     $n: messageId => messageId,
@@ -36,18 +34,19 @@ describe("views/account/AccountUnbondingsTableRow.vue", () => {
   const props = {
     unbonding: mockConvertedUnbonding()
   };
+  api.requestValidator = jest.fn();
 
   it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(AccountUnbondingsTableRow, {
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
     });
     await wrapper.setData({
-      isFetching: true
+      isFetching: true,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -59,13 +58,13 @@ describe("views/account/AccountUnbondingsTableRow.vue", () => {
   it("Check if error message is displayed", async () => {
     const wrapper = shallowMount(AccountUnbondingsTableRow, {
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
     });
     await wrapper.setData({
+      isFetching: false,
       hasError: true
     });
 
@@ -78,7 +77,6 @@ describe("views/account/AccountUnbondingsTableRow.vue", () => {
   it("Check if item data are displayed", () => {
     const wrapper = shallowMount(AccountUnbondingsTableRow, {
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props

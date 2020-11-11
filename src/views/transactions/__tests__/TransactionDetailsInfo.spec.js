@@ -34,9 +34,6 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
         resultStatus: () => false
       },
       localVue,
-      methods: {
-        getLogMessage: () => "message"
-      },
       mocks:{
         ...mocks,
         $config: {
@@ -76,9 +73,6 @@ describe("views/transactions/TransactionDetailsInfo.vue", () => {
         resultStatus: () => false
       },
       localVue,
-      methods: {
-        getLogMessage: () => "message"
-      },
       mocks:{
         ...mocks,
         $config: {
