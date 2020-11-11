@@ -98,7 +98,7 @@ describe("views/blocks/index.vue", () => {
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  it("Check if error message is displayed", async () => {
     const message = "error";
     const wrapper = shallowMount(Blocks, {
       computed: {
@@ -118,7 +118,7 @@ describe("views/blocks/index.vue", () => {
         }
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       hasError: true
     });
 

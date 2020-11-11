@@ -25,7 +25,7 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
     block: mockBlock(new Date(), 1)
   };
 
-  it("Check if loading message is displayed", () => {
+  it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(BlockDetailsHeader, {
       computed: {
         validators: () => []
@@ -50,7 +50,7 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       isFetching: true
     });
 
@@ -60,7 +60,7 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
     expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  it("Check if error message is displayed", async () => {
     const wrapper = shallowMount(BlockDetailsHeader, {
       computed: {
         validators: () => []
@@ -85,7 +85,7 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       hasError: true
     });
 

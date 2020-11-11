@@ -26,7 +26,7 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
     votingId: "1"
   };
 
-  it("Check if loading message is displayed", () => {
+  it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(VotingDetailsVotes, {
       computed,
       localVue,
@@ -36,7 +36,7 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       isFetching: true
     });
 
@@ -47,7 +47,7 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  it("Check if error message is displayed", async () => {
     const wrapper = shallowMount(VotingDetailsVotes, {
       computed,
       localVue,
@@ -57,7 +57,7 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       hasError: true
     });
 
@@ -68,7 +68,7 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
 
-  it("Check if items data with pagination are displayed", () => {
+  it("Check if items data with pagination are displayed", async () => {
     const wrapper = shallowMount(VotingDetailsVotes, {
       computed,
       localVue,
@@ -78,7 +78,7 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       votes: mockVotes()
     });
 

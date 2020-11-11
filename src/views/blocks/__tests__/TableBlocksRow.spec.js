@@ -26,7 +26,7 @@ describe("views/blocks/TableBlocksRow.vue", () => {
     rank: 0
   };
 
-  it("Check if loading messages are displayed", () => {
+  it("Check if loading messages are displayed", async () => {
     const wrapper = shallowMount(TableBlocksRow, {
       computed: {
         validators: () => ({})
@@ -53,7 +53,7 @@ describe("views/blocks/TableBlocksRow.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       isFetching: true
     });
 
@@ -67,7 +67,7 @@ describe("views/blocks/TableBlocksRow.vue", () => {
     expect(wrapper.find('[data-test="item-date"]').exists()).toBe(false);
   });
 
-  it("Check if error message are displayed", () => {
+  it("Check if error message are displayed", async () => {
     const wrapper = shallowMount(TableBlocksRow, {
       computed: {
         validators: () => ({})
@@ -94,7 +94,7 @@ describe("views/blocks/TableBlocksRow.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       hasError: true
     });
 

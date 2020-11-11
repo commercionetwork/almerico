@@ -89,7 +89,7 @@ describe("views/validators/ValidatorDetails.vue", () => {
     expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
   });
 
-  it("Check if item data are displayed", () => {
+  it("Check if item data are displayed", async () => {
     const wrapper = shallowMount(ValidatorDetails, {
       computed: {
         ...computed,
@@ -111,7 +111,7 @@ describe("views/validators/ValidatorDetails.vue", () => {
         }
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       delegations: mockDelegations(),
       validator: mockValidator()
     });

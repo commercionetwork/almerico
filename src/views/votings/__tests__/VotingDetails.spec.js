@@ -23,7 +23,7 @@ describe("views/votings/VotingDetails.vue", () => {
     $t: messageId => messageId
   };
 
-  it("Check if loading message is displayed", () => {
+  it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(VotingDetails, {
       computed,
       localVue,
@@ -40,7 +40,7 @@ describe("views/votings/VotingDetails.vue", () => {
       },
       router
     });
-    wrapper.setData({
+    await wrapper.setData({
       isFetching: true
     });
 
@@ -50,7 +50,7 @@ describe("views/votings/VotingDetails.vue", () => {
     expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  it("Check if error message is displayed", async () => {
     const wrapper = shallowMount(VotingDetails, {
       computed,
       localVue,
@@ -67,7 +67,7 @@ describe("views/votings/VotingDetails.vue", () => {
       },
       router
     });
-    wrapper.setData({
+    await wrapper.setData({
       hasError: true
     });
 

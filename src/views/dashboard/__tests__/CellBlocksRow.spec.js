@@ -26,7 +26,7 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
     rank: 0
   };
 
-  it("Check if loading messages are displayed", () => {
+  it("Check if loading messages are displayed", async () => {
     const wrapper = shallowMount(CellBlocksRow, {
       computed: {
         validators: () => ({})
@@ -38,7 +38,7 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       isFetching: true
     });
 
@@ -51,7 +51,7 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
     expect(wrapper.find('[data-test="item-date"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  it("Check if error message is displayed", async () => {
     const wrapper = shallowMount(CellBlocksRow, {
       computed: {
         validators: () => ({})
@@ -63,7 +63,7 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       hasError: true
     });
 

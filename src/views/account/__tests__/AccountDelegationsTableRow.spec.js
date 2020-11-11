@@ -37,7 +37,7 @@ describe("views/account/AccountDelegationsTableRow.vue", () => {
     delegation: mockDelegation()
   };
 
-  it("Check if loading message is displayed", () => {
+  it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(AccountDelegationsTableRow, {
       localVue,
       methods,
@@ -46,7 +46,7 @@ describe("views/account/AccountDelegationsTableRow.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       isFetching: true
     });
 
@@ -56,7 +56,7 @@ describe("views/account/AccountDelegationsTableRow.vue", () => {
     expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  it("Check if error message is displayed", async () => {
     const wrapper = shallowMount(AccountDelegationsTableRow, {
       localVue,
       methods,
@@ -65,7 +65,7 @@ describe("views/account/AccountDelegationsTableRow.vue", () => {
         ...props
       }
     });
-    wrapper.setData({
+    await wrapper.setData({
       hasError: true
     });
 
