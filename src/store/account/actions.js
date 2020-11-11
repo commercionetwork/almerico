@@ -12,17 +12,17 @@ export default {
    * @param {Function} dispatch
    * @param {String} address 
    */
-  fetchAccount({ commit, dispatch }, address) {
+  async fetchAccount({ commit, dispatch }, address) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
     try {
-      dispatch("fetchMembership", address);
-      dispatch("fetchBalances", address);
-      dispatch("fetchDelegations", address);
-      dispatch("fetchRewards", address);
-      dispatch("fetchUnbondingDelegations", address);
+      await dispatch("fetchMembership", address);
+      await dispatch("fetchBalances", address);
+      await dispatch("fetchDelegations", address);
+      await dispatch("fetchRewards", address);
+      await dispatch("fetchUnbondingDelegations", address);
     } catch (error) {
       if (error.response) {
         commit("setMessage", error.response.data.error);
