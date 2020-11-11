@@ -58,12 +58,12 @@ describe("store/account/actions", () => {
     expect(commit).toHaveBeenCalledWith("setUnbondingDelegations", mockResponse.data.result);
   });
 
-  it("Check if 'actions.fetchAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondingDelegations", () => {
+  it("Check if 'actions.fetchAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondingDelegations", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = "address";
 
-    actions.fetchAccount({
+    await actions.fetchAccount({
       commit, dispatch
     }, address);
 
