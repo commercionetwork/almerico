@@ -14,9 +14,6 @@ const localVue = createLocalVue();
 localVue.use(VueRouter);
 
 describe("views/blocks/TableBlocksRow.vue", () => {
-  const methods = {
-    getProposer: jest.fn()
-  };
   const mocks = {
     $i18n: messageId => messageId,
     $t: messageId => messageId
@@ -25,6 +22,7 @@ describe("views/blocks/TableBlocksRow.vue", () => {
     block: mockBlock(new Date(), 1),
     rank: 0
   };
+  TableBlocksRow.methods.getProposer = jest.fn();
 
   it("Check if loading messages are displayed", async () => {
     const wrapper = shallowMount(TableBlocksRow, {
@@ -32,7 +30,6 @@ describe("views/blocks/TableBlocksRow.vue", () => {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -54,7 +51,8 @@ describe("views/blocks/TableBlocksRow.vue", () => {
       }
     });
     await wrapper.setData({
-      isFetching: true
+      isFetching: true,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -73,7 +71,6 @@ describe("views/blocks/TableBlocksRow.vue", () => {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -95,6 +92,7 @@ describe("views/blocks/TableBlocksRow.vue", () => {
       }
     });
     await wrapper.setData({
+      isFetching: false,
       hasError: true
     });
 
@@ -108,13 +106,12 @@ describe("views/blocks/TableBlocksRow.vue", () => {
     expect(wrapper.find('[data-test="item-date"]').exists()).toBe(true);
   });
 
-  it("Check if item data are displayed", () => {
+  it("Check if item data are displayed", async () => {
     const wrapper = shallowMount(TableBlocksRow, {
       computed: {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -135,6 +132,10 @@ describe("views/blocks/TableBlocksRow.vue", () => {
         ...props
       }
     });
+    await wrapper.setData({
+      isFetching: false,
+      hasError: false
+    });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item-height"]').exists()).toBe(true);
@@ -151,7 +152,6 @@ describe("views/blocks/TableBlocksRow.vue", () => {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -186,7 +186,6 @@ describe("views/blocks/TableBlocksRow.vue", () => {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

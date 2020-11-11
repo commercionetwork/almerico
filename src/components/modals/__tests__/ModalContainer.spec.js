@@ -14,9 +14,7 @@ const mockChildComponent = localVue.component("child-component", {
 })
 
 describe("Components/modals/index.vue", () => {
-  const methods = {
-    onCloseRemoveAllModals: jest.fn()
-  };
+  ModalContainer.methods.onCloseRemoveAllModals = jest.fn();
 
   it("Check if modal is displayed", () => {
     const wrapper = shallowMount(ModalContainer, {
@@ -29,7 +27,6 @@ describe("Components/modals/index.vue", () => {
         })
       },
       localVue,
-      methods
     });
 
     expect(wrapper.find('[data-test="modal"]').exists()).toBeTruthy();
@@ -42,7 +39,6 @@ describe("Components/modals/index.vue", () => {
         modal: () => null
       },
       localVue,
-      methods
     });
 
     expect(wrapper.find('[data-test="modal"]').exists()).toBeFalsy();
@@ -60,7 +56,6 @@ describe("Components/modals/index.vue", () => {
         })
       },
       localVue,
-      methods
     });
 
     expect(wrapper.find('[data-test="header"]').exists()).toBeFalsy();
@@ -79,7 +74,6 @@ describe("Components/modals/index.vue", () => {
         })
       },
       localVue,
-      methods
     });
 
     expect(wrapper.find('[data-test="control-box"]').exists()).toBeFalsy();
@@ -102,7 +96,6 @@ describe("Components/modals/index.vue", () => {
         })
       },
       localVue,
-      methods
     });
 
     expect(wrapper.find('[data-test="component"]').exists()).toBeTruthy();

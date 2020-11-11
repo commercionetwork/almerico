@@ -1,7 +1,6 @@
 /* global describe, expect, it, jest */
 
 import AccountDelegationsTableRow from "../AccountDelegationsTableRow.vue";
-import api from "Store/validators/api";
 import {
   mockDelegation
 } from "Store/account/__mocks__/delegations";
@@ -34,7 +33,7 @@ describe("views/account/AccountDelegationsTableRow.vue", () => {
   const props = {
     delegation: mockDelegation()
   };
-  api.requestValidator = jest.fn();
+  AccountDelegationsTableRow.methods.getMoniker = jest.fn();
 
   it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(AccountDelegationsTableRow, {

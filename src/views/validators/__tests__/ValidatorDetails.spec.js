@@ -1,7 +1,6 @@
 /* global describe, expect, it, jest */
 
 import ValidatorDetails from "../ValidatorDetails.vue";
-import api from "Store/validators/api";
 import {
   mockDelegations
 } from "Store/account/__mocks__/delegations";
@@ -41,9 +40,7 @@ describe("views/validators/ValidatorDetails.vue", () => {
     $store: mockStore,
     $t: messageId => messageId
   };
-  api.requestValidator = jest.fn();
-  api.requestValidatorPictures = jest.fn();
-  api.requestValidatorDelegations = jest.fn();
+  ValidatorDetails.methods.getValidatorData = jest.fn();
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(ValidatorDetails, {

@@ -15,19 +15,16 @@ describe("views/votings/VotingDetails.vue", () => {
   const computed = {
     votingId: () => "1"
   };
-  const methods = {
-    fetchVoting: jest.fn()
-  };
   const mocks = {
     $i18n: messageId => messageId,
     $t: messageId => messageId
   };
+  VotingDetails.methods.fetchVoting = jest.fn();
 
   it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(VotingDetails, {
       computed,
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -41,7 +38,8 @@ describe("views/votings/VotingDetails.vue", () => {
       router
     });
     await wrapper.setData({
-      isFetching: true
+      isFetching: true,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -54,7 +52,6 @@ describe("views/votings/VotingDetails.vue", () => {
     const wrapper = shallowMount(VotingDetails, {
       computed,
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -68,6 +65,7 @@ describe("views/votings/VotingDetails.vue", () => {
       router
     });
     await wrapper.setData({
+      isFetching: false,
       hasError: true
     });
 
@@ -77,11 +75,10 @@ describe("views/votings/VotingDetails.vue", () => {
     expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
   });
 
-  it("Check if item data are displayed", () => {
+  it("Check if item data are displayed", async () => {
     const wrapper = shallowMount(VotingDetails, {
       computed,
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -94,17 +91,20 @@ describe("views/votings/VotingDetails.vue", () => {
       },
       router
     });
+    await wrapper.setData({
+      isFetching: false,
+      hasError: false
+    });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="item"]').exists()).toBe(true);
   });
 
-  it("Check if voting result, votes and deposits are displayed", () => {
+  it("Check if voting result, votes and deposits are displayed", async () => {
     const wrapper = shallowMount(VotingDetails, {
       computed,
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -116,6 +116,10 @@ describe("views/votings/VotingDetails.vue", () => {
         }
       },
       router
+    });
+    await wrapper.setData({
+      isFetching: false,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="result"]').exists()).toBe(true);
@@ -127,7 +131,6 @@ describe("views/votings/VotingDetails.vue", () => {
     const wrapper = shallowMount(VotingDetails, {
       computed,
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

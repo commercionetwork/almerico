@@ -14,9 +14,6 @@ const localVue = createLocalVue();
 localVue.use(VueRouter);
 
 describe("views/blocks/BlockDetailsHeader.vue", () => {
-  const methods = {
-    getProposer: jest.fn()
-  };
   const mocks = {
     $i18n: messageId => messageId,
     $t: messageId => messageId
@@ -24,6 +21,7 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
   const props = {
     block: mockBlock(new Date(), 1)
   };
+  BlockDetailsHeader.methods.getProposer = jest.fn();
 
   it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(BlockDetailsHeader, {
@@ -31,7 +29,6 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -51,7 +48,8 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
       }
     });
     await wrapper.setData({
-      isFetching: true
+      isFetching: true,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -66,7 +64,6 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -86,6 +83,7 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
       }
     });
     await wrapper.setData({
+      isFetching: false,
       hasError: true
     });
 
@@ -101,7 +99,6 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -132,7 +129,6 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {
@@ -165,7 +161,6 @@ describe("views/blocks/BlockDetailsHeader.vue", () => {
         validators: () => []
       },
       localVue,
-      methods,
       mocks: {
         ...mocks,
         $config: {

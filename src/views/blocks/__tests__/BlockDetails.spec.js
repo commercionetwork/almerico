@@ -1,7 +1,6 @@
 /* global describe, expect, it, jest */
 
 import BlockDetails from "../BlockDetails.vue";
-import api from "Store/blocks/api";
 import {
   createLocalVue,
   shallowMount
@@ -19,7 +18,7 @@ describe("views/blocks/BlockDetails.vue", () => {
   const mocks = {
     $t: messageId => messageId
   };
-  api.requestBlock = jest.fn();
+  BlockDetails.methods.fetchBlock = jest.fn();
 
   it("Check if loading message is displayed", () => {
     const wrapper = shallowMount(BlockDetails, {

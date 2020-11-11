@@ -16,28 +16,26 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
     votesPage: () => mockVotes(),
     total: () => 5
   };
-  const methods = {
-    getVotes: jest.fn()
-  };
   const mocks = {
     $t: messageId => messageId
   };
   const props = {
     votingId: "1"
   };
+  VotingDetailsVotes.methods.getVotes = jest.fn();
 
   it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(VotingDetailsVotes, {
       computed,
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
     });
     await wrapper.setData({
-      isFetching: true
+      isFetching: true,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -51,13 +49,13 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
     const wrapper = shallowMount(VotingDetailsVotes, {
       computed,
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
     });
     await wrapper.setData({
+      isFetching: false,
       hasError: true
     });
 
@@ -72,13 +70,14 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
     const wrapper = shallowMount(VotingDetailsVotes, {
       computed,
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
     });
     await wrapper.setData({
+      isFetching: false,
+      hasError: false,
       votes: mockVotes()
     });
 
@@ -89,15 +88,19 @@ describe("views/votings/VotingDetailsVotes.vue", () => {
     expect(wrapper.find('[data-test="no-items"]').exists()).toBe(false);
   });
 
-  it("Check if no items message is displayed and pagination is hidden when list is empty", () => {
+  it("Check if no items message is displayed and pagination is hidden when list is empty", async () => {
     const wrapper = shallowMount(VotingDetailsVotes, {
       computed,
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
+    });
+    await wrapper.setData({
+      isFetching: false,
+      hasError: false,
+      votes: []
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);

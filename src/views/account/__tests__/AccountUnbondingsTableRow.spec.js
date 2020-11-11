@@ -1,7 +1,6 @@
 /* global describe, expect, it, jest */
 
 import AccountUnbondingsTableRow from "../AccountUnbondingsTableRow.vue";
-import api from "Store/validators/api";
 import {
   mockConvertedUnbonding
 } from "Store/account/__mocks__/unbondings";
@@ -34,7 +33,7 @@ describe("views/account/AccountUnbondingsTableRow.vue", () => {
   const props = {
     unbonding: mockConvertedUnbonding()
   };
-  api.requestValidator = jest.fn();
+  AccountUnbondingsTableRow.methods.getMoniker = jest.fn();
 
   it("Check if loading message is displayed", async () => {
     const wrapper = shallowMount(AccountUnbondingsTableRow, {

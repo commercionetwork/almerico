@@ -14,9 +14,6 @@ const localVue = createLocalVue();
 localVue.use(VueRouter);
 
 describe("views/dashboard/CellBlocksRow.vue", () => {
-  const methods = {
-    getProposer: jest.fn()
-  };
   const mocks = {
     $i18n: messageId => messageId,
     $t: messageId => messageId
@@ -25,6 +22,7 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
     block: mockBlock(new Date(), 1),
     rank: 0
   };
+  CellBlocksRow.methods.getProposer = jest.fn();
 
   it("Check if loading messages are displayed", async () => {
     const wrapper = shallowMount(CellBlocksRow, {
@@ -32,14 +30,14 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
     });
     await wrapper.setData({
-      isFetching: true
+      isFetching: true,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -57,13 +55,13 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
     });
     await wrapper.setData({
+      isFetching: false,
       hasError: true
     });
 
@@ -76,17 +74,20 @@ describe("views/dashboard/CellBlocksRow.vue", () => {
     expect(wrapper.find('[data-test="item-date"]').exists()).toBe(true);
   });
 
-  it("Check if item data are displayed", () => {
+  it("Check if item data are displayed", async () => {
     const wrapper = shallowMount(CellBlocksRow, {
       computed: {
         validators: () => ({})
       },
       localVue,
-      methods,
       mocks,
       propsData: {
         ...props
       }
+    });
+    await wrapper.setData({
+      isFetching: false,
+      hasError: false
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
