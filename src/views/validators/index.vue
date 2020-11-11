@@ -97,23 +97,23 @@ export default {
     CellValidators,
     SearchBar,
     SearchValidator,
-    TableValidators
+    TableValidators,
   },
   data() {
     return {
       filter: {
         status: true,
-        moniker: ""
-      }
+        moniker: "",
+      },
     };
   },
   computed: {
     ...mapGetters("stake", {
-      pool: "pool"
+      pool: "pool",
     }),
     ...mapGetters("validators", {
       validators: "validators",
-      isFetching: "isFetching"
+      isFetching: "isFetching",
     }),
     bonded() {
       return this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
@@ -124,10 +124,10 @@ export default {
       let rank = 0;
 
       const orderedValidators = validators
-        .sort(function(a, b) {
+        .sort(function (a, b) {
           return b.tokens - a.tokens;
         })
-        .map(validator => {
+        .map((validator) => {
           if (validator.status === 2) {
             validator.rank = ++rank;
             if (this.bonded > 0) cumulative += validator.tokens / this.bonded;
@@ -135,7 +135,7 @@ export default {
           }
           return validator;
         })
-        .map(validator => {
+        .map((validator) => {
           if (validator.status !== 2) {
             validator.rank = ++rank;
           }
@@ -143,29 +143,31 @@ export default {
         });
 
       const statusFilteredValidators = this.filter.status
-        ? orderedValidators.filter(validator => validator.status === 2)
-        : orderedValidators.filter(validator => validator.status !== 2);
+        ? orderedValidators.filter((validator) => validator.status === 2)
+        : orderedValidators.filter((validator) => validator.status !== 2);
 
       return this.filter.moniker
-        ? statusFilteredValidators.filter(
-            validator => validator.description.moniker === this.filter.moniker
+        ? statusFilteredValidators.filter((validator) =>
+            validator.description.moniker
+              .toUpperCase()
+              .includes(this.filter.moniker.toUpperCase())
           )
         : statusFilteredValidators;
-    }
+    },
   },
   methods: {
     ...mapActions("blocks", {
-      fetchBlocks: "fetchBlocks"
+      fetchBlocks: "fetchBlocks",
     }),
     getLast100Blocks() {
       this.fetchBlocks({ page: 1, limit: 100 });
     },
     setFilter(filter) {
       this.filter = filter;
-    }
+    },
   },
   created() {
     this.getLast100Blocks();
-  }
+  },
 };
 </script>
