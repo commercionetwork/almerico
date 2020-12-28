@@ -1,0 +1,89 @@
+/**
+ * TRANSACTIONS MUTATIONS
+ */
+
+export default {
+  /**
+   * Set isLoading state to true
+   *
+   * @param {TransactionsState} state
+   */
+  startLoading(state) {
+    state.error = "";
+    state.isLoading = true;
+  },
+  /**
+   * Set isLoading state to false
+   *
+   * @param {TransactionsState} state
+   */
+  stopLoading(state) {
+    state.isLoading = false;
+  },
+  /**
+   * Set error message
+   *
+   * @param {TransactionsState} state
+   * @param {String} error
+   */
+  setError(state, error) {
+    state.error = error;
+  },
+  /**
+   * Set error message
+   *
+   * @param {TransactionsState} state
+   * @param {String} filter
+   */
+  setFilter(state, filter) {
+    state.filter = filter;
+  },
+  /**
+   * Update transactions page
+   *
+   * @param {TransactionsState} state
+   * @param {Number} page
+   */
+  changePage(state, page) {
+    state.currentPage = page;
+  },
+  /**
+   * Add transactions
+   *
+   * @param {TransactionsState} state
+   * @param {Array.<Object>} data
+   */
+  addTransactions(state, data) {
+    state.hasNext = data.hasNext;
+    state.transactions.push.apply(state.transactions, data.records);
+  },
+  /**
+   * Remove all transactions
+   * 
+   * @param {TransactionsState} state
+   */
+  clearAllTransactions(state) {
+    state.transactions = [];
+  },
+  /**
+   * Add single transaction to the beginning of the stored transactions
+   * 
+   * @param {TransactionsState} state
+   * @param {Object} data 
+   */
+  addSingleTransaction(state, data) {
+    state.transactions.unshift(data);
+  },
+  /**
+   * Set transaction details
+   *
+   * @param {TransactionsState} state
+   * @param {Object} data
+   */
+  setTransactionDetails(state, data) {
+    state.details = null;
+    state.details = {
+      ...data
+    };
+  },
+};

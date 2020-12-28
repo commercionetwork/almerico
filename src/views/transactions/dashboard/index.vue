@@ -1,0 +1,34 @@
+<template>
+  <v-row>
+    <v-col cols="12">
+      <TransactionsHeader />
+      <TransactionsTopBody />
+      <TransactionsMiddleBody />
+    </v-col>
+  </v-row>
+</template>
+
+<script>
+import TransactionsHeader from "./TransactionsHeader";
+import TransactionsMiddleBody from "./TransactionsMiddleBody";
+import TransactionsTopBody from "./TransactionsTopBody";
+
+import { mapActions } from "vuex";
+
+export default {
+  name: "Transactions",
+  components: {
+    TransactionsHeader,
+    TransactionsMiddleBody,
+    TransactionsTopBody,
+  },
+  methods: {
+    ...mapActions("transactions", {
+      getTransactions: "getTransactions",
+    }),
+  },
+  created() {
+    this.getTransactions({ page: 1 });
+  },
+};
+</script>
