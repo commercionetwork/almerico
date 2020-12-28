@@ -20,9 +20,9 @@
   <v-row v-else>
     <v-col cols="12">
       <AccountDetailsHeader />
-      <AccountDetailsTopBody />
-      <AccountDetailsMiddleBody />
-      <AccountDetailsBottomBody :address="address" />
+      <AccountDetailsTopBody class="py-1" />
+      <AccountDetailsMiddleBody class="py-1" />
+      <AccountDetailsBottomBody class="py-1" :address="address" />
     </v-col>
   </v-row>
 </template>

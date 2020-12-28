@@ -3,7 +3,7 @@
     <v-flex>
       <v-row>
         <v-col cols="12">
-          <h2 class="text-h4" v-text="title" />
+          <h2 class="pt-3 text-h4" v-text="title" />
         </v-col>
       </v-row>
       <DashboardGridList :limit="CUSTOMIZATION.TXS.DASHBOARD_ITEMS" />

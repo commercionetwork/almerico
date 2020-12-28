@@ -1,14 +1,14 @@
 <template>
   <v-layout>
     <v-row>
-      <v-col cols="12" md="4" order="3" order-md="1">
-        <ValidatorDetailsBlocks />
-      </v-col>
       <v-col cols="12" md="4" order="1" order-md="2">
         <ValidatorDetailsDelegationsTable :delegations="delegations" />
       </v-col>
       <v-col cols="12" md="4" order="2" order-md="3">
         <ValidatorDetailsDelegatorsTable :account="account" />
+      </v-col>
+      <v-col cols="12" md="4" order="3" order-md="1">
+        <ValidatorDetailsBlocks />
       </v-col>
     </v-row>
   </v-layout>

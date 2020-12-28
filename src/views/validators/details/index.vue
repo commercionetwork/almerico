@@ -21,11 +21,13 @@
     <v-col cols="12">
       <ValidatorDetailsHeader />
       <ValidatorDetailsTopBody
+        class="py-1"
         :account="account"
         :operator="operator"
         :delegations="delegations"
       />
       <ValidatorDetailsMiddleBody
+         class="py-1"
         :account="account"
         :delegations="delegations"
       />

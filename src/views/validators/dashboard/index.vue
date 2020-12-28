@@ -2,8 +2,8 @@
   <v-row>
     <v-col cols="12">
       <ValidatorsHeader />
-      <ValidatorsTopBody />
-      <ValidatorsMiddleBody />
+      <ValidatorsTopBody class="py-1" />
+      <ValidatorsMiddleBody class="py-1" />
     </v-col>
   </v-row>
 </template>

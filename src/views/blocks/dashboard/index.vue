@@ -2,8 +2,8 @@
   <v-row>
     <v-col cols="12">
       <BlocksHeader />
-      <BlocksTopBody />
-      <BlocksMiddleBody />
+      <BlocksTopBody class="py-1" />
+      <BlocksMiddleBody class="py-1" />
     </v-col>
   </v-row>
 </template>

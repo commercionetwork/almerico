@@ -20,7 +20,7 @@
   <v-row v-else>
     <v-col cols="12">
       <BlockDetailsHeader />
-      <BlockDetailsTopBody :height="height" />
+      <BlockDetailsTopBody class="py-1" :height="height" />
     </v-col>
   </v-row>
 </template>

@@ -2,8 +2,8 @@
   <v-row>
     <v-col cols="12">
       <TransactionsHeader />
-      <TransactionsTopBody />
-      <TransactionsMiddleBody />
+      <TransactionsTopBody class="py-1" />
+      <TransactionsMiddleBody class="py-1" />
     </v-col>
   </v-row>
 </template>

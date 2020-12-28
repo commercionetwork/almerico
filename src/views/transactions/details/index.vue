@@ -20,7 +20,7 @@
   <v-row v-else>
     <v-col cols="12">
       <TransactionDetailsHeader />
-      <TransactionDetailsTopBody />
+      <TransactionDetailsTopBody class="py-1" />
     </v-col>
   </v-row>
 </template>

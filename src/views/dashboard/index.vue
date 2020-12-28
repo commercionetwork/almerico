@@ -3,9 +3,9 @@
     <v-row>
       <v-col cols="12">
         <DashboardHeader />
-        <DashboardTopBody />
-        <DashboardBanner />
-        <DashboardMiddleBody />
+        <DashboardTopBody class="py-1" />
+        <DashboardBanner class="py-1" />
+        <DashboardMiddleBody class="py-1" />
       </v-col>
     </v-row>
   </div>
