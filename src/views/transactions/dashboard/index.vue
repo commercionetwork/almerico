@@ -24,11 +24,11 @@ export default {
   },
   methods: {
     ...mapActions("transactions", {
-      getTransactions: "getTransactions",
+      fetchTransactionsDescendingOrder: "fetchTransactionsDescendingOrder",
     }),
   },
   created() {
-    this.getTransactions({ page: 1 });
+    this.fetchTransactionsDescendingOrder();
   },
 };
 </script>

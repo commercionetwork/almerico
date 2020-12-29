@@ -69,29 +69,21 @@ export default {
         .get();
     },
   },
-  watch: {
-    transactions(value) {
-      // max value must be the same of 'changePage' action
-      if (value.length > 0 && value.length < CUSTOMIZATION.TXS.TABLE_ITEMS) {
-        this.changePage({ diff: -1 });
-      }
-    },
-  },
   methods: {
     ...mapActions("transactions", {
-      getTransactions: "getTransactions",
+      fetchTransactionsDescendingOrder: "fetchTransactionsDescendingOrder",
       changePage: "changePage",
     }),
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting) {
-        this.changePage({ diff: -1 });
+        this.changePage({ diff: 1 });
       }
     },
   },
   created() {
-    this.getTransactions({
+    this.fetchTransactionsDescendingOrder({
+      limit: CUSTOMIZATION.TXS.ACCOUNT_ITEMS,
       query: `message.sender=${this.address}`,
-      page: 1,
     });
   },
 };

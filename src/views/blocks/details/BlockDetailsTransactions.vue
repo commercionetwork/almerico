@@ -52,11 +52,11 @@ export default {
   },
   methods: {
     ...mapActions("transactions", {
-      getTransactions: "getTransactions",
+      fetchTransactionsDescendingOrder: "fetchTransactionsDescendingOrder",
     }),
   },
   created() {
-    this.getTransactions({
+    this.fetchTransactionsDescendingOrder({
       query: `tx.minheight=${this.height}&tx.maxheight=${this.height}`,
     });
   },

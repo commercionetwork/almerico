@@ -32,12 +32,12 @@ export default {
   },
   methods: {
     ...mapActions("transactions", {
-      getLatestTransactions: "getLatestTransactions",
+      fetchTransactionsDescendingOrder: "fetchTransactionsDescendingOrder",
     }),
   },
   created() {
-    this.getLatestTransactions({
-      items: CUSTOMIZATION.TXS.DASHBOARD_ITEMS,
+    this.fetchTransactionsDescendingOrder({
+      limit: CUSTOMIZATION.TXS.DASHBOARD_ITEMS,
     });
   },
 };

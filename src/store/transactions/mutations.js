@@ -48,14 +48,22 @@ export default {
     state.currentPage = page;
   },
   /**
+   * Set hasNext state
+   *
+   * @param {TransactionsState} state
+   * @param {Number} page
+   */
+  setHasNext(state, page) {
+    state.hasNext = page > 1;
+  },
+  /**
    * Add transactions
    *
    * @param {TransactionsState} state
    * @param {Array.<Object>} data
    */
   addTransactions(state, data) {
-    state.hasNext = data.hasNext;
-    state.transactions.push.apply(state.transactions, data.records);
+    state.transactions.push.apply(state.transactions, data);
   },
   /**
    * Remove all transactions

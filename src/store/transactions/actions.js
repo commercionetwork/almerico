@@ -37,64 +37,88 @@ export default {
     }
   },
   /**
-   * Fetch transactions in descending order
+   * @param {Function} commit
+   * @param {Number} limit
+   * @param {String} query
+   */
+  async getLastPage({
+    commit
+  }, {
+    limit,
+    query
+  }) {
+    const response = await api.requestSearchTransactions({
+      query,
+      page: 1,
+      limit: 1,
+    });
+    const lastPage = Math.ceil(parseInt(response.data.page_total) / limit);
+    commit("changePage", lastPage);
+    commit("setHasNext", lastPage);
+  },
+  /**
    * @param {Function} commit
    * @param {Number} page
    * @param {Number} limit
    * @param {String} query
    */
-  async fetchTransactions({
+  async getTransactions({
     commit
   }, {
     page,
     limit,
     query
   }) {
+    const response = await api.requestSearchTransactions({
+      query: query,
+      page: page,
+      limit: limit,
+    });
+    commit("addTransactions", response.data.txs);
+  },
+  /**
+   * @param {Function} commit
+   * @param {Function} dispatch
+   * @param {TransactionsState} state
+   * @param {Number} limit
+   * @param {String} query
+   */
+  async fetchTransactionsDescendingOrder({
+    commit,
+    dispatch,
+    state
+  }, {
+    limit = CUSTOMIZATION.TXS.TABLE_ITEMS,
+    query = "tx.minheight=1"
+  } = {}) {
     commit("startLoading");
     commit("setServerReachability", true, {
       root: true
     });
-    let currentPage;
-    let lastPage;
-    let response;
-    let responseData;
     try {
-      if (page === 1) {
-        response = await api.requestSearchTransactions({
-          query: query,
-          page: 1,
-          limit: limit,
+      commit("clearAllTransactions");
+      commit("changePage", 1);
+      commit("setHasNext", false);
+
+      await dispatch("getLastPage", {
+        limit,
+        query
+      });
+      if (state.currentPage === 0) return;
+      await dispatch("getTransactions", {
+        page: state.currentPage,
+        limit,
+        query
+      });
+      if (state.hasNext) {
+        const currentPage = state.currentPage - 1;
+        commit("changePage", currentPage);
+        commit("setHasNext", currentPage);
+        await dispatch("getTransactions", {
+          page: currentPage,
+          limit,
+          query
         });
-        lastPage = parseInt(response.data.page_total);
-        if (lastPage <= 1) {
-          currentPage = page;
-          responseData = {
-            hasNext: false,
-            records: response.data.txs
-          };
-        } else {
-          currentPage = lastPage;
-          response = await api.requestSearchTransactions({
-            query: query,
-            page: currentPage,
-            limit: limit,
-          });
-          responseData = {
-            hasNext: currentPage > 1,
-            records: response.data.txs
-          };
-        }
-      } else if (page > 1) {
-        response = await api.requestSearchTransactions({
-          query: query,
-          page: page,
-          limit: limit,
-        });
-        currentPage = page;
-        responseData = {
-          hasNext: currentPage > 1,
-          records: response.data.txs
-        };
       }
     } catch (error) {
       if (error.response) {
@@ -107,90 +131,53 @@ export default {
         });
       }
     } finally {
-      commit("addTransactions", responseData);
-      commit("changePage", currentPage);
       commit("stopLoading");
     }
   },
   /**
    * @param {Function} commit
    * @param {Function} dispatch
-   * @param {Number} page
+   * @param {TransactionsState} state
+   * @param {Number} diff
    * @param {Number} limit
    * @param {String} query
    */
-  async getTransactions({
+  async changePage({
     commit,
-    dispatch
+    dispatch,
+    state,
   }, {
-    page = 1,
+    diff,
     limit = CUSTOMIZATION.TXS.TABLE_ITEMS,
     query = "tx.minheight=1"
   } = {}) {
-    commit("clearAllTransactions");
-    commit("changePage", 1);
-    await dispatch("fetchTransactions", {
-      page,
-      limit,
-      query
-    });
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {TransactionsState} state
-   * @param {Number} diff
-   */
-  async changePage({
-    dispatch,
-    state,
-  }, {
-    diff
-  }) {
-    const newValue = state.currentPage + diff;
-    const isOperationAllowed =
-      (newValue >= 1 && diff < 0) || (state.hasNext && diff > 0);
-    if (!isOperationAllowed) {
-      return;
-    }
+    if (!state.hasNext) return;
+    const currentPage = state.currentPage - diff;
 
-    await dispatch("fetchTransactions", {
-      page: newValue,
-      limit: CUSTOMIZATION.TXS.TABLE_ITEMS, // must be the same of 'getTransactions' action
-      query: "tx.minheight=1",
+    commit("startLoading");
+    commit("setServerReachability", true, {
+      root: true
     });
-  },
-  /**
-   * @param {Function} commit
-   * @param {Function} dispatch
-   * @param {TransactionsState} state
-   * @param {Number} items
-   * @param {Number} page
-   * @param {Number} limit
-   * @param {String} query
-   */
-  async getLatestTransactions({
-    commit,
-    dispatch,
-    state,
-  }, {
-    items = 10,
-    page = 1,
-    limit = 10,
-    query = "tx.minheight=1"
-  } = {}) {
-    commit("clearAllTransactions");
-    commit("changePage", 1);
-    await dispatch("fetchTransactions", {
-      page,
-      limit,
-      query
-    });
-    if (state.transactions.length < items && state.hasNext === true) {
-      await dispatch("fetchTransactions", {
-        page: state.currentPage - 1,
+    try {
+      await dispatch("getTransactions", {
+        page: currentPage,
         limit,
-        query
+        query,
       });
+      commit("changePage", currentPage);
+      commit("setHasNext", currentPage);
+    } catch (error) {
+      if (error.response) {
+        commit("setError", JSON.stringify(error.response.data));
+      } else if (error.request) {
+        commit("setError", JSON.stringify(error));
+      } else {
+        commit("setServerReachability", false, {
+          root: true
+        });
+      }
+    } finally {
+      commit("stopLoading");
     }
   },
   /**

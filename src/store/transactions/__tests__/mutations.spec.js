@@ -56,24 +56,30 @@ describe("store/transactions/mutations", () => {
     expect(state.currentPage).toBe(page);
   });
 
-  test("Check mutations.addTransactions", () => {
-    const data = {
-      hasNext: true,
-      records: [{
-        id: 1
-      }]
-    };
+  test("Check mutations.setHasNext", () => {
+    state.hasNext = false;
 
-    state.transactions = data.records.map(obj => ({
+    mutations.setHasNext(state, 2);
+
+    expect(state.hasNext).toBe(true);
+
+    mutations.setHasNext(state, 1);
+
+    expect(state.hasNext).toBe(false);
+  });
+
+  test("Check mutations.addTransactions", () => {
+    const data = [{
+      id: 1
+    }];
+
+    state.transactions = data.map(obj => ({
       ...obj
     }));
 
-    const newData = {
-      hasNext: false,
-      records: [{
-        id: 2
-      }]
-    };
+    const newData = [{
+      id: 2
+    }];
 
     mutations.addTransactions(state, newData);
 
@@ -82,7 +88,7 @@ describe("store/transactions/mutations", () => {
     }, {
       id: 2
     }];
-    expect(state.hasNext).toBe(false);
+
     expect(state.transactions).toStrictEqual(expectedValue);
   });
 

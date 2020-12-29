@@ -70,12 +70,6 @@ export default {
     filter(value) {
       this.msgType = value;
     },
-    transactions(value) {
-      // max value must be the same of 'changePage' action
-      if (value.length > 0 && value.length < CUSTOMIZATION.TXS.TABLE_ITEMS) {
-        this.changePage({ diff: -1 });
-      }
-    },
   },
   methods: {
     ...mapActions("transactions", {
@@ -83,7 +77,7 @@ export default {
     }),
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting) {
-        this.changePage({ diff: -1 });
+        this.changePage({ diff: 1 });
       }
     },
   },

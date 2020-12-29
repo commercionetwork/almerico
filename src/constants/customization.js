@@ -24,6 +24,7 @@ export const CUSTOMIZATION = {
   },
   TXS: {
     DASHBOARD_ITEMS: 10,
+    ACCOUNT_ITEMS: 10,
     TABLE_ITEMS: 25,
     SUPPORTED_TYPES: [{
         name: "MsgBeginRedelegate",
