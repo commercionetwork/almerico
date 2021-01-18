@@ -1,9 +1,6 @@
 import {
   bech32Manager
 } from "../index";
-import {
-  CUSTOMIZATION
-} from "@/constants";
 
 class BlockProposerHandler {
   constructor() {
@@ -15,6 +12,7 @@ class BlockProposerHandler {
     this.block = null;
     this.validators = null;
     this.validatorsSets = null;
+    this.prefix = null;
   }
 
   setError(error) {
@@ -37,11 +35,16 @@ class BlockProposerHandler {
     return this;
   }
 
+  setValidatorConsensusPrefix(prefix) {
+    this.prefix = prefix;
+    return this;
+  }
+
   get() {
     if (this.error !== "") return "";
     const address = bech32Manager.encode(
       this.block.header.proposer_address,
-      CUSTOMIZATION.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS
+      this.prefix
     );
     const pubKey = this.validatorsSets.length > 0 ?
       this.validatorsSets.find(

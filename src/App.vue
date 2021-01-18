@@ -77,7 +77,6 @@ export default {
   },
   created() {
     this.fetchInitData();
-    console.log(this.$config);
   },
 };
 </script>

@@ -21,37 +21,40 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { ROUTES } from "@/constants";
-import { BlockProposerHandler } from "@/utils";
+import { mapActions, mapGetters } from 'vuex';
+import { ROUTES } from '@/constants';
+import { BlockProposerHandler } from '@/utils';
 
 export default {
-  name: "BlockDetailsSpec",
+  name: 'BlockDetailsSpec',
   props: {
     height: {
       type: String,
       required: true,
-      note: "The block height",
+      note: 'The block height',
     },
   },
   computed: {
-    ...mapGetters("blocks", {
-      block: "details",
+    ...mapGetters('blocks', {
+      block: 'details',
     }),
-    ...mapGetters("validators", {
-      error: "error",
-      isLoading: "isLoading",
-      validators: "validators",
-      validatorsSets: "heightValidatorsSets",
+    ...mapGetters('validators', {
+      error: 'error',
+      isLoading: 'isLoading',
+      validators: 'validators',
+      validatorsSets: 'heightValidatorsSets',
     }),
     hash() {
-      return this.block.header ? this.block.header.last_block_id.hash : "";
+      return this.block.header ? this.block.header.last_block_id.hash : '';
     },
     proposer() {
       return BlockProposerHandler.setError(this.error)
         .setBlock(this.block)
         .setValidators(this.validators)
         .setValidatorsSets(this.validatorsSets)
+        .setValidatorConsensusPrefix(
+          this.$config.generic.prefixes.validator.consensus.address
+        )
         .get();
     },
     proposerLink() {
@@ -65,12 +68,12 @@ export default {
     proposerName() {
       return Object.keys(this.proposer).length > 0
         ? this.proposer.description.moniker
-        : "";
+        : '';
     },
     time() {
       return this.block.header
         ? new Date(this.block.header.time).toLocaleString()
-        : "";
+        : '';
     },
     txs() {
       return this.block.data && this.block.data.txs
@@ -79,12 +82,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions("validators", {
-      fetchValidatorsetsFromHeight: "fetchValidatorsetsFromHeight",
+    ...mapActions('validators', {
+      fetchValidatorsetsFromHeight: 'fetchValidatorsetsFromHeight',
     }),
   },
   created() {
-    if (this.height !== "") this.fetchValidatorsetsFromHeight(this.height);
+    if (this.height !== '') this.fetchValidatorsetsFromHeight(this.height);
   },
 };
 </script>

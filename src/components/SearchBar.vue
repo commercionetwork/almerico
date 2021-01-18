@@ -10,25 +10,25 @@
 </template>
 
 <script>
-import { CUSTOMIZATION, ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "SearchBar",
+  name: 'SearchBar',
   data: () => ({
-    query: "",
+    query: '',
   }),
   methods: {
     onSubmit() {
       const validatorRegEx = new RegExp(
-        CUSTOMIZATION.PREFIXES.VALIDATOR.OPERATOR.ADDRESS + ".*$",
-        "igm"
+        this.$config.generic.prefixes.validator.operator.address + '.*$',
+        'igm'
       );
       const accountRegEx = new RegExp(
-        CUSTOMIZATION.PREFIXES.ACCOUNT.ADDRESS + ".*$",
-        "igm"
+        this.$config.generic.prefixes.account.address + '.*$',
+        'igm'
       );
-      const hashRegEx = new RegExp(/[0-9A-F]{64}$/, "igm");
-      const heightRegEx = new RegExp(/[0-9]{1,}$/, "igm");
+      const hashRegEx = new RegExp(/[0-9A-F]{64}$/, 'igm');
+      const heightRegEx = new RegExp(/[0-9]{1,}$/, 'igm');
 
       let routeName = null;
       if (validatorRegEx.test(this.query)) {

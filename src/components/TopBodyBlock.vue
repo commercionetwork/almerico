@@ -27,22 +27,22 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { proposerHandler } from "@/utils";
-import { CUSTOMIZATION, ROUTES } from "@/constants";
+import { mapGetters } from 'vuex';
+import { proposerHandler } from '@/utils';
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "TopBodyBlock",
+  name: 'TopBodyBlock',
   computed: {
-    ...mapGetters("blocks", {
-      block: "latest",
+    ...mapGetters('blocks', {
+      block: 'latest',
     }),
-    ...mapGetters("transactions", {
-      transactions: "transactions",
+    ...mapGetters('transactions', {
+      transactions: 'transactions',
     }),
-    ...mapGetters("validators", {
-      validators: "validators",
-      validatorsSet: "latestValidatorsSets",
+    ...mapGetters('validators', {
+      validators: 'validators',
+      validatorsSet: 'latestValidatorsSets',
     }),
     blockLink() {
       return this.blockHeight
@@ -53,10 +53,10 @@ export default {
         : {};
     },
     blockHeight() {
-      return this.block.header.height || "-";
+      return this.block.header.height || '-';
     },
     blockProposerAddress() {
-      return this.block.header.proposer_address || "-";
+      return this.block.header.proposer_address || '-';
     },
     msgs() {
       let txs = this.transactions.filter(
@@ -67,7 +67,7 @@ export default {
     proposer() {
       return proposerHandler.getFromValidatorsSet({
         address: this.blockProposerAddress,
-        prefix: CUSTOMIZATION.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS,
+        prefix: this.$config.generic.prefixes.validator.consensus.address,
         validatorsSet: this.validatorsSet,
         validators: this.validators,
       });
@@ -81,10 +81,10 @@ export default {
         : {};
     },
     proposerName() {
-      return this.proposer ? this.proposer.description.moniker : "-";
+      return this.proposer ? this.proposer.description.moniker : '-';
     },
     time() {
-      return new Date(this.block.header.time).toLocaleString() || "-";
+      return new Date(this.block.header.time).toLocaleString() || '-';
     },
     txs() {
       return this.block.data && this.block.data.txs

@@ -3,22 +3,6 @@
  */
 export const CUSTOMIZATION = {
   COIN: "Commercio",
-  PREFIXES: {
-    ACCOUNT: {
-      ADDRESS: "did:com:",
-      KEY: "did:com:pub"
-    },
-    VALIDATOR: {
-      CONSENSUS: {
-        ADDRESS: "did:com:valcons",
-        KEY: "did:com:valconspub"
-      },
-      OPERATOR: {
-        ADDRESS: "did:com:valoper",
-        KEY: "did:com:valoperpub"
-      }
-    }
-  },
   VALIDATORS: {
     CHECKED_BLOCKS: 100,
   },

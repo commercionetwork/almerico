@@ -63,6 +63,7 @@ export default {
       return BlocksTableAdapter.setBlocks(this.blocks)
         .setValidators(this.validators)
         .setValidatorsSet(this.validatorsSet)
+        .setValidatorConsensusPrefix(this.$config.generic.prefixes.validator.consensus.address)
         .get();
     },
   },

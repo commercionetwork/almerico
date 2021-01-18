@@ -27,7 +27,7 @@
         :delegations="delegations"
       />
       <ValidatorDetailsMiddleBody
-         class="py-1"
+        class="py-1"
         :account="account"
         :delegations="delegations"
       />
@@ -36,26 +36,25 @@
 </template>
 
 <script>
-import ValidatorDetailsHeader from "./ValidatorDetailsHeader";
-import ValidatorDetailsMiddleBody from "./ValidatorDetailsMiddleBody";
-import ValidatorDetailsTopBody from "./ValidatorDetailsTopBody";
+import ValidatorDetailsHeader from './ValidatorDetailsHeader';
+import ValidatorDetailsMiddleBody from './ValidatorDetailsMiddleBody';
+import ValidatorDetailsTopBody from './ValidatorDetailsTopBody';
 
-import { mapActions, mapGetters } from "vuex";
-import { CUSTOMIZATION } from "@/constants";
-import { bech32Manager, ValidatorDelegationsHandler } from "@/utils";
+import { mapActions, mapGetters } from 'vuex';
+import { bech32Manager, ValidatorDelegationsHandler } from '@/utils';
 
 export default {
-  name: "ValidatorDetails",
+  name: 'ValidatorDetails',
   components: {
     ValidatorDetailsHeader,
     ValidatorDetailsMiddleBody,
     ValidatorDetailsTopBody,
   },
   computed: {
-    ...mapGetters("validators", {
-      error: "error",
-      isLoading: "isLoading",
-      details: "details",
+    ...mapGetters('validators', {
+      error: 'error',
+      isLoading: 'isLoading',
+      details: 'details',
     }),
     address() {
       return this.$route.params.id;
@@ -64,7 +63,7 @@ export default {
       const hexValue = bech32Manager.decode(this.operator);
       return bech32Manager.encode(
         hexValue,
-        CUSTOMIZATION.PREFIXES.ACCOUNT.ADDRESS
+        this.$config.generic.prefixes.account.address
       );
     },
     delegations() {
@@ -75,7 +74,7 @@ export default {
         : {};
     },
     operator() {
-      return this.details ? this.details.operator_address : "";
+      return this.details ? this.details.operator_address : '';
     },
   },
   watch: {
@@ -84,8 +83,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions("validators", {
-      getValidatorData: "getValidatorData",
+    ...mapActions('validators', {
+      getValidatorData: 'getValidatorData',
     }),
   },
   created() {
