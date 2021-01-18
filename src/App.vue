@@ -41,25 +41,25 @@
 </template>
 
 <script>
-import Footer from "./components/Footer";
-import NavBar from "./components/NavBar";
+import Footer from './components/Footer';
+import NavBar from './components/NavBar';
 
-import { mapActions, mapGetters } from "vuex";
-import { ROUTES } from "./constants";
+import { mapActions, mapGetters } from 'vuex';
+import { ROUTES } from './constants';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Footer,
     NavBar,
   },
   computed: {
-    ...mapGetters("starting", {
-      error: "error",
-      isLoading: "isLoading",
+    ...mapGetters('starting', {
+      error: 'error',
+      isLoading: 'isLoading',
     }),
     theme() {
-      return this.$vuetify.theme.dark ? "dark" : "light";
+      return this.$vuetify.theme.dark ? 'dark' : 'light';
     },
     serverReachability() {
       return this.$store.getters.getServerReachability;
@@ -71,12 +71,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions("starting", {
-      fetchInitData: "fetchInitData",
+    ...mapActions('starting', {
+      fetchInitData: 'fetchInitData',
     }),
   },
   created() {
     this.fetchInitData();
+    console.log(this.$config);
   },
 };
 </script>

@@ -1,0 +1,175 @@
+{
+  "generic": {
+    "logo": "https://commercio.network/wp-content/uploads/2019/08/logo_commercio_Bianco.png",
+    "coins": [
+      {
+        "name": "commercio",
+        "symbol": "CNT",
+        "denom": "ucommercio",
+        "exponent": 6,
+        "stakeable": true
+      }
+    ],
+    "prefixes": {
+      "account": {
+        "address": "did:com:",
+        "key": "did:com:pub"
+      },
+      "validator": {
+        "consensus": {
+          "address": "did:com:valcons",
+          "key": "did:com:valconspub"
+        },
+        "operator": {
+          "address": "did:com:valoper",
+          "key": "did:com:valoperpub"
+        }
+      }
+    },
+    "anchestors": [
+      {
+        "lcd": "https://lcd-1.commercio.network",
+        "rpc": "https://rpc-1.commercio.network",
+        "ws": "wss://rpc-1.commercio.network",
+        "ver": "0.38",
+        "cosmos_ver": "0.37"
+      },
+      {
+        "lcd": "https://lcd-2.commercio.network",
+        "rpc": "https://rpc-2.commercio.network",
+        "ws": "wss://rpc-2.commercio.network",
+        "ver": "0.36",
+        "cosmos_ver": "0.36"
+      }
+    ]
+  },
+  "transactions": {
+    "supported_types": [
+      {
+        "name": "MsgBeginRedelegate",
+        "tag": "begin_redelegate",
+        "type": "cosmos-sdk/MsgBeginRedelegate"
+      },
+      {
+        "name": "MsgBuyMembership",
+        "tag": "buyMembership",
+        "type": "commercio/MsgBuyMembership"
+      },
+      {
+        "name": "MsgChangePowerUpStatus",
+        "tag": "changePowerUpStatus",
+        "type": "commercio/MsgChangePowerUpStatus"
+      },
+      {
+        "name": "MsgCloseCdp",
+        "tag": "closeCdp",
+        "type": "commercio/MsgCloseCdp"
+      },
+      {
+        "name": "MsgCreateValidator",
+        "tag": "create_validator",
+        "type": "cosmos-sdk/MsgCreateValidator"
+      },
+      {
+        "name": "MsgDelegate",
+        "tag": "delegate",
+        "type": "cosmos-sdk/MsgDelegate"
+      },
+      {
+        "name": "MsgDeposit",
+        "tag": "deposit",
+        "type": "cosmos-sdk/MsgDeposit"
+      },
+      {
+        "name": "MsgEditValidator",
+        "tag": "edit_validator",
+        "type": "cosmos-sdk/MsgEditValidator"
+      },
+      {
+        "name": "MsgInviteUser",
+        "tag": "inviteUser",
+        "type": "commercio/MsgInviteUser"
+      },
+      {
+        "name": "MsgMoveDeposit",
+        "tag": "moveDeposit",
+        "type": "commercio/MsgMoveDeposit"
+      },
+      {
+        "name": "MsgOpenCdp",
+        "tag": "openCdp",
+        "type": "commercio/MsgOpenCdp"
+      },
+      {
+        "name": "MsgPowerUpDid",
+        "tag": "powerUpDid",
+        "type": "commercio/MsgPowerUpDid"
+      },
+      {
+        "name": "MsgRequestDidDeposit",
+        "tag": "requestDidDeposit",
+        "type": "commercio/MsgRequestDidDeposit"
+      },
+      {
+        "name": "MsgRequestDidPowerUp",
+        "tag": "requestDidPowerUp",
+        "type": "commercio/MsgRequestDidPowerUp"
+      },
+      {
+        "name": "MsgSend",
+        "tag": "send",
+        "type": "cosmos-sdk/MsgSend"
+      },
+      {
+        "name": "MsgSendDocumentReceipt",
+        "tag": "sendDocumentReceipt",
+        "type": "commercio/MsgSendDocumentReceipt"
+      },
+      {
+        "name": "MsgSetIdentity",
+        "tag": "setIdentity",
+        "type": "commercio/MsgSetIdentity"
+      },
+      {
+        "name": "MsgSetMembership",
+        "tag": "setMembership",
+        "type": "commercio/MsgSetMembership"
+      },
+      {
+        "name": "MsgSetUserVerified",
+        "tag": "setUserVerified",
+        "type": "commercio/MsgSetUserVerified"
+      },
+      {
+        "name": "MsgShareDocument",
+        "tag": "shareDocument",
+        "type": "commercio/MsgShareDocument"
+      },
+      {
+        "name": "MsgSubmitProposal",
+        "tag": "submit_proposal",
+        "type": "cosmos-sdk/MsgSubmitProposal"
+      },
+      {
+        "name": "MsgUndelegate",
+        "tag": "begin_unbonding",
+        "type": "cosmos-sdk/MsgUndelegate"
+      },
+      {
+        "name": "MsgUnjail",
+        "tag": "unjail",
+        "type": "cosmos-sdk/MsgUnjail"
+      },
+      {
+        "name": "MsgVote",
+        "tag": "vote",
+        "type": "cosmos-sdk/MsgVote"
+      },
+      {
+        "name": "MsgWithdrawDelegationReward",
+        "tag": "withdraw_delegator_reward",
+        "type": "cosmos-sdk/MsgWithdrawDelegationReward"
+      }
+    ]
+  }
+}
