@@ -10,7 +10,7 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="error != ''">
+  <v-row v-else-if="error !== ''">
     <v-col cols="12">
       <v-alert border="left" prominent text type="error">
         <span class="text-body-1">{{ error }}</span>
@@ -26,21 +26,21 @@
 </template>
 
 <script>
-import TransactionDetailsHeader from "./TransactionDetailsHeader";
-import TransactionDetailsTopBody from "./TransactionDetailsTopBody";
+import TransactionDetailsHeader from './TransactionDetailsHeader';
+import TransactionDetailsTopBody from './TransactionDetailsTopBody';
 
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: "TransactionDetails",
+  name: 'TransactionDetails',
   components: {
     TransactionDetailsHeader,
     TransactionDetailsTopBody,
   },
   computed: {
-    ...mapGetters("transactions", {
-      error: "error",
-      isLoading: "isLoading",
+    ...mapGetters('transactions', {
+      error: 'error',
+      isLoading: 'isLoading',
     }),
     hash() {
       return this.$route.params.id;
@@ -52,8 +52,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransaction: "fetchTransaction",
+    ...mapActions('transactions', {
+      fetchTransaction: 'fetchTransaction',
     }),
   },
   created() {

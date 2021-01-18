@@ -2,13 +2,11 @@
  * TRANSACTIONS APIS
  */
 
-import axios from "axios";
-import {
-  API
-} from "@/constants";
+import axios from 'axios';
+import { API } from '@/constants';
 
 const headers = {
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 };
 
 export default {
@@ -18,11 +16,7 @@ export default {
    * @param {Number} limit
    * @returns {Promise}
    */
-  requestSearchTransactions({
-    query,
-    page,
-    limit,
-  }) {
+  requestSearchTransactions({ query, page, limit }) {
     return axios.get(`${API.TXS}?${query}&page=${page}&limit=${limit}`, {
       headers: headers,
     });
@@ -31,14 +25,25 @@ export default {
    * @param {String} hash
    * @returns {Promise}
    */
-  requestTransaction(
-    hash
-  ) {
+  requestTransaction(hash) {
     return axios({
       method: 'get',
       headers: headers,
       baseURL: `${API.TXS}`,
       url: `/${hash}`,
+    });
+  },
+  /**
+   * @param {String} lcd
+   * @param {String} hash
+   * @returns {Promise}
+   */
+  requestAncestorTransaction({ lcd, hash }) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: lcd,
+      url: `/txs/${hash}`,
     });
   },
   /**
@@ -51,8 +56,8 @@ export default {
       headers: headers,
       baseURL: `${API.TXS}`,
       params: {
-        'tx.height': height
+        'tx.height': height,
       },
     });
-  }
+  },
 };
