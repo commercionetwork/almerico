@@ -28,10 +28,10 @@
     }
   },
   "archive": {
-    "node": "https://lcd-mainnet.commercio.network",
+    "node": "http://178.62.202.95:5000/",
     "ancestors": [
       {
-        "lcd": "http://178.62.202.95:7123/",
+        "lcd": "https://lcd-testnet.commercio.network/9001",
         "ver": "0.38"
       }
     ]
