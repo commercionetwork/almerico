@@ -25,21 +25,14 @@
           "key": "did:com:valoperpub"
         }
       }
-    },
-    "anchestors": [
+    }
+  },
+  "archive": {
+    "node": "https://lcd-mainnet.commercio.network",
+    "ancestors": [
       {
-        "lcd": "https://lcd-1.commercio.network",
-        "rpc": "https://rpc-1.commercio.network",
-        "ws": "wss://rpc-1.commercio.network",
-        "ver": "0.38",
-        "cosmos_ver": "0.37"
-      },
-      {
-        "lcd": "https://lcd-2.commercio.network",
-        "rpc": "https://rpc-2.commercio.network",
-        "ws": "wss://rpc-2.commercio.network",
-        "ver": "0.36",
-        "cosmos_ver": "0.36"
+        "lcd": "http://178.62.202.95:7123/",
+        "ver": "0.38"
       }
     ]
   },

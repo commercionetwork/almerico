@@ -3,10 +3,10 @@
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-img
+        :src="$config.generic.logo"
         alt="Commercio Logo"
         class="shrink mr-2"
         contain
-        src="https://commercio.network/wp-content/uploads/2019/08/logo_commercio_Bianco.png"
         transition="scale-transition"
         width="40"
       />
@@ -67,13 +67,13 @@
 </template>
 
 <script>
-import NavBarItem from "./NavBarItem";
+import NavBarItem from './NavBarItem';
 
-import { mapGetters } from "vuex";
-import { ROUTES } from "@/constants";
+import { mapGetters } from 'vuex';
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "NavBar",
+  name: 'NavBar',
   components: {
     NavBarItem,
   },
@@ -82,20 +82,20 @@ export default {
     drawer: false,
   }),
   computed: {
-    ...mapGetters("starting", {
-      info: "nodeInfo",
+    ...mapGetters('starting', {
+      info: 'nodeInfo',
     }),
     netName() {
       const name =
         this.info && this.info.node_info && this.info.node_info.network
           ? this.info.node_info.network
-          : "-";
+          : '-';
       const version =
         this.info &&
         this.info.application_version &&
         this.info.application_version.version
           ? this.info.application_version.version
-          : "-";
+          : '-';
       return `${name} (${version})`;
     },
   },
