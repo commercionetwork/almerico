@@ -47,128 +47,128 @@
     "supported_types": [
       {
         "name": "MsgBeginRedelegate",
-        "tag": "begin_redelegate",
-        "type": "cosmos-sdk/MsgBeginRedelegate"
+        "text": "cosmos-sdk/MsgBeginRedelegate",
+        "value": "begin_redelegate"
       },
       {
         "name": "MsgBuyMembership",
-        "tag": "buyMembership",
-        "type": "commercio/MsgBuyMembership"
+        "text": "commercio/MsgBuyMembership",
+        "value": "buyMembership"
       },
       {
         "name": "MsgChangePowerUpStatus",
-        "tag": "changePowerUpStatus",
-        "type": "commercio/MsgChangePowerUpStatus"
+        "text": "commercio/MsgChangePowerUpStatus",
+        "value": "changePowerUpStatus"
       },
       {
         "name": "MsgCloseCdp",
-        "tag": "closeCdp",
-        "type": "commercio/MsgCloseCdp"
+        "text": "commercio/MsgCloseCdp",
+        "value": "closeCdp"
       },
       {
         "name": "MsgCreateValidator",
-        "tag": "create_validator",
-        "type": "cosmos-sdk/MsgCreateValidator"
+        "text": "cosmos-sdk/MsgCreateValidator",
+        "value": "create_validator"
       },
       {
         "name": "MsgDelegate",
-        "tag": "delegate",
-        "type": "cosmos-sdk/MsgDelegate"
+        "text": "cosmos-sdk/MsgDelegate",
+        "value": "delegate"
       },
       {
         "name": "MsgDeposit",
-        "tag": "deposit",
-        "type": "cosmos-sdk/MsgDeposit"
+        "text": "cosmos-sdk/MsgDeposit",
+        "value": "deposit"
       },
       {
         "name": "MsgEditValidator",
-        "tag": "edit_validator",
-        "type": "cosmos-sdk/MsgEditValidator"
+        "text": "cosmos-sdk/MsgEditValidator",
+        "value": "edit_validator"
       },
       {
         "name": "MsgInviteUser",
-        "tag": "inviteUser",
-        "type": "commercio/MsgInviteUser"
+        "text": "commercio/MsgInviteUser",
+        "value": "inviteUser"
       },
       {
         "name": "MsgMoveDeposit",
-        "tag": "moveDeposit",
-        "type": "commercio/MsgMoveDeposit"
+        "text": "commercio/MsgMoveDeposit",
+        "value": "moveDeposit"
       },
       {
         "name": "MsgOpenCdp",
-        "tag": "openCdp",
-        "type": "commercio/MsgOpenCdp"
+        "text": "commercio/MsgOpenCdp",
+        "value": "openCdp"
       },
       {
         "name": "MsgPowerUpDid",
-        "tag": "powerUpDid",
-        "type": "commercio/MsgPowerUpDid"
+        "text": "commercio/MsgPowerUpDid",
+        "value": "powerUpDid"
       },
       {
         "name": "MsgRequestDidDeposit",
-        "tag": "requestDidDeposit",
-        "type": "commercio/MsgRequestDidDeposit"
+        "text": "commercio/MsgRequestDidDeposit",
+        "value": "requestDidDeposit"
       },
       {
         "name": "MsgRequestDidPowerUp",
-        "tag": "requestDidPowerUp",
-        "type": "commercio/MsgRequestDidPowerUp"
+        "text": "commercio/MsgRequestDidPowerUp",
+        "value": "requestDidPowerUp"
       },
       {
         "name": "MsgSend",
-        "tag": "send",
-        "type": "cosmos-sdk/MsgSend"
+        "text": "cosmos-sdk/MsgSend",
+        "value": "send"
       },
       {
         "name": "MsgSendDocumentReceipt",
-        "tag": "sendDocumentReceipt",
-        "type": "commercio/MsgSendDocumentReceipt"
+        "text": "commercio/MsgSendDocumentReceipt",
+        "value": "sendDocumentReceipt"
       },
       {
         "name": "MsgSetIdentity",
-        "tag": "setIdentity",
-        "type": "commercio/MsgSetIdentity"
+        "text": "commercio/MsgSetIdentity",
+        "value": "setIdentity"
       },
       {
         "name": "MsgSetMembership",
-        "tag": "setMembership",
-        "type": "commercio/MsgSetMembership"
+        "text": "commercio/MsgSetMembership",
+        "value": "setMembership"
       },
       {
         "name": "MsgSetUserVerified",
-        "tag": "setUserVerified",
-        "type": "commercio/MsgSetUserVerified"
+        "text": "commercio/MsgSetUserVerified",
+        "value": "setUserVerified"
       },
       {
         "name": "MsgShareDocument",
-        "tag": "shareDocument",
-        "type": "commercio/MsgShareDocument"
+        "text": "commercio/MsgShareDocument",
+        "value": "shareDocument"
       },
       {
         "name": "MsgSubmitProposal",
-        "tag": "submit_proposal",
-        "type": "cosmos-sdk/MsgSubmitProposal"
+        "text": "cosmos-sdk/MsgSubmitProposal",
+        "value": "submit_proposal"
       },
       {
         "name": "MsgUndelegate",
-        "tag": "begin_unbonding",
-        "type": "cosmos-sdk/MsgUndelegate"
+        "text": "cosmos-sdk/MsgUndelegate",
+        "value": "begin_unbonding"
       },
       {
         "name": "MsgUnjail",
-        "tag": "unjail",
-        "type": "cosmos-sdk/MsgUnjail"
+        "text": "cosmos-sdk/MsgUnjail",
+        "value": "unjail"
       },
       {
         "name": "MsgVote",
-        "tag": "vote",
-        "type": "cosmos-sdk/MsgVote"
+        "text": "cosmos-sdk/MsgVote",
+        "value": "vote"
       },
       {
         "name": "MsgWithdrawDelegationReward",
-        "tag": "withdraw_delegator_reward",
-        "type": "cosmos-sdk/MsgWithdrawDelegationReward"
+        "text": "cosmos-sdk/MsgWithdrawDelegationReward",
+        "value": "withdraw_delegator_reward"
       }
     ]
   }

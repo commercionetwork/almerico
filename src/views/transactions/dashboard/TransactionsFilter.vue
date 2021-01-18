@@ -29,26 +29,25 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import { CUSTOMIZATION } from "@/constants";
+import { mapActions } from 'vuex';
 
 export default {
-  name: "TransactionsFilter",
+  name: 'TransactionsFilter',
   data: () => ({
-    selectedType: "",
+    selectedType: '',
   }),
   computed: {
     items() {
-      return CUSTOMIZATION.TXS.SUPPORTED_TYPES;
+      return this.$config.transactions.supported_types;
     },
   },
   methods: {
-    ...mapActions("transactions", {
-      setTransactionsFilter: "setTransactionsFilter",
+    ...mapActions('transactions', {
+      setTransactionsFilter: 'setTransactionsFilter',
     }),
     onFilter(reset) {
       if (reset) {
-        this.selectedType = "";
+        this.selectedType = '';
       }
       this.setTransactionsFilter(this.selectedType);
     },
