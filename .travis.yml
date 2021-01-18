@@ -1,0 +1,31 @@
+language: node_js
+
+node_js:
+  - lts/*
+
+services:
+  - docker
+  
+install:
+  - npm install --progress=false
+
+script: 
+  - npm test
+
+after_success:
+  - test $TRAVIS_BRANCH = "development-version-0.1.0" && docker build -t $DOCKER_IMAGE_TESTNET_0_1_0_SCW
+    --build-arg LCD_URL=${ALMERICO_LCD_URL}
+    --build-arg RPC_URL=${ALMERICO_RPC_URL}
+    --build-arg WS_URL=${ALMERICO_WS_URL}
+    .
+  - test $TRAVIS_BRANCH = "development-version-0.1.0" && docker build -t $DOCKER_IMAGE_DEVNET_0_1_0_SCW
+    --build-arg LCD_URL=${ALMERICO_DEVNET_LCD_URL}
+    --build-arg RPC_URL=${ALMERICO_DEVNET_RPC_URL}
+    --build-arg WS_URL=${ALMERICO_DEVNET_WS_URL}
+    .
+
+deploy:
+  - provider: script
+    script: bash docker_push_testnet.sh
+    on:
+      branch: "development-version-0.1.0"
