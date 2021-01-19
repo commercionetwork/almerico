@@ -4,7 +4,7 @@
 export const CHAIN = {
   ANCESTORS:
     process.env.VUE_APP_ANCESTORS !== undefined
-      ? JSON.parse(process.env.VUE_APP_ANCESTORS)
+      ? process.env.VUE_APP_ANCESTORS
       : [],
   DEFAULT: {
     id: 1,
