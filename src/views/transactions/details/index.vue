@@ -50,7 +50,6 @@ export default {
       details: 'details',
       error: 'error',
       isLoading: 'isLoading',
-      version: 'version',
     }),
     hash() {
       return this.$route.params.id;
@@ -59,9 +58,7 @@ export default {
       return 'No transactions with this hash';
     },
     tx() {
-      return TransactionDetailsAdapter.setTx(this.details)
-        .setVersion(this.version)
-        .get();
+      return TransactionDetailsAdapter.setDetails(this.details).get();
     },
   },
   watch: {

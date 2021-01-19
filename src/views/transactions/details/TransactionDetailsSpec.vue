@@ -23,30 +23,40 @@
         v-text="height"
         :to="heightLink"
       />
-      <span v-else v-text="height" />
+      <div v-else v-text="height" />
+    </v-card-text>
+    <v-divider />
+    <v-card-text>
+      <div v-text="'Official node'" />
+      <a :href="ledgerLink" target="_blank" v-text="ledgerLink"/>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'TransactionDetailsSpec',
-  props: ['hash', 'time', 'status', 'fee', 'gas', 'height'],
+  props: {
+    fee: { type: String },
+    gas: { type: String },
+    hash: { type: String },
+    height: { type: String },
+    ledger: { type: String },
+    status: { type: Number },
+    time: { type: String },
+    version: { type: String },
+  },
   computed: {
-    ...mapGetters('transactions', {
-      transaction: 'details',
-      version: 'version',
-    }),
     heightLink() {
-      return this.transaction
-        ? {
-            name: ROUTES.NAMES.BLOCKS_DETAILS,
-            params: { id: this.height },
-          }
-        : {};
+      return {
+        name: ROUTES.NAMES.BLOCKS_DETAILS,
+        params: { id: this.height },
+      };
+    },
+    ledgerLink() {
+      return `${this.ledger}/txs/${this.hash}`;
     },
     statusClass() {
       return this.status === 0 ? 'error--text' : 'info--text';

@@ -10,5 +10,4 @@ export default {
   hasNext: (state) => state.hasNext,
   isLoading: (state) => state.isLoading,
   transactions: (state) => state.transactions,
-  version: (state) => state.version,
 };

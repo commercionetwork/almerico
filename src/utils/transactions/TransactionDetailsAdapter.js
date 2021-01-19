@@ -6,29 +6,23 @@ class TransactionDetailsAdapter {
   }
 
   clear() {
-    this.tx = null;
-    this.version = null;
+    this.details = null;
   }
 
-  setTx(tx) {
-    this.tx = tx;
-    return this;
-  }
-
-  setVersion(version) {
-    this.version = version;
+  setDetails(details) {
+    this.details = details;
     return this;
   }
 
   get() {
     let item;
 
-    switch (this.version) {
+    switch (this.details.version) {
       case '':
-        item = current(this.tx);
+        item = current(this.details);
         break;
       case '0.38':
-        item = v038(this.tx);
+        item = v038(this.details);
         break;
       default:
         break;
@@ -39,26 +33,30 @@ class TransactionDetailsAdapter {
   }
 }
 
-const current = (tx) => ({
-  hash: tx.txhash,
-  time: formatTimestamp(tx.timestamp),
-  status: tx.code ? 0 : 1,
-  fee: formatFee(tx.tx.value.fee.amount),
-  gas: formatGas(tx),
-  height: tx.height,
-  type: txHandler.getType(tx.tx.value.msg),
-  msgs: tx.tx.value.msg,
+const current = (details) => ({
+  hash: details.data.txhash,
+  time: formatTimestamp(details.data.timestamp),
+  status: details.data.code ? 0 : 1,
+  fee: formatFee(details.data.tx.value.fee.amount),
+  gas: formatGas(details.data),
+  height: details.data.height,
+  type: txHandler.getType(details.data.tx.value.msg),
+  msgs: details.data.tx.value.msg,
+  ledger: details.ledger,
+  version: details.version,
 });
 
-const v038 = (tx) => ({
-  hash: tx.txhash,
-  time: formatTimestamp(tx.timestamp),
-  status: tx.code ? 0 : 1,
-  fee: formatFee(tx.tx.value.fee.amount),
-  gas: formatGas(tx),
-  height: tx.height,
-  type: txHandler.getType(tx.tx.value.msg),
-  msgs: tx.tx.value.msg,
+const v038 = (details) => ({
+  hash: details.data.txhash,
+  time: formatTimestamp(details.data.timestamp),
+  status: details.data.code ? 0 : 1,
+  fee: formatFee(details.data.tx.value.fee.amount),
+  gas: formatGas(details.data),
+  height: details.data.height,
+  type: txHandler.getType(details.data.tx.value.msg),
+  msgs: details.data.tx.value.msg,
+  ledger: details.ledger,
+  version: details.version,
 });
 
 const formatTimestamp = (tms) => new Date(tms).toLocaleString();

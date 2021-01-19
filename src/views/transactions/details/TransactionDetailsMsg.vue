@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="2">
-    <v-card-title v-text="type" />
+    <v-card-title v-text="txType" />
     <v-card-subtitle v-text="'Msg type'" />
     <v-list>
       <v-list-item v-for="(msg, index) in msgs" :key="index">
@@ -15,7 +15,16 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'TransactionDetailsMsg',
-  props: ['type', 'msgs'],
+  props: {
+    msgs: {
+      type: Array,
+      note: 'Messages list to display',
+    },
+    txType: {
+      type: String,
+      note: 'The message type',
+    },
+  },
   computed: {
     ...mapGetters('transactions', {
       transaction: 'details',

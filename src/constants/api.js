@@ -1,24 +1,23 @@
 /**
  * Versions
  */
-const KEYBASE_VERSION = "/1.0";
+const KEYBASE_VERSION = '/1.0';
 
 /**
  * URLs
  */
 const API_KEYBASE = `https://keybase.io/_/api${KEYBASE_VERSION}`;
-const API_LCD_BASE = (process.env.VUE_APP_LCD !== undefined) ?
-  process.env.VUE_APP_LCD :
-  "";
-const API_RPC_BASE = (process.env.VUE_APP_RPC !== undefined) ?
-  process.env.VUE_APP_RPC :
-  "";
+const API_LCD_BASE =
+  process.env.VUE_APP_LCD !== undefined ? process.env.VUE_APP_LCD : '';
+const API_RPC_BASE =
+  process.env.VUE_APP_RPC !== undefined ? process.env.VUE_APP_RPC : '';
 
 /**
  * APIs
  */
 export const API = {
   // LCD
+  LCD: API_LCD_BASE,
   AUTH: `${API_LCD_BASE}/auth/accounts`,
   BANK: `${API_LCD_BASE}/bank/balances`,
   BLOCKS: `${API_LCD_BASE}/blocks`,
@@ -35,6 +34,7 @@ export const API = {
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
   VERSION: `${API_LCD_BASE}/version`,
   // RPC
+  RPC: API_RPC_BASE,
   ABCI_INFO: `${API_RPC_BASE}/abci_info`,
   ABCI_QUERY: `${API_RPC_BASE}/abci_query`,
   BLOCK: `${API_RPC_BASE}/block`,

@@ -143,12 +143,4 @@ describe('store/transactions/mutations', () => {
 
     expect(state.details).toStrictEqual(transaction);
   });
-
-  test('Check mutations.setVersion', () => {
-    const version = '0.38';
-
-    mutations.setVersion(state, version);
-
-    expect(state.version).toBe(version);
-  });
 });

@@ -3,7 +3,7 @@
  */
 
 import api from './api';
-import { CHAIN, CUSTOMIZATION } from '@/constants';
+import { API, CHAIN, CUSTOMIZATION } from '@/constants';
 
 export default {
   /**
@@ -16,10 +16,14 @@ export default {
       root: true,
     });
     commit('setTransactionDetails', null);
-    commit('setVersion', '');
     let response;
     try {
       response = await api.requestTransaction(hash);
+      commit('setTransactionDetails', {
+        data: response.data,
+        ledger: API.LCD,
+        version: '',
+      });
     } catch (error) {
       if (error.response && error.response.status === 404) {
         const ancestors = JSON.parse(CHAIN.ANCESTORS);
@@ -29,7 +33,11 @@ export default {
               lcd: ancestor.lcd,
               hash: hash,
             });
-            commit('setVersion', ancestor.ver);
+            commit('setTransactionDetails', {
+              data: response.data,
+              ledger: ancestor.lcd_ledger,
+              version: ancestor.ver,
+            });
             break;
           } catch (error) {
             if (error.response && error.response.status === 404) {
@@ -48,9 +56,6 @@ export default {
         });
       }
     } finally {
-      if (response) {
-        commit('setTransactionDetails', response.data);
-      }
       commit('stopLoading');
     }
   },

@@ -93,13 +93,4 @@ export default {
       ...data,
     };
   },
-  /**
-   * Set anchestor version
-   *
-   * @param {TransactionsState} state
-   * @param {String} version
-   */
-  setVersion(state, version) {
-    state.version = version;
-  },
 };

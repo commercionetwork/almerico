@@ -9,10 +9,12 @@
           :fee="tx.fee"
           :gas="tx.gas"
           :height="tx.height"
+          :ledger="tx.ledger"
+          :version="tx.version"
         />
       </v-col>
       <v-col cols="12" md="7">
-        <TransactionDetailsMsg :type="tx.type" :msgs="tx.msgs" />
+        <TransactionDetailsMsg :txType="tx.type" :msgs="tx.msgs" />
       </v-col>
     </v-row>
   </v-layout>
