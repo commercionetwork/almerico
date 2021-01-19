@@ -18,26 +18,29 @@
       <div class="pb-1 font-weight-bold" v-text="gas" />
       <div v-text="'Height'" />
       <router-link
+        v-if="version === ''"
         class="text-decoration-none font-weight-bold"
         v-text="blockHeight"
         :to="blockLink"
       />
+      <span v-else v-text="blockHeight" />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { ROUTES } from "@/constants";
+import { mapGetters } from 'vuex';
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "TransactionDetailsSpec",
+  name: 'TransactionDetailsSpec',
   computed: {
-    ...mapGetters("transactions", {
-      transaction: "details",
+    ...mapGetters('transactions', {
+      transaction: 'details',
+      version: 'version',
     }),
     blockHeight() {
-      return this.transaction ? this.transaction.height : "";
+      return this.transaction ? this.transaction.height : '';
     },
     blockLink() {
       return this.transaction
@@ -50,23 +53,23 @@ export default {
     fee() {
       return this.transaction
         ? this.getFee(this.transaction.tx.value.fee.amount)
-        : "";
+        : '';
     },
     gas() {
       return this.transaction
         ? `${this.transaction.gas_used}/${this.transaction.gas_wanted}`
-        : "";
+        : '';
     },
     hash() {
-      return this.transaction ? this.transaction.txhash : "";
+      return this.transaction ? this.transaction.txhash : '';
     },
     status() {
-      return this.transaction.code ? "Failed" : "Success";
+      return this.transaction.code ? 'Failed' : 'Success';
     },
     time() {
       return this.transaction
         ? new Date(this.transaction.timestamp).toLocaleString()
-        : "";
+        : '';
     },
   },
   methods: {
@@ -83,9 +86,9 @@ export default {
             minimumFractionDigits: 6,
             maximumFractionDigits: 6,
           }).format(total) +
-            " " +
-            "Commercio"
-        : "0";
+            ' ' +
+            'Commercio'
+        : '0';
     },
   },
 };
