@@ -10,10 +10,17 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="error !== ''">
+  <v-row v-else-if="!isLoading && error !== ''">
     <v-col cols="12">
       <v-alert border="left" prominent text type="error">
-        <span class="text-body-1">{{ error }}</span>
+        <span class="text-body-1" v-text="error" />
+      </v-alert>
+    </v-col>
+  </v-row>
+  <v-row v-else-if="!isLoading && error === '' && details === null">
+    <v-col cols="12">
+      <v-alert border="left" prominent text type="info">
+        <span class="text-body-1" v-text="infoMessage" />
       </v-alert>
     </v-col>
   </v-row>
@@ -39,16 +46,20 @@ export default {
   },
   computed: {
     ...mapGetters('transactions', {
+      details: 'details',
       error: 'error',
       isLoading: 'isLoading',
     }),
     hash() {
       return this.$route.params.id;
     },
+    infoMessage() {
+      return 'No transactions with this hash';
+    },
   },
   watch: {
-    $route(to) {
-      this.fetchTransaction(to.params.id);
+    $route(to, from) {
+      if (to.path !== from.path) this.fetchTransaction(to.params.id);
     },
   },
   methods: {

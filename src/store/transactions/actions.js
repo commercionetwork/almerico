@@ -15,24 +15,26 @@ export default {
     commit('setServerReachability', true, {
       root: true,
     });
+    commit('setTransactionDetails', null);
     let response;
     try {
       response = await api.requestTransaction(hash);
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        this._vm.$config.archive.ancestors.forEach(async (ancestor) => {
+        for (let ancestor of this._vm.$config.archive.ancestors) {
           try {
             response = await api.requestAncestorTransaction({
               lcd: ancestor.lcd,
               hash: hash,
             });
+            break;
           } catch (error) {
             if (error.response && error.response.status === 404) {
               return;
             }
             throw error;
           }
-        });
+        }
       } else if (error.response) {
         commit('setError', JSON.stringify(error.response.data));
       } else if (error.request) {

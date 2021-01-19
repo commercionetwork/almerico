@@ -89,7 +89,6 @@ export default {
    * @param {Object} data
    */
   setTransactionDetails(state, data) {
-    state.details = null;
     state.details = {
       ...data
     };
