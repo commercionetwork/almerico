@@ -4,7 +4,7 @@ Almerico (tribute to [Almerico from Schio](https://it.wikipedia.org/wiki/Almeric
 
 ## Install
 
-In order to properly build the project, first you have to download all of its dependencies. To do so run:
+In order to properly build the project, first you have to install all of its dependencies. To do so run:
 
 ```shell
 npm install
@@ -100,6 +100,10 @@ docker build -t almerico \
 ```shell
 docker run --name almerico --rm almerico
 ```
+
+## Customize the explorer
+
+To customize the configuration edit the `config.json` file which is in the `/src/config` folder.
 
 ## Customize the Vue.js CLI configuration
 
