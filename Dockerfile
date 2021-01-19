@@ -9,6 +9,7 @@ ARG WS_URL
 ENV VUE_APP_LCD ${LCD_URL}
 ENV VUE_APP_RPC ${RPC_URL}
 ENV VUE_APP_WS ${WS_URL}
+ENV VUE_APP_ANCESTORS ${ANCESTORS_LIST}
 
 # Set unsafe perm in order to avoid npm errors
 RUN npm config set unsafe-perm true
