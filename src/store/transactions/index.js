@@ -9,6 +9,7 @@
  * @property {Object} details
  * @property {String} error
  * @property {String} filter
+ * @property {String} version
  */
 
 import actions from "./actions";
@@ -23,6 +24,7 @@ const initialState = {
   hasNext: false,
   isLoading: false,
   transactions: [],
+  version: '',
 };
 
 export default {

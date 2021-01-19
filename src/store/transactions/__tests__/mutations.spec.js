@@ -1,19 +1,17 @@
-import mutations from "../mutations";
-import {
-  initialState
-} from "../index";
+import mutations from '../mutations';
+import { initialState } from '../index';
 
-describe("store/transactions/mutations", () => {
+describe('store/transactions/mutations', () => {
   let state = {};
 
   beforeEach(() => {
     state = {
-      ...initialState
+      ...initialState,
     };
   });
 
-  test("Check mutations.startLoading", () => {
-    state.error = "error";
+  test('Check mutations.startLoading', () => {
+    state.error = 'error';
 
     mutations.startLoading(state);
 
@@ -21,7 +19,7 @@ describe("store/transactions/mutations", () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test("Check mutations.stopLoading", () => {
+  test('Check mutations.stopLoading', () => {
     state.isLoading = true;
 
     mutations.stopLoading(state);
@@ -29,10 +27,10 @@ describe("store/transactions/mutations", () => {
     expect(state.isLoading).toBe(false);
   });
 
-  test("Check mutations.setError", () => {
+  test('Check mutations.setError', () => {
     const error = JSON.stringify({
-      message: "mutation error",
-      status: 400
+      message: 'mutation error',
+      status: 400,
     });
 
     mutations.setError(state, error);
@@ -40,15 +38,15 @@ describe("store/transactions/mutations", () => {
     expect(state.error).toBe(error);
   });
 
-  test("Check mutations.setFilter", () => {
-    const filter = "type";
+  test('Check mutations.setFilter', () => {
+    const filter = 'type';
 
     mutations.setFilter(state, filter);
 
     expect(state.filter).toBe(filter);
   });
 
-  test("Check mutations.changePage", () => {
+  test('Check mutations.changePage', () => {
     const page = 2;
 
     mutations.changePage(state, page);
@@ -56,7 +54,7 @@ describe("store/transactions/mutations", () => {
     expect(state.currentPage).toBe(page);
   });
 
-  test("Check mutations.setHasNext", () => {
+  test('Check mutations.setHasNext', () => {
     state.hasNext = false;
 
     mutations.setHasNext(state, 2);
@@ -68,69 +66,89 @@ describe("store/transactions/mutations", () => {
     expect(state.hasNext).toBe(false);
   });
 
-  test("Check mutations.addTransactions", () => {
-    const data = [{
-      id: 1
-    }];
+  test('Check mutations.addTransactions', () => {
+    const data = [
+      {
+        id: 1,
+      },
+    ];
 
-    state.transactions = data.map(obj => ({
-      ...obj
+    state.transactions = data.map((obj) => ({
+      ...obj,
     }));
 
-    const newData = [{
-      id: 2
-    }];
+    const newData = [
+      {
+        id: 2,
+      },
+    ];
 
     mutations.addTransactions(state, newData);
 
-    const expectedValue = [{
-      id: 1
-    }, {
-      id: 2
-    }];
+    const expectedValue = [
+      {
+        id: 1,
+      },
+      {
+        id: 2,
+      },
+    ];
 
     expect(state.transactions).toStrictEqual(expectedValue);
   });
 
-  test("Check mutations.clearAllTransactions", () => {
+  test('Check mutations.clearAllTransactions', () => {
     mutations.clearAllTransactions(state);
 
     expect(state.transactions).toStrictEqual([]);
   });
 
-  test("Check mutations.addSingleTransaction", () => {
+  test('Check mutations.addSingleTransaction', () => {
     const data = {
       hasNext: true,
-      records: [{
-        id: 1
-      }]
+      records: [
+        {
+          id: 1,
+        },
+      ],
     };
 
-    state.transactions = data.records.map(obj => ({
-      ...obj
+    state.transactions = data.records.map((obj) => ({
+      ...obj,
     }));
 
     const newTransaction = {
-      id: 2
+      id: 2,
     };
 
     mutations.addSingleTransaction(state, newTransaction);
 
-    const expectedValue = [{
-      id: 2
-    }, {
-      id: 1
-    }];
+    const expectedValue = [
+      {
+        id: 2,
+      },
+      {
+        id: 1,
+      },
+    ];
     expect(state.transactions).toStrictEqual(expectedValue);
   });
 
-  test("Check mutations.setTransactionDetails", () => {
+  test('Check mutations.setTransactionDetails', () => {
     const transaction = {
-      id: 1
+      id: 1,
     };
 
     mutations.setTransactionDetails(state, transaction);
 
     expect(state.details).toStrictEqual(transaction);
+  });
+
+  test('Check mutations.setVersion', () => {
+    const version = '0.38';
+
+    mutations.setVersion(state, version);
+
+    expect(state.version).toBe(version);
   });
 });

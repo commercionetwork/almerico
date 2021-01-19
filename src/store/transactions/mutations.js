@@ -9,7 +9,7 @@ export default {
    * @param {TransactionsState} state
    */
   startLoading(state) {
-    state.error = "";
+    state.error = '';
     state.isLoading = true;
   },
   /**
@@ -67,7 +67,7 @@ export default {
   },
   /**
    * Remove all transactions
-   * 
+   *
    * @param {TransactionsState} state
    */
   clearAllTransactions(state) {
@@ -75,9 +75,9 @@ export default {
   },
   /**
    * Add single transaction to the beginning of the stored transactions
-   * 
+   *
    * @param {TransactionsState} state
-   * @param {Object} data 
+   * @param {Object} data
    */
   addSingleTransaction(state, data) {
     state.transactions.unshift(data);
@@ -90,7 +90,16 @@ export default {
    */
   setTransactionDetails(state, data) {
     state.details = {
-      ...data
+      ...data,
     };
+  },
+  /**
+   * Set anchestor version
+   *
+   * @param {TransactionsState} state
+   * @param {String} version
+   */
+  setVersion(state, version) {
+    state.version = version;
   },
 };

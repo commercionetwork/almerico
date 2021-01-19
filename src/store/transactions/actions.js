@@ -16,6 +16,7 @@ export default {
       root: true,
     });
     commit('setTransactionDetails', null);
+    commit('setVersion', '');
     let response;
     try {
       response = await api.requestTransaction(hash);
@@ -27,6 +28,7 @@ export default {
               lcd: ancestor.lcd,
               hash: hash,
             });
+            commit('setVersion', ancestor.ver);
             break;
           } catch (error) {
             if (error.response && error.response.status === 404) {
