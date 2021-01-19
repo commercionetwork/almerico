@@ -3,7 +3,7 @@
  */
 
 import api from './api';
-import { CUSTOMIZATION } from '@/constants';
+import { CHAIN, CUSTOMIZATION } from '@/constants';
 
 export default {
   /**
@@ -22,7 +22,7 @@ export default {
       response = await api.requestTransaction(hash);
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        for (let ancestor of this._vm.$config.archive.ancestors) {
+        for (let ancestor of CHAIN.ANCESTORS) {
           try {
             response = await api.requestAncestorTransaction({
               lcd: ancestor.lcd,

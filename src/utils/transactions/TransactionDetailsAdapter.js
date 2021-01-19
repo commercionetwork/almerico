@@ -21,45 +21,50 @@ class TransactionDetailsAdapter {
   }
 
   get() {
-    let details;
+    let item;
 
     switch (this.version) {
       case '':
-        details = current();
+        item = current(this.tx);
         break;
       case '0.38':
-        details = v038();
+        item = v038(this.tx);
         break;
       default:
-        details = null;
+        item = null;
         break;
     }
 
-    return details;
+    this.clear();
+    return item;
   }
 }
 
-const current = () => ({
-  hash: this.tx.txhash,
-  time: formatTimestamp(this.tx.timestamp),
-  status: this.tx.code ? 0 : 1,
-  fee: formatFee(this.tx.tx.value.fee.amount),
-  gas: formatGas(),
-  height: this.tx.height,
-  type: txHandler.getType(this.tx.tx.value.msg),
-  msgs: this.tx.tx.value.msg,
-});
+function current(tx) {
+  return {
+    hash: tx.txhash,
+    time: formatTimestamp(tx.timestamp),
+    status: tx.code ? 0 : 1,
+    fee: formatFee(tx.tx.value.fee.amount),
+    gas: formatGas(tx),
+    height: tx.height,
+    type: txHandler.getType(tx.tx.value.msg),
+    msgs: tx.tx.value.msg,
+  };
+}
 
-const v038 = () => ({
-  hash: this.tx.txhash,
-  time: formatTimestamp(this.tx.timestamp),
-  status: this.tx.code ? 0 : 1,
-  fee: formatFee(this.tx.tx.value.fee.amount),
-  gas: formatGas(),
-  height: this.tx.height,
-  type: txHandler.getType(this.tx.tx.value.msg),
-  msgs: this.tx.tx.value.msg,
-});
+function v038(tx) {
+  return {
+    hash: tx.txhash,
+    time: formatTimestamp(tx.timestamp),
+    status: tx.code ? 0 : 1,
+    fee: formatFee(tx.tx.value.fee.amount),
+    gas: formatGas(tx),
+    height: tx.height,
+    type: txHandler.getType(tx.tx.value.msg),
+    msgs: tx.tx.value.msg,
+  };
+}
 
 const formatTimestamp = (tms) => new Date(tms).toLocaleString();
 
@@ -75,6 +80,6 @@ const formatFee = (amounts) => {
     : '0';
 };
 
-const formatGas = () => `${this.tx.gas_used}/${this.tx.gas_wanted}`;
+const formatGas = (tx) => `${tx.gas_used}/${tx.gas_wanted}`;
 
 export default new TransactionDetailsAdapter();

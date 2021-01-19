@@ -27,15 +27,6 @@
       }
     }
   },
-  "archive": {
-    "node": "http://178.62.202.95:5000/",
-    "ancestors": [
-      {
-        "lcd": "https://lcd-testnet.commercio.network/9001",
-        "ver": "0.38"
-      }
-    ]
-  },
   "transactions": {
     "supported_types": [
       {

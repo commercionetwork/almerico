@@ -9,8 +9,8 @@
       <div v-text="'Status'" />
       <div
         class="pb-1 font-weight-bold"
-        :class="transaction.code ? 'error--text' : 'info--text'"
-        v-text="status"
+        :class="statusClass"
+        v-text="statusText"
       />
       <div v-text="'Fee'" />
       <div class="pb-1 font-weight-bold" v-text="fee" />
@@ -20,10 +20,10 @@
       <router-link
         v-if="version === ''"
         class="text-decoration-none font-weight-bold"
-        v-text="blockHeight"
-        :to="blockLink"
+        v-text="height"
+        :to="heightLink"
       />
-      <span v-else v-text="blockHeight" />
+      <span v-else v-text="height" />
     </v-card-text>
   </v-card>
 </template>
@@ -34,61 +34,25 @@ import { ROUTES } from '@/constants';
 
 export default {
   name: 'TransactionDetailsSpec',
+  props: ['hash', 'time', 'status', 'fee', 'gas', 'height'],
   computed: {
     ...mapGetters('transactions', {
       transaction: 'details',
       version: 'version',
     }),
-    blockHeight() {
-      return this.transaction ? this.transaction.height : '';
-    },
-    blockLink() {
+    heightLink() {
       return this.transaction
         ? {
             name: ROUTES.NAMES.BLOCKS_DETAILS,
-            params: { id: this.blockHeight },
+            params: { id: this.height },
           }
         : {};
     },
-    fee() {
-      return this.transaction
-        ? this.getFee(this.transaction.tx.value.fee.amount)
-        : '';
+    statusClass() {
+      return this.status === 0 ? 'error--text' : 'info--text';
     },
-    gas() {
-      return this.transaction
-        ? `${this.transaction.gas_used}/${this.transaction.gas_wanted}`
-        : '';
-    },
-    hash() {
-      return this.transaction ? this.transaction.txhash : '';
-    },
-    status() {
-      return this.transaction.code ? 'Failed' : 'Success';
-    },
-    time() {
-      return this.transaction
-        ? new Date(this.transaction.timestamp).toLocaleString()
-        : '';
-    },
-  },
-  methods: {
-    /**
-     * @param {Array.<Object>} amount
-     * @returns {String}
-     */
-    getFee(amounts) {
-      const total =
-        amounts.reduce((acc, amount) => acc + parseFloat(amount.amount), 0) /
-        1000000;
-      return total !== 0
-        ? new Intl.NumberFormat(undefined, {
-            minimumFractionDigits: 6,
-            maximumFractionDigits: 6,
-          }).format(total) +
-            ' ' +
-            'Commercio'
-        : '0';
+    statusText() {
+      return this.status === 0 ? 'Failed' : 'Success';
     },
   },
 };

@@ -11,21 +11,15 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { txHandler } from "@/utils";
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "TransactionDetailsMsg",
+  name: 'TransactionDetailsMsg',
+  props: ['type', 'msgs'],
   computed: {
-    ...mapGetters("transactions", {
-      transaction: "details",
+    ...mapGetters('transactions', {
+      transaction: 'details',
     }),
-    msgs() {
-      return this.transaction ? this.transaction.tx.value.msg : [];
-    },
-    type() {
-      return this.transaction ? txHandler.getType(this.msgs) : "";
-    },
   },
 };
 </script>

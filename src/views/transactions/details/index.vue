@@ -27,34 +27,41 @@
   <v-row v-else>
     <v-col cols="12">
       <TransactionDetailsHeader />
-      <TransactionDetailsTopBody class="py-1" />
+      <TransactionDetailsBody class="py-1" :tx="tx" />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import TransactionDetailsBody from './TransactionDetailsBody';
 import TransactionDetailsHeader from './TransactionDetailsHeader';
-import TransactionDetailsTopBody from './TransactionDetailsTopBody';
 
 import { mapActions, mapGetters } from 'vuex';
+import { TransactionDetailsAdapter } from '@/utils';
 
 export default {
   name: 'TransactionDetails',
   components: {
+    TransactionDetailsBody,
     TransactionDetailsHeader,
-    TransactionDetailsTopBody,
   },
   computed: {
     ...mapGetters('transactions', {
       details: 'details',
       error: 'error',
       isLoading: 'isLoading',
+      version: 'version',
     }),
     hash() {
       return this.$route.params.id;
     },
     infoMessage() {
       return 'No transactions with this hash';
+    },
+    tx() {
+      return TransactionDetailsAdapter.setTx(this.details)
+        .setVersion(this.version)
+        .get();
     },
   },
   watch: {
