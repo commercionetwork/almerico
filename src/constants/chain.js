@@ -2,9 +2,9 @@
  * Available chains
  */
 export const CHAIN = {
-  ANCHESTORS:
-    process.env.VUE_APP_ANCHESTORS !== undefined
-      ? JSON.parse(process.env.VUE_APP_ANCHESTORS)
+  ANCESTORS:
+    process.env.VUE_APP_ANCESTORS !== undefined
+      ? JSON.parse(process.env.VUE_APP_ANCESTORS)
       : [],
   DEFAULT: {
     id: 1,
