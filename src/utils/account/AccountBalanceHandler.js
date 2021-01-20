@@ -31,29 +31,37 @@ class AccountBalanceHandler {
   }
 
   get() {
-    let amounts = {
-      availables: 0,
-      delegations: 0,
-      unbondings: 0,
-      rewards: 0,
-      total: 0,
-    };
+    let availables = 0,
+      delegations = 0,
+      rewards = 0,
+      unbondings = 0;
 
-    if (this.balances && this.balances.length > 0) this.balances.forEach(balance => amounts['availables'] += parseFloat(balance['amount']));
-    if (this.delegations && this.delegations.length > 0) this.delegations.forEach(delegation => amounts['delegations'] += parseFloat(delegation['shares']));
-    if (this.unbondings && this.unbondings.length > 0) this.unbondings.forEach(unbonding => {
-      unbonding.entries.forEach(entry => amounts['unbondings'] += parseFloat(entry['balance']))
-    });
-    if (this.rewards && this.rewards.total && this.rewards.total.length > 0) this.rewards.total.forEach(reward => amounts['rewards'] += parseFloat(reward['amount']));
-    
-    amounts['total'] = amounts['availables'] +
-      amounts['delegations'] +
-      amounts['rewards'] +
-      amounts['unbondings'];
+    if (this.balances && this.balances.length > 0)
+      availables = sumAmounts(this.balances, 'amount');
+
+    if (this.delegations && this.delegations.length > 0)
+      delegations = sumAmounts(this.delegations, 'shares');
+
+    if (this.rewards && this.rewards.total && this.rewards.total.length > 0)
+      rewards = sumAmounts(this.rewards.total, 'amount');
+
+    if (this.unbondings && this.unbondings.length > 0)
+      this.unbondings.forEach((unbonding) => {
+        unbondings = sumAmounts(unbonding.entries, 'balance');
+      });
 
     this.clear;
-    return amounts;
+    return {
+      availables,
+      delegations,
+      rewards,
+      unbondings,
+      total: availables + delegations + rewards + unbondings,
+    };
   }
 }
+
+const sumAmounts = (items, prop) =>
+  items.reduce((acc, item) => acc + parseInt(item[prop]), 0);
 
 export default new AccountBalanceHandler();
