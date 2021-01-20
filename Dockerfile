@@ -4,6 +4,7 @@ FROM node:lts
 ARG LCD_URL
 ARG RPC_URL
 ARG WS_URL
+ARG ANCESTORS_LIST
 
 # Copy all arguments into the environment variables
 ENV VUE_APP_LCD ${LCD_URL}
