@@ -1,6 +1,4 @@
-import {
-  bech32Manager
-} from "../index";
+import { bech32Manager } from '../index';
 
 class BlockProposerHandler {
   constructor() {
@@ -41,21 +39,40 @@ class BlockProposerHandler {
   }
 
   get() {
-    if (this.error !== "") return "";
-    const address = bech32Manager.encode(
-      this.block.header.proposer_address,
-      this.prefix
-    );
-    const pubKey = this.validatorsSets.length > 0 ?
-      this.validatorsSets.find(
-        validator => validator.address === address
-      )["pub_key"] :
-      "";
-    const proposer = pubKey !== "" ? this.validators.find(validator => validator.consensus_pubkey === pubKey) : {};
+    if (this.error !== '') return '';
+    const proposer = getProposer({
+      validators: this.validators,
+      validatorsSets: this.validatorsSets,
+      address: this.block.header.proposer_address,
+      prefix: this.prefix,
+    });
 
     this.clear;
     return proposer;
   }
 }
+
+const getProposer = ({ validators, validatorsSets, address, prefix }) => {
+  const encodedAddress = getEncodedAddress(address, prefix);
+  const pubKey = getPubKey(validatorsSets, encodedAddress);
+  return getValidator(validators, pubKey);
+};
+
+const getValidator = (validators, pubKey) => {
+  const index = validators.findIndex(
+    (validator) => validator.consensus_pubkey === pubKey
+  );
+  return index > -1 ? validators[index] : {};
+};
+
+const getPubKey = (validatorsSets, address) => {
+  const index = validatorsSets.findIndex(
+    (validator) => validator.address === address
+  );
+  return index > -1 ? validatorsSets[index]['pub_key'] : '';
+};
+
+const getEncodedAddress = (address, prefix) =>
+  bech32Manager.encode(address, prefix);
 
 export default new BlockProposerHandler();
