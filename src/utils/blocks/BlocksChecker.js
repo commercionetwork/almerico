@@ -1,6 +1,4 @@
-import {
-  bech32Manager
-} from "@/utils";
+import { bech32Manager } from '@/utils';
 
 class BlocksChecker {
   constructor() {
@@ -37,18 +35,17 @@ class BlocksChecker {
   get() {
     let checkedBlocks = [];
 
-    let index = this.validatorsSet.findIndex(
-      (validator) => validator.pub_key === this.validator.consensus_pubkey
-    );
-    if (index > -1) {
-      let hex = bech32Manager.decode(this.validatorsSet[index].address);
-      checkedBlocks = this.blocks.sort((a, b) => b['header']['height'] - a['header']['height'])
-        .slice(0, this.items);
-      checkedBlocks.map(block => {
-        let signatureIndex = block.last_commit.signatures.findIndex(
-          signature => signature.validator_address.toUpperCase() === hex.toUpperCase()
-        );
-        block['missing'] = signatureIndex === -1 ? true : false;
+    const hex = getDecodeAddress(this.validator, this.validatorsSet);
+    if (hex !== '') {
+      const orderedBlocks = getOrderedBlocks({
+        blocks: this.blocks,
+        prop: ['header', 'height'],
+        amount: this.items,
+      });
+      checkedBlocks = setMissingBlocks({
+        blocks: orderedBlocks,
+        prop: 'missing',
+        hex: hex,
       });
     }
 
@@ -56,5 +53,31 @@ class BlocksChecker {
     return checkedBlocks;
   }
 }
+
+const setMissingBlocks = ({ blocks, prop, hex }) =>
+  blocks.map((block) => {
+    block[prop] = getMissingBlock(block, hex);
+    return block;
+  });
+
+const getMissingBlock = (block, hex) => {
+  const index = block.last_commit.signatures.findIndex(
+    (signature) =>
+      signature.validator_address.toUpperCase() === hex.toUpperCase()
+  );
+  return index > -1 ? false : true;
+};
+
+const getOrderedBlocks = ({ blocks, prop, amount }) =>
+  blocks
+    .sort((a, b) => b[prop[0]][prop[1]] - a[prop[0]][prop[1]])
+    .slice(0, amount);
+
+const getDecodeAddress = (validator, validatorsSet) => {
+  const index = validatorsSet.findIndex(
+    (val) => val.pub_key === validator.consensus_pubkey
+  );
+  return index > -1 ? bech32Manager.decode(validatorsSet[index].address) : '';
+};
 
 export default new BlocksChecker();
