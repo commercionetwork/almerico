@@ -33,36 +33,46 @@ class BlocksTableAdapter {
   }
 
   get() {
-    let blocksTable = [];
-    let blocks = this.blocks.sort(
-      (a, b) => b['header']['height'] - a['header']['height']
-    );
-    blocks.forEach((block) => {
-      const height = block.header.height;
-      const hash = block.last_commit.block_id.hash;
-      const proposer = proposerHandler.getFromValidatorsSet({
-        address: block.header.proposer_address,
-        prefix: this.prefix,
-        validatorsSet: this.validatorsSet,
-        validators: this.validators,
-      });
-      const moniker = proposer ? proposer.description.moniker : '-';
-      const txs = block.data && block.data.txs ? block.data.txs.length : 0;
-      const date = new Date(block.header.time).toLocaleString();
+    let tableBlocks = [];
 
-      const data = {
-        height: height,
-        hash: hash,
-        moniker: moniker,
-        txs: txs,
-        date: date,
-      };
-      blocksTable.push(data);
+    const blocks = getOrderedBlocks({
+      blocks: this.blocks,
+      prop: ['header', 'height'],
+    });
+    blocks.forEach((block) => {
+      const data = convertBlock({
+        block: block,
+        prefix: this.prefix,
+        validators: this.validators,
+        validatorsSet: this.validatorsSet,
+      });
+      tableBlocks.push(data);
     });
 
     this.clear;
-    return blocksTable;
+    return tableBlocks;
   }
 }
+
+const convertBlock = ({ block, prefix, validators, validatorsSet }) => {
+  console.log(block);
+  const proposer = proposerHandler.getFromValidatorsSet({
+    address: block.header.proposer_address,
+    prefix: prefix,
+    validatorsSet: validatorsSet,
+    validators: validators,
+  });
+
+  return {
+    height: block.header.height,
+    hash: block.last_commit.block_id.hash,
+    moniker: proposer ? proposer.description.moniker : '-',
+    txs: block.data && block.data.txs ? block.data.txs.length : 0,
+    date: new Date(block.header.time).toLocaleString(),
+  };
+};
+
+const getOrderedBlocks = ({ blocks, prop }) =>
+  blocks.sort((a, b) => b[prop[0]][prop[1]] - a[prop[0]][prop[1]]);
 
 export default new BlocksTableAdapter();
