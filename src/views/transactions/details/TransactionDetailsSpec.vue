@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="2">
-    <v-card-title class="subtitle-2" v-text="hash" />
+    <v-card-title class="subtitle-2 word-break" v-text="hash" />
     <v-card-subtitle v-text="'Hash'" />
     <v-divider />
     <v-card-text>
@@ -28,7 +28,7 @@
     <v-divider />
     <v-card-text>
       <div v-text="'Official node'" />
-      <a :href="ledgerLink" target="_blank" v-text="ledgerLink"/>
+      <a class="word-break" :href="ledgerLink" target="_blank" v-text="ledgerLink" />
     </v-card-text>
   </v-card>
 </template>
@@ -67,3 +67,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.word-break {
+  word-break: break-all;
+}
+</style>
