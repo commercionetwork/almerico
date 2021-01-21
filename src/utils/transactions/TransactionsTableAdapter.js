@@ -35,44 +35,53 @@ class TransactionsTableAdapter {
     let transactions = filterTransactions(this.txs, this.filter);
 
     transactions.forEach((tx) => {
-      const txValue = tx.tx.value;
-      const type =
-        txValue.msg.length > 1
-          ? this.multiTypes
-          : txValue.msg
-              .find((msg) => typeof msg.type !== undefined)
-              .type.split('/')
-              .pop();
-      let amounts = [];
-      txValue.msg.forEach((msg) => {
-        let amount = msg.value.amount;
-        if (Array.isArray(amount)) {
-          amounts.push.apply(amounts, amount);
-        } else if (amount instanceof Object) {
-          amounts.push(amount);
-        }
-      });
-      const amount =
-        amounts.length > 0
-          ? amounts.reduce((acc, item) => acc + parseFloat(item.amount), 0)
-          : 0;
+      const type = getType(tx.tx.value, this.multiTypes);
+      const amounts = getAmounts(tx.tx.value);
 
-      const data = {
+      transactionsTable.push({
         height: tx.height,
         type: type,
-        result: tx.code ? false : true,
-        amount: toCoin(amount, 6, 6, this.coin),
+        result: tx.code ? 0 : 1,
+        amount: formatAmount(amounts, this.coin),
         fee: formatFee(tx.tx.value, this.coin),
         hash: tx.txhash,
         date: new Date(tx.timestamp).toLocaleString(),
-      };
-      transactionsTable.push(data);
+      });
     });
 
     this.clear();
     return transactionsTable;
   }
 }
+
+const getType = (txValue, multiTypes) =>
+  txValue.msg.length > 1
+    ? multiTypes
+    : txValue.msg
+        .find((msg) => typeof msg.type !== undefined)
+        .type.split('/')
+        .pop();
+
+const formatAmount = (amounts, coin) => {
+  const amount =
+    amounts.length > 0
+      ? amounts.reduce((acc, item) => acc + parseFloat(item.amount), 0)
+      : 0;
+  return toCoin(amount, 6, 6, coin);
+};
+
+const getAmounts = (txValue) => {
+  let amounts = [];
+  txValue.msg.forEach((msg) => {
+    let amount = msg.value.amount;
+    if (Array.isArray(amount)) {
+      amounts.push.apply(amounts, amount);
+    } else if (amount instanceof Object) {
+      amounts.push(amount);
+    }
+  });
+  return amounts;
+};
 
 const formatFee = (value, coin) => {
   const fee = value.fee.amount.reduce(

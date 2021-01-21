@@ -1,7 +1,4 @@
-import {
-  arrayHandler,
-  bech32Manager
-} from "../index";
+import { arrayHandler, bech32Manager } from '../index';
 
 class ValidatorsTableAdapter {
   constructor() {
@@ -22,13 +19,7 @@ class ValidatorsTableAdapter {
   }
 
   setBlocks(blocks) {
-    let orderedBlocks = [];
-    if (blocks.length > 0) {
-      orderedBlocks = blocks.sort((a, b) => b['header']['height'] - a['header']['height']);
-    }
-    this.blocks = orderedBlocks.length > 100 ?
-      orderedBlocks.slice(orderedBlocks.length - 100, orderedBlocks.length) :
-      orderedBlocks;
+    this.blocks = restrictBlocks(blocks, 100);
     return this;
   }
 
@@ -49,17 +40,21 @@ class ValidatorsTableAdapter {
 
   get() {
     const bondedTokens = parseInt(this.pool.bonded_tokens);
-    const tokensOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(this.validators, "tokens");
-    const statusOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(tokensOrdered, "status");
+    const tokensOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(
+      this.validators,
+      'tokens'
+    );
+    const statusOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(
+      tokensOrdered,
+      'status'
+    );
     let cumulative = 0;
     let rank = 0;
     let validatorsTable = [];
 
-    statusOrdered.forEach(validator => {
+    statusOrdered.forEach((validator) => {
       rank++;
       const active = validator.status === 2 ? true : false;
-      const moniker = validator.description.moniker;
-      const operator = validator.operator_address;
       const tokens = parseInt(validator.tokens);
       const commission = parseFloat(validator.commission.commission_rates.rate);
       let votingPower = 0;
@@ -67,38 +62,30 @@ class ValidatorsTableAdapter {
       if (active) {
         votingPower = tokens / bondedTokens;
         cumulative += votingPower;
-        let pubKey = validator.consensus_pubkey;
-        let validatorIndex = this.validatorsSet.findIndex(
-          validator => validator.pub_key === pubKey
-        );
-        if (validatorIndex > -1) {
-          let hex = bech32Manager.decode(this.validatorsSet[validatorIndex].address);
-          this.blocks.forEach(block => {
-            let signatures = block.last_commit.signatures;
-            let signatureIndex = signatures.findIndex(function (signature) {
-              return signature.validator_address.toUpperCase() === hex.toUpperCase();
-            });
-            if (signatureIndex === -1) {
-              missingCounter++;
-            }
-          });
+        const hex = getDecodeAddress(validator, this.validatorsSet);
+        if (hex !== '') {
+          getMissingBlocksCount(this.blocks, hex);
         }
       }
 
-      const data = {
+      validatorsTable.push({
         rank: rank,
-        active: active,
-        moniker: moniker,
-        operator: operator,
-        tokens: new Intl.NumberFormat(undefined, {
-          maximumFractionDigits: 0
-        }).format(tokens / 1000000) + " " + this.coin,
+        active: validator.status === 2 ? true : false,
+        moniker: validator.description.moniker,
+        operator: validator.operator_address,
+        tokens:
+          new Intl.NumberFormat(undefined, {
+            maximumFractionDigits: 0,
+          }).format(tokens / 1000000) +
+          ' ' +
+          this.coin,
         commission: toPercent(commission, 0, 0),
-        votingPower: active ? toPercent(votingPower, 2, 2) : "-",
-        cumulative: active ? toPercent(cumulative, 2, 2) : "-",
-        attendance: active ? toPercent((100 - missingCounter) / 100, 2, 2) : "-",
-      };
-      validatorsTable.push(data);
+        votingPower: active ? toPercent(votingPower, 2, 2) : '-',
+        cumulative: active ? toPercent(cumulative, 2, 2) : '-',
+        attendance: active
+          ? toPercent((100 - missingCounter) / 100, 2, 2)
+          : '-',
+      });
     });
 
     this.clear();
@@ -106,10 +93,47 @@ class ValidatorsTableAdapter {
   }
 }
 
-const toPercent = (x, maximumFractionDigits, minimumFractionDigits) => new Intl.NumberFormat(undefined, {
-  style: 'percent',
-  maximumFractionDigits,
-  minimumFractionDigits
-}).format(x);
+const getMissingBlocksCount = (blocks, address) => {
+  let count = 0;
+  blocks.forEach((block) => {
+    const signatures = block.last_commit.signatures;
+    const index = signatures.findIndex(
+      (signature) =>
+        signature.validator_address.toUpperCase() === address.toUpperCase()
+    );
+    if (index > -1) count++;
+  });
+  return count;
+};
+
+const getDecodeAddress = (validator, validatorsSet) => {
+  const index = validatorsSet.findIndex(
+    (val) => val.pub_key === validator.consensus_pubkey
+  );
+  return index > -1 ? bech32Manager.decode(validatorsSet[index].address) : '';
+};
+
+const restrictBlocks = (blocks, limit) => {
+  let orderedBlocks = [];
+  if (blocks.length > 0) {
+    orderedBlocks = getOrderedBlocks({
+      blocks: blocks,
+      prop: ['header', 'height'],
+    });
+  }
+  return orderedBlocks.length > limit
+    ? orderedBlocks.slice(orderedBlocks.length - limit, orderedBlocks.length)
+    : orderedBlocks;
+};
+
+const getOrderedBlocks = ({ blocks, prop }) =>
+  blocks.sort((a, b) => b[prop[0]][prop[1]] - a[prop[0]][prop[1]]);
+
+const toPercent = (x, maximumFractionDigits, minimumFractionDigits) =>
+  new Intl.NumberFormat(undefined, {
+    style: 'percent',
+    maximumFractionDigits,
+    minimumFractionDigits,
+  }).format(x);
 
 export default new ValidatorsTableAdapter();
