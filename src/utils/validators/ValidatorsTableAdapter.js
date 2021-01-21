@@ -70,7 +70,7 @@ class ValidatorsTableAdapter {
 
       validatorsTable.push({
         rank: rank,
-        active: validator.status === 2 ? true : false,
+        active: active,
         moniker: validator.description.moniker,
         operator: validator.operator_address,
         tokens:
