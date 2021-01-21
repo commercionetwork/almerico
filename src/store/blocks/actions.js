@@ -20,7 +20,7 @@ export default {
     });
     try {
       const response = await api.requestBlock(height);
-      commit("setBlockDetails", response.data.block);
+      commit("setBlockDetails", response.data);
     } catch (error) {
       if (error.response) {
         commit("setError", JSON.stringify(error.response.data));

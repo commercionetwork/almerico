@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     ...mapGetters('blocks', {
-      block: 'details',
+      details: 'details',
     }),
     ...mapGetters('validators', {
       error: 'error',
@@ -45,11 +45,11 @@ export default {
       validatorsSets: 'heightValidatorsSets',
     }),
     hash() {
-      return this.block.header ? this.block.header.last_block_id.hash : '';
+      return this.details.block_id ? this.details.block_id.hash : '';
     },
     proposer() {
       return BlockProposerHandler.setError(this.error)
-        .setBlock(this.block)
+        .setBlock(this.details.block)
         .setValidators(this.validators)
         .setValidatorsSets(this.validatorsSets)
         .setValidatorConsensusPrefix(
@@ -71,13 +71,13 @@ export default {
         : '';
     },
     time() {
-      return this.block.header
-        ? new Date(this.block.header.time).toLocaleString()
+      return this.details.block.header
+        ? new Date(this.details.block.header.time).toLocaleString()
         : '';
     },
     txs() {
-      return this.block.data && this.block.data.txs
-        ? this.block.data.txs.length
+      return this.details.block.data && this.details.block.data.txs
+        ? this.details.block.data.txs.length
         : 0;
     },
   },
