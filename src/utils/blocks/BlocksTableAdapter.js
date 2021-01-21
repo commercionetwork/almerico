@@ -55,7 +55,6 @@ class BlocksTableAdapter {
 }
 
 const convertBlock = ({ block, prefix, validators, validatorsSet }) => {
-  console.log(block);
   const proposer = proposerHandler.getFromValidatorsSet({
     address: block.header.proposer_address,
     prefix: prefix,
