@@ -27,6 +27,7 @@ after_success:
     .
 
 deploy:
+  - cleanup: true
   - provider: script
     script: bash docker_push_testnet.sh
     on:
