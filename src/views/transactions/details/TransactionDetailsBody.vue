@@ -14,7 +14,7 @@
         />
       </v-col>
       <v-col cols="12" md="7">
-        <TransactionDetailsMsg :txType="tx.type" :msgs="tx.msgs" />
+        <TransactionDetailsMsg :msgs="tx.msgs" />
       </v-col>
     </v-row>
   </v-layout>
