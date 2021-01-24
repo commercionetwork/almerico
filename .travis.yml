@@ -17,7 +17,7 @@ after_success:
     --build-arg LCD_URL=${ALMERICO_LCD_URL}
     --build-arg RPC_URL=${ALMERICO_RPC_URL}
     --build-arg WS_URL=${ALMERICO_WS_URL}
-    --build-arg ANCESTORS_LIST='${ALMERICO_ANCESTORS_LIST}'
+    --build-arg ANCESTORS_LIST='[{"lcd_ledger":"http://178.62.202.95:7123", "lcd": "https://lcd-testnet.commercio.network/9001", "ver": "0.38"}]' 
     .
   - test $TRAVIS_BRANCH = "development-version-0.1.0" && docker build -t $DOCKER_IMAGE_DEVNET_0_1_0_SCW
     --build-arg LCD_URL=${ALMERICO_DEVNET_LCD_URL}
