@@ -5,7 +5,12 @@
       <v-divider />
       <v-list-item v-for="(prop, index) in getProps(msg)" :key="index">
         <v-list-item-content class="text-body-2 text-break">
-          <div><span class="font-weight-bold">{{ prop[0] }}: </span>{{ prop[1] }}</div>
+          <div>
+            <span class="text-capitalize font-weight-bold">
+              {{ formatKeyProp(prop[0]) }}:
+            </span>
+            {{ prop[1] }}
+          </div>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -29,6 +34,9 @@ export default {
     }),
   },
   methods: {
+    formatKeyProp(str) {
+      return str.replace(/_/g, ' ');
+    },
     getProps(msg) {
       const value = msg.value;
       return Object.keys(value).map((key) => {
