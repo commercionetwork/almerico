@@ -2,14 +2,16 @@
   <nav>
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-img
-        :src="$config.generic.logo"
-        alt="Commercio Logo"
-        class="shrink mr-2"
-        contain
-        transition="scale-transition"
-        width="40"
-      />
+      <router-link :to="{ name: ROUTES.NAMES.DASHBOARD }">
+        <v-img
+          :src="$config.generic.logo"
+          alt="Commercio Logo"
+          class="shrink mr-2"
+          contain
+          transition="scale-transition"
+          width="40"
+        />
+      </router-link>
       <v-img
         :src="require('../assets/text-commercio.png')"
         alt="Commercio Name"
@@ -18,9 +20,7 @@
         min-width="100"
         width="100"
       />
-
       <v-spacer></v-spacer>
-
       <div>
         <span class="caption" v-text="netName" />
         <v-icon right aria-hidden="false"> mdi-lan-connect </v-icon>

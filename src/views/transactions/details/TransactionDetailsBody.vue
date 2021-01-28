@@ -11,6 +11,7 @@
           :height="tx.height"
           :ledger="tx.ledger"
           :version="tx.version"
+          :rawLog="tx.rawLog"
         />
       </v-col>
       <v-col cols="12" md="7">

@@ -12,6 +12,8 @@
         :class="statusClass"
         v-text="statusText"
       />
+      <div v-if="status === 0" v-text="'Raw log'" />
+      <div v-if="status === 0" class="pb-1 font-weight-bold">{{ '&ldquo;' }}{{ rawLog }}{{ '&rdquo;' }}</div>
       <div v-text="'Fee'" />
       <div class="pb-1 font-weight-bold" v-text="fee" />
       <div v-text="'Gas (used/wanted)'" />
@@ -27,8 +29,13 @@
     </v-card-text>
     <v-divider />
     <v-card-text>
-      <div v-text="'Official node'" />
-      <a class="word-break" :href="ledgerLink" target="_blank" v-text="ledgerLink" />
+      <div v-text="'Official node (raw json)'" />
+      <a
+        class="word-break"
+        :href="ledgerLink"
+        target="_blank"
+        v-text="ledgerLink"
+      />
     </v-card-text>
   </v-card>
 </template>
@@ -47,6 +54,7 @@ export default {
     status: { type: Number },
     time: { type: String },
     version: { type: String },
+    rawLog: { type: String },
   },
   computed: {
     heightLink() {
