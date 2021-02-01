@@ -55,12 +55,24 @@ class ValidatorsTableAdapter {
       rank++;
       const active = validator.status === 2 ? true : false;
       const tokens = parseInt(validator.tokens);
-      const commission = parseFloat(validator.commission.commission_rates.rate);
-      let votingPower = 0;
+      const formattedTokens =
+        new Intl.NumberFormat(undefined, {
+          maximumFractionDigits: 0,
+        }).format(tokens / 1000000) +
+        ' ' +
+        this.coin;
+      const commission = toPercent(
+        parseFloat(validator.commission.commission_rates.rate),
+        0,
+        0
+      );
+      let votingPower = '-';
+      let formattedCumulative = '-';
       let attendance = '-';
       if (active) {
-        votingPower = tokens / bondedTokens;
-        cumulative += votingPower;
+        votingPower = toPercent(tokens / bondedTokens, 2, 2);
+        cumulative += tokens / bondedTokens;
+        formattedCumulative = toPercent(cumulative, 2, 2);
         const hex = getDecodeAddress(validator, this.validatorsSet);
         if (hex !== '' && blocks.length > 0) {
           attendance = getAttendance(blocks, hex);
@@ -72,15 +84,10 @@ class ValidatorsTableAdapter {
         active: active,
         moniker: validator.description.moniker,
         operator: validator.operator_address,
-        tokens:
-          new Intl.NumberFormat(undefined, {
-            maximumFractionDigits: 0,
-          }).format(tokens / 1000000) +
-          ' ' +
-          this.coin,
-        commission: toPercent(commission, 0, 0),
-        votingPower: active ? toPercent(votingPower, 2, 2) : '-',
-        cumulative: active ? toPercent(cumulative, 2, 2) : '-',
+        tokens: formattedTokens,
+        commission: commission,
+        votingPower: votingPower,
+        cumulative: formattedCumulative,
         attendance: attendance,
       });
     });
