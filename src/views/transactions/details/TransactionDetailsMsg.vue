@@ -1,50 +1,43 @@
 <template>
-  <v-card elevation="2">
-    <v-list class="ma-1" v-for="(msg, index) in msgs" :key="index">
-      <v-list-item-title class="pl-1 font-weight-bold" v-text="getType(msg)" />
-      <v-divider />
-      <v-list-item v-for="(prop, index) in getProps(msg)" :key="index">
-        <v-list-item-content class="text-body-2 text-break">
-          <div>
-            <span class="text-capitalize font-weight-bold">
-              {{ formatKeyProp(prop[0]) }}:
-            </span>
-            {{ prop[1] }}
-          </div>
-        </v-list-item-content>
-      </v-list-item>
-    </v-list>
-  </v-card>
+  <div>
+    <span v-for="(message, index) in msgs" :key="index">
+      <component v-bind:is="getComponentName(message)" :message="message" />
+    </span>
+  </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import MsgDefault from './msgs/MsgDefault.vue';
+
+// import Config from '@/config/config.json';
+let supportedTypes = []; //Config.transactions.supported_types;
+let components = {};
+supportedTypes.forEach((component) => {
+  components[component.name] = () => import(`./msgs/${component.name}.vue`);
+});
 
 export default {
   name: 'TransactionDetailsMsg',
+  components: {
+    MsgDefault,
+  },
   props: {
     msgs: {
       type: Array,
       note: 'Messages list to display',
     },
   },
-  computed: {
-    ...mapGetters('transactions', {
-      transaction: 'details',
-    }),
-  },
+  data: () => ({
+    model: {
+      components: supportedTypes,
+    },
+  }),
   methods: {
-    formatKeyProp(str) {
-      return str.replace(/_/g, ' ');
-    },
-    getProps(msg) {
-      const value = msg.value;
-      return Object.keys(value).map((key) => {
-        return [key, value[key]];
-      });
-    },
-    getType(msg) {
-      return msg.type ? msg.type.split('/').pop() : '-';
+    getComponentName(message) {
+      let component = this.model.components.find(
+        (component) => component.type === message.type
+      );
+      return component ? component.name : MsgDefault.name;
     },
   },
 };

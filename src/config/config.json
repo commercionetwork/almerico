@@ -35,6 +35,11 @@
         "value": "begin_redelegate"
       },
       {
+        "name": "MsgBurnCCC",
+        "text": "commercio/MsgBurnCCC",
+        "value": "burnCCC"
+      },
+      {
         "name": "MsgBuyMembership",
         "text": "commercio/MsgBuyMembership",
         "value": "buyMembership"
@@ -43,11 +48,6 @@
         "name": "MsgChangePowerUpStatus",
         "text": "commercio/MsgChangePowerUpStatus",
         "value": "changePowerUpStatus"
-      },
-      {
-        "name": "MsgCloseCdp",
-        "text": "commercio/MsgCloseCdp",
-        "value": "closeCdp"
       },
       {
         "name": "MsgCreateValidator",
@@ -65,6 +65,11 @@
         "value": "deposit"
       },
       {
+        "name": "MsgDepositIntoLiquidityPool",
+        "text": "commercio/MsgDepositIntoLiquidityPool",
+        "value": "depositIntoLiquidityPool"
+      },
+      {
         "name": "MsgEditValidator",
         "text": "cosmos-sdk/MsgEditValidator",
         "value": "edit_validator"
@@ -75,14 +80,14 @@
         "value": "inviteUser"
       },
       {
+        "name": "MsgMintCCC",
+        "text": "commercio/MsgMintCCC",
+        "value": "mintCCC"
+      },
+      {
         "name": "MsgMoveDeposit",
         "text": "commercio/MsgMoveDeposit",
         "value": "moveDeposit"
-      },
-      {
-        "name": "MsgOpenCdp",
-        "text": "commercio/MsgOpenCdp",
-        "value": "openCdp"
       },
       {
         "name": "MsgPowerUpDid",
