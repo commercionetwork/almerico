@@ -1,4 +1,5 @@
 import { arrayHandler, bech32Manager } from '../index';
+import { CUSTOMIZATION } from '@/constants';
 
 class ValidatorsTableAdapter {
   constructor() {
@@ -63,8 +64,11 @@ class ValidatorsTableAdapter {
         votingPower = tokens / bondedTokens;
         cumulative += votingPower;
         const hex = getDecodeAddress(validator, this.validatorsSet);
-        if (hex !== '') {
-          getMissingBlocksCount(this.blocks, hex);
+        if (
+          hex !== '' &&
+          this.blocks.length > CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
+        ) {
+          missingCounter = getMissingBlocksCount(this.blocks, hex);
         }
       }
 
@@ -82,9 +86,10 @@ class ValidatorsTableAdapter {
         commission: toPercent(commission, 0, 0),
         votingPower: active ? toPercent(votingPower, 2, 2) : '-',
         cumulative: active ? toPercent(cumulative, 2, 2) : '-',
-        attendance: active
-          ? toPercent((100 - missingCounter) / 100, 2, 2)
-          : '-',
+        attendance:
+          active && this.blocks.length > CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
+            ? toPercent((100 - missingCounter) / 100, 2, 2)
+            : '-',
       });
     });
 
@@ -96,12 +101,11 @@ class ValidatorsTableAdapter {
 const getMissingBlocksCount = (blocks, address) => {
   let count = 0;
   blocks.forEach((block) => {
-    const signatures = block.last_commit.signatures;
-    const index = signatures.findIndex(
+    const index = block.last_commit.signatures.findIndex(
       (signature) =>
         signature.validator_address.toUpperCase() === address.toUpperCase()
     );
-    if (index > -1) count++;
+    if (index === -1) count++;
   });
   return count;
 };
