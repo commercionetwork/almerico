@@ -29,31 +29,35 @@
 </template>
 
 <script>
-import ValidatorsTable from "./ValidatorsTable";
+import ValidatorsTable from './ValidatorsTable';
 
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
+import { CUSTOMIZATION } from '@/constants';
 
 export default {
-  name: "ValidatorsMiddleBody",
+  name: 'ValidatorsMiddleBody',
   components: {
     ValidatorsTable,
   },
   computed: {
-    ...mapGetters("blocks", {
-      isLoading: "isLoading",
-      error: "error",
-      latest: "latest",
+    ...mapGetters('blocks', {
+      isLoading: 'isLoading',
+      error: 'error',
+      latest: 'latest',
     }),
   },
   methods: {
-    ...mapActions("blocks", {
-      fetchBlocks: "fetchBlocks",
+    ...mapActions('blocks', {
+      getBlocks: 'getBlocks',
     }),
   },
   created() {
-    if (this.latest != null) {
-      const height = this.latest.header.height;
-      this.fetchBlocks({ max: height, min: height - 100 });
+    if (this.latest !== null) {
+      let height = this.latest.header.height;
+      this.getBlocks({
+        maxHeight: height,
+        items: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+      });
     }
   },
 };

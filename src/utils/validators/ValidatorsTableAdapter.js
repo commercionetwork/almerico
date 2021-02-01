@@ -20,7 +20,7 @@ class ValidatorsTableAdapter {
   }
 
   setBlocks(blocks) {
-    this.blocks = restrictBlocks(blocks, 100);
+    this.blocks = blocks;
     return this;
   }
 
@@ -40,35 +40,30 @@ class ValidatorsTableAdapter {
   }
 
   get() {
+    const orderedvalidators = orderValidators(this.validators);
     const bondedTokens = parseInt(this.pool.bonded_tokens);
-    const tokensOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(
-      this.validators,
-      'tokens'
-    );
-    const statusOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(
-      tokensOrdered,
-      'status'
-    );
+    const blocks =
+      this.blocks.length >= CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
+        ? restrictBlocks(this.blocks, CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS)
+        : [];
+
     let cumulative = 0;
     let rank = 0;
     let validatorsTable = [];
 
-    statusOrdered.forEach((validator) => {
+    orderedvalidators.forEach((validator) => {
       rank++;
       const active = validator.status === 2 ? true : false;
       const tokens = parseInt(validator.tokens);
       const commission = parseFloat(validator.commission.commission_rates.rate);
       let votingPower = 0;
-      let missingCounter = 0;
+      let attendance = '-';
       if (active) {
         votingPower = tokens / bondedTokens;
         cumulative += votingPower;
         const hex = getDecodeAddress(validator, this.validatorsSet);
-        if (
-          hex !== '' &&
-          this.blocks.length > CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
-        ) {
-          missingCounter = getMissingBlocksCount(this.blocks, hex);
+        if (hex !== '' && blocks.length > 0) {
+          attendance = getAttendance(blocks, hex);
         }
       }
 
@@ -86,10 +81,7 @@ class ValidatorsTableAdapter {
         commission: toPercent(commission, 0, 0),
         votingPower: active ? toPercent(votingPower, 2, 2) : '-',
         cumulative: active ? toPercent(cumulative, 2, 2) : '-',
-        attendance:
-          active && this.blocks.length > CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
-            ? toPercent((100 - missingCounter) / 100, 2, 2)
-            : '-',
+        attendance: attendance,
       });
     });
 
@@ -97,6 +89,18 @@ class ValidatorsTableAdapter {
     return validatorsTable;
   }
 }
+
+const getAttendance = (blocks, address) => {
+  const missingCounter = getMissingBlocksCount(blocks, address);
+  return toPercent((100 - missingCounter) / 100, 2, 2);
+};
+
+const toPercent = (x, maximumFractionDigits, minimumFractionDigits) =>
+  new Intl.NumberFormat(undefined, {
+    style: 'percent',
+    maximumFractionDigits,
+    minimumFractionDigits,
+  }).format(x);
 
 const getMissingBlocksCount = (blocks, address) => {
   let count = 0;
@@ -118,26 +122,28 @@ const getDecodeAddress = (validator, validatorsSet) => {
 };
 
 const restrictBlocks = (blocks, limit) => {
-  let orderedBlocks = [];
-  if (blocks.length > 0) {
-    orderedBlocks = getOrderedBlocks({
-      blocks: blocks,
-      prop: ['header', 'height'],
-    });
-  }
-  return orderedBlocks.length > limit
-    ? orderedBlocks.slice(orderedBlocks.length - limit, orderedBlocks.length)
-    : orderedBlocks;
+  let orderedBlocks = getOrderedBlocks({
+    blocks: blocks,
+    prop: ['header', 'height'],
+  });
+  return orderedBlocks.slice(
+    orderedBlocks.length - limit,
+    orderedBlocks.length
+  );
 };
 
 const getOrderedBlocks = ({ blocks, prop }) =>
   blocks.sort((a, b) => b[prop[0]][prop[1]] - a[prop[0]][prop[1]]);
 
-const toPercent = (x, maximumFractionDigits, minimumFractionDigits) =>
-  new Intl.NumberFormat(undefined, {
-    style: 'percent',
-    maximumFractionDigits,
-    minimumFractionDigits,
-  }).format(x);
+const orderValidators = (validators) => {
+  const tokensOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(
+    validators,
+    'tokens'
+  );
+  return arrayHandler.sortObjectsByNumberPropertyValueDesc(
+    tokensOrdered,
+    'status'
+  );
+};
 
 export default new ValidatorsTableAdapter();
