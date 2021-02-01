@@ -38,14 +38,14 @@
         "name": "MsgBurnCCC",
         "text": "commercio/MsgBurnCCC",
         "value": "burnCCC"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgBuyMembership",
         "text": "commercio/MsgBuyMembership",
         "value": "buyMembership"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgChangePowerUpStatus",
         "text": "commercio/MsgChangePowerUpStatus",
