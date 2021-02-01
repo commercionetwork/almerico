@@ -48,14 +48,14 @@
         "name": "MsgChangePowerUpStatus",
         "text": "commercio/MsgChangePowerUpStatus",
         "value": "changePowerUpStatus"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgCreateValidator",
         "text": "cosmos-sdk/MsgCreateValidator",
         "value": "create_validator"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgDelegate",
         "text": "cosmos-sdk/MsgDelegate",

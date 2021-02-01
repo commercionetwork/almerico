@@ -78,6 +78,7 @@
 import MsgTx from '@/components/MsgTx.vue';
 
 import { ROUTES } from '@/constants';
+
 export default {
   name: 'MsgChangePowerUpStatus',
   description: 'Display a change powerup status transaction message',
