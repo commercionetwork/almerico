@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="2" :loading="isLoading">
     <v-card-title v-text="title" />
-    <v-card-text v-if="!isLoading">
+    <v-card-text v-if="!isLoading && verifiedBlocks.length > 0">
       <div class="grid">
         <div
           v-for="(verified, index) in verifiedBlocks"
@@ -11,41 +11,46 @@
         />
       </div>
     </v-card-text>
+    <v-card-text v-else>
+      <v-alert type="info">Not enough blocks</v-alert>
+    </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import { BlocksChecker } from "@/utils";
-import { CUSTOMIZATION } from "@/constants";
+import { mapActions, mapGetters } from 'vuex';
+import { BlocksChecker } from '@/utils';
+import { CUSTOMIZATION } from '@/constants';
 
 export default {
-  name: "ValidatorDetailsBlocks",
+  name: 'ValidatorDetailsBlocks',
   computed: {
-    ...mapGetters("blocks", {
-      isLoading: "isLoading",
-      error: "error",
-      latest: "latest",
-      blocks: "blocks",
+    ...mapGetters('blocks', {
+      isLoading: 'isLoading',
+      error: 'error',
+      latest: 'latest',
+      blocks: 'blocks',
     }),
-    ...mapGetters("validators", {
-      details: "details",
-      latestValidatorsSets: "latestValidatorsSets",
+    ...mapGetters('validators', {
+      details: 'details',
+      latestValidatorsSets: 'latestValidatorsSets',
     }),
     title() {
       return `Last ${CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS} Blocks`;
     },
     verifiedBlocks() {
-      return BlocksChecker.setBlocks(this.blocks)
-        .setValidator(this.details)
-        .setValidatorsSet(this.latestValidatorsSets)
-        .setItems(CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS)
-        .get();
+      return this.blocks.length < CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
+        ? []
+        : BlocksChecker.setBlocks(this.blocks)
+            .setValidator(this.details)
+            .setValidatorsSet(this.latestValidatorsSets)
+            .setItems(CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS)
+            .get();
     },
   },
   methods: {
-    ...mapActions("blocks", {
-      getBlocks: "getBlocks",
+    ...mapActions('blocks', {
+      getBlocks: 'getBlocks',
     }),
   },
   created() {
@@ -68,7 +73,7 @@ export default {
 }
 
 .grid::before {
-  content: "";
+  content: '';
   width: 0;
   padding-bottom: 100%;
   grid-row: 1 / 1;
@@ -83,7 +88,7 @@ export default {
 /* Just to make the grid visible */
 
 .grid > * {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: 1px white solid;
 }
 
