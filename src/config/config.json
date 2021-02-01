@@ -33,7 +33,9 @@
         "name": "MsgBeginRedelegate",
         "text": "cosmos-sdk/MsgBeginRedelegate",
         "value": "begin_redelegate"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgBurnCCC",
         "text": "commercio/MsgBurnCCC",
