@@ -43,14 +43,14 @@
         "name": "MsgBuyMembership",
         "text": "commercio/MsgBuyMembership",
         "value": "buyMembership"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgChangePowerUpStatus",
         "text": "commercio/MsgChangePowerUpStatus",
         "value": "changePowerUpStatus"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgCreateValidator",
         "text": "cosmos-sdk/MsgCreateValidator",
