@@ -90,17 +90,17 @@ class ValidatorsTableAdapter {
   }
 }
 
-const getAttendance = (blocks, address) => {
-  const missingCounter = getMissingBlocksCount(blocks, address);
-  return toPercent((100 - missingCounter) / 100, 2, 2);
-};
-
 const toPercent = (x, maximumFractionDigits, minimumFractionDigits) =>
   new Intl.NumberFormat(undefined, {
     style: 'percent',
     maximumFractionDigits,
     minimumFractionDigits,
   }).format(x);
+
+const getAttendance = (blocks, address) => {
+  const missingCounter = getMissingBlocksCount(blocks, address);
+  return toPercent((100 - missingCounter) / 100, 2, 2);
+};
 
 const getMissingBlocksCount = (blocks, address) => {
   let count = 0;
@@ -109,7 +109,7 @@ const getMissingBlocksCount = (blocks, address) => {
       (signature) =>
         signature.validator_address.toUpperCase() === address.toUpperCase()
     );
-    if (index === -1) count++;
+    if (index < 0) count++;
   });
   return count;
 };
