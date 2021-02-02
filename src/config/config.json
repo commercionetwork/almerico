@@ -98,14 +98,14 @@
         "name": "MsgRequestDidPowerUp",
         "text": "commercio/MsgRequestDidPowerUp",
         "value": "requestDidPowerUp"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgSend",
         "text": "cosmos-sdk/MsgSend",
         "value": "send"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgSendDocumentReceipt",
         "text": "commercio/MsgSendDocumentReceipt",
