@@ -92,7 +92,6 @@
               </div>
             </v-list-item-content>
           </v-list-item>
-
           <v-list-item>
             <v-list-item-content>
               <div>
