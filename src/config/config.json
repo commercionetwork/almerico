@@ -53,14 +53,14 @@
         "name": "MsgCreateValidator",
         "text": "cosmos-sdk/MsgCreateValidator",
         "value": "create_validator"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgDelegate",
         "text": "cosmos-sdk/MsgDelegate",
         "value": "delegate"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgDeposit",
         "text": "cosmos-sdk/MsgDeposit",
