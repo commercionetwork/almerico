@@ -78,14 +78,14 @@
         "name": "MsgMintCCC",
         "text": "commercio/MsgMintCCC",
         "value": "mintCCC"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgMoveDeposit",
         "text": "commercio/MsgMoveDeposit",
         "value": "moveDeposit"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgPowerUpDid",
         "text": "commercio/MsgPowerUpDid",
