@@ -88,19 +88,14 @@
         "name": "MsgPowerUpDid",
         "text": "commercio/MsgPowerUpDid",
         "value": "powerUpDid"
-      }
-    ],
-    "supported_types_todos": [
-      {
-        "name": "MsgPowerUpDid",
-        "text": "commercio/MsgPowerUpDid",
-        "value": "powerUpDid"
       },
       {
         "name": "MsgRequestDidDeposit",
         "text": "commercio/MsgRequestDidDeposit",
         "value": "requestDidDeposit"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgRequestDidPowerUp",
         "text": "commercio/MsgRequestDidPowerUp",
