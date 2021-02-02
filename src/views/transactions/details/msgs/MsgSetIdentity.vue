@@ -226,10 +226,10 @@ export default {
       return this.message.value.proof.signatureValue || '-';
     },
     publicKeys() {
-      return this.message.value.publicKey ? this.message.value.publicKey : [];
+      return this.message.value.publicKey || [];
     },
     services() {
-      return this.message.value.service ? this.message.value.service : [];
+      return this.message.value.service || [];
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
