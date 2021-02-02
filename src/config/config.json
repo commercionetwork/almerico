@@ -93,14 +93,14 @@
         "name": "MsgRequestDidDeposit",
         "text": "commercio/MsgRequestDidDeposit",
         "value": "requestDidDeposit"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgRequestDidPowerUp",
         "text": "commercio/MsgRequestDidPowerUp",
         "value": "requestDidPowerUp"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgSend",
         "text": "cosmos-sdk/MsgSend",
