@@ -76,17 +76,13 @@ export default {
       return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;
     },
     delegatorAddress() {
-      return this.message.value.delegator_address
-        ? this.message.value.delegator_address
-        : '-';
+      return this.message.value.delegator_address || '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     validatorAddress() {
-      return this.message.value.validator_address
-        ? this.message.value.validator_address
-        : '-';
+      return this.message.value.validator_address || '-';
     },
   },
 };
