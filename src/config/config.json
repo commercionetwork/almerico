@@ -73,14 +73,14 @@
         "name": "MsgInviteUser",
         "text": "commercio/MsgInviteUser",
         "value": "inviteUser"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgMintCCC",
         "text": "commercio/MsgMintCCC",
         "value": "mintCCC"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgMoveDeposit",
         "text": "commercio/MsgMoveDeposit",
