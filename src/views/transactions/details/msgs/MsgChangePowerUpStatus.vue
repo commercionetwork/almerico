@@ -28,7 +28,10 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-capitalize font-weight-bold" v-text="'status'"/>
+          <v-list-item-title
+            class="text-capitalize font-weight-bold"
+            v-text="'status'"
+          />
           <v-list-item>
             <v-list-item-content>
               <div>
@@ -97,19 +100,23 @@ export default {
   }),
   computed: {
     id() {
-      return this.message.value.id || '-';
+      return this.message.value.id ? this.message.value.id : '-';
     },
     recipientAddress() {
-      return this.message.value.recipient || '-';
+      return this.message.value.recipient ? this.message.value.recipient : '-';
     },
     signerAddress() {
-      return this.message.value.signer || '-';
+      return this.message.value.signer ? this.message.value.signer : '-';
     },
     statusMessage() {
-      return this.message.value.status.message || '-';
+      return this.message.value.status && this.message.value.status.message
+        ? this.message.value.status.message
+        : '-';
     },
     statusType() {
-      return this.message.value.status.type || '-';
+      return this.message.value.status && this.message.value.status.type
+        ? this.message.value.status.type
+        : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

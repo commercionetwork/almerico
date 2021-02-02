@@ -102,16 +102,20 @@ export default {
       return amounts;
     },
     encryptionKey() {
-      return this.message.value.encryption_key || '-';
+      return this.message.value.encryption_key
+        ? this.message.value.encryption_key
+        : '-';
     },
     fromAddress() {
-      return this.message.value.from_address || '-';
+      return this.message.value.from_address
+        ? this.message.value.from_address
+        : '-';
     },
     proof() {
-      return this.message.value.proof || '-';
+      return this.message.value.proof ? this.message.value.proof : '-';
     },
     recipientAddress() {
-      return this.message.value.recipient || '-';
+      return this.message.value.recipient ? this.message.value.recipient : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

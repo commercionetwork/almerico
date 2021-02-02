@@ -73,13 +73,19 @@ export default {
   }),
   computed: {
     governmentAddress() {
-      return this.message.value.government || '-';
+      return this.message.value.government
+        ? this.message.value.government
+        : '-';
     },
     newMembership() {
-      return this.message.value.new_membership || '-';
+      return this.message.value.new_membership
+        ? this.message.value.new_membership
+        : '-';
     },
     subscriberAddress() {
-      return this.message.value.subscriber || '-';
+      return this.message.value.subscriber
+        ? this.message.value.subscriber
+        : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

@@ -272,13 +272,19 @@ export default {
   }),
   computed: {
     checksumAlgorithm() {
-      return this.message.value.checksum.algorithm || '-';
+      return this.message.value.checksum && this.message.value.checksum
+        ? this.message.value.checksum.algorithm
+        : '-';
     },
     checksumValue() {
-      return this.message.value.checksum.value || '-';
+      return this.message.value.checksum && this.message.value.checksum.value
+        ? this.message.value.checksum.value
+        : '-';
     },
     contentUri() {
-      return this.message.value.content_uri || '-';
+      return this.message.value.content_uri
+        ? this.message.value.content_uri
+        : '-';
     },
     doSignCertificate() {
       return this.message.value.do_sign
@@ -316,28 +322,42 @@ export default {
         : '-';
     },
     metadataContentUri() {
-      return this.message.value.metadata.content_uri || '-';
+      return this.message.value.metadata &&
+        this.message.value.metadata.content_uri
+        ? this.message.value.metadata.content_uri
+        : '-';
     },
     metadataSchemaType() {
-      return this.message.value.metadata.schema_type || '-';
+      return this.message.value.metadata &&
+        this.message.value.metadata.schema_type
+        ? this.message.value.metadata.schema_type
+        : '-';
     },
     metadataSchemaUri() {
-      return this.message.value.metadata.schema.uri || '-';
+      return this.message.value.metadata &&
+        this.message.value.metadata.schema &&
+        this.message.value.metadata.schema.uri
+        ? this.message.value.metadata.schema.uri
+        : '-';
     },
     metaSchemaVersion() {
-      return this.message.value.metadata.schema.version || '-';
+      return this.message.value.metadata &&
+        this.message.value.metadata.schema &&
+        this.message.value.metadata.schema.version
+        ? this.message.value.metadata.schema.version
+        : '-';
     },
     recipients() {
-      return this.message.value.recipients || [];
+      return this.message.value.recipients ? this.message.value.recipients : [];
     },
     senderAddress() {
-      return this.message.value.sender || '-';
+      return this.message.value.sender ? this.message.value.sender : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     uuid() {
-      return this.message.value.uuid || '-';
+      return this.message.value.uuid ? this.message.value.uuid : '-';
     },
   },
 };

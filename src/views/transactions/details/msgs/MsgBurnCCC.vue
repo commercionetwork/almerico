@@ -67,10 +67,10 @@ export default {
       return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;
     },
     id() {
-      return this.message.value.id || '-';
+      return this.message.value.id ? this.message.value.id : '-';
     },
     signerAddress() {
-      return this.message.value.signer || '-';
+      return this.message.value.signer ? this.message.value.signer : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

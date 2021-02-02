@@ -56,10 +56,12 @@ export default {
   }),
   computed: {
     buyerAddress() {
-      return this.message.value.buyer || '-';
+      return this.message.value.buyer ? this.message.value.buyer : '-';
     },
     membershipType() {
-      return this.message.value.membership_type || '-';
+      return this.message.value.membership_type
+        ? this.message.value.membership_type
+        : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

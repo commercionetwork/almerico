@@ -130,7 +130,7 @@ export default {
   }),
   computed: {
     address() {
-      return this.message.value.address || '-';
+      return this.message.value.address ? this.message.value.address : '-';
     },
     commissionRate() {
       return this.message.value.commission_rate
@@ -138,22 +138,34 @@ export default {
         : '-';
     },
     descriptionDetails() {
-      return this.message.value.description.details || '-';
+      return this.message.value.description.details
+        ? this.message.value.description.details
+        : '-';
     },
     descriptionIdentity() {
-      return this.message.value.description.identity || '-';
+      return this.message.value.description.identity
+        ? this.message.value.description.identity
+        : '-';
     },
     descriptionMoniker() {
-      return this.message.value.description.moniker || '-';
+      return this.message.value.description.moniker
+        ? this.message.value.description.moniker
+        : '-';
     },
     descriptionSecurityContact() {
-      return this.message.value.description.security_contact || '-';
+      return this.message.value.description.security_contact
+        ? this.message.value.description.security_contact
+        : '-';
     },
     descriptionWebsite() {
-      return this.message.value.description.website || '-';
+      return this.message.value.description.website
+        ? this.message.value.description.website
+        : '-';
     },
     minSelfDelegation() {
-      return this.message.value.min_self_delegation || '-';
+      return this.message.value.min_self_delegation
+        ? this.message.value.min_self_delegation
+        : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

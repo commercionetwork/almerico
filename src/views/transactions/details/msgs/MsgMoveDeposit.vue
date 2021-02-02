@@ -56,10 +56,12 @@ export default {
   }),
   computed: {
     depositProof() {
-      return this.message.value.deposit_proof || '-';
+      return this.message.value.deposit_proof
+        ? this.message.value.deposit_proof
+        : '-';
     },
     signerAddress() {
-      return this.message.value.signer || '-';
+      return this.message.value.signer ? this.message.value.signer : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

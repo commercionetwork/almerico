@@ -55,7 +55,10 @@
       <v-list-item>
         <v-list-item-content>
           <div>
-            <span class="pr-3 text-capitalize font-weight-bold" v-text="'amount'" />
+            <span
+              class="pr-3 text-capitalize font-weight-bold"
+              v-text="'amount'"
+            />
             {{ amount }}
           </div>
         </v-list-item-content>
@@ -90,13 +93,19 @@ export default {
       return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;
     },
     delegatorAddress() {
-      return this.message.value.delegator_address || '-';
+      return this.message.value.delegator_address
+        ? this.message.value.delegator_address
+        : '-';
     },
     validatorDstAddress() {
-      return this.message.value.validator_dst_address || '-';
+      return this.message.value.validator_dst_address
+        ? this.message.value.validator_dst_address
+        : '-';
     },
     validatorSrcAddress() {
-      return this.message.value.validator_src_address || '-';
+      return this.message.value.validator_src_address
+        ? this.message.value.validator_src_address
+        : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

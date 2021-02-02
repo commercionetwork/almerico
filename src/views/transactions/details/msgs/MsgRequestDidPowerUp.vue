@@ -93,16 +93,16 @@ export default {
       return amounts;
     },
     claimantAddress() {
-      return this.message.value.claimant || '-';
+      return this.message.value.claimant ? this.message.value.claimant : '-';
     },
     id() {
-      return this.message.value.id || '-';
+      return this.message.value.id ? this.message.value.id : '-';
     },
     proof() {
-      return this.message.value.proof || '-';
+      return this.message.value.proof ? this.message.value.proof : '-';
     },
     proofKey() {
-      return this.message.value.proof_key || '-';
+      return this.message.value.proof_key ? this.message.value.proof_key : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

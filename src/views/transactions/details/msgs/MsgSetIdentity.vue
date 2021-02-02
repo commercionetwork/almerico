@@ -200,13 +200,17 @@ export default {
   }),
   computed: {
     context() {
-      return this.message.value['@context'] || '-';
+      return this.message.value['@context']
+        ? this.message.value['@context']
+        : '-';
     },
     id() {
-      return this.message.value.id || '-';
+      return this.message.value.id ? this.message.value.id : '-';
     },
     proofController() {
-      return this.message.value.proof.controller || '-';
+      return this.message.value.proof && this.message.value.proof.controller
+        ? this.message.value.proof.controller
+        : '-';
     },
     proofCreated() {
       return this.message.value.proof && this.message.value.proof.created
@@ -214,22 +218,31 @@ export default {
         : '-';
     },
     proofPurpose() {
-      return this.message.value.proof.proofPurpose || '-';
+      return this.message.value.proof && this.message.value.proof.proofPurpose
+        ? this.message.value.proof.proofPurpose
+        : '-';
     },
     proofType() {
-      return this.message.value.proof.type || '-';
+      return this.message.value.proof && this.message.value.proof.type
+        ? this.message.value.proof.type
+        : '-';
     },
     proofVerificationMethod() {
-      return this.message.value.proof.verificationMethod || '-';
+      return this.message.value.proof &&
+        this.message.value.proof.verificationMethod
+        ? this.message.value.proof.verificationMethod
+        : '-';
     },
     proofSignatureValue() {
-      return this.message.value.proof.signatureValue || '-';
+      return this.message.value.proof && this.message.value.proof.signatureValue
+        ? this.message.value.proof.signatureValue
+        : '-';
     },
     publicKeys() {
-      return this.message.value.publicKey || [];
+      return this.message.value.publicKey ? this.message.value.publicKey : [];
     },
     services() {
-      return this.message.value.service || [];
+      return this.message.value.service ? this.message.value.service : [];
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

@@ -62,10 +62,10 @@ export default {
   }),
   computed: {
     recipient() {
-      return this.message.value.recipient || '-';
+      return this.message.value.recipient ? this.message.value.recipient : '-';
     },
     sender() {
-      return this.message.value.sender || '-';
+      return this.message.value.sender ? this.message.value.sender : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

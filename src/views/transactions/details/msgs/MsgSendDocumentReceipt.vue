@@ -112,25 +112,27 @@ export default {
   }),
   computed: {
     documentUuid() {
-      return this.message.value.document_uuid || '-';
+      return this.message.value.document_uuid
+        ? this.message.value.document_uuid
+        : '-';
     },
     proof() {
-      return this.message.value.proof || '-';
+      return this.message.value.proof ? this.message.value.proof : '-';
     },
     recipientAddress() {
-      return this.message.value.recipient || '-';
+      return this.message.value.recipient ? this.message.value.recipient : '-';
     },
     senderAddress() {
-      return this.message.value.sender || '-';
+      return this.message.value.sender ? this.message.value.sender : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     txHash() {
-      return this.message.value.tx_hash || '-';
+      return this.message.value.tx_hash ? this.message.value.tx_hash : '-';
     },
     uuid() {
-      return this.message.value.uuid || '-';
+      return this.message.value.uuid ? this.message.value.uuid : '-';
     },
   },
 };

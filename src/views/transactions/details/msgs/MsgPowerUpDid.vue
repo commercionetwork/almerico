@@ -84,7 +84,9 @@ export default {
   }),
   computed: {
     activationReference() {
-      return this.message.value.activation_reference || '-';
+      return this.message.value.activation_reference
+        ? this.message.value.activation_reference
+        : '-';
     },
     amounts() {
       let amounts = [];
@@ -94,10 +96,10 @@ export default {
       return amounts;
     },
     recipientAddress() {
-      return this.message.value.recipient || '-';
+      return this.message.value.recipient ? this.message.value.recipient : '-';
     },
     signerAddress() {
-      return this.message.value.signer || '-';
+      return this.message.value.signer ? this.message.value.signer : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

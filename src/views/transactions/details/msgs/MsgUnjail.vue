@@ -45,7 +45,7 @@ export default {
   }),
   computed: {
     address() {
-      return this.message.value.address || '-';
+      return this.message.value.address ? this.message.value.address : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

@@ -80,13 +80,17 @@ export default {
       return amounts;
     },
     fromAddress() {
-      return this.message.value.from_address || '-';
+      return this.message.value.from_address
+        ? this.message.value.from_address
+        : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     toAddress() {
-      return this.message.value.to_address || '-';
+      return this.message.value.to_address
+        ? this.message.value.to_address
+        : '-';
     },
   },
 };

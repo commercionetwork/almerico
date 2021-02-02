@@ -63,7 +63,7 @@ export default {
       return amounts;
     },
     depositorAddress() {
-      return this.message.value.depositor || '-';
+      return this.message.value.depositor ? this.message.value.depositor : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
