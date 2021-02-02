@@ -120,11 +120,6 @@
         "value": "setMembership"
       },
       {
-        "name": "MsgSetUserVerified",
-        "text": "commercio/MsgSetUserVerified",
-        "value": "setUserVerified"
-      },
-      {
         "name": "MsgShareDocument",
         "text": "commercio/MsgShareDocument",
         "value": "shareDocument"
