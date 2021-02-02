@@ -113,14 +113,14 @@
         "name": "MsgSetIdentity",
         "text": "commercio/MsgSetIdentity",
         "value": "setIdentity"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgSetMembership",
         "text": "commercio/MsgSetMembership",
         "value": "setMembership"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgSetUserVerified",
         "text": "commercio/MsgSetUserVerified",
