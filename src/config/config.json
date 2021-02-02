@@ -58,19 +58,14 @@
         "name": "MsgDelegate",
         "text": "cosmos-sdk/MsgDelegate",
         "value": "delegate"
-      }
-    ],
-    "supported_types_todos": [
-      {
-        "name": "MsgDeposit",
-        "text": "cosmos-sdk/MsgDeposit",
-        "value": "deposit"
       },
       {
         "name": "MsgDepositIntoLiquidityPool",
         "text": "commercio/MsgDepositIntoLiquidityPool",
         "value": "depositIntoLiquidityPool"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgEditValidator",
         "text": "cosmos-sdk/MsgEditValidator",
@@ -137,11 +132,6 @@
         "value": "shareDocument"
       },
       {
-        "name": "MsgSubmitProposal",
-        "text": "cosmos-sdk/MsgSubmitProposal",
-        "value": "submit_proposal"
-      },
-      {
         "name": "MsgUndelegate",
         "text": "cosmos-sdk/MsgUndelegate",
         "value": "begin_unbonding"
@@ -150,11 +140,6 @@
         "name": "MsgUnjail",
         "text": "cosmos-sdk/MsgUnjail",
         "value": "unjail"
-      },
-      {
-        "name": "MsgVote",
-        "text": "cosmos-sdk/MsgVote",
-        "value": "vote"
       },
       {
         "name": "MsgWithdrawDelegationReward",
