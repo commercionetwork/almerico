@@ -63,14 +63,14 @@
         "name": "MsgDepositIntoLiquidityPool",
         "text": "commercio/MsgDepositIntoLiquidityPool",
         "value": "depositIntoLiquidityPool"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgEditValidator",
         "text": "cosmos-sdk/MsgEditValidator",
         "value": "edit_validator"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgInviteUser",
         "text": "commercio/MsgInviteUser",
