@@ -71,7 +71,7 @@ import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgBeginRedelegate',
-  description: 'Display a redelegate transaction message',
+  description: 'Display a begin redelegate transaction message',
   components: {
     MsgTx,
   },

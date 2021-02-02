@@ -6,7 +6,7 @@
           <div>
             <span
               class="pr-3 text-capitalize font-weight-bold"
-              v-text="'signer address'"
+              v-text="'signer'"
             />
             <router-link
               :to="{
@@ -48,7 +48,7 @@ import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgBurnCCC',
-  description: 'Display a redelegate transaction message',
+  description: 'Display a burnCCC transaction message',
   components: {
     MsgTx,
   },
