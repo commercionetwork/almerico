@@ -83,6 +83,11 @@
         "name": "MsgMoveDeposit",
         "text": "commercio/MsgMoveDeposit",
         "value": "moveDeposit"
+      },
+      {
+        "name": "MsgPowerUpDid",
+        "text": "commercio/MsgPowerUpDid",
+        "value": "powerUpDid"
       }
     ],
     "supported_types_todos": [
