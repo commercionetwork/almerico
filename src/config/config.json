@@ -103,14 +103,14 @@
         "name": "MsgSend",
         "text": "cosmos-sdk/MsgSend",
         "value": "send"
-      }
-    ],
-    "supported_types_todos": [
+      },
       {
         "name": "MsgSendDocumentReceipt",
         "text": "commercio/MsgSendDocumentReceipt",
         "value": "sendDocumentReceipt"
-      },
+      }
+    ],
+    "supported_types_todos": [
       {
         "name": "MsgSetIdentity",
         "text": "commercio/MsgSetIdentity",
