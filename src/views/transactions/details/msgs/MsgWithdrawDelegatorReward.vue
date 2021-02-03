@@ -45,8 +45,8 @@ import MsgTx from '@/components/MsgTx.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'MsgWithdrawDelegationReward',
-  description: 'Display a withdraw delegation reward transaction message',
+  name: 'MsgWithdrawDelegatorReward',
+  description: 'Display a withdraw delegator reward transaction message',
   components: {
     MsgTx,
   },
@@ -54,7 +54,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a withdraw delegation reward message',
+      note: 'Object representing a withdraw delegator reward message',
     },
   },
   data: () => ({

@@ -120,8 +120,8 @@
         "value": "unjail"
       },
       {
-        "name": "MsgWithdrawDelegationReward",
-        "text": "cosmos-sdk/MsgWithdrawDelegationReward",
+        "name": "MsgWithdrawDelegatorReward",
+        "text": "cosmos-sdk/MsgWithdrawDelegatorReward",
         "value": "withdraw_delegator_reward"
       }
     ]

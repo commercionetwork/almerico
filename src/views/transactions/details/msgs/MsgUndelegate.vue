@@ -73,9 +73,7 @@ export default {
   }),
   computed: {
     amount() {
-      return this.message.value.amount
-        ? `${this.message.value.amount.amount} ${this.message.value.amount.denom}`
-        : '-';
+      return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;
     },
     delegatorAddress() {
       return this.message.value.delegator_address

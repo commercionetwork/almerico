@@ -199,15 +199,7 @@ export default {
   }),
   computed: {
     amount() {
-      const amount =
-        this.message.value.value && this.message.value.value.amount
-          ? this.message.value.value.amount
-          : '0';
-      const denom =
-        this.message.value.value && this.message.value.value.denom
-          ? this.message.value.value.denom
-          : '-';
-      return `${amount} ${denom}`;
+      return `${this.message.value.value.amount} ${this.message.value.value.denom}`;
     },
     commissionMaxChangeRate() {
       return this.message.value.commission &&
