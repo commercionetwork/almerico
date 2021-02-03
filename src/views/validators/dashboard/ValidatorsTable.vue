@@ -30,29 +30,29 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { CUSTOMIZATION, ROUTES } from "@/constants";
-import { ValidatorsTableAdapter } from "@/utils";
+import { mapGetters } from 'vuex';
+import { CUSTOMIZATION, ROUTES } from '@/constants';
+import { ValidatorsTableAdapter } from '@/utils';
 
 export default {
-  name: "ValidatorsTable",
+  name: 'ValidatorsTable',
   data: () => ({
     ROUTES,
-    search: "",
+    search: '',
     active: true,
-    sortBy: "rank",
+    sortBy: 'rank',
   }),
   computed: {
-    ...mapGetters("blocks", {
-      blocks: "blocks",
+    ...mapGetters('blocks', {
+      blocks: 'blocks',
     }),
-    ...mapGetters("starting", {
-      pool: "pool",
+    ...mapGetters('starting', {
+      pool: 'pool',
     }),
-    ...mapGetters("validators", {
-      filter: "filter",
-      latestValidatorsSets: "latestValidatorsSets",
-      validators: "validators",
+    ...mapGetters('validators', {
+      filter: 'filter',
+      latestValidatorsSets: 'latestValidatorsSets',
+      validators: 'validators',
     }),
     items() {
       return ValidatorsTableAdapter.setValidators(this.validators)
@@ -63,25 +63,28 @@ export default {
         .get();
     },
     headers() {
-      return [
-        { text: "Rank", value: "rank" },
+      let headers = [
+        { text: 'Rank', value: 'rank' },
         {
-          text: "Active",
-          value: "active",
+          text: 'Active',
+          value: 'active',
           filter: (value) => value === this.active,
         },
-        { text: "Validator", value: "moniker" },
-        { text: "Tokens", value: "tokens" },
-        { text: "Commission", value: "commission" },
-        { text: "Voting Power", value: "votingPower" },
-        { text: "Cumulative", value: "cumulative" },
-        { text: "Blocks %", value: "attendance" },
+        { text: 'Validator', value: 'moniker' },
+        { text: 'Tokens', value: 'tokens' },
+        { text: 'Commission', value: 'commission' },
+        { text: 'Voting Power', value: 'votingPower' },
+        { text: 'Cumulative', value: 'cumulative' },
       ];
+      if (this.$config.validators.isMissingBlocksChecker) {
+        headers.push({ text: 'Blocks %', value: 'attendance' });
+      }
+      return headers;
     },
     caption() {
       return this.active
-        ? "Active validators list"
-        : "Inactive validators list";
+        ? 'Active validators list'
+        : 'Inactive validators list';
     },
   },
   watch: {

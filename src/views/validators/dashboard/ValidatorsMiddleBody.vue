@@ -52,7 +52,10 @@ export default {
     }),
   },
   created() {
-    if (this.latest !== null) {
+    if (
+      this.$config.validators.isMissingBlocksChecker &&
+      this.latest !== null
+    ) {
       let height = this.latest.header.height;
       this.getBlocks({
         maxHeight: height,
