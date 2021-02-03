@@ -15,7 +15,7 @@
       <v-list-item>
         <v-list-item-content>
           <div>
-            <span class="pr-3 text-capitalize font-weight-bold" v-text="'id'" />
+            <span class="pr-3 text-capitalize font-weight-bold" v-text="'did'" />
             <router-link
               :to="{
                 name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
@@ -222,6 +222,11 @@ export default {
         ? this.message.value.proof.proofPurpose
         : '-';
     },
+    proofSignatureValue() {
+      return this.message.value.proof && this.message.value.proof.signatureValue
+        ? this.message.value.proof.signatureValue
+        : '-';
+    },
     proofType() {
       return this.message.value.proof && this.message.value.proof.type
         ? this.message.value.proof.type
@@ -231,11 +236,6 @@ export default {
       return this.message.value.proof &&
         this.message.value.proof.verificationMethod
         ? this.message.value.proof.verificationMethod
-        : '-';
-    },
-    proofSignatureValue() {
-      return this.message.value.proof && this.message.value.proof.signatureValue
-        ? this.message.value.proof.signatureValue
         : '-';
     },
     publicKeys() {

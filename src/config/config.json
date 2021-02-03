@@ -80,21 +80,6 @@
         "value": "mintCCC"
       },
       {
-        "name": "MsgMoveDeposit",
-        "text": "commercio/MsgMoveDeposit",
-        "value": "moveDeposit"
-      },
-      {
-        "name": "MsgPowerUpDid",
-        "text": "commercio/MsgPowerUpDid",
-        "value": "powerUpDid"
-      },
-      {
-        "name": "MsgRequestDidDeposit",
-        "text": "commercio/MsgRequestDidDeposit",
-        "value": "requestDidDeposit"
-      },
-      {
         "name": "MsgRequestDidPowerUp",
         "text": "commercio/MsgRequestDidPowerUp",
         "value": "requestDidPowerUp"

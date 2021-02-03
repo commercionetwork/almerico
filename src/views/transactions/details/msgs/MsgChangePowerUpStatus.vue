@@ -109,14 +109,12 @@ export default {
       return this.message.value.signer ? this.message.value.signer : '-';
     },
     statusMessage() {
-      return this.message.value.status && this.message.value.status.message
+      return this.message.value.status
         ? this.message.value.status.message
         : '-';
     },
     statusType() {
-      return this.message.value.status && this.message.value.status.type
-        ? this.message.value.status.type
-        : '-';
+      return this.message.value.status ? this.message.value.status.type : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

@@ -17,7 +17,7 @@
           <div>
             <span
               class="pr-3 text-capitalize font-weight-bold"
-              v-text="'buyer address'"
+              v-text="'buyer'"
             />
             <router-link
               :to="{
@@ -25,6 +25,23 @@
                 params: { id: buyerAddress },
               }"
               v-text="buyerAddress"
+            />
+          </div>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item>
+        <v-list-item-content>
+          <div>
+            <span
+              class="pr-3 text-capitalize font-weight-bold"
+              v-text="'tsp'"
+            />
+            <router-link
+              :to="{
+                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+                params: { id: tspAddress },
+              }"
+              v-text="tspAddress"
             />
           </div>
         </v-list-item-content>
@@ -65,6 +82,9 @@ export default {
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
+    },
+    tspAddress() {
+      return this.message.value.tsp ? this.message.value.tsp : '-';
     },
   },
 };
