@@ -2,7 +2,7 @@
   <MsgTx :title="title">
     <div slot="body">
       <v-list-item v-for="(prop, index) in props" :key="index">
-        <v-list-item-content class="text-body-2 text-break">
+        <v-list-item-content class="text-body-2">
           <div>
             <span class="text-capitalize font-weight-bold">
               {{ formatKeyProp(prop[0]) }}:

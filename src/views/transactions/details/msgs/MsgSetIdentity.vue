@@ -60,7 +60,7 @@
                   class="pr-3 text-capitalize font-weight-bold"
                   v-text="'public key pem'"
                 />
-                <span class="text-break" v-text="pubKey.publicKeyPem" />
+                <span v-text="pubKey.publicKeyPem" />
               </div>
             </v-list-item-content>
           </v-list-item>

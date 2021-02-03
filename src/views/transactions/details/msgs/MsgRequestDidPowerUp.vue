@@ -36,7 +36,7 @@
               class="pr-3 text-capitalize font-weight-bold"
               v-text="'proof'"
             />
-            <span class="text-break" v-text="proof" />
+            <span v-text="proof" />
           </div>
         </v-list-item-content>
       </v-list-item>
@@ -55,7 +55,7 @@
               class="pr-3 text-capitalize font-weight-bold"
               v-text="'proof key'"
             />
-            <span class="text-break" v-text="proofKey" />
+            <span v-text="proofKey" />
           </div>
         </v-list-item-content>
       </v-list-item>

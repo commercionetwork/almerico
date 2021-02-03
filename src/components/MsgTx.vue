@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="2" class="mb-3">
     <v-card-text>
-      <v-list class="ma-1">
+      <v-list class="ma-1 text-break">
         <v-list-item-title class="pl-1 font-weight-bold" v-text="title" />
         <v-divider />
         <slot name="body" />
