@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="title">
+  <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -96,6 +96,9 @@ export default {
       return this.message.value.delegator_address
         ? this.message.value.delegator_address
         : '-';
+    },
+    subTitle() {
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     validatorDstAddress() {
       return this.message.value.validator_dst_address

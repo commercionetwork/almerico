@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="title">
+  <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -103,6 +103,9 @@ export default {
     },
     proofKey() {
       return this.message.value.proof_key ? this.message.value.proof_key : '-';
+    },
+    subTitle() {
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

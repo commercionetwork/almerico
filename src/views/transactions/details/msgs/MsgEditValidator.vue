@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="title">
+  <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -166,6 +166,9 @@ export default {
       return this.message.value.min_self_delegation
         ? this.message.value.min_self_delegation
         : '-';
+    },
+    subTitle() {
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

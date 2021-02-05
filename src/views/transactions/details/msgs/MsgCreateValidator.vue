@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="title">
+  <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -260,6 +260,9 @@ export default {
     },
     pubkey() {
       return this.message.value.pubkey ? this.message.value.pubkey : '-';
+    },
+    subTitle() {
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';

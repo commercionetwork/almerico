@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :title="title">
+  <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -107,6 +107,9 @@ export default {
     },
     signerAddress() {
       return this.message.value.signer ? this.message.value.signer : '-';
+    },
+    subTitle() {
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     statusMessage() {
       return this.message.value.status

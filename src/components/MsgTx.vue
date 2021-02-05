@@ -2,7 +2,8 @@
   <v-card elevation="2" class="mb-3">
     <v-card-text>
       <v-list class="ma-1 text-break">
-        <v-list-item-title class="pl-1 font-weight-bold" v-text="title" />
+        <v-list-item-title class="font-weight-bold" v-text="title" />
+        <v-list-item-subtitle class="text-capitalize font-weight-medium font-italic" v-text="subTitle" />
         <v-divider />
         <slot name="body" />
       </v-list>
@@ -15,6 +16,11 @@ export default {
   name: 'MsgTx',
   description: 'Container for a transaction message',
   props: {
+    subTitle: {
+      type: String,
+      default: () => 'Not Managed Msg Source',
+      note: 'The transaction type source',
+    },
     title: {
       type: String,
       default: () => 'Not Managed Type',
