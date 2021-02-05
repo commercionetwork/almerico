@@ -45,9 +45,9 @@
       <v-col cols="12" md="2">
         <v-layout fill-height column align-center justify-center>
           <span class="ml-2 px-1 white">
-            <v-icon :color="membershipColor" large
-              >mdi-card-account-details</v-icon
-            >
+            <v-icon :color="membershipColor" large>
+              mdi-card-account-details
+            </v-icon>
           </span>
         </v-layout>
       </v-col>
@@ -65,13 +65,13 @@
 </template>
 
 <script>
-import QrcodeVue from "qrcode.vue";
+import QrcodeVue from 'qrcode.vue';
 
-import { mapGetters } from "vuex";
-import { ACCOUNT } from "@/constants";
+import { mapGetters } from 'vuex';
+import { ACCOUNT } from '@/constants';
 
 export default {
-  name: "AccountDetailsAddress",
+  name: 'AccountDetailsAddress',
   components: {
     QrcodeVue,
   },
@@ -79,8 +79,8 @@ export default {
     dialog: false,
   }),
   computed: {
-    ...mapGetters("account", {
-      membership: "membership",
+    ...mapGetters('account', {
+      membership: 'membership',
     }),
     address() {
       return this.$route.params.id;
@@ -90,13 +90,13 @@ export default {
         (membership) => membership.name === this.membershipText
       );
       return index !== -1
-        ? ACCOUNT.MEMBERSHIPS[index]["color"]
-        : ACCOUNT.MEMBERSHIPS[0]["color"];
+        ? ACCOUNT.MEMBERSHIPS[index]['color']
+        : '#CCEEFF';
     },
     membershipText() {
       return Object.keys(this.membership).length > 0
         ? this.membership.membership_type
-        : ACCOUNT.MEMBERSHIPS[0]["name"];
+        : `none`;
     },
   },
 };
