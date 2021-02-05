@@ -17,52 +17,53 @@
       />
     </template>
     <template v-slot:[`item.hash`]="{ item }">
-      <router-link
-        class="d-inline-block text-truncate text-decoration-none text-overline"
-        style="max-width: 200px"
-        v-text="item.hash"
-        :to="{
-          name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
-          params: { id: item.hash },
-        }"
-      />
+      <div class="word-overflow">
+        <router-link
+          class="text-decoration-none text-overline"
+          v-text="item.hash"
+          :to="{
+            name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
+            params: { id: item.hash },
+          }"
+        />
+      </div>
     </template>
   </v-data-table>
 </template>
 
 <script>
-import { ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "BlockDetailsTable",
+  name: 'BlockDetailsTable',
   props: {
     height: {
       type: String,
       required: true,
-      note: "The block height",
+      note: 'The block height',
     },
     items: {
       type: Array,
       default: () => [],
-      note: "The items to display",
+      note: 'The items to display',
     },
     loading: {
       type: Boolean,
       default: false,
-      note: "The transactions loading state",
+      note: 'The transactions loading state',
     },
   },
   data: () => ({
     ROUTES,
-    sortBy: "result",
+    sortBy: 'result',
     sortDesc: true,
   }),
   computed: {
     headers() {
       return [
-        { text: "Result", value: "result" },
-        { text: "Type", value: "type" },
-        { text: "Hash", value: "hash" },
+        { text: 'Result', value: 'result' },
+        { text: 'Type', value: 'type' },
+        { text: 'Hash', value: 'hash' },
       ];
     },
     caption() {
@@ -71,3 +72,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.word-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+</style>
