@@ -7,37 +7,40 @@
         <v-divider />
         <v-list-item>
           <v-list-item-content>
-            <div class="font-weight-bold" v-text="'Time'" />
-            <div class="pb-1" v-text="time" />
+            <div class="text-capitalize font-weight-bold" v-text="'time'" />
+            <div v-text="time" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <div class="font-weight-bold" v-text="'Status'" />
-            <div class="pb-1" :class="statusClass" v-text="statusText" />
+            <div class="text-capitalize font-weight-bold" v-text="'status'" />
+            <div :class="statusClass" v-text="statusText" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item v-if="status === 0">
           <v-list-item-content>
-            <div class="font-weight-bold" v-text="'Raw log'" />
-            <div class="pb-1">{{ '&ldquo;' }}{{ rawLog }}{{ '&rdquo;' }}</div>
+            <div class="text-capitalize font-weight-bold" v-text="'raw log'" />
+            <div>{{ '&ldquo;' }}{{ rawLog }}{{ '&rdquo;' }}</div>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <div class="font-weight-bold" v-text="'Fee'" />
-            <div class="pb-1" v-text="fee" />
+            <div class="text-capitalize font-weight-bold" v-text="'fee'" />
+            <div v-text="fee" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <div class="font-weight-bold" v-text="'Gas (used/wanted)'" />
-            <div class="pb-1" v-text="gas" />
+            <div
+              class="text-capitalize font-weight-bold"
+              v-text="'gas (used/wanted)'"
+            />
+            <div v-text="gas" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
           <v-list-item-content>
-            <div  class="font-weight-bold" v-text="'Height'" />
+            <div class="text-capitalize font-weight-bold" v-text="'height'" />
             <router-link
               v-if="version === ''"
               class="text-decoration-none"
@@ -50,7 +53,10 @@
         <v-divider />
         <v-list-item>
           <v-list-item-content>
-            <div  class="font-weight-bold" v-text="'Official node (raw json)'" />
+            <div
+              class="text-capitalize font-weight-bold"
+              v-text="'official node (raw json)'"
+            />
             <a
               class="text-break"
               :href="ledgerLink"
