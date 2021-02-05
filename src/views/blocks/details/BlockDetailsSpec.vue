@@ -1,21 +1,45 @@
 <template>
   <v-card elevation="2" :loading="isLoading">
-    <v-card-title v-text="height" />
-    <v-card-subtitle v-text="'Height'" />
-    <v-divider />
     <v-card-text>
-      <div v-text="'Time'" />
-      <div class="pb-1 font-weight-bold" v-text="time" />
-      <div v-text="'Hash'" />
-      <div class="pb-1 text-break text-overline" v-text="hash" />
-      <div v-text="'Txs number'" />
-      <div class="pb-1 font-weight-bold" v-text="txs" />
-      <div v-text="'Proposer'" />
-      <router-link
-        class="text-decoration-none font-weight-bold"
-        v-text="proposerName"
-        :to="proposerLink"
-      />
+      <v-list class="ma-1">
+        <v-list-item-title
+          class="word-break font-weight-bold"
+          v-text="height"
+        />
+        <v-list-item-subtitle class="text-capitalize" v-text="'height'" />
+        <v-divider />
+        <v-list-item>
+          <v-list-item-content>
+            <div class="text-capitalize font-weight-bold" v-text="'time'" />
+            <div v-text="time" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <div class="text-capitalize font-weight-bold" v-text="'hash'" />
+            <div class="text-break text-overline" v-text="hash" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <div
+              class="text-capitalize font-weight-bold"
+              v-text="'txs number'"
+            />
+            <div v-text="txs" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <div class="text-capitalize font-weight-bold" v-text="'proposer'" />
+            <router-link
+              class="text-decoration-none"
+              v-text="proposerName"
+              :to="proposerLink"
+            />
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-card-text>
   </v-card>
 </template>
