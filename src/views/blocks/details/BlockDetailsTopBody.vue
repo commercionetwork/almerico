@@ -1,10 +1,10 @@
 <template>
   <v-layout>
     <v-row>
-      <v-col cols="12" md="4">
+      <v-col cols="12" md="5">
         <BlockDetailsSpec :height="height" />
       </v-col>
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="7">
         <BlockDetailsTransactions :height="height" />
       </v-col>
     </v-row>
