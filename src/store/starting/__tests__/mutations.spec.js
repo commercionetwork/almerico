@@ -69,4 +69,14 @@ describe("store/starting/mutations", () => {
 
     expect(state.pool).toStrictEqual(pool);
   });
+
+  test("Check mutations.setParams", () => {
+    const params = {
+      id: 1
+    };
+
+    mutations.setParams(state, params);
+
+    expect(state.params).toStrictEqual(params);
+  });
 });

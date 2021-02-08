@@ -5,6 +5,7 @@
  * @property {Boolean} isLoading
  * @property {Object} genesis
  * @property {Object} nodeInfo
+ * @property {Object} params
  * @property {Object} pool
  * @property {String} error
  */
@@ -18,6 +19,7 @@ const initialState = {
   genesis: null,
   isLoading: false,
   nodeInfo: null,
+  params: null,
   pool: null,
 };
 

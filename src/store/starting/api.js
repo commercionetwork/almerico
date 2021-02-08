@@ -43,4 +43,15 @@ export default {
       headers: headers,
     });
   },
+  /**
+   * @returns {Promise}
+   */
+  requestStakingParameters() {
+    return axios({
+      method: 'get',
+      baseURL: `${API.STAKING}`,
+      url: '/parameters',
+      headers: headers,
+    });
+  },
 };

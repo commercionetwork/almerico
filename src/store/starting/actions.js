@@ -24,6 +24,7 @@ export default {
     try {
       await dispatch("fetchGenesis");
       await dispatch("fetchNodeInfo");
+      await dispatch("fetchParams");
       await dispatch("fetchPool");
       await dispatch("blocks/fetchLatestBlock", null, {
         root: true
@@ -69,6 +70,15 @@ export default {
   }) {
     const response = await api.requestNodeInfo();
     commit("setNodeInfo", response.data);
+  },
+  /**
+   * @param {Function} commit 
+   */
+  async fetchParams({
+    commit
+  }) {
+    const response = await api.requestStakingParameters();
+    commit("setParams", response.data.result);
   },
   /**
    * @param {Function} commit 

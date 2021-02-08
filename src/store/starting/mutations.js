@@ -9,7 +9,7 @@ export default {
    * @param {StartingState} state
    */
   startLoading(state) {
-    state.error = "";
+    state.error = '';
     state.isLoading = true;
   },
   /**
@@ -37,7 +37,7 @@ export default {
    */
   setGenesis(state, data) {
     state.genesis = {
-      ...data
+      ...data,
     };
   },
   /**
@@ -48,7 +48,18 @@ export default {
    */
   setNodeInfo(state, data) {
     state.nodeInfo = {
-      ...data
+      ...data,
+    };
+  },
+  /**
+   * Set params
+   *
+   * @param {StartingState} state
+   * @param {Object} data
+   */
+  setParams(state, data) {
+    state.params = {
+      ...data,
     };
   },
   /**
@@ -59,7 +70,7 @@ export default {
    */
   setPool(state, data) {
     state.pool = {
-      ...data
+      ...data,
     };
   },
 };
