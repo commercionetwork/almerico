@@ -57,24 +57,17 @@ const getType = (txValue, multiTypes) =>
         .pop();
 
 const formatFee = (value) => {
-  const amount = value.fee && value.fee.amount ? value.fee.amount : null;
-  if (amount === null) {
+  const amount = value.fee && value.fee.amount ? value.fee.amount : [];
+  if (amount.length === 0) {
     return '-';
   }
-  return amount.length >= 1 ? concatFeeAmounts(amount) : '-';
-};
-
-const concatFeeAmounts = (amounts) => {
-  let result = '';
-  for (let i = 0; i < amounts.length; i++) {
-    if (i > 0) {
-      result += '\n';
-    }
-    result += `${formatAmountToDecimal(amounts[i]['amount'], 0, 0)} ${
-      amounts[i]['denom']
-    }`;
+  if (amount.length > 1) {
+    return 'Multi values';
   }
-  return result;
+
+  return `${formatAmountToDecimal(amount[0]['amount'], 0, 0)} ${
+    amount[0]['denom']
+  }`;
 };
 
 const formatAmountToDecimal = (
