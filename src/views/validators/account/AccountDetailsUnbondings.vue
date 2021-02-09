@@ -38,30 +38,36 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { ROUTES } from "@/constants";
-import { AccountUnbondingsHandler } from "@/utils";
+import { mapGetters } from 'vuex';
+import { ROUTES } from '@/constants';
+import { AccountUnbondingsHandler } from '@/utils';
 
 export default {
-  name: "AccountDetailsUnbondings",
+  name: 'AccountDetailsUnbondings',
   data: () => ({
     ROUTES,
-    sortBy: "date",
+    sortBy: 'date',
     sortDesc: true,
   }),
   computed: {
-    ...mapGetters("account", {
-      unbondings: "unbondings",
+    ...mapGetters('account', {
+      unbondings: 'unbondings',
     }),
-    ...mapGetters("validators", {
-      validators: "validators",
+    ...mapGetters('validators', {
+      validators: 'validators',
     }),
+    ...mapGetters('starting', {
+      params: 'params',
+    }),
+    bondDenom() {
+      return this.params.bond_denom ? this.params.bond_denom : '';
+    },
     headers() {
       return [
-        { text: "Date", value: "date" },
-        { text: "Validator", value: "moniker" },
-        { text: "Height", value: "height" },
-        { text: "Amount", value: "amount" },
+        { text: 'Date', value: 'date' },
+        { text: 'Validator', value: 'moniker' },
+        { text: 'Height', value: 'height' },
+        { text: 'Amount', value: 'amount' },
       ];
     },
     items() {
@@ -70,7 +76,7 @@ export default {
         .get();
     },
     caption() {
-      return "Unbonding Delegations";
+      return 'Unbonding Delegations';
     },
   },
   methods: {
@@ -79,13 +85,13 @@ export default {
     },
     formatTokens(value) {
       const options = {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6,
+        style: 'decimal',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
       };
-      return `${new Intl.NumberFormat(undefined, options).format(
-        value / 1000000
-      )} Commercio`;
+      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
+        this.bondDenom
+      }`;
     },
   },
 };

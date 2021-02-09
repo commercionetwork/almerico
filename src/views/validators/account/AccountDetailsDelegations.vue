@@ -25,28 +25,34 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { ROUTES } from "@/constants";
-import { AccountDelegationsHandler } from "@/utils";
+import { mapGetters } from 'vuex';
+import { ROUTES } from '@/constants';
+import { AccountDelegationsHandler } from '@/utils';
 
 export default {
-  name: "AccountDetailsDelegations",
+  name: 'AccountDetailsDelegations',
   data: () => ({
     ROUTES,
-    sortBy: "amount",
+    sortBy: 'amount',
     sortDesc: true,
   }),
   computed: {
-    ...mapGetters("account", {
-      delegations: "delegations",
+    ...mapGetters('account', {
+      delegations: 'delegations',
     }),
-    ...mapGetters("validators", {
-      validators: "validators",
+    ...mapGetters('validators', {
+      validators: 'validators',
     }),
+    ...mapGetters('starting', {
+      params: 'params',
+    }),
+    bondDenom() {
+      return this.params.bond_denom ? this.params.bond_denom : '';
+    },
     headers() {
       return [
-        { text: "Validator", value: "moniker" },
-        { text: "Amount", value: "amount" },
+        { text: 'Validator', value: 'moniker' },
+        { text: 'Amount', value: 'amount' },
       ];
     },
     items() {
@@ -55,19 +61,19 @@ export default {
         .get();
     },
     caption() {
-      return "Delegations";
+      return 'Delegations';
     },
   },
   methods: {
     formatTokens(value) {
       const options = {
-        style: "decimal",
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6,
+        style: 'decimal',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
       };
-      return `${new Intl.NumberFormat(undefined, options).format(
-        value / 1000000
-      )} Commercio`;
+      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
+        this.bondDenom
+      }`;
     },
   },
 };

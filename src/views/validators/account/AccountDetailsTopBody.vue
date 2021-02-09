@@ -15,16 +15,16 @@
 </template>
 
 <script>
-import AccountDetailsAddress from "./AccountDetailsAddress";
-import AccountDetailsBalance from "./AccountDetailsBalance";
-import AccountDetailsChart from "./AccountDetailsChart";
-import TopBody from "@/components/TopBody";
+import AccountDetailsAddress from './AccountDetailsAddress';
+import AccountDetailsBalance from './AccountDetailsBalance';
+import AccountDetailsChart from './AccountDetailsChart';
+import TopBody from '@/components/TopBody';
 
-import { mapGetters } from "vuex";
-import { AccountBalanceHandler } from "@/utils";
+import { mapGetters } from 'vuex';
+import { AccountBalanceHandler } from '@/utils';
 
 export default {
-  name: "AccountDetailsTopBody",
+  name: 'AccountDetailsTopBody',
   components: {
     AccountDetailsAddress,
     AccountDetailsBalance,
@@ -32,11 +32,11 @@ export default {
     TopBody,
   },
   computed: {
-    ...mapGetters("account", {
-      balances: "balances",
-      delegations: "delegations",
-      rewards: "rewards",
-      unbondings: "unbondings",
+    ...mapGetters('account', {
+      balances: 'balances',
+      delegations: 'delegations',
+      rewards: 'rewards',
+      unbondings: 'unbondings',
     }),
     amounts() {
       return AccountBalanceHandler.setBalances(this.balances)
