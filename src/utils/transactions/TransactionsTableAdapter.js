@@ -5,18 +5,12 @@ class TransactionsTableAdapter {
 
   clear() {
     this.txs = null;
-    this.coin = null;
     this.multiTypes = null;
     this.filter = null;
   }
 
   setTxs(txs) {
     this.txs = txs;
-    return this;
-  }
-
-  setCoin(coin) {
-    this.coin = coin;
     return this;
   }
 
@@ -31,23 +25,19 @@ class TransactionsTableAdapter {
   }
 
   get() {
+    const txs = filterTransactions(this.txs, this.filter);
     let transactionsTable = [];
-    let transactions = filterTransactions(this.txs, this.filter);
 
-    transactions.forEach((tx) => {
-      const type = getType(tx.tx.value, this.multiTypes);
-      const amounts = getAmounts(tx.tx.value);
-
+    for (const tx of txs) {
       transactionsTable.push({
         height: tx.height,
-        type: type,
+        type: getType(tx.tx.value, this.multiTypes),
         result: tx.code ? 0 : 1,
-        amount: formatAmount(amounts, this.coin),
         fee: formatFee(tx.tx.value),
         hash: tx.txhash,
         date: new Date(tx.timestamp).toLocaleString(),
       });
-    });
+    }
 
     this.clear();
     return transactionsTable;
@@ -62,36 +52,15 @@ const getType = (txValue, multiTypes) =>
         .type.split('/')
         .pop();
 
-const formatAmount = (amounts, coin) => {
-  const amount =
-    amounts.length > 0
-      ? amounts.reduce((acc, item) => acc + parseFloat(item.amount), 0)
-      : 0;
-  return toCoin(amount, 6, 6, coin);
-};
-
-const getAmounts = (txValue) => {
-  let amounts = [];
-  txValue.msg.forEach((msg) => {
-    let amount = msg.value.amount;
-    if (Array.isArray(amount)) {
-      amounts.push.apply(amounts, amount);
-    } else if (amount instanceof Object) {
-      amounts.push(amount);
-    }
-  });
-  return amounts;
-};
-
 const formatFee = (value) => {
   const amount = value.fee && value.fee.amount ? value.fee.amount : null;
   if (amount === null) {
     return '-';
   }
-  return amount.length >= 1 ? concatAmounts(amount) : '-';
+  return amount.length >= 1 ? concatFeeAmounts(amount) : '-';
 };
 
-const concatAmounts = (amounts) => {
+const concatFeeAmounts = (amounts) => {
   let result = '';
   for (let i = 0; i < amounts.length; i++) {
     if (i > 0) {
@@ -102,6 +71,17 @@ const concatAmounts = (amounts) => {
     }`;
   }
   return result;
+};
+
+const formatAmountToDecimal = (
+  amount,
+  maximumFractionDigits,
+  minimumFractionDigits
+) => {
+  return new Intl.NumberFormat(undefined, {
+    maximumFractionDigits,
+    minimumFractionDigits,
+  }).format(amount);
 };
 
 const filterTransactions = (transactions, filter) => {
@@ -148,29 +128,6 @@ const parseEvent = (acc, transaction, filter, event) => {
       acc.push(transaction);
     }
   });
-};
-
-const toCoin = (x, maximumFractionDigits, minimumFractionDigits, coin) => {
-  const amount = x / 1000000;
-  return amount === 0
-    ? 0
-    : new Intl.NumberFormat(undefined, {
-        maximumFractionDigits,
-        minimumFractionDigits,
-      }).format(amount) +
-        ' ' +
-        coin;
-};
-
-const formatAmountToDecimal = (
-  amount,
-  maximumFractionDigits,
-  minimumFractionDigits
-) => {
-  return new Intl.NumberFormat(undefined, {
-    maximumFractionDigits,
-    minimumFractionDigits,
-  }).format(amount);
 };
 
 export default new TransactionsTableAdapter();

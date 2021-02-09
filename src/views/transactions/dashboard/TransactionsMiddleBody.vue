@@ -40,7 +40,6 @@
 import TransactionsTable from "./TransactionsTable";
 
 import { mapActions, mapGetters } from "vuex";
-import { CUSTOMIZATION } from "@/constants";
 import { TransactionsTableAdapter } from "@/utils";
 
 export default {
@@ -60,7 +59,6 @@ export default {
     }),
     items() {
       return TransactionsTableAdapter.setTxs(this.transactions)
-        .setCoin(CUSTOMIZATION.COIN)
         .setMultiTypes("Multi types")
         .setFilter(this.filter)
         .get();

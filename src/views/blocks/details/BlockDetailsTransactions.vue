@@ -21,7 +21,6 @@
 import BlockDetailsTable from "./BlockDetailsTable";
 
 import { mapActions, mapGetters } from "vuex";
-import { CUSTOMIZATION } from "@/constants";
 import { TransactionsTableAdapter } from "@/utils";
 
 export default {
@@ -44,7 +43,6 @@ export default {
     }),
     items() {
       return TransactionsTableAdapter.setTxs(this.transactions)
-        .setCoin(CUSTOMIZATION.COIN)
         .setMultiTypes("Multi types")
         .setFilter(null)
         .get();

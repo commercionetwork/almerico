@@ -63,7 +63,6 @@ export default {
     }),
     items() {
       return TransactionsTableAdapter.setTxs(this.transactions)
-        .setCoin(CUSTOMIZATION.COIN)
         .setMultiTypes("Multi types")
         .setFilter(null)
         .get();
