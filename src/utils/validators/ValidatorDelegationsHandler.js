@@ -25,16 +25,15 @@ class ValidatorDelegationsHandler {
       total: 0,
     };
 
-    this.delegations.reduce(
-      (acc, delegation) => {
-        let amount = parseFloat(delegation.balance.amount);
-        delegation.delegator_address === this.address ?
-          acc['self'] += amount :
-          acc['others'] += amount;
-        acc['total'] += amount;
-        return acc;
-      }, tokens
-    );
+    for (const delegation of this.delegations) {
+      const amount = parseFloat(delegation['shares']);
+      tokens.total += amount;
+      if (delegation.delegator_address === this.address) {
+        tokens.self += amount;
+      } else {
+        tokens.others += amount;
+      }
+    }
 
     this.clear;
     return tokens;
