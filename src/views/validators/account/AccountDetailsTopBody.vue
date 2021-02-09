@@ -8,7 +8,7 @@
         <AccountDetailsChart :amounts="amounts" />
       </template>
       <template v-slot:right>
-        <AccountDetailsBalance :amounts="amounts" />
+        <AccountDetailsBalance :balances="balances" />
       </template>
     </TopBody>
   </v-layout>
