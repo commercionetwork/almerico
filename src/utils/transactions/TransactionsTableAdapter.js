@@ -1,3 +1,5 @@
+import TransactionsFilter from './TransactionsFilter';
+
 class TransactionsTableAdapter {
   constructor() {
     this.clear();
@@ -25,9 +27,11 @@ class TransactionsTableAdapter {
   }
 
   get() {
-    const txs = filterTransactions(this.txs, this.filter);
-    let transactionsTable = [];
+    const txs = TransactionsFilter.setTxs(this.txs)
+      .setFilter(this.filter)
+      .get();
 
+    let transactionsTable = [];
     for (const tx of txs) {
       transactionsTable.push({
         height: tx.height,
@@ -82,52 +86,6 @@ const formatAmountToDecimal = (
     maximumFractionDigits,
     minimumFractionDigits,
   }).format(amount);
-};
-
-const filterTransactions = (transactions, filter) => {
-  if (filter === null || filter === '') {
-    return transactions.map((obj) => ({
-      ...obj,
-    }));
-  }
-  return transactions.reduce((acc, transaction) => {
-    parseTransaction(acc, transaction, filter);
-    return acc;
-  }, []);
-};
-
-const parseTransaction = (acc, transaction, filter) => {
-  if (!transaction.logs || transaction.logs.length === 0) {
-    return;
-  }
-  transaction.logs.forEach((log) => {
-    parseLog(acc, transaction, filter, log);
-  });
-};
-
-const parseLog = (acc, transaction, filter, log) => {
-  if (!log.events || log.events.length === 0) {
-    return;
-  }
-  log.events.forEach((event) => {
-    parseEvent(acc, transaction, filter, event);
-  });
-};
-
-const parseEvent = (acc, transaction, filter, event) => {
-  if (
-    !event.type ||
-    event.type !== 'message' ||
-    !event.attributes ||
-    event.attributes.length === 0
-  ) {
-    return;
-  }
-  event.attributes.forEach((attribute) => {
-    if (attribute.value === filter) {
-      acc.push(transaction);
-    }
-  });
 };
 
 export default new TransactionsTableAdapter();

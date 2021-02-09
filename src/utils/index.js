@@ -8,6 +8,7 @@ import BlocksChecker from './blocks/BlocksChecker';
 import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import proposerHandler from './proposerHandler';
 import TransactionDetailsAdapter from './transactions/TransactionDetailsAdapter';
+import TransactionsFilter from './transactions/TransactionsFilter';
 import TransactionsTableAdapter from './transactions/TransactionsTableAdapter';
 import txHandler from './txHandler';
 import ValidatorDelegationsHandler from './validators/ValidatorDelegationsHandler';
@@ -22,6 +23,7 @@ export {
   BlocksChecker,
   BlocksTableAdapter,
   TransactionDetailsAdapter,
+  TransactionsFilter,
   TransactionsTableAdapter,
   ValidatorDelegationsHandler,
   ValidatorDelegatorsAggregator,
