@@ -29,33 +29,39 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { ROUTES } from "@/constants";
-import { ValidatorDelegatorsAggregator } from "@/utils";
+import { mapGetters } from 'vuex';
+import { ROUTES } from '@/constants';
+import { ValidatorDelegatorsAggregator } from '@/utils';
 
 export default {
-  name: "ValidatorDetailsDelegatorsTable",
+  name: 'ValidatorDetailsDelegatorsTable',
   props: {
     account: {
       type: String,
       required: true,
-      note: "The account address",
+      note: 'The account address',
     },
   },
   data: () => ({
     ROUTES,
-    sortBy: "share",
+    sortBy: 'share',
     sortDesc: true,
   }),
   computed: {
-    ...mapGetters("validators", {
-      details: "details",
+    ...mapGetters('validators', {
+      details: 'details',
     }),
+    ...mapGetters('starting', {
+      params: 'params',
+    }),
+    bondDenom() {
+      return this.params.bond_denom ? this.params.bond_denom : '';
+    },
     headers() {
       return [
-        { text: "Delegator", value: "delegator" },
-        { text: "Amount", value: "amount" },
-        { text: "Share", value: "share" },
+        { text: 'Delegator', value: 'delegator' },
+        { text: 'Amount', value: 'amount' },
+        { text: 'Share', value: 'share' },
       ];
     },
     items() {
@@ -64,13 +70,13 @@ export default {
         .get();
     },
     caption() {
-      return "Delegator amounts";
+      return 'Delegator amounts';
     },
   },
   methods: {
     formatPercent(value) {
       const options = {
-        style: "percent",
+        style: 'percent',
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
       };
@@ -78,12 +84,13 @@ export default {
     },
     formatTokens(value) {
       const options = {
-        style: "decimal",
+        style: 'decimal',
         maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
       };
-      return `${new Intl.NumberFormat(undefined, options).format(
-        value / 1000000
-      )} Commercio`;
+      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
+        this.bondDenom
+      }`;
     },
   },
 };

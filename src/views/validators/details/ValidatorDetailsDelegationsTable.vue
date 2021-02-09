@@ -17,20 +17,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name: "ValidatorDetailsDelegationsTable",
+  name: 'ValidatorDetailsDelegationsTable',
   props: {
     delegations: {
       type: Object,
       default: () => ({}),
-      note: "The items to display",
+      note: 'The items to display',
     },
   },
   computed: {
+    ...mapGetters('starting', {
+      params: 'params',
+    }),
+    bondDenom() {
+      return this.params.bond_denom ? this.params.bond_denom : '';
+    },
     headers() {
       return [
-        { text: "Caption", value: "caption" },
-        { text: "Amount", value: "amount" },
+        { text: 'Caption', value: 'caption' },
+        { text: 'Amount', value: 'amount' },
       ];
     },
     items() {
@@ -40,18 +48,18 @@ export default {
       }));
     },
     caption() {
-      return "Delegated tokens";
+      return 'Delegated tokens';
     },
   },
   methods: {
     formatTokens(value) {
       const options = {
-        style: "decimal",
+        style: 'decimal',
         maximumFractionDigits: 0,
       };
-      return `${new Intl.NumberFormat(undefined, options).format(
-        value / 1000000
-      )} Commercio`;
+      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
+        this.bondDenom
+      }`;
     },
   },
 };
