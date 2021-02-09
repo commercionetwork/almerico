@@ -8,7 +8,7 @@
         <AccountDetailsChart :amounts="amounts" />
       </template>
       <template v-slot:right>
-        <AccountDetailsBalance :balances="balances" />
+        <AccountDetailsCapitalization :amounts="amounts" />
       </template>
     </TopBody>
   </v-layout>
@@ -16,7 +16,7 @@
 
 <script>
 import AccountDetailsAddress from './AccountDetailsAddress';
-import AccountDetailsBalance from './AccountDetailsBalance';
+import AccountDetailsCapitalization from './AccountDetailsCapitalization';
 import AccountDetailsChart from './AccountDetailsChart';
 import TopBody from '@/components/TopBody';
 
@@ -27,13 +27,12 @@ export default {
   name: 'AccountDetailsTopBody',
   components: {
     AccountDetailsAddress,
-    AccountDetailsBalance,
+    AccountDetailsCapitalization,
     AccountDetailsChart,
     TopBody,
   },
   computed: {
     ...mapGetters('account', {
-      balances: 'balances',
       delegations: 'delegations',
       rewards: 'rewards',
       unbondings: 'unbondings',

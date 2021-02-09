@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import DoughnutChart from "@/components/DoughnutChart";
+import DoughnutChart from '@/components/DoughnutChart';
 
 export default {
-  name: "AccountDetailsChart",
+  name: 'AccountDetailsChart',
   props: {
     amounts: {
       type: Object,
       required: true,
-      note: "The amounts to display",
+      note: 'The amounts to display',
     },
   },
   components: {
@@ -35,12 +35,8 @@ export default {
         ],
         datasets: [
           {
-            data: [
-              this.delegations,
-              this.unbondings,
-              this.rewards,
-            ],
-            backgroundColor: ["#689F38", "#FFA000", "#0288D1"],
+            data: [this.delegations, this.unbondings, this.rewards],
+            backgroundColor: ['#FFA000', '#0288D1', '#D32F2F'],
           },
         ],
       };
@@ -53,24 +49,24 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
+            label: function(tooltipItem, data) {
+              return data['labels'][tooltipItem['index']];
             },
           },
         },
       };
     },
     caption() {
-      return `Capitalization ${this.formatTokens(this.amounts["total"])}`;
+      return `Capitalization ${this.formatTokens(this.amounts['total'])}`;
     },
     delegations() {
-      return this.formatTokens(this.amounts["delegations"]);
+      return this.formatTokens(this.amounts['delegations']);
     },
     unbondings() {
-      return this.formatTokens(this.amounts["unbondings"]);
+      return this.formatTokens(this.amounts['unbondings']);
     },
     rewards() {
-      return this.formatTokens(this.amounts["rewards"]);
+      return this.formatTokens(this.amounts['rewards']);
     },
   },
   methods: {
