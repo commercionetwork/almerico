@@ -1,4 +1,3 @@
-import AccountBalanceHandler from './account/AccountBalanceHandler';
 import AccountDelegationsHandler from './account/AccountDelegationsHandler';
 import AccountStakeHandler from './account/AccountStakeHandler';
 import AccountUnbondingsHandler from './account/AccountUnbondingsHandler';
@@ -16,7 +15,6 @@ import ValidatorDelegatorsAggregator from './validators/ValidatorDelegatorsAggre
 import ValidatorsTableAdapter from './validators/ValidatorsTableAdapter';
 
 export {
-  AccountBalanceHandler,
   AccountDelegationsHandler,
   AccountStakeHandler,
   AccountUnbondingsHandler,
