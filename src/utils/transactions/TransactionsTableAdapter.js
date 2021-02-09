@@ -43,7 +43,7 @@ class TransactionsTableAdapter {
         type: type,
         result: tx.code ? 0 : 1,
         amount: formatAmount(amounts, this.coin),
-        fee: formatFee(tx.tx.value, this.coin),
+        fee: formatFee(tx.tx.value),
         hash: tx.txhash,
         date: new Date(tx.timestamp).toLocaleString(),
       });
@@ -83,12 +83,25 @@ const getAmounts = (txValue) => {
   return amounts;
 };
 
-const formatFee = (value, coin) => {
-  const fee = value.fee.amount.reduce(
-    (acc, item) => acc + parseInt(item.amount),
-    0
-  );
-  return toCoin(fee, 6, 6, coin);
+const formatFee = (value) => {
+  const amount = value.fee && value.fee.amount ? value.fee.amount : null;
+  if (amount === null) {
+    return '-';
+  }
+  return amount.length >= 1 ? concatAmounts(amount) : '-';
+};
+
+const concatAmounts = (amounts) => {
+  let result = '';
+  for (let i = 0; i < amounts.length; i++) {
+    if (i > 0) {
+      result += '\n';
+    }
+    result += `${formatAmountToDecimal(amounts[i]['amount'], 0, 0)} ${
+      amounts[i]['denom']
+    }`;
+  }
+  return result;
 };
 
 const filterTransactions = (transactions, filter) => {
@@ -147,6 +160,17 @@ const toCoin = (x, maximumFractionDigits, minimumFractionDigits, coin) => {
       }).format(amount) +
         ' ' +
         coin;
+};
+
+const formatAmountToDecimal = (
+  amount,
+  maximumFractionDigits,
+  minimumFractionDigits
+) => {
+  return new Intl.NumberFormat(undefined, {
+    maximumFractionDigits,
+    minimumFractionDigits,
+  }).format(amount);
 };
 
 export default new TransactionsTableAdapter();
