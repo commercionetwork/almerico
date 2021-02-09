@@ -21,7 +21,7 @@ import AccountDetailsChart from './AccountDetailsChart';
 import TopBody from '@/components/TopBody';
 
 import { mapGetters } from 'vuex';
-import { AccountBalanceHandler } from '@/utils';
+import { AccountStakeHandler } from '@/utils';
 
 export default {
   name: 'AccountDetailsTopBody',
@@ -39,8 +39,7 @@ export default {
       unbondings: 'unbondings',
     }),
     amounts() {
-      return AccountBalanceHandler.setBalances(this.balances)
-        .setDelegations(this.delegations)
+      return AccountStakeHandler.setDelegations(this.delegations)
         .setRewards(this.rewards)
         .setUnbondings(this.unbondings)
         .get();

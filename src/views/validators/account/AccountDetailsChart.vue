@@ -29,7 +29,6 @@ export default {
     chartData() {
       return {
         labels: [
-          `Availables ${this.availables}`,
           `Delegations ${this.delegations}`,
           `Unbondings ${this.unbondings}`,
           `Rewards ${this.rewards}`,
@@ -37,12 +36,11 @@ export default {
         datasets: [
           {
             data: [
-              this.availables,
               this.delegations,
               this.unbondings,
               this.rewards,
             ],
-            backgroundColor: ["#689F38", "#FFA000", "#0288D1", "#D32F2F"],
+            backgroundColor: ["#689F38", "#FFA000", "#0288D1"],
           },
         ],
       };
@@ -63,10 +61,7 @@ export default {
       };
     },
     caption() {
-      return `Total ${this.formatTokens(this.amounts["total"])}`;
-    },
-    availables() {
-      return this.formatTokens(this.amounts["availables"]);
+      return `Capitalization ${this.formatTokens(this.amounts["total"])}`;
     },
     delegations() {
       return this.formatTokens(this.amounts["delegations"]);
