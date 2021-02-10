@@ -17,21 +17,17 @@
     </v-toolbar>
     <v-card-subtitle class="text-h6 text-capitalize" v-text="'membership'" />
     <v-card-text>
-      <v-row align="center">
-        <v-col cols="12" md="2">
-          <div class="ml-2 text-center white">
-            <v-icon :color="membershipColor" large>
-              mdi-card-account-details
-            </v-icon>
-          </div>
-        </v-col>
-        <v-col cols="12" md="10">
-          <div
-            class="text-left text-capitalize font-weight-bold"
-            v-text="membershipText"
-          />
-        </v-col>
-      </v-row>
+      <v-layout row align-center class="pa-3">
+        <div class="white">
+          <v-icon class="mx-1" :color="membershipColor" large>
+            mdi-card-account-details
+          </v-icon>
+        </div>
+        <div
+          class="ml-2 text-capitalize font-weight-bold"
+          v-text="membershipText"
+        />
+      </v-layout>
     </v-card-text>
   </v-card>
 </template>
