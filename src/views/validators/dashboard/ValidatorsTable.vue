@@ -9,6 +9,14 @@
     disable-pagination
     class="elevation-2"
   >
+    <template v-slot:[`item.rank`]="{ item }">
+      <div
+        class="py-1 px-3 rounded-circle d-inline-block"
+        :class="item.active ? 'primary' : 'warning'"
+      >
+        <span class="font-weight-bold white--text" v-text="item.rank" />
+      </div>
+    </template>
     <template v-slot:[`item.moniker`]="{ item }">
       <router-link
         class="text-decoration-none font-weight-bold"
@@ -73,8 +81,8 @@ export default {
     },
     headers() {
       let headers = [
-        { text: 'Validator', value: 'moniker' },
         { text: 'Rank', value: 'rank' },
+        { text: 'Validator', value: 'moniker' },
         {
           text: 'Active',
           value: 'active',
