@@ -2,7 +2,6 @@
  * Application customization
  */
 export const CUSTOMIZATION = {
-  COIN: 'Commercio',
   VALIDATORS: {
     CHECKED_BLOCKS: 100,
   },
