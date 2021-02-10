@@ -4,8 +4,10 @@ import AccountUnbondingsHandler from './account/AccountUnbondingsHandler';
 import arrayHandler from './arrayHandler';
 import bech32Manager from './bech32Manager';
 import BlockProposerHandler from './blocks/BlockProposerHandler';
+import BlocksAttendanceCalculator from './blocks/BlocksAttendanceCalculator';
 import BlocksChecker from './blocks/BlocksChecker';
 import BlocksTableAdapter from './blocks/BlocksTableAdapter';
+import blocksHandler from './blocksHandler';
 import proposerHandler from './proposerHandler';
 import TransactionDetailsAdapter from './transactions/TransactionDetailsAdapter';
 import TransactionsFilter from './transactions/TransactionsFilter';
@@ -20,6 +22,7 @@ export {
   AccountStakeHandler,
   AccountUnbondingsHandler,
   BlockProposerHandler,
+  BlocksAttendanceCalculator,
   BlocksChecker,
   BlocksTableAdapter,
   TransactionDetailsAdapter,
@@ -30,6 +33,7 @@ export {
   ValidatorsTableAdapter,
   arrayHandler,
   bech32Manager,
+  blocksHandler,
   proposerHandler,
   txHandler,
 };

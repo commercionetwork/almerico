@@ -1,5 +1,4 @@
-import { arrayHandler, bech32Manager } from '../index';
-import { CUSTOMIZATION } from '@/constants';
+import { arrayHandler, BlocksAttendanceCalculator } from '@/utils';
 
 class ValidatorsTableAdapter {
   constructor() {
@@ -42,41 +41,33 @@ class ValidatorsTableAdapter {
   get() {
     const orderedvalidators = orderValidators(this.validators);
     const bondedTokens = parseInt(this.pool.bonded_tokens);
-    const blocks =
-      this.blocks.length >= CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
-        ? restrictBlocks(this.blocks, CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS)
-        : [];
 
     let cumulative = 0;
     let rank = 0;
     let validatorsTable = [];
 
-    orderedvalidators.forEach((validator) => {
+    for (const validator of orderedvalidators) {
       rank++;
       const active = validator.status === 2 ? true : false;
       const tokens = parseInt(validator.tokens);
-      const formattedTokens =
-        new Intl.NumberFormat(undefined, {
-          maximumFractionDigits: 0,
-        }).format(tokens / 1000000) +
-        ' ' +
-        this.coin;
+      const formattedTokens = `${toDecimal(tokens)} ${this.coin}`;
       const commission = toPercent(
-        parseFloat(validator.commission.commission_rates.rate),
-        0,
-        0
+        parseFloat(validator.commission.commission_rates.rate)
       );
       let votingPower = '-';
       let formattedCumulative = '-';
       let attendance = '-';
       if (active) {
-        votingPower = toPercent(tokens / bondedTokens, 2, 2);
+        votingPower = toPercent(tokens / bondedTokens);
         cumulative += tokens / bondedTokens;
-        formattedCumulative = toPercent(cumulative, 2, 2);
-        const hex = getDecodeAddress(validator, this.validatorsSet);
-        if (hex !== '' && blocks.length > 0) {
-          attendance = getAttendance(blocks, hex);
-        }
+        formattedCumulative = toPercent(cumulative);
+        const validatorAttendance = BlocksAttendanceCalculator.setBlocks(
+          this.blocks
+        )
+          .setValidator(validator)
+          .setValidatorsSet(this.validatorsSet)
+          .get();
+        attendance = validatorAttendance.percentage;
       }
 
       validatorsTable.push({
@@ -90,57 +81,26 @@ class ValidatorsTableAdapter {
         cumulative: formattedCumulative,
         attendance: attendance,
       });
-    });
+    }
 
     this.clear();
     return validatorsTable;
   }
 }
 
-const toPercent = (x, maximumFractionDigits, minimumFractionDigits) =>
+const toDecimal = (amount) =>
+  new Intl.NumberFormat(undefined, {
+    style: 'decimal',
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  }).format(amount);
+
+const toPercent = (amount) =>
   new Intl.NumberFormat(undefined, {
     style: 'percent',
-    maximumFractionDigits,
-    minimumFractionDigits,
-  }).format(x);
-
-const getAttendance = (blocks, address) => {
-  const missingCounter = getMissingBlocksCount(blocks, address);
-  return toPercent((100 - missingCounter) / 100, 2, 2);
-};
-
-const getMissingBlocksCount = (blocks, address) => {
-  let count = 0;
-  blocks.forEach((block) => {
-    const index = block.last_commit.signatures.findIndex(
-      (signature) =>
-        signature.validator_address.toUpperCase() === address.toUpperCase()
-    );
-    if (index < 0) count++;
-  });
-  return count;
-};
-
-const getDecodeAddress = (validator, validatorsSet) => {
-  const index = validatorsSet.findIndex(
-    (val) => val.pub_key === validator.consensus_pubkey
-  );
-  return index > -1 ? bech32Manager.decode(validatorsSet[index].address) : '';
-};
-
-const restrictBlocks = (blocks, limit) => {
-  let orderedBlocks = getOrderedBlocks({
-    blocks: blocks,
-    prop: ['header', 'height'],
-  });
-  return orderedBlocks.slice(
-    orderedBlocks.length - limit,
-    orderedBlocks.length
-  );
-};
-
-const getOrderedBlocks = ({ blocks, prop }) =>
-  blocks.sort((a, b) => b[prop[0]][prop[1]] - a[prop[0]][prop[1]]);
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(amount);
 
 const orderValidators = (validators) => {
   const tokensOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(

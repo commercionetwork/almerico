@@ -9,21 +9,21 @@
     disable-pagination
     class="elevation-2"
   >
-    <template v-slot:[`item.active`]="{ item }">
-      <span
-        class="font-weight-bold"
-        :class="item.active ? 'info--text' : 'error--text'"
-        v-text="item.active ? 'Yes' : 'Not'"
-      />
-    </template>
     <template v-slot:[`item.moniker`]="{ item }">
       <router-link
-        class="text-decoration-none"
+        class="text-decoration-none font-weight-bold"
         v-text="item.moniker"
         :to="{
           name: ROUTES.NAMES.VALIDATORS_DETAILS,
           params: { id: item.operator },
         }"
+      />
+    </template>
+    <template v-slot:[`item.active`]="{ item }">
+      <span
+        class="font-weight-bold"
+        :class="item.active ? 'info--text' : 'error--text'"
+        v-text="item.active ? 'Yes' : 'Not'"
       />
     </template>
   </v-data-table>
@@ -32,7 +32,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { CUSTOMIZATION, ROUTES } from '@/constants';
-import { ValidatorsTableAdapter } from '@/utils';
+import { blocksHandler, ValidatorsTableAdapter } from '@/utils';
 
 export default {
   name: 'ValidatorsTable',
@@ -47,6 +47,7 @@ export default {
       blocks: 'blocks',
     }),
     ...mapGetters('starting', {
+      params: 'params',
       pool: 'pool',
     }),
     ...mapGetters('validators', {
@@ -54,23 +55,31 @@ export default {
       latestValidatorsSets: 'latestValidatorsSets',
       validators: 'validators',
     }),
+    bondDenom() {
+      return this.params.bond_denom ? this.params.bond_denom : '';
+    },
     items() {
+      const restrictedBlocks = blocksHandler.restrictBlocks({
+        blocks: this.blocks,
+        prop: ['header', 'height'],
+        limit: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+      });
       return ValidatorsTableAdapter.setValidators(this.validators)
-        .setBlocks(this.blocks)
-        .setCoin(CUSTOMIZATION.COIN)
+        .setBlocks(restrictedBlocks)
+        .setCoin(this.bondDenom)
         .setPool(this.pool)
         .setValidatorsSet(this.latestValidatorsSets)
         .get();
     },
     headers() {
       let headers = [
+        { text: 'Validator', value: 'moniker' },
         { text: 'Rank', value: 'rank' },
         {
           text: 'Active',
           value: 'active',
           filter: (value) => value === this.active,
         },
-        { text: 'Validator', value: 'moniker' },
         { text: 'Tokens', value: 'tokens' },
         { text: 'Commission', value: 'commission' },
         { text: 'Voting Power', value: 'votingPower' },

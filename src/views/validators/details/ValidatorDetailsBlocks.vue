@@ -1,25 +1,28 @@
 <template>
   <v-card elevation="2" :loading="isLoading">
     <v-card-title v-text="title" />
-    <v-card-text v-if="!isLoading && verifiedBlocks.length > 0">
+    <v-card-text v-if="isLoading">
+      <v-alert type="info">Loading ...</v-alert>
+    </v-card-text>
+    <v-card-text v-else-if="!isLoading && verifiedBlocks.length > 0">
       <div class="grid">
         <div
           v-for="(verified, index) in verifiedBlocks"
           :key="index"
-          :class="verified.missing ? 'missing' : ''"
-          :title="verified.header.height"
+          :class="verified.status === 0 ? 'missing' : ''"
+          :title="verified.height"
         />
       </div>
     </v-card-text>
     <v-card-text v-else>
-      <v-alert type="info">Not enough blocks</v-alert>
+      <v-alert type="warning">Not available</v-alert>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { BlocksChecker } from '@/utils';
+import { blocksHandler, BlocksAttendanceCalculator } from '@/utils';
 import { CUSTOMIZATION } from '@/constants';
 
 export default {
@@ -39,13 +42,19 @@ export default {
       return `Last ${CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS} Blocks`;
     },
     verifiedBlocks() {
-      return this.blocks.length < CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
-        ? []
-        : BlocksChecker.setBlocks(this.blocks)
-            .setValidator(this.details)
-            .setValidatorsSet(this.latestValidatorsSets)
-            .setItems(CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS)
-            .get();
+      if (this.blocks.length < CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS) {
+        return [];
+      }
+      const restrictedBlocks = blocksHandler.restrictBlocks({
+        blocks: this.blocks,
+        prop: ['header', 'height'],
+        limit: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+      });
+      const attendance = BlocksAttendanceCalculator.setBlocks(restrictedBlocks)
+        .setValidator(this.details)
+        .setValidatorsSet(this.latestValidatorsSets)
+        .get();
+      return attendance !== null ? attendance.blocks : [];
     },
   },
   methods: {
