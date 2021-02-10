@@ -1,4 +1,8 @@
-import { arrayHandler, BlocksAttendanceCalculator } from '@/utils';
+import {
+  arrayHandler,
+  BlocksAttendanceCalculator,
+  numberIntlFormatter
+} from '@/utils';
 
 class ValidatorsTableAdapter {
   constructor() {
@@ -50,17 +54,31 @@ class ValidatorsTableAdapter {
       rank++;
       const active = validator.status === 2 ? true : false;
       const tokens = parseInt(validator.tokens);
-      const formattedTokens = `${toDecimal(tokens)} ${this.coin}`;
-      const commission = toPercent(
-        parseFloat(validator.commission.commission_rates.rate)
-      );
+      const formattedTokens = `${numberIntlFormatter.toDecimal({
+        amount: tokens,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      })} ${this.coin}`;
+      const commission = numberIntlFormatter.toPercent({
+        amount: parseFloat(validator.commission.commission_rates.rate),
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      });
       let votingPower = '-';
       let formattedCumulative = '-';
       let attendance = '-';
       if (active) {
-        votingPower = toPercent(tokens / bondedTokens);
+        votingPower = numberIntlFormatter.toPercent({
+          amount: tokens / bondedTokens,
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2,
+        });
         cumulative += tokens / bondedTokens;
-        formattedCumulative = toPercent(cumulative);
+        formattedCumulative = numberIntlFormatter.toPercent({
+          amount: cumulative,
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2,
+        });
         const validatorAttendance = BlocksAttendanceCalculator.setBlocks(
           this.blocks
         )
@@ -87,20 +105,6 @@ class ValidatorsTableAdapter {
     return validatorsTable;
   }
 }
-
-const toDecimal = (amount) =>
-  new Intl.NumberFormat(undefined, {
-    style: 'decimal',
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0,
-  }).format(amount);
-
-const toPercent = (amount) =>
-  new Intl.NumberFormat(undefined, {
-    style: 'percent',
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  }).format(amount);
 
 const orderValidators = (validators) => {
   const tokensOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(

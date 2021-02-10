@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" class="pb-3">
+  <v-card elevation="2">
     <v-row>
       <v-col cols="12" md="2">
         <v-layout fill-height column align-center justify-center>

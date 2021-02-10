@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { numberIntlFormatter } from '@/utils';
+
 export default {
   name: 'AccountDetailsBalance',
   props: {
@@ -44,12 +46,11 @@ export default {
   },
   methods: {
     formatTokens(value) {
-      const options = {
-        style: 'decimal',
-        minimumFractionDigits: 0,
+      return numberIntlFormatter.toDecimal({
+        amount: value,
         maximumFractionDigits: 0,
-      };
-      return `${new Intl.NumberFormat(undefined, options).format(value)}`;
+        minimumFractionDigits: 0,
+      });
     },
   },
 };

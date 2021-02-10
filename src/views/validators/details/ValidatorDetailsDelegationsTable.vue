@@ -18,6 +18,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'ValidatorDetailsDelegationsTable',
@@ -53,13 +54,12 @@ export default {
   },
   methods: {
     formatTokens(value) {
-      const options = {
-        style: 'decimal',
+      const tokens = numberIntlFormatter.toDecimal({
+        amount: value,
         maximumFractionDigits: 0,
-      };
-      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
-        this.bondDenom
-      }`;
+        minimumFractionDigits: 0,
+      });
+      return `${tokens} ${this.bondDenom}`;
     },
   },
 };

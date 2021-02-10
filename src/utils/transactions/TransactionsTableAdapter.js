@@ -1,3 +1,4 @@
+import { numberIntlFormatter } from '@/utils';
 import TransactionsFilter from './TransactionsFilter';
 
 class TransactionsTableAdapter {
@@ -37,7 +38,7 @@ class TransactionsTableAdapter {
         height: tx.height,
         type: getType(tx.tx.value, this.multiTypes),
         result: tx.code ? 0 : 1,
-        fee: formatFee(tx.tx.value),
+        fee: formatFee(tx.tx.value.fee),
         hash: tx.txhash,
         date: new Date(tx.timestamp).toLocaleString(),
       });
@@ -56,29 +57,20 @@ const getType = (txValue, multiTypes) =>
         .type.split('/')
         .pop();
 
-const formatFee = (value) => {
-  const amount = value.fee && value.fee.amount ? value.fee.amount : [];
-  if (amount.length === 0) {
-    return '-';
-  }
-  if (amount.length > 1) {
+const formatFee = (fee) => {
+  if (fee.amount.length > 1) {
     return 'Multi values';
   }
-
-  return `${formatAmountToDecimal(amount[0]['amount'], 0, 0)} ${
-    amount[0]['denom']
-  }`;
-};
-
-const formatAmountToDecimal = (
-  amount,
-  maximumFractionDigits,
-  minimumFractionDigits
-) => {
-  return new Intl.NumberFormat(undefined, {
-    maximumFractionDigits,
-    minimumFractionDigits,
-  }).format(amount);
+  let result = '';
+  for (const item of fee.amount) {
+    const amount = numberIntlFormatter.toDecimal({
+      amount: item.amount,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+    result = `${amount} ${item.denom}`;
+  }
+  return result;
 };
 
 export default new TransactionsTableAdapter();

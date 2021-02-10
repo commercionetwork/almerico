@@ -1,5 +1,5 @@
-import { bech32Manager } from '@/utils';
 import { CUSTOMIZATION } from '@/constants';
+import { bech32Manager, numberIntlFormatter } from '@/utils';
 
 class BlocksAttendanceCalculator {
   constructor() {
@@ -82,13 +82,11 @@ const decodeAddress = ({ validator, validatorsSet }) => {
   return index > -1 ? bech32Manager.decode(validatorsSet[index].address) : null;
 };
 
-const calcPercent = ({ count, limit }) => toPercent(count / limit);
-
-const toPercent = (amount) =>
-  new Intl.NumberFormat(undefined, {
-    style: 'percent',
+const calcPercent = ({ count, limit }) =>
+  numberIntlFormatter.toPercent({
+    amount: count / limit,
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
-  }).format(amount);
+  });
 
 export default new BlocksAttendanceCalculator();

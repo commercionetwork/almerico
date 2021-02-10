@@ -180,6 +180,7 @@
 import MsgTx from '@/components/MsgTx.vue';
 
 import { ROUTES } from '@/constants';
+import { numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'MsgCreateValidator',
@@ -204,18 +205,30 @@ export default {
     commissionMaxChangeRate() {
       return this.message.value.commission &&
         this.message.value.commission.max_change_rate
-        ? this.toPercent(this.message.value.commission.max_change_rate)
+        ? numberIntlFormatter.toPercent({
+            amount: this.message.value.commission.max_change_rate,
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })
         : '-';
     },
     commissionMaxRate() {
       return this.message.value.commission &&
         this.message.value.commission.max_rate
-        ? this.toPercent(this.message.value.commission.max_rate)
+        ? numberIntlFormatter.toPercent({
+            amount: this.message.value.commission.max_rate,
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })
         : '-';
     },
     commissionRate() {
       return this.message.value.commission && this.message.value.commission.rate
-        ? this.toPercent(this.message.value.commission.rate)
+        ? numberIntlFormatter.toPercent({
+            amount: this.message.value.commission.rate,
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })
         : '-';
     },
     delegatorAddress() {
@@ -271,15 +284,6 @@ export default {
       return this.message.value.validator_address
         ? this.message.value.validator_address
         : '-';
-    },
-  },
-  methods: {
-    toPercent(x) {
-      return new Intl.NumberFormat(undefined, {
-        style: 'percent',
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2,
-      }).format(x);
     },
   },
 };

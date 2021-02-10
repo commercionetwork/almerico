@@ -111,6 +111,7 @@
 import MsgTx from '@/components/MsgTx.vue';
 
 import { ROUTES } from '@/constants';
+import { numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'MsgEditValidator',
@@ -134,7 +135,11 @@ export default {
     },
     commissionRate() {
       return this.message.value.commission_rate
-        ? this.toPercent(this.message.value.commission_rate)
+        ? numberIntlFormatter.toPercent({
+            amount: this.message.value.commission_rate,
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })
         : '-';
     },
     descriptionDetails() {
@@ -172,15 +177,6 @@ export default {
     },
     title() {
       return this.message.type ? this.message.type.split('/').pop() : '-';
-    },
-  },
-  methods: {
-    toPercent(x) {
-      return new Intl.NumberFormat(undefined, {
-        style: 'percent',
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2,
-      }).format(x);
     },
   },
 };

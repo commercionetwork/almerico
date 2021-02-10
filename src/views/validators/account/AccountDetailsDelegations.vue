@@ -27,7 +27,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
-import { AccountDelegationsHandler } from '@/utils';
+import { AccountDelegationsHandler, numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'AccountDetailsDelegations',
@@ -66,14 +66,12 @@ export default {
   },
   methods: {
     formatTokens(value) {
-      const options = {
-        style: 'decimal',
-        minimumFractionDigits: 0,
+      const tokens = numberIntlFormatter.toDecimal({
+        amount: value,
         maximumFractionDigits: 0,
-      };
-      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
-        this.bondDenom
-      }`;
+        minimumFractionDigits: 0,
+      });
+      return `${tokens} ${this.bondDenom}`;
     },
   },
 };

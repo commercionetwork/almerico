@@ -11,18 +11,19 @@
 </template>
 
 <script>
-import DoughnutChart from "@/components/DoughnutChart";
+import DoughnutChart from '@/components/DoughnutChart';
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
+import { numberIntlFormatter } from '@/utils';
 
 export default {
-  name: "DashboardChart",
+  name: 'DashboardChart',
   components: {
     DoughnutChart,
   },
   computed: {
-    ...mapGetters("starting", {
-      pool: "pool",
+    ...mapGetters('starting', {
+      pool: 'pool',
     }),
     chartData() {
       return {
@@ -33,7 +34,7 @@ export default {
         datasets: [
           {
             data: [this.pool.bonded_tokens, this.pool.not_bonded_tokens],
-            backgroundColor: ["#2F9D77", "#4ECA9F"],
+            backgroundColor: ['#2F9D77', '#4ECA9F'],
           },
         ],
       };
@@ -46,8 +47,8 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
+            label: function(tooltipItem, data) {
+              return data['labels'][tooltipItem['index']];
             },
           },
         },
@@ -59,28 +60,26 @@ export default {
             parseInt(this.pool.bonded_tokens) +
               parseInt(this.pool.not_bonded_tokens)
           )}`
-        : "Pool";
+        : 'Pool';
     },
     tokenBonded() {
       return this.pool
         ? this.formatTokens(parseInt(this.pool.bonded_tokens))
-        : "-";
+        : '-';
     },
     tokenNotBonded() {
       return this.pool
         ? this.formatTokens(parseInt(this.pool.not_bonded_tokens))
-        : "-";
+        : '-';
     },
   },
   methods: {
     formatTokens(value) {
-      const options = {
-        style: "decimal",
+      return `${numberIntlFormatter.toDecimal({
+        amount: value / 1000000,
         maximumFractionDigits: 0,
-      };
-      return (
-        new Intl.NumberFormat(undefined, options).format(value / 1000000) + " M"
-      );
+        minimumFractionDigits: 0,
+      })} M`;
     },
   },
 };

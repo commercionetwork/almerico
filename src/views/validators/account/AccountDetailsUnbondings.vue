@@ -40,7 +40,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
-import { AccountUnbondingsHandler } from '@/utils';
+import { AccountUnbondingsHandler, numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'AccountDetailsUnbondings',
@@ -84,14 +84,12 @@ export default {
       return new Date(value).toLocaleDateString();
     },
     formatTokens(value) {
-      const options = {
-        style: 'decimal',
-        minimumFractionDigits: 0,
+      const tokens = numberIntlFormatter.toDecimal({
+        amount: value,
         maximumFractionDigits: 0,
-      };
-      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
-        this.bondDenom
-      }`;
+        minimumFractionDigits: 0,
+      });
+      return `${tokens} ${this.bondDenom}`;
     },
   },
 };

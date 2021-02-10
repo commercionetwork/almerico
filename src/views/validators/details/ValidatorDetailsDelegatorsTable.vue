@@ -31,7 +31,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
-import { ValidatorDelegatorsAggregator } from '@/utils';
+import { ValidatorDelegatorsAggregator,numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'ValidatorDetailsDelegatorsTable',
@@ -75,22 +75,19 @@ export default {
   },
   methods: {
     formatPercent(value) {
-      const options = {
-        style: 'percent',
+      return numberIntlFormatter.toPercent({
+        amount: value,
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
-      };
-      return new Intl.NumberFormat(undefined, options).format(value);
+      });
     },
     formatTokens(value) {
-      const options = {
-        style: 'decimal',
+      const tokens = numberIntlFormatter.toDecimal({
+        amount: value,
         maximumFractionDigits: 0,
         minimumFractionDigits: 0,
-      };
-      return `${new Intl.NumberFormat(undefined, options).format(value)} ${
-        this.bondDenom
-      }`;
+      });
+      return `${tokens} ${this.bondDenom}`;
     },
   },
 };

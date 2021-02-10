@@ -11,10 +11,12 @@
 </template>
 
 <script>
-import DoughnutChart from "@/components/DoughnutChart";
+import DoughnutChart from '@/components/DoughnutChart';
+
+import { numberIntlFormatter } from '@/utils';
 
 export default {
-  name: "ValidatorDetailsChart",
+  name: 'ValidatorDetailsChart',
   components: {
     DoughnutChart,
   },
@@ -22,7 +24,7 @@ export default {
     delegations: {
       type: Object,
       required: true,
-      note: "The account delegations",
+      note: 'The account delegations',
     },
   },
   computed: {
@@ -32,7 +34,7 @@ export default {
         datasets: [
           {
             data: [this.others, this.self],
-            backgroundColor: ["#42A5F5", "#1976D2"],
+            backgroundColor: ['#42A5F5', '#1976D2'],
           },
         ],
       };
@@ -45,33 +47,33 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
+            label: function(tooltipItem, data) {
+              return data['labels'][tooltipItem['index']];
             },
           },
         },
       };
     },
     caption() {
-      return this.total ? `${this.total} Delegated` : "-";
+      return this.total ? `${this.total} Delegated` : '-';
     },
     others() {
-      return this.formatTokens(this.delegations["others"]);
+      return this.formatTokens(this.delegations['others']);
     },
     self() {
-      return this.formatTokens(this.delegations["self"]);
+      return this.formatTokens(this.delegations['self']);
     },
     total() {
-      return this.formatTokens(this.delegations["total"]);
+      return this.formatTokens(this.delegations['total']);
     },
   },
   methods: {
     formatTokens(value) {
-      const options = {
-        style: "decimal",
+      return numberIntlFormatter.toDecimal({
+        amount: value / 1000000,
         maximumFractionDigits: 0,
-      };
-      return new Intl.NumberFormat(undefined, options).format(value / 1000000);
+        minimumFractionDigits: 0,
+      });
     },
   },
 };

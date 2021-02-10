@@ -1,4 +1,4 @@
-import { txHandler } from '@/utils';
+import { numberIntlFormatter, txHandler } from '@/utils';
 
 class TransactionDetailsAdapter {
   constructor() {
@@ -64,15 +64,21 @@ const v038 = (details) => ({
 const formatTimestamp = (tms) => new Date(tms).toLocaleString();
 
 const formatFee = (amounts) => {
-  const total =
-    amounts.reduce((acc, amount) => acc + parseFloat(amount.amount), 0) /
-    1000000;
-  return total !== 0
-    ? new Intl.NumberFormat(undefined, {
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6,
-      }).format(total) + ' Commercio'
-    : '0';
+  let fee = '';
+  let counter = 0;
+  for (const item of amounts) {
+    const amount = numberIntlFormatter.toDecimal({
+      amount: item.amount,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    });
+    if (counter > 0) {
+      fee += '\n';
+    }
+    fee += `${amount} ${item.denom}`;
+    counter++;
+  }
+  return fee;
 };
 
 const formatGas = (tx) => `${tx.gas_used}/${tx.gas_wanted}`;

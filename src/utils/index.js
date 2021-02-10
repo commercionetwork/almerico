@@ -7,6 +7,7 @@ import BlockProposerHandler from './blocks/BlockProposerHandler';
 import BlocksAttendanceCalculator from './blocks/BlocksAttendanceCalculator';
 import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import blocksHandler from './blocksHandler';
+import numberIntlFormatter from './numberIntlFormatter';
 import proposerHandler from './proposerHandler';
 import TransactionDetailsAdapter from './transactions/TransactionDetailsAdapter';
 import TransactionsFilter from './transactions/TransactionsFilter';
@@ -32,6 +33,7 @@ export {
   arrayHandler,
   bech32Manager,
   blocksHandler,
+  numberIntlFormatter,
   proposerHandler,
   txHandler,
 };

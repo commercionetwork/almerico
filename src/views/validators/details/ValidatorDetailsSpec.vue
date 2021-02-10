@@ -2,6 +2,9 @@
   <v-card elevation="2">
     <v-card-text>
       <div class="pb-1">
+        Tokens: <span class="font-weight-bold" v-text="tokens" />
+      </div>
+      <div class="pb-1">
         Voting power: <span class="font-weight-bold" v-text="votingPower" />
       </div>
       <div class="pb-1">
@@ -10,71 +13,88 @@
       <div class="pb-1">
         Update time: <span class="font-weight-bold" v-text="updateTime" />
       </div>
-      <div class="pb-1">Website: <span class="font-weight-bold" v-text="website" /></div>
+      <div class="pb-1">
+        Website: <span class="font-weight-bold" v-text="website" />
+      </div>
       <div class="pb-1">
         Security contact:
         <span class="font-weight-bold" v-text="securityContact" />
       </div>
-      <div class="pb-1">Details: <span class="font-weight-bold" v-text="particulars" /></div>
+      <div class="pb-1">
+        Identity:
+        <span class="font-weight-bold" v-text="identity" />
+      </div>
+      <div class="pb-1">
+        Details: <span class="font-weight-bold" v-text="particulars" />
+      </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
+import { numberIntlFormatter } from '@/utils';
 
 export default {
-  name: "ValidatorDetailsSpec",
+  name: 'ValidatorDetailsSpec',
   computed: {
-    ...mapGetters("starting", {
-      pool: "pool",
+    ...mapGetters('starting', {
+      params: 'params',
+      pool: 'pool',
     }),
-    ...mapGetters("validators", {
-      details: "details",
+    ...mapGetters('validators', {
+      details: 'details',
     }),
+    bondDenom() {
+      return this.params.bond_denom ? this.params.bond_denom : '';
+    },
     commission() {
       return this.details.commission.commission_rates.rate
         ? this.formatPercent(this.details.commission.commission_rates.rate)
-        : "-";
+        : '-';
+    },
+    identity() {
+      return this.details.description.identity || '-';
     },
     particulars() {
-      return this.details.description.details || "-";
+      return this.details.description.details || '-';
     },
     securityContact() {
-      return this.details.description.security_contact || "-";
+      return this.details.description.security_contact || '-';
+    },
+    tokens() {
+      return this.formatTokens(parseFloat(this.details.tokens));
     },
     updateTime() {
       return (
-        new Date(this.details.commission.update_time).toLocaleString() || "-"
+        new Date(this.details.commission.update_time).toLocaleString() || '-'
       );
     },
     votingPower() {
-      const bonded = this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
-      const tokens = this.details.tokens ? parseFloat(this.details.tokens) : 0;
-      const percent = bonded > 0 ? tokens / bonded : 0;
-      return `${this.formatPercent(percent)} (${this.formatTokens(tokens)})`;
+      const bonded = parseFloat(this.pool.bonded_tokens);
+      const tokens = parseFloat(this.details.tokens);
+      const percent = !isNaN(bonded) || bonded > 0 ? tokens / bonded : 0;
+      return this.formatPercent(percent);
     },
     website() {
-      return this.details.description.website || "-";
+      return this.details.description.website || '-';
     },
   },
   methods: {
     formatPercent(value) {
-      const options = {
-        style: "percent",
+      return numberIntlFormatter.toPercent({
+        amount: value,
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
-      };
-      return new Intl.NumberFormat(undefined, options).format(value);
+      });
     },
     formatTokens(value) {
-      const options = {
-        style: "decimal",
-        maximumFractionDigits: 6,
-      };
-      return `${new Intl.NumberFormat(undefined, options).format(
-        value / 1000000
-      )} Commercio`;
+      const tokens = numberIntlFormatter.toDecimal({
+        amount: value,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      });
+      return `${tokens} ${this.bondDenom}`;
     },
   },
 };
