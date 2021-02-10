@@ -1,71 +1,43 @@
 <template>
   <v-card elevation="2">
-    <v-row>
-      <v-col cols="12" md="2">
-        <v-layout fill-height column align-center justify-center>
-          <v-dialog v-model="dialog" max-width="400">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn v-bind="attrs" v-on="on" class="ml-2" color="black" icon>
-                <span class="pa-2 white">
-                  <v-icon large>mdi-qrcode</v-icon>
-                </span>
-              </v-btn>
-            </template>
-            <v-card>
-              <v-toolbar>
-                <v-toolbar-title class="primary--text">QR Code</v-toolbar-title>
-                <v-spacer />
-                <v-toolbar-items>
-                  <v-btn icon color="grey" dark @click="dialog = false">
-                    <v-icon>mdi-close</v-icon>
-                  </v-btn>
-                </v-toolbar-items>
-              </v-toolbar>
-              <div class="text-center">
-                <QrcodeVue :value="address" size="200" level="H" class="py-5" />
-                <v-divider />
-                <div class="text-caption" v-text="'Scan the address'" />
-                <div
-                  class="pb-3 text-caption font-weight-bold"
-                  v-text="address"
-                />
-              </div>
-            </v-card>
-          </v-dialog>
-        </v-layout>
-      </v-col>
-      <v-col cols="12" md="10">
-        <v-card-text>
-          <div>Address:</div>
-          <div class="font-weight-bold text-break" v-text="address" />
-        </v-card-text>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12" md="2">
-        <v-layout fill-height column align-center justify-center>
-          <span class="ml-2 px-1 white">
+    <v-toolbar flat class="py-1">
+      <v-toolbar-title>
+        Address
+        <div class="word-break text-subtitle-2" v-text="address" />
+      </v-toolbar-title>
+      <v-spacer />
+      <v-toolbar-items>
+        <v-btn class="ml-2" color="black" icon @click.stop="dialog = true">
+          <span class="pa-2 white">
+            <v-icon large>mdi-qrcode</v-icon>
+          </span>
+        </v-btn>
+        <AccountDetailsQRCode v-model="dialog" :address="address" />
+      </v-toolbar-items>
+    </v-toolbar>
+    <v-card-subtitle class="text-h6 text-capitalize" v-text="'membership'" />
+    <v-card-text>
+      <v-row align="center">
+        <v-col cols="12" md="2">
+          <div class="ml-2 text-center white">
             <v-icon :color="membershipColor" large>
               mdi-card-account-details
             </v-icon>
-          </span>
-        </v-layout>
-      </v-col>
-      <v-col cols="12" md="10">
-        <v-card-text>
-          <div>Membership:</div>
+          </div>
+        </v-col>
+        <v-col cols="12" md="10">
           <div
-            class="text-capitalize font-weight-bold"
+            class="text-left text-capitalize font-weight-bold"
             v-text="membershipText"
           />
-        </v-card-text>
-      </v-col>
-    </v-row>
+        </v-col>
+      </v-row>
+    </v-card-text>
   </v-card>
 </template>
 
 <script>
-import QrcodeVue from 'qrcode.vue';
+import AccountDetailsQRCode from './AccountDetailsQRCode';
 
 import { mapGetters } from 'vuex';
 import { ACCOUNT } from '@/constants';
@@ -73,7 +45,7 @@ import { ACCOUNT } from '@/constants';
 export default {
   name: 'AccountDetailsAddress',
   components: {
-    QrcodeVue,
+    AccountDetailsQRCode,
   },
   data: () => ({
     dialog: false,
@@ -89,9 +61,7 @@ export default {
       const index = ACCOUNT.MEMBERSHIPS.findIndex(
         (membership) => membership.name === this.membershipText
       );
-      return index !== -1
-        ? ACCOUNT.MEMBERSHIPS[index]['color']
-        : '#CCEEFF';
+      return index !== -1 ? ACCOUNT.MEMBERSHIPS[index]['color'] : '#CCEEFF';
     },
     membershipText() {
       return Object.keys(this.membership).length > 0
@@ -101,3 +71,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.word-break {
+  white-space: normal;
+  word-break: break-all;
+}
+</style>

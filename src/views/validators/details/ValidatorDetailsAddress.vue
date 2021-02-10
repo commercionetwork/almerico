@@ -9,22 +9,23 @@
           v-text="status"
         />
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-img
-        v-if="picture != ''"
-        max-height="75"
-        max-width="75"
-        :src="picture"
-      />
-      <v-icon
-        v-else
-        size="50"
-        :color="details.status === 2 ? 'info' : 'warning'"
-      >
-        mdi-hubspot
-      </v-icon>
+      <v-spacer />
+      <v-toolbar-items>
+        <v-img
+          v-if="picture != ''"
+          max-height="75"
+          max-width="75"
+          :src="picture"
+        />
+        <v-icon
+          v-else
+          size="50"
+          :color="details.status === 2 ? 'info' : 'warning'"
+        >
+          mdi-hubspot
+        </v-icon>
+      </v-toolbar-items>
     </v-toolbar>
-
     <v-card-text>
       <div>Operator:</div>
       <div class="font-weight-bold text-break" v-text="operator" />

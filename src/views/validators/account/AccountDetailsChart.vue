@@ -13,6 +13,8 @@
 <script>
 import DoughnutChart from '@/components/DoughnutChart';
 
+import { numberIntlFormatter } from '@/utils';
+
 export default {
   name: 'AccountDetailsChart',
   props: {
@@ -71,7 +73,11 @@ export default {
   },
   methods: {
     formatTokens(value) {
-      return Math.round(value / 1000000);
+      return numberIntlFormatter.toDecimal({
+        amount: value / 1000000,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      });
     },
   },
 };

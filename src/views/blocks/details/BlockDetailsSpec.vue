@@ -3,7 +3,7 @@
     <v-card-text>
       <v-list class="ma-1">
         <v-list-item-title
-          class="word-break font-weight-bold"
+          class="font-weight-bold"
           v-text="height"
         />
         <v-list-item-subtitle class="text-capitalize" v-text="'height'" />
