@@ -5,7 +5,6 @@ import arrayHandler from './arrayHandler';
 import bech32Manager from './bech32Manager';
 import BlockProposerHandler from './blocks/BlockProposerHandler';
 import BlocksAttendanceCalculator from './blocks/BlocksAttendanceCalculator';
-import BlocksChecker from './blocks/BlocksChecker';
 import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import blocksHandler from './blocksHandler';
 import proposerHandler from './proposerHandler';
@@ -23,7 +22,6 @@ export {
   AccountUnbondingsHandler,
   BlockProposerHandler,
   BlocksAttendanceCalculator,
-  BlocksChecker,
   BlocksTableAdapter,
   TransactionDetailsAdapter,
   TransactionsFilter,
