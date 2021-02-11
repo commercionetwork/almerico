@@ -20,15 +20,10 @@
   <v-row v-else>
     <v-col cols="12">
       <ValidatorDetailsHeader />
-      <ValidatorDetailsTopBody
+      <ValidatorDetailsBody
         class="py-1"
         :account="account"
         :operator="operator"
-        :delegations="delegations"
-      />
-      <ValidatorDetailsMiddleBody
-        class="py-1"
-        :account="account"
         :delegations="delegations"
       />
     </v-col>
@@ -36,9 +31,8 @@
 </template>
 
 <script>
+import ValidatorDetailsBody from './ValidatorDetailsBody';
 import ValidatorDetailsHeader from './ValidatorDetailsHeader';
-import ValidatorDetailsMiddleBody from './ValidatorDetailsMiddleBody';
-import ValidatorDetailsTopBody from './ValidatorDetailsTopBody';
 
 import { mapActions, mapGetters } from 'vuex';
 import { bech32Manager, ValidatorDelegationsHandler } from '@/utils';
@@ -46,9 +40,8 @@ import { bech32Manager, ValidatorDelegationsHandler } from '@/utils';
 export default {
   name: 'ValidatorDetails',
   components: {
+    ValidatorDetailsBody,
     ValidatorDetailsHeader,
-    ValidatorDetailsMiddleBody,
-    ValidatorDetailsTopBody,
   },
   computed: {
     ...mapGetters('validators', {

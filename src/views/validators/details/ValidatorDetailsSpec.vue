@@ -1,9 +1,9 @@
 <template>
   <v-card elevation="2">
     <v-card-text>
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-list dense class="text-break">
+      <v-list dense class="text-break">
+        <v-row dense>
+          <v-col cols="12" md="6">
             <v-list-item>
               <v-list-item-content>
                 <div>
@@ -48,10 +48,8 @@
                 </div>
               </v-list-item-content>
             </v-list-item>
-          </v-list>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-list dense class="text-break">
+          </v-col>
+          <v-col cols="12" md="6">
             <v-list-item>
               <v-list-item-content>
                 <div>
@@ -95,10 +93,9 @@
                   <span class="pl-1" v-text="particulars" />
                 </div>
               </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-col>
-      </v-row>
+            </v-list-item> </v-col
+        ></v-row>
+      </v-list>
     </v-card-text>
   </v-card>
 </template>
