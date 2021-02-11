@@ -4,58 +4,84 @@
       <v-card-title v-text="type" />
       <v-card-subtitle v-text="'Msg type'" />
       <v-card-text>
-        <span class="d-block"
-          >Time: <span class="font-weight-bold" v-text="time"
-        /></span>
-        <span class="d-block"
-          >Status:
-          <span
-            class="font-weight-bold"
-            :class="transaction.code ? 'error--text' : 'info--text'"
-            v-text="status"
-        /></span>
-        <span class="d-block"
-          >Hash:
-          <router-link
-            class="text-decoration-none text-overline"
-            v-text="hash"
-            :to="txLink"
-        /></span>
+        <v-list dense class="text-break">
+          <v-list-item>
+            <v-list-item-content>
+              <div>
+                <span
+                  class="text-capitalize font-weight-bold"
+                  v-text="'time:'"
+                />
+                <span class="pl-1" v-text="time" />
+              </div>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <div>
+                <span
+                  class="text-capitalize font-weight-bold"
+                  v-text="'status:'"
+                />
+                <span
+                  class="pl-1"
+                  :class="transaction.code ? 'error--text' : 'info--text'"
+                  v-text="status"
+                />
+              </div>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <div>
+                <span
+                  class="text-capitalize font-weight-bold"
+                  v-text="'hash:'"
+                />
+                <router-link
+                  class="pl-1 text-decoration-none text-overline"
+                  v-text="hash"
+                  :to="txLink"
+                />
+              </div>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-card-text>
     </v-card>
   </v-col>
 </template>
 
 <script>
-import { ROUTES } from "@/constants";
-import { txHandler } from "@/utils";
+import { ROUTES } from '@/constants';
+import { txHandler } from '@/utils';
 
 export default {
-  name: "DashboardGridListItem",
+  name: 'DashboardGridListItem',
   props: {
     transaction: {
       type: Object,
       default: () => ({}),
-      note: "The item to display",
+      note: 'The item to display',
     },
   },
   computed: {
     hash() {
-      return this.transaction ? this.transaction.txhash : "";
+      return this.transaction ? this.transaction.txhash : '';
     },
     status() {
-      return this.transaction.code ? "Failed" : "Success";
+      return this.transaction.code ? 'Failed' : 'Success';
     },
     time() {
       return this.transaction
         ? new Date(this.transaction.timestamp).toLocaleString()
-        : "";
+        : '';
     },
     msgs() {
       return this.transaction ? this.transaction.tx.value.msg : [];
     },
     type() {
-      return this.transaction ? txHandler.getType(this.msgs) : "";
+      return this.transaction ? txHandler.getType(this.msgs) : '';
     },
     txLink() {
       return this.hash
