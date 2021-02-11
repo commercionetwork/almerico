@@ -31,9 +31,9 @@ export default {
     chartData() {
       return {
         labels: [
-          `Delegations ${this.delegations}`,
-          `Unbondings ${this.unbondings}`,
-          `Rewards ${this.rewards}`,
+          `Delegations ${this.delegations} M`,
+          `Unbondings ${this.unbondings} M`,
+          `Rewards ${this.rewards} M`,
         ],
         datasets: [
           {
@@ -59,7 +59,7 @@ export default {
       };
     },
     caption() {
-      return `Capitalization ${this.formatTokens(this.amounts['total'])}`;
+      return `Capitalization ${this.formatTokens(this.amounts['total'])} M`;
     },
     delegations() {
       return this.formatTokens(this.amounts['delegations']);

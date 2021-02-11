@@ -30,7 +30,7 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: [`Others ${this.others}`, `Self ${this.self}`],
+        labels: [`Others ${this.others} M`, `Self ${this.self} M`],
         datasets: [
           {
             data: [this.others, this.self],
@@ -55,7 +55,7 @@ export default {
       };
     },
     caption() {
-      return this.total ? `${this.total} Delegated` : '-';
+      return this.total ? `Delegated ${this.total} M` : '-';
     },
     others() {
       return this.formatTokens(this.delegations['others']);
