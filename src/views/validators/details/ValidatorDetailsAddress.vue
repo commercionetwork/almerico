@@ -27,14 +27,34 @@
       </v-toolbar-items>
     </v-toolbar>
     <v-card-text>
-      <div>Operator:</div>
-      <div class="font-weight-bold text-break" v-text="operator" />
-      <div>Address:</div>
-      <router-link
-        class="font-weight-bold text-decoration-none text-break"
-        v-text="account"
-        :to="toAccount"
-      />
+      <v-list dense class="text-break">
+        <v-list-item>
+          <v-list-item-content>
+            <div>
+              <span
+                class="text-capitalize font-weight-bold"
+                v-text="'operator:'"
+              />
+              <span class="pl-1" v-text="operator" />
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <div>
+              <span
+                class="text-capitalize font-weight-bold"
+                v-text="'address:'"
+              />
+              <router-link
+                class="pl-1 text-decoration-none"
+                :to="toAccount"
+                v-text="account"
+              />
+            </div>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-card-text>
   </v-card>
 </template>

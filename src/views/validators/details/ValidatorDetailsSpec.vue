@@ -1,32 +1,104 @@
 <template>
   <v-card elevation="2">
     <v-card-text>
-      <div class="pb-1">
-        Tokens: <span class="font-weight-bold" v-text="tokens" />
-      </div>
-      <div class="pb-1">
-        Voting power: <span class="font-weight-bold" v-text="votingPower" />
-      </div>
-      <div class="pb-1">
-        Commission: <span class="font-weight-bold" v-text="commission" />
-      </div>
-      <div class="pb-1">
-        Update time: <span class="font-weight-bold" v-text="updateTime" />
-      </div>
-      <div class="pb-1">
-        Website: <span class="font-weight-bold" v-text="website" />
-      </div>
-      <div class="pb-1">
-        Security contact:
-        <span class="font-weight-bold" v-text="securityContact" />
-      </div>
-      <div class="pb-1">
-        Identity:
-        <span class="font-weight-bold" v-text="identity" />
-      </div>
-      <div class="pb-1">
-        Details: <span class="font-weight-bold" v-text="particulars" />
-      </div>
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-list dense class="text-break">
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'tokens:'"
+                  />
+                  <span class="pl-1" v-text="tokens" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'voting power:'"
+                  />
+                  <span class="pl-1" v-text="votingPower" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'commission:'"
+                  />
+                  <span class="pl-1" v-text="commission" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'update time:'"
+                  />
+                  <span class="pl-1" v-text="updateTime" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-list dense class="text-break">
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'website:'"
+                  />
+                  <span class="pl-1" v-text="website" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'security contact:'"
+                  />
+                  <span class="pl-1" v-text="securityContact" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'identity:'"
+                  />
+                  <span class="pl-1" v-text="identity" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <div>
+                  <span
+                    class="text-capitalize font-weight-bold"
+                    v-text="'udetails:'"
+                  />
+                  <span class="pl-1" v-text="particulars" />
+                </div>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>

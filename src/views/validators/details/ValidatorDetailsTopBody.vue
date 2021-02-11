@@ -8,42 +8,42 @@
         <ValidatorDetailsChart :delegations="delegations" />
       </template>
       <template v-slot:right>
-        <ValidatorDetailsSpec />
+        <ValidatorDetailsDelegationsTable :delegations="delegations" />
       </template>
     </TopBody>
   </v-layout>
 </template>
 
 <script>
-import TopBody from "@/components/TopBody";
-import ValidatorDetailsAddress from "./ValidatorDetailsAddress";
-import ValidatorDetailsSpec from "./ValidatorDetailsSpec";
-import ValidatorDetailsChart from "./ValidatorDetailsChart";
+import TopBody from '@/components/TopBody';
+import ValidatorDetailsDelegationsTable from './ValidatorDetailsDelegationsTable';
+import ValidatorDetailsAddress from './ValidatorDetailsAddress';
+import ValidatorDetailsChart from './ValidatorDetailsChart';
 
 export default {
-  name: "ValidatorDetailsTopBody",
+  name: 'ValidatorDetailsTopBody',
+  components: {
+    TopBody,
+    ValidatorDetailsDelegationsTable,
+    ValidatorDetailsAddress,
+    ValidatorDetailsChart,
+  },
   props: {
     account: {
       type: String,
       required: true,
-      note: "The account address",
+      note: 'The account address',
     },
     operator: {
       type: String,
       required: true,
-      note: "The operator address",
+      note: 'The operator address',
     },
     delegations: {
       type: Object,
       required: true,
-      note: "The account delegations",
+      note: 'The account delegations',
     },
-  },
-  components: {
-    TopBody,
-    ValidatorDetailsAddress,
-    ValidatorDetailsSpec,
-    ValidatorDetailsChart,
   },
 };
 </script>
