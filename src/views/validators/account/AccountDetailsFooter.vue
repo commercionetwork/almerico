@@ -44,7 +44,7 @@ import { CUSTOMIZATION } from "@/constants";
 import { TransactionsTableAdapter } from "@/utils";
 
 export default {
-  name: "AccountDetailsBottomBody",
+  name: "AccountDetailsFooter",
   components: {
     AccountDetailsTransactions,
   },

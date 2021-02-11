@@ -9,7 +9,7 @@
     class="elevation-2"
   >
     <template v-slot:[`item.denom`]="{ item }">
-      <span class="text-capitalize" v-text="item.denom" />
+      <span class="info--text" v-text="item.denom" />
     </template>
     <template v-slot:[`item.amount`]="{ item }">
       <span class="font-weight-bold" v-text="formatTokens(item.amount)" />

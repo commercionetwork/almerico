@@ -20,33 +20,30 @@
   <v-row v-else>
     <v-col cols="12">
       <AccountDetailsHeader />
-      <AccountDetailsTopBody class="py-1" />
-      <AccountDetailsMiddleBody class="py-1" />
-      <AccountDetailsBottomBody class="py-1" :address="address" />
+      <AccountDetailsBody class="py-1" />
+      <AccountDetailsFooter class="py-1" :address="address" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import AccountDetailsBottomBody from "./AccountDetailsBottomBody";
-import AccountDetailsHeader from "./AccountDetailsHeader";
-import AccountDetailsMiddleBody from "./AccountDetailsMiddleBody";
-import AccountDetailsTopBody from "./AccountDetailsTopBody";
+import AccountDetailsBody from './AccountDetailsBody';
+import AccountDetailsFooter from './AccountDetailsFooter';
+import AccountDetailsHeader from './AccountDetailsHeader';
 
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: "AccountDetails",
+  name: 'AccountDetails',
   components: {
-    AccountDetailsBottomBody,
+    AccountDetailsBody,
+    AccountDetailsFooter,
     AccountDetailsHeader,
-    AccountDetailsMiddleBody,
-    AccountDetailsTopBody,
   },
   computed: {
-    ...mapGetters("account", {
-      isLoading: "isLoading",
-      error: "error",
+    ...mapGetters('account', {
+      isLoading: 'isLoading',
+      error: 'error',
     }),
     address() {
       return this.$route.params.id;
@@ -58,8 +55,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions("account", {
-      getAccount: "getAccount",
+    ...mapActions('account', {
+      getAccount: 'getAccount',
     }),
   },
   created() {

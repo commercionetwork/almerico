@@ -1,19 +1,19 @@
 <template>
   <v-card elevation="2">
-    <v-toolbar flat class="py-1">
-      <v-toolbar-title>
-        Address
-        <div class="word-break text-subtitle-2" v-text="address" />
-      </v-toolbar-title>
+    <v-toolbar flat dense>
+      <v-toolbar-title class="text-capitalize" v-text="'address'" />
       <v-spacer />
       <v-toolbar-items>
-        <v-btn class="ml-2" color="black" icon @click.stop="dialog = true">
+        <v-btn class="pa-1" color="black" icon @click.stop="dialog = true">
           <span class="pa-2 white">
             <v-icon large>mdi-qrcode</v-icon>
           </span>
         </v-btn>
         <AccountDetailsQRCode v-model="dialog" :address="address" />
       </v-toolbar-items>
+      <template v-slot:extension>
+        <div class="py-3 word-break text-subtitle-2" v-text="address" />
+      </template>
     </v-toolbar>
     <v-card-subtitle class="text-h6 text-capitalize" v-text="'membership'" />
     <v-card-text>
