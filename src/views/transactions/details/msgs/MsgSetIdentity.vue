@@ -2,29 +2,10 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'context'"
-            />
-            {{ context }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="context" :content="context" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span class="pr-3 text-capitalize font-weight-bold" v-text="'did'" />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: id },
-              }"
-              v-text="id"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="did" :content="id" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -60,7 +41,7 @@
                   class="pr-3 text-capitalize font-weight-bold"
                   v-text="'public key pem'"
                 />
-                <span v-text="pubKey.publicKeyPem" />
+                {{ pubKey.publicKeyPem }}
               </div>
             </v-list-item-content>
           </v-list-item>
@@ -73,70 +54,22 @@
             v-text="'proof'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'type'"
-                />
-                {{ proofType }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="type" :content="proofType" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'created'"
-                />
-                {{ proofCreated }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="created" :content="proofCreated" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'proof purpose'"
-                />
-                {{ proofPurpose }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="proof purpose" :content="proofPurpose" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'controller'"
-                />
-                {{ proofController }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="controller" :content="proofController" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'verification method'"
-                />
-                {{ proofVerificationMethod }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="verification method" :content="proofVerificationMethod" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'signature value'"
-                />
-                {{ proofSignatureValue }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="signature value" :content="proofSignatureValue" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -178,14 +111,14 @@
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSetIdentity',
   description: 'Display a set identity transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -195,9 +128,6 @@ export default {
       note: 'Object representing a set identity message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     context() {
       return this.message.value['@context']

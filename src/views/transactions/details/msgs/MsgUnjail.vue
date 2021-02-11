@@ -2,35 +2,21 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_DETAILS,
-                params: { id: address },
-              }"
-              v-text="address"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="address" :content="address" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgUnjail',
   description: 'Display an unjail transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -40,9 +26,6 @@ export default {
       note: 'Object representing an unjail message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     address() {
       return this.message.value.address ? this.message.value.address : '-';

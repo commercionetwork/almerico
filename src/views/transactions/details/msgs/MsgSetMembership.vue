@@ -2,63 +2,27 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'government'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: governmentAddress },
-              }"
-              v-text="governmentAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="government" :content="governmentAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'subscriber'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: subscriberAddress },
-              }"
-              v-text="subscriberAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="subscriber" :content="subscriberAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'new membership'"
-            />
-            {{ newMembership }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="new membership" :content="newMembership" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSetMembership',
   description: 'Display a set membership transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -68,9 +32,6 @@ export default {
       note: 'Object representing a set membership message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     governmentAddress() {
       return this.message.value.government

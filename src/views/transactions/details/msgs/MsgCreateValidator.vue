@@ -8,59 +8,22 @@
             v-text="'description'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'moniker'"
-                />
-                {{ descriptionMoniker }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="moniker" :content="descriptionMoniker" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'identity'"
-                />
-                {{ descriptionIdentity }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="identity" :content="descriptionIdentity" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'website'"
-                />
-                {{ descriptionWebsite }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="website" :content="descriptionWebsite" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'security contact'"
-                />
-                {{ descriptionSecurityContact }}
-              </div>
-            </v-list-item-content>
+            <MsgItem
+              label="security contact"
+              :content="descriptionSecurityContact"
+            />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'details'"
-                />
-                {{ descriptionDetails }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="details" :content="descriptionDetails" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -71,121 +34,49 @@
             v-text="'commission'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'rate'"
-                />
-                {{ commissionRate }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="rate" :content="commissionRate" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'max rate'"
-                />
-                {{ commissionMaxRate }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="max rate" :content="commissionMaxRate" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'max change rate'"
-                />
-                {{ commissionMaxChangeRate }}
-              </div>
-            </v-list-item-content>
+            <MsgItem
+              label="max change rate"
+              :content="commissionMaxChangeRate"
+            />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'min self delegation'"
-            />
-            {{ minSelfDelegation }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="min self delegation" :content="minSelfDelegation" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'delegator address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: delegatorAddress },
-              }"
-              v-text="delegatorAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="delegator address" :content="delegatorAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'validator address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_DETAILS,
-                params: { id: validatorAddress },
-              }"
-              v-text="validatorAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="validator address" :content="validatorAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'amount'"
-            />
-            {{ amount }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="amount" :content="amount" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'public key'"
-            />
-            {{ pubkey }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="public key" :content="pubkey" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
 
-import { ROUTES } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'MsgCreateValidator',
   description: 'Display a create validator transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -195,9 +86,6 @@ export default {
       note: 'Object representing a create validator message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     amount() {
       return `${this.message.value.value.amount} ${this.message.value.value.denom}`;

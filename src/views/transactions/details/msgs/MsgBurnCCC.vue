@@ -2,54 +2,27 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'signer'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: signerAddress },
-              }"
-              v-text="signerAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="signer" :content="signerAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'amount'"
-            />
-            {{ amount }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="amount" :content="amount" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span class="pr-3 text-capitalize font-weight-bold" v-text="'id'" />
-            {{ id }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="id" :content="id" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgBurnCCC',
   description: 'Display a burnCCC transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -59,9 +32,6 @@ export default {
       note: 'Object representing a burnCCC message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     amount() {
       return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;

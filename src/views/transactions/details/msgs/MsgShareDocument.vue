@@ -2,21 +2,7 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'sender'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: senderAddress },
-              }"
-              v-text="senderAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="sender" :content="senderAddress" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -28,28 +14,12 @@
             v-for="(recipientAddress, index) in recipients"
             :key="index"
           >
-            <v-list-item-content>
-              <router-link
-                :to="{
-                  name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                  params: { id: recipientAddress },
-                }"
-                v-text="recipientAddress"
-              />
-            </v-list-item-content>
+            <MsgItem label="address" :content="recipientAddress" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-uppercase font-weight-bold"
-              v-text="'uuid'"
-            />
-            {{ uuid }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="uuid" :content="uuid" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -58,73 +28,37 @@
             v-text="'metadata'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'metadata content uri'"
-                />
-                <a
-                  :href="metadataContentUri"
-                  target="_blank"
-                  v-text="metadataContentUri"
-                />
-              </div>
-            </v-list-item-content>
+            <MsgItem
+              label="metadata content uri"
+              :content="metadataContentUri"
+            />
           </v-list-item>
           <span v-if="metadataSchemaType !== '-'">
             <v-list-item>
-              <v-list-item-content>
-                <div>
-                  <span
-                    class="pr-3 text-capitalize font-weight-bold"
-                    v-text="'metadata schema type'"
-                  />
-                  {{ metadataSchemaType }}
-                </div>
-              </v-list-item-content>
+              <MsgItem
+                label="metadata schema type"
+                :content="metadataSchemaType"
+              />
             </v-list-item>
           </span>
           <span v-else>
             <v-list-item>
-              <v-list-item-content>
-                <div>
-                  <span
-                    class="pr-3 text-capitalize font-weight-bold"
-                    v-text="'metadata schema uri'"
-                  />
-                  <a
-                    :href="metadataSchemaUri"
-                    target="_blank"
-                    v-text="metadataSchemaUri"
-                  />
-                </div>
-              </v-list-item-content>
+              <MsgItem
+                label="metadata schema uri"
+                :content="metadataSchemaUri"
+              />
             </v-list-item>
             <v-list-item>
-              <v-list-item-content>
-                <div>
-                  <span
-                    class="pr-3 text-capitalize font-weight-bold"
-                    v-text="'meta schema version'"
-                  />
-                  {{ metaSchemaVersion }}
-                </div>
-              </v-list-item-content>
+              <MsgItem
+                label="meta schema version"
+                :content="metaSchemaVersion"
+              />
             </v-list-item>
           </span>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'content URI'"
-            />
-            <a :href="contentUri" target="_blank" v-text="contentUri" />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="content URI" :content="contentUri" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -133,50 +67,21 @@
             v-text="'checksum'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'value'"
-                />
-                {{ checksumValue }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="value" :content="checksumValue" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'algorithm'"
-                />
-                {{ checksumAlgorithm }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="algorithm" :content="checksumAlgorithm" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'encryption data keys'"
-            />
-            {{ encryptionDataKeys }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="encryption data keys" :content="encryptionDataKeys" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'encryption data encrypted data'"
-            />
-            {{ encryptionDataEncryptedData }}
-          </div>
-        </v-list-item-content>
+        <MsgItem
+          label="encryption data encrypted data"
+          :content="encryptionDataEncryptedData"
+        />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -185,63 +90,19 @@
             v-text="'do sign'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'storage uri'"
-                />
-                <a
-                  :href="doSignStorageUri"
-                  target="_blank"
-                  v-text="doSignStorageUri"
-                />
-              </div>
-            </v-list-item-content>
+            <MsgItem label="storage uri" :content="doSignStorageUri" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'signer instance'"
-                />
-                {{ doSignSigner }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="signer instance" :content="doSignSigner" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'sdn data'"
-                />
-                {{ doSignSdn }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="sdn data" :content="doSignSdn" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'vcr id'"
-                />
-                {{ doSignVcr }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="vcr id" :content="doSignVcr" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'certificate profile'"
-                />
-                {{ doSignCertificate }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="certificate profile" :content="doSignCertificate" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -250,14 +111,14 @@
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgShareDocument',
   description: 'Display a share document transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -267,9 +128,6 @@ export default {
       note: 'Object representing a share document message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     checksumAlgorithm() {
       return this.message.value.checksum && this.message.value.checksum

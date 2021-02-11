@@ -2,102 +2,36 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-uppercase font-weight-bold"
-              v-text="'uuid'"
-            />
-            {{ uuid }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="uuid" :content="uuid" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'sender'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: senderAddress },
-              }"
-              v-text="senderAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="sender" :content="senderAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'recipient'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: recipientAddress },
-              }"
-              v-text="recipientAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="recipient" :content="recipientAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'tx hash'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
-                params: { id: txHash },
-              }"
-              v-text="txHash"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="tx hash" :content="txHash" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'document UUID'"
-            />
-            {{ documentUuid }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="document UUID" :content="documentUuid" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'proof'"
-            />
-            {{ proof }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="proof" :content="proof" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSendDocumentReceipt',
   description: 'Display a send document transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -107,9 +41,6 @@ export default {
       note: 'Object representing a send document message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     documentUuid() {
       return this.message.value.document_uuid

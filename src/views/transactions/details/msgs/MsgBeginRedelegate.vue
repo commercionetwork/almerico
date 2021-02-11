@@ -2,80 +2,36 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'delegator address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: delegatorAddress },
-              }"
-              v-text="delegatorAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="delegator address" :content="delegatorAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'destination validator address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_DETAILS,
-                params: { id: validatorDstAddress },
-              }"
-              v-text="validatorDstAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem
+          label="destination validator address"
+          :content="validatorDstAddress"
+        />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'source validator address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_DETAILS,
-                params: { id: validatorSrcAddress },
-              }"
-              v-text="validatorSrcAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem
+          label="source validator address"
+          :content="validatorSrcAddress"
+        />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'amount'"
-            />
-            {{ amount }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="amount" :content="amount" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgBeginRedelegate',
   description: 'Display a begin redelegate transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -85,9 +41,6 @@ export default {
       note: 'Object representing a redelegate message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     amount() {
       return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;

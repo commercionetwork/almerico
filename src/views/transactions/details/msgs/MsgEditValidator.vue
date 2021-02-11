@@ -8,115 +8,49 @@
             v-text="'description'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'moniker'"
-                />
-                {{ descriptionMoniker }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="moniker" :content="descriptionMoniker" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'identity'"
-                />
-                {{ descriptionIdentity }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="identity" :content="descriptionIdentity" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'website'"
-                />
-                {{ descriptionWebsite }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="website" :content="descriptionWebsite" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'security contact'"
-                />
-                {{ descriptionSecurityContact }}
-              </div>
-            </v-list-item-content>
+            <MsgItem
+              label="security contact"
+              :content="descriptionSecurityContact"
+            />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'details'"
-                />
-                {{ descriptionDetails }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="details" :content="descriptionDetails" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_DETAILS,
-                params: { id: address },
-              }"
-              v-text="address"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="address" :content="address" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'commission rate'"
-            />
-            {{ commissionRate }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="commission rate" :content="commissionRate" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'min self delegation'"
-            />
-            {{ minSelfDelegation }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="min self delegation" :content="minSelfDelegation" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
 
-import { ROUTES } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'MsgEditValidator',
   description: 'Display an edit validator transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -126,9 +60,6 @@ export default {
       note: 'Object representing an edit validator message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     address() {
       return this.message.value.address ? this.message.value.address : '-';

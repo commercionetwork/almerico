@@ -2,29 +2,10 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'recipient address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: recipientAddress },
-              }"
-              v-text="recipientAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="recipient address" :content="recipientAddress" />
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span class="pr-3 text-capitalize font-weight-bold" v-text="'id'" />
-            {{ id }}
-          </div>
-        </v-list-item-content>
+        <MsgItem label="id" :content="id" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -33,59 +14,29 @@
             v-text="'status'"
           />
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'type'"
-                />
-                {{ statusType }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="type" :content="statusType" />
           </v-list-item>
           <v-list-item>
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'message'"
-                />
-                {{ statusMessage }}
-              </div>
-            </v-list-item-content>
+            <MsgItem label="message" :content="statusMessage" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <v-list-item-content>
-          <div>
-            <span
-              class="pr-3 text-capitalize font-weight-bold"
-              v-text="'signer address'"
-            />
-            <router-link
-              :to="{
-                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: signerAddress },
-              }"
-              v-text="signerAddress"
-            />
-          </div>
-        </v-list-item-content>
+        <MsgItem label="signer address" :content="signerAddress" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
+import MsgItem from '@/components/MsgItem.vue';
 import MsgTx from '@/components/MsgTx.vue';
-
-import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgChangePowerUpStatus',
   description: 'Display a change powerup status transaction message',
   components: {
+    MsgItem,
     MsgTx,
   },
   props: {
@@ -95,9 +46,6 @@ export default {
       note: 'Object representing a change powerup status user message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
   computed: {
     id() {
       return this.message.value.id ? this.message.value.id : '-';
