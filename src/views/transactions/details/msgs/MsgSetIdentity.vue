@@ -14,36 +14,23 @@
             v-text="'keys'"
           />
           <v-list-item v-for="(pubKey, index) in publicKeys" :key="index">
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'id'"
+            <v-list dense>
+              <v-list-item>
+                <MsgItem label="id" :content="pubKey.id" />
+              </v-list-item>
+              <v-list-item>
+                <MsgItem label="type" :content="pubKey.type" />
+              </v-list-item>
+              <v-list-item>
+                <MsgItem label="controller" :content="pubKey.controller" />
+              </v-list-item>
+              <v-list-item>
+                <MsgItem
+                  label="public key pem"
+                  :content="pubKey.publicKeyPem"
                 />
-                {{ pubKey.id }}
-              </div>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'type'"
-                />
-                {{ pubKey.type }}
-              </div>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'controller'"
-                />
-                {{ pubKey.controller }}
-              </div>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'public key pem'"
-                />
-                {{ pubKey.publicKeyPem }}
-              </div>
-            </v-list-item-content>
+              </v-list-item>
+            </v-list>
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -66,7 +53,10 @@
             <MsgItem label="controller" :content="proofController" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="verification method" :content="proofVerificationMethod" />
+            <MsgItem
+              label="verification method"
+              :content="proofVerificationMethod"
+            />
           </v-list-item>
           <v-list-item>
             <MsgItem label="signature value" :content="proofSignatureValue" />
@@ -80,29 +70,20 @@
             v-text="'service'"
           />
           <v-list-item v-for="(service, index) in services" :key="index">
-            <v-list-item-content>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'id'"
+            <v-list dense>
+              <v-list-item>
+                <MsgItem label="id" :content="service.id" />
+              </v-list-item>
+              <v-list-item>
+                <MsgItem label="type" :content="service.type" />
+              </v-list-item>
+              <v-list-item>
+                <MsgItem
+                  label="service endpoint"
+                  :content="service.serviceEndpoint"
                 />
-                {{ service.id }}
-              </div>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'type'"
-                />
-                {{ service.type }}
-              </div>
-              <div>
-                <span
-                  class="pr-3 text-capitalize font-weight-bold"
-                  v-text="'service endpoint'"
-                />
-                {{ service.serviceEndpoint }}
-              </div>
-            </v-list-item-content>
+              </v-list-item>
+            </v-list>
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
