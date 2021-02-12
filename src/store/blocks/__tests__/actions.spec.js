@@ -31,9 +31,12 @@ describe('store/blocks/actions', () => {
   test("Check if 'actions.getBlock' set block details", async () => {
     const commit = jest.fn();
 
-    await actions.getBlock({
-      commit,
-    }, 1);
+    await actions.getBlock(
+      {
+        commit,
+      },
+      1
+    );
 
     expect(commit).toHaveBeenCalledWith('setBlockDetails', mockResponse.data);
   });
@@ -42,10 +45,40 @@ describe('store/blocks/actions', () => {
     const commit = jest.fn();
 
     await actions.fetchLatestBlock({
-      commit
+      commit,
     });
 
-    expect(commit).toHaveBeenCalledWith("setLatestBlock", mockResponse.data.block);
+    expect(commit).toHaveBeenCalledWith(
+      'setLatestBlock',
+      mockResponse.data.block
+    );
+  });
+
+  test("Check if 'actions.fetchBlocks' adds the required number of blocks", async () => {
+    const commit = jest.fn();
+    let height = 10;
+    let items = 10;
+
+    await actions.fetchBlocks(
+      {
+        commit,
+      },
+      { height: height, items: items }
+    );
+
+    expect(commit).toHaveBeenNthCalledWith(items, 'addSingleBlock', mockResponse.data.block);
+
+    height = 5;
+    items = 10;
+
+    await actions.fetchBlocks(
+      {
+        commit,
+      },
+      { height: height, items: items }
+    );
+
+    expect(commit).toHaveBeenNthCalledWith(5, 'addSingleBlock', mockResponse.data.block);
   });
 });
 
@@ -64,10 +97,7 @@ jest.mock('./../api', () => ({
         }
 
         mockResponse = {
-          data: {
-            block_id: {},
-            block: mockBlock(),
-          },
+          data: mockBlock(),
         };
         resolve(mockResponse);
       }, 1);
@@ -87,10 +117,7 @@ jest.mock('./../api', () => ({
         }
 
         mockResponse = {
-          data: {
-            block_id: {},
-            block: mockBlock(),
-          },
+          data: mockBlock(),
         };
         resolve(mockResponse);
       }, 1);
