@@ -31,12 +31,7 @@ describe('store/blocks/actions', () => {
   test("Check if 'actions.getBlock' set block details", async () => {
     const commit = jest.fn();
 
-    await actions.getBlock(
-      {
-        commit,
-      },
-      1
-    );
+    await actions.getBlock({ commit }, 1);
 
     expect(commit).toHaveBeenCalledWith('setBlockDetails', mockResponse.data);
   });
@@ -59,26 +54,59 @@ describe('store/blocks/actions', () => {
     let height = 10;
     let items = 10;
 
-    await actions.fetchBlocks(
-      {
-        commit,
-      },
-      { height: height, items: items }
-    );
+    await actions.fetchBlocks({ commit }, { height: height, items: items });
 
-    expect(commit).toHaveBeenNthCalledWith(items, 'addSingleBlock', mockResponse.data.block);
+    expect(commit).toHaveBeenNthCalledWith(
+      items,
+      'addSingleBlock',
+      mockResponse.data.block
+    );
 
     height = 5;
     items = 10;
 
-    await actions.fetchBlocks(
-      {
-        commit,
-      },
-      { height: height, items: items }
+    await actions.fetchBlocks({ commit }, { height: height, items: items });
+
+    expect(commit).toHaveBeenNthCalledWith(
+      5,
+      'addSingleBlock',
+      mockResponse.data.block
+    );
+  });
+
+  test("Check if 'actions.getBlocks' dispatch the action 'fetchBlocks'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    let maxHeight = 100;
+    let items = 10;
+
+    await actions.getBlocks(
+      { dispatch, commit },
+      { maxHeight: maxHeight, items: items }
     );
 
-    expect(commit).toHaveBeenNthCalledWith(5, 'addSingleBlock', mockResponse.data.block);
+    expect(commit).toHaveBeenCalledWith('clearAllBlocks');
+    expect(dispatch).toHaveBeenCalledWith('fetchBlocks', {
+      height: maxHeight,
+      items: items,
+    });
+  });
+
+  test("Check if 'actions.addBlocks' dispatch the action 'fetchBlocks'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const currentHeight = 100;
+    const items = 10;
+
+    await actions.addBlocks(
+      { dispatch, commit },
+      { currentHeight: currentHeight, items: items }
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('fetchBlocks', {
+      height: currentHeight,
+      items: items,
+    });
   });
 });
 
