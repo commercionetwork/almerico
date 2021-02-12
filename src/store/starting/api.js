@@ -15,16 +15,6 @@ export default {
   /**
    * @returns {Promise}
    */
-  requestGenesis() {
-    return axios({
-      method: 'get',
-      baseURL: `${API.GENESIS}`,
-      headers: headers,
-    });
-  },
-  /**
-   * @returns {Promise}
-   */
   requestNodeInfo() {
     return axios({
       method: 'get',

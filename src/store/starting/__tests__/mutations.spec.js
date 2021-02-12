@@ -40,16 +40,6 @@ describe("store/starting/mutations", () => {
     expect(state.error).toBe(error);
   });
 
-  test("Check mutations.setGenesis", () => {
-    const genesis = {
-      id: 1
-    };
-
-    mutations.setGenesis(state, genesis);
-
-    expect(state.genesis).toStrictEqual(genesis);
-  });
-
   test("Check mutations.setNodeInfo", () => {
     const nodeInfo = {
       id: 1

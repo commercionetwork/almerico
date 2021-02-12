@@ -16,7 +16,6 @@ export default {
       root: true,
     });
     try {
-      await dispatch('fetchGenesis');
       await dispatch('fetchNodeInfo');
       await dispatch('fetchParams');
       await dispatch('fetchPool');
@@ -50,13 +49,6 @@ export default {
     } finally {
       commit('stopLoading');
     }
-  },
-  /**
-   * @param {Function} commit
-   */
-  async fetchGenesis({ commit }) {
-    const response = await api.requestGenesis();
-    commit('setGenesis', response.data.result.genesis);
   },
   /**
    * @param {Function} commit

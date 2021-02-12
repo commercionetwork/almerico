@@ -30,17 +30,6 @@ export default {
     state.error = error;
   },
   /**
-   * Set genesis
-   *
-   * @param {StartingState} state
-   * @param {Object} data
-   */
-  setGenesis(state, data) {
-    state.genesis = {
-      ...data,
-    };
-  },
-  /**
    * Set node info
    *
    * @param {StartingState} state

@@ -3,7 +3,6 @@
  * 
  * @typedef {Object} StartingState
  * @property {Boolean} isLoading
- * @property {Object} genesis
  * @property {Object} nodeInfo
  * @property {Object} params
  * @property {Object} pool
@@ -16,7 +15,6 @@ import mutations from "./mutations";
 
 const initialState = {
   error: "",
-  genesis: null,
   isLoading: false,
   nodeInfo: null,
   params: null,

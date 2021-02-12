@@ -1,6 +1,5 @@
 import actions from '../actions.js';
 import { STATUS } from '@/constants';
-import { mockGenesis } from '../__mocks__/genesis';
 import { mockNodeInfo } from '../__mocks__/node_info';
 import { mockParameters } from '../__mocks__/parameters';
 import { mockPool } from '../__mocks__/pool';
@@ -32,13 +31,12 @@ describe('store/starting/actions', () => {
     mockResponse = null;
   });
 
-  test("Chck if 'actions.fetchInitData' dispatch actions to fetch genesis, node info, staking parameters and pool, latest block, validators, and subscribe web socket", async () => {
+  test("Chck if 'actions.fetchInitData' dispatch actions to fetch node info, staking parameters and pool, latest block, validators, and subscribe web socket", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
     await actions.fetchInitData({ dispatch, commit });
 
-    expect(dispatch).toHaveBeenCalledWith('fetchGenesis');
     expect(dispatch).toHaveBeenCalledWith('fetchNodeInfo');
     expect(dispatch).toHaveBeenCalledWith('fetchParams');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
@@ -59,18 +57,7 @@ describe('store/starting/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('subscribeWebSocket');
   });
 
-  test("Check if 'actions.fetchGenesis' set genesis", async () => {
-    const commit = jest.fn();
-
-    await actions.fetchGenesis({ commit });
-
-    expect(commit).toHaveBeenCalledWith(
-      'setGenesis',
-      mockResponse.data.result.genesis
-    );
-  });
-
-  test("Check if 'actions.fetchNodeInfo' set genesis", async () => {
+  test("Check if 'actions.fetchNodeInfo' set node info", async () => {
     const commit = jest.fn();
 
     await actions.fetchNodeInfo({ commit });
@@ -78,7 +65,7 @@ describe('store/starting/actions', () => {
     expect(commit).toHaveBeenCalledWith('setNodeInfo', mockResponse.data);
   });
 
-  test("Check if 'actions.fetchParams' set genesis", async () => {
+  test("Check if 'actions.fetchParams' set staking parameters", async () => {
     const commit = jest.fn();
 
     await actions.fetchParams({ commit });
@@ -86,7 +73,7 @@ describe('store/starting/actions', () => {
     expect(commit).toHaveBeenCalledWith('setParams', mockResponse.data.result);
   });
 
-  test("Check if 'actions.fetchPool' set genesis", async () => {
+  test("Check if 'actions.fetchPool' set pool", async () => {
     const commit = jest.fn();
 
     await actions.fetchPool({ commit });
@@ -96,30 +83,6 @@ describe('store/starting/actions', () => {
 });
 
 jest.mock('./../api', () => ({
-  requestGenesis: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-        if (mockErrorRequest) {
-          reject(mockErrorRequestResponse);
-        }
-        if (mockErrorServer) {
-          reject({});
-        }
-
-        mockResponse = {
-          data: {
-            jsonrpc: '2.0',
-            id: -1,
-            result: mockGenesis(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
   requestNodeInfo: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
