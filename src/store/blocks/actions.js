@@ -45,19 +45,32 @@ export default {
    * @param {Number} items
    */
   async fetchBlocks({ commit }, { height, items }) {
+    const maxHeight = parseInt(height);
+    const minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
+    const requests = setUpBlocksRequests(maxHeight, minHeight);
+    const responses = await Promise.all(requests);
+    for (const response of responses) {
+      commit('addSingleBlock', response.data.block);
+    }
+    commit('changeHeight', minHeight);
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   * @param {Number} maxHeight
+   * @param {Number} items
+   */
+  async getBlocks({ dispatch, commit }, { maxHeight, items }) {
     commit('startLoading');
     commit('setServerReachability', true, {
       root: true,
     });
+    commit('clearAllBlocks');
     try {
-      const maxHeight = parseInt(height);
-      const minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
-      const requests = setUpBlocksRequests(maxHeight, minHeight);
-      const responses = await Promise.all(requests);
-      for (const response of responses) {
-        commit('addSingleBlock', response.data.block);
-      }
-      commit('changeHeight', minHeight);
+      await dispatch('fetchBlocks', {
+        height: maxHeight,
+        items: items,
+      });
     } catch (error) {
       if (error.response) {
         commit('setError', JSON.stringify(error.response.data));
@@ -73,28 +86,34 @@ export default {
     }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
-   * @param {Function} dispatch
-   * @param {Number} maxHeight
-   * @param {Number} items
-   */
-  async getBlocks({ commit, dispatch }, { maxHeight, items }) {
-    commit('clearAllBlocks');
-    await dispatch('fetchBlocks', {
-      height: maxHeight,
-      items,
-    });
-  },
-  /**
-   * @param {Function} dispatch
    * @param {Number} currentHeight
    * @param {Number} items
    */
-  async addBlocks({ dispatch }, { currentHeight, items }) {
-    await dispatch('fetchBlocks', {
-      height: currentHeight,
-      items,
+  async addBlocks({ dispatch, commit }, { currentHeight, items }) {
+    commit('startLoading');
+    commit('setServerReachability', true, {
+      root: true,
     });
+    try {
+      await dispatch('fetchBlocks', {
+        height: currentHeight,
+        items: items,
+      });
+    } catch (error) {
+      if (error.response) {
+        commit('setError', JSON.stringify(error.response.data));
+      } else if (error.request) {
+        commit('setError', JSON.stringify(error));
+      } else {
+        commit('setServerReachability', false, {
+          root: true,
+        });
+      }
+    } finally {
+      commit('stopLoading');
+    }
   },
 };
 
