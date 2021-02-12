@@ -26,13 +26,11 @@ export const API = {
   MEMBERSHIP: `${API_LCD_BASE}/membership`,
   MINTING: `${API_LCD_BASE}/minting`,
   NODE_INFO: `${API_LCD_BASE}/node_info`,
-  NODE_VERSION: `${API_LCD_BASE}/node_version`,
   SLASHING: `${API_LCD_BASE}/slashing`,
   STAKING: `${API_LCD_BASE}/staking`,
   SYNCING: `${API_LCD_BASE}/syncing`,
   TXS: `${API_LCD_BASE}/txs`,
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
-  VERSION: `${API_LCD_BASE}/version`,
   // RPC
   RPC: API_RPC_BASE,
   ABCI_INFO: `${API_RPC_BASE}/abci_info`,
