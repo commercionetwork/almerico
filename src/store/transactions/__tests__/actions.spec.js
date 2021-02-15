@@ -53,20 +53,20 @@ describe('store/transactions/actions', () => {
     });
   });
 
-  // test("Check if 'actions.fetchTransaction' search tx details from ancestors", async () => {
-  //   const commit = jest.fn();
-  //   const ancestors = JSON.parse(CHAIN.ANCESTORS);
+  test("Check if 'actions.fetchTransaction' search tx details from ancestors", async () => {
+    const commit = jest.fn();
+    const ancestors = JSON.parse(CHAIN.ANCESTORS);
 
-  //   mockErrorNotFound = true;
+    mockErrorNotFound = true;
 
-  //   await actions.fetchTransaction({ commit }, 1);
+    await actions.fetchTransaction({ commit }, 1);
 
-  //   expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
-  //     data: mockResponse.data,
-  //     ledger: ancestors[0].lcd_ledger,
-  //     version: ancestors[0].ver,
-  //   });
-  // });
+    expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
+      data: mockResponse.data,
+      ledger: ancestors[0].lcd_ledger,
+      version: ancestors[0].ver,
+    });
+  });
 });
 
 jest.mock('./../api', () => ({
