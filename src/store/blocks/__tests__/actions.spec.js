@@ -30,8 +30,9 @@ describe('store/blocks/actions', () => {
 
   test("Check if 'actions.getBlock' set block details", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
 
-    await actions.getBlock({ commit }, 1);
+    await actions.getBlock({ dispatch, commit }, 1);
 
     expect(commit).toHaveBeenCalledWith('setBlockDetails', mockResponse.data);
   });

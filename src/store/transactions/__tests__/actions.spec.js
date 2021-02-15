@@ -41,9 +41,10 @@ describe('store/transactions/actions', () => {
   });
 
   test("Check if 'actions.fetchTransaction' reset outdated tx details and set new tx", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.fetchTransaction({ commit }, 1);
+    await actions.fetchTransaction({ dispatch, commit }, 1);
 
     expect(commit).toHaveBeenCalledWith('setTransactionDetails', null);
     expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
@@ -54,12 +55,13 @@ describe('store/transactions/actions', () => {
   });
 
   test("Check if 'actions.fetchTransaction' search tx details from ancestors", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
     const ancestors = JSON.parse(CHAIN.ANCESTORS);
 
     mockErrorNotFound = true;
 
-    await actions.fetchTransaction({ commit }, 1);
+    await actions.fetchTransaction({ dispatch, commit }, 1);
 
     expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
       data: mockResponse.data,
@@ -139,9 +141,10 @@ describe('store/transactions/actions', () => {
   });
 
   test("Check if 'actions.fetchBlockTransactions' get block transactions", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.fetchBlockTransactions({ commit }, 1);
+    await actions.fetchBlockTransactions({ dispatch, commit }, 1);
 
     expect(commit).toHaveBeenCalledWith(
       'addSingleTransaction',

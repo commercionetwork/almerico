@@ -7,10 +7,11 @@ import api from './api';
 export default {
   /**
    *
+   * @param {Function} dispatch
    * @param {Function} commit
    * @param {Number} height
    */
-  async getBlock({ commit }, height) {
+  async getBlock({ dispatch, commit }, height) {
     commit('startLoading');
     commit('setServerReachability', true, {
       root: true,
@@ -19,15 +20,7 @@ export default {
       const response = await api.requestBlock(height);
       commit('setBlockDetails', response.data);
     } catch (error) {
-      if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
-      } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
-      }
+      dispatch('handleError', error);
     } finally {
       commit('stopLoading');
     }
@@ -72,15 +65,7 @@ export default {
         items: items,
       });
     } catch (error) {
-      if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
-      } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
-      }
+      dispatch('handleError', error);
     } finally {
       commit('stopLoading');
     }
@@ -102,17 +87,24 @@ export default {
         items: items,
       });
     } catch (error) {
-      if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
-      } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
-      }
+      dispatch('handleError', error);
     } finally {
       commit('stopLoading');
+    }
+  },
+  /**
+   * @param {Function} commit
+   * @param {Object} error
+   */
+  handleError({ commit }, error) {
+    if (error.response) {
+      commit('setError', JSON.stringify(error.response.data));
+    } else if (error.request) {
+      commit('setError', JSON.stringify(error));
+    } else {
+      commit('setServerReachability', false, {
+        root: true,
+      });
     }
   },
 };

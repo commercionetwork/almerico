@@ -36,16 +36,8 @@ export default {
         }
       );
       dispatch('subscribeWebSocket');
-    } catch (error) {
-      if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
-      } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
-      }
+    } catch (error) {      
+      dispatch('handleError', error);
     } finally {
       commit('stopLoading');
     }
@@ -151,5 +143,20 @@ export default {
     client.onclose = function() {
       connected = false;
     };
+  },
+  /**
+   * @param {Function} commit
+   * @param {Object} error
+   */
+  handleError({ commit }, error) {
+    if (error.response) {
+      commit('setError', JSON.stringify(error.response.data));
+    } else if (error.request) {
+      commit('setError', JSON.stringify(error));
+    } else {
+      commit('setServerReachability', false, {
+        root: true,
+      });
+    }
   },
 };

@@ -7,10 +7,11 @@ import { API, CHAIN, CUSTOMIZATION } from '@/constants';
 
 export default {
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    * @param {String} hash
    */
-  async fetchTransaction({ commit }, hash) {
+  async fetchTransaction({ dispatch, commit }, hash) {
     commit('startLoading');
     commit('setServerReachability', true, {
       root: true,
@@ -46,14 +47,8 @@ export default {
             throw error;
           }
         }
-      } else if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
       } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
+        dispatch('handleError', error);
       }
     } finally {
       commit('stopLoading');
@@ -129,15 +124,7 @@ export default {
         });
       }
     } catch (error) {
-      if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
-      } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
-      }
+      dispatch('handleError', error);
     } finally {
       commit('stopLoading');
     }
@@ -174,24 +161,17 @@ export default {
       commit('changePage', currentPage);
       commit('setHasNext', currentPage);
     } catch (error) {
-      if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
-      } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
-      }
+      dispatch('handleError', error);
     } finally {
       commit('stopLoading');
     }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    * @param {Number} height
    */
-  async fetchBlockTransactions({ commit }, height) {
+  async fetchBlockTransactions({ dispatch, commit }, height) {
     commit('startLoading');
     commit('setServerReachability', true, {
       root: true,
@@ -204,15 +184,7 @@ export default {
         });
       }
     } catch (error) {
-      if (error.response) {
-        commit('setError', JSON.stringify(error.response.data));
-      } else if (error.request) {
-        commit('setError', JSON.stringify(error));
-      } else {
-        commit('setServerReachability', false, {
-          root: true,
-        });
-      }
+      dispatch('handleError', error);
     } finally {
       commit('stopLoading');
     }
@@ -224,5 +196,20 @@ export default {
    */
   setTransactionsFilter({ commit }, filter) {
     commit('setFilter', filter);
+  },
+  /**
+   * @param {Function} commit
+   * @param {Object} error
+   */
+  handleError({ commit }, error) {
+    if (error.response) {
+      commit('setError', JSON.stringify(error.response.data));
+    } else if (error.request) {
+      commit('setError', JSON.stringify(error));
+    } else {
+      commit('setServerReachability', false, {
+        root: true,
+      });
+    }
   },
 };

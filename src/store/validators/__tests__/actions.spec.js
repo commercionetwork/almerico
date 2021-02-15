@@ -94,9 +94,10 @@ describe('store/validators/actions', () => {
   });
 
   test("Check if 'actions.fetchValidatorsetsFromHeight' set validator sets", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.fetchValidatorsetsFromHeight({ commit }, 1);
+    await actions.fetchValidatorsetsFromHeight({ dispatch, commit }, 1);
 
     expect(commit).toHaveBeenCalledWith(
       'setHeightValidatorsSets',
