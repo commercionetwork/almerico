@@ -1,9 +1,7 @@
-import randomDataGenerator from '../../__mocks__/utils';
-
 const mockBalance = () => {
   const item = {
     denom: 'ucommercio',
-    amount: randomDataGenerator.intFromInterval(1000000000, 9999999999).toString(),
+    amount: '551580281',
   };
   return item;
 };

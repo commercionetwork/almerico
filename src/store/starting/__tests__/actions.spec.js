@@ -1,8 +1,6 @@
 import actions from '../actions.js';
 import { STATUS } from '@/constants';
-import { mockNodeInfo } from '../__mocks__/node_info';
-import { mockParameters } from '../__mocks__/parameters';
-import { mockPool } from '../__mocks__/pool';
+import { mockNodeInfo, mockParameters, mockPool } from '../__mocks__';
 
 const mockErrorResponse = {
   request: {},

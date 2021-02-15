@@ -1,9 +1,11 @@
 import actions from '../actions.js';
-import { mockBalances } from '../__mocks__/balances';
-import { mockDelegations } from '../__mocks__/delegations';
-import { mockMembership } from '../__mocks__/membership';
-import { mockRewards } from '../__mocks__/rewards';
-import { mockUnbondings } from '../__mocks__/unbondings';
+import {
+  mockBalances,
+  mockDelegations,
+  mockMembership,
+  mockRewards,
+  mockUnbondings,
+} from '../__mocks__';
 
 const mockErrorResponse = {
   request: {},
