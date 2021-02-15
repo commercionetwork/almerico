@@ -10,17 +10,18 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="error != ''">
-    <v-col cols="12">
-      <v-alert border="left" prominent text type="error">
-        <span class="text-body-1">{{ error }}</span>
-      </v-alert>
-    </v-col>
-  </v-row>
   <v-row v-else>
     <v-col cols="12">
       <ValidatorDetailsHeader />
+      <v-row v-if="error != ''">
+        <v-col cols="12">
+          <v-alert border="left" prominent text type="error">
+            <span class="text-body-1">{{ error }}</span>
+          </v-alert>
+        </v-col>
+      </v-row>
       <ValidatorDetailsBody
+        v-else
         class="py-1"
         :account="account"
         :operator="operator"
