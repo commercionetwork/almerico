@@ -1,6 +1,6 @@
 import actions from '../actions.js';
 import { mockTx, mockTxs } from '../__mocks__/txs';
-import { API } from '@/constants';
+import { API, CHAIN } from '@/constants';
 
 const mockErrorResponse = {
   request: {},
@@ -11,12 +11,22 @@ const mockErrorResponse = {
     status: 400,
   },
 };
+const mockErrorResponseNotFound = {
+  request: {},
+  response: {
+    data: {
+      error: 'error',
+    },
+    status: 404,
+  },
+};
 const mockErrorRequestResponse = {
   request: {},
   response: undefined,
 };
 
 let mockError = false;
+let mockErrorNotFound = false;
 let mockErrorRequest = false;
 let mockErrorServer = false;
 let mockResponse = null;
@@ -24,12 +34,13 @@ let mockResponse = null;
 describe('store/transactions/actions', () => {
   beforeEach(() => {
     mockError = false;
+    mockErrorNotFound = false;
     mockErrorRequest = false;
     mockErrorServer = false;
     mockResponse = null;
   });
 
-  test("Check if 'actions.fetchTransaction' reset old tx details and set new tx", async () => {
+  test("Check if 'actions.fetchTransaction' reset outdated tx details and set new tx", async () => {
     const commit = jest.fn();
 
     await actions.fetchTransaction({ commit }, 1);
@@ -41,12 +52,30 @@ describe('store/transactions/actions', () => {
       version: '',
     });
   });
+
+  // test("Check if 'actions.fetchTransaction' search tx details from ancestors", async () => {
+  //   const commit = jest.fn();
+  //   const ancestors = JSON.parse(CHAIN.ANCESTORS);
+
+  //   mockErrorNotFound = true;
+
+  //   await actions.fetchTransaction({ commit }, 1);
+
+  //   expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
+  //     data: mockResponse.data,
+  //     ledger: ancestors[0].lcd_ledger,
+  //     version: ancestors[0].ver,
+  //   });
+  // });
 });
 
 jest.mock('./../api', () => ({
   requestTransaction: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        if (mockErrorNotFound) {
+          reject(mockErrorResponseNotFound);
+        }
         if (mockError) {
           reject(mockErrorResponse);
         }

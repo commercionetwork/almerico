@@ -5,7 +5,7 @@ export const CHAIN = {
   ANCESTORS:
     process.env.VUE_APP_ANCESTORS !== undefined
       ? process.env.VUE_APP_ANCESTORS
-      : [],
+      : '',
   DEFAULT: {
     id: 1,
     text: 'Test-net',

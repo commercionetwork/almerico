@@ -27,7 +27,7 @@ export default {
     } catch (error) {
       if (error.response && error.response.status === 404) {
         const ancestors = JSON.parse(CHAIN.ANCESTORS);
-        for (let ancestor of ancestors) {
+        for (const ancestor of ancestors) {
           try {
             response = await api.requestAncestorTransaction({
               lcd: ancestor.lcd,
