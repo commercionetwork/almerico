@@ -106,7 +106,7 @@ export default {
     try {
       commit('clearAllTransactions');
       commit('changePage', 1);
-      commit('setHasNext', false);
+      commit('setHasNext', 1);
 
       await dispatch('getLastPage', {
         limit,
