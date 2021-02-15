@@ -5,10 +5,24 @@
         <MsgItem label="uuid" :content="uuid" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="sender" :content="senderAddress" />
+        <MsgLink
+          label="sender"
+          :content="senderAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: senderAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="recipient" :content="recipientAddress" />
+        <MsgLink
+          label="recipient"
+          :content="recipientAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: recipientAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItem label="tx hash" :content="txHash" />
@@ -25,13 +39,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSendDocumentReceipt',
   description: 'Display a send document transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -41,6 +59,9 @@ export default {
       note: 'Object representing a send document message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     documentUuid() {
       return this.message.value.document_uuid

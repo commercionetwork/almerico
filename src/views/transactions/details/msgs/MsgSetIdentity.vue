@@ -5,7 +5,14 @@
         <MsgItem label="context" :content="context" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="did" :content="id" />
+        <MsgLink
+          label="did"
+          :content="id"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: id },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -93,13 +100,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSetIdentity',
   description: 'Display a set identity transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -109,6 +120,9 @@ export default {
       note: 'Object representing a set identity message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     context() {
       return this.message.value['@context']

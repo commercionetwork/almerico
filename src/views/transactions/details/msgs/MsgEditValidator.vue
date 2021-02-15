@@ -28,7 +28,14 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="address" :content="address" />
+        <MsgLink
+          label="address"
+          :content="address"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_DETAILS,
+            params: { id: address },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItem label="commission rate" :content="commissionRate" />
@@ -42,8 +49,10 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
 
+import { ROUTES } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 
 export default {
@@ -51,6 +60,7 @@ export default {
   description: 'Display an edit validator transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -60,6 +70,9 @@ export default {
       note: 'Object representing an edit validator message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     address() {
       return this.message.value.address ? this.message.value.address : '-';

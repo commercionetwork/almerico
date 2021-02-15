@@ -2,10 +2,24 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="from address" :content="fromAddress" />
+        <MsgLink
+          label="from address"
+          :content="fromAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: fromAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="to address" :content="toAddress" />
+        <MsgLink
+          label="to address"
+          :content="toAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: toAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item v-for="(amount, index) in amounts" :key="index">
         <MsgItem label="amount" :content="amount" />
@@ -16,13 +30,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSend',
   description: 'Display a send transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -32,6 +50,9 @@ export default {
       note: 'Object representing a send message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     amounts() {
       let amounts = [];

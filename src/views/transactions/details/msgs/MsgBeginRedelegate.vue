@@ -2,18 +2,33 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="delegator address" :content="delegatorAddress" />
-      </v-list-item>
-      <v-list-item>
-        <MsgItem
-          label="destination validator address"
-          :content="validatorDstAddress"
+        <MsgLink
+          label="delegator address"
+          :content="delegatorAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: delegatorAddress },
+          }"
         />
       </v-list-item>
       <v-list-item>
-        <MsgItem
+        <MsgLink
+          label="destination validator address"
+          :content="validatorDstAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_DETAILS,
+            params: { id: validatorDstAddress },
+          }"
+        />
+      </v-list-item>
+      <v-list-item>
+        <MsgLink
           label="source validator address"
           :content="validatorSrcAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_DETAILS,
+            params: { id: validatorSrcAddress },
+          }"
         />
       </v-list-item>
       <v-list-item>
@@ -25,13 +40,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgBeginRedelegate',
   description: 'Display a begin redelegate transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -41,6 +60,9 @@ export default {
       note: 'Object representing a redelegate message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     amount() {
       return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;

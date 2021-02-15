@@ -2,7 +2,14 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="recipient address" :content="recipientAddress" />
+        <MsgLink
+          label="recipient address"
+          :content="recipientAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: recipientAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItem label="id" :content="id" />
@@ -22,7 +29,14 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="signer address" :content="signerAddress" />
+        <MsgLink
+          label="signer address"
+          :content="signerAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: signerAddress },
+          }"
+        />
       </v-list-item>
     </div>
   </MsgTx>
@@ -30,13 +44,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgChangePowerUpStatus',
   description: 'Display a change powerup status transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -46,6 +64,9 @@ export default {
       note: 'Object representing a change powerup status user message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     id() {
       return this.message.value.id ? this.message.value.id : '-';

@@ -5,10 +5,24 @@
         <MsgItem label="membership type" :content="membershipType" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="buyer" :content="buyerAddress" />
+        <MsgLink
+          label="buyer"
+          :content="buyerAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: buyerAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="tsp" :content="tspAddress" />
+        <MsgLink
+          label="tsp"
+          :content="tspAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: tspAddress },
+          }"
+        />
       </v-list-item>
     </div>
   </MsgTx>
@@ -16,13 +30,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgBuyMembership',
   description: 'Display a buy membership transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -32,6 +50,9 @@ export default {
       note: 'Object representing a buy membership message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     buyerAddress() {
       return this.message.value.buyer ? this.message.value.buyer : '-';

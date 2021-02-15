@@ -2,10 +2,24 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="delegator address" :content="delegatorAddress" />
+        <MsgLink
+          label="delegator address"
+          :content="delegatorAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: delegatorAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="validator address" :content="validatorAddress" />
+        <MsgLink
+          label="validator address"
+          :content="validatorAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_DETAILS,
+            params: { id: validatorAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItem label="amount" :content="amount" />
@@ -16,13 +30,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgDelegate',
   description: 'Display a delegate transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -32,6 +50,9 @@ export default {
       note: 'Object representing a burnCCC message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     amount() {
       return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;

@@ -51,10 +51,24 @@
         <MsgItem label="min self delegation" :content="minSelfDelegation" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="delegator address" :content="delegatorAddress" />
+        <MsgLink
+          label="delegator address"
+          :content="delegatorAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: delegatorAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="validator address" :content="validatorAddress" />
+        <MsgLink
+          label="validator address"
+          :content="validatorAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_DETAILS,
+            params: { id: validatorAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItem label="amount" :content="amount" />
@@ -68,8 +82,10 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
 
+import { ROUTES } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 
 export default {
@@ -77,6 +93,7 @@ export default {
   description: 'Display a create validator transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -86,6 +103,9 @@ export default {
       note: 'Object representing a create validator message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     amount() {
       return `${this.message.value.value.amount} ${this.message.value.value.denom}`;

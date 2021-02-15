@@ -2,7 +2,14 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="sender" :content="senderAddress" />
+        <MsgLink
+          label="sender"
+          :content="senderAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: senderAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -14,7 +21,14 @@
             v-for="(recipientAddress, index) in recipients"
             :key="index"
           >
-            <MsgItem label="address" :content="recipientAddress" />
+            <MsgLink
+              label="address"
+              :content="recipientAddress"
+              :to="{
+                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+                params: { id: recipientAddress },
+              }"
+            />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -112,13 +126,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgShareDocument',
   description: 'Display a share document transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -128,6 +146,9 @@ export default {
       note: 'Object representing a share document message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     checksumAlgorithm() {
       return this.message.value.checksum && this.message.value.checksum

@@ -2,10 +2,24 @@
   <MsgTx :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="government" :content="governmentAddress" />
+        <MsgLink
+          label="government"
+          :content="governmentAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: governmentAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="subscriber" :content="subscriberAddress" />
+        <MsgLink
+          label="subscriber"
+          :content="subscriberAddress"
+          :to="{
+            name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+            params: { id: subscriberAddress },
+          }"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItem label="new membership" :content="newMembership" />
@@ -16,13 +30,17 @@
 
 <script>
 import MsgItem from '@/components/MsgItem.vue';
+import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSetMembership',
   description: 'Display a set membership transaction message',
   components: {
     MsgItem,
+    MsgLink,
     MsgTx,
   },
   props: {
@@ -32,6 +50,9 @@ export default {
       note: 'Object representing a set membership message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
     governmentAddress() {
       return this.message.value.government
