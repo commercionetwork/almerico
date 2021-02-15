@@ -29,7 +29,14 @@
                 <MsgItem label="type" :content="pubKey.type" />
               </v-list-item>
               <v-list-item>
-                <MsgItem label="controller" :content="pubKey.controller" />
+                <MsgLink
+                  label="controller"
+                  :content="pubKey.controller"
+                  :to="{
+                    name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+                    params: { id: pubKey.controller },
+                  }"
+                />
               </v-list-item>
               <v-list-item>
                 <MsgItem
@@ -57,7 +64,14 @@
             <MsgItem label="proof purpose" :content="proofPurpose" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="controller" :content="proofController" />
+            <MsgLink
+              label="controller"
+              :content="proofController"
+              :to="{
+                name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+                params: { id: proofController },
+              }"
+            />
           </v-list-item>
           <v-list-item>
             <MsgItem

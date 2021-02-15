@@ -22,7 +22,7 @@ export default {
       note: 'The item content',
     },
     to: {
-      type: String,
+      type: Object,
       required: true,
       note: 'The item link',
     },
