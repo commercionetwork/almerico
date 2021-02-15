@@ -1,24 +1,22 @@
 <template>
-  <v-layout>
-    <v-row>
-      <v-col cols="12" md="5">
-        <TransactionDetailsSpec
-          :hash="tx.hash"
-          :time="tx.time"
-          :status="tx.status"
-          :fee="tx.fee"
-          :gas="tx.gas"
-          :height="tx.height"
-          :ledger="tx.ledger"
-          :version="tx.version"
-          :rawLog="tx.rawLog"
-        />
-      </v-col>
-      <v-col cols="12" md="7">
-        <TransactionDetailsMsg :msgs="tx.msgs" />
-      </v-col>
-    </v-row>
-  </v-layout>
+  <v-row>
+    <v-col cols="12" md="5">
+      <TransactionDetailsSpec
+        :hash="tx.hash"
+        :time="tx.time"
+        :status="tx.status"
+        :fee="tx.fee"
+        :gas="tx.gas"
+        :height="tx.height"
+        :ledger="tx.ledger"
+        :version="tx.version"
+        :rawLog="tx.rawLog"
+      />
+    </v-col>
+    <v-col cols="12" md="7">
+      <TransactionDetailsMsg :msgs="tx.msgs" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>

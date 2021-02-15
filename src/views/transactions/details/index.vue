@@ -10,24 +10,24 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="!isLoading && error != ''">
-    <v-col cols="12">
-      <v-alert border="left" prominent text type="error">
-        <span class="text-body-1" v-text="error" />
-      </v-alert>
-    </v-col>
-  </v-row>
-  <v-row v-else-if="!isLoading && error == '' && tx == null">
-    <v-col cols="12">
-      <v-alert border="left" prominent text type="info">
-        <span class="text-body-1" v-text="infoMessage" />
-      </v-alert>
-    </v-col>
-  </v-row>
   <v-row v-else>
     <v-col cols="12">
       <TransactionDetailsHeader />
-      <TransactionDetailsBody class="py-1" :tx="tx" />
+      <v-row v-if="error != ''">
+        <v-col cols="12">
+          <v-alert border="left" prominent text type="error">
+            <span class="text-body-1" v-text="error" />
+          </v-alert>
+        </v-col>
+      </v-row>
+      <v-row v-else-if="error == '' && tx == null">
+        <v-col cols="12">
+          <v-alert border="left" prominent text type="info">
+            <span class="text-body-1" v-text="infoMessage" />
+          </v-alert>
+        </v-col>
+      </v-row>
+      <TransactionDetailsBody v-else class="py-1" :tx="tx" />
     </v-col>
   </v-row>
 </template>
