@@ -10,18 +10,20 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="error != ''">
-    <v-col cols="12">
-      <v-alert border="left" prominent text type="error">
-        <span class="text-body-1">{{ error }}</span>
-      </v-alert>
-    </v-col>
-  </v-row>
   <v-row v-else>
     <v-col cols="12">
       <AccountDetailsHeader />
-      <AccountDetailsBody class="py-1" />
-      <AccountDetailsFooter class="py-1" :address="address" />
+      <v-row v-if="error != ''">
+        <v-col cols="12">
+          <v-alert border="left" prominent text type="error">
+            <span class="text-body-1">{{ error }}</span>
+          </v-alert>
+        </v-col>
+      </v-row>
+      <div v-else>
+        <AccountDetailsBody class="py-1" />
+        <AccountDetailsFooter class="py-1" :address="address" />
+      </div>
     </v-col>
   </v-row>
 </template>
