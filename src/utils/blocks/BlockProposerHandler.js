@@ -39,7 +39,7 @@ class BlockProposerHandler {
   }
 
   get() {
-    if (this.error !== '') return '';
+    if (this.error !== null) return '';
     const proposer = getProposer({
       validators: this.validators,
       validatorsSets: this.validatorsSets,

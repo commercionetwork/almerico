@@ -1,23 +1,23 @@
 /**
  * VALIDATORS STATE
- * 
+ *
  * @typedef {Object} ValidatorsState
  * @property {Array.<Object>} heightValidatorsSets
  * @property {Array.<Object>} latestValidatorsSets
  * @property {Array.<Object>} validators
  * @property {Boolean} isLoading
  * @property {Object} details
+ * @property {Object} error
  * @property {Object} filter
- * @property {String} error
  */
 
-import actions from "./actions";
-import getters from "./getters";
-import mutations from "./mutations";
+import actions from './actions';
+import getters from './getters';
+import mutations from './mutations';
 
 const initialState = {
   details: null,
-  error: "",
+  error: null,
   filter: null,
   heightValidatorsSets: [],
   isLoading: false,
@@ -29,7 +29,7 @@ export default {
   namespaced: true,
   initialState,
   state: {
-    ...initialState
+    ...initialState,
   },
   actions,
   getters,

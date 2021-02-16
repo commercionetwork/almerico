@@ -9,7 +9,7 @@ export default {
    * @param {ValidatorsState} state
    */
   startLoading(state) {
-    state.error = "";
+    state.error = null;
     state.isLoading = true;
   },
   /**
@@ -24,10 +24,10 @@ export default {
    * Set error message
    *
    * @param {ValidatorsState} state
-   * @param {String} error
+   * @param {Object} error
    */
   setError(state, error) {
-    state.error = error;
+    state.error = { ...error };
   },
   /**
    * Set validators filter
@@ -37,7 +37,7 @@ export default {
    */
   setFilter(state, data) {
     state.filter = {
-      ...data
+      ...data,
     };
   },
   /**
@@ -47,8 +47,8 @@ export default {
    * @param {Array.<Object>} data
    */
   setValidators(state, data) {
-    state.validators = data.map(obj => ({
-      ...obj
+    state.validators = data.map((obj) => ({
+      ...obj,
     }));
   },
   /**
@@ -67,8 +67,8 @@ export default {
    * @param {Array.<Object>} data
    */
   setHeightValidatorsSets(state, data) {
-    state.heightValidatorsSets = data.map(obj => ({
-      ...obj
+    state.heightValidatorsSets = data.map((obj) => ({
+      ...obj,
     }));
   },
   /**
@@ -78,8 +78,8 @@ export default {
    * @param {Array.<Object>} data
    */
   setLatestValidatorsSets(state, data) {
-    state.latestValidatorsSets = data.map(obj => ({
-      ...obj
+    state.latestValidatorsSets = data.map((obj) => ({
+      ...obj,
     }));
   },
   /**
@@ -100,25 +100,25 @@ export default {
   setDetails(state, data) {
     state.details = null;
     state.details = {
-      ...data
+      ...data,
     };
   },
   /**
    * Add details to validator details
-   * 
-   * @param {ValidatorsState} state 
-   * @param {Object} data 
+   *
+   * @param {ValidatorsState} state
+   * @param {Object} data
    */
   addDetails(state, data) {
     state.details = {
       ...state.details,
-      ...data
+      ...data,
     };
   },
   /**
    * Reset validator details
-   * 
-   * @param {ValidatorsState} state 
+   *
+   * @param {ValidatorsState} state
    */
   resetDetails(state) {
     for (let key in state.details) {
