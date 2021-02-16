@@ -1,20 +1,20 @@
 /**
  * STARTING STATE
- * 
+ *
  * @typedef {Object} StartingState
  * @property {Boolean} isLoading
+ * @property {Object} error
  * @property {Object} nodeInfo
  * @property {Object} params
  * @property {Object} pool
- * @property {String} error
  */
 
-import actions from "./actions";
-import getters from "./getters";
-import mutations from "./mutations";
+import actions from './actions';
+import getters from './getters';
+import mutations from './mutations';
 
 const initialState = {
-  error: "",
+  error: null,
   isLoading: false,
   nodeInfo: null,
   params: null,
@@ -25,7 +25,7 @@ export default {
   namespaced: true,
   initialState,
   state: {
-    ...initialState
+    ...initialState,
   },
   actions,
   getters,

@@ -36,7 +36,7 @@ export default {
         }
       );
       dispatch('subscribeWebSocket');
-    } catch (error) {      
+    } catch (error) {
       dispatch('handleError', error);
     } finally {
       commit('stopLoading');
@@ -137,7 +137,7 @@ export default {
     };
 
     client.onerror = function(evt) {
-      commit('setError', JSON.stringify(evt.error));
+      commit('setError', evt.error);
     };
 
     client.onclose = function() {
@@ -150,9 +150,9 @@ export default {
    */
   handleError({ commit }, error) {
     if (error.response) {
-      commit('setError', JSON.stringify(error.response.data));
+      commit('setError', error.response);
     } else if (error.request) {
-      commit('setError', JSON.stringify(error));
+      commit('setError', error);
     } else {
       commit('setServerReachability', false, {
         root: true,

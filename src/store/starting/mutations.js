@@ -9,7 +9,7 @@ export default {
    * @param {StartingState} state
    */
   startLoading(state) {
-    state.error = '';
+    state.error = null;
     state.isLoading = true;
   },
   /**
@@ -24,10 +24,10 @@ export default {
    * Set error message
    *
    * @param {StartingState} state
-   * @param {String} error
+   * @param {Object} error
    */
   setError(state, error) {
-    state.error = error;
+    state.error = { ...error };
   },
   /**
    * Set node info
