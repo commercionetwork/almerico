@@ -38,7 +38,7 @@ class AccountStakeHandler {
     }
 
     if (this.unbondings && this.unbondings.length > 0) {
-      for(const unbonding of this.unbondings){
+      for (const unbonding of this.unbondings) {
         unbondings += sumAmounts(unbonding.entries, 'balance');
       }
     }
@@ -54,6 +54,6 @@ class AccountStakeHandler {
 }
 
 const sumAmounts = (items, prop) =>
-  items.reduce((acc, item) => acc + parseInt(item[prop]), 0);
+  items.reduce((acc, item) => acc + parseFloat(item[prop]), 0);
 
 export default new AccountStakeHandler();

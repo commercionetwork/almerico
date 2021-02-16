@@ -6,8 +6,8 @@ const mockUnbonding = () => {
       {
         creation_height: '45897',
         completion_time: '2021-03-01T14:00:51.273405543Z',
-        initial_balance: '100000',
-        balance: '100000',
+        initial_balance: '100',
+        balance: '100',
       },
     ],
   };
