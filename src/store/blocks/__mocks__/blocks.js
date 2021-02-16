@@ -1,11 +1,11 @@
-const mockBlock = () => {
+const mockBlock = (height = '1') => {
   const item = {
     block_id: {
-      hash: '8FB55FD96949DD02B71134E17F04F43D122259757A2C3A38066EE2AAD11278A6',
+      hash: '3FC061B8543DA3ADF78B8BC34D5CDAF3511F212F5D11419E9E7B39CAC1EE8FF6',
       parts: {
         total: '1',
         hash:
-          '5131848B0AB4E1540FE5F97A1A3381F885EF50FB0C9C145EB93C7C4FA62F474F',
+          '4B1C7AE65B0B7F0872D0A99042042C5B012731631FB7E3387FFA776E9FA7C594',
       },
     },
     block: {
@@ -15,81 +15,85 @@ const mockBlock = () => {
           app: '0',
         },
         chain_id: 'commercio-testnet10k1',
-        height: '95460',
-        time: '2021-02-11T15:58:02.264848898Z',
+        height: height,
+        time: '2021-02-16T13:58:40.691559082Z',
         last_block_id: {
           hash:
-            'B9468182B065E7397AC917583B0118EE9858369CA30C530F5A6F5514BC5E8484',
+            'BF2FDF013A0919080F55E8AEFD6D846B61F17EA09E2D1791139E4EB1D8B524DC',
           parts: {
             total: '1',
             hash:
-              '3793794ED659EB1DF941A5704E61417B64C3CF0E731FA111E10F6647DADD51EB',
+              '8EE4C9C6C7984B680A792CBD079382A78DFA8799975A5EC82EA308C42261F490',
           },
         },
         last_commit_hash:
-          '2CB6F4F4912C4ED4D4B25834C2EECA9C90CDE58CE30C91FE9B2C1B50A54FB5BC',
-        data_hash:
-          '4843A135FFC7BF4CBF049F6960E1AE598EFD409D6F19F19D2037978810012FBE',
+          '7CF8A288E9C862C0E2992F0C66300E591CA1C450244809297A7494D542F5B1B3',
+        data_hash: '',
         validators_hash:
-          '10F2007A00CA2CCDB6EDA5FBD769CC215CA1DA6E4B8A4A57B876F0EE983799A9',
+          'FA968B53E4DBB685940517D1F4C7EEC0ABBB23DA5F0BAA655AC0F398AAB0FE46',
         next_validators_hash:
-          '10F2007A00CA2CCDB6EDA5FBD769CC215CA1DA6E4B8A4A57B876F0EE983799A9',
+          'FA968B53E4DBB685940517D1F4C7EEC0ABBB23DA5F0BAA655AC0F398AAB0FE46',
         consensus_hash:
           '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
         app_hash:
-          '9A3D01658119B43FAAE0B187405A493299E45C711045CD290807D2A277EEDC8A',
+          'EBAF9C11F9B9F31664091254DA9C2DD13EC3F27D1AB207DF08330671E13884A8',
         last_results_hash: '',
         evidence_hash: '',
-        proposer_address: 'C3D99B56876D887D7F91B971CE3552EBCB96283E',
+        proposer_address: '3E4FC2A7AFC75B3D0B73B1127B0C6D0D4E57E72C',
       },
       data: {
-        txs: [
-          'mQQoKBapCosDijoHmgoUBfvg46mvKsvqj5T7WNoDus36ChgSFK5odyBr6P9+8spw2Lxvu531WJysGiRmOTgwYjU4Ni0yZjZhLTU2MWYtYWY1NS1kNDc4MTVjNzM5MDci5QEKbEVBWlRBZENOWTR1S0NTaVJFd29kdW85dUVEUDllaUdIWWMvUHB1OEcybWY3MVZDSUhzWFNUQjIxK090ZDlPV2xaV1BBVHB1SmEvcEdIUEJPajBrRExVRnhKUGx0WlNPN3o1ZDM5dkozcWE0PRp1CmxQUk10Q2c4Ky9taTcyT2JlalFib1NUTER5YVpvQnNQOGdHRU9Ob0UzMjdXeWN2UW5GSSszcDJKNmMxcTAyVisrY01XaFl1K1Jqa0RtVkZCd3lNak9LcDBTY2xkVy8yc0VYQ2NWZXFZaE1rZz0SBTEuMC4wMksKQDhkZWNjODU3MTk0NmQ0Y2Q3MGEwMjQ5NDllMDMzYTJhMmE1NDM3N2ZlOWYxYzFiOTQ0YzIwZjllZTExYTllNTESB3NoYS0yNTYSGQoTCgp1Y29tbWVyY2lvEgUxMDAwMBCgwh4aagom61rphyECXfiLJe0V8boOSmHIMKg7ddHnVAiq2HLGN3WUUGfayDUSQAki+m1Q3hQJ6P+WZ8wXL0VwxhGmjqPNJC/UXjnJ03vTena1Af89HaBvS0zZwy5001PwjN89ef8m3mJ58h2AKEE=',
-        ],
+        txs: null,
       },
       evidence: {
         evidence: null,
       },
       last_commit: {
-        height: '95459',
+        height: '174858',
         round: '0',
         block_id: {
           hash:
-            'B9468182B065E7397AC917583B0118EE9858369CA30C530F5A6F5514BC5E8484',
+            'BF2FDF013A0919080F55E8AEFD6D846B61F17EA09E2D1791139E4EB1D8B524DC',
           parts: {
             total: '1',
             hash:
-              '3793794ED659EB1DF941A5704E61417B64C3CF0E731FA111E10F6647DADD51EB',
+              '8EE4C9C6C7984B680A792CBD079382A78DFA8799975A5EC82EA308C42261F490',
           },
         },
         signatures: [
           {
             block_id_flag: 2,
-            validator_address: '325B9A2D0D18CC84202AE43EAB8D98EE7521A363',
-            timestamp: '2021-02-11T15:58:02.264848898Z',
+            validator_address: '2820613DDEA5ABDEA31FA3865C6FB6691C460D74',
+            timestamp: '2021-02-16T13:58:40.70601615Z',
             signature:
-              'g7uFzmLOmVmjWrzQdcFsfwPg1op3GSgtaIwSo5PAOP+hnLQkD3AOb3nDzejfAMXvwczg3ENNP6plTf5DDPxEDQ==',
+              'ppXwPB1wFwigzcvW5qbNtVP8+VEfThoVLrrkJtFHh75bx3hA8IMsb+8M9We0ug2kEkFm389664yRK+q2Zi01DA==',
+          },
+          {
+            block_id_flag: 2,
+            validator_address: '325B9A2D0D18CC84202AE43EAB8D98EE7521A363',
+            timestamp: '2021-02-16T13:58:40.683190068Z',
+            signature:
+              'ATqmKjCPFYfCRBP9ohpwSbNTViqkTF+zSgLHfp46Vux1PuUv3cRFGseuNipuzaoXqcisf0Zv2qajWLBSVSScAg==',
           },
           {
             block_id_flag: 2,
             validator_address: '3E4FC2A7AFC75B3D0B73B1127B0C6D0D4E57E72C',
-            timestamp: '2021-02-11T15:58:02.272203411Z',
+            timestamp: '2021-02-16T13:58:40.685148019Z',
             signature:
-              'yXb80+yUfBEKZwUkNQMorSZWMdeFisAVyWu+rxF3S2Fs7EP65MQiWEmr+rm1hu6yYge8TGBfp+Y+mnGzb9tsDA==',
+              'ijFiaVb5i44hFhj4WQNrk6iSAfMN1IwN6wo7ajH51jZ55WcV346Yhu762WJyRcsIt6PAq5OG+l8clHpZgkvBAg==',
           },
           {
             block_id_flag: 2,
             validator_address: 'AC7A82BB74494FB6E2651453204A7F315744E5C0',
-            timestamp: '2021-02-11T15:58:02.261581703Z',
+            timestamp: '2021-02-16T13:58:40.691559082Z',
             signature:
-              'lYachsgskDhcdNonRv62jWvjaH/p/c72BScdhITsKbXPZvXCUYyIJyLerjBOsgbRlZIFdf5oLM49F/DvnOwkAA==',
+              'wPThPQbiSPGPp9yJOymqKOfS8tyrNt/AQLtfNCwzktmOC2BAGn9DofJ/K424XO3cHI5Je4jM0tL5lQ6CCKCLAw==',
           },
           {
             block_id_flag: 2,
             validator_address: 'C3D99B56876D887D7F91B971CE3552EBCB96283E',
-            timestamp: '2021-02-11T15:58:02.271940274Z',
+            timestamp: '2021-02-16T13:58:40.692096446Z',
             signature:
-              'd0p4YDSKBauM81mC00OZGdK9bsQkBz7KWbN/DRSU1w6QKU0bwDXSFUEbaNwqFnZfbQQHLjKvwaFRrz4JKIMmBg==',
+              'Qst5FUipo6SkfMr1AEZDpnvTqGa+2BB/iGMyC8H3Bhdk5cpjCzY8+KiY0fO38jWInInaFPE4JEPORj57VAZVDw==',
           },
         ],
       },
@@ -99,7 +103,11 @@ const mockBlock = () => {
 };
 
 const mockBlocks = (blocks = 10) => {
-  const list = new Array(blocks).fill(null).map(() => mockBlock());
+  let counter = 0;
+  const list = new Array(blocks).fill(null).map(() => {
+    counter++;
+    return mockBlock(`${counter}`)['block'];
+  });
   return list;
 };
 
