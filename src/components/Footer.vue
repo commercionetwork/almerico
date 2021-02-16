@@ -32,7 +32,7 @@ export default {
   computed: {
     copy() {
       const year = new Date().getFullYear();
-      return `&copy;&nbsp;Commercio.network ${year}`;
+      return `&copy;&nbsp;${year}&nbsp;Commerc.io&nbsp;srl`;
     },
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
