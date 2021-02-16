@@ -30,7 +30,6 @@ export default {
   computed: {
     ...mapGetters('blocks', {
       isLoading: 'isLoading',
-      error: 'error',
       latest: 'latest',
       blocks: 'blocks',
     }),

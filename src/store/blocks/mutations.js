@@ -9,7 +9,7 @@ export default {
    * @param {BlocksState} state
    */
   startLoading(state) {
-    state.error = "";
+    state.error = null;
     state.isLoading = true;
   },
   /**
@@ -24,10 +24,10 @@ export default {
    * Set error message
    *
    * @param {BlocksState} state
-   * @param {String} error
+   * @param {Object} error
    */
   setError(state, error) {
-    state.error = error;
+    state.error = { ...error };
   },
   /**
    * Update blocks height
@@ -49,7 +49,7 @@ export default {
   },
   /**
    * Remove all blocks
-   * 
+   *
    * @param {BlocksState} state
    */
   clearAllBlocks(state) {
@@ -57,9 +57,9 @@ export default {
   },
   /**
    * Add single block to the beginning of the stored blocks
-   * 
+   *
    * @param {BlocksState} state
-   * @param {Object} data 
+   * @param {Object} data
    */
   addSingleBlock(state, data) {
     state.blocks.unshift(data);
@@ -73,7 +73,7 @@ export default {
   setBlockDetails(state, data) {
     state.details = null;
     state.details = {
-      ...data
+      ...data,
     };
   },
   /**
@@ -84,7 +84,7 @@ export default {
    */
   setLatestBlock(state, data) {
     state.latest = {
-      ...data
+      ...data,
     };
     state.blocks.unshift(data);
   },

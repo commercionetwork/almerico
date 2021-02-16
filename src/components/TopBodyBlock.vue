@@ -1,27 +1,30 @@
 <template>
   <v-card elevation="2">
-    <v-card-title class="justify-center text-h4"
-      ><router-link
+    <v-card-title class="justify-center text-h4">
+      <router-link
         class="text-decoration-none font-weight-bold"
         v-text="blockHeight"
         :to="blockLink"
-    /></v-card-title>
-    <v-card-subtitle class="text-center text-subtitle-2"
-      >Latest Height</v-card-subtitle
-    >
+      />
+    </v-card-title>
+    <v-card-subtitle
+      class="text-center text-capitalize text-subtitle-2"
+      v-text="'latest height'"
+    />
     <v-card-text class="text-center">
       <span class="d-block font-weight-bold" v-text="time" />
-      <span class="d-block"
-        >Msgs/Txs:
-        <span class="font-weight-bold">{{ msgs }}/{{ txs }}</span></span
-      >
-      <span class="d-block"
-        >Proposer:
+      <span class="d-block">
+        Msgs/Txs:
+        <span class="font-weight-bold">{{ msgs }}/{{ txs }} </span>
+      </span>
+      <span class="d-block">
+        Proposer:
         <router-link
           class="text-decoration-none font-weight-bold"
           v-text="proposerName"
           :to="proposerLink"
-      /></span>
+        />
+      </span>
     </v-card-text>
   </v-card>
 </template>

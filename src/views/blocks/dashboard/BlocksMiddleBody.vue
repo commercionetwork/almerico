@@ -1,10 +1,10 @@
 <template>
   <v-layout>
     <v-flex>
-      <v-row v-if="error != ''">
+      <v-row v-if="error !== null">
         <v-col cols="12">
           <v-alert border="left" prominent text type="error">
-            <span class="text-body-1">{{ error }}</span>
+            <span class="text-body-1" v-text="JSON.stringify(error)" />
           </v-alert>
         </v-col>
       </v-row>
@@ -37,40 +37,42 @@
 </template>
 
 <script>
-import BlocksTable from "./BlocksTable";
+import BlocksTable from './BlocksTable';
 
-import { mapActions, mapGetters } from "vuex";
-import { BlocksTableAdapter } from "@/utils";
+import { mapActions, mapGetters } from 'vuex';
+import { BlocksTableAdapter } from '@/utils';
 
 export default {
-  name: "BlocksMiddleBody",
+  name: 'BlocksMiddleBody',
   components: {
     BlocksTable,
   },
   computed: {
-    ...mapGetters("blocks", {
-      isLoading: "isLoading",
-      error: "error",
-      latest: "latest",
-      blocks: "blocks",
-      currentHeight: "currentHeight",
+    ...mapGetters('blocks', {
+      isLoading: 'isLoading',
+      error: 'error',
+      latest: 'latest',
+      blocks: 'blocks',
+      currentHeight: 'currentHeight',
     }),
-    ...mapGetters("validators", {
-      validators: "validators",
-      validatorsSet: "latestValidatorsSets",
+    ...mapGetters('validators', {
+      validators: 'validators',
+      validatorsSet: 'latestValidatorsSets',
     }),
     items() {
       return BlocksTableAdapter.setBlocks(this.blocks)
         .setValidators(this.validators)
         .setValidatorsSet(this.validatorsSet)
-        .setValidatorConsensusPrefix(this.$config.generic.prefixes.validator.consensus.address)
+        .setValidatorConsensusPrefix(
+          this.$config.generic.prefixes.validator.consensus.address
+        )
         .get();
     },
   },
   methods: {
-    ...mapActions("blocks", {
-      getBlocks: "getBlocks",
-      addBlocks: "addBlocks",
+    ...mapActions('blocks', {
+      getBlocks: 'getBlocks',
+      addBlocks: 'addBlocks',
     }),
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting && !this.isLoading) {
