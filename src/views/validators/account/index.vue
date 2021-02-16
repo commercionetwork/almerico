@@ -13,10 +13,10 @@
   <v-row v-else>
     <v-col cols="12">
       <AccountDetailsHeader />
-      <v-row v-if="error != ''">
+      <v-row v-if="error !== null">
         <v-col cols="12">
           <v-alert border="left" prominent text type="error">
-            <span class="text-body-1">{{ error }}</span>
+            <span class="text-body-1" v-text="JSON.stringify(error)" />
           </v-alert>
         </v-col>
       </v-row>

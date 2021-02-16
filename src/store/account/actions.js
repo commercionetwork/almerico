@@ -52,9 +52,8 @@ export default {
       const response = await api.requestMembership(address);
       commit('setMembership', response.data.result);
     } catch (error) {
-      if (error.request) {
+      if (error.response && error.response.status === 404) {
         commit('setMembership', null);
-        commit('setError', '');
       } else {
         throw error;
       }
@@ -82,9 +81,9 @@ export default {
    */
   handleError({ commit }, error) {
     if (error.response) {
-      commit('setError', JSON.stringify(error.response.data));
+      commit('setError', error.response);
     } else if (error.request) {
-      commit('setError', JSON.stringify(error));
+      commit('setError', error);
     } else {
       commit('setServerReachability', false, {
         root: true,

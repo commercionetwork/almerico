@@ -1,19 +1,17 @@
-import mutations from "../mutations";
-import {
-  initialState
-} from "../index";
+import mutations from '../mutations';
+import { initialState } from '../index';
 
-describe("store/account/mutations", () => {
+describe('store/account/mutations', () => {
   let state = {};
 
   beforeEach(() => {
     state = {
-      ...initialState
+      ...initialState,
     };
   });
 
-  test("Check mutations.startLoading", () => {
-    state.error = "error";
+  test('Check mutations.startLoading', () => {
+    state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
 
@@ -21,7 +19,7 @@ describe("store/account/mutations", () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test("Check mutations.stopLoading", () => {
+  test('Check mutations.stopLoading', () => {
     state.isLoading = true;
 
     mutations.stopLoading(state);
@@ -29,50 +27,53 @@ describe("store/account/mutations", () => {
     expect(state.isLoading).toBe(false);
   });
 
-  test("Check mutations.setError", () => {
-    const error = JSON.stringify({
-      message: "mutation error",
-      status: 400
-    });
+  test('Check mutations.setError', () => {
+    const error = { message: 'error', status: 400 };
 
     mutations.setError(state, error);
 
-    expect(state.error).toBe(error);
+    expect(state.error).toStrictEqual(error);
   });
 
-  test("Check mutations.setBalances", () => {
-    const balances = [{
-      id: 1
-    }];
+  test('Check mutations.setBalances', () => {
+    const balances = [
+      {
+        id: 1,
+      },
+    ];
 
     mutations.setBalances(state, balances);
 
     expect(state.balances).toStrictEqual(balances);
   });
 
-  test("Check mutations.setDelegations", () => {
-    const delegations = [{
-      id: 1
-    }];
+  test('Check mutations.setDelegations', () => {
+    const delegations = [
+      {
+        id: 1,
+      },
+    ];
 
     mutations.setDelegations(state, delegations);
 
     expect(state.delegations).toStrictEqual(delegations);
   });
 
-  test("Check mutations.setUnbondings", () => {
-    const unbondings = [{
-      id: 1
-    }];
+  test('Check mutations.setUnbondings', () => {
+    const unbondings = [
+      {
+        id: 1,
+      },
+    ];
 
     mutations.setUnbondings(state, unbondings);
 
     expect(state.unbondings).toStrictEqual(unbondings);
   });
 
-  test("Check mutations.setMembership", () => {
+  test('Check mutations.setMembership', () => {
     const membership = {
-      id: 1
+      id: 1,
     };
 
     mutations.setMembership(state, membership);
@@ -80,9 +81,9 @@ describe("store/account/mutations", () => {
     expect(state.membership).toStrictEqual(membership);
   });
 
-  test("Check mutations.setRewards", () => {
+  test('Check mutations.setRewards', () => {
     const rewards = {
-      id: 1
+      id: 1,
     };
 
     mutations.setRewards(state, rewards);
