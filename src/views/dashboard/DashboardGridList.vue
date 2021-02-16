@@ -10,10 +10,10 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="error != ''">
+  <v-row v-else-if="error !== null">
     <v-col cols="12">
       <v-alert border="left" prominent text type="error">
-        <span class="text-body-1">{{ error }}</span>
+        <span class="text-body-1" v-text="JSON.stringify(error)" />
       </v-alert>
     </v-col>
   </v-row>
@@ -27,13 +27,13 @@
 </template>
 
 <script>
-import DashboardGridListItem from "./DashboardGridListItem";
+import DashboardGridListItem from './DashboardGridListItem';
 
-import { mapGetters } from "vuex";
-import { arrayHandler } from "@/utils";
+import { mapGetters } from 'vuex';
+import { arrayHandler } from '@/utils';
 
 export default {
-  name: "DashboardGridList",
+  name: 'DashboardGridList',
   components: {
     DashboardGridListItem,
   },
@@ -41,14 +41,14 @@ export default {
     limit: {
       type: Number,
       required: true,
-      note: "The items number to display",
+      note: 'The items number to display',
     },
   },
   computed: {
-    ...mapGetters("transactions", {
-      isLoading: "isLoading",
-      error: "error",
-      txs: "transactions",
+    ...mapGetters('transactions', {
+      isLoading: 'isLoading',
+      error: 'error',
+      txs: 'transactions',
     }),
     transactions() {
       const unorderedTransactions = this.txs.map((obj) => ({
@@ -56,7 +56,7 @@ export default {
       }));
       const orderedTransactions = arrayHandler.sortObjectsByStringPropertyValueDesc(
         unorderedTransactions,
-        "timestamp"
+        'timestamp'
       );
       return orderedTransactions.slice(0, this.limit);
     },

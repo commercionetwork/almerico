@@ -11,7 +11,7 @@ describe('store/transactions/mutations', () => {
   });
 
   test('Check mutations.startLoading', () => {
-    state.error = 'error';
+    state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
 
@@ -28,14 +28,11 @@ describe('store/transactions/mutations', () => {
   });
 
   test('Check mutations.setError', () => {
-    const error = JSON.stringify({
-      message: 'mutation error',
-      status: 400,
-    });
+    const error = { message: 'error', status: 400 };
 
     mutations.setError(state, error);
 
-    expect(state.error).toBe(error);
+    expect(state.error).toStrictEqual(error);
   });
 
   test('Check mutations.setFilter', () => {

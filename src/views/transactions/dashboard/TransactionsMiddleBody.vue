@@ -1,10 +1,10 @@
 <template>
   <v-layout>
     <v-flex>
-      <v-row v-if="error != ''">
+      <v-row v-if="error !== null">
         <v-col cols="12">
           <v-alert border="left" prominent text type="error">
-            <span class="text-body-1">{{ error }}</span>
+            <span class="text-body-1" v-text="JSON.stringify(error)" />
           </v-alert>
         </v-col>
       </v-row>
@@ -37,29 +37,29 @@
 </template>
 
 <script>
-import TransactionsTable from "./TransactionsTable";
+import TransactionsTable from './TransactionsTable';
 
-import { mapActions, mapGetters } from "vuex";
-import { TransactionsTableAdapter } from "@/utils";
+import { mapActions, mapGetters } from 'vuex';
+import { TransactionsTableAdapter } from '@/utils';
 
 export default {
-  name: "TransactionsMiddleBody",
+  name: 'TransactionsMiddleBody',
   components: {
     TransactionsTable,
   },
   data: () => ({
-    msgType: "",
+    msgType: '',
   }),
   computed: {
-    ...mapGetters("transactions", {
-      isLoading: "isLoading",
-      error: "error",
-      filter: "filter",
-      transactions: "transactions",
+    ...mapGetters('transactions', {
+      isLoading: 'isLoading',
+      error: 'error',
+      filter: 'filter',
+      transactions: 'transactions',
     }),
     items() {
       return TransactionsTableAdapter.setTxs(this.transactions)
-        .setMultiTypes("Multi types")
+        .setMultiTypes('Multi types')
         .setFilter(this.filter)
         .get();
     },
@@ -70,8 +70,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions("transactions", {
-      changePage: "changePage",
+    ...mapActions('transactions', {
+      changePage: 'changePage',
     }),
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting) {
