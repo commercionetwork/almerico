@@ -31,7 +31,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
-import { ValidatorDelegatorsAggregator,numberIntlFormatter } from '@/utils';
+import { ValidatorDelegatorsAggregator, numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'ValidatorDetailsDelegatorsTable',
