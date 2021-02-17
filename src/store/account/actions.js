@@ -52,11 +52,13 @@ export default {
       const response = await api.requestMembership(address);
       commit('setMembership', response.data.result);
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        commit('setMembership', null);
-      } else {
-        throw error;
-      }
+      commit('setMembership', null);
+      // TODO: enable to manage the error once the CORS issues have been resolved
+      // if (error.response && error.response.status === 404) {
+      //   commit('setMembership', null);
+      // } else {
+      //   throw error;
+      // }
     }
   },
   /**
