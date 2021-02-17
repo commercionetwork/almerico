@@ -14,7 +14,12 @@
     <v-col cols="12">
       <AccountDetailsHeader />
       <v-row v-if="error !== null">
-        <v-col cols="12">
+        <v-col cols="12" v-if="error.status === 404">
+          <v-alert border="left" prominent text type="info">
+            <span class="text-body-1" v-text="infoMessage" />
+          </v-alert>
+        </v-col>
+        <v-col cols="12" v-else>
           <v-alert border="left" prominent text type="error">
             <span class="text-body-1" v-text="JSON.stringify(error)" />
           </v-alert>
@@ -49,6 +54,9 @@ export default {
     }),
     address() {
       return this.$route.params.id;
+    },
+    infoMessage() {
+      return 'No accounts with this id';
     },
   },
   watch: {

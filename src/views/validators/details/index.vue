@@ -14,7 +14,12 @@
     <v-col cols="12">
       <ValidatorDetailsHeader />
       <v-row v-if="error !== null">
-        <v-col cols="12">
+        <v-col cols="12" v-if="error.status === 404">
+          <v-alert border="left" prominent text type="info">
+            <span class="text-body-1" v-text="infoMessage" />
+          </v-alert>
+        </v-col>
+        <v-col cols="12" v-else>
           <v-alert border="left" prominent text type="error">
             <span class="text-body-1" v-text="JSON.stringify(error)" />
           </v-alert>
@@ -66,6 +71,9 @@ export default {
             .setDelegations(this.details.delegations)
             .get()
         : {};
+    },
+    infoMessage() {
+      return 'No validators with this id';
     },
     operator() {
       return this.details ? this.details.operator_address : '';
