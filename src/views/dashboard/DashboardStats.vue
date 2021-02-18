@@ -1,8 +1,8 @@
 <template>
   <v-card elevation="2">
     <v-card-text>
-      <span class="d-block"
-        >Validators:
+      <span class="d-block">
+        Validators:
         <span class="font-weight-bold">
           {{ validatorsTotal }} (bonded {{ validatorsBondeds }})
         </span>
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 export default {
-  name: "DashboardStats",
+  name: 'DashboardStats',
   computed: {
-    ...mapGetters("validators", {
-      validators: "validators",
+    ...mapGetters('validators', {
+      validators: 'validators',
     }),
     validatorsBondeds() {
       return this.validators.filter((validator) => validator.status === 2)

@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="isLoading">
+  <v-row v-if="isLoading" data-test="loading">
     <v-col cols="12" class="pa-5">
       <v-progress-linear
         indeterminate
@@ -10,14 +10,14 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="error !== null">
+  <v-row v-else-if="error !== null" data-test="error">
     <v-col cols="12">
       <v-alert border="left" prominent text type="error">
         <span class="text-body-1" v-text="JSON.stringify(error)" />
       </v-alert>
     </v-col>
   </v-row>
-  <v-row v-else>
+  <v-row v-else data-test="content">
     <DashboardGridListItem
       v-for="(transaction, index) in transactions"
       :key="index"
