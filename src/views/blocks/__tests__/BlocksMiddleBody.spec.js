@@ -47,6 +47,7 @@ describe('views/blocks/dashboard/BlocksMiddleBody.vue', () => {
 
     expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
   });
 
   test('if content is displayed', () => {
@@ -69,5 +70,29 @@ describe('views/blocks/dashboard/BlocksMiddleBody.vue', () => {
 
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+  });
+
+  test('if loading message is displayed', () => {
+    const wrapper = shallowMount(BlocksMiddleBody, {
+      localVue,
+      mocks: {
+        $store: mockStore,
+      },
+      computed: {
+        blocks: () => mockBlocks(),
+        error: () => null,
+        currentHeight: () => '1',
+        isLoading: () => true,
+        items: () => [],
+        latest: () => mockBlock().block,
+        validators: () => [],
+        validatorsSet: () => [],
+      },
+    });
+
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
   });
 });

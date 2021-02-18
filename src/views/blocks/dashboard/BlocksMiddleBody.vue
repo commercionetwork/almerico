@@ -29,6 +29,7 @@
             color="primary"
             height="25"
             value="10"
+            data-test="loading"
           ></v-progress-linear
         ></v-col>
       </v-row>

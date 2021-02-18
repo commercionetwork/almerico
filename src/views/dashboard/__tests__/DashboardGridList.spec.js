@@ -1,8 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import DashboardGridList from '../DashboardGridList.vue';
 import { mockTxs } from '../../../store/transactions/__mocks__/txs';
+import DashboardGridList from '../DashboardGridList.vue';
 
 Vue.use(Vuetify);
 const localVue = createLocalVue();
