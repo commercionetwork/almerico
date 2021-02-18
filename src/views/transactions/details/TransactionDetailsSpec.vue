@@ -17,7 +17,7 @@
             <div :class="statusClass" v-text="statusText" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="status === 0">
+        <v-list-item v-if="status === 0" data-test="raw-log">
           <v-list-item-content>
             <div class="text-capitalize font-weight-bold" v-text="'raw log'" />
             <div>{{ '&ldquo;' }}{{ rawLog }}{{ '&rdquo;' }}</div>
