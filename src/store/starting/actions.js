@@ -15,53 +15,56 @@ export default {
     commit('setServerReachability', true, {
       root: true,
     });
+    const status = [
+      STATUS.VALIDATOR.BONDED,
+      STATUS.VALIDATOR.UNBONDED,
+      STATUS.VALIDATOR.UNBONDING,
+    ];
+    await Promise.all([
+      dispatch('fetchNodeInfo'),
+      dispatch('fetchParams'),
+      dispatch('fetchPool'),
+      dispatch('blocks/fetchLatestBlock', null, { root: true }),
+      dispatch('validators/initValidators', { status: status }, { root: true }),
+    ]);
+    dispatch('subscribeWebSocket');
+    commit('stopLoading');
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchNodeInfo({ dispatch, commit }) {
     try {
-      await dispatch('fetchNodeInfo');
-      await dispatch('fetchParams');
-      await dispatch('fetchPool');
-      await dispatch('blocks/fetchLatestBlock', null, {
-        root: true,
-      });
-      await dispatch(
-        'validators/initValidators',
-        {
-          status: [
-            STATUS.VALIDATOR.BONDED,
-            STATUS.VALIDATOR.UNBONDED,
-            STATUS.VALIDATOR.UNBONDING,
-          ],
-        },
-        {
-          root: true,
-        }
-      );
-      dispatch('subscribeWebSocket');
+      const response = await api.requestNodeInfo();
+      commit('setNodeInfo', response.data);
     } catch (error) {
       dispatch('handleError', error);
-    } finally {
-      commit('stopLoading');
     }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    */
-  async fetchNodeInfo({ commit }) {
-    const response = await api.requestNodeInfo();
-    commit('setNodeInfo', response.data);
+  async fetchParams({ dispatch, commit }) {
+    try {
+      const response = await api.requestStakingParameters();
+      commit('setParams', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    */
-  async fetchParams({ commit }) {
-    const response = await api.requestStakingParameters();
-    commit('setParams', response.data.result);
-  },
-  /**
-   * @param {Function} commit
-   */
-  async fetchPool({ commit }) {
-    const response = await api.requestPool();
-    commit('setPool', response.data.result);
+  async fetchPool({ dispatch, commit }) {
+    try {
+      const response = await api.requestPool();
+      commit('setPool', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
   },
   /**
    * @param {Function} dispatch

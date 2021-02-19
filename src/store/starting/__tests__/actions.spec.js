@@ -31,7 +31,7 @@ describe('store/starting/actions', () => {
     mockResponse = null;
   });
 
-  test("Chck if 'actions.fetchInitData' dispatch actions to fetch node info, staking parameters and pool, latest block, validators, and subscribe web socket", async () => {
+  test("if 'actions.fetchInitData' dispatch actions to fetch node info, staking parameters and pool, latest block, validators, and subscribe web socket", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
@@ -57,28 +57,61 @@ describe('store/starting/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('subscribeWebSocket');
   });
 
-  test("Check if 'actions.fetchNodeInfo' set node info", async () => {
+  test("if 'actions.fetchNodeInfo' set node info", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
 
-    await actions.fetchNodeInfo({ commit });
+    await actions.fetchNodeInfo({ dispatch, commit });
 
     expect(commit).toHaveBeenCalledWith('setNodeInfo', mockResponse.data);
   });
 
-  test("Check if 'actions.fetchParams' set staking parameters", async () => {
+  test("if 'actions.fetchNodeInfo' has an error, dispatch 'handleError'", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
 
-    await actions.fetchParams({ commit });
+    await actions.fetchNodeInfo({ dispatch, commit });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchParams' set staking parameters", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.fetchParams({ dispatch, commit });
 
     expect(commit).toHaveBeenCalledWith('setParams', mockResponse.data.result);
   });
 
-  test("Check if 'actions.fetchPool' set pool", async () => {
+  test("if 'actions.fetchParams' has an error, dispatch 'handleError'", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
 
-    await actions.fetchPool({ commit });
+    await actions.fetchParams({ dispatch, commit });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchPool' set pool", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.fetchPool({ dispatch, commit });
 
     expect(commit).toHaveBeenCalledWith('setPool', mockResponse.data.result);
+  });
+
+  test("if 'actions.fetchPool' has an error, dispatch 'handleError'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
+
+    await actions.fetchPool({ dispatch, commit });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test("if 'actions.handleError' handles the various types of error", () => {
