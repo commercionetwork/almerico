@@ -15,33 +15,40 @@ export default {
     commit('setServerReachability', true, {
       root: true,
     });
+    await Promise.all([
+      dispatch('fetchMembership', address),
+      dispatch('fetchBalances', address),
+      dispatch('fetchDelegations', address),
+      dispatch('fetchUnbondings', address),
+      dispatch('fetchRewards', address),
+    ]);
+    commit('stopLoading');
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   * @param {String} address
+   */
+  async fetchBalances({ dispatch, commit }, address) {
     try {
-      await dispatch('fetchMembership', address);
-      await dispatch('fetchBalances', address);
-      await dispatch('fetchDelegations', address);
-      await dispatch('fetchUnbondings', address);
-      await dispatch('fetchRewards', address);
+      const response = await api.requestBalances(address);
+      commit('setBalances', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
-    } finally {
-      commit('stopLoading');
     }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    * @param {String} address
    */
-  async fetchBalances({ commit }, address) {
-    const response = await api.requestBalances(address);
-    commit('setBalances', response.data.result);
-  },
-  /**
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchDelegations({ commit }, address) {
-    const response = await api.requestDelegations(address);
-    commit('setDelegations', response.data.result);
+  async fetchDelegations({ dispatch, commit }, address) {
+    try {
+      const response = await api.requestDelegations(address);
+      commit('setDelegations', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
   },
   /**
    * @param {Function} commit
@@ -53,29 +60,39 @@ export default {
       commit('setMembership', response.data.result);
     } catch (error) {
       commit('setMembership', null);
-      // TODO: enable to manage the error once the CORS issues have been resolved
+      //TODO: enable to manage the error once the CORS issues have been resolved
       // if (error.response && error.response.status === 404) {
       //   commit('setMembership', null);
       // } else {
-      //   throw error;
+      //   dispatch('handleError', error);
       // }
     }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    * @param {String} address
    */
-  async fetchRewards({ commit }, address) {
-    const response = await api.requestRewards(address);
-    commit('setRewards', response.data.result);
+  async fetchRewards({ dispatch, commit }, address) {
+    try {
+      const response = await api.requestRewards(address);
+      commit('setRewards', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    * @param {String} address
    */
-  async fetchUnbondings({ commit }, address) {
-    const response = await api.requestUnbondings(address);
-    commit('setUnbondings', response.data.result);
+  async fetchUnbondings({ dispatch, commit }, address) {
+    try {
+      const response = await api.requestUnbondings(address);
+      commit('setUnbondings', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
   },
   /**
    * @param {Function} commit

@@ -32,11 +32,13 @@ describe('store/account/actions', () => {
     mockResponse = null;
   });
 
-  test("Check if 'actions.fetchBalances' set balances", async () => {
+  test("if 'actions.fetchBalances' set balances", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
     await actions.fetchBalances(
       {
+        dispatch,
         commit,
       },
       'address'
@@ -48,11 +50,29 @@ describe('store/account/actions', () => {
     );
   });
 
-  test("Check if 'actions.fetchDelegations' set delegations", async () => {
+  test("if 'actions.fetchBalances' has an error dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchBalances(
+      {
+        dispatch,
+        commit,
+      },
+      'address'
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchDelegations' set delegations", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
     await actions.fetchDelegations(
       {
+        dispatch,
         commit,
       },
       'address'
@@ -64,7 +84,23 @@ describe('store/account/actions', () => {
     );
   });
 
-  test("Check if 'actions.fetchMembership' set membership", async () => {
+  test("if 'actions.fetchDelegations' has an error dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchDelegations(
+      {
+        dispatch,
+        commit,
+      },
+      'address'
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchMembership' set membership", async () => {
     const commit = jest.fn();
 
     await actions.fetchMembership(
@@ -80,11 +116,13 @@ describe('store/account/actions', () => {
     );
   });
 
-  test("Check if 'actions.fetchRewards' set rewards", async () => {
+  test("if 'actions.fetchRewards' set rewards", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
     await actions.fetchRewards(
       {
+        dispatch,
         commit,
       },
       'address'
@@ -93,11 +131,29 @@ describe('store/account/actions', () => {
     expect(commit).toHaveBeenCalledWith('setRewards', mockResponse.data.result);
   });
 
-  test("Check if 'actions.fetchUnbondings' set unbonding delegations", async () => {
+  test("if 'actions.fetchRewards' has an error dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchRewards(
+      {
+        dispatch,
+        commit,
+      },
+      'address'
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchUnbondings' set unbonding delegations", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
     await actions.fetchUnbondings(
       {
+        dispatch,
         commit,
       },
       'address'
@@ -109,7 +165,23 @@ describe('store/account/actions', () => {
     );
   });
 
-  test("Check if 'actions.getAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondings", async () => {
+  test("if 'actions.fetchUnbondings' has an error dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchUnbondings(
+      {
+        dispatch,
+        commit,
+      },
+      'address'
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.getAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondings", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -127,6 +199,29 @@ describe('store/account/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchRewards', address);
     expect(dispatch).toHaveBeenCalledWith('fetchUnbondings', address);
+  });
+
+  test("if 'actions.handleError' handles the various types of error", () => {
+    const commit = jest.fn();
+    let error = mockErrorResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error.response);
+
+    error = mockErrorRequestResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error);
+
+    error = 'error';
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setServerReachability', false, {
+      root: true,
+    });
   });
 });
 
