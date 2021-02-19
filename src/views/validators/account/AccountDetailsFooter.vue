@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-row v-if="error !== null">
+    <v-row v-if="error !== null" data-test="error">
       <v-col cols="12">
         <v-alert border="left" prominent text type="error">
           <span class="text-body-1" v-text="JSON.stringify(error)" />
         </v-alert>
       </v-col>
     </v-row>
-    <v-row v-else>
+    <v-row v-else data-test="content">
       <v-col cols="12">
         <AccountDetailsTransactions :items="items" />
       </v-col>
@@ -28,6 +28,7 @@
           color="primary"
           height="25"
           value="10"
+          data-test="loading"
         ></v-progress-linear
       ></v-col>
     </v-row>

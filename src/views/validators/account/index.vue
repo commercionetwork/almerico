@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="isLoading">
+  <v-row v-if="isLoading" data-test="loading">
     <v-col cols="12" class="pa-5">
       <v-progress-linear
         indeterminate
@@ -14,18 +14,18 @@
     <v-col cols="12">
       <AccountDetailsHeader />
       <v-row v-if="error !== null">
-        <v-col cols="12" v-if="error.status === 404">
+        <v-col cols="12" v-if="error.status === 404" data-test="not-found">
           <v-alert border="left" prominent text type="info">
             <span class="text-body-1" v-text="infoMessage" />
           </v-alert>
         </v-col>
-        <v-col cols="12" v-else>
+        <v-col cols="12" v-else data-test="error">
           <v-alert border="left" prominent text type="error">
             <span class="text-body-1" v-text="JSON.stringify(error)" />
           </v-alert>
         </v-col>
       </v-row>
-      <div v-else>
+      <div v-else data-test="content">
         <AccountDetailsBody class="py-1" />
         <AccountDetailsFooter class="py-1" :address="address" />
       </div>

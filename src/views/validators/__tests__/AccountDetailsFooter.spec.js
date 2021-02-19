@@ -3,16 +3,20 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import { mockTxs } from '../../../store/transactions/__mocks__/txs';
-import TransactionsMiddleBody from '../dashboard/TransactionsMiddleBody.vue';
+import AccountDetailsFooter from '../account/AccountDetailsFooter.vue';
 
 Vue.use(Vuetify);
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(Vuetify);
 
-describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
+describe('views/validators/account/AccountDetailsFooter.vue', () => {
+  const props = {
+    address: 'address',
+  };
   const actions = {
     changePage: jest.fn(),
+    fetchTransactionsDescendingOrder: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
@@ -24,10 +28,13 @@ describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
   });
 
   test('if error message is displayed', () => {
-    const wrapper = shallowMount(TransactionsMiddleBody, {
+    const wrapper = shallowMount(AccountDetailsFooter, {
       localVue,
       mocks: {
         $store: mockStore,
+      },
+      propsData: {
+        ...props,
       },
       computed: {
         error: () => ({
@@ -36,7 +43,6 @@ describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
         }),
         isLoading: () => false,
         items: () => [],
-        filter: () => '',
         transactions: () => [],
       },
     });
@@ -47,16 +53,18 @@ describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(TransactionsMiddleBody, {
+    const wrapper = shallowMount(AccountDetailsFooter, {
       localVue,
       mocks: {
         $store: mockStore,
+      },
+      propsData: {
+        ...props,
       },
       computed: {
         error: () => null,
         isLoading: () => false,
         items: () => [],
-        filter: () => '',
         transactions: () => mockTxs(),
       },
     });
@@ -67,16 +75,18 @@ describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
   });
 
   test('if loading message is displayed', () => {
-    const wrapper = shallowMount(TransactionsMiddleBody, {
+    const wrapper = shallowMount(AccountDetailsFooter, {
       localVue,
       mocks: {
         $store: mockStore,
+      },
+      propsData: {
+        ...props,
       },
       computed: {
         error: () => null,
         isLoading: () => true,
         items: () => [],
-        filter: () => '',
         transactions: () => mockTxs(),
       },
     });
