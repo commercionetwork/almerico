@@ -28,7 +28,7 @@ describe('store/blocks/actions', () => {
     mockResponse = null;
   });
 
-  test("Check if 'actions.getBlock' set block details", async () => {
+  test("if 'actions.getBlock' set block details", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -37,10 +37,22 @@ describe('store/blocks/actions', () => {
     expect(commit).toHaveBeenCalledWith('setBlockDetails', mockResponse.data);
   });
 
-  test("Check if 'actions.fetchLatestBlock' set last block", async () => {
+  test("if 'actions.getBlock' has an error, dispatch 'handleError'", async () => {
     const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
+
+    await actions.getBlock({ dispatch, commit }, 1);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchLatestBlock' set last block", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
 
     await actions.fetchLatestBlock({
+      dispatch,
       commit,
     });
 
@@ -50,7 +62,20 @@ describe('store/blocks/actions', () => {
     );
   });
 
-  test("Check if 'actions.fetchBlocks' adds the required number of blocks", async () => {
+  test("if 'actions.fetchLatestBlock' has an error, dispatch 'handleError'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
+
+    await actions.fetchLatestBlock({
+      dispatch,
+      commit,
+    });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchBlocks' adds the required number of blocks", async () => {
     const commit = jest.fn();
     let height = 10;
     let items = 10;
@@ -75,11 +100,11 @@ describe('store/blocks/actions', () => {
     );
   });
 
-  test("Check if 'actions.getBlocks' dispatch the action 'fetchBlocks'", async () => {
+  test("if 'actions.getBlocks' dispatch the action 'fetchBlocks'", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    let maxHeight = 100;
-    let items = 10;
+    const maxHeight = 100;
+    const items = 10;
 
     await actions.getBlocks(
       { dispatch, commit },
@@ -93,7 +118,7 @@ describe('store/blocks/actions', () => {
     });
   });
 
-  test("Check if 'actions.addBlocks' dispatch the action 'fetchBlocks'", async () => {
+  test("if 'actions.addBlocks' dispatch the action 'fetchBlocks'", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const currentHeight = 100;
@@ -107,6 +132,29 @@ describe('store/blocks/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchBlocks', {
       height: currentHeight,
       items: items,
+    });
+  });
+
+  test("if 'actions.handleError' handles the various types of error", () => {
+    const commit = jest.fn();
+    let error = mockErrorResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error.response);
+
+    error = mockErrorRequestResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error);
+
+    error = 'error';
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setServerReachability', false, {
+      root: true,
     });
   });
 });

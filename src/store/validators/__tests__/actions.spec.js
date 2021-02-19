@@ -150,6 +150,29 @@ describe('store/validators/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchValidatorDetails', address);
     expect(dispatch).toHaveBeenCalledWith('fetchValidatorDelegations', address);
   });
+
+  test("if 'actions.handleError' handles the various types of error", () => {
+    const commit = jest.fn();
+    let error = mockErrorResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error.response);
+
+    error = mockErrorRequestResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error);
+
+    error = 'error';
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setServerReachability', false, {
+      root: true,
+    });
+  });
 });
 
 jest.mock('./../api', () => ({

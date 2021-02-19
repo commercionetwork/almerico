@@ -10,7 +10,7 @@ describe('store/blocks/mutations', () => {
     };
   });
 
-  test('Check mutations.startLoading', () => {
+  test('mutations.startLoading', () => {
     state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
@@ -19,7 +19,7 @@ describe('store/blocks/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('Check mutations.stopLoading', () => {
+  test('mutations.stopLoading', () => {
     state.isLoading = true;
 
     mutations.stopLoading(state);
@@ -27,7 +27,7 @@ describe('store/blocks/mutations', () => {
     expect(state.isLoading).toBe(false);
   });
 
-  test('Check mutations.setError', () => {
+  test('mutations.setError', () => {
     const error = { message: 'error', status: 400 };
 
     mutations.setError(state, error);
@@ -35,7 +35,7 @@ describe('store/blocks/mutations', () => {
     expect(state.error).toStrictEqual(error);
   });
 
-  test('Check mutations.changeHeight', () => {
+  test('mutations.changeHeight', () => {
     const height = 2;
 
     mutations.changeHeight(state, height);
@@ -43,7 +43,7 @@ describe('store/blocks/mutations', () => {
     expect(state.currentHeight).toBe(height);
   });
 
-  test('Check mutations.addBlocks', () => {
+  test('mutations.addBlocks', () => {
     const data = [
       {
         id: 1,
@@ -72,13 +72,13 @@ describe('store/blocks/mutations', () => {
     expect(state.blocks).toStrictEqual(expectedValue);
   });
 
-  test('Check mutations.clearAllBlocks', () => {
+  test('mutations.clearAllBlocks', () => {
     mutations.clearAllBlocks(state);
 
     expect(state.blocks).toStrictEqual([]);
   });
 
-  test('Check mutations.addSingleBlock', () => {
+  test('mutations.addSingleBlock', () => {
     const data = [
       {
         id: 1,
@@ -105,7 +105,7 @@ describe('store/blocks/mutations', () => {
     expect(state.blocks).toStrictEqual(expectedValue);
   });
 
-  test('Check mutations.setBlockDetails', () => {
+  test('mutations.setBlockDetails', () => {
     const block = {
       id: 1,
     };
@@ -115,7 +115,7 @@ describe('store/blocks/mutations', () => {
     expect(state.details).toStrictEqual(block);
   });
 
-  test('Check mutations.setLatestBlock', () => {
+  test('mutations.setLatestBlock', () => {
     const data = [
       {
         id: 1,

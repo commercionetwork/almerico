@@ -6,7 +6,6 @@ import api from './api';
 
 export default {
   /**
-   *
    * @param {Function} dispatch
    * @param {Function} commit
    * @param {Number} height
@@ -26,11 +25,16 @@ export default {
     }
   },
   /**
+   * @param {Function} dispatch
    * @param {Function} commit
    */
-  async fetchLatestBlock({ commit }) {
-    const response = await api.requestLatestBlock();
-    commit('setLatestBlock', response.data.block);
+  async fetchLatestBlock({ dispatch, commit }) {
+    try {
+      const response = await api.requestLatestBlock();
+      commit('setLatestBlock', response.data.block);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
   },
   /**
    * @param {Function} commit

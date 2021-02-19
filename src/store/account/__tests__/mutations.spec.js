@@ -10,7 +10,7 @@ describe('store/account/mutations', () => {
     };
   });
 
-  test('Check mutations.startLoading', () => {
+  test('mutations.startLoading', () => {
     state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
@@ -19,7 +19,7 @@ describe('store/account/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('Check mutations.stopLoading', () => {
+  test('mutations.stopLoading', () => {
     state.isLoading = true;
 
     mutations.stopLoading(state);
@@ -27,7 +27,7 @@ describe('store/account/mutations', () => {
     expect(state.isLoading).toBe(false);
   });
 
-  test('Check mutations.setError', () => {
+  test('mutations.setError', () => {
     const error = { message: 'error', status: 400 };
 
     mutations.setError(state, error);
@@ -35,7 +35,7 @@ describe('store/account/mutations', () => {
     expect(state.error).toStrictEqual(error);
   });
 
-  test('Check mutations.setBalances', () => {
+  test('mutations.setBalances', () => {
     const balances = [
       {
         id: 1,
@@ -47,7 +47,7 @@ describe('store/account/mutations', () => {
     expect(state.balances).toStrictEqual(balances);
   });
 
-  test('Check mutations.setDelegations', () => {
+  test('mutations.setDelegations', () => {
     const delegations = [
       {
         id: 1,
@@ -59,7 +59,7 @@ describe('store/account/mutations', () => {
     expect(state.delegations).toStrictEqual(delegations);
   });
 
-  test('Check mutations.setUnbondings', () => {
+  test('mutations.setUnbondings', () => {
     const unbondings = [
       {
         id: 1,
@@ -71,7 +71,7 @@ describe('store/account/mutations', () => {
     expect(state.unbondings).toStrictEqual(unbondings);
   });
 
-  test('Check mutations.setMembership', () => {
+  test('mutations.setMembership', () => {
     const membership = {
       id: 1,
     };
@@ -81,7 +81,7 @@ describe('store/account/mutations', () => {
     expect(state.membership).toStrictEqual(membership);
   });
 
-  test('Check mutations.setRewards', () => {
+  test('mutations.setRewards', () => {
     const rewards = {
       id: 1,
     };

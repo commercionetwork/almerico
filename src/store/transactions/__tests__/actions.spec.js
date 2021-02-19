@@ -160,6 +160,29 @@ describe('store/transactions/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setFilter', filter);
   });
+
+  test("if 'actions.handleError' handles the various types of error", () => {
+    const commit = jest.fn();
+    let error = mockErrorResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error.response);
+
+    error = mockErrorRequestResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error);
+
+    error = 'error';
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setServerReachability', false, {
+      root: true,
+    });
+  });
 });
 
 jest.mock('./../api', () => ({

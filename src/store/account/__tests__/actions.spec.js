@@ -50,7 +50,7 @@ describe('store/account/actions', () => {
     );
   });
 
-  test("if 'actions.fetchBalances' has an error dispatch 'handleError'", async () => {
+  test("if 'actions.fetchBalances' has an error, dispatch 'handleError'", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
     mockError = true;
@@ -84,7 +84,7 @@ describe('store/account/actions', () => {
     );
   });
 
-  test("if 'actions.fetchDelegations' has an error dispatch 'handleError'", async () => {
+  test("if 'actions.fetchDelegations' has an error, dispatch 'handleError'", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
     mockError = true;
@@ -131,7 +131,7 @@ describe('store/account/actions', () => {
     expect(commit).toHaveBeenCalledWith('setRewards', mockResponse.data.result);
   });
 
-  test("if 'actions.fetchRewards' has an error dispatch 'handleError'", async () => {
+  test("if 'actions.fetchRewards' has an error, dispatch 'handleError'", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
     mockError = true;
@@ -165,7 +165,7 @@ describe('store/account/actions', () => {
     );
   });
 
-  test("if 'actions.fetchUnbondings' has an error dispatch 'handleError'", async () => {
+  test("if 'actions.fetchUnbondings' has an error, dispatch 'handleError'", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
     mockError = true;
