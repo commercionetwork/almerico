@@ -22,21 +22,25 @@ describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
       },
     },
   });
+  const mocks = {
+    $store: mockStore,
+  };
+  const computed = {
+    items: () => [],
+    filter: () => '',
+  };
 
   test('if error message is displayed', () => {
     const wrapper = shallowMount(TransactionsMiddleBody, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         error: () => ({
           message: 'Error',
           status: 400,
         }),
         isLoading: () => false,
-        items: () => [],
-        filter: () => '',
         transactions: () => [],
       },
     });
@@ -49,14 +53,11 @@ describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
   test('if content is displayed', () => {
     const wrapper = shallowMount(TransactionsMiddleBody, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
-        items: () => [],
-        filter: () => '',
         transactions: () => mockTxs(),
       },
     });
@@ -69,14 +70,11 @@ describe('views/transactions/dashboard/TransactionsMiddleBody.vue', () => {
   test('if loading message is displayed', () => {
     const wrapper = shallowMount(TransactionsMiddleBody, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
-        items: () => [],
-        filter: () => '',
         transactions: () => mockTxs(),
       },
     });

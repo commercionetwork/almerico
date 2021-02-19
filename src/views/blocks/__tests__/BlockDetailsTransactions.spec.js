@@ -11,6 +11,9 @@ localVue.use(Vuex);
 localVue.use(Vuetify);
 
 describe('views/blocks/details/BlockDetailsTransactions.vue', () => {
+  const props = {
+    height: '1',
+  };
   const actions = {
     fetchTransactionsDescendingOrder: jest.fn(),
   };
@@ -22,16 +25,14 @@ describe('views/blocks/details/BlockDetailsTransactions.vue', () => {
       },
     },
   });
-  const props = {
-    height: '1',
+  const mocks = {
+    $store: mockStore,
   };
 
   test('if error message is displayed', () => {
     const wrapper = shallowMount(BlockDetailsTransactions, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       propsData: {
         ...props,
       },
@@ -52,9 +53,7 @@ describe('views/blocks/details/BlockDetailsTransactions.vue', () => {
   test('if content is displayed', () => {
     const wrapper = shallowMount(BlockDetailsTransactions, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       propsData: {
         ...props,
       },

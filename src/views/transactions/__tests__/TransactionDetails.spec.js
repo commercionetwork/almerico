@@ -1,6 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import { mockTx } from '../../../store/transactions/__mocks__/txs';
@@ -8,7 +7,6 @@ import TransactionDetails from '../details/index.vue';
 
 Vue.use(Vuetify);
 const localVue = createLocalVue();
-localVue.use(VueRouter);
 localVue.use(Vuex);
 localVue.use(Vuetify);
 
@@ -24,18 +22,27 @@ describe('views/transactions/details/index.vue', () => {
       },
     },
   });
+  const mocks = {
+    $route: {
+      params: {
+        id: 'id',
+      },
+    },
+    $store: mockStore,
+  };
+  const computed = {
+    hash: () => 'id',
+    infoMessage: () => 'No transactions with this hash',
+  };
 
   test('if loading message is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         details: () => null,
         error: () => null,
-        hash: () => 'id',
-        infoMessage: () => 'No transactions with this hash',
         isLoading: () => true,
       },
     });
@@ -49,17 +56,14 @@ describe('views/transactions/details/index.vue', () => {
   test('if not found message is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         details: () => null,
         error: () => ({
           message: 'Not Found',
           status: 404,
         }),
-        hash: () => 'id',
-        infoMessage: () => 'No transactions with this hash',
         isLoading: () => false,
       },
     });
@@ -73,17 +77,14 @@ describe('views/transactions/details/index.vue', () => {
   test('if error message is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         details: () => null,
         error: () => ({
           message: 'Error',
           status: 400,
         }),
-        hash: () => 'id',
-        infoMessage: () => 'No transactions with this hash',
         isLoading: () => false,
       },
     });
@@ -97,18 +98,15 @@ describe('views/transactions/details/index.vue', () => {
   test('if content is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         details: () => ({
           data: mockTx(),
           ledger: 'ledger',
           version: '',
         }),
         error: () => null,
-        hash: () => 'id',
-        infoMessage: () => 'No transactions with this hash',
         isLoading: () => false,
       },
     });

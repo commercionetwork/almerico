@@ -1,13 +1,11 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import BlockDetails from '../details/index.vue';
 
 Vue.use(Vuetify);
 const localVue = createLocalVue();
-localVue.use(VueRouter);
 localVue.use(Vuex);
 localVue.use(Vuetify);
 
@@ -23,13 +21,19 @@ describe('views/blocks/details/index.vue', () => {
       },
     },
   });
+  const mocks = {
+    $route: {
+      params: {
+        id: 'id',
+      },
+    },
+    $store: mockStore,
+  };
 
   test('if loading message is displayed', () => {
     const wrapper = shallowMount(BlockDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
         error: () => null,
         height: () => 'id',
@@ -47,9 +51,7 @@ describe('views/blocks/details/index.vue', () => {
   test('if not found message is displayed', () => {
     const wrapper = shallowMount(BlockDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
         error: () => ({
           message: 'Not Found',
@@ -70,9 +72,7 @@ describe('views/blocks/details/index.vue', () => {
   test('if error message is displayed', () => {
     const wrapper = shallowMount(BlockDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
         error: () => ({
           message: 'Error',
@@ -93,9 +93,7 @@ describe('views/blocks/details/index.vue', () => {
   test('if content is displayed', () => {
     const wrapper = shallowMount(BlockDetails, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
         error: () => null,
         height: () => 'id',

@@ -23,25 +23,29 @@ describe('views/blocks/dashboard/BlocksMiddleBody.vue', () => {
       },
     },
   });
+  const mocks = {
+    $store: mockStore,
+  };
+  const computed = {
+    currentHeight: () => '1',
+    items: () => [],
+    validators: () => [],
+    latest: () => mockBlock().block,
+    validatorsSet: () => [],
+  };
 
   test('if error message is displayed', () => {
     const wrapper = shallowMount(BlocksMiddleBody, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         blocks: () => [],
         error: () => ({
           message: 'Error',
           status: 400,
         }),
-        currentHeight: () => '1',
         isLoading: () => false,
-        items: () => [],
-        validators: () => [],
-        latest: () => null,
-        validatorsSet: () => [],
       },
     });
 
@@ -53,18 +57,12 @@ describe('views/blocks/dashboard/BlocksMiddleBody.vue', () => {
   test('if content is displayed', () => {
     const wrapper = shallowMount(BlocksMiddleBody, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         blocks: () => mockBlocks(),
         error: () => null,
-        currentHeight: () => '1',
         isLoading: () => false,
-        items: () => [],
-        latest: () => mockBlock().block,
-        validators: () => [],
-        validatorsSet: () => [],
       },
     });
 
@@ -76,18 +74,12 @@ describe('views/blocks/dashboard/BlocksMiddleBody.vue', () => {
   test('if loading message is displayed', () => {
     const wrapper = shallowMount(BlocksMiddleBody, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       computed: {
+        ...computed,
         blocks: () => mockBlocks(),
         error: () => null,
-        currentHeight: () => '1',
         isLoading: () => true,
-        items: () => [],
-        latest: () => mockBlock().block,
-        validators: () => [],
-        validatorsSet: () => [],
       },
     });
 

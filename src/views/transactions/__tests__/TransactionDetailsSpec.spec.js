@@ -18,6 +18,10 @@ describe('views/transactions/details/TransactionDetailsSpec.vue', () => {
     version: 'prop',
     rawLog: 'prop',
   };
+  const computed = {
+    heightLink: () => ({}),
+    ledgerLink: () => 'link',
+  };
 
   test('if raw log is dispalyed', () => {
     const wrapper = shallowMount(TransactionDetailsSpec, {
@@ -26,10 +30,7 @@ describe('views/transactions/details/TransactionDetailsSpec.vue', () => {
         ...props,
         status: 0,
       },
-      computed: {
-        heightLink: () => ({}),
-        ledgerLink: () => 'link',
-      },
+      computed,
     });
 
     expect(wrapper.find('[data-test="raw-log"]').exists()).toBe(true);
@@ -42,10 +43,7 @@ describe('views/transactions/details/TransactionDetailsSpec.vue', () => {
         ...props,
         status: 1,
       },
-      computed: {
-        heightLink: () => ({}),
-        ledgerLink: () => 'link',
-      },
+      computed,
     });
 
     expect(wrapper.find('[data-test="raw-log"]').exists()).toBe(false);
