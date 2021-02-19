@@ -40,11 +40,12 @@ describe('store/transactions/actions', () => {
     mockResponse = null;
   });
 
-  test("Check if 'actions.fetchTransaction' reset outdated tx details and set new tx", async () => {
+  test("if 'actions.fetchTransaction' reset outdated tx details and set new tx", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
+    const hash = 1;
 
-    await actions.fetchTransaction({ dispatch, commit }, 1);
+    await actions.fetchTransaction({ dispatch, commit }, hash);
 
     expect(commit).toHaveBeenCalledWith('setTransactionDetails', null);
     expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
@@ -54,41 +55,85 @@ describe('store/transactions/actions', () => {
     });
   });
 
-  test("Check if 'actions.fetchTransaction' search tx details from ancestors", async () => {
+  test("if 'actions.fetchTransaction' search tx details from ancestors", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
-    const ancestors = JSON.parse(CHAIN.ANCESTORS);
+    const hash = 1;
 
     mockErrorNotFound = true;
 
-    await actions.fetchTransaction({ dispatch, commit }, 1);
+    await actions.fetchTransaction({ dispatch, commit }, hash);
 
-    expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
-      data: mockResponse.data,
-      ledger: ancestors[0].lcd_ledger,
-      version: ancestors[0].ver,
-    });
+    expect(dispatch).toHaveBeenCalledWith('fetchAncestorTransaction', hash);
   });
 
-  test("Check if 'actions.getLastPage' set last page and has next page", async () => {
+  test("if 'actions.fetchTransaction' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    const hash = 1;
+
+    mockError = true;
+
+    await actions.fetchTransaction({ dispatch, commit }, hash);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchAncestorTransaction' set new tx", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    const hash = 1;
+    const ancestors = JSON.parse(CHAIN.ANCESTORS);
+
+    await actions.fetchAncestorTransaction({ dispatch, commit }, hash);
+
+    if (ancestors.length > 0) {
+      expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
+        data: mockResponse.data,
+        ledger: ancestors[0].lcd_ledger,
+        version: ancestors[0].ver,
+      });
+    }
+  });
+
+  test("if 'actions.fetchAncestorTransaction' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    const hash = 1;
+    mockError = true;
+
+    await actions.fetchAncestorTransaction({ dispatch, commit }, hash);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.getLastPage' set last page and has next page", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.getLastPage({ commit }, { limit: 10, query: '' });
+    await actions.getLastPage({ dispatch, commit }, { limit: 10, query: '' });
 
     expect(commit).toHaveBeenCalledWith('changePage', 1);
     expect(commit).toHaveBeenCalledWith('setHasNext', 1);
   });
 
-  test("Check if 'actions.getTransactions' add txs", async () => {
+  test("if 'actions.getLastPage' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.getLastPage({ dispatch, commit }, { limit: 10, query: '' });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.getTransactions' add txs", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
     await actions.getTransactions(
-      { commit },
-      {
-        page: 1,
-        limit: 1,
-        query: '',
-      }
+      { dispatch, commit },
+      { page: 1, limit: 1, query: '' }
     );
 
     expect(commit).toHaveBeenCalledWith(
@@ -97,7 +142,20 @@ describe('store/transactions/actions', () => {
     );
   });
 
-  test("Check if 'actions.fetchTransactionsDescendingOrder' clear outdated txs, last page and has next page, and get last page and updated txs", async () => {
+  test("if 'actions.getTransactions' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.getTransactions(
+      { dispatch, commit },
+      { page: 1, limit: 1, query: '' }
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchTransactionsDescendingOrder' clear outdated txs, last page and has next page, and get last page and updated txs", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const state = {};
@@ -118,7 +176,7 @@ describe('store/transactions/actions', () => {
     });
   });
 
-  test("Check if 'actions.changePage' get transactions", async () => {
+  test("if 'actions.changePage' get transactions", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const state = {
@@ -140,7 +198,7 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setHasNext', currentPage);
   });
 
-  test("Check if 'actions.fetchBlockTransactions' get block transactions", async () => {
+  test("if 'actions.fetchBlockTransactions' get block transactions", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
@@ -152,7 +210,17 @@ describe('store/transactions/actions', () => {
     );
   });
 
-  test("Check if 'actions.setTransactionsFilter' set filter", () => {
+  test("if 'actions.fetchBlockTransactions' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchBlockTransactions({ dispatch, commit }, 1);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.setTransactionsFilter' set filter", () => {
     const commit = jest.fn();
     const filter = {};
 

@@ -10,7 +10,7 @@ describe('store/transactions/mutations', () => {
     };
   });
 
-  test('Check mutations.startLoading', () => {
+  test('mutations.startLoading', () => {
     state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
@@ -19,7 +19,7 @@ describe('store/transactions/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('Check mutations.stopLoading', () => {
+  test('mutations.stopLoading', () => {
     state.isLoading = true;
 
     mutations.stopLoading(state);
@@ -27,7 +27,7 @@ describe('store/transactions/mutations', () => {
     expect(state.isLoading).toBe(false);
   });
 
-  test('Check mutations.setError', () => {
+  test('mutations.setError', () => {
     const error = { message: 'error', status: 400 };
 
     mutations.setError(state, error);
@@ -35,7 +35,7 @@ describe('store/transactions/mutations', () => {
     expect(state.error).toStrictEqual(error);
   });
 
-  test('Check mutations.setFilter', () => {
+  test('mutations.setFilter', () => {
     const filter = 'type';
 
     mutations.setFilter(state, filter);
@@ -43,7 +43,7 @@ describe('store/transactions/mutations', () => {
     expect(state.filter).toBe(filter);
   });
 
-  test('Check mutations.changePage', () => {
+  test('mutations.changePage', () => {
     const page = 2;
 
     mutations.changePage(state, page);
@@ -51,7 +51,7 @@ describe('store/transactions/mutations', () => {
     expect(state.currentPage).toBe(page);
   });
 
-  test('Check mutations.setHasNext', () => {
+  test('mutations.setHasNext', () => {
     state.hasNext = false;
 
     mutations.setHasNext(state, 2);
@@ -63,7 +63,7 @@ describe('store/transactions/mutations', () => {
     expect(state.hasNext).toBe(false);
   });
 
-  test('Check mutations.addTransactions', () => {
+  test('mutations.addTransactions', () => {
     const data = [
       {
         id: 1,
