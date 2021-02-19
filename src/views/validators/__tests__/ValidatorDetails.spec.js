@@ -2,20 +2,20 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import AccountDetails from '../account/index.vue';
+import ValidatorDetails from '../details/index.vue';
 
 Vue.use(Vuetify);
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(Vuetify);
 
-describe('views/validators/account/index.vue', () => {
+describe('views/validators/details/index.vue', () => {
   const actions = {
-    getAccount: jest.fn(),
+    getValidatorData: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
-      account: {
+      validators: {
         namespaced: true,
         actions,
       },
@@ -30,12 +30,16 @@ describe('views/validators/account/index.vue', () => {
     $store: mockStore,
   };
   const computed = {
-    address: () => 'id',
+    account: () => 'account',
+    address: () => 'address',
+    delegations: () => ({}),
+    details: () => ({}),
     infoMessage: () => 'No transactions with this hash',
+    operator: () => 'operator',
   };
 
   test('if loading message is displayed', () => {
-    const wrapper = shallowMount(AccountDetails, {
+    const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       mocks,
       computed: {
@@ -52,7 +56,7 @@ describe('views/validators/account/index.vue', () => {
   });
 
   test('if not found message is displayed', () => {
-    const wrapper = shallowMount(AccountDetails, {
+    const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       mocks,
       computed: {
@@ -72,7 +76,7 @@ describe('views/validators/account/index.vue', () => {
   });
 
   test('if error message is displayed', () => {
-    const wrapper = shallowMount(AccountDetails, {
+    const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       mocks,
       computed: {
@@ -92,7 +96,7 @@ describe('views/validators/account/index.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(AccountDetails, {
+    const wrapper = shallowMount(ValidatorDetails, {
       localVue,
       mocks,
       computed: {

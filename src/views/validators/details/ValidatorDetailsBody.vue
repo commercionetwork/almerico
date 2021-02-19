@@ -17,6 +17,7 @@
       md="4"
       order="3"
       order-md="5"
+      data-test="is-missing-blocks-checker"
     >
       <ValidatorDetailsBlocks />
     </v-col>

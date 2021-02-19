@@ -1,10 +1,13 @@
 <template>
   <v-card elevation="2" :loading="isLoading">
     <v-card-title v-text="title" />
-    <v-card-text v-if="isLoading">
+    <v-card-text v-if="isLoading" data-test="loading">
       <v-alert type="info">Loading ...</v-alert>
     </v-card-text>
-    <v-card-text v-else-if="!isLoading && verifiedBlocks.length > 0">
+    <v-card-text
+      v-else-if="!isLoading && verifiedBlocks.length > 0"
+      data-test="content"
+    >
       <div class="grid">
         <div
           v-for="(verified, index) in verifiedBlocks"
@@ -14,7 +17,7 @@
         />
       </div>
     </v-card-text>
-    <v-card-text v-else>
+    <v-card-text v-else data-test="warning">
       <v-alert type="warning">Not available</v-alert>
     </v-card-text>
   </v-card>
