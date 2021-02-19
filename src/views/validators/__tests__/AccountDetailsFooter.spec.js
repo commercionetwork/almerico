@@ -26,13 +26,14 @@ describe('views/validators/account/AccountDetailsFooter.vue', () => {
       },
     },
   });
+  const mocks = {
+    $store: mockStore,
+  };
 
   test('if error message is displayed', () => {
     const wrapper = shallowMount(AccountDetailsFooter, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       propsData: {
         ...props,
       },
@@ -55,9 +56,7 @@ describe('views/validators/account/AccountDetailsFooter.vue', () => {
   test('if content is displayed', () => {
     const wrapper = shallowMount(AccountDetailsFooter, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       propsData: {
         ...props,
       },
@@ -77,9 +76,7 @@ describe('views/validators/account/AccountDetailsFooter.vue', () => {
   test('if loading message is displayed', () => {
     const wrapper = shallowMount(AccountDetailsFooter, {
       localVue,
-      mocks: {
-        $store: mockStore,
-      },
+      mocks,
       propsData: {
         ...props,
       },

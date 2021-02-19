@@ -1,7 +1,10 @@
 <template>
   <v-layout>
     <v-flex>
-      <v-row v-if="$config.validators.isMissingBlocksChecker && isLoading">
+      <v-row
+        v-if="$config.validators.isMissingBlocksChecker && isLoading"
+        data-test="loading"
+      >
         <v-col cols="12" class="pa-5">
           <v-progress-linear
             indeterminate
@@ -13,7 +16,8 @@
         </v-col>
       </v-row>
       <v-row
-        v-else-if="$config.validators.isMissingBlocksChecker && error !== ''"
+        v-else-if="$config.validators.isMissingBlocksChecker && error !== null"
+        data-test="error"
       >
         <v-col cols="12">
           <v-alert border="left" prominent text type="error">
@@ -21,7 +25,7 @@
           </v-alert>
         </v-col>
       </v-row>
-      <v-row v-else>
+      <v-row v-else data-test="content">
         <v-col cols="12">
           <ValidatorsTable />
         </v-col>
