@@ -155,10 +155,8 @@ export default {
       root: true,
     });
     commit('resetDetails');
-    await Promise.all([
-      dispatch('fetchValidatorDetails', address),
-      dispatch('fetchValidatorDelegations', address),
-    ]);
+    await dispatch('fetchValidatorDetails', address);
+    await dispatch('fetchValidatorDelegations', address);
     dispatch('fetchValidatorPicture');
     commit('stopLoading');
   },
