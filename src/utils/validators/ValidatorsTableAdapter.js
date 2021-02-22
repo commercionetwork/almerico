@@ -1,3 +1,4 @@
+import { CUSTOMIZATION } from '@/constants';
 import {
   arrayHandler,
   BlocksAttendanceCalculator,
@@ -79,13 +80,15 @@ class ValidatorsTableAdapter {
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         });
-        const validatorAttendance = BlocksAttendanceCalculator.setBlocks(
-          this.blocks
-        )
-          .setValidator(validator)
-          .setValidatorsSet(this.validatorsSet)
-          .get();
-        attendance = validatorAttendance.percentage;
+        if (this.blocks.length === CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS) {
+          const validatorAttendance = BlocksAttendanceCalculator.setBlocks(
+            this.blocks
+          )
+            .setValidator(validator)
+            .setValidatorsSet(this.validatorsSet)
+            .get();
+          attendance = validatorAttendance.percentage;
+        }
       }
 
       validatorsTable.push({

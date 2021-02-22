@@ -67,11 +67,13 @@ export default {
       return this.params.bond_denom ? this.params.bond_denom : '';
     },
     items() {
-      const restrictedBlocks = blocksHandler.restrictBlocks({
-        blocks: this.blocks,
-        prop: ['header', 'height'],
-        limit: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
-      });
+      const restrictedBlocks = this.$config.validators.isMissingBlocksChecker
+        ? blocksHandler.restrictBlocks({
+            blocks: this.blocks,
+            prop: ['header', 'height'],
+            limit: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+          })
+        : [];
       return ValidatorsTableAdapter.setValidators(this.validators)
         .setBlocks(restrictedBlocks)
         .setCoin(this.bondDenom)
