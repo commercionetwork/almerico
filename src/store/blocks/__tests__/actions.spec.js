@@ -76,11 +76,15 @@ describe('store/blocks/actions', () => {
   });
 
   test("if 'actions.fetchBlocks' adds the required number of blocks", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
     let height = 10;
     let items = 10;
 
-    await actions.fetchBlocks({ commit }, { height: height, items: items });
+    await actions.fetchBlocks(
+      { dispatch, commit },
+      { height: height, items: items }
+    );
 
     expect(commit).toHaveBeenNthCalledWith(
       items,
@@ -91,13 +95,31 @@ describe('store/blocks/actions', () => {
     height = 5;
     items = 10;
 
-    await actions.fetchBlocks({ commit }, { height: height, items: items });
+    await actions.fetchBlocks(
+      { dispatch, commit },
+      { height: height, items: items }
+    );
 
     expect(commit).toHaveBeenNthCalledWith(
       5,
       'addSingleBlock',
       mockResponse.data.block
     );
+  });
+
+  test("if 'actions.fetchBlocks' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    let height = 10;
+    let items = 10;
+    mockError = true;
+
+    await actions.fetchBlocks(
+      { dispatch, commit },
+      { height: height, items: items }
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test("if 'actions.getBlocks' dispatch the action 'fetchBlocks'", async () => {
