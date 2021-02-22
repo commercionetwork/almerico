@@ -31,10 +31,11 @@ describe('store/validators/actions', () => {
     mockResponse = null;
   });
 
-  test("Check if 'actions.fetchLatestValidatorSets' get latest validator sets", async () => {
+  test("if 'actions.fetchLatestValidatorSets' get latest validator sets", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.fetchLatestValidatorSets({ commit });
+    await actions.fetchLatestValidatorSets({ dispatch, commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setLatestValidatorsSets',
@@ -42,14 +43,25 @@ describe('store/validators/actions', () => {
     );
   });
 
-  test("Check if 'actions.fetchValidatorsList' add validators by status", async () => {
+  test("if 'actions.fetchLatestValidatorSets' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchLatestValidatorSets({ dispatch, commit });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchValidatorsList' add validators by status", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
     const status = STATUS.VALIDATOR.BONDED;
     const page = 1;
     const limit = 30;
 
     await actions.fetchValidatorsList(
-      { commit },
+      { dispatch, commit },
       { status: status, page: page, limit: limit }
     );
 
@@ -59,10 +71,26 @@ describe('store/validators/actions', () => {
     );
   });
 
-  test("Check if 'actions.initValidators' get latest validator sets and all validators by status", async () => {
+  test("if 'actions.fetchValidatorsList' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    const status = STATUS.VALIDATOR.BONDED;
+    const page = 1;
+    const limit = 30;
+    mockError = true;
+
+    await actions.fetchValidatorsList(
+      { dispatch, commit },
+      { status: status, page: page, limit: limit }
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.initValidators' get latest validator sets and all validators by status", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const status = [
+    const statuses = [
       STATUS.VALIDATOR.BONDED,
       STATUS.VALIDATOR.UNBONDED,
       STATUS.VALIDATOR.UNBONDING,
@@ -72,7 +100,7 @@ describe('store/validators/actions', () => {
 
     await actions.initValidators(
       { commit, dispatch },
-      { status: status, page: page, limit: limit }
+      { statuses: statuses, page: page, limit: limit }
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchLatestValidatorSets');
@@ -93,7 +121,7 @@ describe('store/validators/actions', () => {
     });
   });
 
-  test("Check if 'actions.fetchValidatorsetsFromHeight' set validator sets", async () => {
+  test("if 'actions.fetchValidatorsetsFromHeight' set validator sets", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
@@ -105,7 +133,17 @@ describe('store/validators/actions', () => {
     );
   });
 
-  test("Check if 'actions.setValidatorsFilter' set filter", () => {
+  test("if 'actions.fetchValidatorsetsFromHeight' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchValidatorsetsFromHeight({ dispatch, commit }, 1);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.setValidatorsFilter' set filter", () => {
     const commit = jest.fn();
     const filter = {};
 
@@ -114,41 +152,62 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('setFilter', filter);
   });
 
-  test("Check if 'actions.fetchValidatorDetails' set validator details", async () => {
+  test("if 'actions.fetchValidatorDetails' set validator details", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.fetchValidatorDetails({ commit }, 'address');
+    await actions.fetchValidatorDetails({ dispatch, commit }, 'address');
 
     expect(commit).toHaveBeenCalledWith('setDetails', mockResponse.data.result);
   });
 
-  test("Check if 'actions.fetchValidatorDelegations' add delegations validator details", async () => {
+  test("if 'actions.fetchValidatorDetails' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchValidatorDetails({ dispatch, commit }, 'address');
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchValidatorDelegations' add delegations validator details", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.fetchValidatorDelegations({ commit }, 'address');
+    await actions.fetchValidatorDelegations({ dispatch, commit }, 'address');
 
     expect(commit).toHaveBeenCalledWith('addDetails', {
       delegations: mockResponse.data.result,
     });
   });
 
-  test("Check if 'actions.getValidatorData' set details and delegations", async () => {
+  test("if 'actions.fetchValidatorDelegations' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchValidatorDelegations({ dispatch, commit }, 'address');
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.getValidatorData' set details and delegations", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const state = {};
     const address = 'address';
 
     await actions.getValidatorData(
       {
         commit,
         dispatch,
-        state,
       },
       { address: address }
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchValidatorDetails', address);
     expect(dispatch).toHaveBeenCalledWith('fetchValidatorDelegations', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchValidatorPicture');
   });
 
   test("if 'actions.handleError' handles the various types of error", () => {

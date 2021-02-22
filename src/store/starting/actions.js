@@ -15,7 +15,7 @@ export default {
     commit('setServerReachability', true, {
       root: true,
     });
-    const status = [
+    const statuses = [
       STATUS.VALIDATOR.BONDED,
       STATUS.VALIDATOR.UNBONDED,
       STATUS.VALIDATOR.UNBONDING,
@@ -25,7 +25,7 @@ export default {
       dispatch('fetchParams'),
       dispatch('fetchPool'),
       dispatch('blocks/fetchLatestBlock', null, { root: true }),
-      dispatch('validators/initValidators', { status: status }, { root: true }),
+      dispatch('validators/initValidators', { statuses: statuses }, { root: true }),
     ]);
     dispatch('subscribeWebSocket');
     commit('stopLoading');
@@ -127,7 +127,7 @@ export default {
           break;
         case WS.EVENTS.VALIDATOR_SET_UPDATES:
           commit(
-            'validators/updateValidatorsSets',
+            'validators/setLatestValidatorsSets',
             eventData.result.data.value.validator_updates,
             {
               root: true,

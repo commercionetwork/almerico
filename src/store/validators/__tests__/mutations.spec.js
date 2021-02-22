@@ -10,7 +10,7 @@ describe('store/validators/mutations', () => {
     };
   });
 
-  test('Check mutations.startLoading', () => {
+  test('mutations.startLoading', () => {
     state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
@@ -19,7 +19,7 @@ describe('store/validators/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('Check mutations.stopLoading', () => {
+  test('mutations.stopLoading', () => {
     state.isLoading = true;
 
     mutations.stopLoading(state);
@@ -27,7 +27,7 @@ describe('store/validators/mutations', () => {
     expect(state.isLoading).toBe(false);
   });
 
-  test('Check mutations.setError', () => {
+  test('mutations.setError', () => {
     const error = { message: 'error', status: 400 };
 
     mutations.setError(state, error);
@@ -35,7 +35,7 @@ describe('store/validators/mutations', () => {
     expect(state.error).toStrictEqual(error);
   });
 
-  test('Check mutations.setFilter', () => {
+  test('mutations.setFilter', () => {
     const filter = {
       id: 1,
     };
@@ -45,7 +45,7 @@ describe('store/validators/mutations', () => {
     expect(state.filter).toStrictEqual(filter);
   });
 
-  test('Check mutations.setValidators', () => {
+  test('mutations.setValidators', () => {
     const validators = [
       {
         id: 1,
@@ -57,7 +57,7 @@ describe('store/validators/mutations', () => {
     expect(state.validators).toStrictEqual(validators);
   });
 
-  test('Check mutations.addValidators', () => {
+  test('mutations.addValidators', () => {
     const validators = [
       {
         id: 1,
@@ -84,7 +84,7 @@ describe('store/validators/mutations', () => {
     expect(state.validators).toStrictEqual(expectedValue);
   });
 
-  test('Check mutations.setHeightValidatorsSets', () => {
+  test('mutations.setHeightValidatorsSets', () => {
     const heightValidatorsSets = [
       {
         id: 1,
@@ -96,7 +96,7 @@ describe('store/validators/mutations', () => {
     expect(state.heightValidatorsSets).toStrictEqual(heightValidatorsSets);
   });
 
-  test('Check mutations.setLatestValidatorsSets', () => {
+  test('mutations.setLatestValidatorsSets', () => {
     const latestValidatorsSets = [
       {
         id: 1,
@@ -108,34 +108,7 @@ describe('store/validators/mutations', () => {
     expect(state.latestValidatorsSets).toStrictEqual(latestValidatorsSets);
   });
 
-  test('Check mutations.updateValidatorsSets', () => {
-    const latestValidatorsSets = [
-      {
-        id: 1,
-      },
-    ];
-    mutations.setLatestValidatorsSets(state, latestValidatorsSets);
-
-    const validatorsSets = [
-      {
-        id: 2,
-      },
-    ];
-
-    mutations.updateValidatorsSets(state, validatorsSets);
-
-    const expectedValue = [
-      {
-        id: 1,
-      },
-      {
-        id: 2,
-      },
-    ];
-    expect(state.latestValidatorsSets).toStrictEqual(expectedValue);
-  });
-
-  test('Check mutations.setDetails', () => {
+  test('mutations.setDetails', () => {
     const details = {
       id: 1,
     };
@@ -145,7 +118,7 @@ describe('store/validators/mutations', () => {
     expect(state.details).toStrictEqual(details);
   });
 
-  test('Check mutations.addDetails', () => {
+  test('mutations.addDetails', () => {
     const details = {
       id: 1,
     };
@@ -164,7 +137,7 @@ describe('store/validators/mutations', () => {
     expect(state.details).toStrictEqual(expectedValue);
   });
 
-  test('Check mutations.resetDetails', () => {
+  test('mutations.resetDetails', () => {
     const details = {
       id: 1,
     };

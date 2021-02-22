@@ -46,7 +46,7 @@ describe('store/starting/actions', () => {
     expect(dispatch).toHaveBeenCalledWith(
       'validators/initValidators',
       {
-        status: [
+        statuses: [
           STATUS.VALIDATOR.BONDED,
           STATUS.VALIDATOR.UNBONDED,
           STATUS.VALIDATOR.UNBONDING,

@@ -78,18 +78,10 @@ export default {
    * @param {Array.<Object>} data
    */
   setLatestValidatorsSets(state, data) {
+    state.latestValidatorsSets = [];
     state.latestValidatorsSets = data.map((obj) => ({
       ...obj,
     }));
-  },
-  /**
-   * Update validators sets
-   *
-   * @param {ValidatorsState} state
-   * @param {Array.<Object>} data
-   */
-  updateValidatorsSets(state, data) {
-    state.latestValidatorsSets.push.apply(state.latestValidatorsSets, data);
   },
   /**
    * Set validator details
