@@ -34,27 +34,42 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: "BlocksSearch",
+  name: 'BlocksSearch',
   data: () => ({
     query: {
-      maxHeight: "",
-      items: "",
+      items: '',
+      maxHeight: '',
     },
   }),
   computed: {
+    ...mapGetters('blocks', {
+      block: 'latest',
+    }),
+    latestHeight() {
+      return this.block ? this.block.header.height : '0';
+    },
     tooltipMessage() {
-      return "<strong>WARNING</strong>: Setting an high number of items may take a very long time!";
+      return '<strong>WARNING</strong>: The maximum number of items allowed is 1000!';
     },
   },
   methods: {
-    ...mapActions("blocks", {
-      getBlocks: "getBlocks",
+    ...mapActions('blocks', {
+      getBlocks: 'getBlocks',
     }),
+    normaliseSearch() {
+      const maxHeight = parseInt(this.query.maxHeight);
+      const items = parseInt(this.query.items);
+      if (isNaN(maxHeight) || isNaN(items)) return false;
+      this.query.maxHeight =
+        maxHeight > this.latestHeight ? this.latestHeight : `${maxHeight}`;
+      this.query.items = items > 1000 ? '1000' : `${items}`;
+      return true;
+    },
     onSubmit() {
-      this.getBlocks(this.query);
+      if (this.normaliseSearch()) this.getBlocks(this.query);
     },
   },
 };
