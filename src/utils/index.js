@@ -9,6 +9,7 @@ import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import blocksHandler from './blocksHandler';
 import numberIntlFormatter from './numberIntlFormatter';
 import proposerHandler from './proposerHandler';
+import regExpBuilder from './regExpBuilder';
 import TransactionDetailsAdapter from './transactions/TransactionDetailsAdapter';
 import TransactionsFilter from './transactions/TransactionsFilter';
 import TransactionsTableAdapter from './transactions/TransactionsTableAdapter';
@@ -35,5 +36,6 @@ export {
   blocksHandler,
   numberIntlFormatter,
   proposerHandler,
+  regExpBuilder,
   txHandler,
 };

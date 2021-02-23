@@ -11,6 +11,7 @@
 
 <script>
 import { ROUTES } from '@/constants';
+import { regExpBuilder } from '@/utils';
 
 export default {
   name: 'SearchBar',
@@ -19,16 +20,14 @@ export default {
   }),
   methods: {
     onSubmit() {
-      const validatorRegEx = new RegExp(
-        this.$config.generic.prefixes.validator.operator.address + '.*$',
-        'igm'
+      const validatorRegEx = regExpBuilder.getAddressRegExp(
+        this.$config.generic.prefixes.validator.operator.address
       );
-      const accountRegEx = new RegExp(
-        this.$config.generic.prefixes.account.address + '.*$',
-        'igm'
+      const accountRegEx = regExpBuilder.getAddressRegExp(
+        this.$config.generic.prefixes.account.address
       );
-      const hashRegEx = new RegExp(/[0-9A-F]{64}$/, 'igm');
-      const heightRegEx = new RegExp(/[0-9]{1,}$/, 'igm');
+      const hashRegEx = regExpBuilder.getHashRegExp();
+      const heightRegEx = regExpBuilder.getHeightRegExp();
 
       let routeName = null;
       if (validatorRegEx.test(this.query)) {
