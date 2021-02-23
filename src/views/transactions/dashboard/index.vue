@@ -9,26 +9,28 @@
 </template>
 
 <script>
-import TransactionsHeader from "./TransactionsHeader";
-import TransactionsMiddleBody from "./TransactionsMiddleBody";
-import TransactionsTopBody from "./TransactionsTopBody";
+import TransactionsHeader from './TransactionsHeader';
+import TransactionsMiddleBody from './TransactionsMiddleBody';
+import TransactionsTopBody from './TransactionsTopBody';
 
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
-  name: "Transactions",
+  name: 'Transactions',
   components: {
     TransactionsHeader,
     TransactionsMiddleBody,
     TransactionsTopBody,
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactionsDescendingOrder: "fetchTransactionsDescendingOrder",
+    ...mapActions('transactions', {
+      fetchTransactionsDescendingOrder: 'fetchTransactionsDescendingOrder',
+      setTransactionsFilter: 'setTransactionsFilter',
     }),
   },
   created() {
     this.fetchTransactionsDescendingOrder();
+    this.setTransactionsFilter('');
   },
 };
 </script>
