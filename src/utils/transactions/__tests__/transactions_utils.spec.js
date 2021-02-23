@@ -66,7 +66,15 @@ describe('utils/transactions', () => {
       .setFilter(filter)
       .get();
 
-    const expectedKeys = ['height', 'type', 'result', 'fee', 'hash', 'date'];
+    const expectedKeys = [
+      'height',
+      'type',
+      'msgs',
+      'result',
+      'fee',
+      'hash',
+      'date',
+    ];
 
     expect(convertedTxs.length).toBe(items);
     for (const tx of convertedTxs) {

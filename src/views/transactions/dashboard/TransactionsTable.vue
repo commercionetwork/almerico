@@ -67,6 +67,7 @@ export default {
       return [
         { text: "Height", value: "height" },
         { text: "Type", value: "type" },
+        { text: "Msgs Nr", value: "msgs" },
         { text: "Result", value: "result" },
         { text: "Fee", value: "fee" },
         { text: "Hash", value: "hash" },

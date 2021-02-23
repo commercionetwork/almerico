@@ -37,6 +37,7 @@ class TransactionsTableAdapter {
       transactionsTable.push({
         height: tx.height,
         type: getType(tx.tx.value, this.multiTypes),
+        msgs: getMsgsNumber(tx.tx.value.msg),
         result: tx.code ? 0 : 1,
         fee: formatFee(tx.tx.value.fee),
         hash: tx.txhash,
@@ -56,6 +57,8 @@ const getType = (txValue, multiTypes) =>
         .find((msg) => typeof msg.type !== undefined)
         .type.split('/')
         .pop();
+
+const getMsgsNumber = (msgs) => msgs.length;
 
 const formatFee = (fee) => {
   if (fee.amount.length > 1) {
