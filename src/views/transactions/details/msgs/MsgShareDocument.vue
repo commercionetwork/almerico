@@ -42,7 +42,7 @@
             v-text="'metadata'"
           />
           <v-list-item>
-            <MsgItem
+            <MsgUrl
               label="metadata content uri"
               :content="metadataContentUri"
             />
@@ -57,7 +57,7 @@
           </span>
           <span v-else>
             <v-list-item>
-              <MsgItem
+              <MsgUrl
                 label="metadata schema uri"
                 :content="metadataSchemaUri"
               />
@@ -72,7 +72,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="content URI" :content="contentUri" />
+        <MsgUrl label="content URI" :content="contentUri" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -104,7 +104,7 @@
             v-text="'do sign'"
           />
           <v-list-item>
-            <MsgItem label="storage uri" :content="doSignStorageUri" />
+            <MsgUrl label="storage uri" :content="doSignStorageUri" />
           </v-list-item>
           <v-list-item>
             <MsgItem label="signer instance" :content="doSignSigner" />
@@ -128,6 +128,7 @@
 import MsgItem from '@/components/MsgItem.vue';
 import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+import MsgUrl from '@/components/MsgUrl.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -138,6 +139,7 @@ export default {
     MsgItem,
     MsgLink,
     MsgTx,
+    MsgUrl,
   },
   props: {
     message: {

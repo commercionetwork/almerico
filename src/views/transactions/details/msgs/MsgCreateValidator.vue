@@ -14,7 +14,7 @@
             <MsgItem label="identity" :content="descriptionIdentity" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="website" :content="descriptionWebsite" />
+            <MsgUrl label="website" :content="descriptionWebsite" />
           </v-list-item>
           <v-list-item>
             <MsgItem
@@ -84,6 +84,7 @@
 import MsgItem from '@/components/MsgItem.vue';
 import MsgLink from '@/components/MsgLink.vue';
 import MsgTx from '@/components/MsgTx.vue';
+import MsgUrl from '@/components/MsgUrl.vue';
 
 import { ROUTES } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
@@ -95,6 +96,7 @@ export default {
     MsgItem,
     MsgLink,
     MsgTx,
+    MsgUrl,
   },
   props: {
     message: {
