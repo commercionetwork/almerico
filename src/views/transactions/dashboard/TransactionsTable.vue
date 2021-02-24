@@ -37,47 +37,57 @@
         }"
       />
     </template>
+    <template v-slot:[`item.time`]="{ item }">
+      <v-tooltip top>
+        <template v-slot:activator="{ on }">
+          <div v-on="on">
+            <span v-text="item.time" />
+          </div>
+        </template>
+        <span v-text="item.date" />
+      </v-tooltip>
+    </template>
   </v-data-table>
 </template>
 
 <script>
-import { ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "TransactionsTable",
+  name: 'TransactionsTable',
   props: {
     items: {
       type: Array,
       default: () => [],
-      note: "The items to display",
+      note: 'The items to display',
     },
     msgType: {
       type: String,
-      default: "",
-      note: "The filterd message type",
+      default: '',
+      note: 'The filterd message type',
     },
   },
   data: () => ({
     ROUTES,
-    sortBy: "height",
+    sortBy: 'height',
     sortDesc: true,
   }),
   computed: {
     headers() {
       return [
-        { text: "Height", value: "height" },
-        { text: "Type", value: "type" },
-        { text: "Msgs Nr", value: "msgs" },
-        { text: "Result", value: "result" },
-        { text: "Fee", value: "fee" },
-        { text: "Hash", value: "hash" },
-        { text: "Date", value: "date" },
+        { text: 'Height', value: 'height' },
+        { text: 'Type', value: 'type' },
+        { text: 'Msgs', value: 'msgs' },
+        { text: 'Result', value: 'result' },
+        { text: 'Fee', value: 'fee' },
+        { text: 'Hash', value: 'hash' },
+        { text: 'Time', value: 'time' },
       ];
     },
     caption() {
-      return this.msgType != ""
+      return this.msgType != ''
         ? `Transactions filterd by "${this.msgType}" type`
-        : "All Types Transactions";
+        : 'All Types Transactions';
     },
   },
 };

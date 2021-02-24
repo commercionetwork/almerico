@@ -1,4 +1,4 @@
-import { numberIntlFormatter } from '@/utils';
+import { dateHandler, numberIntlFormatter } from '@/utils';
 import TransactionsFilter from './TransactionsFilter';
 
 class TransactionsTableAdapter {
@@ -41,7 +41,8 @@ class TransactionsTableAdapter {
         result: tx.code ? 0 : 1,
         fee: formatFee(tx.tx.value.fee),
         hash: tx.txhash,
-        date: new Date(tx.timestamp).toLocaleString(),
+        date: formatDate(tx.timestamp),
+        time: getTime(tx.timestamp),
       });
     }
 
@@ -75,5 +76,10 @@ const formatFee = (fee) => {
   }
   return result;
 };
+
+const formatDate = (timestamp) => new Date(timestamp).toLocaleString();
+
+const getTime = (timestamp) =>
+  dateHandler.getFormattedDifference(new Date(timestamp), new Date());
 
 export default new TransactionsTableAdapter();

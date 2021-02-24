@@ -74,6 +74,7 @@ describe('utils/transactions', () => {
       'fee',
       'hash',
       'date',
+      'time',
     ];
 
     expect(convertedTxs.length).toBe(items);
