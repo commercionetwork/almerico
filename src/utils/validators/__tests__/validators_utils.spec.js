@@ -1,7 +1,7 @@
 import { mockPool } from '../../../store/starting/__mocks__/pool';
 import {
   mockValidator,
-  mockValidators
+  mockValidators,
 } from '../../../store/validators/__mocks__/validators';
 import { mockValidatorDelegations } from '../../../store/validators/__mocks__/validator_delegations';
 import { mockValidatorSets } from '../../../store/validators/__mocks__/validator_sets';
@@ -55,11 +55,13 @@ describe('utils/validators', () => {
     const coin = 'uccc';
     const pool = mockPool();
     const validatorSets = mockValidatorSets().validators;
+    const prefix = 'did:com:';
     const convertedValidators = ValidatorsTableAdapter.setValidators(validators)
       .setBlocks(blocks)
       .setCoin(coin)
       .setPool(pool)
       .setValidatorsSet(validatorSets)
+      .setAccountPrefix(prefix)
       .get();
 
     const expectedKeys = [
@@ -67,6 +69,7 @@ describe('utils/validators', () => {
       'active',
       'moniker',
       'operator',
+      'account',
       'tokens',
       'commission',
       'votingPower',
