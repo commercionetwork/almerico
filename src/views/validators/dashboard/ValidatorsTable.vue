@@ -85,6 +85,7 @@ export default {
       let headers = [
         { text: 'Rank', value: 'rank' },
         { text: 'Validator', value: 'moniker' },
+        { text: 'Operator', value: 'operator', align: ' d-none' },
         {
           text: 'Active',
           value: 'active',
