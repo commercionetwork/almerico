@@ -78,7 +78,14 @@ describe('utils/blocks', () => {
       .setValidatorConsensusPrefix(validatorConsensusAddressPrefix)
       .get();
 
-    const expectedKeys = ['height', 'hash', 'moniker', 'txs', 'date'];
+    const expectedKeys = [
+      'height',
+      'hash',
+      'moniker',
+      'operator',
+      'txs',
+      'date',
+    ];
 
     expect(convertedBlocks.length).toBe(items);
     for (const block of convertedBlocks) {
