@@ -66,6 +66,7 @@ const convertBlock = ({ block, prefix, validators, validatorsSet }) => {
     height: block.header.height,
     hash: block.last_commit.block_id.hash,
     moniker: proposer ? proposer.description.moniker : '-',
+    operator: proposer ? proposer.operator_address : '-',
     txs: block.data && block.data.txs ? block.data.txs.length : 0,
     date: new Date(block.header.time).toLocaleString(),
   };

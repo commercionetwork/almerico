@@ -20,44 +20,58 @@
       />
     </template>
     <template v-slot:[`item.hash`]="{ item }">
-      <span class="d-inline-block text-truncate text-overline" style="max-width: 120px">{{
-        item.hash
-      }}</span>
+      <span
+        class="d-inline-block text-truncate text-overline"
+        style="max-width: 120px"
+      >
+        {{ item.hash }}
+      </span>
+    </template>
+    <template v-slot:[`item.moniker`]="{ item }">
+      <router-link
+        class="d-inline-block text-truncate text-decoration-none font-weight-bold"
+        style="max-width: 120px"
+        v-text="item.moniker"
+        :to="{
+          name: ROUTES.NAMES.VALIDATORS_DETAILS,
+          params: { id: item.operator },
+        }"
+      />
     </template>
   </v-data-table>
 </template>
 
 <script>
-import { ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "BlocksTable",
+  name: 'BlocksTable',
   props: {
     items: {
       type: Array,
       default: () => [],
-      note: "The items to display",
+      note: 'The items to display',
     },
   },
   data: () => ({
     ROUTES,
-    sortBy: "height",
+    sortBy: 'height',
     sortDesc: true,
   }),
   computed: {
     headers() {
       return [
-        { text: "Height", value: "height" },
-        { text: "Hash", value: "hash" },
-        { text: "Validator", value: "moniker" },
-        { text: "Transactions", value: "txs" },
-        { text: "Date", value: "date" },
+        { text: 'Height', value: 'height' },
+        { text: 'Hash', value: 'hash' },
+        { text: 'Validator', value: 'moniker' },
+        { text: 'Transactions', value: 'txs' },
+        { text: 'Date', value: 'date' },
       ];
     },
     caption() {
-      let lastHeight = this.items.length > 0 ? this.items[0].height : "-";
+      let lastHeight = this.items.length > 0 ? this.items[0].height : '-';
       let firstHeight =
-        this.items.length > 0 ? this.items[this.items.length - 1].height : "-";
+        this.items.length > 0 ? this.items[this.items.length - 1].height : '-';
       return `Blocks from ${firstHeight} to ${lastHeight}`;
     },
   },
