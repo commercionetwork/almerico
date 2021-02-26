@@ -1,8 +1,9 @@
 import { CUSTOMIZATION } from '@/constants';
 import {
   arrayHandler,
+  bech32Manager,
   BlocksAttendanceCalculator,
-  numberIntlFormatter
+  numberIntlFormatter,
 } from '@/utils';
 
 class ValidatorsTableAdapter {
@@ -11,15 +12,16 @@ class ValidatorsTableAdapter {
   }
 
   clear() {
-    this.validators = null;
+    this.accountPrefix = null;
     this.blocks = null;
     this.coin = null;
     this.pool = null;
+    this.validators = null;
     this.validatorsSet = null;
   }
 
-  setValidators(validators) {
-    this.validators = validators;
+  setAccountPrefix(prefix) {
+    this.accountPrefix = prefix;
     return this;
   }
 
@@ -35,6 +37,11 @@ class ValidatorsTableAdapter {
 
   setPool(pool) {
     this.pool = pool;
+    return this;
+  }
+
+  setValidators(validators) {
+    this.validators = validators;
     return this;
   }
 
@@ -65,6 +72,10 @@ class ValidatorsTableAdapter {
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
       });
+      const accountAddress = getAccountAddress(
+        validator.operator_address,
+        this.accountPrefix
+      );
       let votingPower = '-';
       let formattedCumulative = '-';
       let attendance = '-';
@@ -96,6 +107,7 @@ class ValidatorsTableAdapter {
         active: active,
         moniker: validator.description.moniker,
         operator: validator.operator_address,
+        account: accountAddress,
         tokens: formattedTokens,
         commission: commission,
         votingPower: votingPower,
@@ -118,6 +130,11 @@ const orderValidators = (validators) => {
     tokensOrdered,
     'status'
   );
+};
+
+const getAccountAddress = (address, prefix) => {
+  const hexValue = bech32Manager.decode(address);
+  return bech32Manager.encode(hexValue, prefix);
 };
 
 export default new ValidatorsTableAdapter();

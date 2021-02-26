@@ -79,6 +79,7 @@ export default {
         .setCoin(this.bondDenom)
         .setPool(this.pool)
         .setValidatorsSet(this.latestValidatorsSets)
+        .setAccountPrefix(this.$config.generic.prefixes.account.address)
         .get();
     },
     headers() {
@@ -86,6 +87,7 @@ export default {
         { text: 'Rank', value: 'rank' },
         { text: 'Validator', value: 'moniker' },
         { text: 'Operator', value: 'operator', align: ' d-none' },
+        { text: 'Account', value: 'account', align: ' d-none' },
         {
           text: 'Active',
           value: 'active',
