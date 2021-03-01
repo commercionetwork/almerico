@@ -59,7 +59,7 @@ export default {
   }),
   computed: {
     tooltipMessage() {
-      return 'You can search by name or by account and validator address.<br>You can also filter by status.';
+      return 'You can search by validator name and address or by linked account.<br>You can also filter by status.';
     },
   },
   methods: {
