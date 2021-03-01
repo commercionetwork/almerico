@@ -14,7 +14,7 @@
     "axios": "^0.21.1",
     "bech32": "^2.0.0",
     "chart.js": "^2.9.4",
-    "core-js": "^3.9.0",
+    "core-js": "^3.9.1",
     "dayjs": "^1.10.4",
     "qrcode.vue": "^1.7.0",
     "vue": "^2.6.11",
@@ -37,7 +37,7 @@
     "node-sass": "^4.12.0",
     "sass": "^1.32.8",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-vuetify": "^2.1.0",
+    "vue-cli-plugin-vuetify": "^2.2.0",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.2"
   }
