@@ -115,7 +115,7 @@ export default {
     },
   },
   methods: {
-    filterValidators(value, search, item) {
+    filterValidators(_value, search, item) {
       if (typeof search.trim() !== 'string') {
         return;
       }
