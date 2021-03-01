@@ -3,6 +3,7 @@
     :headers="headers"
     :items="items"
     :search="search"
+    :custom-filter="filterValidators"
     :sort-by.sync="sortBy"
     :caption="caption"
     :hide-default-footer="true"
@@ -86,8 +87,6 @@ export default {
       let headers = [
         { text: 'Rank', value: 'rank' },
         { text: 'Validator', value: 'moniker' },
-        { text: 'Operator', value: 'operator', align: ' d-none' },
-        { text: 'Account', value: 'account', align: ' d-none' },
         {
           text: 'Active',
           value: 'active',
@@ -113,6 +112,22 @@ export default {
     filter(value) {
       this.search = value.moniker;
       this.active = value.active;
+    },
+  },
+  methods: {
+    filterValidators(value, search, item) {
+      if (typeof search.trim() !== 'string') {
+        return;
+      }
+      const props = [item.moniker, item.operator, item.account];
+      let found = false;
+      for (const prop of props) {
+        if (prop.toLowerCase().includes(search.toLowerCase())) {
+          found = true;
+          break;
+        }
+      }
+      return found;
     },
   },
 };
