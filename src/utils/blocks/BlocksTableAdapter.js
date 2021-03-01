@@ -68,11 +68,25 @@ const convertBlock = ({ block, prefix, validators, validatorsSet }) => {
     moniker: proposer ? proposer.description.moniker : '-',
     operator: proposer ? proposer.operator_address : '-',
     txs: block.data && block.data.txs ? block.data.txs.length : 0,
-    date: new Date(block.header.time).toLocaleString(),
+    date: formatDate(block.header.time),
   };
 };
 
 const getOrderedBlocks = ({ blocks, prop }) =>
   blocks.sort((a, b) => b[prop[0]][prop[1]] - a[prop[0]][prop[1]]);
+
+const formatDate = (timestamp) => {
+  let options = {
+    weekday: 'short',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'short',
+  };
+  return new Date(timestamp).toLocaleDateString([], options);
+};
 
 export default new BlocksTableAdapter();
