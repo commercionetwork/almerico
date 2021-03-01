@@ -62,35 +62,15 @@ class ValidatorsTableAdapter {
       rank++;
       const active = validator.status === 2 ? true : false;
       const tokens = parseInt(validator.tokens);
-      const formattedTokens = `${numberIntlFormatter.toDecimal({
-        amount: tokens,
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
-      })} ${this.coin}`;
-      const commission = numberIntlFormatter.toPercent({
-        amount: parseFloat(validator.commission.commission_rates.rate),
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2,
-      });
-      const accountAddress = getAccountAddress(
-        validator.operator_address,
-        this.accountPrefix
-      );
+      
       let votingPower = '-';
       let formattedCumulative = '-';
       let attendance = '-';
       if (active) {
-        votingPower = numberIntlFormatter.toPercent({
-          amount: tokens / bondedTokens,
-          maximumFractionDigits: 2,
-          minimumFractionDigits: 2,
-        });
-        cumulative += tokens / bondedTokens;
-        formattedCumulative = numberIntlFormatter.toPercent({
-          amount: cumulative,
-          maximumFractionDigits: 2,
-          minimumFractionDigits: 2,
-        });
+        const power = tokens / bondedTokens;
+        cumulative += power;
+        votingPower = getPercent(power);
+        formattedCumulative = getPercent(cumulative);
         if (this.blocks.length === CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS) {
           const validatorAttendance = BlocksAttendanceCalculator.setBlocks(
             this.blocks
@@ -107,9 +87,14 @@ class ValidatorsTableAdapter {
         active: active,
         moniker: validator.description.moniker,
         operator: validator.operator_address,
-        account: accountAddress,
-        tokens: formattedTokens,
-        commission: commission,
+        account: getAccountAddress(
+          validator.operator_address,
+          this.accountPrefix
+        ),
+        tokens: `${getDecimal(tokens)} ${this.coin}`,
+        commission: getPercent(
+          parseFloat(validator.commission.commission_rates.rate)
+        ),
         votingPower: votingPower,
         cumulative: formattedCumulative,
         attendance: attendance,
@@ -136,5 +121,19 @@ const getAccountAddress = (address, prefix) => {
   const hexValue = bech32Manager.decode(address);
   return bech32Manager.encode(hexValue, prefix);
 };
+
+const getDecimal = (amount) =>
+  numberIntlFormatter.toDecimal({
+    amount: amount,
+    maximumFractionDigits: 0,
+    minimumFractionDigits: 0,
+  });
+
+const getPercent = (amount) =>
+  numberIntlFormatter.toPercent({
+    amount: amount,
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  });
 
 export default new ValidatorsTableAdapter();
