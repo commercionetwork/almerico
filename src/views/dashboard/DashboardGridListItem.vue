@@ -12,7 +12,12 @@
                   class="text-capitalize font-weight-bold"
                   v-text="'time:'"
                 />
-                <span class="pl-1" v-text="time" />
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <span v-bind="attrs" v-on="on" class="pl-1" v-text="time" />
+                  </template>
+                  <span v-text="date" />
+                </v-tooltip>
               </div>
             </v-list-item-content>
           </v-list-item>
@@ -54,7 +59,7 @@
 
 <script>
 import { ROUTES } from '@/constants';
-import { txHandler } from '@/utils';
+import { dateHandler, txHandler } from '@/utils';
 
 export default {
   name: 'DashboardGridListItem',
@@ -66,6 +71,11 @@ export default {
     },
   },
   computed: {
+    date() {
+      return this.transaction
+        ? new Date(this.transaction.timestamp).toLocaleString()
+        : '';
+    },
     hash() {
       return this.transaction ? this.transaction.txhash : '';
     },
@@ -74,7 +84,10 @@ export default {
     },
     time() {
       return this.transaction
-        ? new Date(this.transaction.timestamp).toLocaleString()
+        ? dateHandler.getFormattedDifference(
+            new Date(this.transaction.timestamp),
+            new Date()
+          )
         : '';
     },
     msgs() {
