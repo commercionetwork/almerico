@@ -4,7 +4,17 @@
       <v-col cols="12">
         <v-form @submit.prevent="onFilter(active)">
           <v-row>
-            <v-col cols="12">
+            <v-col cols="1">
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-icon color="info" dark v-bind="attrs" v-on="on">
+                    mdi-information-outline
+                  </v-icon>
+                </template>
+                <span v-html="tooltipMessage" />
+              </v-tooltip>
+            </v-col>
+            <v-col cols="11">
               <v-text-field
                 v-model="moniker"
                 placeholder="Search Validator"
@@ -36,20 +46,25 @@
       </v-col>
     </v-row>
   </v-card>
-</template> 
+</template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
-  name: "ValidatorsSearch",
+  name: 'ValidatorsSearch',
   data: () => ({
-    moniker: "",
+    moniker: '',
     active: true,
   }),
+  computed: {
+    tooltipMessage() {
+      return 'You can search by name or by account and validator address.<br>You can also filter by status.';
+    },
+  },
   methods: {
-    ...mapActions("validators", {
-      setValidatorsFilter: "setValidatorsFilter",
+    ...mapActions('validators', {
+      setValidatorsFilter: 'setValidatorsFilter',
     }),
     onFilter(active) {
       this.active = active;
@@ -61,4 +76,3 @@ export default {
   },
 };
 </script>
-
