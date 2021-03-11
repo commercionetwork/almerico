@@ -27,6 +27,13 @@ after_success:
     --build-arg ANCESTORS_LIST="${ALMERICO_DEVNET_ANCESTORS_LIST}"
     --build-arg MAIN_TITLE="${ALMERICO_DEVNET_MAIN_TITLE}"
     .
+  - test $TRAVIS_BRANCH = "development-version-0.1.0" && docker build -t $DOCKER_IMAGE_MAINNET_0_1_0_SCW
+    --build-arg LCD_URL=${ALMERICO_MAINNET_LCD_URL}
+    --build-arg RPC_URL=${ALMERICO_MAINNET_RPC_URL}
+    --build-arg WS_URL=${ALMERICO_MAINNET_WS_URL}
+    --build-arg ANCESTORS_LIST="${ALMERICO_MAINNET_ANCESTORS_LIST}"
+    --build-arg MAIN_TITLE="${ALMERICO_MAINNET_MAIN_TITLE}"
+    .
 
 deploy:
   - provider: script
