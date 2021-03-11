@@ -20,7 +20,7 @@
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-router": "^3.5.1",
-    "vuetify": "^2.4.5",
+    "vuetify": "^2.4.6",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
     "node-sass": "^4.12.0",
     "sass": "^1.32.8",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-vuetify": "^2.2.0",
+    "vue-cli-plugin-vuetify": "^2.2.2",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.2"
   }
