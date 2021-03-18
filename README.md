@@ -21,7 +21,6 @@ In order to run this project as a developer with the hot reload option enabled y
 
     ```env
     VUE_APP_LCD=<YOUR_LCD_ULR>
-    VUE_APP_RPC=<YOUR_RPC_URL>
     VUE_APP_WS=<YOUR_WS_URL>
     VUE_APP_ANCESTORS=<YOUR_ANCESTORS_LIST>
     VUE_APP_MAIN_TITLE=<YOUR_APP_TITLE>
@@ -31,8 +30,7 @@ In order to run this project as a developer with the hot reload option enabled y
 
     ```env
     VUE_APP_LCD=http://lcd.com
-    VUE_APP_RPC=http://rpc.com
-    VUE_APP_WS=ws://rpc.com
+    VUE_APP_WS=ws://rpc.com/websocket
     VUE_APP_ANCESTORS= [{"lcd_ledger":"http://lcd.com", "lcd": "http://lcd.com", "ver": "0.12"}]
     VUE_APP_MAIN_TITLE=Testnet
     ```
@@ -53,7 +51,6 @@ Create a file named `.env.production` inside the project root folder and set the
 
 ```env
 VUE_APP_LCD=<YOUR_LCD_ULR>
-VUE_APP_RPC=<YOUR_RPC_URL>
 VUE_APP_WS=<YOUR_WS_URL>
 VUE_APP_ANCESTORS= <YOUR_ANCESTORS_LIST>
 VUE_APP_MAIN_TITLE=<YOUR_APP_TITLE>
@@ -63,8 +60,7 @@ E.g.:
 
 ```env
 VUE_APP_LCD=https://lcd.com
-VUE_APP_RPC=https://rpc.com
-VUE_APP_WS=wss://rpc.com
+VUE_APP_WS=wss://rpc.com/websocket
 VUE_APP_ANCESTORS= [{"lcd_ledger":"https://lcd.com", "lcd": "https://lcd.com", "ver": "0.12"}]
 VUE_APP_MAIN_TITLE=Mainnet
 ```
@@ -98,7 +94,6 @@ npm run lint
 ```shell
 docker build -t almerico \
   --build-arg LCD_URL=<LCD URL> \
-  --build-arg RPC_URL=<RPC URL> \
   --build-arg WS_URL=<WebSocket URL> \
   --build-arg ANCESTORS_LIST=<Ancestors list> \
   --build-arg MAIN_TITLE=<App title> \
