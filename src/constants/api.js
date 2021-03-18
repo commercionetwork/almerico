@@ -21,7 +21,7 @@ export const API = {
   BLOCKS: `${API_LCD_BASE}/blocks`,
   DISTRIBUTION: `${API_LCD_BASE}/distribution`,
   GOV: `${API_LCD_BASE}/gov`,
-  MEMBERSHIP: `${API_LCD_BASE}/membership`,
+  KYC: `${API_LCD_BASE}/commerciokyc`,
   MINTING: `${API_LCD_BASE}/minting`,
   NODE_INFO: `${API_LCD_BASE}/node_info`,
   SLASHING: `${API_LCD_BASE}/slashing`,

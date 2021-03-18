@@ -44,8 +44,8 @@ export default {
     return axios({
       method: 'get',
       headers: headers,
-      baseURL: `${API.MEMBERSHIP}`,
-      url: `/${address}`,
+      baseURL: `${API.KYC}`,
+      url: `/membership/${address}`,
     });
   },
   /**
