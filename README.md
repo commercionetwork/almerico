@@ -1,5 +1,9 @@
 # Almerico
 
+![GitHub release](https://img.shields.io/github/release/commercionetwork/almerico?color=green)
+![GitHub license](https://img.shields.io/github/license/commercionetwork/almerico?color=blue)
+![GitHub top language](https://img.shields.io/github/languages/top/commercionetwork/almerico?color=yellow)
+
 Almerico (tribute to [Almerico from Schio](https://it.wikipedia.org/wiki/Almerico_da_Schio)) is the official Commercio.network explorer.
 
 ## Install
