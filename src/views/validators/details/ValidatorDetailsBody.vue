@@ -25,7 +25,9 @@
       <ValidatorDetailsChart :delegations="delegations" />
     </v-col>
     <v-col cols="12" md="4" order="5" order-md="3">
-      <ValidatorDetailsDelegationsTable :delegations="delegations" />
+      <v-card outlined>
+        <ValidatorDetailsDelegationsTable :delegations="delegations" />
+      </v-card>
     </v-col>
     <v-col
       cols="12"
@@ -33,45 +35,47 @@
       order="6"
       order-md="6"
     >
-      <ValidatorDetailsDelegatorsTable :account="account" />
+      <v-card outlined>
+        <ValidatorDetailsDelegatorsTable :account="account" />
+      </v-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ValidatorDetailsAddress from './ValidatorDetailsAddress';
-import ValidatorDetailsBlocks from './ValidatorDetailsBlocks';
-import ValidatorDetailsChart from './ValidatorDetailsChart';
-import ValidatorDetailsDelegationsTable from './ValidatorDetailsDelegationsTable';
-import ValidatorDetailsDelegatorsTable from './ValidatorDetailsDelegatorsTable';
-import ValidatorDetailsSpec from './ValidatorDetailsSpec';
+import ValidatorDetailsAddress from "./ValidatorDetailsAddress";
+import ValidatorDetailsBlocks from "./ValidatorDetailsBlocks";
+import ValidatorDetailsChart from "./ValidatorDetailsChart";
+import ValidatorDetailsDelegationsTable from "./ValidatorDetailsDelegationsTable";
+import ValidatorDetailsDelegatorsTable from "./ValidatorDetailsDelegatorsTable";
+import ValidatorDetailsSpec from "./ValidatorDetailsSpec";
 
 export default {
-  name: 'ValidatorDetailsBody',
+  name: "ValidatorDetailsBody",
   components: {
     ValidatorDetailsAddress,
     ValidatorDetailsBlocks,
     ValidatorDetailsChart,
     ValidatorDetailsDelegationsTable,
     ValidatorDetailsDelegatorsTable,
-    ValidatorDetailsSpec,
+    ValidatorDetailsSpec
   },
   props: {
     account: {
       type: String,
       required: true,
-      note: 'The account address',
+      note: "The account address"
     },
     operator: {
       type: String,
       required: true,
-      note: 'The operator address',
+      note: "The operator address"
     },
     delegations: {
       type: Object,
       required: true,
-      note: 'The account delegations',
-    },
-  },
+      note: "The account delegations"
+    }
+  }
 };
 </script>

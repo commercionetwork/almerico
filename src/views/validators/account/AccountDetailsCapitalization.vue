@@ -5,7 +5,6 @@
     :items="items"
     :hide-default-footer="true"
     disable-pagination
-    class="elevation-2"
   >
     <template v-slot:[`item.caption`]="{ item }">
       <span class="text-capitalize" v-text="item.caption" />

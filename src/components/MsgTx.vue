@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" class="mb-3">
+  <v-card outlined class="mb-3">
     <v-card-text>
       <v-list dense class="ma-1 text-break">
         <v-list-item-title class="font-weight-bold" v-text="title" />

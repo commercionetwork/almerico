@@ -6,7 +6,6 @@
     :sort-by.sync="sortBy"
     :sort-desc.sync="sortDesc"
     :caption="caption"
-    class="elevation-2"
   >
     <template v-slot:[`item.moniker`]="{ item }">
       <router-link

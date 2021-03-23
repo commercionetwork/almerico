@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2">
+  <v-card outlined>
     <v-toolbar flat dense>
       <v-toolbar-title class="text-capitalize" v-text="'address'" />
       <v-spacer />

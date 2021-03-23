@@ -1,6 +1,6 @@
 <template>
-  <v-card>
-    <v-row class="px-3">
+  <v-card outlined>
+    <v-row class="pa-3">
       <v-col cols="12">
         <v-form @submit.prevent="onSubmit">
           <v-row>

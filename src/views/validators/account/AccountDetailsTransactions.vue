@@ -7,7 +7,6 @@
     :caption="caption"
     :hide-default-footer="true"
     disable-pagination
-    class="elevation-2"
   >
     <template v-slot:[`item.height`]="{ item }">
       <router-link
@@ -15,7 +14,7 @@
         v-text="item.height"
         :to="{
           name: ROUTES.NAMES.BLOCKS_DETAILS,
-          params: { id: item.height },
+          params: { id: item.height }
         }"
       />
     </template>
@@ -33,7 +32,7 @@
         v-text="item.hash"
         :to="{
           name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
-          params: { id: item.hash },
+          params: { id: item.hash }
         }"
       />
     </template>
@@ -49,13 +48,13 @@ export default {
     items: {
       type: Array,
       default: () => [],
-      note: "The items to display",
-    },
+      note: "The items to display"
+    }
   },
   data: () => ({
     ROUTES,
     sortBy: "height",
-    sortDesc: true,
+    sortDesc: true
   }),
   computed: {
     headers() {
@@ -65,12 +64,12 @@ export default {
         { text: "Result", value: "result" },
         { text: "Fee", value: "fee" },
         { text: "Hash", value: "hash" },
-        { text: "Date", value: "date" },
+        { text: "Date", value: "date" }
       ];
     },
     caption() {
       return "Txs by msg sender";
-    },
-  },
+    }
+  }
 };
 </script>

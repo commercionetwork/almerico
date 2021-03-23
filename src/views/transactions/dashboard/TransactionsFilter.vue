@@ -1,6 +1,6 @@
 <template>
-  <v-card elevation="2">
-    <v-row class="px-3">
+  <v-card outlined>
+    <v-row class="pa-3">
       <v-col cols="12">
         <v-form>
           <v-row>

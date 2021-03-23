@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" :loading="isLoading">
+  <v-card outlined :loading="isLoading">
     <v-card-title v-text="title" />
     <v-card-text v-if="isLoading" data-test="loading">
       <v-alert type="info">Loading ...</v-alert>

@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2">
+  <v-card outlined>
     <v-card-text>
       <v-list dense class="text-break">
         <v-row dense>

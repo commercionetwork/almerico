@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2">
+  <v-card outlined>
     <v-card-text>
       <v-list class="ma-1">
         <v-list-item-title class="word-break font-weight-bold" v-text="hash" />

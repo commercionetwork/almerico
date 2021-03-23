@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2">
+  <v-card outlined>
     <v-card-title class="justify-center text-h4">
       <router-link
         class="text-decoration-none font-weight-bold"

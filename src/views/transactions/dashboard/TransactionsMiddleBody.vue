@@ -10,7 +10,9 @@
       </v-row>
       <v-row v-else data-test="content">
         <v-col cols="12">
-          <TransactionsTable :items="items" :msgType="msgType" />
+          <v-card outlined>
+            <TransactionsTable :items="items" :msgType="msgType" />
+          </v-card>
         </v-col>
         <v-col
           cols="12"
@@ -18,8 +20,8 @@
           v-intersect="{
             handler: onIntersect,
             options: {
-              threshold: [0.5],
-            },
+              threshold: [0.5]
+            }
           }"
         >
           <v-progress-linear
@@ -38,47 +40,47 @@
 </template>
 
 <script>
-import TransactionsTable from './TransactionsTable';
+import TransactionsTable from "./TransactionsTable";
 
-import { mapActions, mapGetters } from 'vuex';
-import { TransactionsTableAdapter } from '@/utils';
+import { mapActions, mapGetters } from "vuex";
+import { TransactionsTableAdapter } from "@/utils";
 
 export default {
-  name: 'TransactionsMiddleBody',
+  name: "TransactionsMiddleBody",
   components: {
-    TransactionsTable,
+    TransactionsTable
   },
   data: () => ({
-    msgType: '',
+    msgType: ""
   }),
   computed: {
-    ...mapGetters('transactions', {
-      isLoading: 'isLoading',
-      error: 'error',
-      filter: 'filter',
-      transactions: 'transactions',
+    ...mapGetters("transactions", {
+      isLoading: "isLoading",
+      error: "error",
+      filter: "filter",
+      transactions: "transactions"
     }),
     items() {
       return TransactionsTableAdapter.setTxs(this.transactions)
-        .setMultiTypes('Multi types')
+        .setMultiTypes("Multi types")
         .setFilter(this.filter)
         .get();
-    },
+    }
   },
   watch: {
     filter(value) {
       this.msgType = value;
-    },
+    }
   },
   methods: {
-    ...mapActions('transactions', {
-      changePage: 'changePage',
+    ...mapActions("transactions", {
+      changePage: "changePage"
     }),
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting) {
         this.changePage({ diff: 1 });
       }
-    },
-  },
+    }
+  }
 };
 </script>

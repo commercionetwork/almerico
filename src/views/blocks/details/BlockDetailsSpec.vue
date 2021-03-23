@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2" :loading="isLoading">
+  <v-card outlined :loading="isLoading">
     <v-card-text>
       <v-list class="ma-1">
         <v-list-item-title

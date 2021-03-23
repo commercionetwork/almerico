@@ -8,7 +8,6 @@
     :caption="caption"
     :hide-default-footer="true"
     disable-pagination
-    class="elevation-2"
   >
     <template v-slot:[`item.rank`]="{ item }">
       <div
