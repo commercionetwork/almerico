@@ -16,7 +16,7 @@
         v-text="item.moniker"
         :to="{
           name: ROUTES.NAMES.VALIDATORS_DETAILS,
-          params: { id: item.operator },
+          params: { id: item.operator }
         }"
       />
     </template>
@@ -26,47 +26,50 @@
         v-text="item.height"
         :to="{
           name: ROUTES.NAMES.BLOCKS_DETAILS,
-          params: { id: item.height },
+          params: { id: item.height }
         }"
       />
     </template>
     <template v-slot:[`item.amount`]="{ item }">
-      <span class="font-weight-bold" v-text="formatTokens(item.amount)" />
+      <span
+        class="text-uppercase font-weight-bold"
+        v-text="formatTokens(item.amount)"
+      />
     </template>
   </v-data-table>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { ROUTES } from '@/constants';
-import { AccountUnbondingsHandler, numberIntlFormatter } from '@/utils';
+import { mapGetters } from "vuex";
+import { ROUTES } from "@/constants";
+import { AccountUnbondingsHandler, coinAdapter } from "@/utils";
 
 export default {
-  name: 'AccountDetailsUnbondings',
+  name: "AccountDetailsUnbondings",
   data: () => ({
     ROUTES,
-    sortBy: 'date',
-    sortDesc: true,
+    sortBy: "date",
+    sortDesc: true
   }),
   computed: {
-    ...mapGetters('account', {
-      unbondings: 'unbondings',
+    ...mapGetters("account", {
+      unbondings: "unbondings"
     }),
-    ...mapGetters('validators', {
-      validators: 'validators',
+    ...mapGetters("validators", {
+      validators: "validators"
     }),
-    ...mapGetters('starting', {
-      params: 'params',
+    ...mapGetters("starting", {
+      params: "params"
     }),
     bondDenom() {
-      return this.params.bond_denom ? this.params.bond_denom : '';
+      return this.params.bond_denom ? this.params.bond_denom : "";
     },
     headers() {
       return [
-        { text: 'Date', value: 'date' },
-        { text: 'Validator', value: 'moniker' },
-        { text: 'Height', value: 'height' },
-        { text: 'Amount', value: 'amount' },
+        { text: "Date", value: "date" },
+        { text: "Validator", value: "moniker" },
+        { text: "Height", value: "height" },
+        { text: "Amount", value: "amount" }
       ];
     },
     items() {
@@ -75,21 +78,16 @@ export default {
         .get();
     },
     caption() {
-      return 'Unbonding Delegations';
-    },
+      return "Unbonding Delegations";
+    }
   },
   methods: {
     formatDate(value) {
       return new Date(value).toLocaleDateString();
     },
     formatTokens(value) {
-      const tokens = numberIntlFormatter.toDecimal({
-        amount: value,
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
-      });
-      return `${tokens} ${this.bondDenom}`;
-    },
-  },
+      return coinAdapter.format({ amount: value, denom: this.bondDenom });
+    }
+  }
 };
 </script>

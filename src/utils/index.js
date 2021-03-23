@@ -7,6 +7,7 @@ import BlockProposerHandler from './blocks/BlockProposerHandler';
 import BlocksAttendanceCalculator from './blocks/BlocksAttendanceCalculator';
 import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import blocksHandler from './blocksHandler';
+import coinAdapter from './coinAdapter';
 import dateHandler from './dateHandler';
 import numberIntlFormatter from './numberIntlFormatter';
 import proposerHandler from './proposerHandler';
@@ -35,6 +36,7 @@ export {
   arrayHandler,
   bech32Manager,
   blocksHandler,
+  coinAdapter,
   dateHandler,
   numberIntlFormatter,
   proposerHandler,
