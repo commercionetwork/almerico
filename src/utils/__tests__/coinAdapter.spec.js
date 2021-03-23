@@ -6,7 +6,7 @@ describe("utils/coinAdapter", () => {
       denom: "ucommercio",
       amount: "123456000000"
     };
-    const expectedValue = "123.456,000000 com";
+    const expectedValue = "123.456,00 com";
 
     const convertedCoin = coinAdapter.format(balance);
 
