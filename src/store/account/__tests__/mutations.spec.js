@@ -1,50 +1,93 @@
-/* global describe, beforeEach, it, expect */
+import mutations from '../mutations';
+import { initialState } from '../index';
 
-import mutations from "../mutations";
-import {
-  initialState
-} from "../index";
-import { mockBalances } from "../__mocks__/balances";
-
-describe("store/account/mutations", () => {
+describe('store/account/mutations', () => {
   let state = {};
 
   beforeEach(() => {
     state = {
-      ...initialState
+      ...initialState,
     };
   });
 
-  it("Check mutations.startLoading", () => {
-    state.message = "message";
+  test('mutations.startLoading', () => {
+    state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
 
-    expect(state.isFetching).toBeTruthy();
-    expect(state.message).toBe("");
+    expect(state.error).toBeNull;
+    expect(state.isLoading).toBe(true);
   });
 
-  it("Check mutations.stopLoading", () => {
-    state.isFetching = true;
+  test('mutations.stopLoading', () => {
+    state.isLoading = true;
 
     mutations.stopLoading(state);
 
-    expect(state.isFetching).toBeFalsy();
+    expect(state.isLoading).toBe(false);
   });
 
-  it("Check mutations.setMessage", () => {
-    const message = "mutations.setMessage error";
+  test('mutations.setError', () => {
+    const error = { message: 'error', status: 400 };
 
-    mutations.setMessage(state, message);
+    mutations.setError(state, error);
 
-    expect(state.message).toEqual(message);
+    expect(state.error).toStrictEqual(error);
   });
 
-  it("Check mutations.setBalances", () => {
-    const data = mockBalances();
+  test('mutations.setBalances', () => {
+    const balances = [
+      {
+        id: 1,
+      },
+    ];
 
-    mutations.setBalances(state, data);
+    mutations.setBalances(state, balances);
 
-    expect(state.all).toEqual(data);
+    expect(state.balances).toStrictEqual(balances);
+  });
+
+  test('mutations.setDelegations', () => {
+    const delegations = [
+      {
+        id: 1,
+      },
+    ];
+
+    mutations.setDelegations(state, delegations);
+
+    expect(state.delegations).toStrictEqual(delegations);
+  });
+
+  test('mutations.setUnbondings', () => {
+    const unbondings = [
+      {
+        id: 1,
+      },
+    ];
+
+    mutations.setUnbondings(state, unbondings);
+
+    expect(state.unbondings).toStrictEqual(unbondings);
+  });
+
+  test('mutations.setMembership', () => {
+    const membership = {
+      id: 1,
+    };
+
+    mutations.setMembership(state, membership);
+
+    expect(state.membership).toStrictEqual(membership);
+  });
+
+  test('mutations.setRewards', () => {
+    const rewards = {
+      id: 1,
+    };
+
+    mutations.setRewards(state, rewards);
+
+    expect(state.rewards).toStrictEqual(rewards);
   });
 });

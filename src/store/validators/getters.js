@@ -1,9 +1,13 @@
 /**
- * Validators getters
+ * VALIDATORS GETTERS
  */
 
 export default {
-  validators: state => state.all,
-  isFetching: state => state.isFetching,
-  message: state => state.message,
+  details: state => state.details,
+  error: state => state.error,
+  filter: state => state.filter,
+  heightValidatorsSets: state => state.heightValidatorsSets,
+  isLoading: state => state.isLoading,
+  latestValidatorsSets: state => state.latestValidatorsSets,
+  validators: state => state.validators,
 };

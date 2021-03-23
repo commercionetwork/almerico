@@ -1,113 +1,82 @@
 <template>
-  <div id="app">
-    <Component v-bind:is="currentLayout" />
-  </div>
+  <v-app
+    id="main"
+    :style="{ background: $vuetify.theme.themes[theme].background }"
+  >
+    <!-- navigation -->
+    <NavBar />
+    <!-- content -->
+    <v-main>
+      <v-layout
+        v-if="isLoading"
+        align-center
+        justify-center
+        column
+        fill-height
+        data-test="loading"
+      >
+        <v-progress-circular
+          :size="100"
+          :width="15"
+          indeterminate
+          color="primary"
+        />
+      </v-layout>
+      <v-container v-else-if="error !== null" data-test="error">
+        <v-row>
+          <v-col cols="12">
+            <v-alert border="left" prominent text type="error">
+              <span class="text-body-1" v-text="JSON.stringify(error)" />
+            </v-alert>
+          </v-col>
+        </v-row>
+      </v-container>
+      <v-container v-else data-test="router-view">
+        <router-view />
+      </v-container>
+    </v-main>
+    <!-- footer -->
+    <Footer />
+  </v-app>
 </template>
 
 <script>
-import ApplicationLayout from "Components/layout/application/index.vue";
-import ErrorLayout from "Components/layout/error/index.vue";
-import { ROUTE_NAMES, ROUTES, VALIDATOR_STATUS } from "Constants";
-import { localizedRoute } from "Utils";
-import { mapGetters, mapActions } from "vuex";
+import Footer from './components/Footer';
+import NavBar from './components/NavBar';
+
+import { mapActions, mapGetters } from 'vuex';
+import { ROUTES } from './constants';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    ApplicationLayout,
-    ErrorLayout
+    Footer,
+    NavBar,
   },
   computed: {
-    ...mapGetters("transactions", {
-      transactions: "transactions"
+    ...mapGetters('starting', {
+      error: 'error',
+      isLoading: 'isLoading',
     }),
-    ...mapGetters("validators", {
-      validators: "validators"
-    }),
-    currentLayout() {
-      const errorComponents = [ROUTES.NOT_FOUND, ROUTES.SERVER_UNREACHABLE];
-      const routeWithErrorLayout = this.$route.matched.some(match => {
-        return errorComponents.some(route => match.regex.test(route));
-      });
-
-      let currentLayout;
-      if (routeWithErrorLayout) {
-        currentLayout = ErrorLayout;
-      } else {
-        currentLayout = ApplicationLayout;
-      }
-      return currentLayout;
+    theme() {
+      return this.$vuetify.theme.dark ? 'dark' : 'light';
     },
     serverReachability() {
       return this.$store.getters.getServerReachability;
-    }
+    },
   },
   watch: {
-    serverReachability: function(value) {
-      if (!value)
-        this.$router.push(
-          localizedRoute(ROUTE_NAMES.SERVER_UNREACHABLE, this.$i18n.locale)
-        );
-    }
+    serverReachability(value) {
+      if (!value) this.$router.push({ name: ROUTES.NAMES.SERVER_UNREACHABLE });
+    },
   },
   methods: {
-    ...mapActions("blocks", {
-      fetchLastBlock: "fetchLastBlock"
+    ...mapActions('starting', {
+      fetchInitData: 'fetchInitData',
     }),
-    ...mapActions("stake", {
-      fetchPool: "fetchPool"
-    }),
-    ...mapActions("tendermint", {
-      fetchGenesis: "fetchGenesis",
-      subNewClient: "subNewClient"
-    }),
-    ...mapActions("transactions", {
-      fetchTransactions: "fetchTransactions"
-    }),
-    ...mapActions("validators", {
-      getValidators: "getValidators"
-    }),
-    async getData() {
-      try {
-        await this.fetchGenesis();
-        await this.fetchLastBlock();
-        await this.fetchPool();
-        if (this.transactions.length === 0) await this.getTransactions();
-        if (this.validators.length === 0) {
-          await this.getValidators({
-            status: [
-              VALIDATOR_STATUS.BONDED,
-              VALIDATOR_STATUS.UNBONDED,
-              VALIDATOR_STATUS.UNBONDING
-            ]
-          });
-        }
-      } catch (error) {
-        //TODO: implement
-        console.log(error);
-      } finally {
-        this.subNewClient();
-      }
-    },
-    getTransactions() {
-      let types = this.$config.transactions.supported_types.map(
-        type => type.tag
-      );
-      types.forEach(async type => {
-        const tag = `message.action=${type}`;
-        this.fetchTransactions(tag);
-      });
-    }
   },
-  mounted() {
-    this.getData();
-  }
+  created() {
+    this.fetchInitData();
+  },
 };
 </script>
-
-<style lang="scss">
-@import "assets/scss/custom-bootstrap.scss";
-@import "node_modules/bootstrap/scss/bootstrap.scss";
-@import "assets/scss/style.scss";
-</style>
-

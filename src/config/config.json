@@ -1,13 +1,15 @@
 {
   "generic": {
     "logo": "https://commercio.network/wp-content/uploads/2019/08/logo_commercio_Bianco.png",
-    "coins": [{
-      "name": "commercio",
-      "symbol": "CNT",
-      "denom": "ucommercio",
-      "exponent": 6,
-      "stakeable": true
-    }],
+    "coins": [
+      {
+        "name": "commercio",
+        "symbol": "CNT",
+        "denom": "ucommercio",
+        "exponent": 6,
+        "stakeable": true
+      }
+    ],
     "prefixes": {
       "account": {
         "address": "did:com:",
@@ -25,244 +27,106 @@
       }
     }
   },
-  "dashboard": {
-    "graphs": {
-      "enabled": true,
-      "price": true,
-      "block_height": true,
-      "bonded_tokens": true
-    },
-    "live_data": {
-      "enabled": true,
-      "blocks": true,
-      "transactions": true
-    }
-  },
-  "account_details": {
-    "enabled": true
-  },
-  "blocks": {
-    "enabled": true,
-    "live_data": {
-      "enabled": true,
-      "bonded": true,
-      "height": true,
-      "price": true
-    },
-    "table": {
-      "columns": {
-        "height": true,
-        "hash": true,
-        "proposer": true,
-        "txs": true,
-        "date": true
-      }
-    }
-  },
-  "block_details": {
-    "enabled": true,
-    "rows": {
-      "height": true,
-      "date": true,
-      "hash": true,
-      "txs_number": true,
-      "proposing_node": true
-    },
-    "txs_list": true
-  },
   "transactions": {
-    "enabled": true,
-    "live_data": {
-      "enabled": true,
-      "bonded": true,
-      "height": true,
-      "price": true
-    },
-    "table": {
-      "columns": {
-        "hash": true,
-        "type": true,
-        "result": true,
-        "amount": true,
-        "fee": true,
-        "block_height": true,
-        "date": true
-      }
-    },
-    "supported_types": [{
+    "supported_types": [
+      {
         "name": "MsgBeginRedelegate",
-        "tag": "begin_redelegate",
-        "type": "cosmos-sdk/MsgBeginRedelegate"
+        "text": "cosmos-sdk/MsgBeginRedelegate",
+        "value": "begin_redelegate"
+      },
+      {
+        "name": "MsgBurnCCC",
+        "text": "commercio/MsgBurnCCC",
+        "value": "burnCCC"
       },
       {
         "name": "MsgBuyMembership",
-        "tag": "buyMembership",
-        "type": "commercio/MsgBuyMembership"
+        "text": "commercio/MsgBuyMembership",
+        "value": "buyMembership"
       },
       {
-        "name": "MsgCloseCdp",
-        "tag": "closeCdp",
-        "type": "commercio/MsgCloseCdp"
-      }, {
+        "name": "MsgChangePowerUpStatus",
+        "text": "commercio/MsgChangePowerUpStatus",
+        "value": "changePowerUpStatus"
+      },
+      {
         "name": "MsgCreateValidator",
-        "tag": "create_validator",
-        "type": "cosmos-sdk/MsgCreateValidator"
+        "text": "cosmos-sdk/MsgCreateValidator",
+        "value": "create_validator"
       },
       {
         "name": "MsgDelegate",
-        "tag": "delegate",
-        "type": "cosmos-sdk/MsgDelegate"
+        "text": "cosmos-sdk/MsgDelegate",
+        "value": "delegate"
       },
       {
-        "name": "MsgDeposit",
-        "tag": "deposit",
-        "type": "cosmos-sdk/MsgDeposit"
+        "name": "MsgDepositIntoLiquidityPool",
+        "text": "commercio/MsgDepositIntoLiquidityPool",
+        "value": "depositIntoLiquidityPool"
       },
       {
         "name": "MsgEditValidator",
-        "tag": "edit_validator",
-        "type": "cosmos-sdk/MsgEditValidator"
+        "text": "cosmos-sdk/MsgEditValidator",
+        "value": "edit_validator"
       },
       {
         "name": "MsgInviteUser",
-        "tag": "inviteUser",
-        "type": "commercio/MsgInviteUser"
+        "text": "commercio/MsgInviteUser",
+        "value": "inviteUser"
       },
       {
-        "name": "MsgMoveDeposit",
-        "tag": "moveDeposit",
-        "type": "commercio/MsgMoveDeposit"
-      },
-      {
-        "name": "MsgOpenCdp",
-        "tag": "openCdp",
-        "type": "commercio/MsgOpenCdp"
-      },
-      {
-        "name": "MsgPowerUpDid",
-        "tag": "powerUpDid",
-        "type": "commercio/MsgPowerUpDid"
-      },
-      {
-        "name": "MsgRequestDidDeposit",
-        "tag": "requestDidDeposit",
-        "type": "commercio/MsgRequestDidDeposit"
+        "name": "MsgMintCCC",
+        "text": "commercio/MsgMintCCC",
+        "value": "mintCCC"
       },
       {
         "name": "MsgRequestDidPowerUp",
-        "tag": "requestDidPowerUp",
-        "type": "commercio/MsgRequestDidPowerUp"
+        "text": "commercio/MsgRequestDidPowerUp",
+        "value": "requestDidPowerUp"
       },
       {
         "name": "MsgSend",
-        "tag": "send",
-        "type": "cosmos-sdk/MsgSend"
+        "text": "cosmos-sdk/MsgSend",
+        "value": "send"
       },
       {
         "name": "MsgSendDocumentReceipt",
-        "tag": "sendDocumentReceipt",
-        "type": "commercio/MsgSendDocumentReceipt"
+        "text": "commercio/MsgSendDocumentReceipt",
+        "value": "sendDocumentReceipt"
       },
       {
         "name": "MsgSetIdentity",
-        "tag": "setIdentity",
-        "type": "commercio/MsgSetIdentity"
+        "text": "commercio/MsgSetIdentity",
+        "value": "setIdentity"
       },
       {
-        "name": "MsgSetUserVerified",
-        "tag": "setUserVerified",
-        "type": "commercio/MsgSetUserVerified"
+        "name": "MsgSetMembership",
+        "text": "commercio/MsgSetMembership",
+        "value": "setMembership"
       },
       {
         "name": "MsgShareDocument",
-        "tag": "shareDocument",
-        "type": "commercio/MsgShareDocument"
-      },
-      {
-        "name": "MsgSubmitProposal",
-        "tag": "submit_proposal",
-        "type": "cosmos-sdk/MsgSubmitProposal"
+        "text": "commercio/MsgShareDocument",
+        "value": "shareDocument"
       },
       {
         "name": "MsgUndelegate",
-        "tag": "begin_unbonding",
-        "type": "cosmos-sdk/MsgUndelegate"
+        "text": "cosmos-sdk/MsgUndelegate",
+        "value": "begin_unbonding"
       },
       {
         "name": "MsgUnjail",
-        "tag": "unjail",
-        "type": "cosmos-sdk/MsgUnjail"
+        "text": "cosmos-sdk/MsgUnjail",
+        "value": "unjail"
       },
       {
-        "name": "MsgVote",
-        "tag": "vote",
-        "type": "cosmos-sdk/MsgVote"
-      },
-      {
-        "name": "MsgWithdrawDelegationReward",
-        "tag": "withdraw_delegator_reward",
-        "type": "cosmos-sdk/MsgWithdrawDelegationReward"
+        "name": "MsgWithdrawDelegatorReward",
+        "text": "cosmos-sdk/MsgWithdrawDelegatorReward",
+        "value": "withdraw_delegator_reward"
       }
     ]
   },
-  "transaction_details": {
-    "enabled": true,
-    "rows": {
-      "hash": true,
-      "status": true,
-      "block_height": true,
-      "date": true,
-      "fee": true,
-      "gas": true
-    },
-    "msgs_details": true
-  },
   "validators": {
-    "enabled": true,
-    "live_data": {
-      "block_height": true,
-      "count": true,
-      "bonded_tokens": true,
-      "time_since_last_block": true
-    },
-    "table": {
-      "columns": {
-        "ordering": true,
-        "name": true,
-        "voting_power": true,
-        "share_percentage": true,
-        "commission": true
-      }
-
-    }
-  },
-  "validator_details": {
-    "enabled": true
-  },
-  "votings": {
-    "enabled": true,
-    "live_data": {
-      "enabled": true,
-      "bonded": true,
-      "height": true,
-      "price": true
-    }
-  },
-  "voting_details": {
-    "enabled": true,
-    "rows": {
-      "title": true,
-      "type": true,
-      "status": true,
-      "submit_time": true,
-      "deposit_end_time": true,
-      "deposit": true,
-      "voting_start_time": true,
-      "voting_end_time": true,
-      "description": true
-    },
-    "result": true,
-    "votes": true,
-    "deposits": true
+    "isMissingBlocksChecker": false
   }
 }

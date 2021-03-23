@@ -1,121 +1,114 @@
-/* global describe, expect, it, jest */
+import { createLocalVue, shallowMount } from '@vue/test-utils';
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import Vuex from 'vuex';
+import ValidatorDetails from '../details/index.vue';
 
-import ValidatorDetails from "../ValidatorDetails.vue";
-import {
-  mockDelegations
-} from "Store/account/__mocks__/delegations";
-import {
-  mockTransactions
-} from "Store/transactions/__mocks__/transactions";
-import {
-  mockValidator
-} from "Store/validators/__mocks__/validators";
-import {
-  createLocalVue,
-  shallowMount
-} from "@vue/test-utils";
-
+Vue.use(Vuetify);
 const localVue = createLocalVue();
+localVue.use(Vuex);
+localVue.use(Vuetify);
 
-describe("views/validators/ValidatorDetails.vue", () => {
-  const computed = {
-    events: () => mockTransactions(),
-    transactions: () => mockTransactions(),
-    validatorAddress: () => "comnetvaloper1t8xx727yrvep0w7ylunz609vn2sarf5ckrval5"
+describe('views/validators/details/index.vue', () => {
+  const actions = {
+    getValidatorData: jest.fn(),
   };
-  const methods = {
-    getValidatorData: jest.fn()
-  };
+  const mockStore = new Vuex.Store({
+    modules: {
+      validators: {
+        namespaced: true,
+        actions,
+      },
+    },
+  });
   const mocks = {
-    $t: messageId => messageId
+    $route: {
+      params: {
+        id: 'id',
+      },
+    },
+    $store: mockStore,
+  };
+  const computed = {
+    account: () => 'account',
+    address: () => 'address',
+    delegations: () => ({}),
+    details: () => ({}),
+    infoMessage: () => 'No transactions with this hash',
+    operator: () => 'operator',
   };
 
-  it("Check if loading message is displayed", () => {
+  test('if loading message is displayed', () => {
     const wrapper = shallowMount(ValidatorDetails, {
+      localVue,
+      mocks,
       computed: {
         ...computed,
-        isFetching: () => true,
-        hasError: () => false
+        error: () => null,
+        isLoading: () => true,
       },
-      localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            prefixes: {
-              account: {
-                address: "comnet"
-              }
-            }
-          },
-        }
-      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  test('if not found message is displayed', () => {
     const wrapper = shallowMount(ValidatorDetails, {
+      localVue,
+      mocks,
       computed: {
         ...computed,
-        isFetching: () => false,
-        hasError: () => true
+        error: () => ({
+          message: 'Not Found',
+          status: 404,
+        }),
+        isLoading: () => false,
       },
-      localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            prefixes: {
-              account: {
-                address: "comnet"
-              }
-            }
-          },
-        }
-      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
-    expect(wrapper.find('[data-test="items"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if item data are displayed", () => {
+  test('if error message is displayed', () => {
     const wrapper = shallowMount(ValidatorDetails, {
+      localVue,
+      mocks,
       computed: {
         ...computed,
-        isFetching: () => false,
-        hasError: () => false
+        error: () => ({
+          message: 'Error',
+          status: 400,
+        }),
+        isLoading: () => false,
       },
-      localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            prefixes: {
-              account: {
-                address: "comnet"
-              }
-            }
-          },
-        }
-      }
     });
-    wrapper.setData({
-      delegations: mockDelegations(),
-      validator: mockValidator()
-    });
+
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="items"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+  });
+
+  test('if content is displayed', () => {
+    const wrapper = shallowMount(ValidatorDetails, {
+      localVue,
+      mocks,
+      computed: {
+        ...computed,
+        error: () => null,
+        isLoading: () => false,
+      },
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
   });
 });

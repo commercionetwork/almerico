@@ -1,55 +1,66 @@
 /**
- * Routes, remove magical strings
+ * Names of the routes
  */
-export const ROUTES = {
-  ROOT: "/",
-  NOT_FOUND: "/404",
-  SERVER_UNREACHABLE: "/:lang/server_unreachable",
-  // sections
-  ACCOUNT_DETAILS: "/:lang/account/:id",
-  BLOCKS: "/:lang/blocks",
-  BLOCK_DETAILS: "/:lang/block/:id",
-  DASHBOARD: "/:lang/dashboard",
-  TRANSACTIONS: "/:lang/transactions",
-  TRANSACTION_DETAILS: "/:lang/transaction/:id",
-  VALIDATORS: "/:lang/validators",
-  VALIDATOR_DETAILS: "/:lang/validator/:id",
-  VOTINGS: "/:lang/votings",
-  VOTING_DETAILS: "/:lang/voting/:id"
+const NAMES = {
+  NOT_FOUND: "notFound",
+  SERVER_UNREACHABLE: "serverUnreachable",
+  BLOCKS: "blocks",
+  BLOCKS_DASHBOARD: "blocksDashboard",
+  BLOCKS_DETAILS: "blocksDetails",
+  DASHBOARD: "dashboard",
+  TRANSACTIONS: "transactions",
+  TRANSACTIONS_DASHBOARD: "transactionsDashboard",
+  TRANSACTIONS_DETAILS: "transactionsDetails",
+  VALIDATORS: "validators",
+  VALIDATORS_ACCOUNT: "validatorsAccount",
+  VALIDATORS_DASHBOARD: "validatorsDashboard",
+  VALIDATORS_DETAILS: "validatorsDetails",
 };
 
 /**
- * Names of the routes
+ * Paths of the routes
  */
-export const ROUTE_NAMES = {
-  NOT_FOUND: "notFound",
-  SERVER_UNREACHABLE: "serverUnreachable",
-  ACCOUNT_DETAILS: "accountDetails",
-  BLOCKS: "blocks",
-  BLOCK_DETAILS: "blockDetails",
-  DASHBOARD: "dashboard",
-  TRANSACTIONS: "transactions",
-  TRANSACTION_DETAILS: "transactionDetails",
-  VALIDATORS: "validators",
-  VALIDATOR_DETAILS: "validatorDetails",
-  VOTINGS: "votings",
-  VOTING_DETAILS: "votingDetails"
+const PATHS = {
+  ROOT: "/",
+  NOT_FOUND: "/404",
+  SERVER_UNREACHABLE: "/server_unreachable",
+  BLOCKS: "/blocks",
+  BLOCKS_DASHBOARD: "dashboard",
+  BLOCKS_DETAILS: "block/:id",
+  DASHBOARD: "/dashboard",
+  TRANSACTIONS: "/txs",
+  TRANSACTIONS_DASHBOARD: "dashboard",
+  TRANSACTIONS_DETAILS: "/tx/:id",
+  VALIDATORS: "/validators",
+  VALIDATORS_ACCOUNT: "account/:id",
+  VALIDATORS_DASHBOARD: "dashboard",
+  VALIDATORS_DETAILS: "validator/:id",
 };
 
 /**
  * Titles of the routes
  */
-export const ROUTE_TITLES = {
+const TITLES = {
   NOT_FOUND: "Not found",
   SERVER_UNREACHABLE: "Server unreachable",
-  ACCOUNT_DETAILS: "Account details",
   BLOCKS: "Blocks",
-  BLOCK_DETAILS: "Block details",
+  BLOCKS_DASHBOARD: "Blocks dashboard",
+  BLOCKS_DETAILS: "Block details",
   DASHBOARD: "Dashboard",
-  TRANSACTIONS: "Transactions",
-  TRANSACTION_DETAILS: "Transaction details",
+  TRANSACTIONS: "Txs",
+  TRANSACTIONS_DASHBOARD: "Txs dashboard",
+  TRANSACTIONS_DETAILS: "Tx details",
   VALIDATORS: "Validators",
-  VALIDATOR_DETAILS: "Validator details",
-  VOTINGS: "Votings",
-  VOTING_DETAILS: "Voting details"
+  VALIDATORS_ACCOUNT: "Validator account",
+  VALIDATORS_DASHBOARD: "Validators dashboard",
+  VALIDATORS_DETAILS: "Validator details",
+};
+
+/**
+ * Routes
+ */
+export const ROUTES = {
+  NAMES,
+  PATHS,
+  TITLES,
 };

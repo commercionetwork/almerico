@@ -1,34 +1,38 @@
 /**
- * Blocks APIs
+ * BLOCKS APIS
  */
 
 import axios from "axios";
 import {
   API
-} from "Constants";
+} from "@/constants";
 
-const instance = axios.create({
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+const headers = {
+  'Content-Type': 'application/json'
+};
 
 export default {
   /**
-   * Handle ajax request to get a block by id
-   * 
    * @param {Number} height
-   * @return {Promise}
+   * @returns {Promise}
    */
   requestBlock(height) {
-    return instance.get(`${API.BLOCKS}/${height}`);
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.BLOCKS}`,
+      url: `/${height}`,
+    });
   },
   /**
-   * Handle ajax request to get last block
-   * 
-   * @return {Promise}
+   * @returns {Promise}
    */
-  requestLastBlock() {
-    return instance.get(`${API.BLOCKS}/latest`);
-  }
+  requestLatestBlock() {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.BLOCKS}`,
+      url: '/latest',
+    });
+  },
 };

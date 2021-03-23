@@ -1,58 +1,91 @@
 /**
- * Blocks mutations
+ * BLOCKS MUTATIONS
  */
 
 export default {
   /**
-   * Set Blocks isFetching state to true
+   * Set isLoading state to true
    *
    * @param {BlocksState} state
    */
   startLoading(state) {
-    state.message = "";
-    state.isFetching = true;
+    state.error = null;
+    state.isLoading = true;
   },
   /**
-   * Set Blocks isFetching state to false
+   * Set isLoading state to false
    *
    * @param {BlocksState} state
    */
   stopLoading(state) {
-    state.isFetching = false;
+    state.isLoading = false;
   },
   /**
-   * Set Blocks message
+   * Set error message
    *
    * @param {BlocksState} state
-   * @param {String} message
+   * @param {Object} error
    */
-  setMessage(state, message) {
-    state.message = message;
+  setError(state, error) {
+    state.error = { ...error };
   },
   /**
-   * Add block to blocks list
-   * 
-   * @param {BlocksState} state 
-   * @param {Block} data 
+   * Update blocks height
+   *
+   * @param {BlocksState} state
+   * @param {Number} height
    */
-  addNewBlock(state, data) {
-    state.all.push(data);
+  changeHeight(state, height) {
+    state.currentHeight = height;
   },
   /**
-   * Set last block
-   * 
-   * @param {BlocksState} state 
-   * @param {Block} data 
+   * Add blocks
+   *
+   * @param {BlocksState} state
+   * @param {Array.<Object>} data
    */
-  setLastBlock(state, data) {
-    state.last = data;
+  addBlocks(state, data) {
+    state.blocks.push.apply(state.blocks, data);
   },
   /**
-   * Delete all blocks
-   * 
-   * @param {BlocksState} state 
+   * Remove all blocks
+   *
+   * @param {BlocksState} state
    */
-  deleteBlocks(state) {
-    state.all = [];
-  }
+  clearAllBlocks(state) {
+    state.blocks = [];
+  },
+  /**
+   * Add single block to the beginning of the stored blocks
+   *
+   * @param {BlocksState} state
+   * @param {Object} data
+   */
+  addSingleBlock(state, data) {
+    state.blocks.unshift(data);
+  },
+  /**
+   * Set block details
+   *
+   * @param {BlocksState} state
+   * @param {Object} data
+   */
+  setBlockDetails(state, data) {
+    state.details = null;
+    state.details = {
+      ...data,
+    };
+  },
+  /**
+   * Set latest block
+   *
+   * @param {BlocksState} state
+   * @param {Object} data
+   */
+  setLatestBlock(state, data) {
+    state.latest = {
+      ...data,
+    };
+    state.blocks.unshift(data);
+  },
 };

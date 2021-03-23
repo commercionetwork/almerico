@@ -1,152 +1,110 @@
-/* global describe, expect, it, jest */
+import { createLocalVue, shallowMount } from '@vue/test-utils';
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import Vuex from 'vuex';
+import BlockDetails from '../details/index.vue';
 
-import BlockDetails from "../BlockDetails.vue";
-import {
-  createLocalVue,
-  shallowMount
-} from "@vue/test-utils";
-import { mockTransactions } from "Store/transactions/__mocks__/transactions";
-
+Vue.use(Vuetify);
 const localVue = createLocalVue();
+localVue.use(Vuex);
+localVue.use(Vuetify);
 
-describe("views/blocks/BlockDetails.vue", () => {
-  const computed = {
-    blockId: () => "1",
-    blockTxs: () => mockTransactions(),
-    transactions: () => mockTransactions()
+describe('views/blocks/details/index.vue', () => {
+  const actions = {
+    getBlock: jest.fn(),
   };
-  const methods = {
-    fetchBlock: jest.fn()
-  };
-  const mocks = {
-    $t: messageId => messageId
-  };
-
-  it("Check if loading message is displayed", () => {
-    const wrapper = shallowMount(BlockDetails, {
-      computed: {
-        ...computed,
-        validators: () => [],
-        isFetching: () => true,
-        hasError: () => false,
-        title: () => "title"
+  const mockStore = new Vuex.Store({
+    modules: {
+      blocks: {
+        namespaced: true,
+        actions,
       },
+    },
+  });
+  const mocks = {
+    $route: {
+      params: {
+        id: 'id',
+      },
+    },
+    $store: mockStore,
+  };
+
+  test('if loading message is displayed', () => {
+    const wrapper = shallowMount(BlockDetails, {
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          block_details: {
-            txs_list: true
-          }
-        }
-      }
+      mocks,
+      computed: {
+        error: () => null,
+        height: () => 'id',
+        infoMessage: () => 'No blocks at this height',
+        isLoading: () => true,
+      },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  test('if not found message is displayed', () => {
     const wrapper = shallowMount(BlockDetails, {
-      computed: {
-        ...computed,
-        validators: () => [],
-        isFetching: () => false,
-        hasError: () => true,
-        title: () => "title"
-      },
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          block_details: {
-            txs_list: true
-          }
-        }
-      }
+      mocks,
+      computed: {
+        error: () => ({
+          message: 'Not Found',
+          status: 404,
+        }),
+        height: () => 'id',
+        infoMessage: () => 'No blocks at this height',
+        isLoading: () => false,
+      },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if item data are displayed", () => {
+  test('if error message is displayed', () => {
     const wrapper = shallowMount(BlockDetails, {
-      computed: {
-        ...computed,
-        validators: () => [],
-        isFetching: () => false,
-        hasError: () => false,
-        title: () => "title"
-      },
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          block_details: {
-            txs_list: true
-          }
-        }
-      }
+      mocks,
+      computed: {
+        error: () => ({
+          message: 'Error',
+          status: 400,
+        }),
+        height: () => 'id',
+        infoMessage: () => 'No blocks at this height',
+        isLoading: () => false,
+      },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if transactions list is displayed", () => {
+  test('if content is displayed', () => {
     const wrapper = shallowMount(BlockDetails, {
-      computed: {
-        ...computed,
-        validators: () => [],
-        isFetching: () => false,
-        hasError: () => false,
-        title: () => "title"
-      },
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          block_details: {
-            txs_list: true
-          }
-        }
-      }
+      mocks,
+      computed: {
+        error: () => null,
+        height: () => 'id',
+        infoMessage: () => 'No blocks at this height',
+        isLoading: () => false,
+      },
     });
 
-    expect(wrapper.find('[data-test="txs-list"]').exists()).toBe(true);
-  });
-
-  it("Check if transactions list is not displayed", () => {
-    const wrapper = shallowMount(BlockDetails, {
-      computed: {
-        ...computed,
-        validators: () => [],
-        isFetching: () => false,
-        hasError: () => false,
-        title: () => "title"
-      },
-      localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          block_details: {
-            txs_list: false
-          }
-        }
-      }
-    });
-
-    expect(wrapper.find('[data-test="txs-list"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
   });
 });

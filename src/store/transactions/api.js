@@ -1,42 +1,63 @@
 /**
- * Transactions APIs
+ * TRANSACTIONS APIS
  */
 
-import axios from "axios";
-import {
-  API
-} from "Constants";
+import axios from 'axios';
+import { API } from '@/constants';
 
-const instance = axios.create({
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
+const headers = {
+  'Content-Type': 'application/json',
+};
 
 export default {
-   /**
-   * Handle ajax request to get a transactions list
-   * 
-   * @param {String} tag // mandatory
-   * @param {Number} page 
-   * @param {Number} limit 
-   * @return {Promise}
+  /**
+   * @param {String} query
+   * @param {Number} page
+   * @param {Number} limit
+   * @returns {Promise}
    */
-  requestTransactions({
-    tag,
-    page,
-    limit
-  }) {
-    return instance.get(`${API.TXS}?${tag}&page=${page}&limit=${limit}`);
+  requestSearchTransactions({ query, page, limit }) {
+    return axios.get(`${API.TXS}?${query}&page=${page}&limit=${limit}`, {
+      headers: headers,
+    });
   },
   /**
-   * Handle ajax request to get a single transaction by hash
-   * 
-   * @param {String} hash 
-   * @return {Promise}
+   * @param {String} hash
+   * @returns {Promise}
    */
   requestTransaction(hash) {
-    return instance.get(`${API.TXS}/${hash}`)
-  }
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.TXS}`,
+      url: `/${hash}`,
+    });
+  },
+  /**
+   * @param {String} lcd
+   * @param {String} hash
+   * @returns {Promise}
+   */
+  requestAncestorTransaction({ lcd, hash }) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: lcd,
+      url: `/txs/${hash}`,
+    });
+  },
+  /**
+   * @param {Number} height
+   * @returns {Promise}
+   */
+  requestBlockTransactions(height) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.TXS}`,
+      params: {
+        'tx.height': height,
+      },
+    });
+  },
 };

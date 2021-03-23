@@ -1,11 +1,26 @@
-/* global describe, beforeEach, it, expect, jest */
+import actions from '../actions.js';
+import { mockBlock } from '../__mocks__/blocks';
 
-import actions from "../actions.js";
-import {
-  mockBlock
-} from "../__mocks__/blocks";
+const mockErrorResponse = {
+  request: {},
+  response: {
+    data: {
+      error: 'error',
+    },
+    status: 400,
+  },
+};
+const mockErrorRequestResponse = {
+  request: {},
+  response: undefined,
+};
 
-describe("store/blocks/actions", () => {
+let mockError = false;
+let mockErrorRequest = false;
+let mockErrorServer = false;
+let mockResponse = null;
+
+describe('store/blocks/actions', () => {
   beforeEach(() => {
     mockError = false;
     mockErrorRequest = false;
@@ -13,142 +28,161 @@ describe("store/blocks/actions", () => {
     mockResponse = null;
   });
 
-  it("Check if 'actions.fetchBlocks' reset the blocks list and dispatch the action to fetch a block", () => {
+  test("if 'actions.getBlock' set block details", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const height = 123456;
-    const state = {
-      last: mockBlock(new Date(), height)
-    };
-    const page = 1;
-    const limit = 10;
 
-    actions.fetchBlocks({
-      commit,
+    await actions.getBlock({ dispatch, commit }, 1);
+
+    expect(commit).toHaveBeenCalledWith('setBlockDetails', mockResponse.data);
+  });
+
+  test("if 'actions.getBlock' has an error, dispatch 'handleError'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
+
+    await actions.getBlock({ dispatch, commit }, 1);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchLatestBlock' set last block", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.fetchLatestBlock({
       dispatch,
-      state
-    }, {
-      page,
-      limit
+      commit,
     });
 
-    expect(commit).toHaveBeenCalledWith("deleteBlocks");
-    expect(dispatch).toHaveBeenCalledWith("fetchBlock", (height - (limit * (page - 1))));
-    expect(dispatch).toBeCalledTimes(limit);
+    expect(commit).toHaveBeenCalledWith(
+      'setLatestBlock',
+      mockResponse.data.block
+    );
   });
 
-  it("Check if 'actions.fetchBlock' add new block", async () => {
+  test("if 'actions.fetchLatestBlock' has an error, dispatch 'handleError'", async () => {
     const commit = jest.fn();
-
-    await actions.fetchBlock({
-      commit
-    });
-
-    expect(commit).toHaveBeenCalledWith("addNewBlock", mockResponse.data.block);
-  });
-
-  it("Check if 'actions.fetchBlock' has an error", async () => {
-    const commit = jest.fn();
+    const dispatch = jest.fn();
     mockError = true;
 
-    await actions.fetchBlock({
-      commit
+    await actions.fetchLatestBlock({
+      dispatch,
+      commit,
     });
 
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  it("Check if 'actions.fetchBlock' has a request error", async () => {
+  test("if 'actions.fetchBlocks' adds the required number of blocks", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
-    mockErrorRequest = true;
+    let height = 10;
+    let items = 10;
 
-    await actions.fetchBlock({
-      commit
-    });
+    await actions.fetchBlocks(
+      { dispatch, commit },
+      { height: height, items: items }
+    );
 
-    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+    expect(commit).toHaveBeenNthCalledWith(
+      items,
+      'addSingleBlock',
+      mockResponse.data.block
+    );
+
+    height = 5;
+    items = 10;
+
+    await actions.fetchBlocks(
+      { dispatch, commit },
+      { height: height, items: items }
+    );
+
+    expect(commit).toHaveBeenNthCalledWith(
+      5,
+      'addSingleBlock',
+      mockResponse.data.block
+    );
   });
 
-  it("Check 'actions.fetchBlock' when server is unreachable", async () => {
+  test("if 'actions.fetchBlocks' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
-    mockErrorServer = true;
-
-    await actions.fetchBlock({
-      commit
-    });
-
-    expect(commit).toBeCalledWith("setServerReachability", false, {
-      root: true
-    });
-  });
-
-  it("Check if 'actions.fetchLastBlock' set last block", async () => {
-    const commit = jest.fn();
-
-    await actions.fetchLastBlock({
-      commit
-    });
-
-    expect(commit).toHaveBeenCalledWith("setLastBlock", mockResponse.data.block);
-  });
-
-  it("Check if 'actions.fetchLastBlock' has an error", async () => {
-    const commit = jest.fn();
+    let height = 10;
+    let items = 10;
     mockError = true;
 
-    await actions.fetchLastBlock({
-      commit
-    });
+    await actions.fetchBlocks(
+      { dispatch, commit },
+      { height: height, items: items }
+    );
 
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  it("Check if 'actions.fetchLastBlock' has a request error", async () => {
+  test("if 'actions.getBlocks' dispatch the action 'fetchBlocks'", async () => {
     const commit = jest.fn();
-    mockErrorRequest = true;
+    const dispatch = jest.fn();
+    const maxHeight = 100;
+    const items = 10;
 
-    await actions.fetchLastBlock({
-      commit
+    await actions.getBlocks(
+      { dispatch, commit },
+      { maxHeight: maxHeight, items: items }
+    );
+
+    expect(commit).toHaveBeenCalledWith('clearAllBlocks');
+    expect(dispatch).toHaveBeenCalledWith('fetchBlocks', {
+      height: maxHeight,
+      items: items,
     });
-
-    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
   });
 
-  it("Check 'actions.fetchLastBlock' when server is unreachable", async () => {
+  test("if 'actions.addBlocks' dispatch the action 'fetchBlocks'", async () => {
     const commit = jest.fn();
-    mockErrorServer = true;
+    const dispatch = jest.fn();
+    const currentHeight = 100;
+    const items = 10;
 
-    await actions.fetchLastBlock({
-      commit
+    await actions.addBlocks(
+      { dispatch, commit },
+      { currentHeight: currentHeight, items: items }
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('fetchBlocks', {
+      height: currentHeight,
+      items: items,
     });
+  });
 
-    expect(commit).toBeCalledWith("setServerReachability", false, {
-      root: true
+  test("if 'actions.handleError' handles the various types of error", () => {
+    const commit = jest.fn();
+    let error = mockErrorResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error.response);
+
+    error = mockErrorRequestResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error);
+
+    error = 'error';
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setServerReachability', false, {
+      root: true,
     });
   });
 });
 
-let mockResponse = null;
-
-let mockError = false;
-const mockErrorResponse = {
-  request: {},
-  response: {
-    data: {
-      error: "error",
-    },
-    status: 400
-  }
-};
-let mockErrorRequest = false;
-const mockErrorRequestResponse = {
-  request: {},
-  response: undefined
-};
-let mockErrorServer = false;
-
-jest.mock("./../api", () => ({
-  requestBlock: height => {
+jest.mock('./../api', () => ({
+  requestBlock: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -162,16 +196,13 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: {
-            block_meta: {},
-            block: mockBlock(new Date(), height)
-          }
+          data: mockBlock(),
         };
         resolve(mockResponse);
       }, 1);
     });
   },
-  requestLastBlock: () => {
+  requestLatestBlock: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -185,13 +216,10 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: {
-            block_meta: {},
-            block: mockBlock(new Date(), 100)
-          }
+          data: mockBlock(),
         };
         resolve(mockResponse);
       }, 1);
     });
-  }
+  },
 }));

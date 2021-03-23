@@ -1,43 +1,59 @@
-import randomDataGenerator from "Store/__mocks__/utils";
-
-const mockValidator = (jailed = false, status = 2) => {
-  let rate = (randomDataGenerator.intFromInterval(500, 1500) / 100).toFixed(18);
-
-  let item = {
-    operator_address: "comnetvaloper16xyempempp92x9hyzz9wrgf94r6j9h5f2w4n2l",
-    consensus_pubkey: "comnetvalconspub1zcjduepq0vu2zgkgk49efa0nqwzndanq5m4c7pa3u4apz4g2r9gspqg6g9cs3k9cuf",
-    jailed,
-    status,
-    tokens: "100000000000",
-    delegator_shares: "100000000000.000000000000000000",
+const mockValidator = () => {
+  const item = {
+    operator_address: 'did:com:valoper1yq5z4236gmcuus2t940spppwzz8uggpjhgac6w',
+    consensus_pubkey:
+      'did:com:valconspub1zcjduepqn2d6zy6a7ldp0wm33mnzr628qfx3zfcfucnkrmc7qslhnmx7l56secvyvw',
+    jailed: false,
+    status: 2,
+    tokens: '150060900000',
+    delegator_shares: '150060900000.000000000000000000',
     description: {
-      moniker: "moniker",
-      identity: "identity",
-      website: "website",
-      details: "details"
+      moniker: 'adam',
+      identity: '',
+      website: '',
+      security_contact: '',
+      details: '',
     },
-    unbonding_height: "0",
-    unbonding_time: "1970-01-01T00:00:00Z",
+    unbonding_height: '0',
+    unbonding_time: '1970-01-01T00:00:00Z',
     commission: {
       commission_rates: {
-        rate: rate.toString(),
-        max_rate: (rate * 2).toString(),
-        max_change_rate: (rate / 10).toString()
+        rate: '0.100000000000000000',
+        max_rate: '0.200000000000000000',
+        max_change_rate: '0.010000000000000000',
       },
-      update_time: "2019-01-02T00:00:00Z"
-    }
+      update_time: '2020-05-06T13:45:00Z',
+    },
+    min_self_delegation: '1',
+    delegations: [
+      {
+        delegator_address: 'did:com:1yq5z4236gmcuus2t940spppwzz8uggpj5ty7ha',
+        validator_address:
+          'did:com:valoper1yq5z4236gmcuus2t940spppwzz8uggpjhgac6w',
+        shares: '50000000000.000000000000000000',
+        balance: {
+          denom: 'ucommercio',
+          amount: '50000000000',
+        },
+      },
+      {
+        delegator_address: 'did:com:1t5fz439f49zv39pmh73c2lvuhwfzqj0ze3kzj2',
+        validator_address:
+          'did:com:valoper1yq5z4236gmcuus2t940spppwzz8uggpjhgac6w',
+        shares: '100000000000.000000000000000000',
+        balance: {
+          denom: 'ucommercio',
+          amount: '100000000000',
+        },
+      },
+    ],
   };
   return item;
 };
 
-const mockValidators = (validators = 10) => {
-  let list = new Array(validators).fill(null).map(() => {
-    return mockValidator();
-  });
+const mockValidators = (validators = 4) => {
+  const list = new Array(validators).fill(null).map(() => mockValidator());
   return list;
 };
 
-export {
-  mockValidator,
-  mockValidators
-};
+export { mockValidator, mockValidators };

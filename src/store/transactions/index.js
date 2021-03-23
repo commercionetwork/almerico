@@ -1,25 +1,37 @@
 /**
- * Transactions state
+ * TRANSACTIONS STATE
+ *
+ * @typedef {Object} TransactionsState
+ * @property {Array.<Object>} transactions
+ * @property {Boolean} hasNext
+ * @property {Boolean} isLoading
+ * @property {Number} currentPage
+ * @property {Object} details
+ * @property {Object} error
+ * @property {String} filter
  */
 
-import actions from "./actions";
-import getters from "./getters";
-import mutations from "./mutations";
+import actions from './actions';
+import getters from './getters';
+import mutations from './mutations';
 
-export const initialState = {
-  all: [],
+const initialState = {
+  currentPage: 1,
   details: null,
-  isFetching: false,
-  message: "",
+  error: null,
+  filter: '',
+  hasNext: false,
+  isLoading: false,
+  transactions: [],
 };
 
 export default {
   namespaced: true,
   initialState,
   state: {
-    ...initialState
+    ...initialState,
   },
-  getters,
   actions,
-  mutations
+  getters,
+  mutations,
 };

@@ -1,69 +1,150 @@
-/* global describe, beforeEach, it, expect */
+import mutations from '../mutations';
+import { initialState } from '../index';
 
-import mutations from "../mutations";
-import {
-  initialState
-} from "../index";
-
-describe("store/validators/mutations", () => {
+describe('store/validators/mutations', () => {
   let state = {};
 
   beforeEach(() => {
     state = {
-      ...initialState
+      ...initialState,
     };
   });
 
-  it("Check mutations.startLoading", () => {
-    state.message = "message";
+  test('mutations.startLoading', () => {
+    state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
 
-    expect(state.isFetching).toBeTruthy();
-    expect(state.message).toBe("");
+    expect(state.error).toBeNull;
+    expect(state.isLoading).toBe(true);
   });
 
-  it("Check mutations.stopLoading", () => {
-    state.isFetching = true;
+  test('mutations.stopLoading', () => {
+    state.isLoading = true;
 
     mutations.stopLoading(state);
 
-    expect(state.isFetching).toBeFalsy();
+    expect(state.isLoading).toBe(false);
   });
 
-  it("Check mutations.setMessage", () => {
-    const message = "mutations.setMessage error";
+  test('mutations.setError', () => {
+    const error = { message: 'error', status: 400 };
 
-    mutations.setMessage(state, message);
+    mutations.setError(state, error);
 
-    expect(state.message).toEqual(message);
+    expect(state.error).toStrictEqual(error);
   });
 
-  it("Check mutations.setValidators", () => {
-    const data = [{
-      id: 1
-    }];
+  test('mutations.setFilter', () => {
+    const filter = {
+      id: 1,
+    };
 
-    mutations.setValidators(state, data);
+    mutations.setFilter(state, filter);
 
-    expect(state.all).toEqual(data);
+    expect(state.filter).toStrictEqual(filter);
   });
 
-  it("Check mutations.addValidators", () => {
-    state.all = [{
-      id: 1
-    }];
-    const data = [{
-      id: 2
-    }];
-    const expectValidators = [{
-      id: 1
-    }, {
-      id: 2
-    }];
+  test('mutations.setValidators', () => {
+    const validators = [
+      {
+        id: 1,
+      },
+    ];
 
-    mutations.addValidators(state, data);
+    mutations.setValidators(state, validators);
 
-    expect(state.all).toEqual(expectValidators);
+    expect(state.validators).toStrictEqual(validators);
+  });
+
+  test('mutations.addValidators', () => {
+    const validators = [
+      {
+        id: 1,
+      },
+    ];
+    mutations.setValidators(state, validators);
+
+    const newValidators = [
+      {
+        id: 2,
+      },
+    ];
+
+    mutations.addValidators(state, newValidators);
+
+    const expectedValue = [
+      {
+        id: 1,
+      },
+      {
+        id: 2,
+      },
+    ];
+    expect(state.validators).toStrictEqual(expectedValue);
+  });
+
+  test('mutations.setHeightValidatorsSets', () => {
+    const heightValidatorsSets = [
+      {
+        id: 1,
+      },
+    ];
+
+    mutations.setHeightValidatorsSets(state, heightValidatorsSets);
+
+    expect(state.heightValidatorsSets).toStrictEqual(heightValidatorsSets);
+  });
+
+  test('mutations.setLatestValidatorsSets', () => {
+    const latestValidatorsSets = [
+      {
+        id: 1,
+      },
+    ];
+
+    mutations.setLatestValidatorsSets(state, latestValidatorsSets);
+
+    expect(state.latestValidatorsSets).toStrictEqual(latestValidatorsSets);
+  });
+
+  test('mutations.setDetails', () => {
+    const details = {
+      id: 1,
+    };
+
+    mutations.setDetails(state, details);
+
+    expect(state.details).toStrictEqual(details);
+  });
+
+  test('mutations.addDetails', () => {
+    const details = {
+      id: 1,
+    };
+    mutations.setDetails(state, details);
+
+    const data = {
+      name: 'name',
+    };
+    mutations.addDetails(state, data);
+
+    const expectedValue = {
+      id: 1,
+      name: 'name',
+    };
+
+    expect(state.details).toStrictEqual(expectedValue);
+  });
+
+  test('mutations.resetDetails', () => {
+    const details = {
+      id: 1,
+    };
+    mutations.setDetails(state, details);
+
+    mutations.resetDetails(state);
+
+    expect(state.details).toStrictEqual({});
   });
 });

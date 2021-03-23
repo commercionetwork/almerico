@@ -1,53 +1,75 @@
 /**
- * Account APIs
+ * ACCOUNT APIS
  */
 
 import axios from "axios";
 import {
   API
-} from "Constants";
+} from "@/constants";
 
-const instance = axios.create({
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+const headers = {
+  'Content-Type': 'application/json'
+};
 
 export default {
   /**
-   * Handle ajax request to get balances
-   * 
    * @param {String} address
-   * @return {Promise}
+   * @returns {Promise}
    */
   requestBalances(address) {
-    return instance.get(`${API.BANK}/${address}`);
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.BANK}`,
+      url: `/${address}`,
+    });
   },
   /**
-   * Handle ajax request to get delegations by delegator address
-   * 
    * @param {String} address
-   * @return {Promise}
+   * @returns {Promise}
    */
-  requestDelegatorDelegations(address) {
-    return instance.get(`${API.STAKING_DELEGATORS}/${address}/delegations`);
+  requestDelegations(address) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.STAKING}`,
+      url: `/delegators/${address}/delegations`,
+    });
   },
   /**
-   * Handle ajax request to get unbonding delegations by delegator address
-   * 
    * @param {String} address
-   * @return {Promise}
+   * @returns {Promise}
    */
-  requestDelegatorUnbondingDelegations(address) {
-    return instance.get(`${API.STAKING_DELEGATORS}/${address}/unbonding_delegations`);
+  requestMembership(address) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.KYC}`,
+      url: `/membership/${address}`,
+    });
   },
   /**
-   * Handle ajax request to get rewards by delegator address
-   * 
    * @param {String} address
-   * @return {Promise}
+   * @returns {Promise}
    */
-  requestDelegatorRewards(address) {
-    return instance.get(`${API.DISTRIBUTION_DELEGATORS}/${address}/rewards`);
-  }
+  requestRewards(address) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.DISTRIBUTION}`,
+      url: `/delegators/${address}/rewards`,
+    });
+  },
+  /**
+   * @param {String} address
+   * @returns {Promise}
+   */
+  requestUnbondings(address) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.STAKING}`,
+      url: `/delegators/${address}/unbonding_delegations`,
+    });
+  },
 };

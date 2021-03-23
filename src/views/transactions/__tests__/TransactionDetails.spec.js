@@ -1,209 +1,119 @@
-/* global describe, expect, it, jest */
+import { createLocalVue, shallowMount } from '@vue/test-utils';
+import Vue from 'vue';
+import Vuetify from 'vuetify';
+import Vuex from 'vuex';
+import { mockTx } from '../../../store/transactions/__mocks__/txs';
+import TransactionDetails from '../details/index.vue';
 
-import TransactionDetails from "../TransactionDetails.vue";
-import {
-  mockTransaction
-} from "Store/transactions/__mocks__/transactions";
-import {
-  createLocalVue,
-  shallowMount
-} from "@vue/test-utils";
-import VueRouter from "vue-router";
-
+Vue.use(Vuetify);
 const localVue = createLocalVue();
-localVue.use(VueRouter);
-const router = new VueRouter();
+localVue.use(Vuex);
+localVue.use(Vuetify);
 
-describe("views/transactions/TransactionDetails.vue", () => {
-  const methods = {
-    fetchTransaction: jest.fn()
+describe('views/transactions/details/index.vue', () => {
+  const actions = {
+    fetchTransaction: jest.fn(),
   };
+  const mockStore = new Vuex.Store({
+    modules: {
+      transactions: {
+        namespaced: true,
+        actions,
+      },
+    },
+  });
   const mocks = {
-    $i18n: messageId => messageId,
-    $n: messageId => messageId,
-    $t: messageId => messageId
+    $route: {
+      params: {
+        id: 'id',
+      },
+    },
+    $store: mockStore,
+  };
+  const computed = {
+    hash: () => 'id',
+    infoMessage: () => 'No transactions with this hash',
   };
 
-  it("Check if loading message is displayed", () => {
+  test('if loading message is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
-      computed: {
-        isFetching: () => true,
-        message: () => "",
-        transaction: () => null,
-        txId: () => "1"
-      },
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
-          },
-          transaction_details: {
-            msgs_details: true
-          }
-        }
+      mocks,
+      computed: {
+        ...computed,
+        details: () => null,
+        error: () => null,
+        isLoading: () => true,
       },
-      router
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="loading"]').text()).toEqual('messages.loading');
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if error message is displayed", () => {
+  test('if not found message is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
-      computed: {
-        isFetching: () => false,
-        message: () => "error",
-        transaction: () => null,
-        txId: () => "1"
-      },
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
-          },
-          transaction_details: {
-            msgs_details: true
-          }
-        }
+      mocks,
+      computed: {
+        ...computed,
+        details: () => null,
+        error: () => ({
+          message: 'Not Found',
+          status: 404,
+        }),
+        isLoading: () => false,
       },
-      router
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="has-error"]').text()).toEqual('messages.fetchingError');
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if item data are displayed", () => {
+  test('if error message is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
-      computed: {
-        isFetching: () => false,
-        message: () => "",
-        transaction: () => mockTransaction(),
-        txId: () => "1"
-      },
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
-          },
-          transaction_details: {
-            msgs_details: true
-          }
-        }
+      mocks,
+      computed: {
+        ...computed,
+        details: () => null,
+        error: () => ({
+          message: 'Error',
+          status: 400,
+        }),
+        isLoading: () => false,
       },
-      router
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="has-error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="item"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  it("Check if transaction messages are displayed", () => {
+  test('if content is displayed', () => {
     const wrapper = shallowMount(TransactionDetails, {
-      computed: {
-        isFetching: () => false,
-        message: () => "",
-        transaction: () => mockTransaction(),
-        txId: () => "1"
-      },
       localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
-          },
-          transaction_details: {
-            msgs_details: true
-          }
-        }
+      mocks,
+      computed: {
+        ...computed,
+        details: () => ({
+          data: mockTx(),
+          ledger: 'ledger',
+          version: '',
+        }),
+        error: () => null,
+        isLoading: () => false,
       },
-      router
     });
 
-    expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(true);
-  });
-
-  it("Check if transaction messages are not displayed", () => {
-    const wrapper = shallowMount(TransactionDetails, {
-      computed: {
-        isFetching: () => false,
-        message: () => "",
-        transaction: () => mockTransaction(),
-        txId: () => "1"
-      },
-      localVue,
-      methods,
-      mocks: {
-        ...mocks,
-        $config: {
-          generic: {
-            coins: [
-              {
-                name: "commercio",
-                symbol: "CNT",
-                denom: "ucommercio",
-                exponent: 6,
-                stakeable: true
-              }
-            ]
-          },
-          transaction_details: {
-            msgs_details: false
-          }
-        }
-      },
-      router
-    });
-
-    expect(wrapper.find('[data-test="msgs-details"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="not-found"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
   });
 });

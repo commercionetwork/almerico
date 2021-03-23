@@ -1,152 +1,152 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 import {
   ROUTES,
-  ROUTE_NAMES,
-  ROUTE_TITLES,
-} from "Constants";
-import Config from "../config/config.json";
+} from "@/constants";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 function loadView(view) {
   return () => import( /* webpackChunkName: "view-[request]" */ `@/views/${view}.vue`);
 }
-const AccountDetails = loadView("account/index");
-const BlockDetails = loadView("blocks/BlockDetails");
-const Blocks = loadView("blocks/index");
+const Blocks = loadView("blocks/BlocksContainer");
+const BlocksDashboard = loadView("blocks/dashboard/index");
+const BlocksDetails = loadView("blocks/details/index");
 const Dashboard = loadView("dashboard/index");
-const Transactions = loadView("transactions/index");
-const TransactionDetails = loadView("transactions/TransactionDetails");
-const Validators = loadView("validators/index");
-const ValidatorDetails = loadView("validators/ValidatorDetails");
-const Votings = loadView("votings/index");
-const VotingDetails = loadView("votings/VotingDetails");
-// error
-const NotFound = loadView("NotFound");
-const ServerUnreachable = loadView("ServerUnreachable");
+const Transactions = loadView("transactions/TransactionsContainer");
+const TransactionsDashboard = loadView("transactions/dashboard/index");
+const TransactionsDetails = loadView("transactions/details/index");
+const Validators = loadView("validators/ValidatorsContainer");
+const ValidatorsAccount = loadView("validators/account/index");
+const ValidatorsDashboard = loadView("validators/dashboard/index");
+const ValidatorsDetails = loadView("validators/details/index");
+const NotFound = loadView("errors/NotFound");
+const ServiceUnavailable = loadView("errors/ServiceUnavailable");
 
 const routes = [{
-    path: ROUTES.ROOT,
+    path: ROUTES.PATHS.ROOT,
     redirect: {
-      name: ROUTE_NAMES.DASHBOARD
+      name: ROUTES.NAMES.DASHBOARD
     },
-    meta: {
-      egnition: true
-    }
   },
+  // Blocks
   {
-    path: ROUTES.ACCOUNT_DETAILS,
-    name: ROUTE_NAMES.ACCOUNT_DETAILS,
-    component: AccountDetails,
-    meta: {
-      egnition: Config.account_details.enabled,
-      title: ROUTE_TITLES.ACCOUNT_DETAILS
-    }
-  },
-  {
-    path: ROUTES.BLOCKS,
-    name: ROUTE_NAMES.BLOCKS,
+    path: ROUTES.PATHS.BLOCKS,
     component: Blocks,
     meta: {
-      egnition: Config.blocks.enabled,
-      title: ROUTE_TITLES.BLOCKS
-    }
+      title: ROUTES.TITLES.BLOCKS
+    },
+    children: [{
+      path: "",
+      name: ROUTES.NAMES.BLOCKS,
+      component: BlocksDashboard,
+    }, {
+      path: ROUTES.PATHS.BLOCKS_DASHBOARD,
+      name: ROUTES.NAMES.BLOCKS_DASHBOARD,
+      component: BlocksDashboard,
+      meta: {
+        title: ROUTES.TITLES.BLOCKS_DASHBOARD
+      },
+    }, {
+      path: ROUTES.PATHS.BLOCKS_DETAILS,
+      name: ROUTES.NAMES.BLOCKS_DETAILS,
+      component: BlocksDetails,
+      meta: {
+        title: ROUTES.TITLES.BLOCKS_DETAILS
+      },
+    }]
   },
+  // Dashboard
   {
-    path: ROUTES.BLOCK_DETAILS,
-    name: ROUTE_NAMES.BLOCK_DETAILS,
-    component: BlockDetails,
-    meta: {
-      egnition: Config.block_details.enabled,
-      title: ROUTE_TITLES.BLOCK_DETAILS
-    }
-  },
-  {
-    path: ROUTES.DASHBOARD,
-    name: ROUTE_NAMES.DASHBOARD,
+    path: ROUTES.PATHS.DASHBOARD,
+    name: ROUTES.NAMES.DASHBOARD,
     component: Dashboard,
     meta: {
       egnition: true,
-      title: ROUTE_TITLES.DASHBOARD
+      title: ROUTES.TITLES.DASHBOARD
     }
   },
+  // Transactions
   {
-    path: ROUTES.TRANSACTIONS,
-    name: ROUTE_NAMES.TRANSACTIONS,
+    path: ROUTES.PATHS.TRANSACTIONS,
     component: Transactions,
     meta: {
-      egnition: Config.transactions.enabled,
-      title: ROUTE_TITLES.TRANSACTIONS
-    }
+      title: ROUTES.TITLES.TRANSACTIONS
+    },
+    children: [{
+      path: "",
+      name: ROUTES.NAMES.TRANSACTIONS,
+      component: TransactionsDashboard,
+    }, {
+      path: ROUTES.PATHS.TRANSACTIONS_DASHBOARD,
+      name: ROUTES.NAMES.TRANSACTIONS_DASHBOARD,
+      component: TransactionsDashboard,
+      meta: {
+        title: ROUTES.TITLES.TRANSACTIONS_DASHBOARD
+      },
+    }, {
+      path: ROUTES.PATHS.TRANSACTIONS_DETAILS,
+      name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
+      component: TransactionsDetails,
+      meta: {
+        title: ROUTES.TITLES.TRANSACTIONS_DETAILS
+      },
+    }]
   },
+  // Validators
   {
-    path: ROUTES.TRANSACTION_DETAILS,
-    name: ROUTE_NAMES.TRANSACTION_DETAILS,
-    component: TransactionDetails,
-    meta: {
-      egnition: Config.transaction_details.enabled,
-      title: ROUTE_TITLES.TRANSACTION_DETAILS
-    }
-  },
-  {
-    path: ROUTES.VALIDATORS,
-    name: ROUTE_NAMES.VALIDATORS,
+    path: ROUTES.PATHS.VALIDATORS,
     component: Validators,
     meta: {
-      egnition: Config.validators.enabled,
-      title: ROUTE_TITLES.VALIDATORS
-    }
-  },
-  {
-    path: ROUTES.VALIDATOR_DETAILS,
-    name: ROUTE_NAMES.VALIDATOR_DETAILS,
-    component: ValidatorDetails,
-    meta: {
-      egnition: Config.validator_details.enabled,
-      title: ROUTE_TITLES.VALIDATOR_DETAILS
-    }
-  },
-  {
-    path: ROUTES.VOTINGS,
-    name: ROUTE_NAMES.VOTINGS,
-    component: Votings,
-    meta: {
-      egnition: Config.votings.enabled,
-      title: ROUTE_TITLES.VOTINGS
-    }
-  },
-  {
-    path: ROUTES.VOTING_DETAILS,
-    name: ROUTE_NAMES.VOTING_DETAILS,
-    component: VotingDetails,
-    meta: {
-      egnition: Config.voting_details.enabled,
-      title: ROUTE_TITLES.VOTING_DETAILS
-    }
+      title: ROUTES.TITLES.VALIDATORS
+    },
+    children: [{
+      path: "",
+      name: ROUTES.NAMES.VALIDATORS,
+      component: ValidatorsDashboard,
+    }, {
+      path: ROUTES.PATHS.VALIDATORS_ACCOUNT,
+      name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
+      component: ValidatorsAccount,
+      meta: {
+        title: ROUTES.TITLES.VALIDATORS_ACCOUNT
+      },
+    }, {
+      path: ROUTES.PATHS.VALIDATORS_DASHBOARD,
+      name: ROUTES.NAMES.VALIDATORS_DASHBOARD,
+      component: ValidatorsDashboard,
+      meta: {
+        title: ROUTES.TITLES.VALIDATORS_DASHBOARD
+      },
+    }, {
+      path: ROUTES.PATHS.VALIDATORS_DETAILS,
+      name: ROUTES.NAMES.VALIDATORS_DETAILS,
+      component: ValidatorsDetails,
+      meta: {
+        title: ROUTES.TITLES.VALIDATORS_DETAILS
+      },
+    }]
   },
   // not found
   {
-    path: ROUTES.NOT_FOUND,
-    name: ROUTE_NAMES.NOT_FOUND,
+    path: ROUTES.PATHS.NOT_FOUND,
+    name: ROUTES.NAMES.NOT_FOUND,
     component: NotFound,
     meta: {
-      egnition: true,
-      title: ROUTE_TITLES.NOT_FOUND
+      title: ROUTES.TITLES.NOT_FOUND
     }
   },
   {
     path: "*",
-    redirect: ROUTES.NOT_FOUND
+    redirect: ROUTES.PATHS.NOT_FOUND
   },
-  // server unreachable
+  // service unavailable
   {
-    path: ROUTES.SERVER_UNREACHABLE,
-    name: ROUTE_NAMES.SERVER_UNREACHABLE,
-    component: ServerUnreachable,
+    path: ROUTES.PATHS.SERVER_UNREACHABLE,
+    name: ROUTES.NAMES.SERVER_UNREACHABLE,
+    component: ServiceUnavailable,
     meta: {
-      egnition: true,
-      title: ROUTE_TITLES.SERVER_UNREACHABLE
+      title: ROUTES.TITLES.SERVER_UNREACHABLE
     }
   }
 ];

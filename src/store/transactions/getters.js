@@ -1,10 +1,13 @@
 /**
- * Transactions getters
+ * TRANSACTIONS GETTERS
  */
 
 export default {
-  transactions: state => state.all,
-  details: state => state.details,
-  isFetching: state => state.isFetching,
-  message: state => state.message,
+  currentPage: (state) => state.currentPage,
+  details: (state) => state.details,
+  error: (state) => state.error,
+  filter: (state) => state.filter,
+  hasNext: (state) => state.hasNext,
+  isLoading: (state) => state.isLoading,
+  transactions: (state) => state.transactions,
 };

@@ -1,93 +1,118 @@
 /**
- * Blocks actions
+ * BLOCKS ACTIONS
  */
 
-import api from "./api";
+import api from './api';
 
 export default {
   /**
-   * Action to fetch a list of blocks
-   * 
-   * @param {Function} commit
    * @param {Function} dispatch
-   * @param {BlocksState} state
-   * @param {Number} page 
-   * @param {Number} limit 
-   */
-  fetchBlocks({
-    commit,
-    dispatch,
-    state
-  }, {
-    page,
-    limit
-  }) {
-    commit("deleteBlocks");
-    let height = state.last ? parseInt(state.last.header.height) : 0;
-    let max = height - (limit * (page - 1));
-    let min = height - (limit * page);
-    while (max > 0 && max > min) {
-      dispatch("fetchBlock", max);
-      max--;
-    }
-  },
-  /**
-   * Action to fetch a block by height
-   * 
-   * @param {Function} commit 
+   * @param {Function} commit
    * @param {Number} height
    */
-  async fetchBlock({
-    commit
-  }, height) {
-    commit("startLoading");
-    commit("setServerReachability", true, {
-      root: true
+  async getBlock({ dispatch, commit }, height) {
+    commit('startLoading');
+    commit('setServerReachability', true, {
+      root: true,
     });
     try {
       const response = await api.requestBlock(height);
-      commit("addNewBlock", response.data.block);
+      commit('setBlockDetails', response.data);
     } catch (error) {
-      if (error.response) {
-        commit("setMessage", error.response.data.error);
-      } else if (error.request) {
-        commit("setMessage", "Request error");
-      } else {
-        commit("setServerReachability", false, {
-          root: true
-        });
-      }
+      dispatch('handleError', error);
     } finally {
-      commit("stopLoading");
+      commit('stopLoading');
     }
   },
   /**
-   * Action to fetch last block
-   * 
-   * @param {Function} commit 
+   * @param {Function} dispatch
+   * @param {Function} commit
    */
-  async fetchLastBlock({
-    commit
-  }) {
-    commit("startLoading");
-    commit("setServerReachability", true, {
-      root: true
-    });
+  async fetchLatestBlock({ dispatch, commit }) {
     try {
-      const response = await api.requestLastBlock();
-      commit("setLastBlock", response.data.block);
+      const response = await api.requestLatestBlock();
+      commit('setLatestBlock', response.data.block);
     } catch (error) {
-      if (error.response) {
-        commit("setMessage", error.response.data.error);
-      } else if (error.request) {
-        commit("setMessage", "Request error");
-      } else {
-        commit("setServerReachability", false, {
-          root: true
-        });
-      }
-    } finally {
-      commit("stopLoading");
+      dispatch('handleError', error);
     }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   * @param {Number} height
+   * @param {Number} items
+   */
+  async fetchBlocks({ dispatch, commit }, { height, items }) {
+    const maxHeight = parseInt(height);
+    const minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
+    const requests = setUpBlocksRequests(maxHeight, minHeight);
+    try {
+      const responses = await Promise.all(requests);
+      for (const response of responses) {
+        commit('addSingleBlock', response.data.block);
+      }
+      commit('changeHeight', minHeight);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   * @param {Number} maxHeight
+   * @param {Number} items
+   */
+  async getBlocks({ dispatch, commit }, { maxHeight, items }) {
+    commit('startLoading');
+    commit('setServerReachability', true, {
+      root: true,
+    });
+    commit('clearAllBlocks');
+    await dispatch('fetchBlocks', {
+      height: maxHeight,
+      items: items,
+    });
+    commit('stopLoading');
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   * @param {Number} currentHeight
+   * @param {Number} items
+   */
+  async addBlocks({ dispatch, commit }, { currentHeight, items }) {
+    commit('startLoading');
+    commit('setServerReachability', true, {
+      root: true,
+    });
+    await dispatch('fetchBlocks', {
+      height: currentHeight,
+      items: items,
+    });
+    commit('stopLoading');
+  },
+  /**
+   * @param {Function} commit
+   * @param {Object} error
+   */
+  handleError({ commit }, error) {
+    if (error.response) {
+      commit('setError', error.response);
+    } else if (error.request) {
+      commit('setError', error);
+    } else {
+      commit('setServerReachability', false, {
+        root: true,
+      });
+    }
+  },
+};
+
+const setUpBlocksRequests = (maxHeight, minHeight) => {
+  let requests = [];
+  while (maxHeight > minHeight) {
+    requests.push(api.requestBlock(maxHeight));
+    maxHeight--;
   }
+  return requests;
 };

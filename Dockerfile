@@ -1,16 +1,16 @@
-FROM node:13.5.0
+FROM node:lts
 
 # Read the set variables
 ARG LCD_URL
-ARG RPC_URL
 ARG WS_URL
-ARG API_VERSION
+ARG ANCESTORS_LIST
+ARG MAIN_TITLE
 
 # Copy all arguments into the environment variables
 ENV VUE_APP_LCD ${LCD_URL}
-ENV VUE_APP_RPC ${RPC_URL}
 ENV VUE_APP_WS ${WS_URL}
-ENV VUE_APP_API_VERSION ${API_VERSION}
+ENV VUE_APP_ANCESTORS ${ANCESTORS_LIST}
+ENV VUE_APP_MAIN_TITLE ${MAIN_TITLE}
 
 # Set unsafe perm in order to avoid npm errors
 RUN npm config set unsafe-perm true

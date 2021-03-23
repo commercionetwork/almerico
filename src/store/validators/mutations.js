@@ -1,50 +1,120 @@
 /**
- * Validators mutations
+ * VALIDATORS MUTATIONS
  */
 
 export default {
   /**
-   * Set Validators isFetching state to true
+   * Set isLoading state to true
    *
    * @param {ValidatorsState} state
    */
   startLoading(state) {
-    state.message = "";
-    state.isFetching = true;
+    state.error = null;
+    state.isLoading = true;
   },
   /**
-   * Set Validators isFetching state to false
+   * Set isLoading state to false
    *
    * @param {ValidatorsState} state
    */
   stopLoading(state) {
-    state.isFetching = false;
+    state.isLoading = false;
   },
   /**
-   * Set Validators message
+   * Set error message
    *
    * @param {ValidatorsState} state
-   * @param {String} message
+   * @param {Object} error
    */
-  setMessage(state, message) {
-    state.message = message;
+  setError(state, error) {
+    state.error = { ...error };
   },
   /**
-   * Set validators data
-   * 
-   * @param {ValidatorsState} state 
-   * @param {Array} data 
+   * Set validators filter
+   *
+   * @param {ValidatorsState} state
+   * @param {Object} data
+   */
+  setFilter(state, data) {
+    state.filter = {
+      ...data,
+    };
+  },
+  /**
+   * Set validators
+   *
+   * @param {ValidatorsState} state
+   * @param {Array.<Object>} data
    */
   setValidators(state, data) {
-    state.all = data;
+    state.validators = data.map((obj) => ({
+      ...obj,
+    }));
   },
   /**
-   * Add validators data
-   * 
-   * @param {ValidatorsState} state 
-   * @param {Array} data 
+   * Add validators
+   *
+   * @param {ValidatorsState} state
+   * @param {Array.<Object>} data
    */
   addValidators(state, data) {
-    state.all.push(...data);
+    state.validators.push.apply(state.validators, data);
+  },
+  /**
+   * Set validators sets for a certain height
+   *
+   * @param {ValidatorsState} state
+   * @param {Array.<Object>} data
+   */
+  setHeightValidatorsSets(state, data) {
+    state.heightValidatorsSets = data.map((obj) => ({
+      ...obj,
+    }));
+  },
+  /**
+   * Set latest validators sets
+   *
+   * @param {ValidatorsState} state
+   * @param {Array.<Object>} data
+   */
+  setLatestValidatorsSets(state, data) {
+    state.latestValidatorsSets = [];
+    state.latestValidatorsSets = data.map((obj) => ({
+      ...obj,
+    }));
+  },
+  /**
+   * Set validator details
+   *
+   * @param {ValidatorsState} state
+   * @param {Object} data
+   */
+  setDetails(state, data) {
+    state.details = null;
+    state.details = {
+      ...data,
+    };
+  },
+  /**
+   * Add details to validator details
+   *
+   * @param {ValidatorsState} state
+   * @param {Object} data
+   */
+  addDetails(state, data) {
+    state.details = {
+      ...state.details,
+      ...data,
+    };
+  },
+  /**
+   * Reset validator details
+   *
+   * @param {ValidatorsState} state
+   */
+  resetDetails(state) {
+    for (let key in state.details) {
+      delete state.details[key];
+    }
   },
 };

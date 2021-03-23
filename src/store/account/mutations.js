@@ -1,41 +1,87 @@
 /**
- * Account mutations
+ * ACCOUNT MUTATIONS
  */
 
 export default {
   /**
-   * Set account isFetching state to true
+   * Set isLoading state to true
    *
    * @param {AccountState} state
    */
   startLoading(state) {
-    state.message = "";
-    state.isFetching = true;
+    state.error = null;
+    state.isLoading = true;
   },
   /**
-   * Set account isFetching state to false
+   * Set isLoading state to false
    *
    * @param {AccountState} state
    */
   stopLoading(state) {
-    state.isFetching = false;
+    state.isLoading = false;
   },
   /**
-   * Set account message
+   * Set error message
    *
    * @param {AccountState} state
-   * @param {String} message
+   * @param {Object} error
    */
-  setMessage(state, message) {
-    state.message = message;
+  setError(state, error) {
+    state.error = { ...error };
   },
   /**
-   * Set account balances
+   * Set balances
    * 
    * @param {AccountState} state 
-   * @param {Array.<Balance>} data 
+   * @param {Array.<Object>} data 
    */
   setBalances(state, data) {
-    state.all = data;
-  }
+    state.balances = data.map(obj => ({
+      ...obj
+    }));
+  },
+  /**
+   * Set delegations
+   * 
+   * @param {AccountState} state 
+   * @param {Array.<Object>} data 
+   */
+  setDelegations(state, data) {
+    state.delegations = data.map(obj => ({
+      ...obj
+    }));
+  },
+  /**
+   * Set unbondings delegations
+   * 
+   * @param {AccountState} state 
+   * @param {Array.<Object>} data 
+   */
+  setUnbondings(state, data) {
+    state.unbondings = data.map(obj => ({
+      ...obj
+    }));
+  },
+  /**
+   * Set membership
+   *
+   * @param {AccountState} state
+   * @param {Object} data
+   */
+  setMembership(state, data) {
+    state.membership = {
+      ...data
+    };
+  },
+  /**
+   * Set rewards
+   *
+   * @param {AccountState} state
+   * @param {Object} data
+   */
+  setRewards(state, data) {
+    state.rewards = {
+      ...data
+    };
+  },
 };

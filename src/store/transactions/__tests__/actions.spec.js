@@ -1,138 +1,303 @@
-/* global describe, beforeEach, it, expect, jest */
+import actions from '../actions.js';
+import { mockTx, mockTxs } from '../__mocks__/txs';
+import { API, CHAIN, CUSTOMIZATION } from '@/constants';
 
-import actions from "../actions.js";
-import {
-  mockTransaction, mockTransactions
-} from "../__mocks__/transactions";
+const mockErrorResponse = {
+  request: {},
+  response: {
+    data: {
+      error: 'error',
+    },
+    status: 400,
+  },
+};
+const mockErrorResponseNotFound = {
+  request: {},
+  response: {
+    data: {
+      error: 'error',
+    },
+    status: 404,
+  },
+};
+const mockErrorRequestResponse = {
+  request: {},
+  response: undefined,
+};
 
-describe("store/transactions/actions", () => {
+let mockError = false;
+let mockErrorNotFound = false;
+let mockErrorRequest = false;
+let mockErrorServer = false;
+let mockResponse = null;
+
+describe('store/transactions/actions', () => {
   beforeEach(() => {
     mockError = false;
+    mockErrorNotFound = false;
     mockErrorRequest = false;
     mockErrorServer = false;
     mockResponse = null;
   });
 
-  it("Check if 'actions.fetchTransactions' updates transactions", async () => {
+  test("if 'actions.fetchTransaction' reset outdated tx details and set new tx", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
-    const tag = "tag";
+    const hash = 1;
 
-    await actions.fetchTransactions({
-      commit
-    }, tag);
+    await actions.fetchTransaction({ dispatch, commit }, hash);
 
-    expect(commit).toHaveBeenCalledWith("addTransactions", mockResponse.data.txs);
-  });
-
-  it("Check if 'actions.fetchTransactions' has an error", async () => {
-    const commit = jest.fn();
-    const tag = "tag";
-    mockError = true;
-
-    await actions.fetchTransactions({
-      commit
-    }, tag);
-
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
-  });
-
-  it("Check if 'actions.fetchTransactions' has a request error", async () => {
-    const commit = jest.fn();
-    const tag = "tag";
-    mockErrorRequest = true;
-
-    await actions.fetchTransactions({
-      commit
-    }, tag);
-
-    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
-  });
-
-  it("Check 'actions.fetchTransactions' when server is unreachable", async () => {
-    const commit = jest.fn();
-    const tag = "tag";
-    mockErrorServer = true;
-
-    await actions.fetchTransactions({
-      commit
-    }, tag);
-
-    expect(commit).toBeCalledWith("setServerReachability", false, {
-      root: true
+    expect(commit).toHaveBeenCalledWith('setTransactionDetails', null);
+    expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
+      data: mockResponse.data,
+      ledger: API.LCD,
+      version: '',
     });
   });
 
-  it("Check if 'actions.fetchTransaction' set transaction details", async () => {
+  test("if 'actions.fetchTransaction' search tx details from ancestors", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
-    const hash = "hash";
+    const hash = 1;
 
-    await actions.fetchTransaction({
-      commit
-    }, hash);
+    mockErrorNotFound = true;
 
-    expect(commit).toHaveBeenCalledWith("setDetails", mockResponse.data);
+    await actions.fetchTransaction({ dispatch, commit }, hash);
+
+    expect(dispatch).toHaveBeenCalledWith('fetchAncestorTransaction', hash);
   });
 
-  it("Check if 'actions.fetchTransaction' has an error", async () => {
+  test("if 'actions.fetchTransaction' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
-    const hash = "hash";
+    const hash = 1;
+
     mockError = true;
 
-    await actions.fetchTransaction({
-      commit
-    }, hash);
+    await actions.fetchTransaction({ dispatch, commit }, hash);
 
-    expect(commit).toHaveBeenCalledWith("setMessage", mockErrorResponse.response.data.error);
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  it("Check if 'actions.fetchTransaction' has a request error", async () => {
+  test("if 'actions.fetchAncestorTransaction' set new tx", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
-    const hash = "hash";
-    mockErrorRequest = true;
+    const hash = 1;
+    const ancestors = JSON.parse(CHAIN.ANCESTORS);
 
-    await actions.fetchTransaction({
-      commit
-    }, hash);
+    await actions.fetchAncestorTransaction({ dispatch, commit }, hash);
 
-    expect(commit).toHaveBeenCalledWith("setMessage", "Request error");
+    if (ancestors.length > 0) {
+      expect(commit).toHaveBeenCalledWith('setTransactionDetails', {
+        data: mockResponse.data,
+        ledger: ancestors[0].lcd_ledger,
+        version: ancestors[0].ver,
+      });
+    }
   });
 
-  it("Check 'actions.fetchTransaction' when server is unreachable", async () => {
+  test("if 'actions.fetchAncestorTransaction' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
     const commit = jest.fn();
-    const hash = "hash";
-    mockErrorServer = true;
+    const hash = 1;
+    mockError = true;
 
-    await actions.fetchTransaction({
-      commit
-    }, hash);
+    await actions.fetchAncestorTransaction({ dispatch, commit }, hash);
 
-    expect(commit).toBeCalledWith("setServerReachability", false, {
-      root: true
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.getLastPage' set last page and has next page", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+
+    await actions.getLastPage({ dispatch, commit }, { limit: 10, query: '' });
+
+    expect(commit).toHaveBeenCalledWith('changePage', 1);
+    expect(commit).toHaveBeenCalledWith('setHasNext', 1);
+  });
+
+  test("if 'actions.getLastPage' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.getLastPage({ dispatch, commit }, { limit: 10, query: '' });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.getTransactions' add txs", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+
+    await actions.getTransactions(
+      { dispatch, commit },
+      { page: 1, limit: 1, query: '' }
+    );
+
+    expect(commit).toHaveBeenCalledWith(
+      'addTransactions',
+      mockResponse.data.txs
+    );
+  });
+
+  test("if 'actions.getTransactions' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.getTransactions(
+      { dispatch, commit },
+      { page: 1, limit: 1, query: '' }
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchTransactionsDescendingOrder' clear outdated txs, last page and has next page, and get last page and updated txs", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const state = {};
+
+    await actions.fetchTransactionsDescendingOrder({ commit, dispatch, state });
+
+    expect(commit).toHaveBeenCalledWith('clearAllTransactions');
+    expect(commit).toHaveBeenCalledWith('changePage', 1);
+    expect(commit).toHaveBeenCalledWith('setHasNext', 1);
+    expect(dispatch).toHaveBeenCalledWith('getLastPage', {
+      limit: CUSTOMIZATION.TXS.TABLE_ITEMS,
+      query: 'tx.minheight=1',
+    });
+    expect(dispatch).toHaveBeenCalledWith('getTransactions', {
+      page: state.currentPage,
+      limit: CUSTOMIZATION.TXS.TABLE_ITEMS,
+      query: 'tx.minheight=1',
+    });
+  });
+
+  test("if 'actions.changePage' get transactions", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const state = {
+      currentPage: 2,
+      hasNext: true,
+    };
+
+    const diff = 1;
+    const currentPage = state.currentPage - diff;
+
+    await actions.changePage({ commit, dispatch, state }, { diff: diff });
+
+    expect(dispatch).toHaveBeenCalledWith('getTransactions', {
+      page: currentPage,
+      limit: CUSTOMIZATION.TXS.TABLE_ITEMS,
+      query: 'tx.minheight=1',
+    });
+    expect(commit).toHaveBeenCalledWith('changePage', currentPage);
+    expect(commit).toHaveBeenCalledWith('setHasNext', currentPage);
+  });
+
+  test("if 'actions.fetchBlockTransactions' get block transactions", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+
+    await actions.fetchBlockTransactions({ dispatch, commit }, 1);
+
+    expect(commit).toHaveBeenCalledWith(
+      'addSingleTransaction',
+      mockResponse.data.txs[0]
+    );
+  });
+
+  test("if 'actions.fetchBlockTransactions' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchBlockTransactions({ dispatch, commit }, 1);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.setTransactionsFilter' set filter", () => {
+    const commit = jest.fn();
+    const filter = {};
+
+    actions.setTransactionsFilter({ commit }, filter);
+
+    expect(commit).toHaveBeenCalledWith('setFilter', filter);
+  });
+
+  test("if 'actions.handleError' handles the various types of error", () => {
+    const commit = jest.fn();
+    let error = mockErrorResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error.response);
+
+    error = mockErrorRequestResponse;
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setError', error);
+
+    error = 'error';
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toBeCalledWith('setServerReachability', false, {
+      root: true,
     });
   });
 });
 
-let mockResponse = null;
+jest.mock('./../api', () => ({
+  requestTransaction: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockErrorNotFound) {
+          reject(mockErrorResponseNotFound);
+        }
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
 
-let mockError = false;
-const mockErrorResponse = {
-  request: {},
-  response: {
-    data: {
-      error: "error",
-    },
-    status: 400
-  }
-};
-let mockErrorRequest = false;
-const mockErrorRequestResponse = {
-  request: {},
-  response: undefined
-};
-let mockErrorServer = false;
+        mockResponse = {
+          data: mockTx(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestAncestorTransaction: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
 
-jest.mock("./../api", () => ({
-  requestTransactions: () => {
+        mockResponse = {
+          data: mockTx(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestSearchTransactions: (txs = 10) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -147,19 +312,19 @@ jest.mock("./../api", () => ({
 
         mockResponse = {
           data: {
-            total_count: "10",
-            count: "10",
-            page_number: "1",
-            page_total: "1",
-            limit: "30",
-            txs: mockTransactions()
-          }
+            total_count: `${txs}`,
+            count: `${txs}`,
+            page_number: '1',
+            page_total: '1',
+            limit: `${txs}`,
+            txs: mockTxs(txs),
+          },
         };
         resolve(mockResponse);
       }, 1);
     });
   },
-  requestTransaction: () => {
+  requestBlockTransactions: (txs = 1) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -173,10 +338,17 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockTransaction()
+          data: {
+            total_count: `${txs}`,
+            count: `${txs}`,
+            page_number: '1',
+            page_total: '1',
+            limit: `${txs}`,
+            txs: mockTxs(txs),
+          },
         };
         resolve(mockResponse);
       }, 1);
     });
-  }
+  },
 }));

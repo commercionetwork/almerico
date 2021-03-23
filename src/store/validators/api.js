@@ -1,109 +1,100 @@
 /**
- * Validators APIs
+ * VALIDATORS APIS
  */
 
 import axios from "axios";
 import {
   API
-} from "Constants";
+} from "@/constants";
 
-const instance = axios.create({
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+const headers = {
+  'Content-Type': 'application/json'
+};
 
 export default {
   /**
-   * Handle ajax request to get latest validator sets
-   * 
-   * @return {Promise} 
-   */
-  requestValidatorsetsLatest() {
-    return instance.get(`${API.VALIDATORSETS}/latest`);
-  },
-  /**
-   * Handle ajax request to get validator sets concerning an height
-   * 
-   * @param {Number} height
-   * @return {Promise} 
-   */
-  requestValidatorsetsFromHeight(height) {
-    return instance.get(`${API.VALIDATORSETS}/${height}`);
-  },
-  /**
-   * Handle ajax request to get a validators list
-   * 
    * @param {String} status 
    * @param {Number} page 
    * @param {Number} limit
-   * @return {Promise}
+   * @returns {Promise}
    */
-  requestValidators({
+  requestValidatorsList({
     status,
     page,
     limit
   }) {
-    return instance.get(API.STAKING_VALIDATORS, {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.STAKING}`,
+      url: '/validators',
       params: {
         status,
         page,
         limit
-      }
+      },
     });
   },
   /**
-   * Handle ajax request to get a validator by address
-   * 
-   * @param {String} address
-   * @return {Promise}
+   * @returns {Promise} 
    */
-  requestValidator(address) {
-    return instance.get(`${API.STAKING_VALIDATORS}/${address}`);
+  requestLatestValidatorSets() {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.VALIDATORSETS}`,
+      url: '/latest',
+    });
   },
   /**
-   * Handle ajax request to get delegations by validator address
-   * 
+   * @param {Number} height
+   * @returns {Promise} 
+   */
+  requestValidatorsetsFromHeight(height) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.VALIDATORSETS}`,
+      url: `/${height}`,
+    });
+  },
+  /**
    * @param {String} address
-   * @return {Promise}
+   * @returns {Promise} 
+   */
+  requestValidatorDetails(address) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.STAKING}`,
+      url: `/validators/${address}`,
+    });
+  },
+  /**
+   * @param {String} address
+   * @returns {Promise} 
    */
   requestValidatorDelegations(address) {
-    return instance.get(`${API.STAKING_VALIDATORS}/${address}/delegations`);
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.STAKING}`,
+      url: `/validators/${address}/delegations`,
+    });
   },
   /**
-   * Handle ajax request to get outstanding rewards by validator address
-   * 
-   * @param {String} address
-   * @return {Promise}
-   */
-  requestValidatorOutstandingRewards(address) {
-    return instance.get(`${API.DISTRIBUTION_VALIDATORS}/${address}/outstanding_rewards`);
-  },
-  /**
-   * Handle ajax request to get rewards by validator address
-   * 
-   * @param {String} address
-   * @return {Promise}
-   */
-  requestValidatorRewards(address) {
-    return instance.get(`${API.DISTRIBUTION_VALIDATORS}/${address}/rewards`);
-  },
-  /**
-   * Handle ajax request to get unbonding delegations by validator address
-   * 
-   * @param {String} address
-   * @return {Promise}
-   */
-  requestValidatorUnbondingDelegations(address) {
-    return instance.get(`${API.STAKING_VALIDATORS}/${address}/unbonding_delegations`);
-  },
-  /**
-   * Handle ajax request to get validator details from Keybase
-   * 
    * @param {String} id 
    * @return {Promise} 
    */
-  requestValidatorIdentity(id) {
-    return instance.get(`${API.USER_AUTOCOMPLETE}?q=${id}`);
+  requestValidatorPictures(id) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.USER_LOOKUP}`,
+      params: {
+        key_suffix: id,
+        fields: 'pictures',
+      }
+    });
   }
 };
