@@ -21,13 +21,13 @@ class AccountUnbondingsHandler {
   get() {
     let items = [];
 
-    this.unbondings.forEach((unbonding) => {
-      unbonding.entries.forEach((entry) => {
+    this.unbondings.forEach(unbonding => {
+      unbonding.entries.forEach(entry => {
         items.push({
           date: entry.completion_time,
           moniker: getMoniker(this.validators, unbonding),
           height: entry.creation_height,
-          amount: entry.balance,
+          amount: entry.balance
         });
       });
     });
@@ -38,9 +38,9 @@ class AccountUnbondingsHandler {
 
 const getMoniker = (validators, source) => {
   const validator = validators.find(
-    (validator) => validator['operator_address'] === source['validator_address']
+    validator => validator.operator_address === source.validator_address
   );
-  return validator['description']['moniker'];
+  return validator.description.moniker;
 };
 
 export default new AccountUnbondingsHandler();
