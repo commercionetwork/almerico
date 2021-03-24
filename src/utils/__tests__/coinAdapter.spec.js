@@ -1,4 +1,4 @@
-import { coinAdapter, numberIntlFormatter } from "../index";
+import { coinAdapter } from "../index";
 
 describe("utils/coinAdapter", () => {
   test('if function "format" returns the coin converted', () => {
@@ -10,19 +10,19 @@ describe("utils/coinAdapter", () => {
 
     const convertedCoin = coinAdapter.format(balance);
 
-    expect(convertedCoin.replace(",", "").replace(".", "")).toBe(expectedValue);
+    expect(convertedCoin.replace(/[,.]/g, "")).toBe(expectedValue);
   });
 
   test('if function "format" returns the coin not converted', () => {
     const balance = {
       denom: "commercio",
-      amount: "123456"
+      amount: "123456.000000"
     };
-    const expectedValue = "123.456 commercio";
+    const expectedValue = "123456 commercio";
 
     const convertedCoin = coinAdapter.format(balance);
 
-    expect(convertedCoin).toBe(expectedValue);
+    expect(convertedCoin.replace(/[,.]/g, "")).toBe(expectedValue);
   });
 
   test('if function "format" does not convert when argument is bad', () => {

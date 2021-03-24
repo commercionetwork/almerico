@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -20,7 +20,7 @@
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
     "vue-router": "^3.5.1",
-    "vuetify": "^2.4.7",
+    "vuetify": "^2.4.8",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
