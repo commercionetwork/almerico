@@ -26,7 +26,7 @@ class ValidatorDelegationsHandler {
     };
 
     for (const delegation of this.delegations) {
-      const amount = parseFloat(delegation['shares']);
+      const amount = parseFloat(delegation.balance.amount);
       tokens.total += amount;
       if (delegation.delegator_address === this.address) {
         tokens.self += amount;

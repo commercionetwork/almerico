@@ -11,7 +11,7 @@
                     class="text-capitalize font-weight-bold"
                     v-text="'tokens:'"
                   />
-                  <span class="pl-1" v-text="tokens" />
+                  <span class="pl-1 text-uppercase" v-text="tokens" />
                 </div>
               </v-list-item-content>
             </v-list-item>
@@ -102,7 +102,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { numberIntlFormatter } from '@/utils';
+import { coinAdapter,numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'ValidatorDetailsSpec',
@@ -158,12 +158,7 @@ export default {
       });
     },
     formatTokens(value) {
-      const tokens = numberIntlFormatter.toDecimal({
-        amount: value,
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
-      });
-      return `${tokens} ${this.bondDenom}`;
+      return coinAdapter.format({ amount: value, denom: this.bondDenom });
     },
   },
 };
