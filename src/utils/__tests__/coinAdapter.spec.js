@@ -1,16 +1,16 @@
-import { coinAdapter } from "../index";
+import { coinAdapter, numberIntlFormatter } from "../index";
 
 describe("utils/coinAdapter", () => {
   test('if function "format" returns the coin converted', () => {
     const balance = {
       denom: "ucommercio",
-      amount: "123456000000"
+      amount: 123456000000
     };
-    const expectedValue = "123.456,00 com";
+    const expectedValue = "12345600 com";
 
     const convertedCoin = coinAdapter.format(balance);
 
-    expect(convertedCoin).toBe(expectedValue);
+    expect(convertedCoin.replace(",", "").replace(".", "")).toBe(expectedValue);
   });
 
   test('if function "format" returns the coin not converted', () => {
