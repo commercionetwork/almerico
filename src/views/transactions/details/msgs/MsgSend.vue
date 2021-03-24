@@ -22,7 +22,7 @@
         />
       </v-list-item>
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <MsgItem label="amount" :content="amount" />
+        <MsgItem label="amount" :content="amount" class="text-uppercase" />
       </v-list-item>
     </div>
   </MsgTx>

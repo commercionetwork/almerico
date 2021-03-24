@@ -7,7 +7,7 @@
           :content="delegatorAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: delegatorAddress },
+            params: { id: delegatorAddress }
           }"
         />
       </v-list-item>
@@ -17,7 +17,7 @@
           :content="validatorAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_DETAILS,
-            params: { id: validatorAddress },
+            params: { id: validatorAddress }
           }"
         />
       </v-list-item>
@@ -26,45 +26,45 @@
 </template>
 
 <script>
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgLink from "@/components/MsgLink.vue";
+import MsgTx from "@/components/MsgTx.vue";
 
-import { ROUTES } from '@/constants';
+import { ROUTES } from "@/constants";
 
 export default {
-  name: 'MsgWithdrawDelegatorReward',
-  description: 'Display a withdraw delegator reward transaction message',
+  name: "MsgWithdrawDelegatorReward",
+  description: "Display a withdraw delegator reward transaction message",
   components: {
     MsgLink,
-    MsgTx,
+    MsgTx
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a withdraw delegator reward message',
-    },
+      note: "Object representing a withdraw delegator reward message"
+    }
   },
   data: () => ({
-    ROUTES,
+    ROUTES
   }),
   computed: {
     delegatorAddress() {
       return this.message.value.delegator_address
         ? this.message.value.delegator_address
-        : '-';
+        : "-";
     },
     subTitle() {
-      return this.message.type ? this.message.type.split('/').shift() : '-';
+      return this.message.type ? this.message.type.split("/").shift() : "-";
     },
     title() {
-      return this.message.type ? this.message.type.split('/').pop() : '-';
+      return this.message.type ? this.message.type.split("/").pop() : "-";
     },
     validatorAddress() {
       return this.message.value.validator_address
         ? this.message.value.validator_address
-        : '-';
-    },
-  },
+        : "-";
+    }
+  }
 };
 </script>
