@@ -1,16 +1,16 @@
 # Changelog
 
-## Version 2.2.1
+## Version 2.2.1, 24/03/2021
 
 - Updates:
   - GUI style
   - Coins rendering
 
 - Fixes:
-  - Rendering of `MsgShareDocument` template
-  - Displayed value of the validator tokens
-  - Displayed value of the account tokens
-  - Fetch validators list on new tx
+  - Displayed values of the validator tokens
+  - Displayed values of the account tokens
+  - Fetch validators list on new transatin
+  - Rendering of `MsgShareDocument` message template
 
 ## Version 2.2.0, 23/03/2021
 
