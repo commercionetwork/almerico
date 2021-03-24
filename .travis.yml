@@ -13,23 +13,23 @@ script:
   - npm test
 
 after_success:
-  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_TESTNET_SCW
-    --build-arg LCD_URL=${ALMERICO_LCD_URL}
-    --build-arg WS_URL=${ALMERICO_WS_URL}
-    --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST}"
-    --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE}"
+  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_SCW_TESTNET
+    --build-arg LCD_URL=${ALMERICO_LCD_URL_TESTNET}
+    --build-arg WS_URL=${ALMERICO_WS_URL_TESTNET}
+    --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_TESTNET}"
+    --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_TESTNET}"
     .
-  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_DEVNET_SCW
-    --build-arg LCD_URL=${ALMERICO_DEVNET_LCD_URL}
-    --build-arg WS_URL=${ALMERICO_DEVNET_WS_URL}
-    --build-arg ANCESTORS_LIST="${ALMERICO_DEVNET_ANCESTORS_LIST}"
-    --build-arg MAIN_TITLE="${ALMERICO_DEVNET_MAIN_TITLE}"
+  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_SCW_DEVNET
+    --build-arg LCD_URL=${ALMERICO_LCD_URL_DEVNET}
+    --build-arg WS_URL=${ALMERICO_WS_URL_DEVNET}
+    --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_DEVNET}"
+    --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_DEVNET}"
     .
-  - test $TRAVIS_TAG && docker build -t $DOCKER_IMAGE_MAINNET_SCW
-    --build-arg LCD_URL=${ALMERICO_MAINNET_LCD_URL}
-    --build-arg WS_URL=${ALMERICO_MAINNET_WS_URL}
-    --build-arg ANCESTORS_LIST="${ALMERICO_MAINNET_ANCESTORS_LIST}"
-    --build-arg MAIN_TITLE="${ALMERICO_MAINNET_MAIN_TITLE}"
+  - test $TRAVIS_TAG && docker build -t $DOCKER_IMAGE_SCW_MAINNET
+    --build-arg LCD_URL=${ALMERICO_LCD_URL_MAINNET}
+    --build-arg WS_URL=${ALMERICO_WS_URL_MAINNET}
+    --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_MAINNET}"
+    --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_MAINNET}"
     .
 
 deploy:
