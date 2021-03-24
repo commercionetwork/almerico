@@ -10,6 +10,7 @@
   - Rendering of `MsgShareDocument` template
   - Displayed value of the validator tokens
   - Displayed value of the account tokens
+  - Fetch validators list on new tx
 
 ## Version 2.2.0, 23/03/2021
 

@@ -114,7 +114,7 @@ export default {
           dispatch(
             'validators/initValidators',
             {
-              status: [
+              statuses: [
                 STATUS.VALIDATOR.BONDED,
                 STATUS.VALIDATOR.UNBONDED,
                 STATUS.VALIDATOR.UNBONDING,
