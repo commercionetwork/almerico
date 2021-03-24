@@ -7,7 +7,7 @@
           :content="depositorAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: depositorAddress },
+            params: { id: depositorAddress }
           }"
         />
       </v-list-item>
@@ -19,47 +19,53 @@
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItem from "@/components/MsgItem.vue";
+import MsgLink from "@/components/MsgLink.vue";
+import MsgTx from "@/components/MsgTx.vue";
 
-import { ROUTES } from '@/constants';
+import { ROUTES } from "@/constants";
+import { coinAdapter } from "@/utils";
 
 export default {
-  name: 'MsgDepositIntoLiquidityPool',
-  description: 'Display a deposit into liquidity pool transaction message',
+  name: "MsgDepositIntoLiquidityPool",
+  description: "Display a deposit into liquidity pool transaction message",
   components: {
     MsgItem,
     MsgLink,
-    MsgTx,
+    MsgTx
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a deposit message',
-    },
+      note: "Object representing a deposit message"
+    }
   },
   data: () => ({
-    ROUTES,
+    ROUTES
   }),
   computed: {
     amounts() {
       let amounts = [];
       for (const amount of this.message.value.amount) {
-        amounts.push(`${amount.amount} ${amount.denom}`);
+        amounts.push(
+          coinAdapter.format({
+            amount: amount.amount,
+            denom: amount.denom
+          })
+        );
       }
       return amounts;
     },
     depositorAddress() {
-      return this.message.value.depositor ? this.message.value.depositor : '-';
+      return this.message.value.depositor ? this.message.value.depositor : "-";
     },
     subTitle() {
-      return this.message.type ? this.message.type.split('/').shift() : '-';
+      return this.message.type ? this.message.type.split("/").shift() : "-";
     },
     title() {
-      return this.message.type ? this.message.type.split('/').pop() : '-';
-    },
-  },
+      return this.message.type ? this.message.type.split("/").pop() : "-";
+    }
+  }
 };
 </script>

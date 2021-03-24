@@ -54,9 +54,6 @@ export default {
         denom: this.message.value.amount.denom
       });
     },
-    // amount() {
-    //   return `${this.message.value.amount.amount} ${this.message.value.amount.denom}`;
-    // },
     id() {
       return this.message.value.id ? this.message.value.id : "-";
     },
