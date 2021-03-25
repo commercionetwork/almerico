@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2">
+  <v-card outlined>
     <v-card-text>
       <span class="d-block">
         Validators:

@@ -6,7 +6,6 @@
     :sort-by.sync="sortBy"
     :sort-desc.sync="sortDesc"
     :caption="caption"
-    class="elevation-2"
   >
     <template v-slot:[`item.denom`]="{ item }">
       <span class="info--text" v-text="item.denom" />

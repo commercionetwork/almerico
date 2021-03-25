@@ -20,7 +20,7 @@ class ValidatorDelegatorsAggregator {
 
   get() {
     const delegations = this.validator.delegations;
-    const delegatorShares = parseFloat(this.validator.delegator_shares);
+    const delegatorTokens = parseFloat(this.validator.tokens);
 
     let aggregated = [];
     for (const delegation of delegations) {
@@ -28,21 +28,21 @@ class ValidatorDelegatorsAggregator {
       if (delegator === this.address) {
         continue;
       }
-      const shares = parseFloat(delegation['shares']);
+      const amount = parseFloat(delegation.balance.amount);
       const index =
         aggregated.length > 0
-          ? aggregated.findIndex((item) => item.delegator === delegator)
+          ? aggregated.findIndex(item => item.delegator === delegator)
           : -1;
       if (index === -1) {
         aggregated.push({
           delegator: delegator,
-          amount: shares,
-          share: shares / delegatorShares,
+          amount: amount,
+          share: amount / delegatorTokens
         });
       } else {
-        const newAmount = aggregated[index]['amount'] + shares;
-        aggregated[index]['amount'] = newAmount;
-        aggregated[index]['share'] = newAmount / delegatorShares;
+        const newAmount = aggregated[index]["amount"] + amount;
+        aggregated[index]["amount"] = newAmount;
+        aggregated[index]["share"] = newAmount / delegatorTokens;
       }
     }
 

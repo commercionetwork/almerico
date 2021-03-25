@@ -1,10 +1,11 @@
-import { CUSTOMIZATION } from '@/constants';
+import { CUSTOMIZATION } from "@/constants";
 import {
   arrayHandler,
   bech32Manager,
   BlocksAttendanceCalculator,
-  numberIntlFormatter,
-} from '@/utils';
+  coinAdapter,
+  numberIntlFormatter
+} from "@/utils";
 
 class ValidatorsTableAdapter {
   constructor() {
@@ -62,10 +63,10 @@ class ValidatorsTableAdapter {
       rank++;
       const active = validator.status === 2 ? true : false;
       const tokens = parseInt(validator.tokens);
-      
-      let votingPower = '-';
-      let formattedCumulative = '-';
-      let attendance = '-';
+
+      let votingPower = "-";
+      let formattedCumulative = "-";
+      let attendance = "-";
       if (active) {
         const power = tokens / bondedTokens;
         cumulative += power;
@@ -91,13 +92,13 @@ class ValidatorsTableAdapter {
           validator.operator_address,
           this.accountPrefix
         ),
-        tokens: `${getDecimal(tokens)} ${this.coin}`,
+        tokens: coinAdapter.format({ amount: tokens, denom: this.coin }),
         commission: getPercent(
           parseFloat(validator.commission.commission_rates.rate)
         ),
         votingPower: votingPower,
         cumulative: formattedCumulative,
-        attendance: attendance,
+        attendance: attendance
       });
     }
 
@@ -106,14 +107,14 @@ class ValidatorsTableAdapter {
   }
 }
 
-const orderValidators = (validators) => {
+const orderValidators = validators => {
   const tokensOrdered = arrayHandler.sortObjectsByNumberPropertyValueDesc(
     validators,
-    'tokens'
+    "tokens"
   );
   return arrayHandler.sortObjectsByNumberPropertyValueDesc(
     tokensOrdered,
-    'status'
+    "status"
   );
 };
 
@@ -122,18 +123,11 @@ const getAccountAddress = (address, prefix) => {
   return bech32Manager.encode(hexValue, prefix);
 };
 
-const getDecimal = (amount) =>
-  numberIntlFormatter.toDecimal({
-    amount: amount,
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0,
-  });
-
-const getPercent = (amount) =>
+const getPercent = amount =>
   numberIntlFormatter.toPercent({
     amount: amount,
     maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
+    minimumFractionDigits: 2
   });
 
 export default new ValidatorsTableAdapter();

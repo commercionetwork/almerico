@@ -6,7 +6,7 @@
           <span class="text-body-1" v-text="JSON.stringify(error)" />
         </v-alert>
       </v-card>
-      <v-card v-else data-test="content">
+      <v-card v-else outlined data-test="content">
         <BlockDetailsTable
           :height="height"
           :items="items"

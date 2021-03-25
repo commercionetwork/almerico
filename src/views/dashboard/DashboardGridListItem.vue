@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12" md="6">
-    <v-card elevation="2">
+    <v-card outlined>
       <v-card-title v-text="type" />
       <v-card-subtitle v-text="'Msg type'" />
       <v-card-text>

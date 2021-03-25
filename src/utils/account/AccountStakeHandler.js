@@ -25,35 +25,32 @@ class AccountStakeHandler {
   }
 
   get() {
-    let delegations = 0,
-      rewards = 0,
-      unbondings = 0;
-
+    const capital = { delegations: 0, unbondings: 0, rewards: 0 };
     if (this.delegations && this.delegations.length > 0) {
-      delegations = sumAmounts(this.delegations, 'shares');
+      capital.delegations = this.delegations.reduce(
+        (acc, item) => acc + parseFloat(item.balance.amount),
+        0
+      );
     }
-
     if (this.rewards && this.rewards.total && this.rewards.total.length > 0) {
-      rewards = sumAmounts(this.rewards.total, 'amount');
+      capital.rewards = this.rewards.total.reduce(
+        (acc, item) => acc + parseFloat(item.amount),
+        0
+      );
     }
-
     if (this.unbondings && this.unbondings.length > 0) {
       for (const unbonding of this.unbondings) {
-        unbondings += sumAmounts(unbonding.entries, 'balance');
+        capital.unbondings += unbonding.entries.reduce(
+          (acc, item) => acc + parseFloat(item.balance),
+          0
+        );
       }
     }
-
+    capital.total = capital.delegations + capital.unbondings + capital.rewards;
+    
     this.clear;
-    return {
-      delegations,
-      unbondings,
-      rewards,
-      total: delegations + rewards + unbondings,
-    };
+    return capital;
   }
 }
-
-const sumAmounts = (items, prop) =>
-  items.reduce((acc, item) => acc + parseFloat(item[prop]), 0);
 
 export default new AccountStakeHandler();

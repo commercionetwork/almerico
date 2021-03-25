@@ -27,7 +27,9 @@
       </v-row>
       <v-row v-else data-test="content">
         <v-col cols="12">
-          <ValidatorsTable />
+          <v-card outlined>
+            <ValidatorsTable />
+          </v-card>
         </v-col>
       </v-row>
     </v-flex>
@@ -35,27 +37,27 @@
 </template>
 
 <script>
-import ValidatorsTable from './ValidatorsTable';
+import ValidatorsTable from "./ValidatorsTable";
 
-import { mapActions, mapGetters } from 'vuex';
-import { CUSTOMIZATION } from '@/constants';
+import { mapActions, mapGetters } from "vuex";
+import { CUSTOMIZATION } from "@/constants";
 
 export default {
-  name: 'ValidatorsMiddleBody',
+  name: "ValidatorsMiddleBody",
   components: {
-    ValidatorsTable,
+    ValidatorsTable
   },
   computed: {
-    ...mapGetters('blocks', {
-      isLoading: 'isLoading',
-      error: 'error',
-      latest: 'latest',
-    }),
+    ...mapGetters("blocks", {
+      isLoading: "isLoading",
+      error: "error",
+      latest: "latest"
+    })
   },
   methods: {
-    ...mapActions('blocks', {
-      getBlocks: 'getBlocks',
-    }),
+    ...mapActions("blocks", {
+      getBlocks: "getBlocks"
+    })
   },
   created() {
     if (
@@ -65,9 +67,9 @@ export default {
       let height = this.latest.header.height;
       this.getBlocks({
         maxHeight: height,
-        items: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+        items: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
       });
     }
-  },
+  }
 };
 </script>

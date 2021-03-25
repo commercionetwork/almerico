@@ -7,7 +7,7 @@
           :content="fromAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: fromAddress },
+            params: { id: fromAddress }
           }"
         />
       </v-list-item>
@@ -17,66 +17,72 @@
           :content="toAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: toAddress },
+            params: { id: toAddress }
           }"
         />
       </v-list-item>
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <MsgItem label="amount" :content="amount" />
+        <MsgItem label="amount" :content="amount" class="text-uppercase" />
       </v-list-item>
     </div>
   </MsgTx>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItem from "@/components/MsgItem.vue";
+import MsgLink from "@/components/MsgLink.vue";
+import MsgTx from "@/components/MsgTx.vue";
 
-import { ROUTES } from '@/constants';
+import { ROUTES } from "@/constants";
+import { coinAdapter } from "@/utils";
 
 export default {
-  name: 'MsgSend',
-  description: 'Display a send transaction message',
+  name: "MsgSend",
+  description: "Display a send transaction message",
   components: {
     MsgItem,
     MsgLink,
-    MsgTx,
+    MsgTx
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a send message',
-    },
+      note: "Object representing a send message"
+    }
   },
   data: () => ({
-    ROUTES,
+    ROUTES
   }),
   computed: {
     amounts() {
       let amounts = [];
       for (const amount of this.message.value.amount) {
-        amounts.push(`${amount.amount} ${amount.denom}`);
+        amounts.push(
+          coinAdapter.format({
+            amount: amount.amount,
+            denom: amount.denom
+          })
+        );
       }
       return amounts;
     },
     fromAddress() {
       return this.message.value.from_address
         ? this.message.value.from_address
-        : '-';
+        : "-";
     },
     subTitle() {
-      return this.message.type ? this.message.type.split('/').shift() : '-';
+      return this.message.type ? this.message.type.split("/").shift() : "-";
     },
     title() {
-      return this.message.type ? this.message.type.split('/').pop() : '-';
+      return this.message.type ? this.message.type.split("/").pop() : "-";
     },
     toAddress() {
       return this.message.value.to_address
         ? this.message.value.to_address
-        : '-';
-    },
-  },
+        : "-";
+    }
+  }
 };
 </script>

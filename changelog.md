@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 2.2.1, 25/03/2021
+
+- Updates:
+  - GUI style
+  - Coins rendering
+
+- Fixes:
+  - Displayed values of the validator tokens
+  - Displayed values of the account tokens
+  - Fetch validators list on new transatin
+  - Rendering of `MsgShareDocument` message template
+  - Chian chooser addresses
+
 ## Version 2.2.0, 23/03/2021
 
 - Completely redesigned GUI

@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
+docker tag $DOCKER_IMAGE_MAINNET $DOCKER_IMAGE_MAINNET
+docker tag $DOCKER_IMAGE_MAINNET $DOCKER_IMAGE
+docker push $DOCKER_IMAGE_MAINNET
+docker push $DOCKER_IMAGE

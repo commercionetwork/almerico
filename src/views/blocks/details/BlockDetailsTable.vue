@@ -7,7 +7,6 @@
     :sort-desc.sync="sortDesc"
     :caption="caption"
     :items-per-page="5"
-    class="elevation-2"
   >
     <template v-slot:[`item.result`]="{ item }">
       <span

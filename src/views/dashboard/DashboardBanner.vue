@@ -1,8 +1,8 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-card>
-        <v-banner two-line class="">
+      <v-card outlined>
+        <v-banner two-line>
           <template v-slot:icon>
             <v-img
               :src="require('@/assets/logo-commercio.png')"

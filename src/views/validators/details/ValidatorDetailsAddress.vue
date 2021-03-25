@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2">
+  <v-card outlined>
     <v-toolbar flat class="py-1">
       <v-toolbar-title class="text-capitalize font-weight-bold">
         {{ moniker }}
