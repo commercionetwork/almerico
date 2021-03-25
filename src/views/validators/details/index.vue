@@ -21,7 +21,7 @@
         </v-col>
         <v-col cols="12" v-else data-test="error">
           <v-alert border="left" prominent text type="error">
-            <span class="text-body-1" v-text="JSON.stringify(error)" />
+            <span class="text-body-1" v-text="errorMessage" />
           </v-alert>
         </v-col>
       </v-row>
@@ -38,23 +38,23 @@
 </template>
 
 <script>
-import ValidatorDetailsBody from './ValidatorDetailsBody';
-import ValidatorDetailsHeader from './ValidatorDetailsHeader';
+import ValidatorDetailsBody from "./ValidatorDetailsBody";
+import ValidatorDetailsHeader from "./ValidatorDetailsHeader";
 
-import { mapActions, mapGetters } from 'vuex';
-import { bech32Manager, ValidatorDelegationsHandler } from '@/utils';
+import { mapActions, mapGetters } from "vuex";
+import { bech32Manager, ValidatorDelegationsHandler } from "@/utils";
 
 export default {
-  name: 'ValidatorDetails',
+  name: "ValidatorDetails",
   components: {
     ValidatorDetailsBody,
-    ValidatorDetailsHeader,
+    ValidatorDetailsHeader
   },
   computed: {
-    ...mapGetters('validators', {
-      error: 'error',
-      isLoading: 'isLoading',
-      details: 'details',
+    ...mapGetters("validators", {
+      error: "error",
+      isLoading: "isLoading",
+      details: "details"
     }),
     address() {
       return this.$route.params.id;
@@ -73,27 +73,32 @@ export default {
             .get()
         : {};
     },
+    errorMessage() {
+      return this.error && this.error.data
+        ? this.error.data.error
+        : JSON.stringify(this.error);
+    },
     infoMessage() {
-      return 'No validators with this id';
+      return "No validators with this id";
     },
     operator() {
-      return this.details ? this.details.operator_address : '';
-    },
+      return this.details ? this.details.operator_address : "";
+    }
   },
   watch: {
     $route(to) {
       this.getValidatorData({ address: to.params.id });
-    },
+    }
   },
   methods: {
-    ...mapActions('validators', {
-      getValidatorData: 'getValidatorData',
-    }),
+    ...mapActions("validators", {
+      getValidatorData: "getValidatorData"
+    })
   },
   created() {
     if (this.address != null) {
       this.getValidatorData({ address: this.address });
     }
-  },
+  }
 };
 </script>

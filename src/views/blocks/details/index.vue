@@ -21,7 +21,7 @@
         </v-col>
         <v-col cols="12" v-else data-test="error">
           <v-alert border="left" prominent text type="error">
-            <span class="text-body-1" v-text="JSON.stringify(error)" />
+            <span class="text-body-1" v-text="errorMessage" />
           </v-alert>
         </v-col>
       </v-row>
@@ -36,41 +36,46 @@
 </template>
 
 <script>
-import BlockDetailsHeader from './BlockDetailsHeader';
-import BlockDetailsTopBody from './BlockDetailsTopBody';
+import BlockDetailsHeader from "./BlockDetailsHeader";
+import BlockDetailsTopBody from "./BlockDetailsTopBody";
 
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'BlockDetails',
+  name: "BlockDetails",
   components: {
     BlockDetailsHeader,
-    BlockDetailsTopBody,
+    BlockDetailsTopBody
   },
   computed: {
-    ...mapGetters('blocks', {
-      error: 'error',
-      isLoading: 'isLoading',
+    ...mapGetters("blocks", {
+      error: "error",
+      isLoading: "isLoading"
     }),
+    errorMessage() {
+      return this.error && this.error.data
+        ? this.error.data.error
+        : JSON.stringify(this.error);
+    },
     height() {
       return this.$route.params.id;
     },
     infoMessage() {
-      return 'No blocks at this height';
-    },
+      return "No blocks at this height";
+    }
   },
   watch: {
     $route(to) {
       this.getBlock(to.params.id);
-    },
+    }
   },
   methods: {
-    ...mapActions('blocks', {
-      getBlock: 'getBlock',
-    }),
+    ...mapActions("blocks", {
+      getBlock: "getBlock"
+    })
   },
   created() {
     if (this.height) this.getBlock(this.height);
-  },
+  }
 };
 </script>
