@@ -2,8 +2,8 @@
  * TRANSACTIONS ACTIONS
  */
 
-import api from './api';
-import { API, CHAIN, CUSTOMIZATION } from '@/constants';
+import api from "./api";
+import { API, CHAIN, CUSTOMIZATION } from "@/constants";
 
 export default {
   /**
@@ -12,27 +12,27 @@ export default {
    * @param {String} hash
    */
   async fetchTransaction({ dispatch, commit }, hash) {
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
+    commit("startLoading");
+    commit("setServerReachability", true, {
+      root: true
     });
-    commit('setTransactionDetails', null);
+    commit("setTransactionDetails", null);
     let response;
     try {
       response = await api.requestTransaction(hash);
-      commit('setTransactionDetails', {
+      commit("setTransactionDetails", {
         data: response.data,
         ledger: API.LCD,
-        version: '',
+        version: ""
       });
     } catch (error) {
       if (error.response && error.response.status === 404) {
-        await dispatch('fetchAncestorTransaction', hash);
+        await dispatch("fetchAncestorTransaction", hash);
       } else {
-        dispatch('handleError', error);
+        dispatch("handleError", error);
       }
     } finally {
-      commit('stopLoading');
+      commit("stopLoading");
     }
   },
   /**
@@ -41,24 +41,25 @@ export default {
    * @param {String} hash
    */
   async fetchAncestorTransaction({ dispatch, commit }, hash) {
-    const ancestors = JSON.parse(CHAIN.ANCESTORS);
+    const ancestors = CHAIN.ANCESTORS !== "" ? JSON.parse(CHAIN.ANCESTORS) : [];
+    if (ancestors.length === 0) return;
     for (const ancestor of ancestors) {
       try {
         const response = await api.requestAncestorTransaction({
           lcd: ancestor.lcd,
-          hash: hash,
+          hash: hash
         });
-        commit('setTransactionDetails', {
+        commit("setTransactionDetails", {
           data: response.data,
           ledger: ancestor.lcd_ledger,
-          version: ancestor.ver,
+          version: ancestor.ver
         });
         break;
       } catch (error) {
         if (error.response && error.response.status === 404) {
           continue;
         } else {
-          dispatch('handleError', error);
+          dispatch("handleError", error);
         }
       }
     }
@@ -74,13 +75,13 @@ export default {
       const response = await api.requestSearchTransactions({
         query,
         page: 1,
-        limit: 1,
+        limit: 1
       });
       const lastPage = Math.ceil(parseInt(response.data.page_total) / limit);
-      commit('changePage', lastPage);
-      commit('setHasNext', lastPage);
+      commit("changePage", lastPage);
+      commit("setHasNext", lastPage);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch("handleError", error);
     }
   },
   /**
@@ -95,11 +96,11 @@ export default {
       const response = await api.requestSearchTransactions({
         query: query,
         page: page,
-        limit: limit,
+        limit: limit
       });
-      commit('addTransactions', response.data.txs);
+      commit("addTransactions", response.data.txs);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch("handleError", error);
     }
   },
   /**
@@ -111,39 +112,39 @@ export default {
    */
   async fetchTransactionsDescendingOrder(
     { commit, dispatch, state },
-    { limit = CUSTOMIZATION.TXS.TABLE_ITEMS, query = 'tx.minheight=1' } = {}
+    { limit = CUSTOMIZATION.TXS.TABLE_ITEMS, query = "tx.minheight=1" } = {}
   ) {
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
+    commit("startLoading");
+    commit("setServerReachability", true, {
+      root: true
     });
-    commit('clearAllTransactions');
-    commit('changePage', 1);
-    commit('setHasNext', 1);
-    await dispatch('getLastPage', {
+    commit("clearAllTransactions");
+    commit("changePage", 1);
+    commit("setHasNext", 1);
+    await dispatch("getLastPage", {
       limit,
-      query,
+      query
     });
     if (state.currentPage === 0) {
-      commit('stopLoading');
+      commit("stopLoading");
       return;
     }
-    await dispatch('getTransactions', {
+    await dispatch("getTransactions", {
       page: state.currentPage,
       limit,
-      query,
+      query
     });
     if (state.hasNext) {
       const currentPage = state.currentPage - 1;
-      commit('changePage', currentPage);
-      commit('setHasNext', currentPage);
-      await dispatch('getTransactions', {
+      commit("changePage", currentPage);
+      commit("setHasNext", currentPage);
+      await dispatch("getTransactions", {
         page: currentPage,
         limit,
-        query,
+        query
       });
     }
-    commit('stopLoading');
+    commit("stopLoading");
   },
   /**
    * @param {Function} commit
@@ -158,23 +159,23 @@ export default {
     {
       diff,
       limit = CUSTOMIZATION.TXS.TABLE_ITEMS,
-      query = 'tx.minheight=1',
+      query = "tx.minheight=1"
     } = {}
   ) {
     if (!state.hasNext) return;
     const currentPage = state.currentPage - diff;
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
+    commit("startLoading");
+    commit("setServerReachability", true, {
+      root: true
     });
-    await dispatch('getTransactions', {
+    await dispatch("getTransactions", {
       page: currentPage,
       limit,
-      query,
+      query
     });
-    commit('changePage', currentPage);
-    commit('setHasNext', currentPage);
-    commit('stopLoading');
+    commit("changePage", currentPage);
+    commit("setHasNext", currentPage);
+    commit("stopLoading");
   },
   /**
    * @param {Function} dispatch
@@ -182,21 +183,21 @@ export default {
    * @param {Number} height
    */
   async fetchBlockTransactions({ dispatch, commit }, height) {
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
+    commit("startLoading");
+    commit("setServerReachability", true, {
+      root: true
     });
     try {
       const response = await api.requestBlockTransactions(height);
       if (response.data.txs.length > 0) {
-        response.data.txs.forEach((tx) => {
-          commit('addSingleTransaction', tx);
+        response.data.txs.forEach(tx => {
+          commit("addSingleTransaction", tx);
         });
       }
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch("handleError", error);
     } finally {
-      commit('stopLoading');
+      commit("stopLoading");
     }
   },
   /**
@@ -205,7 +206,7 @@ export default {
    * @param {String} filter
    */
   setTransactionsFilter({ commit }, filter) {
-    commit('setFilter', filter);
+    commit("setFilter", filter);
   },
   /**
    * @param {Function} commit
@@ -213,13 +214,13 @@ export default {
    */
   handleError({ commit }, error) {
     if (error.response) {
-      commit('setError', error.response);
+      commit("setError", error.response);
     } else if (error.request) {
-      commit('setError', error);
+      commit("setError", error);
     } else {
-      commit('setServerReachability', false, {
-        root: true,
+      commit("setServerReachability", false, {
+        root: true
       });
     }
-  },
+  }
 };
