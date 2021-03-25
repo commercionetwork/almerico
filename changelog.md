@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.2, 25/03/2021
+
+- Fixes:
+  - Pipeline config
+
 ## Version 2.2.1, 25/03/2021
 
 - Updates:
