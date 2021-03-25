@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 2.2.3
+
+- Updates:
+  - Function to fetch tx from ancestors
+  - Displaying the account details page error
+  - Displaying the validator details page error
+
 ## Version 2.2.2, 25/03/2021
 
 - Fixes:
