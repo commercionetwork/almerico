@@ -72,7 +72,7 @@ class ValidatorsTableAdapter {
         cumulative += power;
         votingPower = getPercent(power);
         formattedCumulative = getPercent(cumulative);
-        if (this.blocks.length === CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS) {
+        if (this.blocks.length === CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT) {
           const validatorAttendance = BlocksAttendanceCalculator.setBlocks(
             this.blocks
           )

@@ -5,12 +5,14 @@ ARG LCD_URL
 ARG WS_URL
 ARG ANCESTORS_LIST
 ARG MAIN_TITLE
+ARG BLOCKS_MONITOR
 
 # Copy all arguments into the environment variables
 ENV VUE_APP_LCD ${LCD_URL}
 ENV VUE_APP_WS ${WS_URL}
 ENV VUE_APP_ANCESTORS ${ANCESTORS_LIST}
 ENV VUE_APP_MAIN_TITLE ${MAIN_TITLE}
+ENV VUE_APP_BLOCKS_MONITOR ${BLOCKS_MONITOR}
 
 # Set unsafe perm in order to avoid npm errors
 RUN npm config set unsafe-perm true

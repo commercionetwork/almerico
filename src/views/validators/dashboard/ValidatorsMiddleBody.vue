@@ -1,10 +1,7 @@
 <template>
   <v-layout>
     <v-flex>
-      <v-row
-        v-if="$config.validators.isMissingBlocksChecker && isLoading"
-        data-test="loading"
-      >
+      <v-row v-if="isBlocksMonitor && isLoading" data-test="loading">
         <v-col cols="12" class="pa-5">
           <v-progress-linear
             indeterminate
@@ -15,13 +12,10 @@
           ></v-progress-linear>
         </v-col>
       </v-row>
-      <v-row
-        v-else-if="$config.validators.isMissingBlocksChecker && error !== null"
-        data-test="error"
-      >
+      <v-row v-else-if="isBlocksMonitor && error !== null" data-test="error">
         <v-col cols="12">
           <v-alert border="left" prominent text type="error">
-            <span class="text-body-1" v-text="JSON.stringify(error)" />
+            <span class="text-body-1" v-text="errorMessage" />
           </v-alert>
         </v-col>
       </v-row>
@@ -52,7 +46,15 @@ export default {
       isLoading: "isLoading",
       error: "error",
       latest: "latest"
-    })
+    }),
+    errorMessage() {
+      return this.error && this.error.data
+        ? this.error.data.error
+        : JSON.stringify(this.error);
+    },
+    isBlocksMonitor() {
+      return CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.VISIBILITY;
+    }
   },
   methods: {
     ...mapActions("blocks", {
@@ -60,14 +62,11 @@ export default {
     })
   },
   created() {
-    if (
-      this.$config.validators.isMissingBlocksChecker &&
-      this.latest !== null
-    ) {
+    if (this.isBlocksMonitor && this.latest !== null) {
       let height = this.latest.header.height;
       this.getBlocks({
         maxHeight: height,
-        items: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
+        items: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT
       });
     }
   }

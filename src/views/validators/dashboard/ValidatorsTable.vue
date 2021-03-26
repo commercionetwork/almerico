@@ -70,11 +70,12 @@ export default {
       return this.params.bond_denom ? this.params.bond_denom : "";
     },
     items() {
-      const restrictedBlocks = this.$config.validators.isMissingBlocksChecker
+      const restrictedBlocks = CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR
+        .VISIBILITY
         ? blocksHandler.restrictBlocks({
             blocks: this.blocks,
             prop: ["header", "height"],
-            limit: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS
+            limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT
           })
         : [];
       return ValidatorsTableAdapter.setValidators(this.validators)
@@ -99,7 +100,7 @@ export default {
         { text: "Voting Power", value: "votingPower" },
         { text: "Cumulative", value: "cumulative" }
       ];
-      if (this.$config.validators.isMissingBlocksChecker) {
+      if (CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.VISIBILITY) {
         headers.push({ text: "Blocks %", value: "attendance" });
       }
       return headers;

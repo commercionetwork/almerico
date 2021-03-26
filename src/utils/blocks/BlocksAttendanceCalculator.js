@@ -64,7 +64,7 @@ const getBlocksAttendance = ({ blocks, address }) => {
   }
   let percentage = calcPercent({
     count: count,
-    limit: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+    limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
   });
   return {
     blocks: checkedBlocks,

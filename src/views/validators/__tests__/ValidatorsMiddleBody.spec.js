@@ -1,45 +1,44 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import Vuex from 'vuex';
-import ValidatorsMiddleBody from '../dashboard/ValidatorsMiddleBody.vue';
-import { mockBlock } from '../../../store/blocks/__mocks__/blocks';
+import { createLocalVue, shallowMount } from "@vue/test-utils";
+import Vue from "vue";
+import Vuetify from "vuetify";
+import Vuex from "vuex";
+import ValidatorsMiddleBody from "../dashboard/ValidatorsMiddleBody.vue";
+import { mockBlock } from "../../../store/blocks/__mocks__/blocks";
 
 Vue.use(Vuetify);
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(Vuetify);
 
-describe('views/validators/dashboard/ValidatorsMiddleBody.vue', () => {
+describe("views/validators/dashboard/ValidatorsMiddleBody.vue", () => {
+  const computed = {
+    isBlocksMonitor: () => true
+  };
   const actions = {
-    getBlocks: jest.fn(),
+    getBlocks: jest.fn()
   };
   const mockStore = new Vuex.Store({
     modules: {
       blocks: {
         namespaced: true,
-        actions,
-      },
-    },
+        actions
+      }
+    }
   });
   const mocks = {
-    $store: mockStore,
-    $config: {
-      validators: {
-        isMissingBlocksChecker: true,
-      },
-    },
+    $store: mockStore
   };
 
-  test('if loading message is displayed', () => {
+  test("if loading message is displayed", () => {
     const wrapper = shallowMount(ValidatorsMiddleBody, {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
-        latest: () => mockBlock().block,
-      },
+        latest: () => mockBlock().block
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
@@ -47,18 +46,19 @@ describe('views/validators/dashboard/ValidatorsMiddleBody.vue', () => {
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  test('if error message is displayed', () => {
+  test("if error message is displayed", () => {
     const wrapper = shallowMount(ValidatorsMiddleBody, {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => ({
-          message: 'Error',
-          status: 400,
+          message: "Error",
+          status: 400
         }),
         isLoading: () => false,
-        latest: () => mockBlock().block,
-      },
+        latest: () => mockBlock().block
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
@@ -66,15 +66,16 @@ describe('views/validators/dashboard/ValidatorsMiddleBody.vue', () => {
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  test('if content is displayed', () => {
+  test("if content is displayed", () => {
     const wrapper = shallowMount(ValidatorsMiddleBody, {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
-        latest: () => mockBlock().block,
-      },
+        latest: () => mockBlock().block
+      }
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);

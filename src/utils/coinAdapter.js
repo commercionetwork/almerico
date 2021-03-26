@@ -1,39 +1,69 @@
-import numberIntlFormatter from "./numberIntlFormatter";
+import { arrayHandler, numberIntlFormatter } from "./index";
 
 const coinAdapter = {
+  /**
+   *
+   * @param {Object} balance
+   * @return {Object}
+   */
+  convertItem(balance) {
+    const convertedBalance = {};
+    const amount = isNaN(balance.amount)
+      ? parseInt(balance.amount)
+      : balance.amount;
+    const denom = balance.denom;
+    if (denom.substring(0, 1) === "u") {
+      convertedBalance.amount = numberIntlFormatter.toDecimal({
+        amount: amount / 1000000,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2
+      });
+      convertedBalance.denom = denom.substring(1, 4);
+    } else {
+      convertedBalance.amount = numberIntlFormatter.toDecimal({
+        amount: amount,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0
+      });
+      convertedBalance.denom = denom;
+    }
+
+    return convertedBalance;
+  },
+  /**
+   *
+   * @param {Array.<Object>} balance
+   * @return {Array.<Object>}
+   */
+  convertList(balances) {
+    const convertedBalances = [];
+    const orderedBalances = arrayHandler.sortObjectsByNumberPropertyValueDesc(
+      balances,
+      "amount"
+    );
+    for (const balance of orderedBalances) {
+      if (!isBalance(balance)) {
+        continue;
+      }
+      const convertedBalance = this.convertItem(balance);
+      convertedBalances.push(convertedBalance);
+    }
+    return convertedBalances;
+  },
   /**
    *
    * @param {Object} balance
    * @return {String}
    */
   format(balance) {
-    if (!balance.denom || !balance.amount) {
+    if (!isBalance(balance)) {
       return;
     }
-    const amount = isNaN(balance.amount)
-      ? parseInt(balance.amount)
-      : balance.amount;
-    const denom = balance.denom;
-
-    let formattedCoin = "";
-    if (denom.substring(0, 1) === "u") {
-      const localeAmount = numberIntlFormatter.toDecimal({
-        amount: amount / 1000000,
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2
-      });
-      const shortDenom = denom.substring(1, 4);
-      formattedCoin = `${localeAmount} ${shortDenom}`;
-    } else {
-      const localeAmount = numberIntlFormatter.toDecimal({
-        amount: amount,
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0
-      });
-      formattedCoin = `${localeAmount} ${denom}`;
-    }
-    return formattedCoin;
+    const convertedBalance = this.convertItem(balance);
+    return `${convertedBalance.amount} ${convertedBalance.denom}`;
   }
 };
 
 export default coinAdapter;
+
+const isBalance = balance => balance.denom && balance.amount;

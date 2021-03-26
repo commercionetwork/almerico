@@ -76,7 +76,11 @@ export default {
     }),
     onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting) {
-        this.changePage({ diff: 1 });
+        this.changePage({
+          diff: 1,
+          limit: CUSTOMIZATION.TXS.ACCOUNT_ITEMS,
+          query: `message.sender=${this.address}`
+        });
       }
     }
   },

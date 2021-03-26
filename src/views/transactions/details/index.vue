@@ -21,7 +21,7 @@
         </v-col>
         <v-col cols="12" v-else data-test="error">
           <v-alert border="left" prominent text type="error">
-            <span class="text-body-1" v-text="JSON.stringify(error)" />
+            <span class="text-body-1" v-text="errorMessage" />
           </v-alert>
         </v-col>
       </v-row>
@@ -36,46 +36,51 @@
 </template>
 
 <script>
-import TransactionDetailsBody from './TransactionDetailsBody';
-import TransactionDetailsHeader from './TransactionDetailsHeader';
+import TransactionDetailsBody from "./TransactionDetailsBody";
+import TransactionDetailsHeader from "./TransactionDetailsHeader";
 
-import { mapActions, mapGetters } from 'vuex';
-import { TransactionDetailsAdapter } from '@/utils';
+import { mapActions, mapGetters } from "vuex";
+import { TransactionDetailsAdapter } from "@/utils";
 
 export default {
-  name: 'TransactionDetails',
+  name: "TransactionDetails",
   components: {
     TransactionDetailsBody,
-    TransactionDetailsHeader,
+    TransactionDetailsHeader
   },
   computed: {
-    ...mapGetters('transactions', {
-      details: 'details',
-      error: 'error',
-      isLoading: 'isLoading',
+    ...mapGetters("transactions", {
+      details: "details",
+      error: "error",
+      isLoading: "isLoading"
     }),
     hash() {
       return this.$route.params.id;
     },
+    errorMessage() {
+      return this.error && this.error.data
+        ? this.error.data.error
+        : JSON.stringify(this.error);
+    },
     infoMessage() {
-      return 'No transactions with this hash';
+      return "No transactions with this hash";
     },
     tx() {
       return TransactionDetailsAdapter.setDetails(this.details).get();
-    },
+    }
   },
   watch: {
     $route(to, from) {
       if (to.path !== from.path) this.fetchTransaction(to.params.id);
-    },
+    }
   },
   methods: {
-    ...mapActions('transactions', {
-      fetchTransaction: 'fetchTransaction',
-    }),
+    ...mapActions("transactions", {
+      fetchTransaction: "fetchTransaction"
+    })
   },
   created() {
     if (this.hash) this.fetchTransaction(this.hash);
-  },
+  }
 };
 </script>
