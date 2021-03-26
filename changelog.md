@@ -10,6 +10,7 @@
   - Coins rendering
 
 - Fixes:
+  - Account infinite scroll
 
 ## Version 2.2.2, 25/03/2021
 
