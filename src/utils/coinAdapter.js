@@ -4,36 +4,62 @@ const coinAdapter = {
   /**
    *
    * @param {Object} balance
-   * @return {String}
+   * @return {Object}
    */
-  format(balance) {
-    if (!balance.denom || !balance.amount) {
-      return;
-    }
+  convertItem(balance) {
+    const convertedBalance = {};
     const amount = isNaN(balance.amount)
       ? parseInt(balance.amount)
       : balance.amount;
     const denom = balance.denom;
-
-    let formattedCoin = "";
     if (denom.substring(0, 1) === "u") {
-      const localeAmount = numberIntlFormatter.toDecimal({
+      convertedBalance.amount = numberIntlFormatter.toDecimal({
         amount: amount / 1000000,
         maximumFractionDigits: 2,
         minimumFractionDigits: 2
       });
-      const shortDenom = denom.substring(1, 4);
-      formattedCoin = `${localeAmount} ${shortDenom}`;
+      convertedBalance.denom = denom.substring(1, 4);
     } else {
-      const localeAmount = numberIntlFormatter.toDecimal({
+      convertedBalance.amount = numberIntlFormatter.toDecimal({
         amount: amount,
         maximumFractionDigits: 0,
         minimumFractionDigits: 0
       });
-      formattedCoin = `${localeAmount} ${denom}`;
+      convertedBalance.denom = denom;
     }
-    return formattedCoin;
+
+    return convertedBalance;
+  },
+  /**
+   *
+   * @param {Array.<Object>} balance
+   * @return {Array.<Object>}
+   */
+  convertList(balances) {
+    const convertedBalances = [];
+    for (const balance of balances) {
+      if (!isBalance(balance)) {
+        continue;
+      }
+      const convertedBalance = this.convertItem(balance);
+      convertedBalances.push(convertedBalance);
+    }
+    return convertedBalances;
+  },
+  /**
+   *
+   * @param {Object} balance
+   * @return {String}
+   */
+  format(balance) {
+    if (!isBalance(balance)) {
+      return;
+    }
+    const convertedBalance = this.convertItem(balance);
+    return `${convertedBalance.amount} ${convertedBalance.denom}`;
   }
 };
 
 export default coinAdapter;
+
+const isBalance = balance => balance.denom && balance.amount;

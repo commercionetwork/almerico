@@ -1,18 +1,15 @@
 # Changelog
 
-## Version 2.2.4
-
-- Updates:
-  - Added env variable to toggle the missing blocks monitor.
-
-- Fixes:
-
 ## Version 2.2.3
 
 - Updates:
   - Function to fetch tx from ancestors
   - Displaying the account details page error
   - Displaying the validator details page error
+  - Added env variable to toggle the missing blocks monitor
+  - Coins rendering
+
+- Fixes:
 
 ## Version 2.2.2, 25/03/2021
 

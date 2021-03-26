@@ -57,7 +57,6 @@ export default {
       rewards: "rewards",
       unbondings: "unbondings"
     }),
-
     amounts() {
       return AccountStakeHandler.setDelegations(this.delegations)
         .setRewards(this.rewards)
