@@ -24,10 +24,11 @@ In order to run this project as a developer with the hot reload option enabled y
 2. Inside the `.env.development.local` file add the following data:
 
     ```env
-    VUE_APP_LCD=<YOUR_LCD_ULR>
-    VUE_APP_WS=<YOUR_WS_URL>
-    VUE_APP_ANCESTORS=<YOUR_ANCESTORS_LIST>
-    VUE_APP_MAIN_TITLE=<YOUR_APP_TITLE>
+    VUE_APP_LCD=<LCD_ULR>
+    VUE_APP_WS=<WS_URL>
+    VUE_APP_ANCESTORS=<ANCESTORS_LIST>
+    VUE_APP_MAIN_TITLE=<APP_TITLE>
+    VUE_APP_BLOCKS_MONITOR=<MONITOR_VISIBILITY>
     ```
 
     E.g.:
@@ -37,6 +38,7 @@ In order to run this project as a developer with the hot reload option enabled y
     VUE_APP_WS=ws://rpc.com/websocket
     VUE_APP_ANCESTORS= [{"lcd_ledger":"http://lcd.com", "lcd": "http://lcd.com", "ver": "0.12"}]
     VUE_APP_MAIN_TITLE=Testnet
+    VUE_APP_BLOCKS_MONITOR=true
     ```
 
 #### Compiles and hot-reloads for development
@@ -54,10 +56,11 @@ This will start a local web server and publish a web page to <http://localhost:8
 Create a file named `.env.production` inside the project root folder and set the following data with your values:
 
 ```env
-VUE_APP_LCD=<YOUR_LCD_ULR>
-VUE_APP_WS=<YOUR_WS_URL>
-VUE_APP_ANCESTORS= <YOUR_ANCESTORS_LIST>
-VUE_APP_MAIN_TITLE=<YOUR_APP_TITLE>
+VUE_APP_LCD=<LCD_ULR>
+VUE_APP_WS=<WS_URL>
+VUE_APP_ANCESTORS= <ANCESTORS_LIST>
+VUE_APP_MAIN_TITLE=<APP_TITLE>
+VUE_APP_BLOCKS_MONITOR=<MONITOR_VISIBILITY>
 ```
   
 E.g.:
@@ -67,6 +70,7 @@ VUE_APP_LCD=https://lcd.com
 VUE_APP_WS=wss://rpc.com/websocket
 VUE_APP_ANCESTORS= [{"lcd_ledger":"https://lcd.com", "lcd": "https://lcd.com", "ver": "0.12"}]
 VUE_APP_MAIN_TITLE=Mainnet
+VUE_APP_BLOCKS_MONITOR=false
 ```
 
 #### Compiles and minifies for production

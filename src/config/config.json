@@ -125,8 +125,5 @@
         "value": "withdraw_delegator_reward"
       }
     ]
-  },
-  "validators": {
-    "isMissingBlocksChecker": false
   }
 }

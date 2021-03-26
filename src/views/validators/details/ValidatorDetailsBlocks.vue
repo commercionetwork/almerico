@@ -41,16 +41,16 @@ export default {
       latestValidatorsSets: 'latestValidatorsSets',
     }),
     title() {
-      return `Last ${CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS} Blocks`;
+      return `Last ${CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT} Blocks`;
     },
     verifiedBlocks() {
-      if (this.blocks.length < CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS) {
+      if (this.blocks.length < CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT) {
         return [];
       }
       const restrictedBlocks = blocksHandler.restrictBlocks({
         blocks: this.blocks,
         prop: ['header', 'height'],
-        limit: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+        limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
       });
       const attendance = BlocksAttendanceCalculator.setBlocks(restrictedBlocks)
         .setValidator(this.details)
@@ -69,7 +69,7 @@ export default {
       let height = this.latest.header.height;
       this.getBlocks({
         maxHeight: height,
-        items: CUSTOMIZATION.VALIDATORS.CHECKED_BLOCKS,
+        items: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
       });
     }
   },

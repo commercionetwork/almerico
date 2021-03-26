@@ -3,16 +3,11 @@
     <v-col cols="12" md="4" order="1" order-md="1">
       <ValidatorDetailsAddress :account="account" :operator="operator" />
     </v-col>
-    <v-col
-      cols="12"
-      :md="$config.validators.isMissingBlocksChecker ? 4 : 6"
-      order="2"
-      order-md="4"
-    >
+    <v-col cols="12" :md="isBlocksMonitor ? 4 : 6" order="2" order-md="4">
       <ValidatorDetailsSpec />
     </v-col>
     <v-col
-      v-if="$config.validators.isMissingBlocksChecker"
+      v-if="isBlocksMonitor"
       cols="12"
       md="4"
       order="3"
@@ -29,12 +24,7 @@
         <ValidatorDetailsDelegationsTable :delegations="delegations" />
       </v-card>
     </v-col>
-    <v-col
-      cols="12"
-      :md="$config.validators.isMissingBlocksChecker ? 4 : 6"
-      order="6"
-      order-md="6"
-    >
+    <v-col cols="12" :md="isBlocksMonitor ? 4 : 6" order="6" order-md="6">
       <v-card outlined>
         <ValidatorDetailsDelegatorsTable :account="account" />
       </v-card>
@@ -49,6 +39,8 @@ import ValidatorDetailsChart from "./ValidatorDetailsChart";
 import ValidatorDetailsDelegationsTable from "./ValidatorDetailsDelegationsTable";
 import ValidatorDetailsDelegatorsTable from "./ValidatorDetailsDelegatorsTable";
 import ValidatorDetailsSpec from "./ValidatorDetailsSpec";
+
+import { CUSTOMIZATION } from "@/constants";
 
 export default {
   name: "ValidatorDetailsBody",
@@ -75,6 +67,11 @@ export default {
       type: Object,
       required: true,
       note: "The account delegations"
+    }
+  },
+  computed: {
+    isBlocksMonitor() {
+      return CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.VISIBILITY;
     }
   }
 };

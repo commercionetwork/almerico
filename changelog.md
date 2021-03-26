@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 2.2.4
+
+- Updates:
+  - Added env variable to toggle the missing blocks monitor.
+
+- Fixes:
+
 ## Version 2.2.3
 
 - Updates:
