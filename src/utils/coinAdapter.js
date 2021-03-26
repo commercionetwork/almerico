@@ -1,4 +1,4 @@
-import numberIntlFormatter from "./numberIntlFormatter";
+import { arrayHandler, numberIntlFormatter } from "./index";
 
 const coinAdapter = {
   /**
@@ -37,7 +37,11 @@ const coinAdapter = {
    */
   convertList(balances) {
     const convertedBalances = [];
-    for (const balance of balances) {
+    const orderedBalances = arrayHandler.sortObjectsByNumberPropertyValueDesc(
+      balances,
+      "amount"
+    );
+    for (const balance of orderedBalances) {
       if (!isBalance(balance)) {
         continue;
       }

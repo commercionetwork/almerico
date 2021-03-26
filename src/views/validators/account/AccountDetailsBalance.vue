@@ -3,8 +3,6 @@
     :headers="headers"
     :items="items"
     :items-per-page="5"
-    :sort-by.sync="sortBy"
-    :sort-desc.sync="sortDesc"
     :caption="caption"
   >
     <template v-slot:[`item.denom`]="{ item }">
@@ -28,10 +26,6 @@ export default {
       note: "The amounts to display"
     }
   },
-  data: () => ({
-    sortBy: "amount",
-    sortDesc: true
-  }),
   computed: {
     caption() {
       return "Balance";
