@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 2.2.3
+## Version 2.2.3, 26/03/2021
 
 - Updates:
   - Function to fetch tx from ancestors
