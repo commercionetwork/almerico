@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.4
+
+- Updates:
+- Fixes:
+
 ## Version 2.2.3, 26/03/2021
 
 - Updates:
