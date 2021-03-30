@@ -3,12 +3,10 @@
  */
 
 import axios from "axios";
-import {
-  API
-} from "@/constants";
+import { API } from "@/constants";
 
 const headers = {
-  'Content-Type': 'application/json'
+  "Content-Type": "application/json"
 };
 
 export default {
@@ -17,9 +15,9 @@ export default {
    */
   requestNodeInfo() {
     return axios({
-      method: 'get',
+      method: "get",
       baseURL: `${API.NODE_INFO}`,
-      headers: headers,
+      headers: headers
     });
   },
   /**
@@ -27,10 +25,10 @@ export default {
    */
   requestPool() {
     return axios({
-      method: 'get',
+      method: "get",
       baseURL: `${API.STAKING}`,
-      url: '/pool',
-      headers: headers,
+      url: "/pool",
+      headers: headers
     });
   },
   /**
@@ -38,10 +36,21 @@ export default {
    */
   requestStakingParameters() {
     return axios({
-      method: 'get',
+      method: "get",
       baseURL: `${API.STAKING}`,
-      url: '/parameters',
-      headers: headers,
+      url: "/parameters",
+      headers: headers
     });
   },
+  /**
+   * @returns {Promise}
+   */
+  requestConversionRate() {
+    return axios({
+      method: "get",
+      baseURL: `${API.MINT}`,
+      url: "/conversion_rate",
+      headers: headers
+    });
+  }
 };
