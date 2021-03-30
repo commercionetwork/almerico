@@ -15,8 +15,8 @@ const coinAdapter = {
     if (denom.substring(0, 1) === "u") {
       convertedBalance.amount = numberIntlFormatter.toDecimal({
         amount: amount / 1000000,
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2
+        maximumFractionDigits: 6,
+        minimumFractionDigits: 6
       });
       convertedBalance.denom = denom.substring(1, 4);
     } else {

@@ -3,6 +3,8 @@
 ## Version 2.2.4
 
 - Updates:
+  - Coins rendering
+
 - Fixes:
 
 ## Version 2.2.3, 26/03/2021
