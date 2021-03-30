@@ -1,6 +1,13 @@
 # Changelog
 
-## Version 2.2.4
+## Version 2.2.5
+
+- Updates:
+
+- Fixes:
+  - Readme guide
+
+## Version 2.2.4, 30/03/2021
 
 - Updates:
   - Coins rendering
