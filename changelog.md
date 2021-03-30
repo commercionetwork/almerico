@@ -4,8 +4,7 @@
 
 - Updates:
   - Coins rendering
-
-- Fixes:
+  - Dashboard data
 
 ## Version 2.2.3, 26/03/2021
 
