@@ -25,45 +25,51 @@
           :to="proposerLink"
         />
       </span>
+      <span class="d-block">
+        Validators:
+        <span class="font-weight-bold">
+          {{ validatorsTotal }} (bonded {{ validatorsBondeds }})
+        </span>
+      </span>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { proposerHandler } from '@/utils';
-import { ROUTES } from '@/constants';
+import { mapGetters } from "vuex";
+import { proposerHandler } from "@/utils";
+import { ROUTES } from "@/constants";
 
 export default {
-  name: 'TopBodyBlock',
+  name: "TopBodyBlock",
   computed: {
-    ...mapGetters('blocks', {
-      block: 'latest',
+    ...mapGetters("blocks", {
+      block: "latest"
     }),
-    ...mapGetters('transactions', {
-      transactions: 'transactions',
+    ...mapGetters("transactions", {
+      transactions: "transactions"
     }),
-    ...mapGetters('validators', {
-      validators: 'validators',
-      validatorsSet: 'latestValidatorsSets',
+    ...mapGetters("validators", {
+      validators: "validators",
+      validatorsSet: "latestValidatorsSets"
     }),
     blockLink() {
       return this.blockHeight
         ? {
             name: ROUTES.NAMES.BLOCKS_DETAILS,
-            params: { id: this.blockHeight },
+            params: { id: this.blockHeight }
           }
         : {};
     },
     blockHeight() {
-      return this.block.header.height || '-';
+      return this.block.header.height || "-";
     },
     blockProposerAddress() {
-      return this.block.header.proposer_address || '-';
+      return this.block.header.proposer_address || "-";
     },
     msgs() {
       let txs = this.transactions.filter(
-        (tx) => tx.height === this.block.header.height
+        tx => tx.height === this.block.header.height
       );
       return txs.reduce((acc, item) => acc + item.tx.value.msg.length, 0);
     },
@@ -72,28 +78,34 @@ export default {
         address: this.blockProposerAddress,
         prefix: this.$config.generic.prefixes.validator.consensus.address,
         validatorsSet: this.validatorsSet,
-        validators: this.validators,
+        validators: this.validators
       });
     },
     proposerLink() {
       return this.proposer
         ? {
             name: ROUTES.NAMES.VALIDATORS_DETAILS,
-            params: { id: this.proposer.operator_address },
+            params: { id: this.proposer.operator_address }
           }
         : {};
     },
     proposerName() {
-      return this.proposer ? this.proposer.description.moniker : '-';
+      return this.proposer ? this.proposer.description.moniker : "-";
     },
     time() {
-      return new Date(this.block.header.time).toLocaleString() || '-';
+      return new Date(this.block.header.time).toLocaleString() || "-";
     },
     txs() {
       return this.block.data && this.block.data.txs
         ? this.block.data.txs.length
         : 0;
     },
-  },
+    validatorsBondeds() {
+      return this.validators.filter(validator => validator.status === 2).length;
+    },
+    validatorsTotal() {
+      return this.validators.length;
+    }
+  }
 };
 </script>

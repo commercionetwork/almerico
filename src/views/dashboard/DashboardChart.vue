@@ -1,57 +1,60 @@
 <template>
-  <v-layout align-center justify-center column fill-height>
-    <span class="text-caption font-weight-medium" v-text="caption" />
-    <DoughnutChart
-      :chartData="chartData"
-      :options="options"
-      height="150"
-      width="150"
-    />
-  </v-layout>
+  <DashboardCard :title="caption">
+    <template v-slot:content>
+      <DoughnutChart
+        :chartData="chartData"
+        :options="options"
+        height="150"
+        width="150"
+      />
+    </template>
+  </DashboardCard>
 </template>
 
 <script>
-import DoughnutChart from '@/components/DoughnutChart';
+import DashboardCard from "@/components/DashboardCard.vue";
+import DoughnutChart from "@/components/DoughnutChart";
 
-import { mapGetters } from 'vuex';
-import { numberIntlFormatter } from '@/utils';
+import { mapGetters } from "vuex";
+import { numberIntlFormatter } from "@/utils";
 
 export default {
-  name: 'DashboardChart',
+  name: "DashboardChart",
   components: {
-    DoughnutChart,
+    DashboardCard,
+    DoughnutChart
   },
   computed: {
-    ...mapGetters('starting', {
-      pool: 'pool',
+    ...mapGetters("starting", {
+      pool: "pool"
     }),
     chartData() {
       return {
         labels: [
           `Bonded ${this.tokenBonded}`,
-          `Not Bonded ${this.tokenNotBonded}`,
+          `Not Bonded ${this.tokenNotBonded}`
         ],
         datasets: [
           {
             data: [this.pool.bonded_tokens, this.pool.not_bonded_tokens],
-            backgroundColor: ['#2F9D77', '#4ECA9F'],
-          },
-        ],
+            backgroundColor: ["#2F9D77", "#4ECA9F"]
+          }
+        ]
       };
     },
     options() {
       return {
         responsive: true,
         legend: {
-          display: false,
+          display: false
         },
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return data['labels'][tooltipItem['index']];
-            },
-          },
-        },
+              return data["labels"][tooltipItem["index"]];
+            }
+          }
+        }
       };
     },
     caption() {
@@ -60,27 +63,27 @@ export default {
             parseInt(this.pool.bonded_tokens) +
               parseInt(this.pool.not_bonded_tokens)
           )}`
-        : 'Pool';
+        : "Pool";
     },
     tokenBonded() {
       return this.pool
         ? this.formatTokens(parseInt(this.pool.bonded_tokens))
-        : '-';
+        : "-";
     },
     tokenNotBonded() {
       return this.pool
         ? this.formatTokens(parseInt(this.pool.not_bonded_tokens))
-        : '-';
-    },
+        : "-";
+    }
   },
   methods: {
     formatTokens(value) {
       return `${numberIntlFormatter.toDecimal({
         amount: value / 1000000,
         maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
+        minimumFractionDigits: 0
       })} M`;
-    },
-  },
+    }
+  }
 };
 </script>
