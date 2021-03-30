@@ -4,7 +4,6 @@
 
 export default {
   /**
-   * Set isLoading state to true
    *
    * @param {StartingState} state
    */
@@ -13,7 +12,6 @@ export default {
     state.isLoading = true;
   },
   /**
-   * Set isLoading state to false
    *
    * @param {StartingState} state
    */
@@ -21,7 +19,6 @@ export default {
     state.isLoading = false;
   },
   /**
-   * Set error message
    *
    * @param {StartingState} state
    * @param {Object} error
@@ -30,36 +27,41 @@ export default {
     state.error = { ...error };
   },
   /**
-   * Set node info
    *
    * @param {StartingState} state
    * @param {Object} data
    */
   setNodeInfo(state, data) {
     state.nodeInfo = {
-      ...data,
+      ...data
     };
   },
   /**
-   * Set params
    *
    * @param {StartingState} state
    * @param {Object} data
    */
   setParams(state, data) {
     state.params = {
-      ...data,
+      ...data
     };
   },
   /**
-   * Set pool
    *
    * @param {StartingState} state
    * @param {Object} data
    */
   setPool(state, data) {
     state.pool = {
-      ...data,
+      ...data
     };
   },
+  /**
+   *
+   * @param {StartingState} state
+   * @param {String} rate
+   */
+  setConversionRate(state, rate) {
+    state.conversionRate = rate;
+  }
 };

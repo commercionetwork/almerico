@@ -7,6 +7,7 @@
  * @property {Object} nodeInfo
  * @property {Object} params
  * @property {Object} pool
+ * @property {String} conversionRate
  */
 
 import actions from './actions';
@@ -14,6 +15,7 @@ import getters from './getters';
 import mutations from './mutations';
 
 const initialState = {
+  conversionRate: '',
   error: null,
   isLoading: false,
   nodeInfo: null,

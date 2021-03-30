@@ -6,7 +6,7 @@ describe("utils/coinAdapter", () => {
       denom: "ucommercio",
       amount: 123456000000
     };
-    const expectedValue = { amount: "12345600", denom: "com" };
+    const expectedValue = { amount: "123456000000", denom: "com" };
 
     const convertedCoin = coinAdapter.convertItem(balance);
 
@@ -38,7 +38,7 @@ describe("utils/coinAdapter", () => {
         amount: 123456000000
       }
     ];
-    const expectedValue = [{ amount: "12345600", denom: "com" }];
+    const expectedValue = [{ amount: "123456000000", denom: "com" }];
 
     const convertedCoins = coinAdapter.convertList(balances);
 
@@ -55,7 +55,7 @@ describe("utils/coinAdapter", () => {
       denom: "ucommercio",
       amount: 123456000000
     };
-    const expectedValue = "12345600 com";
+    const expectedValue = "123456000000 com";
 
     const convertedCoin = coinAdapter.format(balance);
 
