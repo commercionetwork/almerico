@@ -1,32 +1,32 @@
 <template>
   <v-layout>
-    <TopBody>
-      <template v-slot:left>
+    <TopBodyComponent>
+      <template v-slot:left-info>
         <TopBodyBlockComponent />
       </template>
-      <template v-slot:center>
+      <template v-slot:center-info>
         <BlocksChart />
       </template>
-      <template v-slot:right>
+      <template v-slot:right-info>
         <BlocksSearch />
       </template>
-    </TopBody>
+    </TopBodyComponent>
   </v-layout>
 </template>
 
 <script>
 import BlocksChart from "./BlocksChart";
 import BlocksSearch from "./BlocksSearch";
-import TopBody from "@/components/TopBody";
 import TopBodyBlockComponent from "@/components/TopBodyBlockComponent";
+import TopBodyComponent from "@/components/TopBodyComponent";
 
 export default {
   name: "BlocksTopBody",
   components: {
     BlocksChart,
     BlocksSearch,
-    TopBody,
     TopBodyBlockComponent,
+    TopBodyComponent,
   },
 };
 </script>

@@ -1,32 +1,32 @@
 <template>
   <v-layout>
-    <TopBody>
-      <template v-slot:left>
+    <TopBodyComponent>
+      <template v-slot:left-info>
         <TopBodyBlockComponent />
       </template>
-      <template v-slot:center>
+      <template v-slot:center-info>
         <ValidatorsChart />
       </template>
-      <template v-slot:right>
+      <template v-slot:right-info>
         <ValidatorsSearch />
       </template>
-    </TopBody>
+    </TopBodyComponent>
   </v-layout>
 </template>
 
 <script>
-import TopBody from "@/components/TopBody";
 import TopBodyBlockComponent from "@/components/TopBodyBlockComponent";
+import TopBodyComponent from "@/components/TopBodyComponent";
 import ValidatorsChart from "./ValidatorsChart";
 import ValidatorsSearch from "./ValidatorsSearch";
 
 export default {
   name: "ValidatorsTopBody",
   components: {
-    TopBody,
     TopBodyBlockComponent,
+    TopBodyComponent,
     ValidatorsChart,
-    ValidatorsSearch,
-  },
+    ValidatorsSearch
+  }
 };
 </script>

@@ -1,17 +1,11 @@
 <template>
-  <v-card outlined>
-    <v-card-title class="justify-center text-h4">
+  <TopBodyCardComponent title="latest height">
+    <template v-slot:content>
       <router-link
-        class="text-decoration-none font-weight-bold"
+        class="text-h4 text-decoration-none font-weight-bold"
         v-text="blockHeight"
         :to="blockLink"
       />
-    </v-card-title>
-    <v-card-subtitle
-      class="text-center text-capitalize text-subtitle-2"
-      v-text="'latest height'"
-    />
-    <v-card-text class="text-center">
       <span class="d-block font-weight-bold" v-text="time" />
       <span class="d-block">
         Msgs/Txs:
@@ -31,17 +25,20 @@
           {{ validatorsTotal }} (bonded {{ validatorsBondeds }})
         </span>
       </span>
-    </v-card-text>
-  </v-card>
+    </template>
+  </TopBodyCardComponent>
 </template>
 
 <script>
+import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
+
 import { mapGetters } from "vuex";
 import { proposerHandler } from "@/utils";
 import { ROUTES } from "@/constants";
 
 export default {
   name: "TopBodyBlockComponent",
+  components: { TopBodyCardComponent },
   computed: {
     ...mapGetters("blocks", {
       block: "latest"

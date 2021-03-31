@@ -1,30 +1,30 @@
 <template>
   <v-layout>
-    <TopBody>
-      <template v-slot:left>
+    <TopBodyComponent>
+      <template v-slot:left-info>
         <TopBodyBlockComponent />
       </template>
-      <template v-slot:center>
+      <template v-slot:center-info>
         <TransactionsChart />
       </template>
-      <template v-slot:right>
+      <template v-slot:right-info>
         <TransactionsFilter />
       </template>
-    </TopBody>
+    </TopBodyComponent>
   </v-layout>
 </template>
 
 <script>
-import TopBody from "@/components/TopBody";
 import TopBodyBlockComponent from "@/components/TopBodyBlockComponent";
+import TopBodyComponent from "@/components/TopBodyComponent";
 import TransactionsChart from "./TransactionsChart";
 import TransactionsFilter from "./TransactionsFilter";
 
 export default {
   name: "TransactionsTopBody",
   components: {
-    TopBody,
     TopBodyBlockComponent,
+    TopBodyComponent,
     TransactionsChart,
     TransactionsFilter,
   },

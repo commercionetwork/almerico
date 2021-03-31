@@ -1,17 +1,21 @@
 <template>
-  <v-layout align-center justify-center column fill-height>
-    <span class="text-caption font-weight-medium" v-text="caption" />
-    <DoughnutChartComponent
-      :chartData="chartData"
-      :options="options"
-      height="150"
-      width="150"
-    />
-  </v-layout>
+  <TopBodyCardComponent :title="caption">
+    <template v-slot:content>
+      <v-layout align-center justify-center column fill-height>
+        <DoughnutChartComponent
+          :chartData="chartData"
+          :options="options"
+          height="150"
+          width="150"
+        />
+      </v-layout>
+    </template>
+  </TopBodyCardComponent>
 </template>
 
 <script>
 import DoughnutChartComponent from "@/components/DoughnutChartComponent";
+import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
 
 import { mapGetters } from "vuex";
 
@@ -19,38 +23,39 @@ export default {
   name: "ValidatorsChart",
   components: {
     DoughnutChartComponent,
+    TopBodyCardComponent
   },
   computed: {
     ...mapGetters("validators", {
-      validators: "validators",
+      validators: "validators"
     }),
     chartData() {
       return {
         labels: [
           `${this.validatorsBondeds} Bonded`,
-          `${this.validatorsNotBondeds} Not Bonded`,
+          `${this.validatorsNotBondeds} Not Bonded`
         ],
         datasets: [
           {
             data: [this.validatorsBondeds, this.validatorsNotBondeds],
-            backgroundColor: ["#303F9F", "#5C6BC0"],
-          },
-        ],
+            backgroundColor: ["#303F9F", "#5C6BC0"]
+          }
+        ]
       };
     },
     options() {
       return {
         responsive: true,
         legend: {
-          display: false,
+          display: false
         },
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
+            label: function(tooltipItem, data) {
               return data["labels"][tooltipItem["index"]];
-            },
-          },
-        },
+            }
+          }
+        }
       };
     },
     caption() {
@@ -59,13 +64,11 @@ export default {
         : "Validators";
     },
     validatorsBondeds() {
-      return this.validators.filter((validator) => validator.status === 2)
-        .length;
+      return this.validators.filter(validator => validator.status === 2).length;
     },
     validatorsNotBondeds() {
-      return this.validators.filter((validator) => validator.status !== 2)
-        .length;
-    },
-  },
+      return this.validators.filter(validator => validator.status !== 2).length;
+    }
+  }
 };
 </script>
