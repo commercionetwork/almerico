@@ -1,12 +1,14 @@
 <template>
   <DashboardCard :title="caption">
     <template v-slot:content>
-      <DoughnutChart
-        :chartData="chartData"
-        :options="options"
-        height="150"
-        width="150"
-      />
+      <v-layout align-center justify-center column fill-height>
+        <DoughnutChart
+          :chartData="chartData"
+          :options="options"
+          height="150"
+          width="150"
+        />
+      </v-layout>
     </template>
   </DashboardCard>
 </template>

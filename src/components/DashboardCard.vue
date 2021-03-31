@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="pa-1">
     <v-card-title
       class="justify-center text-center text-truncate text-overline font-weight-bold"
       v-html="title"
