@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -8,27 +8,27 @@
             v-text="'description'"
           />
           <v-list-item>
-            <MsgItem label="moniker" :content="descriptionMoniker" />
+            <MsgItemComponent label="moniker" :content="descriptionMoniker" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="identity" :content="descriptionIdentity" />
+            <MsgItemComponent label="identity" :content="descriptionIdentity" />
           </v-list-item>
           <v-list-item>
-            <MsgUrl label="website" :content="descriptionWebsite" />
+            <MsgUrlComponent label="website" :content="descriptionWebsite" />
           </v-list-item>
           <v-list-item>
-            <MsgItem
+            <MsgItemComponent
               label="security contact"
               :content="descriptionSecurityContact"
             />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="details" :content="descriptionDetails" />
+            <MsgItemComponent label="details" :content="descriptionDetails" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="address"
           :content="address"
           :to="{
@@ -38,20 +38,20 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="commission rate" :content="commissionRate" />
+        <MsgItemComponent label="commission rate" :content="commissionRate" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="min self delegation" :content="minSelfDelegation" />
+        <MsgItemComponent label="min self delegation" :content="minSelfDelegation" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
-import MsgUrl from '@/components/MsgUrl.vue';
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
+import MsgUrlComponent from '@/components/MsgUrlComponent.vue';
 
 import { ROUTES } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
@@ -60,10 +60,10 @@ export default {
   name: 'MsgEditValidator',
   description: 'Display an edit validator transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
-    MsgUrl,
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
+    MsgUrlComponent,
   },
   props: {
     message: {

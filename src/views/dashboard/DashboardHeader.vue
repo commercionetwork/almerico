@@ -5,24 +5,24 @@
         <h1 class="text-h4 text-uppercase primary--text">dashboard</h1>
       </v-col>
       <v-col cols="12" sm="5">
-        <SearchBar />
+        <SearchBarComponent />
       </v-col>
       <v-col cols="12" sm="2">
-        <ChainChooser />
+        <ChainChooserComponent />
       </v-col>
     </v-row>
   </v-layout>
 </template>
 
 <script>
-import ChainChooser from "@/components/ChainChooser";
-import SearchBar from "@/components/SearchBar";
+import ChainChooserComponent from "@/components/ChainChooserComponent";
+import SearchBarComponent from "@/components/SearchBarComponent";
 
 export default {
   name: "DashboardHeader",
   components: {
-    ChainChooser,
-    SearchBar,
+    ChainChooserComponent,
+    SearchBarComponent,
   },
 };
 </script>

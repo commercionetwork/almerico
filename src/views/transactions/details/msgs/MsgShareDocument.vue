@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="sender"
           :content="senderAddress"
           :to="{
@@ -21,7 +21,7 @@
             v-for="(recipientAddress, index) in recipients"
             :key="index"
           >
-            <MsgLink
+            <MsgLinkComponent
               label="address"
               :content="recipientAddress"
               :to="{
@@ -33,7 +33,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="uuid" :content="uuid" />
+        <MsgItemComponent label="uuid" :content="uuid" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -42,14 +42,14 @@
             v-text="'metadata'"
           />
           <v-list-item>
-            <MsgUrl
+            <MsgUrlComponent
               label="metadata content uri"
               :content="metadataContentUri"
             />
           </v-list-item>
           <span v-if="metadataSchemaType !== '-'">
             <v-list-item>
-              <MsgItem
+              <MsgItemComponent
                 label="metadata schema type"
                 :content="metadataSchemaType"
               />
@@ -57,13 +57,13 @@
           </span>
           <span v-else>
             <v-list-item>
-              <MsgUrl
+              <MsgUrlComponent
                 label="metadata schema uri"
                 :content="metadataSchemaUri"
               />
             </v-list-item>
             <v-list-item>
-              <MsgItem
+              <MsgItemComponent
                 label="meta schema version"
                 :content="metaSchemaVersion"
               />
@@ -72,7 +72,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgUrl label="content URI" :content="contentUri" />
+        <MsgUrlComponent label="content URI" :content="contentUri" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -81,18 +81,18 @@
             v-text="'checksum'"
           />
           <v-list-item>
-            <MsgItem label="value" :content="checksumValue" />
+            <MsgItemComponent label="value" :content="checksumValue" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="algorithm" :content="checksumAlgorithm" />
+            <MsgItemComponent label="algorithm" :content="checksumAlgorithm" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="encryption data keys" :content="encryptionDataKeys" />
+        <MsgItemComponent label="encryption data keys" :content="encryptionDataKeys" />
       </v-list-item>
       <v-list-item>
-        <MsgItem
+        <MsgItemComponent
           label="encryption data encrypted data"
           :content="encryptionDataEncryptedData"
         />
@@ -104,31 +104,31 @@
             v-text="'do sign'"
           />
           <v-list-item>
-            <MsgUrl label="storage uri" :content="doSignStorageUri" />
+            <MsgUrlComponent label="storage uri" :content="doSignStorageUri" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="signer instance" :content="doSignSigner" />
+            <MsgItemComponent label="signer instance" :content="doSignSigner" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="sdn data" :content="doSignSdn" />
+            <MsgItemComponent label="sdn data" :content="doSignSdn" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="vcr id" :content="doSignVcr" />
+            <MsgItemComponent label="vcr id" :content="doSignVcr" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="certificate profile" :content="doSignCertificate" />
+            <MsgItemComponent label="certificate profile" :content="doSignCertificate" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from "@/components/MsgItem.vue";
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
-import MsgUrl from "@/components/MsgUrl.vue";
+import MsgItemComponent from "@/components/MsgItemComponent.vue";
+import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
+import MsgTxComponent from "@/components/MsgTxComponent.vue";
+import MsgUrlComponent from "@/components/MsgUrlComponent.vue";
 
 import { ROUTES } from "@/constants";
 
@@ -136,10 +136,10 @@ export default {
   name: "MsgShareDocument",
   description: "Display a share document transaction message",
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
-    MsgUrl
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
+    MsgUrlComponent
   },
   props: {
     message: {

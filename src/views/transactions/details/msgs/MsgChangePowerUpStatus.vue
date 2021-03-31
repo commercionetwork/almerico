@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="recipient address"
           :content="recipientAddress"
           :to="{
@@ -12,7 +12,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="id" :content="id" />
+        <MsgItemComponent label="id" :content="id" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -21,15 +21,15 @@
             v-text="'status'"
           />
           <v-list-item>
-            <MsgItem label="type" :content="statusType" />
+            <MsgItemComponent label="type" :content="statusType" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="message" :content="statusMessage" />
+            <MsgItemComponent label="message" :content="statusMessage" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="signer address"
           :content="signerAddress"
           :to="{
@@ -39,13 +39,13 @@
         />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -53,9 +53,9 @@ export default {
   name: 'MsgChangePowerUpStatus',
   description: 'Display a change powerup status transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
   },
   props: {
     message: {

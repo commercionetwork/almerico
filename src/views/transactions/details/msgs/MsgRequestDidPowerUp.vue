@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="claimant"
           :content="claimantAddress"
           :to="{
@@ -12,25 +12,25 @@
         />
       </v-list-item>
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <MsgItem label="amount" :content="amount" class="text-uppercase" />
+        <MsgItemComponent label="amount" :content="amount" class="text-uppercase" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="proof" :content="proof" />
+        <MsgItemComponent label="proof" :content="proof" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="id" :content="id" />
+        <MsgItemComponent label="id" :content="id" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="proof key" :content="proofKey" />
+        <MsgItemComponent label="proof key" :content="proofKey" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from "@/components/MsgItem.vue";
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
+import MsgItemComponent from "@/components/MsgItemComponent.vue";
+import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
+import MsgTxComponent from "@/components/MsgTxComponent.vue";
 
 import { ROUTES } from "@/constants";
 import { coinAdapter } from "@/utils";
@@ -39,9 +39,9 @@ export default {
   name: "MsgRequestDidPowerUp",
   description: "Display a request did power up transaction message",
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent
   },
   props: {
     message: {

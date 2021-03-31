@@ -14,7 +14,7 @@ import { ROUTES } from '@/constants';
 import { regExpBuilder } from '@/utils';
 
 export default {
-  name: 'SearchBar',
+  name: 'SearchBarComponent',
   data: () => ({
     query: '',
   }),

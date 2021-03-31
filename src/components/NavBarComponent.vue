@@ -30,22 +30,22 @@
     <v-navigation-drawer v-model="drawer" app fixed>
       <v-list nav dense>
         <v-list-item-group>
-          <NavBarItem
+          <NavBarItemComponent
             icon="mdi-view-dashboard"
             title="Dashboard"
             :to="{ name: ROUTES.NAMES.DASHBOARD }"
           />
-          <NavBarItem
+          <NavBarItemComponent
             icon="mdi-account-multiple"
             title="Validators"
             :to="{ name: ROUTES.NAMES.VALIDATORS }"
           />
-          <NavBarItem
+          <NavBarItemComponent
             icon="mdi-swap-horizontal-bold"
             title="Transactions"
             :to="{ name: ROUTES.NAMES.TRANSACTIONS }"
           />
-          <NavBarItem
+          <NavBarItemComponent
             icon="mdi-shape"
             title="Blocks"
             :to="{ name: ROUTES.NAMES.BLOCKS }"
@@ -67,15 +67,15 @@
 </template>
 
 <script>
-import NavBarItem from './NavBarItem';
+import NavBarItemComponent from './NavBarItemComponent';
 
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'NavBar',
+  name: 'NavBarComponent',
   components: {
-    NavBarItem,
+    NavBarItemComponent,
   },
   data: () => ({
     ROUTES,

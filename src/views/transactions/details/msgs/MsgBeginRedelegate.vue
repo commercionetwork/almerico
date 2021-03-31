@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="delegator address"
           :content="delegatorAddress"
           :to="{
@@ -12,7 +12,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="destination validator address"
           :content="validatorDstAddress"
           :to="{
@@ -22,7 +22,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="source validator address"
           :content="validatorSrcAddress"
           :to="{
@@ -32,16 +32,16 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="amount" :content="amount" class="text-uppercase" />
+        <MsgItemComponent label="amount" :content="amount" class="text-uppercase" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from "@/components/MsgItem.vue";
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
+import MsgItemComponent from "@/components/MsgItemComponent.vue";
+import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
+import MsgTxComponent from "@/components/MsgTxComponent.vue";
 
 import { ROUTES } from "@/constants";
 import { coinAdapter } from "@/utils";
@@ -50,9 +50,9 @@ export default {
   name: "MsgBeginRedelegate",
   description: "Display a begin redelegate transaction message",
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent
   },
   props: {
     message: {

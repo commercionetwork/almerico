@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "Footer",
+  name: "FooterComponent",
   data: () => ({
     fab: false,
   }),

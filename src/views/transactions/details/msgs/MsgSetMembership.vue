@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="government"
           :content="governmentAddress"
           :to="{
@@ -12,7 +12,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="subscriber"
           :content="subscriberAddress"
           :to="{
@@ -22,16 +22,16 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="new membership" :content="newMembership" />
+        <MsgItemComponent label="new membership" :content="newMembership" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -39,9 +39,9 @@ export default {
   name: 'MsgSetMembership',
   description: 'Display a set membership transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
   },
   props: {
     message: {

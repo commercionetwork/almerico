@@ -1,11 +1,11 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="context" :content="context" />
+        <MsgItemComponent label="context" :content="context" />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="did"
           :content="id"
           :to="{
@@ -23,13 +23,13 @@
           <v-list-item v-for="(pubKey, index) in publicKeys" :key="index">
             <v-list dense>
               <v-list-item>
-                <MsgItem label="id" :content="pubKey.id" />
+                <MsgItemComponent label="id" :content="pubKey.id" />
               </v-list-item>
               <v-list-item>
-                <MsgItem label="type" :content="pubKey.type" />
+                <MsgItemComponent label="type" :content="pubKey.type" />
               </v-list-item>
               <v-list-item>
-                <MsgLink
+                <MsgLinkComponent
                   label="controller"
                   :content="pubKey.controller"
                   :to="{
@@ -39,7 +39,7 @@
                 />
               </v-list-item>
               <v-list-item>
-                <MsgItem
+                <MsgItemComponent
                   label="public key pem"
                   :content="pubKey.publicKeyPem"
                 />
@@ -55,16 +55,16 @@
             v-text="'proof'"
           />
           <v-list-item>
-            <MsgItem label="type" :content="proofType" />
+            <MsgItemComponent label="type" :content="proofType" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="created" :content="proofCreated" />
+            <MsgItemComponent label="created" :content="proofCreated" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="proof purpose" :content="proofPurpose" />
+            <MsgItemComponent label="proof purpose" :content="proofPurpose" />
           </v-list-item>
           <v-list-item>
-            <MsgLink
+            <MsgLinkComponent
               label="controller"
               :content="proofController"
               :to="{
@@ -74,13 +74,13 @@
             />
           </v-list-item>
           <v-list-item>
-            <MsgItem
+            <MsgItemComponent
               label="verification method"
               :content="proofVerificationMethod"
             />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="signature value" :content="proofSignatureValue" />
+            <MsgItemComponent label="signature value" :content="proofSignatureValue" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -93,13 +93,13 @@
           <v-list-item v-for="(service, index) in services" :key="index">
             <v-list dense>
               <v-list-item>
-                <MsgItem label="id" :content="service.id" />
+                <MsgItemComponent label="id" :content="service.id" />
               </v-list-item>
               <v-list-item>
-                <MsgItem label="type" :content="service.type" />
+                <MsgItemComponent label="type" :content="service.type" />
               </v-list-item>
               <v-list-item>
-                <MsgItem
+                <MsgItemComponent
                   label="service endpoint"
                   :content="service.serviceEndpoint"
                 />
@@ -109,13 +109,13 @@
         </v-list-item-content>
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -123,9 +123,9 @@ export default {
   name: 'MsgSetIdentity',
   description: 'Display a set identity transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
   },
   props: {
     message: {

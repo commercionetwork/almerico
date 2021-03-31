@@ -1,22 +1,22 @@
 <template>
-  <DashboardCard title="com">
+  <TopBodyCardComponent title="com">
     <template v-slot:content>
       <span
         class="text-h3 primary--text font-weight-bold"
         v-text="tokenValue"
       />
     </template>
-  </DashboardCard>
+  </TopBodyCardComponent>
 </template>
 
 <script>
-import DashboardCard from "@/components/DashboardCard.vue";
+import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
 
 import { mapGetters } from "vuex";
 
 export default {
-  name: "DashboardStats",
-  components: { DashboardCard },
+  name: "DashboardPrice",
+  components: { TopBodyCardComponent },
   computed: {
     ...mapGetters("starting", {
       conversionRate: "conversionRate"

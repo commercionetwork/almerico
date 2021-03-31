@@ -1,8 +1,8 @@
 <template>
-  <DashboardCard :title="caption">
+  <TopBodyCardComponent :title="caption">
     <template v-slot:content>
       <v-layout align-center justify-center column fill-height>
-        <DoughnutChart
+        <DoughnutChartComponent
           :chartData="chartData"
           :options="options"
           height="150"
@@ -10,12 +10,12 @@
         />
       </v-layout>
     </template>
-  </DashboardCard>
+  </TopBodyCardComponent>
 </template>
 
 <script>
-import DashboardCard from "@/components/DashboardCard.vue";
-import DoughnutChart from "@/components/DoughnutChart";
+import DoughnutChartComponent from "@/components/DoughnutChartComponent";
+import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
 
 import { mapGetters } from "vuex";
 import { numberIntlFormatter } from "@/utils";
@@ -23,8 +23,8 @@ import { numberIntlFormatter } from "@/utils";
 export default {
   name: "DashboardChart",
   components: {
-    DashboardCard,
-    DoughnutChart
+    DoughnutChartComponent,
+    TopBodyCardComponent
   },
   computed: {
     ...mapGetters("starting", {

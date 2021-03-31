@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="address"
           :content="address"
           :to="{
@@ -12,12 +12,12 @@
         />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -25,8 +25,8 @@ export default {
   name: 'MsgUnjail',
   description: 'Display an unjail transaction message',
   components: {
-    MsgLink,
-    MsgTx,
+    MsgLinkComponent,
+    MsgTxComponent,
   },
   props: {
     message: {

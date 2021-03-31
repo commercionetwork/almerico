@@ -1,7 +1,7 @@
 <template>
   <v-layout align-center justify-center column fill-height>
     <span class="text-caption font-weight-medium" v-text="caption" />
-    <DoughnutChart
+    <DoughnutChartComponent
       :chartData="chartData"
       :options="options"
       height="150"
@@ -11,14 +11,14 @@
 </template>
 
 <script>
-import DoughnutChart from "@/components/DoughnutChart";
+import DoughnutChartComponent from "@/components/DoughnutChartComponent";
 
 import { mapGetters } from "vuex";
 
 export default {
   name: "BlocksChart",
   components: {
-    DoughnutChart,
+    DoughnutChartComponent,
   },
   computed: {
     ...mapGetters("blocks", {

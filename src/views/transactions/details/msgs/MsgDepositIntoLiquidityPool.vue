@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="depositor"
           :content="depositorAddress"
           :to="{
@@ -12,16 +12,16 @@
         />
       </v-list-item>
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <MsgItem label="amount" :content="amount" class="text-uppercase" />
+        <MsgItemComponent label="amount" :content="amount" class="text-uppercase" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from "@/components/MsgItem.vue";
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
+import MsgItemComponent from "@/components/MsgItemComponent.vue";
+import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
+import MsgTxComponent from "@/components/MsgTxComponent.vue";
 
 import { ROUTES } from "@/constants";
 import { coinAdapter } from "@/utils";
@@ -30,9 +30,9 @@ export default {
   name: "MsgDepositIntoLiquidityPool",
   description: "Display a deposit into liquidity pool transaction message",
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent
   },
   props: {
     message: {

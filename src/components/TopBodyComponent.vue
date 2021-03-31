@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "DashboardInfo",
+  name: "TopBodyComponent",
   props: {
     optionalInfo: {
       type: Boolean,

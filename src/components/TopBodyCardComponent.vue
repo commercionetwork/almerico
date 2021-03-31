@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'DashboardCard',
+  name: 'TopBodyCardComponent',
   props: {
     title: {
       type: String,

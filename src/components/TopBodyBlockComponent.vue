@@ -41,7 +41,7 @@ import { proposerHandler } from "@/utils";
 import { ROUTES } from "@/constants";
 
 export default {
-  name: "TopBodyBlock",
+  name: "TopBodyBlockComponent",
   computed: {
     ...mapGetters("blocks", {
       block: "latest"

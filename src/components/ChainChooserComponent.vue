@@ -22,7 +22,7 @@
 import { CHAIN } from "@/constants";
 
 export default {
-  name: "ChainChooser",
+  name: "ChainChooserComponent",
   data: () => ({
     CHAIN,
     selectedItem: null,

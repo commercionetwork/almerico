@@ -2,7 +2,7 @@
   <v-layout>
     <TopBody>
       <template v-slot:left>
-        <TopBodyBlock />
+        <TopBodyBlockComponent />
       </template>
       <template v-slot:center>
         <BlocksChart />
@@ -18,7 +18,7 @@
 import BlocksChart from "./BlocksChart";
 import BlocksSearch from "./BlocksSearch";
 import TopBody from "@/components/TopBody";
-import TopBodyBlock from "@/components/TopBodyBlock";
+import TopBodyBlockComponent from "@/components/TopBodyBlockComponent";
 
 export default {
   name: "BlocksTopBody",
@@ -26,7 +26,7 @@ export default {
     BlocksChart,
     BlocksSearch,
     TopBody,
-    TopBodyBlock,
+    TopBodyBlockComponent,
   },
 };
 </script>

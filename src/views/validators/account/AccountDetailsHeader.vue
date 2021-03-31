@@ -5,19 +5,19 @@
         <h1 class="text-h4 text-uppercase primary--text">account details</h1>
       </v-col>
       <v-col cols="12" sm="7">
-        <SearchBar />
+        <SearchBarComponent />
       </v-col>
     </v-row>
   </v-layout>
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar";
+import SearchBarComponent from "@/components/SearchBarComponent";
 
 export default {
   name: "AccountDetailsHeader",
   components: {
-    SearchBar,
+    SearchBarComponent,
   },
 };
 </script>

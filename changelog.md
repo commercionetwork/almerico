@@ -3,6 +3,7 @@
 ## Version 2.2.5
 
 - Updates:
+  - Top body layout
 
 - Fixes:
   - Readme guide

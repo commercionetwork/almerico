@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'MsgTx',
+  name: 'MsgTxComponent',
   description: 'Container for a transaction message',
   props: {
     subTitle: {

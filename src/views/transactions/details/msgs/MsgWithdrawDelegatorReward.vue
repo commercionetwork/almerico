@@ -1,8 +1,8 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="delegator address"
           :content="delegatorAddress"
           :to="{
@@ -12,7 +12,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="validator address"
           :content="validatorAddress"
           :to="{
@@ -22,12 +22,12 @@
         />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
+import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
+import MsgTxComponent from "@/components/MsgTxComponent.vue";
 
 import { ROUTES } from "@/constants";
 
@@ -35,8 +35,8 @@ export default {
   name: "MsgWithdrawDelegatorReward",
   description: "Display a withdraw delegator reward transaction message",
   components: {
-    MsgLink,
-    MsgTx
+    MsgLinkComponent,
+    MsgTxComponent
   },
   props: {
     message: {

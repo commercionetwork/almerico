@@ -1,5 +1,5 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -8,22 +8,22 @@
             v-text="'description'"
           />
           <v-list-item>
-            <MsgItem label="moniker" :content="descriptionMoniker" />
+            <MsgItemComponent label="moniker" :content="descriptionMoniker" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="identity" :content="descriptionIdentity" />
+            <MsgItemComponent label="identity" :content="descriptionIdentity" />
           </v-list-item>
           <v-list-item>
-            <MsgUrl label="website" :content="descriptionWebsite" />
+            <MsgUrlComponent label="website" :content="descriptionWebsite" />
           </v-list-item>
           <v-list-item>
-            <MsgItem
+            <MsgItemComponent
               label="security contact"
               :content="descriptionSecurityContact"
             />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="details" :content="descriptionDetails" />
+            <MsgItemComponent label="details" :content="descriptionDetails" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -34,13 +34,13 @@
             v-text="'commission'"
           />
           <v-list-item>
-            <MsgItem label="rate" :content="commissionRate" />
+            <MsgItemComponent label="rate" :content="commissionRate" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="max rate" :content="commissionMaxRate" />
+            <MsgItemComponent label="max rate" :content="commissionMaxRate" />
           </v-list-item>
           <v-list-item>
-            <MsgItem
+            <MsgItemComponent
               label="max change rate"
               :content="commissionMaxChangeRate"
             />
@@ -48,10 +48,10 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="min self delegation" :content="minSelfDelegation" />
+        <MsgItemComponent label="min self delegation" :content="minSelfDelegation" />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="delegator address"
           :content="delegatorAddress"
           :to="{
@@ -61,7 +61,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="validator address"
           :content="validatorAddress"
           :to="{
@@ -71,20 +71,20 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="amount" :content="amount" class="text-uppercase" />
+        <MsgItemComponent label="amount" :content="amount" class="text-uppercase" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="public key" :content="pubkey" />
+        <MsgItemComponent label="public key" :content="pubkey" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from "@/components/MsgItem.vue";
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
-import MsgUrl from "@/components/MsgUrl.vue";
+import MsgItemComponent from "@/components/MsgItemComponent.vue";
+import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
+import MsgTxComponent from "@/components/MsgTxComponent.vue";
+import MsgUrlComponent from "@/components/MsgUrlComponent.vue";
 
 import { ROUTES } from "@/constants";
 import { numberIntlFormatter, coinAdapter } from "@/utils";
@@ -93,10 +93,10 @@ export default {
   name: "MsgCreateValidator",
   description: "Display a create validator transaction message",
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
-    MsgUrl
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
+    MsgUrlComponent
   },
   props: {
     message: {
