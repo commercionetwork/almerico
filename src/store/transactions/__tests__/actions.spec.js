@@ -133,12 +133,12 @@ describe('store/transactions/actions', () => {
 
     await actions.getTransactions(
       { dispatch, commit },
-      { page: 1, limit: 1, query: '' }
+      { page: 1, limit: 1, query: '' },
     );
 
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
-      mockResponse.data.txs
+      mockResponse.data.txs,
     );
   });
 
@@ -149,7 +149,7 @@ describe('store/transactions/actions', () => {
 
     await actions.getTransactions(
       { dispatch, commit },
-      { page: 1, limit: 1, query: '' }
+      { page: 1, limit: 1, query: '' },
     );
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
@@ -206,7 +206,7 @@ describe('store/transactions/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'addSingleTransaction',
-      mockResponse.data.txs[0]
+      mockResponse.data.txs[0],
     );
   });
 

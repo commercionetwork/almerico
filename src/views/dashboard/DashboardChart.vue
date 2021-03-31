@@ -14,78 +14,78 @@
 </template>
 
 <script>
-import DoughnutChartComponent from "@/components/DoughnutChartComponent";
-import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
+import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { mapGetters } from "vuex";
-import { numberIntlFormatter } from "@/utils";
+import { mapGetters } from 'vuex';
+import { numberIntlFormatter } from '@/utils';
 
 export default {
-  name: "DashboardChart",
+  name: 'DashboardChart',
   components: {
     DoughnutChartComponent,
-    TopBodyCardComponent
+    TopBodyCardComponent,
   },
   computed: {
-    ...mapGetters("starting", {
-      pool: "pool"
+    ...mapGetters('starting', {
+      pool: 'pool',
     }),
     chartData() {
       return {
         labels: [
           `Bonded ${this.tokenBonded}`,
-          `Not Bonded ${this.tokenNotBonded}`
+          `Not Bonded ${this.tokenNotBonded}`,
         ],
         datasets: [
           {
             data: [this.pool.bonded_tokens, this.pool.not_bonded_tokens],
-            backgroundColor: ["#2F9D77", "#4ECA9F"]
-          }
-        ]
+            backgroundColor: ['#2F9D77', '#4ECA9F'],
+          },
+        ],
       };
     },
     options() {
       return {
         responsive: true,
         legend: {
-          display: false
+          display: false,
         },
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
-            }
-          }
-        }
+              return data['labels'][tooltipItem['index']];
+            },
+          },
+        },
       };
     },
     caption() {
       return this.pool
         ? `Pool: ${this.formatTokens(
             parseInt(this.pool.bonded_tokens) +
-              parseInt(this.pool.not_bonded_tokens)
+              parseInt(this.pool.not_bonded_tokens),
           )}`
-        : "Pool";
+        : 'Pool';
     },
     tokenBonded() {
       return this.pool
         ? this.formatTokens(parseInt(this.pool.bonded_tokens))
-        : "-";
+        : '-';
     },
     tokenNotBonded() {
       return this.pool
         ? this.formatTokens(parseInt(this.pool.not_bonded_tokens))
-        : "-";
-    }
+        : '-';
+    },
   },
   methods: {
     formatTokens(value) {
       return `${numberIntlFormatter.toDecimal({
         amount: value / 1000000,
         maximumFractionDigits: 0,
-        minimumFractionDigits: 0
+        minimumFractionDigits: 0,
       })} M`;
-    }
-  }
+    },
+  },
 };
 </script>

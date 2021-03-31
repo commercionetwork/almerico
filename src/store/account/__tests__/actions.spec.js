@@ -41,12 +41,12 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(commit).toHaveBeenCalledWith(
       'setBalances',
-      mockResponse.data.result
+      mockResponse.data.result,
     );
   });
 
@@ -60,7 +60,7 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
@@ -75,12 +75,12 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(commit).toHaveBeenCalledWith(
       'setDelegations',
-      mockResponse.data.result
+      mockResponse.data.result,
     );
   });
 
@@ -94,7 +94,7 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
@@ -107,12 +107,12 @@ describe('store/account/actions', () => {
       {
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(commit).toHaveBeenCalledWith(
       'setMembership',
-      mockResponse.data.result
+      mockResponse.data.result,
     );
   });
 
@@ -125,7 +125,7 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(commit).toHaveBeenCalledWith('setRewards', mockResponse.data.result);
@@ -141,7 +141,7 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
@@ -156,12 +156,12 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(commit).toHaveBeenCalledWith(
       'setUnbondings',
-      mockResponse.data.result
+      mockResponse.data.result,
     );
   });
 
@@ -175,7 +175,7 @@ describe('store/account/actions', () => {
         dispatch,
         commit,
       },
-      'address'
+      'address',
     );
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
@@ -191,7 +191,7 @@ describe('store/account/actions', () => {
         commit,
         dispatch,
       },
-      address
+      address,
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);

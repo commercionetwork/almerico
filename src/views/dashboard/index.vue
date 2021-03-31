@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import DashboardBanner from "./DashboardBanner";
-import DashboardHeader from "./DashboardHeader";
-import DashboardMiddleBody from "./DashboardMiddleBody";
-import DashboardTopBody from "./DashboardTopBody";
+import DashboardBanner from './DashboardBanner';
+import DashboardHeader from './DashboardHeader';
+import DashboardMiddleBody from './DashboardMiddleBody';
+import DashboardTopBody from './DashboardTopBody';
 
 export default {
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
     DashboardBanner,
     DashboardHeader,

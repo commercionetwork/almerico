@@ -7,7 +7,7 @@
           :content="senderAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: senderAddress }
+            params: { id: senderAddress },
           }"
         />
       </v-list-item>
@@ -26,7 +26,7 @@
               :content="recipientAddress"
               :to="{
                 name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: recipientAddress }
+                params: { id: recipientAddress },
               }"
             />
           </v-list-item>
@@ -89,7 +89,10 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItemComponent label="encryption data keys" :content="encryptionDataKeys" />
+        <MsgItemComponent
+          label="encryption data keys"
+          :content="encryptionDataKeys"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItemComponent
@@ -116,7 +119,10 @@
             <MsgItemComponent label="vcr id" :content="doSignVcr" />
           </v-list-item>
           <v-list-item>
-            <MsgItemComponent label="certificate profile" :content="doSignCertificate" />
+            <MsgItemComponent
+              label="certificate profile"
+              :content="doSignCertificate"
+            />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
@@ -125,124 +131,124 @@
 </template>
 
 <script>
-import MsgItemComponent from "@/components/MsgItemComponent.vue";
-import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
-import MsgTxComponent from "@/components/MsgTxComponent.vue";
-import MsgUrlComponent from "@/components/MsgUrlComponent.vue";
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
+import MsgUrlComponent from '@/components/MsgUrlComponent.vue';
 
-import { ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "MsgShareDocument",
-  description: "Display a share document transaction message",
+  name: 'MsgShareDocument',
+  description: 'Display a share document transaction message',
   components: {
     MsgItemComponent,
     MsgLinkComponent,
     MsgTxComponent,
-    MsgUrlComponent
+    MsgUrlComponent,
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a share document message"
-    }
+      note: 'Object representing a share document message',
+    },
   },
   data: () => ({
-    ROUTES
+    ROUTES,
   }),
   computed: {
     checksumAlgorithm() {
       return this.message.value.checksum && this.message.value.checksum
         ? this.message.value.checksum.algorithm
-        : "-";
+        : '-';
     },
     checksumValue() {
       return this.message.value.checksum && this.message.value.checksum.value
         ? this.message.value.checksum.value
-        : "-";
+        : '-';
     },
     contentUri() {
       return this.message.value.content_uri
         ? this.message.value.content_uri
-        : "-";
+        : '-';
     },
     doSignCertificate() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.certificate_profile
-        : "-";
+        : '-';
     },
     doSignSigner() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.signer_instance
-        : "-";
+        : '-';
     },
     doSignSdn() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.sdn_data.toString()
-        : "-";
+        : '-';
     },
     doSignStorageUri() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.storage_uri
-        : "-";
+        : '-';
     },
     doSignVcr() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.vcr_id
-        : "-";
+        : '-';
     },
     encryptionDataEncryptedData() {
       return this.message.value.encryption_data
         ? this.message.value.encryption_data.encrypted_data.toString()
-        : "-";
+        : '-';
     },
     encryptionDataKeys() {
       return this.message.value.encryption_data
         ? JSON.stringify(this.message.value.encryption_data.keys)
-        : "-";
+        : '-';
     },
     metadataContentUri() {
       return this.message.value.metadata &&
         this.message.value.metadata.content_uri
         ? this.message.value.metadata.content_uri
-        : "-";
+        : '-';
     },
     metadataSchemaType() {
       return this.message.value.metadata &&
         this.message.value.metadata.schema_type
         ? this.message.value.metadata.schema_type
-        : "-";
+        : '-';
     },
     metadataSchemaUri() {
       return this.message.value.metadata &&
         this.message.value.metadata.schema &&
         this.message.value.metadata.schema.uri
         ? this.message.value.metadata.schema.uri
-        : "-";
+        : '-';
     },
     metaSchemaVersion() {
       return this.message.value.metadata &&
         this.message.value.metadata.schema &&
         this.message.value.metadata.schema.version
         ? this.message.value.metadata.schema.version
-        : "-";
+        : '-';
     },
     recipients() {
       return this.message.value.recipients ? this.message.value.recipients : [];
     },
     senderAddress() {
-      return this.message.value.sender ? this.message.value.sender : "-";
+      return this.message.value.sender ? this.message.value.sender : '-';
     },
     subTitle() {
-      return this.message.type ? this.message.type.split("/").shift() : "-";
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
-      return this.message.type ? this.message.type.split("/").pop() : "-";
+      return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     uuid() {
-      return this.message.value.uuid ? this.message.value.uuid : "-";
-    }
-  }
+      return this.message.value.uuid ? this.message.value.uuid : '-';
+    },
+  },
 };
 </script>

@@ -63,7 +63,7 @@ describe('utils/blocks', () => {
         amount: items / items,
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
-      })
+      }),
     );
   });
 

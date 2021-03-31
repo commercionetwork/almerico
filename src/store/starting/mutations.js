@@ -1,7 +1,3 @@
-/**
- * STARING MUTATIONS
- */
-
 export default {
   /**
    *
@@ -33,7 +29,7 @@ export default {
    */
   setNodeInfo(state, data) {
     state.nodeInfo = {
-      ...data
+      ...data,
     };
   },
   /**
@@ -43,7 +39,7 @@ export default {
    */
   setParams(state, data) {
     state.params = {
-      ...data
+      ...data,
     };
   },
   /**
@@ -53,7 +49,7 @@ export default {
    */
   setPool(state, data) {
     state.pool = {
-      ...data
+      ...data,
     };
   },
   /**
@@ -63,5 +59,5 @@ export default {
    */
   setConversionRate(state, rate) {
     state.conversionRate = rate;
-  }
+  },
 };

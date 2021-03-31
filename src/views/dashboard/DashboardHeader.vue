@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import ChainChooserComponent from "@/components/ChainChooserComponent";
-import SearchBarComponent from "@/components/SearchBarComponent";
+import ChainChooserComponent from '@/components/ChainChooserComponent';
+import SearchBarComponent from '@/components/SearchBarComponent';
 
 export default {
-  name: "DashboardHeader",
+  name: 'DashboardHeader',
   components: {
     ChainChooserComponent,
     SearchBarComponent,

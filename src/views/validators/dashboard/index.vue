@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import ValidatorsHeader from "./ValidatorsHeader";
-import ValidatorsMiddleBody from "./ValidatorsMiddleBody";
-import ValidatorsTopBody from "./ValidatorsTopBody";
+import ValidatorsHeader from './ValidatorsHeader';
+import ValidatorsMiddleBody from './ValidatorsMiddleBody';
+import ValidatorsTopBody from './ValidatorsTopBody';
 
 export default {
-  name: "Validators",
+  name: 'Validators',
   components: {
     ValidatorsHeader,
     ValidatorsMiddleBody,

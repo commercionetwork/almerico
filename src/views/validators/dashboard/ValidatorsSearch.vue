@@ -30,32 +30,32 @@
 </template>
 
 <script>
-import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex';
 
 export default {
-  name: "ValidatorsSearch",
+  name: 'ValidatorsSearch',
   components: { TopBodyCardComponent },
   data: () => ({
-    moniker: "",
-    active: true
+    moniker: '',
+    active: true,
   }),
   computed: {
     tooltipMessage() {
-      return "You can search by validator name and address or by linked account.<br>You can also filter by status.";
-    }
+      return 'You can search by validator name and address or by linked account.<br>You can also filter by status.';
+    },
   },
   methods: {
-    ...mapActions("validators", {
-      setValidatorsFilter: "setValidatorsFilter"
+    ...mapActions('validators', {
+      setValidatorsFilter: 'setValidatorsFilter',
     }),
     onFilter() {
       const filter = {};
       filter.moniker = this.moniker;
       filter.active = this.active;
       this.setValidatorsFilter(filter);
-    }
-  }
+    },
+  },
 };
 </script>

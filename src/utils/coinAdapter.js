@@ -1,4 +1,4 @@
-import { arrayHandler, numberIntlFormatter } from "./index";
+import { arrayHandler, numberIntlFormatter } from './index';
 
 const coinAdapter = {
   /**
@@ -12,18 +12,18 @@ const coinAdapter = {
       ? parseInt(balance.amount)
       : balance.amount;
     const denom = balance.denom;
-    if (denom.substring(0, 1) === "u") {
+    if (denom.substring(0, 1) === 'u') {
       convertedBalance.amount = numberIntlFormatter.toDecimal({
         amount: amount / 1000000,
         maximumFractionDigits: 6,
-        minimumFractionDigits: 6
+        minimumFractionDigits: 6,
       });
       convertedBalance.denom = denom.substring(1, 4);
     } else {
       convertedBalance.amount = numberIntlFormatter.toDecimal({
         amount: amount,
         maximumFractionDigits: 0,
-        minimumFractionDigits: 0
+        minimumFractionDigits: 0,
       });
       convertedBalance.denom = denom;
     }
@@ -39,7 +39,7 @@ const coinAdapter = {
     const convertedBalances = [];
     const orderedBalances = arrayHandler.sortObjectsByNumberPropertyValueDesc(
       balances,
-      "amount"
+      'amount',
     );
     for (const balance of orderedBalances) {
       if (!isBalance(balance)) {
@@ -61,9 +61,9 @@ const coinAdapter = {
     }
     const convertedBalance = this.convertItem(balance);
     return `${convertedBalance.amount} ${convertedBalance.denom}`;
-  }
+  },
 };
 
 export default coinAdapter;
 
-const isBalance = balance => balance.denom && balance.amount;
+const isBalance = (balance) => balance.denom && balance.amount;

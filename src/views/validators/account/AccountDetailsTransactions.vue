@@ -19,7 +19,7 @@
         v-text="item.height"
         :to="{
           name: ROUTES.NAMES.BLOCKS_DETAILS,
-          params: { id: item.height }
+          params: { id: item.height },
         }"
       />
     </template>
@@ -37,7 +37,7 @@
         v-text="item.hash"
         :to="{
           name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
-          params: { id: item.hash }
+          params: { id: item.hash },
         }"
       />
     </template>
@@ -45,36 +45,36 @@
 </template>
 
 <script>
-import { ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "AccountDetailsTransactions",
+  name: 'AccountDetailsTransactions',
   props: {
     items: {
       type: Array,
       default: () => [],
-      note: "The items to display"
-    }
+      note: 'The items to display',
+    },
   },
   data: () => ({
     ROUTES,
-    sortBy: "height",
-    sortDesc: true
+    sortBy: 'height',
+    sortDesc: true,
   }),
   computed: {
     headers() {
       return [
-        { text: "Height", value: "height" },
-        { text: "Type", value: "type" },
-        { text: "Result", value: "result" },
-        { text: "Fee", value: "fee" },
-        { text: "Hash", value: "hash" },
-        { text: "Date", value: "date" }
+        { text: 'Height', value: 'height' },
+        { text: 'Type', value: 'type' },
+        { text: 'Result', value: 'result' },
+        { text: 'Fee', value: 'fee' },
+        { text: 'Hash', value: 'hash' },
+        { text: 'Date', value: 'date' },
       ];
     },
     caption() {
-      return "Txs by msg sender";
-    }
-  }
+      return 'Txs by msg sender';
+    },
+  },
 };
 </script>

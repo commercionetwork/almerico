@@ -60,14 +60,14 @@ const getProposer = ({ validators, validatorsSets, address, prefix }) => {
 
 const getValidator = (validators, pubKey) => {
   const index = validators.findIndex(
-    (validator) => validator.consensus_pubkey === pubKey
+    (validator) => validator.consensus_pubkey === pubKey,
   );
   return index > -1 ? validators[index] : {};
 };
 
 const getPubKey = (validatorsSets, address) => {
   const index = validatorsSets.findIndex(
-    (validator) => validator.address === address
+    (validator) => validator.address === address,
   );
   return index > -1 ? validatorsSets[index]['pub_key'] : '';
 };

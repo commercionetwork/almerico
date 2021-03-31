@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import TopBodyBlockComponent from "@/components/TopBodyBlockComponent";
-import TopBodyComponent from "@/components/TopBodyComponent";
-import TransactionsChart from "./TransactionsChart";
-import TransactionsFilter from "./TransactionsFilter";
+import TopBodyBlockComponent from '@/components/TopBodyBlockComponent';
+import TopBodyComponent from '@/components/TopBodyComponent';
+import TransactionsChart from './TransactionsChart';
+import TransactionsFilter from './TransactionsFilter';
 
 export default {
-  name: "TransactionsTopBody",
+  name: 'TransactionsTopBody',
   components: {
     TopBodyBlockComponent,
     TopBodyComponent,

@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "BlocksContainer",
+  name: 'BlocksContainer',
 };
 </script>

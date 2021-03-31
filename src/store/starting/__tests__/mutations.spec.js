@@ -1,17 +1,17 @@
-import mutations from "../mutations";
-import { initialState } from "../index";
+import mutations from '../mutations';
+import { initialState } from '../index';
 
-describe("store/starting/mutations", () => {
+describe('store/starting/mutations', () => {
   let state = {};
 
   beforeEach(() => {
     state = {
-      ...initialState
+      ...initialState,
     };
   });
 
-  test("mutations.startLoading", () => {
-    state.error = { message: "error", status: 400 };
+  test('mutations.startLoading', () => {
+    state.error = { message: 'error', status: 400 };
 
     mutations.startLoading(state);
 
@@ -19,7 +19,7 @@ describe("store/starting/mutations", () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test("mutations.stopLoading", () => {
+  test('mutations.stopLoading', () => {
     state.isLoading = true;
 
     mutations.stopLoading(state);
@@ -27,17 +27,17 @@ describe("store/starting/mutations", () => {
     expect(state.isLoading).toBe(false);
   });
 
-  test("mutations.setError", () => {
-    const error = { message: "error", status: 400 };
+  test('mutations.setError', () => {
+    const error = { message: 'error', status: 400 };
 
     mutations.setError(state, error);
 
     expect(state.error).toStrictEqual(error);
   });
 
-  test("mutations.setNodeInfo", () => {
+  test('mutations.setNodeInfo', () => {
     const nodeInfo = {
-      id: 1
+      id: 1,
     };
 
     mutations.setNodeInfo(state, nodeInfo);
@@ -45,9 +45,9 @@ describe("store/starting/mutations", () => {
     expect(state.nodeInfo).toStrictEqual(nodeInfo);
   });
 
-  test("mutations.setPool", () => {
+  test('mutations.setPool', () => {
     const pool = {
-      id: 1
+      id: 1,
     };
 
     mutations.setPool(state, pool);
@@ -55,9 +55,9 @@ describe("store/starting/mutations", () => {
     expect(state.pool).toStrictEqual(pool);
   });
 
-  test("mutations.setParams", () => {
+  test('mutations.setParams', () => {
     const params = {
-      id: 1
+      id: 1,
     };
 
     mutations.setParams(state, params);
@@ -65,8 +65,8 @@ describe("store/starting/mutations", () => {
     expect(state.params).toStrictEqual(params);
   });
 
-  test("mutations.setConversionRate", () => {
-    const rate = "1.000000000000000000";
+  test('mutations.setConversionRate', () => {
+    const rate = '1.000000000000000000';
 
     mutations.setConversionRate(state, rate);
 

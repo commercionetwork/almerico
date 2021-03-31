@@ -14,20 +14,20 @@
 </template>
 
 <script>
-import DoughnutChartComponent from "@/components/DoughnutChartComponent";
-import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
+import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "BlocksChart",
+  name: 'BlocksChart',
   components: {
     DoughnutChartComponent,
-    TopBodyCardComponent
+    TopBodyCardComponent,
   },
   computed: {
-    ...mapGetters("blocks", {
-      blocks: "blocks"
+    ...mapGetters('blocks', {
+      blocks: 'blocks',
     }),
     chartData() {
       return {
@@ -35,24 +35,24 @@ export default {
         datasets: [
           {
             data: [this.txsValue, this.blocksValue],
-            backgroundColor: ["#FFA000", "#FFCA28"]
-          }
-        ]
+            backgroundColor: ['#FFA000', '#FFCA28'],
+          },
+        ],
       };
     },
     options() {
       return {
         responsive: true,
         legend: {
-          display: false
+          display: false,
         },
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
-            }
-          }
-        }
+              return data['labels'][tooltipItem['index']];
+            },
+          },
+        },
       };
     },
     caption() {
@@ -65,9 +65,9 @@ export default {
       return this.blocks.reduce(
         (acc, block) =>
           block.data && block.data.txs ? acc + block.data.txs.length : acc + 0,
-        0
+        0,
       );
-    }
-  }
+    },
+  },
 };
 </script>

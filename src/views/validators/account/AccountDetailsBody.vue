@@ -30,39 +30,39 @@
 </template>
 
 <script>
-import AccountDetailsAddress from "./AccountDetailsAddress";
-import AccountDetailsBalance from "./AccountDetailsBalance";
-import AccountDetailsCapitalization from "./AccountDetailsCapitalization";
-import AccountDetailsChart from "./AccountDetailsChart";
-import AccountDetailsDelegations from "./AccountDetailsDelegations";
-import AccountDetailsUnbondings from "./AccountDetailsUnbondings";
+import AccountDetailsAddress from './AccountDetailsAddress';
+import AccountDetailsBalance from './AccountDetailsBalance';
+import AccountDetailsCapitalization from './AccountDetailsCapitalization';
+import AccountDetailsChart from './AccountDetailsChart';
+import AccountDetailsDelegations from './AccountDetailsDelegations';
+import AccountDetailsUnbondings from './AccountDetailsUnbondings';
 
-import { mapGetters } from "vuex";
-import { AccountStakeHandler } from "@/utils";
+import { mapGetters } from 'vuex';
+import { AccountStakeHandler } from '@/utils';
 
 export default {
-  name: "AccountDetailsBody",
+  name: 'AccountDetailsBody',
   components: {
     AccountDetailsAddress,
     AccountDetailsBalance,
     AccountDetailsCapitalization,
     AccountDetailsChart,
     AccountDetailsDelegations,
-    AccountDetailsUnbondings
+    AccountDetailsUnbondings,
   },
   computed: {
-    ...mapGetters("account", {
-      balances: "balances",
-      delegations: "delegations",
-      rewards: "rewards",
-      unbondings: "unbondings"
+    ...mapGetters('account', {
+      balances: 'balances',
+      delegations: 'delegations',
+      rewards: 'rewards',
+      unbondings: 'unbondings',
     }),
     amounts() {
       return AccountStakeHandler.setDelegations(this.delegations)
         .setRewards(this.rewards)
         .setUnbondings(this.unbondings)
         .get();
-    }
-  }
+    },
+  },
 };
 </script>

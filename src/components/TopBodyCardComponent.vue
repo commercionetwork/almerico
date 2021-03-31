@@ -13,14 +13,14 @@
 
 <script>
 export default {
-  name: "TopBodyCardComponent",
+  name: 'TopBodyCardComponent',
   props: {
     title: {
       type: String,
-      default: "&nbsp;",
-      note: "Main title"
+      default: '&nbsp;',
+      note: 'Main title',
     },
-  }
+  },
 };
 </script>
 

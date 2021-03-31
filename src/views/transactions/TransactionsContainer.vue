@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "TransactionsContainer",
+  name: 'TransactionsContainer',
 };
 </script>

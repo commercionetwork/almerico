@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "ValidatorsContainer",
+  name: 'ValidatorsContainer',
 };
 </script>

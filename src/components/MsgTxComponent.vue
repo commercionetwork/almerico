@@ -3,7 +3,10 @@
     <v-card-text>
       <v-list dense class="ma-1 text-break">
         <v-list-item-title class="font-weight-bold" v-text="title" />
-        <v-list-item-subtitle class="text-capitalize font-weight-medium font-italic" v-text="subTitle" />
+        <v-list-item-subtitle
+          class="text-capitalize font-weight-medium font-italic"
+          v-text="subTitle"
+        />
         <v-divider />
         <slot name="body" />
       </v-list>

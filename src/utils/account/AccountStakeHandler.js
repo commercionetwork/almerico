@@ -29,25 +29,25 @@ class AccountStakeHandler {
     if (this.delegations && this.delegations.length > 0) {
       capital.delegations = this.delegations.reduce(
         (acc, item) => acc + parseFloat(item.balance.amount),
-        0
+        0,
       );
     }
     if (this.rewards && this.rewards.total && this.rewards.total.length > 0) {
       capital.rewards = this.rewards.total.reduce(
         (acc, item) => acc + parseFloat(item.amount),
-        0
+        0,
       );
     }
     if (this.unbondings && this.unbondings.length > 0) {
       for (const unbonding of this.unbondings) {
         capital.unbondings += unbonding.entries.reduce(
           (acc, item) => acc + parseFloat(item.balance),
-          0
+          0,
         );
       }
     }
     capital.total = capital.delegations + capital.unbondings + capital.rewards;
-    
+
     this.clear;
     return capital;
   }

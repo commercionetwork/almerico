@@ -1,10 +1,5 @@
-/**
- * TRANSACTIONS MUTATIONS
- */
-
 export default {
   /**
-   * Set isLoading state to true
    *
    * @param {TransactionsState} state
    */
@@ -13,7 +8,6 @@ export default {
     state.isLoading = true;
   },
   /**
-   * Set isLoading state to false
    *
    * @param {TransactionsState} state
    */
@@ -21,7 +15,6 @@ export default {
     state.isLoading = false;
   },
   /**
-   * Set error message
    *
    * @param {TransactionsState} state
    * @param {Object} error
@@ -30,7 +23,6 @@ export default {
     state.error = { ...error };
   },
   /**
-   * Set error message
    *
    * @param {TransactionsState} state
    * @param {String} filter
@@ -39,7 +31,6 @@ export default {
     state.filter = filter;
   },
   /**
-   * Update transactions page
    *
    * @param {TransactionsState} state
    * @param {Number} page
@@ -48,7 +39,6 @@ export default {
     state.currentPage = page;
   },
   /**
-   * Set hasNext state
    *
    * @param {TransactionsState} state
    * @param {Number} page
@@ -57,7 +47,6 @@ export default {
     state.hasNext = page > 1;
   },
   /**
-   * Add transactions
    *
    * @param {TransactionsState} state
    * @param {Array.<Object>} data
@@ -66,7 +55,6 @@ export default {
     state.transactions.push.apply(state.transactions, data);
   },
   /**
-   * Remove all transactions
    *
    * @param {TransactionsState} state
    */
@@ -83,7 +71,6 @@ export default {
     state.transactions.unshift(data);
   },
   /**
-   * Set transaction details
    *
    * @param {TransactionsState} state
    * @param {Object} data

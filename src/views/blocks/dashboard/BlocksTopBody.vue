@@ -15,13 +15,13 @@
 </template>
 
 <script>
-import BlocksChart from "./BlocksChart";
-import BlocksSearch from "./BlocksSearch";
-import TopBodyBlockComponent from "@/components/TopBodyBlockComponent";
-import TopBodyComponent from "@/components/TopBodyComponent";
+import BlocksChart from './BlocksChart';
+import BlocksSearch from './BlocksSearch';
+import TopBodyBlockComponent from '@/components/TopBodyBlockComponent';
+import TopBodyComponent from '@/components/TopBodyComponent';
 
 export default {
-  name: "BlocksTopBody",
+  name: 'BlocksTopBody',
   components: {
     BlocksChart,
     BlocksSearch,

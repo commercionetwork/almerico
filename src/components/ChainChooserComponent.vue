@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import { CHAIN } from "@/constants";
+import { CHAIN } from '@/constants';
 
 export default {
-  name: "ChainChooserComponent",
+  name: 'ChainChooserComponent',
   data: () => ({
     CHAIN,
     selectedItem: null,
@@ -30,7 +30,7 @@ export default {
   computed: {
     currentItem() {
       const chainIndex = CHAIN.LIST.findIndex(
-        (item) => item.lcd === process.env.VUE_APP_LCD
+        (item) => item.lcd === process.env.VUE_APP_LCD,
       );
       return chainIndex > -1 ? CHAIN.LIST[chainIndex] : CHAIN.DEFAULT;
     },

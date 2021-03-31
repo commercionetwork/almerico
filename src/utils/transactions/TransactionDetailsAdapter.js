@@ -1,4 +1,4 @@
-import { coinAdapter, txHandler } from "@/utils";
+import { coinAdapter, txHandler } from '@/utils';
 
 class TransactionDetailsAdapter {
   constructor() {
@@ -18,10 +18,10 @@ class TransactionDetailsAdapter {
     let item;
 
     switch (this.details.version) {
-      case "":
+      case '':
         item = current(this.details);
         break;
-      case "0.38":
+      case '0.38':
         item = v038(this.details);
         break;
       default:
@@ -33,7 +33,7 @@ class TransactionDetailsAdapter {
   }
 }
 
-const current = details => ({
+const current = (details) => ({
   hash: details.data.txhash,
   time: formatTimestamp(details.data.timestamp),
   status: details.data.code ? 0 : 1,
@@ -44,10 +44,10 @@ const current = details => ({
   type: txHandler.getType(details.data.tx.value.msg),
   msgs: details.data.tx.value.msg,
   ledger: details.ledger,
-  version: details.version
+  version: details.version,
 });
 
-const v038 = details => ({
+const v038 = (details) => ({
   hash: details.data.txhash,
   time: formatTimestamp(details.data.timestamp),
   status: details.data.code ? 0 : 1,
@@ -58,17 +58,17 @@ const v038 = details => ({
   type: txHandler.getType(details.data.tx.value.msg),
   msgs: details.data.tx.value.msg,
   ledger: details.ledger,
-  version: details.version
+  version: details.version,
 });
 
-const formatTimestamp = tms => new Date(tms).toLocaleString();
+const formatTimestamp = (tms) => new Date(tms).toLocaleString();
 
-const formatFee = amounts => {
-  let fee = "";
+const formatFee = (amounts) => {
+  let fee = '';
   let counter = 0;
   for (const item of amounts) {
     if (counter > 0) {
-      fee += "\n";
+      fee += '\n';
     }
     fee += coinAdapter.format({ amount: item.amount, denom: item.denom });
     counter++;
@@ -76,6 +76,6 @@ const formatFee = amounts => {
   return fee;
 };
 
-const formatGas = tx => `${tx.gas_used}/${tx.gas_wanted}`;
+const formatGas = (tx) => `${tx.gas_used}/${tx.gas_wanted}`;
 
 export default new TransactionDetailsAdapter();

@@ -24,45 +24,45 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { coinAdapter } from "@/utils";
+import { mapGetters } from 'vuex';
+import { coinAdapter } from '@/utils';
 
 export default {
-  name: "ValidatorDetailsDelegationsTable",
+  name: 'ValidatorDetailsDelegationsTable',
   props: {
     delegations: {
       type: Object,
       default: () => ({}),
-      note: "The items to display"
-    }
+      note: 'The items to display',
+    },
   },
   computed: {
-    ...mapGetters("starting", {
-      params: "params"
+    ...mapGetters('starting', {
+      params: 'params',
     }),
     bondDenom() {
-      return this.params.bond_denom ? this.params.bond_denom : "";
+      return this.params.bond_denom ? this.params.bond_denom : '';
     },
     headers() {
       return [
-        { text: "Caption", value: "caption" },
-        { text: "Amount", value: "amount" }
+        { text: 'Caption', value: 'caption' },
+        { text: 'Amount', value: 'amount' },
       ];
     },
     items() {
-      return Object.keys(this.delegations).map(key => ({
+      return Object.keys(this.delegations).map((key) => ({
         caption: key,
-        amount: this.delegations[key]
+        amount: this.delegations[key],
       }));
     },
     caption() {
-      return "Delegated tokens";
-    }
+      return 'Delegated tokens';
+    },
   },
   methods: {
     formatTokens(value) {
       return coinAdapter.format({ amount: value, denom: this.bondDenom });
-    }
-  }
+    },
+  },
 };
 </script>

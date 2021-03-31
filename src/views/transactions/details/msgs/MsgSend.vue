@@ -7,7 +7,7 @@
           :content="fromAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: fromAddress }
+            params: { id: fromAddress },
           }"
         />
       </v-list-item>
@@ -17,42 +17,46 @@
           :content="toAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: toAddress }
+            params: { id: toAddress },
           }"
         />
       </v-list-item>
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <MsgItemComponent label="amount" :content="amount" class="text-uppercase" />
+        <MsgItemComponent
+          label="amount"
+          :content="amount"
+          class="text-uppercase"
+        />
       </v-list-item>
     </div>
   </MsgTxComponent>
 </template>
 
 <script>
-import MsgItemComponent from "@/components/MsgItemComponent.vue";
-import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
-import MsgTxComponent from "@/components/MsgTxComponent.vue";
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
-import { ROUTES } from "@/constants";
-import { coinAdapter } from "@/utils";
+import { ROUTES } from '@/constants';
+import { coinAdapter } from '@/utils';
 
 export default {
-  name: "MsgSend",
-  description: "Display a send transaction message",
+  name: 'MsgSend',
+  description: 'Display a send transaction message',
   components: {
     MsgItemComponent,
     MsgLinkComponent,
-    MsgTxComponent
+    MsgTxComponent,
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a send message"
-    }
+      note: 'Object representing a send message',
+    },
   },
   data: () => ({
-    ROUTES
+    ROUTES,
   }),
   computed: {
     amounts() {
@@ -61,8 +65,8 @@ export default {
         amounts.push(
           coinAdapter.format({
             amount: amount.amount,
-            denom: amount.denom
-          })
+            denom: amount.denom,
+          }),
         );
       }
       return amounts;
@@ -70,19 +74,19 @@ export default {
     fromAddress() {
       return this.message.value.from_address
         ? this.message.value.from_address
-        : "-";
+        : '-';
     },
     subTitle() {
-      return this.message.type ? this.message.type.split("/").shift() : "-";
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
-      return this.message.type ? this.message.type.split("/").pop() : "-";
+      return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     toAddress() {
       return this.message.value.to_address
         ? this.message.value.to_address
-        : "-";
-    }
-  }
+        : '-';
+    },
+  },
 };
 </script>

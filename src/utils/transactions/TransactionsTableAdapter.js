@@ -1,5 +1,5 @@
-import { coinAdapter, dateHandler } from "@/utils";
-import TransactionsFilter from "./TransactionsFilter";
+import { coinAdapter, dateHandler } from '@/utils';
+import TransactionsFilter from './TransactionsFilter';
 
 class TransactionsTableAdapter {
   constructor() {
@@ -42,7 +42,7 @@ class TransactionsTableAdapter {
         fee: formatFee(tx.tx.value.fee),
         hash: tx.txhash,
         date: formatDate(tx.timestamp),
-        time: getTime(tx.timestamp)
+        time: getTime(tx.timestamp),
       });
     }
 
@@ -55,25 +55,25 @@ const getType = (txValue, multiTypes) =>
   txValue.msg.length > 1
     ? multiTypes
     : txValue.msg
-        .find(msg => typeof msg.type !== undefined)
-        .type.split("/")
+        .find((msg) => typeof msg.type !== undefined)
+        .type.split('/')
         .pop();
 
-const getMsgsNumber = msgs => msgs.length;
+const getMsgsNumber = (msgs) => msgs.length;
 
-const formatFee = fee => {
+const formatFee = (fee) => {
   if (fee.amount.length > 1) {
-    return "Multi values";
+    return 'Multi values';
   }
   return coinAdapter.format({
     amount: fee.amount[0].amount,
-    denom: fee.amount[0].denom
+    denom: fee.amount[0].denom,
   });
 };
 
-const formatDate = timestamp => new Date(timestamp).toLocaleString();
+const formatDate = (timestamp) => new Date(timestamp).toLocaleString();
 
-const getTime = timestamp =>
+const getTime = (timestamp) =>
   dateHandler.getFormattedDifference(new Date(timestamp), new Date());
 
 export default new TransactionsTableAdapter();

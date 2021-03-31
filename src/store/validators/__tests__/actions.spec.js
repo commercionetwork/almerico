@@ -39,7 +39,7 @@ describe('store/validators/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setLatestValidatorsSets',
-      mockResponse.data.result.validators
+      mockResponse.data.result.validators,
     );
   });
 
@@ -62,12 +62,12 @@ describe('store/validators/actions', () => {
 
     await actions.fetchValidatorsList(
       { dispatch, commit },
-      { status: status, page: page, limit: limit }
+      { status: status, page: page, limit: limit },
     );
 
     expect(commit).toHaveBeenCalledWith(
       'addValidators',
-      mockResponse.data.result
+      mockResponse.data.result,
     );
   });
 
@@ -81,7 +81,7 @@ describe('store/validators/actions', () => {
 
     await actions.fetchValidatorsList(
       { dispatch, commit },
-      { status: status, page: page, limit: limit }
+      { status: status, page: page, limit: limit },
     );
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
@@ -100,7 +100,7 @@ describe('store/validators/actions', () => {
 
     await actions.initValidators(
       { commit, dispatch },
-      { statuses: statuses, page: page, limit: limit }
+      { statuses: statuses, page: page, limit: limit },
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchLatestValidatorSets');
@@ -129,7 +129,7 @@ describe('store/validators/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setHeightValidatorsSets',
-      mockResponse.data.result.validators
+      mockResponse.data.result.validators,
     );
   });
 
@@ -202,7 +202,7 @@ describe('store/validators/actions', () => {
         commit,
         dispatch,
       },
-      { address: address }
+      { address: address },
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchValidatorDetails', address);

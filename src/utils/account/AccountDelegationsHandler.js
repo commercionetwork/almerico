@@ -21,11 +21,11 @@ class AccountDelegationsHandler {
   get() {
     let items = [];
 
-    this.delegations.forEach(delegation => {
+    this.delegations.forEach((delegation) => {
       items.push({
         moniker: getMoniker(this.validators, delegation),
         operator: delegation.validator_address,
-        amount: parseFloat(delegation.balance.amount)
+        amount: parseFloat(delegation.balance.amount),
       });
     });
 
@@ -36,7 +36,7 @@ class AccountDelegationsHandler {
 
 const getMoniker = (validators, source) => {
   const validator = validators.find(
-    validator => validator.operator_address === source.validator_address
+    (validator) => validator.operator_address === source.validator_address,
   );
   return validator.description.moniker;
 };

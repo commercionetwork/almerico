@@ -25,13 +25,13 @@
 
 <script>
 export default {
-  name: "TopBodyComponent",
+  name: 'TopBodyComponent',
   props: {
     optionalInfo: {
       type: Boolean,
       default: false,
-      note: "Enable the fourth card"
-    }
-  }
+      note: 'Enable the fourth card',
+    },
+  },
 };
 </script>

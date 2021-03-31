@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import DashboardGridList from "./DashboardGridList";
+import DashboardGridList from './DashboardGridList';
 
-import { mapActions } from "vuex";
-import { CUSTOMIZATION } from "@/constants";
+import { mapActions } from 'vuex';
+import { CUSTOMIZATION } from '@/constants';
 
 export default {
-  name: "DashboardMiddleBody",
+  name: 'DashboardMiddleBody',
   components: {
     DashboardGridList,
   },
@@ -31,8 +31,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions("transactions", {
-      fetchTransactionsDescendingOrder: "fetchTransactionsDescendingOrder",
+    ...mapActions('transactions', {
+      fetchTransactionsDescendingOrder: 'fetchTransactionsDescendingOrder',
     }),
   },
   created() {

@@ -16,32 +16,32 @@
 </template>
 
 <script>
-import { coinAdapter } from "@/utils";
+import { coinAdapter } from '@/utils';
 
 export default {
-  name: "AccountDetailsBalance",
+  name: 'AccountDetailsBalance',
   props: {
     balances: {
       type: Array,
       required: true,
-      note: "The amounts to display"
-    }
+      note: 'The amounts to display',
+    },
   },
   computed: {
     caption() {
-      return "Balance";
+      return 'Balance';
     },
     headers() {
       return [
-        { text: "Name", value: "denom" },
-        { text: "Amount", value: "amount" }
+        { text: 'Name', value: 'denom' },
+        { text: 'Amount', value: 'amount' },
       ];
     },
     items() {
       return this.balances.length > 0
         ? coinAdapter.convertList(this.balances)
         : [];
-    }
-  }
+    },
+  },
 };
 </script>

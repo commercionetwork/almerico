@@ -14,23 +14,23 @@
 </template>
 
 <script>
-import DoughnutChartComponent from "@/components/DoughnutChartComponent";
-import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
+import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { numberIntlFormatter } from "@/utils";
+import { numberIntlFormatter } from '@/utils';
 
 export default {
-  name: "AccountDetailsChart",
+  name: 'AccountDetailsChart',
   props: {
     amounts: {
       type: Object,
       required: true,
-      note: "The amounts to display"
-    }
+      note: 'The amounts to display',
+    },
   },
   components: {
     DoughnutChartComponent,
-    TopBodyCardComponent
+    TopBodyCardComponent,
   },
   computed: {
     chartData() {
@@ -38,52 +38,52 @@ export default {
         labels: [
           `Delegations ${this.delegations} M`,
           `Unbondings ${this.unbondings} M`,
-          `Rewards ${this.rewards} M`
+          `Rewards ${this.rewards} M`,
         ],
         datasets: [
           {
             data: [this.delegations, this.unbondings, this.rewards],
-            backgroundColor: ["#FFA000", "#0288D1", "#D32F2F"]
-          }
-        ]
+            backgroundColor: ['#FFA000', '#0288D1', '#D32F2F'],
+          },
+        ],
       };
     },
     options() {
       return {
         responsive: true,
         legend: {
-          display: false
+          display: false,
         },
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
-            }
-          }
-        }
+              return data['labels'][tooltipItem['index']];
+            },
+          },
+        },
       };
     },
     caption() {
-      return `Capitalization ${this.formatTokens(this.amounts["total"])} M`;
+      return `Capitalization ${this.formatTokens(this.amounts['total'])} M`;
     },
     delegations() {
-      return this.formatTokens(this.amounts["delegations"]);
+      return this.formatTokens(this.amounts['delegations']);
     },
     unbondings() {
-      return this.formatTokens(this.amounts["unbondings"]);
+      return this.formatTokens(this.amounts['unbondings']);
     },
     rewards() {
-      return this.formatTokens(this.amounts["rewards"]);
-    }
+      return this.formatTokens(this.amounts['rewards']);
+    },
   },
   methods: {
     formatTokens(value) {
       return numberIntlFormatter.toDecimal({
         amount: value / 1000000,
         maximumFractionDigits: 0,
-        minimumFractionDigits: 0
+        minimumFractionDigits: 0,
       });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -41,7 +41,10 @@
         <MsgItemComponent label="commission rate" :content="commissionRate" />
       </v-list-item>
       <v-list-item>
-        <MsgItemComponent label="min self delegation" :content="minSelfDelegation" />
+        <MsgItemComponent
+          label="min self delegation"
+          :content="minSelfDelegation"
+        />
       </v-list-item>
     </div>
   </MsgTxComponent>

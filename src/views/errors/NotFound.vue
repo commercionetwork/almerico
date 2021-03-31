@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "NotFound",
-  description: "404 page"
+  name: 'NotFound',
+  description: '404 page',
 };
 </script>

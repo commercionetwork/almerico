@@ -1,5 +1,4 @@
 /**
- * STARTING STATE
  *
  * @typedef {Object} StartingState
  * @property {Boolean} isLoading

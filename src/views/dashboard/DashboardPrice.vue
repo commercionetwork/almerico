@@ -10,21 +10,21 @@
 </template>
 
 <script>
-import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "DashboardPrice",
+  name: 'DashboardPrice',
   components: { TopBodyCardComponent },
   computed: {
-    ...mapGetters("starting", {
-      conversionRate: "conversionRate"
+    ...mapGetters('starting', {
+      conversionRate: 'conversionRate',
     }),
     tokenValue() {
       const rate = parseFloat(this.conversionRate);
-      return !isNaN(rate) && rate > 0 ? `€ ${(1 / rate).toFixed(2)}` : "-";
-    }
-  }
+      return !isNaN(rate) && rate > 0 ? `€ ${(1 / rate).toFixed(2)}` : '-';
+    },
+  },
 };
 </script>

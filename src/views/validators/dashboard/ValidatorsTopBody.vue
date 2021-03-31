@@ -15,18 +15,18 @@
 </template>
 
 <script>
-import TopBodyBlockComponent from "@/components/TopBodyBlockComponent";
-import TopBodyComponent from "@/components/TopBodyComponent";
-import ValidatorsChart from "./ValidatorsChart";
-import ValidatorsSearch from "./ValidatorsSearch";
+import TopBodyBlockComponent from '@/components/TopBodyBlockComponent';
+import TopBodyComponent from '@/components/TopBodyComponent';
+import ValidatorsChart from './ValidatorsChart';
+import ValidatorsSearch from './ValidatorsSearch';
 
 export default {
-  name: "ValidatorsTopBody",
+  name: 'ValidatorsTopBody',
   components: {
     TopBodyBlockComponent,
     TopBodyComponent,
     ValidatorsChart,
-    ValidatorsSearch
-  }
+    ValidatorsSearch,
+  },
 };
 </script>

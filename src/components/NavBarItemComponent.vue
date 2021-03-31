@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "NavBarItemComponent",
+  name: 'NavBarItemComponent',
   props: {
     icon: {
       type: String,

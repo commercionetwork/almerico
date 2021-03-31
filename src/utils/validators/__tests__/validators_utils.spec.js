@@ -43,7 +43,7 @@ describe('utils/validators', () => {
 
     const addresses = delegators.map((item) => item.delegator);
     const isDuplicate = addresses.some(
-      (item, idx) => addresses.indexOf(item) != idx
+      (item, idx) => addresses.indexOf(item) != idx,
     );
     expect(isDuplicate).toBe(false);
   });

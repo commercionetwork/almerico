@@ -48,7 +48,10 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItemComponent label="min self delegation" :content="minSelfDelegation" />
+        <MsgItemComponent
+          label="min self delegation"
+          :content="minSelfDelegation"
+        />
       </v-list-item>
       <v-list-item>
         <MsgLinkComponent
@@ -56,7 +59,7 @@
           :content="delegatorAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: delegatorAddress }
+            params: { id: delegatorAddress },
           }"
         />
       </v-list-item>
@@ -66,12 +69,16 @@
           :content="validatorAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_DETAILS,
-            params: { id: validatorAddress }
+            params: { id: validatorAddress },
           }"
         />
       </v-list-item>
       <v-list-item>
-        <MsgItemComponent label="amount" :content="amount" class="text-uppercase" />
+        <MsgItemComponent
+          label="amount"
+          :content="amount"
+          class="text-uppercase"
+        />
       </v-list-item>
       <v-list-item>
         <MsgItemComponent label="public key" :content="pubkey" />
@@ -81,38 +88,38 @@
 </template>
 
 <script>
-import MsgItemComponent from "@/components/MsgItemComponent.vue";
-import MsgLinkComponent from "@/components/MsgLinkComponent.vue";
-import MsgTxComponent from "@/components/MsgTxComponent.vue";
-import MsgUrlComponent from "@/components/MsgUrlComponent.vue";
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
+import MsgUrlComponent from '@/components/MsgUrlComponent.vue';
 
-import { ROUTES } from "@/constants";
-import { numberIntlFormatter, coinAdapter } from "@/utils";
+import { ROUTES } from '@/constants';
+import { numberIntlFormatter, coinAdapter } from '@/utils';
 
 export default {
-  name: "MsgCreateValidator",
-  description: "Display a create validator transaction message",
+  name: 'MsgCreateValidator',
+  description: 'Display a create validator transaction message',
   components: {
     MsgItemComponent,
     MsgLinkComponent,
     MsgTxComponent,
-    MsgUrlComponent
+    MsgUrlComponent,
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a create validator message"
-    }
+      note: 'Object representing a create validator message',
+    },
   },
   data: () => ({
-    ROUTES
+    ROUTES,
   }),
   computed: {
     amount() {
       return coinAdapter.format({
         amount: this.message.value.value.amount,
-        denom: this.message.value.value.denom
+        denom: this.message.value.value.denom,
       });
     },
     commissionMaxChangeRate() {
@@ -121,9 +128,9 @@ export default {
         ? numberIntlFormatter.toPercent({
             amount: this.message.value.commission.max_change_rate,
             maximumFractionDigits: 2,
-            minimumFractionDigits: 2
+            minimumFractionDigits: 2,
           })
-        : "-";
+        : '-';
     },
     commissionMaxRate() {
       return this.message.value.commission &&
@@ -131,73 +138,73 @@ export default {
         ? numberIntlFormatter.toPercent({
             amount: this.message.value.commission.max_rate,
             maximumFractionDigits: 2,
-            minimumFractionDigits: 2
+            minimumFractionDigits: 2,
           })
-        : "-";
+        : '-';
     },
     commissionRate() {
       return this.message.value.commission && this.message.value.commission.rate
         ? numberIntlFormatter.toPercent({
             amount: this.message.value.commission.rate,
             maximumFractionDigits: 2,
-            minimumFractionDigits: 2
+            minimumFractionDigits: 2,
           })
-        : "-";
+        : '-';
     },
     delegatorAddress() {
       return this.message.value.delegator_address
         ? this.message.value.delegator_address
-        : "-";
+        : '-';
     },
     descriptionDetails() {
       return this.message.value.description &&
         this.message.value.description.details
         ? this.message.value.description.details
-        : "-";
+        : '-';
     },
     descriptionIdentity() {
       return this.message.value.description &&
         this.message.value.description.identity
         ? this.message.value.description.identity
-        : "-";
+        : '-';
     },
     descriptionMoniker() {
       return this.message.value.description &&
         this.message.value.description.moniker
         ? this.message.value.description.moniker
-        : "-";
+        : '-';
     },
     descriptionSecurityContact() {
       return this.message.value.description &&
         this.message.value.description.security_contact
         ? this.message.value.description.security_contact
-        : "-";
+        : '-';
     },
     descriptionWebsite() {
       return this.message.value.description &&
         this.message.value.description.website
         ? this.message.value.description.website
-        : "-";
+        : '-';
     },
     minSelfDelegation() {
       return this.message.value.min_self_delegation
         ? this.message.value.min_self_delegation
-        : "-";
+        : '-';
     },
     pubkey() {
-      return this.message.value.pubkey ? this.message.value.pubkey : "-";
+      return this.message.value.pubkey ? this.message.value.pubkey : '-';
     },
     subTitle() {
-      return this.message.type ? this.message.type.split("/").shift() : "-";
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
-      return this.message.type ? this.message.type.split("/").pop() : "-";
+      return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     validatorAddress() {
       return this.message.value.validator_address
         ? this.message.value.validator_address
-        : "-";
-    }
-  }
+        : '-';
+    },
+  },
 };
 </script>

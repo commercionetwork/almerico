@@ -80,7 +80,10 @@
             />
           </v-list-item>
           <v-list-item>
-            <MsgItemComponent label="signature value" :content="proofSignatureValue" />
+            <MsgItemComponent
+              label="signature value"
+              :content="proofSignatureValue"
+            />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>

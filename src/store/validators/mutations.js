@@ -1,10 +1,5 @@
-/**
- * VALIDATORS MUTATIONS
- */
-
 export default {
   /**
-   * Set isLoading state to true
    *
    * @param {ValidatorsState} state
    */
@@ -13,7 +8,6 @@ export default {
     state.isLoading = true;
   },
   /**
-   * Set isLoading state to false
    *
    * @param {ValidatorsState} state
    */
@@ -21,7 +15,6 @@ export default {
     state.isLoading = false;
   },
   /**
-   * Set error message
    *
    * @param {ValidatorsState} state
    * @param {Object} error
@@ -30,7 +23,6 @@ export default {
     state.error = { ...error };
   },
   /**
-   * Set validators filter
    *
    * @param {ValidatorsState} state
    * @param {Object} data
@@ -41,7 +33,6 @@ export default {
     };
   },
   /**
-   * Set validators
    *
    * @param {ValidatorsState} state
    * @param {Array.<Object>} data
@@ -52,7 +43,6 @@ export default {
     }));
   },
   /**
-   * Add validators
    *
    * @param {ValidatorsState} state
    * @param {Array.<Object>} data
@@ -61,7 +51,6 @@ export default {
     state.validators.push.apply(state.validators, data);
   },
   /**
-   * Set validators sets for a certain height
    *
    * @param {ValidatorsState} state
    * @param {Array.<Object>} data
@@ -72,7 +61,6 @@ export default {
     }));
   },
   /**
-   * Set latest validators sets
    *
    * @param {ValidatorsState} state
    * @param {Array.<Object>} data
@@ -84,7 +72,6 @@ export default {
     }));
   },
   /**
-   * Set validator details
    *
    * @param {ValidatorsState} state
    * @param {Object} data
@@ -108,7 +95,6 @@ export default {
     };
   },
   /**
-   * Reset validator details
    *
    * @param {ValidatorsState} state
    */

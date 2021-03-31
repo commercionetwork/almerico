@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import SearchBarComponent from "@/components/SearchBarComponent";
+import SearchBarComponent from '@/components/SearchBarComponent';
 
 export default {
-  name: "TransactionsHeader",
+  name: 'TransactionsHeader',
   components: {
     SearchBarComponent,
   },

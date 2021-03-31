@@ -58,7 +58,7 @@ describe('store/blocks/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setLatestBlock',
-      mockResponse.data.block
+      mockResponse.data.block,
     );
   });
 
@@ -83,13 +83,13 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchBlocks(
       { dispatch, commit },
-      { height: height, items: items }
+      { height: height, items: items },
     );
 
     expect(commit).toHaveBeenNthCalledWith(
       items,
       'addSingleBlock',
-      mockResponse.data.block
+      mockResponse.data.block,
     );
 
     height = 5;
@@ -97,13 +97,13 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchBlocks(
       { dispatch, commit },
-      { height: height, items: items }
+      { height: height, items: items },
     );
 
     expect(commit).toHaveBeenNthCalledWith(
       5,
       'addSingleBlock',
-      mockResponse.data.block
+      mockResponse.data.block,
     );
   });
 
@@ -116,7 +116,7 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchBlocks(
       { dispatch, commit },
-      { height: height, items: items }
+      { height: height, items: items },
     );
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
@@ -130,7 +130,7 @@ describe('store/blocks/actions', () => {
 
     await actions.getBlocks(
       { dispatch, commit },
-      { maxHeight: maxHeight, items: items }
+      { maxHeight: maxHeight, items: items },
     );
 
     expect(commit).toHaveBeenCalledWith('clearAllBlocks');
@@ -148,7 +148,7 @@ describe('store/blocks/actions', () => {
 
     await actions.addBlocks(
       { dispatch, commit },
-      { currentHeight: currentHeight, items: items }
+      { currentHeight: currentHeight, items: items },
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchBlocks', {

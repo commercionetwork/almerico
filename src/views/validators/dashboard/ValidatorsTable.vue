@@ -9,7 +9,10 @@
     disable-pagination
   >
     <template v-slot:top>
-      <div class="py-2 text-center text-overline font-weight-bold" v-text="caption" />
+      <div
+        class="py-2 text-center text-overline font-weight-bold"
+        v-text="caption"
+      />
     </template>
     <template v-slot:[`item.rank`]="{ item }">
       <div
@@ -25,7 +28,7 @@
         v-text="item.moniker"
         :to="{
           name: ROUTES.NAMES.VALIDATORS_DETAILS,
-          params: { id: item.operator }
+          params: { id: item.operator },
         }"
       />
     </template>
@@ -43,41 +46,41 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { CUSTOMIZATION, ROUTES } from "@/constants";
-import { blocksHandler, ValidatorsTableAdapter } from "@/utils";
+import { mapGetters } from 'vuex';
+import { CUSTOMIZATION, ROUTES } from '@/constants';
+import { blocksHandler, ValidatorsTableAdapter } from '@/utils';
 
 export default {
-  name: "ValidatorsTable",
+  name: 'ValidatorsTable',
   data: () => ({
     ROUTES,
-    search: "",
+    search: '',
     active: true,
-    sortBy: "rank"
+    sortBy: 'rank',
   }),
   computed: {
-    ...mapGetters("blocks", {
-      blocks: "blocks"
+    ...mapGetters('blocks', {
+      blocks: 'blocks',
     }),
-    ...mapGetters("starting", {
-      params: "params",
-      pool: "pool"
+    ...mapGetters('starting', {
+      params: 'params',
+      pool: 'pool',
     }),
-    ...mapGetters("validators", {
-      filter: "filter",
-      latestValidatorsSets: "latestValidatorsSets",
-      validators: "validators"
+    ...mapGetters('validators', {
+      filter: 'filter',
+      latestValidatorsSets: 'latestValidatorsSets',
+      validators: 'validators',
     }),
     bondDenom() {
-      return this.params.bond_denom ? this.params.bond_denom : "";
+      return this.params.bond_denom ? this.params.bond_denom : '';
     },
     items() {
       const restrictedBlocks = CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR
         .VISIBILITY
         ? blocksHandler.restrictBlocks({
             blocks: this.blocks,
-            prop: ["header", "height"],
-            limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT
+            prop: ['header', 'height'],
+            limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
           })
         : [];
       return ValidatorsTableAdapter.setValidators(this.validators)
@@ -90,38 +93,38 @@ export default {
     },
     headers() {
       let headers = [
-        { text: "Rank", value: "rank" },
-        { text: "Validator", value: "moniker" },
+        { text: 'Rank', value: 'rank' },
+        { text: 'Validator', value: 'moniker' },
         {
-          text: "Active",
-          value: "active",
-          filter: value => value === this.active
+          text: 'Active',
+          value: 'active',
+          filter: (value) => value === this.active,
         },
-        { text: "Tokens", value: "tokens" },
-        { text: "Commission", value: "commission" },
-        { text: "Voting Power", value: "votingPower" },
-        { text: "Cumulative", value: "cumulative" }
+        { text: 'Tokens', value: 'tokens' },
+        { text: 'Commission', value: 'commission' },
+        { text: 'Voting Power', value: 'votingPower' },
+        { text: 'Cumulative', value: 'cumulative' },
       ];
       if (CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.VISIBILITY) {
-        headers.push({ text: "Blocks %", value: "attendance" });
+        headers.push({ text: 'Blocks %', value: 'attendance' });
       }
       return headers;
     },
     caption() {
       return this.active
-        ? "Active validators list"
-        : "Inactive validators list";
-    }
+        ? 'Active validators list'
+        : 'Inactive validators list';
+    },
   },
   watch: {
     filter(value) {
       this.search = value.moniker;
       this.active = value.active;
-    }
+    },
   },
   methods: {
     filterValidators(_value, search, item) {
-      if (typeof search.trim() !== "string") {
+      if (typeof search.trim() !== 'string') {
         return;
       }
       const props = [item.moniker, item.operator, item.account];
@@ -133,7 +136,7 @@ export default {
         }
       }
       return found;
-    }
-  }
+    },
+  },
 };
 </script>

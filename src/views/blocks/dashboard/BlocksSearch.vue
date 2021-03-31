@@ -30,33 +30,33 @@
 </template>
 
 <script>
-import TopBodyCardComponent from "@/components/TopBodyCardComponent.vue";
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: "BlocksSearch",
+  name: 'BlocksSearch',
   components: { TopBodyCardComponent },
   data: () => ({
     query: {
-      items: "",
-      maxHeight: ""
-    }
+      items: '',
+      maxHeight: '',
+    },
   }),
   computed: {
-    ...mapGetters("blocks", {
-      block: "latest"
+    ...mapGetters('blocks', {
+      block: 'latest',
     }),
     latestHeight() {
-      return this.block ? this.block.header.height : "0";
+      return this.block ? this.block.header.height : '0';
     },
     tooltipMessage() {
-      return "<strong>WARNING</strong>: The maximum number of items allowed is 1000!";
-    }
+      return '<strong>WARNING</strong>: The maximum number of items allowed is 1000!';
+    },
   },
   methods: {
-    ...mapActions("blocks", {
-      getBlocks: "getBlocks"
+    ...mapActions('blocks', {
+      getBlocks: 'getBlocks',
     }),
     normaliseSearch() {
       const maxHeight = parseInt(this.query.maxHeight);
@@ -64,12 +64,12 @@ export default {
       if (isNaN(maxHeight) || isNaN(items)) return false;
       this.query.maxHeight =
         maxHeight > this.latestHeight ? this.latestHeight : `${maxHeight}`;
-      this.query.items = items > 1000 ? "1000" : `${items}`;
+      this.query.items = items > 1000 ? '1000' : `${items}`;
       return true;
     },
     onSubmit() {
       if (this.normaliseSearch()) this.getBlocks(this.query);
-    }
-  }
+    },
+  },
 };
 </script>
