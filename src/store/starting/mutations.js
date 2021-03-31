@@ -60,4 +60,12 @@ export default {
   setConversionRate(state, rate) {
     state.conversionRate = rate;
   },
+  /**
+   *
+   * @param {StartingState} state
+   * @param {Array.<Object>} data
+   */
+  setRateUpdates(state, data) {
+    state.rateUpdates = [...data];
+  },
 };

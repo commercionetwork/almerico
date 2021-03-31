@@ -21,6 +21,7 @@ export default {
       dispatch('fetchParams'),
       dispatch('fetchPool'),
       dispatch('fetchConversionRate'),
+      dispatch('fetchRateUpdates'),
       dispatch('blocks/fetchLatestBlock', null, { root: true }),
       dispatch(
         'validators/initValidators',
@@ -75,6 +76,32 @@ export default {
     try {
       const response = await api.requestConversionRate();
       commit('setConversionRate', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchRateUpdates({ dispatch, commit }) {
+    const updates = [];
+    const limit = 30;
+    let page = 1;
+    try {
+      let response = await api.requestRateUpdates({ page, limit });
+      if (response.data.page_total == 0) {
+        return;
+      }
+      response.data.txs.forEach((tx) => updates.push(tx));
+      if (response.data.page_total > 1) {
+        while (page < response.data.page_total) {
+          page++;
+          response = await api.requestRateUpdates({ page, limit });
+          response.data.txs.forEach((tx) => updates.push(tx));
+        }
+      }
+      commit('setRateUpdates', updates);
     } catch (error) {
       dispatch('handleError', error);
     }

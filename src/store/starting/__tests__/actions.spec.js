@@ -3,6 +3,7 @@ import { STATUS } from '@/constants';
 import { mockNodeInfo } from '../__mocks__/node_info';
 import { mockConversionRate, mockParameters } from '../__mocks__/parameters';
 import { mockPool } from '../__mocks__/pool';
+import { mockRateUpdates } from '../__mocks__/rateUpdates';
 
 const mockErrorResponse = {
   request: {},
@@ -41,6 +42,7 @@ describe('store/starting/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchParams');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).toHaveBeenCalledWith('fetchConversionRate');
+    expect(dispatch).toHaveBeenCalledWith('fetchRateUpdates');
     expect(dispatch).toHaveBeenCalledWith('blocks/fetchLatestBlock', null, {
       root: true,
     });
@@ -133,6 +135,25 @@ describe('store/starting/actions', () => {
     mockError = true;
 
     await actions.fetchConversionRate({ dispatch, commit });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchRateUpdates' set rate", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.fetchRateUpdates({ dispatch, commit });
+
+    expect(commit).toBeCalledWith('setRateUpdates', mockResponse.data.txs);
+  });
+
+  test("if 'actions.fetchRateUpdates' has an error, dispatch 'handleError'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
+
+    await actions.fetchRateUpdates({ dispatch, commit });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
@@ -245,6 +266,33 @@ jest.mock('./../api', () => ({
           data: {
             height: '0',
             result: mockConversionRate(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestRateUpdates: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
+
+        mockResponse = {
+          data: {
+            total_count: '5',
+            count: '5',
+            page_number: '1',
+            page_total: '1',
+            limit: '30',
+            txs: mockRateUpdates(),
           },
         };
         resolve(mockResponse);

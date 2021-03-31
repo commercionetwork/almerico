@@ -49,4 +49,22 @@ export default {
       headers: headers,
     });
   },
+  /**
+   * @param {String} query
+   * @param {Number} page
+   * @param {Number} limit
+   * @returns {Promise}
+   */
+  requestRateUpdates({ page, limit }) {
+    return axios({
+      method: 'get',
+      headers: headers,
+      baseURL: `${API.TXS}`,
+      params: {
+        'message.action': 'setEtpsConversionRate',
+        page,
+        limit,
+      },
+    });
+  },
 };

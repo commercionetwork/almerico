@@ -1,6 +1,7 @@
 /**
  *
  * @typedef {Object} StartingState
+ * @property {Array.<Object>} rateUpdates
  * @property {Boolean} isLoading
  * @property {Object} error
  * @property {Object} nodeInfo
@@ -20,6 +21,7 @@ const initialState = {
   nodeInfo: null,
   params: null,
   pool: null,
+  rateUpdates: [],
 };
 
 export default {

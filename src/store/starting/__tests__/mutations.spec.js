@@ -72,4 +72,16 @@ describe('store/starting/mutations', () => {
 
     expect(state.conversionRate).toBe(rate);
   });
+
+  test('mutations.setRateUpdates', () => {
+    const txs = [
+      {
+        id: 1,
+      },
+    ];
+
+    mutations.setRateUpdates(state, txs);
+
+    expect(state.rateUpdates).toStrictEqual(txs);
+  });
 });
