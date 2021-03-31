@@ -5,10 +5,12 @@
     :search="search"
     :custom-filter="filterValidators"
     :sort-by.sync="sortBy"
-    :caption="caption"
     :hide-default-footer="true"
     disable-pagination
   >
+    <template v-slot:top>
+      <div class="py-2 text-center text-overline font-weight-bold" v-text="caption" />
+    </template>
     <template v-slot:[`item.rank`]="{ item }">
       <div
         class="py-1 px-3 rounded-circle d-inline-block"

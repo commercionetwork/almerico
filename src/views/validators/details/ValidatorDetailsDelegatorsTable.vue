@@ -5,8 +5,13 @@
     :items-per-page="3"
     :sort-by.sync="sortBy"
     :sort-desc.sync="sortDesc"
-    :caption="caption"
   >
+    <template v-slot:top>
+      <div
+        class="py-2 text-center text-overline font-weight-bold"
+        v-text="caption"
+      />
+    </template>
     <template v-slot:[`item.delegator`]="{ item }">
       <router-link
         class="d-inline-block text-truncate text-decoration-none"
@@ -19,7 +24,10 @@
       />
     </template>
     <template v-slot:[`item.amount`]="{ item }">
-      <span class="text-uppercase font-weight-bold" v-text="formatTokens(item.amount)" />
+      <span
+        class="text-uppercase font-weight-bold"
+        v-text="formatTokens(item.amount)"
+      />
     </template>
     <template v-slot:[`item.share`]="{ item }">
       <span class="font-weight-bold" v-text="formatPercent(item.share)" />

@@ -4,10 +4,15 @@
     :items="items"
     :sort-by.sync="sortBy"
     :sort-desc.sync="sortDesc"
-    :caption="caption"
     :hide-default-footer="true"
     disable-pagination
   >
+    <template v-slot:top>
+      <div
+        class="py-2 text-center text-overline font-weight-bold"
+        v-text="caption"
+      />
+    </template>
     <template v-slot:[`item.height`]="{ item }">
       <router-link
         class="text-decoration-none"

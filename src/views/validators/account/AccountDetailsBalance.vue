@@ -1,10 +1,11 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="items"
-    :items-per-page="5"
-    :caption="caption"
-  >
+  <v-data-table :headers="headers" :items="items" :items-per-page="5">
+    <template v-slot:top>
+      <div
+        class="py-2 text-center text-overline font-weight-bold"
+        v-text="caption"
+      />
+    </template>
     <template v-slot:[`item.denom`]="{ item }">
       <span class="text-uppercase font-weight-bold" v-text="item.denom" />
     </template>

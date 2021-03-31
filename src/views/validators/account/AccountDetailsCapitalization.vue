@@ -1,11 +1,16 @@
 <template>
   <v-data-table
-    :caption="caption"
     :headers="headers"
     :items="items"
     :hide-default-footer="true"
     disable-pagination
   >
+    <template v-slot:top>
+      <div
+        class="py-2 text-center text-overline font-weight-bold"
+        v-text="caption"
+      />
+    </template>
     <template v-slot:[`item.caption`]="{ item }">
       <span class="text-capitalize" v-text="item.caption" />
     </template>
