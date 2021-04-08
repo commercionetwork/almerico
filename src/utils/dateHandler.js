@@ -6,6 +6,9 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime);
 
 const dateHandler = {
+  getFormattedDate(date) {
+    return dayjs(date).format('DD/MM/YY');
+  },
   getFormattedDifference(d1, d2) {
     const date1 = dayjs(d1);
     const date2 = dayjs(d2);
