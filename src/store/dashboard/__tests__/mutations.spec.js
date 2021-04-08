@@ -54,4 +54,12 @@ describe('store/dashboard/mutations', () => {
 
     expect(state.rateUpdates).toStrictEqual(txs);
   });
+
+  test('mutations.setStartingDate', () => {
+    const date = '2021-02-11T15:58:02.264848898Z';
+
+    mutations.setStartingDate(state, date);
+
+    expect(state.startingDate).toBe(date);
+  });
 });

@@ -38,4 +38,12 @@ export default {
   setRateUpdates(state, data) {
     state.rateUpdates = [...data];
   },
+  /**
+   *
+   * @param {DashboardState} state
+   * @param {String} date
+   */
+  setStartingDate(state, date) {
+    state.startingDate = date;
+  },
 };

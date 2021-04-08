@@ -3,4 +3,5 @@ export default {
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
   rateUpdates: (state) => state.rateUpdates,
+  startingDate: (state) => state.startingDate,
 };

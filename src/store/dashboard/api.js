@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { API } from '@/constants';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
-
 export default {
   /**
    * @returns {Promise}
@@ -14,7 +10,6 @@ export default {
       method: 'get',
       baseURL: `${API.MINT}`,
       url: '/conversion_rate',
-      headers: headers,
     });
   },
   /**
@@ -26,13 +21,23 @@ export default {
   requestRateUpdates({ page, limit }) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.TXS}`,
       params: {
         'message.action': 'setEtpsConversionRate',
         page,
         limit,
       },
+    });
+  },
+  /**
+   * @param {Number} height
+   * @returns {Promise}
+   */
+   requestBlock(height) {
+    return axios({
+      method: 'get',
+      baseURL: `${API.BLOCKS}`,
+      url: `/${height}`,
     });
   },
 };

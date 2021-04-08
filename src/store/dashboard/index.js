@@ -5,6 +5,7 @@
  * @property {Boolean} isLoading
  * @property {Object} error
  * @property {String} conversionRate
+ * @property {String} startingDate
  */
 
  import actions from './actions';
@@ -16,6 +17,7 @@
   error: null,
   isLoading: false,
   rateUpdates: [],
+  startingDate: '',
 };
 
 export default {

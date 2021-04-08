@@ -42,6 +42,7 @@ export default {
         return;
       }
       response.data.txs.forEach((tx) => updates.push(tx));
+      await dispatch('fetchStartingDate');
       if (response.data.page_total > 1) {
         while (page < response.data.page_total) {
           page++;
@@ -50,6 +51,18 @@ export default {
         }
       }
       commit('setRateUpdates', updates);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchStartingDate({ dispatch, commit }) {
+    try {
+      const response = await api.requestBlock('1');
+      commit('setStartingDate', response.data.block.header.time);
     } catch (error) {
       dispatch('handleError', error);
     }
