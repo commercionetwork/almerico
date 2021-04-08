@@ -9,33 +9,30 @@ export default {
   /**
    * @returns {Promise}
    */
-  requestNodeInfo() {
+  requestConversionRate() {
     return axios({
       method: 'get',
-      baseURL: `${API.NODE_INFO}`,
+      baseURL: `${API.MINT}`,
+      url: '/conversion_rate',
       headers: headers,
     });
   },
   /**
+   * @param {String} query
+   * @param {Number} page
+   * @param {Number} limit
    * @returns {Promise}
    */
-  requestPool() {
+  requestRateUpdates({ page, limit }) {
     return axios({
       method: 'get',
-      baseURL: `${API.STAKING}`,
-      url: '/pool',
       headers: headers,
-    });
-  },
-  /**
-   * @returns {Promise}
-   */
-  requestStakingParameters() {
-    return axios({
-      method: 'get',
-      baseURL: `${API.STAKING}`,
-      url: '/parameters',
-      headers: headers,
+      baseURL: `${API.TXS}`,
+      params: {
+        'message.action': 'setEtpsConversionRate',
+        page,
+        limit,
+      },
     });
   },
 };

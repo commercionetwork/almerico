@@ -1,7 +1,7 @@
 import mutations from '../mutations';
 import { initialState } from '../index';
 
-describe('store/starting/mutations', () => {
+describe('store/dashboard/mutations', () => {
   let state = {};
 
   beforeEach(() => {
@@ -35,33 +35,23 @@ describe('store/starting/mutations', () => {
     expect(state.error).toStrictEqual(error);
   });
 
-  test('mutations.setNodeInfo', () => {
-    const nodeInfo = {
-      id: 1,
-    };
+  test('mutations.setConversionRate', () => {
+    const rate = '1.000000000000000000';
 
-    mutations.setNodeInfo(state, nodeInfo);
+    mutations.setConversionRate(state, rate);
 
-    expect(state.nodeInfo).toStrictEqual(nodeInfo);
+    expect(state.conversionRate).toBe(rate);
   });
 
-  test('mutations.setPool', () => {
-    const pool = {
-      id: 1,
-    };
+  test('mutations.setRateUpdates', () => {
+    const txs = [
+      {
+        id: 1,
+      },
+    ];
 
-    mutations.setPool(state, pool);
+    mutations.setRateUpdates(state, txs);
 
-    expect(state.pool).toStrictEqual(pool);
-  });
-
-  test('mutations.setParams', () => {
-    const params = {
-      id: 1,
-    };
-
-    mutations.setParams(state, params);
-
-    expect(state.params).toStrictEqual(params);
+    expect(state.rateUpdates).toStrictEqual(txs);
   });
 });

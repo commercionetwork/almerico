@@ -72,11 +72,11 @@ export default {
   },
   methods: {
     ...mapActions('starting', {
-      fetchInitData: 'fetchInitData',
+      init: 'init',
     }),
   },
   created() {
-    this.fetchInitData();
+    this.init();
   },
 };
 </script>

@@ -1,8 +1,3 @@
-const mockConversionRate = () => {
-  const item = '1.000000000000000000';
-  return item;
-};
-
 const mockParameters = () => {
   const item = {
     unbonding_time: '1814400000000000',
@@ -14,4 +9,4 @@ const mockParameters = () => {
   return item;
 };
 
-export { mockConversionRate, mockParameters };
+export { mockParameters };

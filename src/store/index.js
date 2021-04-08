@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import account from './account';
 import blocks from './blocks';
+import dashboard from './dashboard';
 import starting from './starting';
 import transactions from './transactions';
 import validators from './validators';
@@ -29,6 +30,7 @@ export default new Vuex.Store({
   modules: {
     account,
     blocks,
+    dashboard,
     starting,
     transactions,
     validators,
