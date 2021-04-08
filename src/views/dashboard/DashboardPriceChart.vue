@@ -46,6 +46,7 @@ export default {
       error: 'error',
       isLoading: 'isLoading',
       rateUpdates: 'rateUpdates',
+      startingDate: 'startingDate',
     }),
     chartData() {
       return {
@@ -75,7 +76,7 @@ export default {
         : JSON.stringify(this.error);
     },
     priceMutations() {
-      return new PriceHandler(this.rateUpdates).getMutations();
+      return new PriceHandler(this.rateUpdates, this.startingDate).getMutations();
     },
   },
 };

@@ -4,6 +4,7 @@
 
 - Updates:
   - Top body layout
+  - Added price chart to dashboard
 
 - Fixes:
   - Readme guide

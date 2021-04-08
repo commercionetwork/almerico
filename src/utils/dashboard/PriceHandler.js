@@ -1,8 +1,9 @@
 import { dateHandler } from '@/utils';
 
 export default class PriceHandler {
-  constructor(txs) {
+  constructor(txs, startingDate) {
     this.txs = txs;
+    this.startingDate = startingDate;
   }
 
   getMutations() {
@@ -11,7 +12,15 @@ export default class PriceHandler {
       const priceMutation = new PriceMutation(tx);
       mutations.push(priceMutation.get());
     }
-    return mutations;
+    if (mutations.length < 5) {
+      mutations.unshift({
+        price: 1,
+        date: dateHandler.getFormattedDate(this.startingDate),
+      });
+    }
+    return mutations.length > 5
+      ? mutations.slice(mutations.length - 5)
+      : mutations;
   }
 }
 

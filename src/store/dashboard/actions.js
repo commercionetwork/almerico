@@ -11,6 +11,7 @@ export default {
       root: true,
     });
     await Promise.all([
+      dispatch('fetchStartingDate'),
       dispatch('fetchConversionRate'),
       dispatch('fetchRateUpdates'),
     ]);
@@ -42,7 +43,6 @@ export default {
         return;
       }
       response.data.txs.forEach((tx) => updates.push(tx));
-      await dispatch('fetchStartingDate');
       if (response.data.page_total > 1) {
         while (page < response.data.page_total) {
           page++;
