@@ -1,13 +1,15 @@
-const mockRateUpdate = () => {
+const mockRateUpdate = (
+  rate = '1.000000000000000000',
+  tms = '2000-01-01T00:00:00.000Z',
+) => {
   const item = {
     height: '470',
     txhash: '88F2CE058A8C05CFF1BBE0ECDEC1CC25CEC38E6404B2F51B7608125E21CC8AAD',
-    raw_log:
-      '[{"msg_index":0,"log":"conversion rate changed successfully to 0.750000000000000000","events":[{"type":"message","attributes":[{"key":"action","value":"setEtpsConversionRate"},{"key":"sender","value":"did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u"}]},{"type":"new_conversion_rate","attributes":[{"key":"rate","value":"0.750000000000000000"}]}]}]',
+    raw_log: `[{"msg_index":0,"log":"conversion rate changed successfully to ${rate}","events":[{"type":"message","attributes":[{"key":"action","value":"setEtpsConversionRate"},{"key":"sender","value":"did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u"}]},{"type":"new_conversion_rate","attributes":[{"key":"rate","value":${rate}}]}]}]`,
     logs: [
       {
         msg_index: 0,
-        log: 'conversion rate changed successfully to 0.750000000000000000',
+        log: `conversion rate changed successfully to ${rate}`,
         events: [
           {
             type: 'message',
@@ -27,7 +29,7 @@ const mockRateUpdate = () => {
             attributes: [
               {
                 key: 'rate',
-                value: '0.750000000000000000',
+                value: rate,
               },
             ],
           },
@@ -44,7 +46,7 @@ const mockRateUpdate = () => {
             type: 'commercio/MsgSetCCCConversionRate',
             value: {
               signer: 'did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u',
-              rate: '0.750000000000000000',
+              rate: `${rate}`,
             },
           },
         ],
@@ -70,13 +72,18 @@ const mockRateUpdate = () => {
         memo: '',
       },
     },
-    timestamp: '2021-03-21T22:42:08Z',
+    timestamp: tms,
   };
   return item;
 };
 
 const mockRateUpdates = (updates = 5) => {
-  const items = new Array(updates).fill(null).map(() => mockRateUpdate());
+  let counter = 1;
+  const items = new Array(updates).fill(null).map(() => {
+    const rate = Math.random().toFixed(18);
+    const tms = new Date(Date.UTC(2000, 0, counter++)).toISOString();
+    return mockRateUpdate(rate, tms);
+  });
   return items;
 };
 
