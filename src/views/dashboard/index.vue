@@ -17,6 +17,8 @@ import DashboardHeader from './DashboardHeader';
 import DashboardMiddleBody from './DashboardMiddleBody';
 import DashboardTopBody from './DashboardTopBody';
 
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Dashboard',
   components: {
@@ -24,6 +26,14 @@ export default {
     DashboardHeader,
     DashboardMiddleBody,
     DashboardTopBody,
+  },
+  methods: {
+    ...mapActions('dashboard', {
+      init: 'init',
+    }),
+  },
+  created() {
+    this.init();
   },
 };
 </script>
