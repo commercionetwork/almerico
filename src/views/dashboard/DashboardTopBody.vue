@@ -4,13 +4,13 @@
       <TopBodyBlockComponent />
     </template>
     <template v-slot:center-info>
-      <DashboardChart />
-    </template>
-    <template v-slot:right-info>
       <DashboardPrice />
     </template>
-    <template v-slot:optional-info>
+    <template v-slot:right-info>
       <DashboardPriceChart />
+    </template>
+    <template v-slot:optional-info>
+      <DashboardChart />
     </template>
   </TopBodyComponent>
 </template>

@@ -1,22 +1,23 @@
 import { dateHandler } from '@/utils';
 
 export default class PriceHandler {
-  constructor(txs, startingDate) {
-    this.txs = txs;
-    this.startingDate = startingDate;
+  constructor(firstRate, rateUpdates) {
+    this.firstRate = firstRate;
+    this.rateUpdates = rateUpdates;
   }
 
   getMutations() {
     const mutations = [];
-    for (const tx of this.txs) {
-      const priceMutation = new PriceMutation(tx);
+    for (const update of this.rateUpdates) {
+      const priceMutation = new PriceMutation(update);
       mutations.push(priceMutation.get());
     }
     if (mutations.length < 5) {
-      mutations.unshift({
-        price: 1,
-        date: dateHandler.getFormattedDate(this.startingDate),
-      });
+      const firstListing = new Listing(
+        1 / parseFloat(this.firstRate.rate),
+        dateHandler.getFormattedDate(this.firstRate.date),
+      );
+      mutations.unshift(firstListing);
     }
     return mutations.length > 5
       ? mutations.slice(mutations.length - 5)
@@ -25,25 +26,29 @@ export default class PriceHandler {
 }
 
 class PriceMutation {
-  constructor(tx) {
-    this.tx = tx;
+  constructor(update) {
+    this.update = update;
   }
 
   get() {
-    return {
-      price: this.getPrice(),
-      date: this.getDate(),
-    };
+    return new Listing(this.getPrice(), this.getDate());
   }
 
   getPrice() {
     const type = 'commercio/MsgSetCCCConversionRate';
-    const msgs = this.tx.tx.value.msg;
+    const msgs = this.update.tx.value.msg;
     const index = msgs.findIndex((msg) => msg.type === type);
     return 1 / parseFloat(msgs[index].value.rate);
   }
 
   getDate() {
-    return dateHandler.getFormattedDate(this.tx.timestamp);
+    return dateHandler.getFormattedDate(this.update.timestamp);
+  }
+}
+
+class Listing {
+  constructor(price, date) {
+    this.price = price;
+    this.date = date;
   }
 }

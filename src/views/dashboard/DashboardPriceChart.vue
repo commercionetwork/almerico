@@ -75,10 +75,16 @@ export default {
         ? this.error.data.error
         : JSON.stringify(this.error);
     },
+    firstRate() {
+      return {
+        rate: '1.000000000000000000',
+        date: this.startingDate,
+      };
+    },
     priceMutations() {
       return new PriceHandler(
+        this.firstRate,
         this.rateUpdates,
-        this.startingDate,
       ).getMutations();
     },
   },
