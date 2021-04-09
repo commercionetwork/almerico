@@ -21,7 +21,7 @@ export default {
     },
     width: {
       type: String,
-      default: '100',
+      default: '150',
     },
   },
   mounted() {

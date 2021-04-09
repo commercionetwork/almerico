@@ -20,7 +20,7 @@
             :chartData="chartData"
             :options="options"
             height="150"
-            width="200"
+            width="225"
           />
         </v-layout>
       </span>
@@ -57,7 +57,6 @@ export default {
             backgroundColor: '#b3e0ff',
             borderColor: '#4db8ff',
             pointBackgroundColor: '#008ae6',
-            lineTension: 0.5,
           },
         ],
       };
@@ -65,6 +64,7 @@ export default {
     options() {
       return {
         responsive: true,
+        maintainAspectRatio: false,
         legend: {
           display: false,
         },
@@ -76,7 +76,10 @@ export default {
         : JSON.stringify(this.error);
     },
     priceMutations() {
-      return new PriceHandler(this.rateUpdates, this.startingDate).getMutations();
+      return new PriceHandler(
+        this.rateUpdates,
+        this.startingDate,
+      ).getMutations();
     },
   },
 };
