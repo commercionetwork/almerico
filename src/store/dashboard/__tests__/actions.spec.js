@@ -1,6 +1,7 @@
 import actions from '../actions.js';
 import { mockConversionRate } from '../__mocks__/conversionRate';
 import { mockRateUpdates } from '../__mocks__/rateUpdates';
+import { mockBlock } from '../../blocks/__mocks__/blocks';
 
 const mockErrorResponse = {
   request: {},
@@ -27,6 +28,17 @@ describe('store/dashboard/actions', () => {
     mockErrorRequest = false;
     mockErrorServer = false;
     mockResponse = null;
+  });
+
+  test("if 'actions.init' dispatch actions to fetch starting date, conversion rate and rate updates", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+
+    await actions.init({ dispatch, commit });
+
+    expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
+    expect(dispatch).toHaveBeenCalledWith('fetchConversionRate');
+    expect(dispatch).toHaveBeenCalledWith('fetchRateUpdates');
   });
 
   test("if 'actions.fetchConversionRate' set rate", async () => {
@@ -66,6 +78,28 @@ describe('store/dashboard/actions', () => {
     mockError = true;
 
     await actions.fetchRateUpdates({ dispatch, commit });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test("if 'actions.fetchStartingDate' set date", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.fetchStartingDate({ dispatch, commit });
+
+    expect(commit).toBeCalledWith(
+      'setStartingDate',
+      mockResponse.data.block.header.time,
+    );
+  });
+
+  test("if 'actions.fetchStartingDate' has an error, dispatch 'handleError'", async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    mockError = true;
+
+    await actions.fetchStartingDate({ dispatch, commit });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
@@ -140,6 +174,26 @@ jest.mock('./../api', () => ({
             limit: '30',
             txs: mockRateUpdates(),
           },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestBlock: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
+
+        mockResponse = {
+          data: mockBlock(),
         };
         resolve(mockResponse);
       }, 1);

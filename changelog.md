@@ -2,9 +2,11 @@
 
 ## Version 2.2.5
 
+- News:
+  - Dashboard price chart
+
 - Updates:
   - Top body layout
-  - Added price chart to dashboard
 
 - Fixes:
   - Readme guide
