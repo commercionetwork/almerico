@@ -16,12 +16,8 @@
       </span>
       <span v-else data-test="content">
         <v-layout align-center justify-center column fill-height>
-          <LineChartComponent
-            :chartData="chartData"
-            :options="options"
-            height="150"
-            width="225"
-          />
+          <LineChartComponent :chartData="chartData" :options="options" />
+          <DashboardPriceChartRange v-on:range-changed="chartRangeChange" />
         </v-layout>
       </span>
     </template>
@@ -29,18 +25,24 @@
 </template>
 
 <script>
+import DashboardPriceChartRange from './DashboardPriceChartRange.vue';
 import LineChartComponent from '@/components/LineChartComponent.vue';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
-import { PriceHandler } from '@/utils';
+import { RANGE } from '@/constants';
+import { dateHandler, PriceHandler } from '@/utils';
 
 export default {
   name: 'DashboardPriceChart',
   components: {
+    DashboardPriceChartRange,
     LineChartComponent,
     TopBodyCardComponent,
   },
+  data: () => ({
+    range: RANGE.MONTH,
+  }),
   computed: {
     ...mapGetters('dashboard', {
       error: 'error',
@@ -50,10 +52,12 @@ export default {
     }),
     chartData() {
       return {
-        labels: this.priceMutations.map((update) => update.date),
+        labels: this.priceMutations.map((update) =>
+          dateHandler.getFormattedDate(update.date),
+        ),
         datasets: [
           {
-            data: this.priceMutations.map((update) => update.price),
+            data: this.priceMutations.map((update) => update.price.toFixed(2)),
             backgroundColor: '#b3e0ff',
             borderColor: '#4db8ff',
             pointBackgroundColor: '#008ae6',
@@ -65,8 +69,21 @@ export default {
       return {
         responsive: true,
         maintainAspectRatio: false,
+        tension: 0.1,
         legend: {
           display: false,
+        },
+        scales: {
+          xAxes: [
+            {
+              display: false,
+            },
+          ],
+          yAxes: [
+            {
+              display: false,
+            },
+          ],
         },
       };
     },
@@ -85,7 +102,13 @@ export default {
       return new PriceHandler(
         this.firstRate,
         this.rateUpdates,
-      ).getMutations();
+        this.range,
+      ).getListingsByRange();
+    },
+  },
+  methods: {
+    chartRangeChange(range) {
+      this.range = range;
     },
   },
 };
