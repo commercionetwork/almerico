@@ -16,7 +16,7 @@
       </span>
       <span
         v-else
-        class="text-h2 primary--text font-weight-bold"
+        class="text-h2 font-weight-bold"
         v-text="tokenValue"
         data-test="content"
       />
