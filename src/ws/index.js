@@ -30,41 +30,16 @@ export const subscribeWebSocket = () => {
         : null;
     switch (type) {
       case WS.EVENTS.NEW_BLOCK:
-        store.commit(
-          'blocks/setLatestBlock',
-          eventData.result.data.value.block,
-        );
-        break;
-      case WS.EVENTS.TX:
-        store.dispatch(
-          'transactions/fetchBlockTransactions',
-          eventData.result.data.value.TxResult.height,
-        );
-        store.dispatch('validators/initValidators', {
-          statuses: [
-            STATUS.VALIDATOR.BONDED,
-            STATUS.VALIDATOR.UNBONDED,
-            STATUS.VALIDATOR.UNBONDING,
-          ],
-        });
+        handleNewBlockEvent(eventData);
         break;
       case WS.EVENTS.VALIDATOR_SET_UPDATES:
-        store.commit(
-          'validators/setLatestValidatorsSets',
-          eventData.result.data.value.validator_updates,
-        );
+        handleValidatorSetUpdates(eventData);
+        break;
+      case WS.EVENTS.TX:
+        handleTxEvent(eventData);
         break;
       default:
         break;
-    }
-    if (type === WS.EVENTS.TX) {
-      const events = eventData.result.data.value.TxResult.result.events;
-      const index = events.findIndex(
-        (event) => (event.type = WS.TX_TYPES.NEW_CONVERSION_RATE),
-      );
-      if (index > -1) {
-        store.dispatch('dashboard/init');
-      }
     }
   };
 
@@ -75,4 +50,40 @@ export const subscribeWebSocket = () => {
   client.onclose = function() {
     connected = false;
   };
+};
+
+const handleNewBlockEvent = (data) => {
+  store.commit('blocks/setLatestBlock', data.result.data.value.block);
+};
+
+const handleValidatorSetUpdates = (data) => {
+  store.commit(
+    'validators/setLatestValidatorsSets',
+    data.result.data.value.validator_updates,
+  );
+};
+
+const handleTxEvent = (data) => {
+  store.dispatch(
+    'transactions/fetchBlockTransactions',
+    data.result.data.value.TxResult.height,
+  );
+  store.dispatch('validators/initValidators', {
+    statuses: [
+      STATUS.VALIDATOR.BONDED,
+      STATUS.VALIDATOR.UNBONDED,
+      STATUS.VALIDATOR.UNBONDING,
+    ],
+  });
+  handleTxSetConversionRate(data);
+};
+
+const handleTxSetConversionRate = (data) => {
+  const events = data.result.data.value.TxResult.result.events;
+  const index = events.findIndex(
+    (event) => (event.type = WS.TX_TYPES.NEW_CONVERSION_RATE),
+  );
+  if (index > -1) {
+    store.dispatch('dashboard/init');
+  }
 };
