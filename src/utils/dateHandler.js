@@ -22,7 +22,7 @@ const dateHandler = {
     const diff = date2.diff(date1);
     return dayjs.duration(diff).humanize(true);
   },
-  getAddedDate(amount, unit){
+  getAddedDate(amount, unit) {
     return dayjs()
       .add(amount, unit)
       .utc()

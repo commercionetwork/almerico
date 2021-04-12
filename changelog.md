@@ -4,6 +4,7 @@
 
 - News:
   - Dashboard price chart
+  - Support to `MsgSetCCCConversionRate` & `MsgSetCCCFreezePeriod` txs
 
 - Updates:
   - Top body layout

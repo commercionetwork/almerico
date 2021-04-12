@@ -95,6 +95,16 @@
         "value": "sendDocumentReceipt"
       },
       {
+        "name": "MsgSetCCCConversionRate",
+        "text": "commercio/MsgSetCCCConversionRate",
+        "value": "setEtpsConversionRate"
+      },
+      {
+        "name": "MsgSetCCCFreezePeriod",
+        "text": "commercio/MsgSetCCCFreezePeriod",
+        "value": "setEtpsFreezePeriod"
+      },
+      {
         "name": "MsgSetIdentity",
         "text": "commercio/MsgSetIdentity",
         "value": "setIdentity"
