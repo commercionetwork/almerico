@@ -31,7 +31,7 @@ describe('store/starting/actions', () => {
     mockResponse = null;
   });
 
-  test("if 'actions.init' dispatch actions to fetch node info, staking parameters and pool, latest block, validators, and subscribe web socket", async () => {
+  test("if 'actions.init' dispatch actions to fetch node info, staking parameters and pool, latest block and validators", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
@@ -54,7 +54,6 @@ describe('store/starting/actions', () => {
       },
       { root: true },
     );
-    expect(dispatch).toHaveBeenCalledWith('subscribeWebSocket');
   });
 
   test("if 'actions.fetchNodeInfo' set node info", async () => {

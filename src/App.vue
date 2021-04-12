@@ -46,6 +46,7 @@ import NavBarComponent from './components/NavBarComponent';
 
 import { mapActions, mapGetters } from 'vuex';
 import { ROUTES } from './constants';
+import { subscribeWebSocket } from '@/ws';
 
 export default {
   name: 'App',
@@ -74,6 +75,9 @@ export default {
     ...mapActions('starting', {
       init: 'init',
     }),
+  },
+  beforeCreate() {
+    subscribeWebSocket();
   },
   created() {
     this.init();

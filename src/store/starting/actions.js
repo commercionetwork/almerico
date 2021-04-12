@@ -27,7 +27,6 @@ export default {
         { root: true },
       ),
     ]);
-    dispatch('subscribeWebSocket');
     commit('stopLoading');
   },
   /**
