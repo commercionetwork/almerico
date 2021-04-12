@@ -31,7 +31,7 @@ export default class PriceHandler {
       return listings;
     }
 
-    const startingDay = getStartingDay(this.range);
+    const startingDay = this._getStartingDay(this.range);
     const firstSelectedIndex = listings.findIndex(
       (listing) => dateHandler.getDifference(startingDay, listing.date) > 0,
     );
@@ -57,20 +57,20 @@ export default class PriceHandler {
 
     return filteredListings;
   }
-}
 
-const getStartingDay = (range) => {
-  switch (range) {
-    case RANGE.TODAY:
-      return dateHandler.getSubtractedDate(1, 'day');
-    case RANGE.WEEK:
-      return dateHandler.getSubtractedDate(7, 'day');
-    case RANGE.MONTH:
-      return dateHandler.getSubtractedDate(1, 'month');
-    default:
-      return dateHandler.getSubtractedDate(1, 'month');
+  _getStartingDay() {
+    switch (this.range) {
+      case RANGE.TODAY:
+        return dateHandler.getSubtractedDate(1, 'day');
+      case RANGE.WEEK:
+        return dateHandler.getSubtractedDate(7, 'day');
+      case RANGE.MONTH:
+        return dateHandler.getSubtractedDate(1, 'month');
+      default:
+        return dateHandler.getSubtractedDate(1, 'month');
+    }
   }
-};
+}
 
 class PriceMutation {
   constructor(update) {

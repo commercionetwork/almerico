@@ -8,6 +8,7 @@
 
 - Updates:
   - Top body layout
+  - Websocket events
 
 - Fixes:
   - Readme guide
