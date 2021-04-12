@@ -62,7 +62,7 @@ export default class PriceHandler {
 const getStartingDay = (range) => {
   switch (range) {
     case RANGE.TODAY:
-      return dateHandler.getUtcDate();
+      return dateHandler.getSubtractedDate(1, 'day');
     case RANGE.WEEK:
       return dateHandler.getSubtractedDate(7, 'day');
     case RANGE.MONTH:
