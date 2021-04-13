@@ -8,13 +8,25 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
 const dateHandler = {
+  getDay() {
+    return dayjs().date();
+  },
+  getMonth() {
+    return dayjs().month();
+  },
+  getYear() {
+    return dayjs().year();
+  },
+  getTodayDate(style = 'DD/MM/YYYY') {
+    return dayjs().format(style);
+  },
   getDifference(d1, d2) {
     const date1 = dayjs(d1);
     const date2 = dayjs(d2);
     return date2.diff(date1);
   },
-  getFormattedDate(date) {
-    return dayjs(date).format('DD/MM/YY');
+  getFormattedDate(date, style = 'DD/MM/YY') {
+    return dayjs(date).format(style);
   },
   getFormattedDifference(d1, d2) {
     const date1 = dayjs(d1);
