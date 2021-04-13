@@ -1,18 +1,21 @@
 <template>
   <v-form>
-    <v-select v-model="selectedItem" :items="CHAIN.LIST">
+    <v-select
+      flat
+      v-model="selectedItem"
+      :items="CHAIN.LIST"
+      item-text="text"
+      item-value="value"
+      v-on:change="changeChain"
+    >
       <template v-slot:selection="data">
         <span
-          class="text-h6 text-uppercase font-weight-medium"
+          class="text-h6 text-uppercase primary--text font-weight-bold"
           v-text="data.item.text"
         />
       </template>
       <template v-slot:item="data">
-        <a
-          class="text-decoration-none"
-          v-text="data.item.text"
-          :href="data.item.value"
-        />
+        <span class="text-subtitle-1 font-weight-bold" v-text="data.item.text" />
       </template>
     </v-select>
   </v-form>
@@ -33,6 +36,11 @@ export default {
         (item) => item.lcd === process.env.VUE_APP_LCD,
       );
       return chainIndex > -1 ? CHAIN.LIST[chainIndex] : CHAIN.DEFAULT;
+    },
+  },
+  methods: {
+    changeChain(chain) {
+      window.location.href = chain;
     },
   },
   created() {
