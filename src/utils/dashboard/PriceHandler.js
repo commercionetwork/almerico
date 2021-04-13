@@ -8,40 +8,51 @@ export default class PriceHandler {
     this.range = range;
   }
 
-  getAllListings() {
+  getListingsByRange() {
+    const startingDay = this._getStartingDay(this.range);
+    const listings = this._getAllListings();
+
+    if (listings.length === 1) {
+      return this._buildNeededListings;
+    }
+
+    return this._filterListings(listings, startingDay);
+  }
+
+  _getStartingDay() {
+    switch (this.range) {
+      case RANGE.TODAY:
+        return dateHandler.getSubtractedDate(1, 'day');
+      case RANGE.WEEK:
+        return dateHandler.getSubtractedDate(7, 'day');
+      case RANGE.MONTH:
+        return dateHandler.getSubtractedDate(1, 'month');
+      default:
+        return dateHandler.getSubtractedDate(1, 'month');
+    }
+  }
+
+  _getAllListings() {
     let all = [];
     all.push(
       new Listing(1 / parseFloat(this.firstRate.rate), this.firstRate.date),
     );
     for (const update of this.rateUpdates) {
       const priceMutation = new PriceMutation(update);
-      all.push(priceMutation.get());
+      all.push(priceMutation.getNewListing());
     }
     return all;
   }
 
-  getListingsByRange() {
-    const listings = this.getAllListings();
-    if (listings.length === 1) {
-      const todayListing = new Listing(
-        listings[0].price,
-        dateHandler.getUtcDate(),
-      );
-      listings.push(todayListing);
-      return listings;
-    }
+  _buildNeededListings(listings, startingDay) {
+    const price = listings[0].price;
+    const startingListing = new Listing(price, startingDay);
+    const todayListing = new Listing(price, dateHandler.getUtcDate());
+    return [startingListing, todayListing];
+  }
 
-    const startingDay = this._getStartingDay(this.range);
-    const firstSelectedIndex = listings.findIndex(
-      (listing) => dateHandler.getDifference(startingDay, listing.date) > 0,
-    );
-    let firstDiscarded = {};
-    if (firstSelectedIndex < 1) {
-      firstDiscarded = { ...listings[listings.length - 1] };
-    } else {
-      firstDiscarded = { ...listings[firstSelectedIndex - 1] };
-    }
-
+  _filterListings(listings, startingDay) {
+    const firstDiscarded = this._getFirstDiscarded(listings, startingDay);
     const filteredListings = listings.filter(
       (listing) => dateHandler.getDifference(startingDay, listing.date) > 0,
     );
@@ -58,17 +69,13 @@ export default class PriceHandler {
     return filteredListings;
   }
 
-  _getStartingDay() {
-    switch (this.range) {
-      case RANGE.TODAY:
-        return dateHandler.getSubtractedDate(1, 'day');
-      case RANGE.WEEK:
-        return dateHandler.getSubtractedDate(7, 'day');
-      case RANGE.MONTH:
-        return dateHandler.getSubtractedDate(1, 'month');
-      default:
-        return dateHandler.getSubtractedDate(1, 'month');
-    }
+  _getFirstDiscarded(listings, startingDay) {
+    const firstSelectedIndex = listings.findIndex(
+      (listing) => dateHandler.getDifference(startingDay, listing.date) > 0,
+    );
+    return firstSelectedIndex < 1
+      ? listings[listings.length - 1]
+      : listings[firstSelectedIndex - 1];
   }
 }
 
@@ -77,11 +84,11 @@ class PriceMutation {
     this.update = update;
   }
 
-  get() {
-    return new Listing(this.getPrice(), this.update.timestamp);
+  getNewListing() {
+    return new Listing(this._getPrice(), this.update.timestamp);
   }
 
-  getPrice() {
+  _getPrice() {
     const type = 'commercio/MsgSetCCCConversionRate';
     const msgs = this.update.tx.value.msg;
     const index = msgs.findIndex((msg) => msg.type === type);
