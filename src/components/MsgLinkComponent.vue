@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'MsgLink',
+  name: 'MsgLinkComponent',
   props: {
     label: {
       type: String,

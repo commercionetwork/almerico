@@ -55,7 +55,7 @@ export default {
     },
     membershipColor() {
       const index = ACCOUNT.MEMBERSHIPS.findIndex(
-        (membership) => membership.name === this.membershipText
+        (membership) => membership.name === this.membershipText,
       );
       return index !== -1 ? ACCOUNT.MEMBERSHIPS[index]['color'] : '#CCEEFF';
     },

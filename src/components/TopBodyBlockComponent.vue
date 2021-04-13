@@ -1,17 +1,11 @@
 <template>
-  <v-card outlined>
-    <v-card-title class="justify-center text-h4">
+  <TopBodyCardComponent title="latest height">
+    <template v-slot:content>
       <router-link
-        class="text-decoration-none font-weight-bold"
+        class="text-h4 text-decoration-none font-weight-bold"
         v-text="blockHeight"
         :to="blockLink"
       />
-    </v-card-title>
-    <v-card-subtitle
-      class="text-center text-capitalize text-subtitle-2"
-      v-text="'latest height'"
-    />
-    <v-card-text class="text-center">
       <span class="d-block font-weight-bold" v-text="time" />
       <span class="d-block">
         Msgs/Txs:
@@ -25,17 +19,26 @@
           :to="proposerLink"
         />
       </span>
-    </v-card-text>
-  </v-card>
+      <span class="d-block">
+        Validators:
+        <span class="font-weight-bold">
+          {{ validatorsTotal }} (bonded {{ validatorsBondeds }})
+        </span>
+      </span>
+    </template>
+  </TopBodyCardComponent>
 </template>
 
 <script>
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
+
 import { mapGetters } from 'vuex';
 import { proposerHandler } from '@/utils';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'TopBodyBlock',
+  name: 'TopBodyBlockComponent',
+  components: { TopBodyCardComponent },
   computed: {
     ...mapGetters('blocks', {
       block: 'latest',
@@ -63,7 +66,7 @@ export default {
     },
     msgs() {
       let txs = this.transactions.filter(
-        (tx) => tx.height === this.block.header.height
+        (tx) => tx.height === this.block.header.height,
       );
       return txs.reduce((acc, item) => acc + item.tx.value.msg.length, 0);
     },
@@ -93,6 +96,13 @@ export default {
       return this.block.data && this.block.data.txs
         ? this.block.data.txs.length
         : 0;
+    },
+    validatorsBondeds() {
+      return this.validators.filter((validator) => validator.status === 2)
+        .length;
+    },
+    validatorsTotal() {
+      return this.validators.length;
     },
   },
 };

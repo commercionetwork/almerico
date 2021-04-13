@@ -1,21 +1,21 @@
-import actions from "../actions.js";
-import { STATUS } from "@/constants";
-import { mockNodeInfo } from "../__mocks__/node_info";
-import { mockConversionRate, mockParameters } from "../__mocks__/parameters";
-import { mockPool } from "../__mocks__/pool";
+import actions from '../actions.js';
+import { STATUS } from '@/constants';
+import { mockNodeInfo } from '../__mocks__/node_info';
+import { mockParameters } from '../__mocks__/parameters';
+import { mockPool } from '../__mocks__/pool';
 
 const mockErrorResponse = {
   request: {},
   response: {
     data: {
-      error: "error"
+      error: 'error',
     },
-    status: 400
-  }
+    status: 400,
+  },
 };
 const mockErrorRequestResponse = {
   request: {},
-  response: undefined
+  response: undefined,
 };
 
 let mockError = false;
@@ -23,7 +23,7 @@ let mockErrorRequest = false;
 let mockErrorServer = false;
 let mockResponse = null;
 
-describe("store/starting/actions", () => {
+describe('store/starting/actions', () => {
   beforeEach(() => {
     mockError = false;
     mockErrorRequest = false;
@@ -31,31 +31,29 @@ describe("store/starting/actions", () => {
     mockResponse = null;
   });
 
-  test("if 'actions.fetchInitData' dispatch actions to fetch node info, staking parameters and pool, latest block, validators, and subscribe web socket", async () => {
+  test("if 'actions.init' dispatch actions to fetch node info, staking parameters and pool, latest block and validators", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
-    await actions.fetchInitData({ dispatch, commit });
+    await actions.init({ dispatch, commit });
 
-    expect(dispatch).toHaveBeenCalledWith("fetchNodeInfo");
-    expect(dispatch).toHaveBeenCalledWith("fetchParams");
-    expect(dispatch).toHaveBeenCalledWith("fetchPool");
-    expect(dispatch).toHaveBeenCalledWith("fetchConversionRate");
-    expect(dispatch).toHaveBeenCalledWith("blocks/fetchLatestBlock", null, {
-      root: true
+    expect(dispatch).toHaveBeenCalledWith('fetchNodeInfo');
+    expect(dispatch).toHaveBeenCalledWith('fetchParams');
+    expect(dispatch).toHaveBeenCalledWith('fetchPool');
+    expect(dispatch).toHaveBeenCalledWith('blocks/fetchLatestBlock', null, {
+      root: true,
     });
     expect(dispatch).toHaveBeenCalledWith(
-      "validators/initValidators",
+      'validators/initValidators',
       {
         statuses: [
           STATUS.VALIDATOR.BONDED,
           STATUS.VALIDATOR.UNBONDED,
-          STATUS.VALIDATOR.UNBONDING
-        ]
+          STATUS.VALIDATOR.UNBONDING,
+        ],
       },
-      { root: true }
+      { root: true },
     );
-    expect(dispatch).toHaveBeenCalledWith("subscribeWebSocket");
   });
 
   test("if 'actions.fetchNodeInfo' set node info", async () => {
@@ -64,7 +62,7 @@ describe("store/starting/actions", () => {
 
     await actions.fetchNodeInfo({ dispatch, commit });
 
-    expect(commit).toHaveBeenCalledWith("setNodeInfo", mockResponse.data);
+    expect(commit).toHaveBeenCalledWith('setNodeInfo', mockResponse.data);
   });
 
   test("if 'actions.fetchNodeInfo' has an error, dispatch 'handleError'", async () => {
@@ -74,7 +72,7 @@ describe("store/starting/actions", () => {
 
     await actions.fetchNodeInfo({ dispatch, commit });
 
-    expect(dispatch).toHaveBeenCalledWith("handleError", mockErrorResponse);
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test("if 'actions.fetchParams' set staking parameters", async () => {
@@ -83,7 +81,7 @@ describe("store/starting/actions", () => {
 
     await actions.fetchParams({ dispatch, commit });
 
-    expect(commit).toHaveBeenCalledWith("setParams", mockResponse.data.result);
+    expect(commit).toHaveBeenCalledWith('setParams', mockResponse.data.result);
   });
 
   test("if 'actions.fetchParams' has an error, dispatch 'handleError'", async () => {
@@ -93,7 +91,7 @@ describe("store/starting/actions", () => {
 
     await actions.fetchParams({ dispatch, commit });
 
-    expect(dispatch).toHaveBeenCalledWith("handleError", mockErrorResponse);
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test("if 'actions.fetchPool' set pool", async () => {
@@ -102,7 +100,7 @@ describe("store/starting/actions", () => {
 
     await actions.fetchPool({ dispatch, commit });
 
-    expect(commit).toHaveBeenCalledWith("setPool", mockResponse.data.result);
+    expect(commit).toHaveBeenCalledWith('setPool', mockResponse.data.result);
   });
 
   test("if 'actions.fetchPool' has an error, dispatch 'handleError'", async () => {
@@ -112,29 +110,7 @@ describe("store/starting/actions", () => {
 
     await actions.fetchPool({ dispatch, commit });
 
-    expect(dispatch).toHaveBeenCalledWith("handleError", mockErrorResponse);
-  });
-
-  test("if 'actions.fetchConversionRate' set rate", async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-
-    await actions.fetchConversionRate({ dispatch, commit });
-
-    expect(commit).toHaveBeenCalledWith(
-      "setConversionRate",
-      mockResponse.data.result
-    );
-  });
-
-  test("if 'actions.fetchConversionRate' has an error, dispatch 'handleError'", async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    mockError = true;
-
-    await actions.fetchConversionRate({ dispatch, commit });
-
-    expect(dispatch).toHaveBeenCalledWith("handleError", mockErrorResponse);
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test("if 'actions.handleError' handles the various types of error", () => {
@@ -143,25 +119,25 @@ describe("store/starting/actions", () => {
 
     actions.handleError({ commit }, error);
 
-    expect(commit).toBeCalledWith("setError", error.response);
+    expect(commit).toBeCalledWith('setError', error.response);
 
     error = mockErrorRequestResponse;
 
     actions.handleError({ commit }, error);
 
-    expect(commit).toBeCalledWith("setError", error);
+    expect(commit).toBeCalledWith('setError', error);
 
-    error = "error";
+    error = 'error';
 
     actions.handleError({ commit }, error);
 
-    expect(commit).toBeCalledWith("setServerReachability", false, {
-      root: true
+    expect(commit).toBeCalledWith('setServerReachability', false, {
+      root: true,
     });
   });
 });
 
-jest.mock("./../api", () => ({
+jest.mock('./../api', () => ({
   requestNodeInfo: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -176,7 +152,7 @@ jest.mock("./../api", () => ({
         }
 
         mockResponse = {
-          data: mockNodeInfo()
+          data: mockNodeInfo(),
         };
         resolve(mockResponse);
       }, 1);
@@ -197,9 +173,9 @@ jest.mock("./../api", () => ({
 
         mockResponse = {
           data: {
-            height: "1",
-            result: mockPool()
-          }
+            height: '1',
+            result: mockPool(),
+          },
         };
         resolve(mockResponse);
       }, 1);
@@ -220,35 +196,12 @@ jest.mock("./../api", () => ({
 
         mockResponse = {
           data: {
-            height: "1",
-            result: mockParameters()
-          }
+            height: '1',
+            result: mockParameters(),
+          },
         };
         resolve(mockResponse);
       }, 1);
     });
   },
-  requestConversionRate: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-        if (mockErrorRequest) {
-          reject(mockErrorRequestResponse);
-        }
-        if (mockErrorServer) {
-          reject({});
-        }
-
-        mockResponse = {
-          data: {
-            height: "0",
-            result: mockConversionRate()
-          }
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  }
 }));

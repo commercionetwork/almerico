@@ -46,7 +46,7 @@ const getBlocksAttendance = ({ blocks, address }) => {
   for (const block of blocks) {
     const index = block.last_commit.signatures.findIndex(
       (signature) =>
-        signature.validator_address.toUpperCase() === address.toUpperCase()
+        signature.validator_address.toUpperCase() === address.toUpperCase(),
     );
     if (index > -1) {
       checkedBlock = buildBlock({
@@ -77,7 +77,7 @@ const buildBlock = ({ height, status }) => ({ height: height, status: status });
 
 const decodeAddress = ({ validator, validatorsSet }) => {
   const index = validatorsSet.findIndex(
-    (val) => val.pub_key === validator.consensus_pubkey
+    (val) => val.pub_key === validator.consensus_pubkey,
   );
   return index > -1 ? bech32Manager.decode(validatorsSet[index].address) : null;
 };

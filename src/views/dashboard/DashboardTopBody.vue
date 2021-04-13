@@ -1,32 +1,35 @@
 <template>
-  <v-layout>
-    <TopBody>
-      <template v-slot:left>
-        <TopBodyBlock />
-      </template>
-      <template v-slot:center>
-        <DashboardChart />
-      </template>
-      <template v-slot:right>
-        <DashboardStats />
-      </template>
-    </TopBody>
-  </v-layout>
+  <TopBodyComponent :optionalInfo="true">
+    <template v-slot:left-info>
+      <TopBodyBlockComponent />
+    </template>
+    <template v-slot:center-info>
+      <DashboardPrice />
+    </template>
+    <template v-slot:right-info>
+      <DashboardPriceChart />
+    </template>
+    <template v-slot:optional-info>
+      <DashboardChart />
+    </template>
+  </TopBodyComponent>
 </template>
 
 <script>
-import DashboardChart from "./DashboardChart";
-import DashboardStats from "./DashboardStats";
-import TopBody from "@/components/TopBody";
-import TopBodyBlock from "@/components/TopBodyBlock";
+import DashboardChart from './DashboardChart';
+import DashboardPrice from './DashboardPrice';
+import DashboardPriceChart from './DashboardPriceChart';
+import TopBodyBlockComponent from '@/components/TopBodyBlockComponent';
+import TopBodyComponent from '@/components/TopBodyComponent';
 
 export default {
-  name: "DashboardTopBody",
+  name: 'DashboardTopBody',
   components: {
     DashboardChart,
-    DashboardStats,
-    TopBody,
-    TopBodyBlock,
+    DashboardPrice,
+    DashboardPriceChart,
+    TopBodyBlockComponent,
+    TopBodyComponent,
   },
 };
 </script>

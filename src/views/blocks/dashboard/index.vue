@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import BlocksHeader from "./BlocksHeader";
-import BlocksMiddleBody from "./BlocksMiddleBody";
-import BlocksTopBody from "./BlocksTopBody";
+import BlocksHeader from './BlocksHeader';
+import BlocksMiddleBody from './BlocksMiddleBody';
+import BlocksTopBody from './BlocksTopBody';
 
 export default {
-  name: "Blocks",
+  name: 'Blocks',
   components: {
     BlocksHeader,
     BlocksMiddleBody,

@@ -28,10 +28,10 @@
 
 <script>
 export default {
-  name: "DashboardBanner",
+  name: 'DashboardBanner',
   computed: {
     message() {
-      return "<strong>Commercio.network: The Digital Transformation Blockchain &trade;</strong>. Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe.";
+      return '<strong>Commercio.network: The Digital Transformation Blockchain &trade;</strong>. Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe.';
     },
   },
 };

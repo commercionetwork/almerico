@@ -1,7 +1,3 @@
-/**
- * ACCOUNT ACTIONS
- */
-
 import api from './api';
 
 export default {

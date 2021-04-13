@@ -1,28 +1,33 @@
 <template>
-  <v-layout align-center justify-center column fill-height>
-    <span class="text-caption font-weight-medium" v-text="caption" />
-    <DoughnutChart
-      :chartData="chartData"
-      :options="options"
-      height="150"
-      width="150"
-    />
-  </v-layout>
+  <TopBodyCardComponent :title="caption">
+    <template v-slot:content>
+      <v-layout align-center justify-center column fill-height>
+        <DoughnutChartComponent
+          :chartData="chartData"
+          :options="options"
+          height="150"
+          width="150"
+        />
+      </v-layout>
+    </template>
+  </TopBodyCardComponent>
 </template>
 
 <script>
-import DoughnutChart from "@/components/DoughnutChart";
+import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "ValidatorsChart",
+  name: 'ValidatorsChart',
   components: {
-    DoughnutChart,
+    DoughnutChartComponent,
+    TopBodyCardComponent,
   },
   computed: {
-    ...mapGetters("validators", {
-      validators: "validators",
+    ...mapGetters('validators', {
+      validators: 'validators',
     }),
     chartData() {
       return {
@@ -33,7 +38,7 @@ export default {
         datasets: [
           {
             data: [this.validatorsBondeds, this.validatorsNotBondeds],
-            backgroundColor: ["#303F9F", "#5C6BC0"],
+            backgroundColor: ['#303F9F', '#5C6BC0'],
           },
         ],
       };
@@ -46,8 +51,8 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
+            label: function(tooltipItem, data) {
+              return data['labels'][tooltipItem['index']];
             },
           },
         },
@@ -56,7 +61,7 @@ export default {
     caption() {
       return this.validators.length > 0
         ? `Validators: ${this.validators.length}`
-        : "Validators";
+        : 'Validators';
     },
     validatorsBondeds() {
       return this.validators.filter((validator) => validator.status === 2)

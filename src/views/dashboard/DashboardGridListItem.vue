@@ -86,7 +86,7 @@ export default {
       return this.transaction
         ? dateHandler.getFormattedDifference(
             new Date(this.transaction.timestamp),
-            new Date()
+            new Date(),
           )
         : '';
     },

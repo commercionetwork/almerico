@@ -1,6 +1,6 @@
 const numberIntlFormatter = {
   /**
-   * 
+   *
    * @param {Number || String} amount
    * @param {Number} maximumFractionDigits
    * @param {Number} minimumFractionDigits
@@ -14,7 +14,7 @@ const numberIntlFormatter = {
     }).format(amount);
   },
   /**
-   * 
+   *
    * @param {Number || String} amount
    * @param {Number} maximumFractionDigits
    * @param {Number} minimumFractionDigits

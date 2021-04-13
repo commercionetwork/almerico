@@ -33,7 +33,7 @@ describe('utils/arrayHandler', () => {
 
     const orderedItems = arrayHandler.sortObjectsByNumberPropertyValueAsc(
       items,
-      'tokens'
+      'tokens',
     );
 
     expect(orderedItems).toStrictEqual(expectedValue);
@@ -71,7 +71,7 @@ describe('utils/arrayHandler', () => {
 
     const orderedItems = arrayHandler.sortObjectsByNumberPropertyValueDesc(
       items,
-      'tokens'
+      'tokens',
     );
 
     expect(orderedItems).toStrictEqual(expectedValue);
@@ -108,7 +108,7 @@ describe('utils/arrayHandler', () => {
 
     const orderedItems = arrayHandler.sortObjectsByStringPropertyValueAsc(
       items,
-      'surname'
+      'surname',
     );
 
     expect(orderedItems).toStrictEqual(expectedValue);
@@ -146,7 +146,7 @@ describe('utils/arrayHandler', () => {
 
     const orderedItems = arrayHandler.sortObjectsByStringPropertyValueDesc(
       items,
-      'surname'
+      'surname',
     );
 
     expect(orderedItems).toStrictEqual(expectedValue);

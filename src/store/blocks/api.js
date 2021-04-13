@@ -1,14 +1,8 @@
-/**
- * BLOCKS APIS
- */
-
-import axios from "axios";
-import {
-  API
-} from "@/constants";
+import axios from 'axios';
+import { API } from '@/constants';
 
 const headers = {
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 };
 
 export default {

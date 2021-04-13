@@ -12,7 +12,7 @@
 import { regExpBuilder } from '@/utils';
 
 export default {
-  name: 'MsgUrl',
+  name: 'MsgUrlComponent',
   props: {
     label: {
       type: String,

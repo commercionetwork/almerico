@@ -33,46 +33,46 @@
 </template>
 
 <script>
-import ValidatorDetailsAddress from "./ValidatorDetailsAddress";
-import ValidatorDetailsBlocks from "./ValidatorDetailsBlocks";
-import ValidatorDetailsChart from "./ValidatorDetailsChart";
-import ValidatorDetailsDelegationsTable from "./ValidatorDetailsDelegationsTable";
-import ValidatorDetailsDelegatorsTable from "./ValidatorDetailsDelegatorsTable";
-import ValidatorDetailsSpec from "./ValidatorDetailsSpec";
+import ValidatorDetailsAddress from './ValidatorDetailsAddress';
+import ValidatorDetailsBlocks from './ValidatorDetailsBlocks';
+import ValidatorDetailsChart from './ValidatorDetailsChart';
+import ValidatorDetailsDelegationsTable from './ValidatorDetailsDelegationsTable';
+import ValidatorDetailsDelegatorsTable from './ValidatorDetailsDelegatorsTable';
+import ValidatorDetailsSpec from './ValidatorDetailsSpec';
 
-import { CUSTOMIZATION } from "@/constants";
+import { CUSTOMIZATION } from '@/constants';
 
 export default {
-  name: "ValidatorDetailsBody",
+  name: 'ValidatorDetailsBody',
   components: {
     ValidatorDetailsAddress,
     ValidatorDetailsBlocks,
     ValidatorDetailsChart,
     ValidatorDetailsDelegationsTable,
     ValidatorDetailsDelegatorsTable,
-    ValidatorDetailsSpec
+    ValidatorDetailsSpec,
   },
   props: {
     account: {
       type: String,
       required: true,
-      note: "The account address"
+      note: 'The account address',
     },
     operator: {
       type: String,
       required: true,
-      note: "The operator address"
+      note: 'The operator address',
     },
     delegations: {
       type: Object,
       required: true,
-      note: "The account delegations"
-    }
+      note: 'The account delegations',
+    },
   },
   computed: {
     isBlocksMonitor() {
       return CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.VISIBILITY;
-    }
-  }
+    },
+  },
 };
 </script>

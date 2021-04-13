@@ -4,17 +4,22 @@
     :items="items"
     :sort-by.sync="sortBy"
     :sort-desc.sync="sortDesc"
-    :caption="caption"
     :hide-default-footer="true"
     disable-pagination
   >
+    <template v-slot:top>
+      <div
+        class="py-2 text-center text-overline font-weight-bold"
+        v-text="caption"
+      />
+    </template>
     <template v-slot:[`item.height`]="{ item }">
       <router-link
         class="text-decoration-none"
         v-text="item.height"
         :to="{
           name: ROUTES.NAMES.BLOCKS_DETAILS,
-          params: { id: item.height }
+          params: { id: item.height },
         }"
       />
     </template>
@@ -35,7 +40,7 @@
         v-text="item.hash"
         :to="{
           name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
-          params: { id: item.hash }
+          params: { id: item.hash },
         }"
       />
     </template>
@@ -53,44 +58,44 @@
 </template>
 
 <script>
-import { ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "TransactionsTable",
+  name: 'TransactionsTable',
   props: {
     items: {
       type: Array,
       default: () => [],
-      note: "The items to display"
+      note: 'The items to display',
     },
     msgType: {
       type: String,
-      default: "",
-      note: "The filterd message type"
-    }
+      default: '',
+      note: 'The filterd message type',
+    },
   },
   data: () => ({
     ROUTES,
-    sortBy: "height",
-    sortDesc: true
+    sortBy: 'height',
+    sortDesc: true,
   }),
   computed: {
     headers() {
       return [
-        { text: "Height", value: "height" },
-        { text: "Type", value: "type" },
-        { text: "Msgs", value: "msgs" },
-        { text: "Result", value: "result" },
-        { text: "Fee", value: "fee" },
-        { text: "Hash", value: "hash" },
-        { text: "Time", value: "time" }
+        { text: 'Height', value: 'height' },
+        { text: 'Type', value: 'type' },
+        { text: 'Msgs', value: 'msgs' },
+        { text: 'Result', value: 'result' },
+        { text: 'Fee', value: 'fee' },
+        { text: 'Hash', value: 'hash' },
+        { text: 'Time', value: 'time' },
       ];
     },
     caption() {
-      return this.msgType != ""
+      return this.msgType != ''
         ? `Transactions filterd by "${this.msgType}" type`
-        : "All Types Transactions";
-    }
-  }
+        : 'All Types Transactions';
+    },
+  },
 };
 </script>

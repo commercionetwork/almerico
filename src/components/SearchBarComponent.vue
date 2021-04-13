@@ -14,17 +14,17 @@ import { ROUTES } from '@/constants';
 import { regExpBuilder } from '@/utils';
 
 export default {
-  name: 'SearchBar',
+  name: 'SearchBarComponent',
   data: () => ({
     query: '',
   }),
   methods: {
     onSubmit() {
       const validatorRegEx = regExpBuilder.getAddressRegExp(
-        this.$config.generic.prefixes.validator.operator.address
+        this.$config.generic.prefixes.validator.operator.address,
       );
       const accountRegEx = regExpBuilder.getAddressRegExp(
-        this.$config.generic.prefixes.account.address
+        this.$config.generic.prefixes.account.address,
       );
       const hashRegEx = regExpBuilder.getHashRegExp();
       const heightRegEx = regExpBuilder.getHeightRegExp();

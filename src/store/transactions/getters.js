@@ -1,7 +1,3 @@
-/**
- * TRANSACTIONS GETTERS
- */
-
 export default {
   currentPage: (state) => state.currentPage,
   details: (state) => state.details,

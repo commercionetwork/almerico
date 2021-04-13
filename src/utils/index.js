@@ -8,6 +8,7 @@ import BlocksAttendanceCalculator from './blocks/BlocksAttendanceCalculator';
 import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import blocksHandler from './blocksHandler';
 import coinAdapter from './coinAdapter';
+import PriceHandler from './dashboard/PriceHandler';
 import dateHandler from './dateHandler';
 import numberIntlFormatter from './numberIntlFormatter';
 import proposerHandler from './proposerHandler';
@@ -27,6 +28,7 @@ export {
   BlockProposerHandler,
   BlocksAttendanceCalculator,
   BlocksTableAdapter,
+  PriceHandler,
   TransactionDetailsAdapter,
   TransactionsFilter,
   TransactionsTableAdapter,

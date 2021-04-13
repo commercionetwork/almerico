@@ -1,10 +1,5 @@
-/**
- * BLOCKS MUTATIONS
- */
-
 export default {
   /**
-   * Set isLoading state to true
    *
    * @param {BlocksState} state
    */
@@ -13,7 +8,6 @@ export default {
     state.isLoading = true;
   },
   /**
-   * Set isLoading state to false
    *
    * @param {BlocksState} state
    */
@@ -21,7 +15,6 @@ export default {
     state.isLoading = false;
   },
   /**
-   * Set error message
    *
    * @param {BlocksState} state
    * @param {Object} error
@@ -30,7 +23,6 @@ export default {
     state.error = { ...error };
   },
   /**
-   * Update blocks height
    *
    * @param {BlocksState} state
    * @param {Number} height
@@ -39,7 +31,6 @@ export default {
     state.currentHeight = height;
   },
   /**
-   * Add blocks
    *
    * @param {BlocksState} state
    * @param {Array.<Object>} data
@@ -48,7 +39,6 @@ export default {
     state.blocks.push.apply(state.blocks, data);
   },
   /**
-   * Remove all blocks
    *
    * @param {BlocksState} state
    */
@@ -56,7 +46,6 @@ export default {
     state.blocks = [];
   },
   /**
-   * Add single block to the beginning of the stored blocks
    *
    * @param {BlocksState} state
    * @param {Object} data
@@ -65,7 +54,6 @@ export default {
     state.blocks.unshift(data);
   },
   /**
-   * Set block details
    *
    * @param {BlocksState} state
    * @param {Object} data
@@ -77,7 +65,6 @@ export default {
     };
   },
   /**
-   * Set latest block
    *
    * @param {BlocksState} state
    * @param {Object} data

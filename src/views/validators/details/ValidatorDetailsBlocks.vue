@@ -1,6 +1,9 @@
 <template>
   <v-card outlined :loading="isLoading">
-    <v-card-title v-text="title" />
+    <v-card-title
+      class="justify-center text-center text-overline font-weight-bold"
+      v-text="title"
+    />
     <v-card-text v-if="isLoading" data-test="loading">
       <v-alert type="info">Loading ...</v-alert>
     </v-card-text>

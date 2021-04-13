@@ -4,7 +4,7 @@
     :style="{ background: $vuetify.theme.themes[theme].background }"
   >
     <!-- navigation -->
-    <NavBar />
+    <NavBarComponent />
     <!-- content -->
     <v-main>
       <v-layout
@@ -36,22 +36,23 @@
       </v-container>
     </v-main>
     <!-- footer -->
-    <Footer />
+    <FooterComponent />
   </v-app>
 </template>
 
 <script>
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
+import FooterComponent from './components/FooterComponent';
+import NavBarComponent from './components/NavBarComponent';
 
 import { mapActions, mapGetters } from 'vuex';
 import { ROUTES } from './constants';
+import { subscribeWebSocket } from '@/ws';
 
 export default {
   name: 'App',
   components: {
-    Footer,
-    NavBar,
+    FooterComponent,
+    NavBarComponent,
   },
   computed: {
     ...mapGetters('starting', {
@@ -72,11 +73,14 @@ export default {
   },
   methods: {
     ...mapActions('starting', {
-      fetchInitData: 'fetchInitData',
+      init: 'init',
     }),
   },
+  beforeCreate() {
+    subscribeWebSocket();
+  },
   created() {
-    this.fetchInitData();
+    this.init();
   },
 };
 </script>

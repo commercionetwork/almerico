@@ -1,6 +1,19 @@
 # Changelog
 
-## Version 2.2.4
+## Version 2.2.5, 13/04/2021
+
+- News:
+  - Dashboard price chart
+  - Support to `MsgSetCCCConversionRate` & `MsgSetCCCFreezePeriod` txs
+
+- Updates:
+  - Top body layout
+  - Websocket events
+
+- Fixes:
+  - Readme guide
+
+## Version 2.2.4, 30/03/2021
 
 - Updates:
   - Coins rendering

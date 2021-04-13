@@ -10,7 +10,7 @@ import AccountUnbondingsHandler from '../AccountUnbondingsHandler';
 describe('utils/account', () => {
   test("if 'AccountDelegationsHandler' class returns an array of wanted delegations", () => {
     const delegations = AccountDelegationsHandler.setDelegations(
-      mockValidatorDelegations()
+      mockValidatorDelegations(),
     )
       .setValidators(mockValidators())
       .get();

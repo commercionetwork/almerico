@@ -1,7 +1,3 @@
-/**
- * BLOCKS ACTIONS
- */
-
 import api from './api';
 
 export default {

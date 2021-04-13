@@ -36,7 +36,7 @@ export default {
   methods: {
     getComponentName(message) {
       let component = this.model.components.find(
-        (component) => component.text === message.type
+        (component) => component.text === message.type,
       );
       return component ? component.name : MsgDefault.name;
     },

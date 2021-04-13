@@ -1,23 +1,23 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item v-for="(prop, index) in props" :key="index">
-        <MsgItem :label="formatKeyProp(prop[0])" :content="prop[1]" />
+        <MsgItemComponent :label="formatKeyProp(prop[0])" :content="prop[1]" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
 export default {
   name: 'MsgDefault',
   description: 'Display a not handled transaction message',
   components: {
-    MsgItem,
-    MsgTx,
+    MsgItemComponent,
+    MsgTxComponent,
   },
   props: {
     message: {

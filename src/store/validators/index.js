@@ -1,5 +1,4 @@
 /**
- * VALIDATORS STATE
  *
  * @typedef {Object} ValidatorsState
  * @property {Array.<Object>} heightValidatorsSets

@@ -1,57 +1,61 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="claimant"
           :content="claimantAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: claimantAddress }
+            params: { id: claimantAddress },
           }"
         />
       </v-list-item>
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <MsgItem label="amount" :content="amount" class="text-uppercase" />
+        <MsgItemComponent
+          label="amount"
+          :content="amount"
+          class="text-uppercase"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="proof" :content="proof" />
+        <MsgItemComponent label="proof" :content="proof" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="id" :content="id" />
+        <MsgItemComponent label="id" :content="id" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="proof key" :content="proofKey" />
+        <MsgItemComponent label="proof key" :content="proofKey" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from "@/components/MsgItem.vue";
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
-import { ROUTES } from "@/constants";
-import { coinAdapter } from "@/utils";
+import { ROUTES } from '@/constants';
+import { coinAdapter } from '@/utils';
 
 export default {
-  name: "MsgRequestDidPowerUp",
-  description: "Display a request did power up transaction message",
+  name: 'MsgRequestDidPowerUp',
+  description: 'Display a request did power up transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a request did power up message"
-    }
+      note: 'Object representing a request did power up message',
+    },
   },
   data: () => ({
-    ROUTES
+    ROUTES,
   }),
   computed: {
     amounts() {
@@ -60,30 +64,30 @@ export default {
         amounts.push(
           coinAdapter.format({
             amount: amount.amount,
-            denom: amount.denom
-          })
+            denom: amount.denom,
+          }),
         );
       }
       return amounts;
     },
     claimantAddress() {
-      return this.message.value.claimant ? this.message.value.claimant : "-";
+      return this.message.value.claimant ? this.message.value.claimant : '-';
     },
     id() {
-      return this.message.value.id ? this.message.value.id : "-";
+      return this.message.value.id ? this.message.value.id : '-';
     },
     proof() {
-      return this.message.value.proof ? this.message.value.proof : "-";
+      return this.message.value.proof ? this.message.value.proof : '-';
     },
     proofKey() {
-      return this.message.value.proof_key ? this.message.value.proof_key : "-";
+      return this.message.value.proof_key ? this.message.value.proof_key : '-';
     },
     subTitle() {
-      return this.message.type ? this.message.type.split("/").shift() : "-";
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
-      return this.message.type ? this.message.type.split("/").pop() : "-";
-    }
-  }
+      return this.message.type ? this.message.type.split('/').pop() : '-';
+    },
+  },
 };
 </script>

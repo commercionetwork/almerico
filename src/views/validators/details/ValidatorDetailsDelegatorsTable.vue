@@ -5,8 +5,13 @@
     :items-per-page="3"
     :sort-by.sync="sortBy"
     :sort-desc.sync="sortDesc"
-    :caption="caption"
   >
+    <template v-slot:top>
+      <div
+        class="py-2 text-center text-overline font-weight-bold"
+        v-text="caption"
+      />
+    </template>
     <template v-slot:[`item.delegator`]="{ item }">
       <router-link
         class="d-inline-block text-truncate text-decoration-none"
@@ -14,12 +19,15 @@
         v-text="item.delegator"
         :to="{
           name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-          params: { id: item.delegator }
+          params: { id: item.delegator },
         }"
       />
     </template>
     <template v-slot:[`item.amount`]="{ item }">
-      <span class="text-uppercase font-weight-bold" v-text="formatTokens(item.amount)" />
+      <span
+        class="text-uppercase font-weight-bold"
+        v-text="formatTokens(item.amount)"
+      />
     </template>
     <template v-slot:[`item.share`]="{ item }">
       <span class="font-weight-bold" v-text="formatPercent(item.share)" />
@@ -28,43 +36,43 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { ROUTES } from "@/constants";
+import { mapGetters } from 'vuex';
+import { ROUTES } from '@/constants';
 import {
   ValidatorDelegatorsAggregator,
   coinAdapter,
-  numberIntlFormatter
-} from "@/utils";
+  numberIntlFormatter,
+} from '@/utils';
 
 export default {
-  name: "ValidatorDetailsDelegatorsTable",
+  name: 'ValidatorDetailsDelegatorsTable',
   props: {
     account: {
       type: String,
       required: true,
-      note: "The account address"
-    }
+      note: 'The account address',
+    },
   },
   data: () => ({
     ROUTES,
-    sortBy: "share",
-    sortDesc: true
+    sortBy: 'share',
+    sortDesc: true,
   }),
   computed: {
-    ...mapGetters("validators", {
-      details: "details"
+    ...mapGetters('validators', {
+      details: 'details',
     }),
-    ...mapGetters("starting", {
-      params: "params"
+    ...mapGetters('starting', {
+      params: 'params',
     }),
     bondDenom() {
-      return this.params.bond_denom ? this.params.bond_denom : "";
+      return this.params.bond_denom ? this.params.bond_denom : '';
     },
     headers() {
       return [
-        { text: "Delegator", value: "delegator" },
-        { text: "Amount", value: "amount" },
-        { text: "Share", value: "share" }
+        { text: 'Delegator', value: 'delegator' },
+        { text: 'Amount', value: 'amount' },
+        { text: 'Share', value: 'share' },
       ];
     },
     items() {
@@ -73,20 +81,20 @@ export default {
         .get();
     },
     caption() {
-      return "Delegator amounts";
-    }
+      return 'Delegator amounts';
+    },
   },
   methods: {
     formatPercent(value) {
       return numberIntlFormatter.toPercent({
         amount: value,
         maximumFractionDigits: 2,
-        minimumFractionDigits: 2
+        minimumFractionDigits: 2,
       });
     },
     formatTokens(value) {
       return coinAdapter.format({ amount: value, denom: this.bondDenom });
-    }
-  }
+    },
+  },
 };
 </script>

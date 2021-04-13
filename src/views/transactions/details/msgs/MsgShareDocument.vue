@@ -1,13 +1,13 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="sender"
           :content="senderAddress"
           :to="{
             name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-            params: { id: senderAddress }
+            params: { id: senderAddress },
           }"
         />
       </v-list-item>
@@ -21,19 +21,19 @@
             v-for="(recipientAddress, index) in recipients"
             :key="index"
           >
-            <MsgLink
+            <MsgLinkComponent
               label="address"
               :content="recipientAddress"
               :to="{
                 name: ROUTES.NAMES.VALIDATORS_ACCOUNT,
-                params: { id: recipientAddress }
+                params: { id: recipientAddress },
               }"
             />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="uuid" :content="uuid" />
+        <MsgItemComponent label="uuid" :content="uuid" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -42,14 +42,14 @@
             v-text="'metadata'"
           />
           <v-list-item>
-            <MsgUrl
+            <MsgUrlComponent
               label="metadata content uri"
               :content="metadataContentUri"
             />
           </v-list-item>
           <span v-if="metadataSchemaType !== '-'">
             <v-list-item>
-              <MsgItem
+              <MsgItemComponent
                 label="metadata schema type"
                 :content="metadataSchemaType"
               />
@@ -57,13 +57,13 @@
           </span>
           <span v-else>
             <v-list-item>
-              <MsgUrl
+              <MsgUrlComponent
                 label="metadata schema uri"
                 :content="metadataSchemaUri"
               />
             </v-list-item>
             <v-list-item>
-              <MsgItem
+              <MsgItemComponent
                 label="meta schema version"
                 :content="metaSchemaVersion"
               />
@@ -72,7 +72,7 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgUrl label="content URI" :content="contentUri" />
+        <MsgUrlComponent label="content URI" :content="contentUri" />
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
@@ -81,18 +81,21 @@
             v-text="'checksum'"
           />
           <v-list-item>
-            <MsgItem label="value" :content="checksumValue" />
+            <MsgItemComponent label="value" :content="checksumValue" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="algorithm" :content="checksumAlgorithm" />
+            <MsgItemComponent label="algorithm" :content="checksumAlgorithm" />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
       <v-list-item>
-        <MsgItem label="encryption data keys" :content="encryptionDataKeys" />
+        <MsgItemComponent
+          label="encryption data keys"
+          :content="encryptionDataKeys"
+        />
       </v-list-item>
       <v-list-item>
-        <MsgItem
+        <MsgItemComponent
           label="encryption data encrypted data"
           :content="encryptionDataEncryptedData"
         />
@@ -104,145 +107,148 @@
             v-text="'do sign'"
           />
           <v-list-item>
-            <MsgUrl label="storage uri" :content="doSignStorageUri" />
+            <MsgUrlComponent label="storage uri" :content="doSignStorageUri" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="signer instance" :content="doSignSigner" />
+            <MsgItemComponent label="signer instance" :content="doSignSigner" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="sdn data" :content="doSignSdn" />
+            <MsgItemComponent label="sdn data" :content="doSignSdn" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="vcr id" :content="doSignVcr" />
+            <MsgItemComponent label="vcr id" :content="doSignVcr" />
           </v-list-item>
           <v-list-item>
-            <MsgItem label="certificate profile" :content="doSignCertificate" />
+            <MsgItemComponent
+              label="certificate profile"
+              :content="doSignCertificate"
+            />
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from "@/components/MsgItem.vue";
-import MsgLink from "@/components/MsgLink.vue";
-import MsgTx from "@/components/MsgTx.vue";
-import MsgUrl from "@/components/MsgUrl.vue";
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
+import MsgUrlComponent from '@/components/MsgUrlComponent.vue';
 
-import { ROUTES } from "@/constants";
+import { ROUTES } from '@/constants';
 
 export default {
-  name: "MsgShareDocument",
-  description: "Display a share document transaction message",
+  name: 'MsgShareDocument',
+  description: 'Display a share document transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
-    MsgUrl
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
+    MsgUrlComponent,
   },
   props: {
     message: {
       type: Object,
       required: true,
-      note: "Object representing a share document message"
-    }
+      note: 'Object representing a share document message',
+    },
   },
   data: () => ({
-    ROUTES
+    ROUTES,
   }),
   computed: {
     checksumAlgorithm() {
       return this.message.value.checksum && this.message.value.checksum
         ? this.message.value.checksum.algorithm
-        : "-";
+        : '-';
     },
     checksumValue() {
       return this.message.value.checksum && this.message.value.checksum.value
         ? this.message.value.checksum.value
-        : "-";
+        : '-';
     },
     contentUri() {
       return this.message.value.content_uri
         ? this.message.value.content_uri
-        : "-";
+        : '-';
     },
     doSignCertificate() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.certificate_profile
-        : "-";
+        : '-';
     },
     doSignSigner() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.signer_instance
-        : "-";
+        : '-';
     },
     doSignSdn() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.sdn_data.toString()
-        : "-";
+        : '-';
     },
     doSignStorageUri() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.storage_uri
-        : "-";
+        : '-';
     },
     doSignVcr() {
       return this.message.value.do_sign
         ? this.message.value.do_sign.vcr_id
-        : "-";
+        : '-';
     },
     encryptionDataEncryptedData() {
       return this.message.value.encryption_data
         ? this.message.value.encryption_data.encrypted_data.toString()
-        : "-";
+        : '-';
     },
     encryptionDataKeys() {
       return this.message.value.encryption_data
         ? JSON.stringify(this.message.value.encryption_data.keys)
-        : "-";
+        : '-';
     },
     metadataContentUri() {
       return this.message.value.metadata &&
         this.message.value.metadata.content_uri
         ? this.message.value.metadata.content_uri
-        : "-";
+        : '-';
     },
     metadataSchemaType() {
       return this.message.value.metadata &&
         this.message.value.metadata.schema_type
         ? this.message.value.metadata.schema_type
-        : "-";
+        : '-';
     },
     metadataSchemaUri() {
       return this.message.value.metadata &&
         this.message.value.metadata.schema &&
         this.message.value.metadata.schema.uri
         ? this.message.value.metadata.schema.uri
-        : "-";
+        : '-';
     },
     metaSchemaVersion() {
       return this.message.value.metadata &&
         this.message.value.metadata.schema &&
         this.message.value.metadata.schema.version
         ? this.message.value.metadata.schema.version
-        : "-";
+        : '-';
     },
     recipients() {
       return this.message.value.recipients ? this.message.value.recipients : [];
     },
     senderAddress() {
-      return this.message.value.sender ? this.message.value.sender : "-";
+      return this.message.value.sender ? this.message.value.sender : '-';
     },
     subTitle() {
-      return this.message.type ? this.message.type.split("/").shift() : "-";
+      return this.message.type ? this.message.type.split('/').shift() : '-';
     },
     title() {
-      return this.message.type ? this.message.type.split("/").pop() : "-";
+      return this.message.type ? this.message.type.split('/').pop() : '-';
     },
     uuid() {
-      return this.message.value.uuid ? this.message.value.uuid : "-";
-    }
-  }
+      return this.message.value.uuid ? this.message.value.uuid : '-';
+    },
+  },
 };
 </script>

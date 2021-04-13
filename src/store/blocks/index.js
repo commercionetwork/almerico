@@ -1,5 +1,4 @@
 /**
- * BLOCKS STATE
  *
  * @typedef {Object} BlocksState
  * @property {Array.<Object>} blocks

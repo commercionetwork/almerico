@@ -1,28 +1,33 @@
 <template>
-  <v-layout align-center justify-center column fill-height>
-    <span class="text-caption font-weight-medium" v-text="caption" />
-    <DoughnutChart
-      :chartData="chartData"
-      :options="options"
-      height="150"
-      width="150"
-    />
-  </v-layout>
+  <TopBodyCardComponent :title="caption">
+    <template v-slot:content>
+      <v-layout align-center justify-center column fill-height>
+        <DoughnutChartComponent
+          :chartData="chartData"
+          :options="options"
+          height="150"
+          width="150"
+        />
+      </v-layout>
+    </template>
+  </TopBodyCardComponent>
 </template>
 
 <script>
-import DoughnutChart from "@/components/DoughnutChart";
+import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-  name: "TransactionsChart",
+  name: 'TransactionsChart',
   components: {
-    DoughnutChart,
+    DoughnutChartComponent,
+    TopBodyCardComponent,
   },
   computed: {
-    ...mapGetters("transactions", {
-      transactions: "transactions",
+    ...mapGetters('transactions', {
+      transactions: 'transactions',
     }),
     chartData() {
       return {
@@ -30,7 +35,7 @@ export default {
         datasets: [
           {
             data: [this.txs, this.msgs],
-            backgroundColor: ["#7B1FA2", "#AB47BC"],
+            backgroundColor: ['#7B1FA2', '#AB47BC'],
           },
         ],
       };
@@ -43,8 +48,8 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: function (tooltipItem, data) {
-              return data["labels"][tooltipItem["index"]];
+            label: function(tooltipItem, data) {
+              return data['labels'][tooltipItem['index']];
             },
           },
         },
@@ -56,7 +61,7 @@ export default {
     msgs() {
       return this.transactions.reduce(
         (acc, item) => acc + item.tx.value.msg.length,
-        0
+        0,
       );
     },
     txs() {

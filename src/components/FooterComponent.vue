@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: "Footer",
+  name: 'FooterComponent',
   data: () => ({
     fab: false,
   }),
@@ -35,12 +35,12 @@ export default {
       return `&copy;&nbsp;${year}&nbsp;Commerc.io&nbsp;srl`;
     },
     theme() {
-      return this.$vuetify.theme.dark ? "dark" : "light";
+      return this.$vuetify.theme.dark ? 'dark' : 'light';
     },
   },
   methods: {
     onScroll() {
-      if (typeof window === "undefined") return;
+      if (typeof window === 'undefined') return;
       this.fab = window.pageYOffset > 25;
     },
     toTop() {

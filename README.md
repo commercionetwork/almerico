@@ -105,6 +105,7 @@ docker build -t almerico \
   --build-arg WS_URL=<WebSocket URL> \
   --build-arg ANCESTORS_LIST=<Ancestors list> \
   --build-arg MAIN_TITLE=<App title> \
+  --build-arg BLOCKS_MONITOR=<Boolean> \
   .
 ```
 

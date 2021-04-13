@@ -1,5 +1,4 @@
 /**
- * TRANSACTIONS STATE
  *
  * @typedef {Object} TransactionsState
  * @property {Array.<Object>} transactions

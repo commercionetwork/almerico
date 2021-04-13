@@ -1,7 +1,3 @@
-/**
- * VALIDATORS ACTIONS
- */
-
 import api from './api';
 
 export default {
@@ -58,7 +54,7 @@ export default {
           status: status,
           page: page,
           limit: limit,
-        })
+        }),
       );
     }
     await Promise.all(requests);

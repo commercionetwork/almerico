@@ -2,7 +2,6 @@ const { bech32 } = require('bech32');
 
 const bech32Manager = {
   /**
-   * Decode to hex default
    *
    * @param {String} value
    * @param {String} type
@@ -13,7 +12,6 @@ const bech32Manager = {
     return Buffer.from(bech32.fromWords(obj.words)).toString(type);
   },
   /**
-   * Encode from hex default
    *
    * @param {String} value
    * @param {String} prefix

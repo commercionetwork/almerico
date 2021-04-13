@@ -56,7 +56,7 @@ export default {
       }));
       const orderedTransactions = arrayHandler.sortObjectsByStringPropertyValueDesc(
         unorderedTransactions,
-        'timestamp'
+        'timestamp',
       );
       return orderedTransactions.slice(0, this.limit);
     },

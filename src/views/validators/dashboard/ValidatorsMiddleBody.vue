@@ -31,21 +31,21 @@
 </template>
 
 <script>
-import ValidatorsTable from "./ValidatorsTable";
+import ValidatorsTable from './ValidatorsTable';
 
-import { mapActions, mapGetters } from "vuex";
-import { CUSTOMIZATION } from "@/constants";
+import { mapActions, mapGetters } from 'vuex';
+import { CUSTOMIZATION } from '@/constants';
 
 export default {
-  name: "ValidatorsMiddleBody",
+  name: 'ValidatorsMiddleBody',
   components: {
-    ValidatorsTable
+    ValidatorsTable,
   },
   computed: {
-    ...mapGetters("blocks", {
-      isLoading: "isLoading",
-      error: "error",
-      latest: "latest"
+    ...mapGetters('blocks', {
+      isLoading: 'isLoading',
+      error: 'error',
+      latest: 'latest',
     }),
     errorMessage() {
       return this.error && this.error.data
@@ -54,21 +54,21 @@ export default {
     },
     isBlocksMonitor() {
       return CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.VISIBILITY;
-    }
+    },
   },
   methods: {
-    ...mapActions("blocks", {
-      getBlocks: "getBlocks"
-    })
+    ...mapActions('blocks', {
+      getBlocks: 'getBlocks',
+    }),
   },
   created() {
     if (this.isBlocksMonitor && this.latest !== null) {
       let height = this.latest.header.height;
       this.getBlocks({
         maxHeight: height,
-        items: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT
+        items: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
       });
     }
-  }
+  },
 };
 </script>

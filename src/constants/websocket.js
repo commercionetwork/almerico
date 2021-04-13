@@ -1,23 +1,17 @@
-/**
- * URL
- */
-const URL = (process.env.VUE_APP_WS !== undefined) ?
-  process.env.VUE_APP_WS :
-  "";
+const URL = process.env.VUE_APP_WS !== undefined ? process.env.VUE_APP_WS : '';
 
-/**
- * Events
- */
 const EVENTS = {
-  NEW_BLOCK: "NewBlock",
-  TX: "Tx",
-  VALIDATOR_SET_UPDATES: "ValidatorSetUpdates",
+  NEW_BLOCK: 'NewBlock',
+  TX: 'Tx',
+  VALIDATOR_SET_UPDATES: 'ValidatorSetUpdates',
 };
 
-/**
- * WS
- */
+const TX_TYPES = {
+  NEW_CONVERSION_RATE: 'new_conversion_rate',
+};
+
 export const WS = {
   EVENTS,
   URL,
+  TX_TYPES,
 };

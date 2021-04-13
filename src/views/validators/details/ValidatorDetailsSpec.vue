@@ -102,7 +102,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { coinAdapter,numberIntlFormatter } from '@/utils';
+import { coinAdapter, numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'ValidatorDetailsSpec',

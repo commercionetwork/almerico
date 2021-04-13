@@ -1,28 +1,18 @@
-/**
- * VALIDATORS APIS
- */
-
-import axios from "axios";
-import {
-  API
-} from "@/constants";
+import axios from 'axios';
+import { API } from '@/constants';
 
 const headers = {
-  'Content-Type': 'application/json'
+  'Content-Type': 'application/json',
 };
 
 export default {
   /**
-   * @param {String} status 
-   * @param {Number} page 
+   * @param {String} status
+   * @param {Number} page
    * @param {Number} limit
    * @returns {Promise}
    */
-  requestValidatorsList({
-    status,
-    page,
-    limit
-  }) {
+  requestValidatorsList({ status, page, limit }) {
     return axios({
       method: 'get',
       headers: headers,
@@ -31,12 +21,12 @@ export default {
       params: {
         status,
         page,
-        limit
+        limit,
       },
     });
   },
   /**
-   * @returns {Promise} 
+   * @returns {Promise}
    */
   requestLatestValidatorSets() {
     return axios({
@@ -48,7 +38,7 @@ export default {
   },
   /**
    * @param {Number} height
-   * @returns {Promise} 
+   * @returns {Promise}
    */
   requestValidatorsetsFromHeight(height) {
     return axios({
@@ -60,7 +50,7 @@ export default {
   },
   /**
    * @param {String} address
-   * @returns {Promise} 
+   * @returns {Promise}
    */
   requestValidatorDetails(address) {
     return axios({
@@ -72,7 +62,7 @@ export default {
   },
   /**
    * @param {String} address
-   * @returns {Promise} 
+   * @returns {Promise}
    */
   requestValidatorDelegations(address) {
     return axios({
@@ -83,8 +73,8 @@ export default {
     });
   },
   /**
-   * @param {String} id 
-   * @return {Promise} 
+   * @param {String} id
+   * @return {Promise}
    */
   requestValidatorPictures(id) {
     return axios({
@@ -94,7 +84,7 @@ export default {
       params: {
         key_suffix: id,
         fields: 'pictures',
-      }
+      },
     });
-  }
+  },
 };

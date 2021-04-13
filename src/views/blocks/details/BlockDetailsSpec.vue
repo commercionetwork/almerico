@@ -2,10 +2,7 @@
   <v-card outlined :loading="isLoading">
     <v-card-text>
       <v-list class="ma-1">
-        <v-list-item-title
-          class="font-weight-bold"
-          v-text="height"
-        />
+        <v-list-item-title class="font-weight-bold" v-text="height" />
         <v-list-item-subtitle class="text-capitalize" v-text="'height'" />
         <v-divider />
         <v-list-item>
@@ -77,7 +74,7 @@ export default {
         .setValidators(this.validators)
         .setValidatorsSets(this.validatorsSets)
         .setValidatorConsensusPrefix(
-          this.$config.generic.prefixes.validator.consensus.address
+          this.$config.generic.prefixes.validator.consensus.address,
         )
         .get();
     },

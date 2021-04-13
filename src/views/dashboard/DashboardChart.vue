@@ -1,17 +1,21 @@
 <template>
-  <v-layout align-center justify-center column fill-height>
-    <span class="text-caption font-weight-medium" v-text="caption" />
-    <DoughnutChart
-      :chartData="chartData"
-      :options="options"
-      height="150"
-      width="150"
-    />
-  </v-layout>
+  <TopBodyCardComponent :title="caption">
+    <template v-slot:content>
+      <v-layout align-center justify-center column fill-height>
+        <DoughnutChartComponent
+          :chartData="chartData"
+          :options="options"
+          height="150"
+          width="150"
+        />
+      </v-layout>
+    </template>
+  </TopBodyCardComponent>
 </template>
 
 <script>
-import DoughnutChart from '@/components/DoughnutChart';
+import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
 import { numberIntlFormatter } from '@/utils';
@@ -19,7 +23,8 @@ import { numberIntlFormatter } from '@/utils';
 export default {
   name: 'DashboardChart',
   components: {
-    DoughnutChart,
+    DoughnutChartComponent,
+    TopBodyCardComponent,
   },
   computed: {
     ...mapGetters('starting', {
@@ -58,7 +63,7 @@ export default {
       return this.pool
         ? `Pool: ${this.formatTokens(
             parseInt(this.pool.bonded_tokens) +
-              parseInt(this.pool.not_bonded_tokens)
+              parseInt(this.pool.not_bonded_tokens),
           )}`
         : 'Pool';
     },

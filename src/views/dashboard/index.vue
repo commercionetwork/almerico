@@ -12,18 +12,28 @@
 </template>
 
 <script>
-import DashboardBanner from "./DashboardBanner";
-import DashboardHeader from "./DashboardHeader";
-import DashboardMiddleBody from "./DashboardMiddleBody";
-import DashboardTopBody from "./DashboardTopBody";
+import DashboardBanner from './DashboardBanner';
+import DashboardHeader from './DashboardHeader';
+import DashboardMiddleBody from './DashboardMiddleBody';
+import DashboardTopBody from './DashboardTopBody';
+
+import { mapActions } from 'vuex';
 
 export default {
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
     DashboardBanner,
     DashboardHeader,
     DashboardMiddleBody,
     DashboardTopBody,
+  },
+  methods: {
+    ...mapActions('dashboard', {
+      init: 'init',
+    }),
+  },
+  created() {
+    this.init();
   },
 };
 </script>

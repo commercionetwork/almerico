@@ -1,18 +1,9 @@
-/**
- * Versions
- */
-const KEYBASE_VERSION = "/1.0";
+const KEYBASE_VERSION = '/1.0';
 
-/**
- * URLs
- */
 const API_KEYBASE = `https://keybase.io/_/api${KEYBASE_VERSION}`;
 const API_LCD_BASE =
-  process.env.VUE_APP_LCD !== undefined ? process.env.VUE_APP_LCD : "";
+  process.env.VUE_APP_LCD !== undefined ? process.env.VUE_APP_LCD : '';
 
-/**
- * APIs
- */
 export const API = {
   // LCD
   LCD: API_LCD_BASE,
@@ -26,5 +17,5 @@ export const API = {
   TXS: `${API_LCD_BASE}/txs`,
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
   // Keybase
-  USER_LOOKUP: `${API_KEYBASE}/user/lookup.json`
+  USER_LOOKUP: `${API_KEYBASE}/user/lookup.json`,
 };

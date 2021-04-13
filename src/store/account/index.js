@@ -1,6 +1,5 @@
 /**
- * ACCOUNT STATE
- * 
+ *
  * @typedef {Object} AccountState
  * @property {Array.<Object>} balances
  * @property {Array.<Object>} delegations
@@ -11,9 +10,9 @@
  * @property {Object} rewards
  */
 
-import actions from "./actions";
-import getters from "./getters";
-import mutations from "./mutations";
+import actions from './actions';
+import getters from './getters';
+import mutations from './mutations';
 
 const initialState = {
   balances: [],
@@ -29,7 +28,7 @@ export default {
   namespaced: true,
   initialState,
   state: {
-    ...initialState
+    ...initialState,
   },
   actions,
   getters,

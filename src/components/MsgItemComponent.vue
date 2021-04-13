@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'MsgItem',
+  name: 'MsgItemComponent',
   props: {
     label: {
       type: String,

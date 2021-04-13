@@ -1,58 +1,42 @@
 <template>
-  <v-card outlined>
-    <v-row class="pa-3">
-      <v-col cols="12">
-        <v-form @submit.prevent="onFilter(active)">
-          <v-row>
-            <v-col cols="1">
-              <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-icon color="info" dark v-bind="attrs" v-on="on">
-                    mdi-information-outline
-                  </v-icon>
-                </template>
-                <span v-html="tooltipMessage" />
-              </v-tooltip>
-            </v-col>
-            <v-col cols="11">
-              <v-text-field
-                v-model="moniker"
-                placeholder="Search Validator"
-                append-icon="mdi-magnify"
-              />
-            </v-col>
-            <v-col cols="6">
-              <v-btn
-                block
-                :outlined="!active"
-                color="primary"
-                @click="onFilter(true)"
-              >
-                Active
-              </v-btn>
-            </v-col>
-            <v-col cols="6">
-              <v-btn
-                block
-                :outlined="active"
-                color="primary"
-                @click="onFilter(false)"
-              >
-                Inactive
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-col>
-    </v-row>
-  </v-card>
+  <TopBodyCardComponent title="Search validator">
+    <template v-slot:content>
+      <v-form @submit.prevent="onFilter(active)">
+        <v-text-field
+          v-model="moniker"
+          label="search ..."
+          append-icon="mdi-magnify"
+        >
+          <template v-slot:prepend>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon color="info" dark v-bind="attrs" v-on="on">
+                  mdi-information-outline
+                </v-icon>
+              </template>
+              <span v-html="tooltipMessage" />
+            </v-tooltip>
+          </template>
+        </v-text-field>
+        <div class="d-flex justify-center">
+          <v-radio-group v-model="active" row>
+            <v-radio label="Active" :value="true" @click="onFilter" />
+            <v-radio label="Inactive" :value="false" @click="onFilter" />
+          </v-radio-group>
+        </div>
+      </v-form>
+    </template>
+  </TopBodyCardComponent>
 </template>
 
 <script>
+import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
+
 import { mapActions } from 'vuex';
 
 export default {
   name: 'ValidatorsSearch',
+  components: { TopBodyCardComponent },
   data: () => ({
     moniker: '',
     active: true,
@@ -66,9 +50,8 @@ export default {
     ...mapActions('validators', {
       setValidatorsFilter: 'setValidatorsFilter',
     }),
-    onFilter(active) {
-      this.active = active;
-      let filter = {};
+    onFilter() {
+      const filter = {};
       filter.moniker = this.moniker;
       filter.active = this.active;
       this.setValidatorsFilter(filter);

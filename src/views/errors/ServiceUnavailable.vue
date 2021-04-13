@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "ServiceUnavailable",
-  description: "503 page"
+  name: 'ServiceUnavailable',
+  description: '503 page',
 };
 </script>

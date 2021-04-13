@@ -31,18 +31,18 @@ class ValidatorDelegatorsAggregator {
       const amount = parseFloat(delegation.balance.amount);
       const index =
         aggregated.length > 0
-          ? aggregated.findIndex(item => item.delegator === delegator)
+          ? aggregated.findIndex((item) => item.delegator === delegator)
           : -1;
       if (index === -1) {
         aggregated.push({
           delegator: delegator,
           amount: amount,
-          share: amount / delegatorTokens
+          share: amount / delegatorTokens,
         });
       } else {
-        const newAmount = aggregated[index]["amount"] + amount;
-        aggregated[index]["amount"] = newAmount;
-        aggregated[index]["share"] = newAmount / delegatorTokens;
+        const newAmount = aggregated[index]['amount'] + amount;
+        aggregated[index]['amount'] = newAmount;
+        aggregated[index]['share'] = newAmount / delegatorTokens;
       }
     }
 

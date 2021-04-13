@@ -1,11 +1,11 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="uuid" :content="uuid" />
+        <MsgItemComponent label="uuid" :content="uuid" />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="sender"
           :content="senderAddress"
           :to="{
@@ -15,7 +15,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="recipient"
           :content="recipientAddress"
           :to="{
@@ -25,22 +25,22 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="tx hash" :content="txHash" />
+        <MsgItemComponent label="tx hash" :content="txHash" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="document UUID" :content="documentUuid" />
+        <MsgItemComponent label="document UUID" :content="documentUuid" />
       </v-list-item>
       <v-list-item>
-        <MsgItem label="proof" :content="proof" />
+        <MsgItemComponent label="proof" :content="proof" />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -48,9 +48,9 @@ export default {
   name: 'MsgSendDocumentReceipt',
   description: 'Display a send document transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
   },
   props: {
     message: {

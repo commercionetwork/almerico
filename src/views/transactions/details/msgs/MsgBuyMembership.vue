@@ -1,11 +1,11 @@
 <template>
-  <MsgTx :subTitle="subTitle" :title="title">
+  <MsgTxComponent :subTitle="subTitle" :title="title">
     <div slot="body">
       <v-list-item>
-        <MsgItem label="membership type" :content="membershipType" />
+        <MsgItemComponent label="membership type" :content="membershipType" />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="buyer"
           :content="buyerAddress"
           :to="{
@@ -15,7 +15,7 @@
         />
       </v-list-item>
       <v-list-item>
-        <MsgLink
+        <MsgLinkComponent
           label="tsp"
           :content="tspAddress"
           :to="{
@@ -25,13 +25,13 @@
         />
       </v-list-item>
     </div>
-  </MsgTx>
+  </MsgTxComponent>
 </template>
 
 <script>
-import MsgItem from '@/components/MsgItem.vue';
-import MsgLink from '@/components/MsgLink.vue';
-import MsgTx from '@/components/MsgTx.vue';
+import MsgItemComponent from '@/components/MsgItemComponent.vue';
+import MsgLinkComponent from '@/components/MsgLinkComponent.vue';
+import MsgTxComponent from '@/components/MsgTxComponent.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -39,9 +39,9 @@ export default {
   name: 'MsgBuyMembership',
   description: 'Display a buy membership transaction message',
   components: {
-    MsgItem,
-    MsgLink,
-    MsgTx,
+    MsgItemComponent,
+    MsgLinkComponent,
+    MsgTxComponent,
   },
   props: {
     message: {
