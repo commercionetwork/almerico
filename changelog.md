@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 2.2.5
+## Version 2.2.5, 13/04/2021
 
 - News:
   - Dashboard price chart
