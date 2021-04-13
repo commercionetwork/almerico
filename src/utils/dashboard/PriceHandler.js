@@ -11,12 +11,9 @@ export default class PriceHandler {
   getListingsByRange() {
     const startingDay = this._getStartingDay(this.range);
     const listings = this._getAllListings();
-
-    if (listings.length === 1) {
-      return this._buildNeededListings;
-    }
-
-    return this._filterListings(listings, startingDay);
+    return listings.length < 2
+      ? this._buildNeededListings(listings, startingDay)
+      : this._filterListings(listings, startingDay);
   }
 
   _getStartingDay() {
@@ -57,15 +54,15 @@ export default class PriceHandler {
       (listing) => dateHandler.getDifference(startingDay, listing.date) > 0,
     );
 
-    if (filteredListings.length === 0) {
-      filteredListings.unshift(firstDiscarded);
-      const nextListing = new Listing(
-        firstDiscarded.price,
-        dateHandler.getUtcDate(),
+    if (filteredListings.length < 2) {
+      return this._buildFilteredListings(
+        filteredListings,
+        firstDiscarded,
+        startingDay,
       );
-      filteredListings.push(nextListing);
     }
 
+    filteredListings[0].date = startingDay;
     return filteredListings;
   }
 
@@ -76,6 +73,19 @@ export default class PriceHandler {
     return firstSelectedIndex < 1
       ? listings[listings.length - 1]
       : listings[firstSelectedIndex - 1];
+  }
+
+  _buildFilteredListings(listings, firstDiscarded, startingDay) {
+    const filteredListings = listings.map((listing) => ({ ...listing }));
+    const listing = new Listing(firstDiscarded.price, dateHandler.getUtcDate());
+    if (filteredListings.length === 0) {
+      filteredListings.push(firstDiscarded);
+      filteredListings.push(listing);
+    } else {
+      filteredListings.unshift(listing);
+    }
+    filteredListings[0].date = startingDay;
+    return filteredListings;
   }
 }
 
