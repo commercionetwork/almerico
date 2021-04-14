@@ -1,27 +1,28 @@
 <template>
   <v-row>
-    <v-col cols="12" md="4">
+    <v-col cols="12">
       <AccountDetailsAddress />
     </v-col>
-    <v-col cols="12" md="4">
-      <AccountDetailsChart :amounts="amounts" />
-    </v-col>
-    <v-col cols="12" md="4">
-      <v-card outlined>
-        <AccountDetailsCapitalization :amounts="amounts" />
-      </v-card>
-    </v-col>
-    <v-col cols="12" md="4">
+    <v-col cols="12" md="6"> </v-col>
+    <v-col cols="12" md="6">
       <v-card outlined>
         <AccountDetailsBalance :balances="balances" />
       </v-card>
     </v-col>
-    <v-col cols="12" md="4">
+    <v-col cols="12" md="6">
+      <AccountDetailsChart :amounts="amounts" />
+    </v-col>
+    <v-col cols="12" md="6">
+      <v-card outlined>
+        <AccountDetailsCapitalization :amounts="amounts" />
+      </v-card>
+    </v-col>
+    <v-col cols="12" md="6">
       <v-card outlined>
         <AccountDetailsDelegations />
       </v-card>
     </v-col>
-    <v-col cols="12" md="4">
+    <v-col cols="12" md="6">
       <v-card outlined>
         <AccountDetailsUnbondings />
       </v-card>
