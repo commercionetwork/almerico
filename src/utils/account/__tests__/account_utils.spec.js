@@ -37,7 +37,7 @@ describe('utils/account', () => {
       rewards: 100,
       bank: 100,
       active: 100,
-      passive: 300,
+      inactive: 300,
       total: 400,
     };
 

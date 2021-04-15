@@ -1,21 +1,19 @@
 <template>
   <ChartContainerComponent>
     <template v-slot:chart>
-      <DoughnutChartComponent
+      <BarChartComponent
         :chartData="chartData"
         :options="options"
         height="200"
-        width="200"
+        width="300"
       />
     </template>
   </ChartContainerComponent>
 </template>
 
 <script>
-import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import BarChartComponent from '@/components/BarChartComponent';
 import ChartContainerComponent from '@/components/ChartContainerComponent.vue';
-
-import { numberIntlFormatter } from '@/utils';
 
 export default {
   name: 'AccountDetailsAssetsChart',
@@ -27,40 +25,49 @@ export default {
     },
   },
   components: {
-    DoughnutChartComponent,
+    BarChartComponent,
     ChartContainerComponent,
   },
   computed: {
     chartData() {
       return {
-        labels: [
-          this.formatPercent('Active', this.assets.active, this.assets.total),
-          this.formatPercent('Passive', this.assets.passive, this.assets.total),
-        ],
+        labels: ['Active', 'Inactive'],
         datasets: [
           {
-            data: [this.assets.active, this.assets.passive],
-            backgroundColor: ['#38ba8c', '#cc3333'],
+            data: [
+              this.formatPercent(this.assets.active, this.assets.total),
+              this.formatPercent(this.assets.inactive, this.assets.total),
+            ],
+            backgroundColor: [
+              'rgba(56, 186, 140, 0.33)',
+              'rgba(204, 0, 0, 0.33)',
+            ],
+            borderColor: ['rgb(56, 186, 140)', 'rgb(204, 0, 0)'],
+            borderWidth: 1,
           },
         ],
       };
     },
     options() {
       return {
-        responsive: false,
-        legend: {
-          display: true,
-          position: 'left',
-        },
+        responsive: true,
+        maintainAspectRatio: true,
         title: {
           display: true,
-          position: 'top',
           text: 'Assets',
+        },
+        legend: {
+          display: false,
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
         },
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return data['labels'][tooltipItem['index']];
+              return `${data['datasets'][0]['data'][tooltipItem['index']]}%`;
             },
           },
         },
@@ -68,16 +75,8 @@ export default {
     },
   },
   methods: {
-    formatPercent(label, amount, total) {
-      const percent = ((amount / total) * 100).toFixed(2);
-      return `${label} ${percent}%`;
-    },
-    formatTokens(value) {
-      return numberIntlFormatter.toDecimal({
-        amount: value / 1000000,
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
-      });
+    formatPercent(amount, total) {
+      return ((amount / total) * 100).toFixed(2);
     },
   },
 };

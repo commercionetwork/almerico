@@ -4,7 +4,7 @@
       <v-col cols="12" md="6">
         <div class="pa-3 d-flex justify-center align-center">
           <span class="text-subtitle-1 text-capitalize" v-text="'address:'" />
-          <span class="pl-3 font-weight-bold" v-text="address" />
+          <span class="pl-3 text-break font-weight-bold" v-text="address" />
           <div class="pl-3">
             <v-btn class="pa-1" color="black" icon @click.stop="dialog = true">
               <span class="pa-2 white">
@@ -27,35 +27,6 @@
         </div>
       </v-col>
     </v-row>
-    <!-- <v-toolbar flat dense>
-      <v-toolbar-title class="text-capitalize" v-text="'address'" />
-      <v-spacer />
-      <v-toolbar-items>
-        <v-btn class="pa-1" color="black" icon @click.stop="dialog = true">
-          <span class="pa-2 white">
-            <v-icon large>mdi-qrcode</v-icon>
-          </span>
-        </v-btn>
-        <AccountDetailsQRCode v-model="dialog" :address="address" />
-      </v-toolbar-items>
-      <template v-slot:extension>
-        <div class="py-3 word-break text-subtitle-2" v-text="address" />
-      </template>
-    </v-toolbar>
-    <v-card-subtitle class="text-h6 text-capitalize" v-text="'membership'" />
-    <v-card-text>
-      <v-layout row align-center class="pa-3">
-        <div class="white">
-          <v-icon class="mx-1" :color="membershipColor" large>
-            mdi-card-account-details
-          </v-icon>
-        </div>
-        <div
-          class="ml-2 text-capitalize font-weight-bold"
-          v-text="membershipText"
-        />
-      </v-layout>
-    </v-card-text> -->
   </v-card>
 </template>
 

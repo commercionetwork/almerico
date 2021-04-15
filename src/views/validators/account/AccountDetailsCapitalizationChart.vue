@@ -36,19 +36,18 @@ export default {
         labels: ['Delegations', 'Rewards', 'Unbondings', 'Bank'],
         datasets: [
           {
-            label: this.label,
             data: this.datasets,
             backgroundColor: [
-              'rgba(54, 162, 235, 0.25)',
-              'rgba(75, 192, 192, 0.25)',
-              'rgba(153, 102, 255, 0.25)',
-              'rgba(201, 203, 207, 0.25)',
+              'rgba(51, 51, 153, 0.33)',
+              'rgba(102, 102, 153, 0.33)',
+              'rgba(102, 0, 204, 0.33)',
+              'rgba(153, 0, 255, 0.33)',
             ],
             borderColor: [
-              'rgb(54, 162, 235)',
-              'rgb(75, 192, 192)',
-              'rgb(153, 102, 255)',
-              'rgb(201, 203, 207)',
+              'rgb(51, 51, 153)',
+              'rgb(102, 102, 153)',
+              'rgb(102, 0, 204)',
+              'rgb(153, 0, 255)',
             ],
             borderWidth: 1,
           },
@@ -57,6 +56,15 @@ export default {
     },
     options() {
       return {
+        responsive: true,
+        aspectRatio: 1.5,
+        title: {
+          display: true,
+          text: this.title,
+        },
+        legend: {
+          display: false,
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -65,13 +73,15 @@ export default {
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
-              return data['datasets'][0]['data'][tooltipItem['index']];
+              return data['datasets'][0]['data'][tooltipItem['index']].toFixed(
+                0,
+              );
             },
           },
         },
       };
     },
-    label() {
+    title() {
       const total = this.formatTokens(this.capitalization.total);
       return `Total ${total} M`;
     },

@@ -1,7 +1,7 @@
 <template>
   <v-card outlined>
     <v-card-text>
-      <div class="d-flex justify-center">
+      <div class="pa-1 d-flex justify-center">
         <slot name="chart" />
       </div>
     </v-card-text>
