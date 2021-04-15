@@ -3,49 +3,45 @@
     <v-col cols="12">
       <AccountDetailsAddress />
     </v-col>
-    <v-col cols="12" md="6"> </v-col>
     <v-col cols="12" md="6">
-      <v-card outlined>
-        <AccountDetailsBalance :balances="balances" />
-      </v-card>
+      <AccountDetailsBank :balances="balances" />
+    </v-col>
+    <v-col cols="12" md="6">
+      <AccountDetailsBalanceChart :amounts="amounts" />
     </v-col>
     <v-col cols="12" md="6">
       <AccountDetailsChart :amounts="amounts" />
     </v-col>
     <v-col cols="12" md="6">
-      <v-card outlined>
-        <AccountDetailsCapitalization :amounts="amounts" />
-      </v-card>
+      <AccountDetailsCapitalization :amounts="amounts" />
     </v-col>
     <v-col cols="12" md="6">
-      <v-card outlined>
-        <AccountDetailsDelegations />
-      </v-card>
+      <AccountDetailsDelegations />
     </v-col>
     <v-col cols="12" md="6">
-      <v-card outlined>
-        <AccountDetailsUnbondings />
-      </v-card>
+      <AccountDetailsUnbondings />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import AccountDetailsAddress from './AccountDetailsAddress';
-import AccountDetailsBalance from './AccountDetailsBalance';
+import AccountDetailsBalanceChart from './AccountDetailsBalanceChart';
+import AccountDetailsBank from './AccountDetailsBank';
 import AccountDetailsCapitalization from './AccountDetailsCapitalization';
 import AccountDetailsChart from './AccountDetailsChart';
 import AccountDetailsDelegations from './AccountDetailsDelegations';
 import AccountDetailsUnbondings from './AccountDetailsUnbondings';
 
 import { mapGetters } from 'vuex';
-import { AccountStakeHandler } from '@/utils';
+import { AccountBalanceHandler } from '@/utils';
 
 export default {
   name: 'AccountDetailsBody',
   components: {
     AccountDetailsAddress,
-    AccountDetailsBalance,
+    AccountDetailsBalanceChart,
+    AccountDetailsBank,
     AccountDetailsCapitalization,
     AccountDetailsChart,
     AccountDetailsDelegations,
@@ -58,11 +54,18 @@ export default {
       rewards: 'rewards',
       unbondings: 'unbondings',
     }),
+    ...mapGetters('starting', {
+      params: 'params',
+    }),
     amounts() {
-      return AccountStakeHandler.setDelegations(this.delegations)
-        .setRewards(this.rewards)
-        .setUnbondings(this.unbondings)
-        .get();
+      const balanceHandler = new AccountBalanceHandler({
+        delegations: this.delegations,
+        rewards: this.rewards,
+        unbondings: this.unbondings,
+        balances: this.balances,
+        bondDenom: this.params.bond_denom,
+      });
+      return balanceHandler.build();
     },
   },
 };

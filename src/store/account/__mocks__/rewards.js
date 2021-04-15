@@ -7,7 +7,7 @@ const mockRewards = () => {
         reward: [
           {
             denom: 'ucommercio',
-            amount: '100.900000000000000000',
+            amount: '100.000000000000000000',
           },
         ],
       },
@@ -15,7 +15,7 @@ const mockRewards = () => {
     total: [
       {
         denom: 'ucommercio',
-        amount: '100.900000000000000000',
+        amount: '100.000000000000000000',
       },
     ],
   };

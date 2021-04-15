@@ -1,5 +1,5 @@
 import AccountDelegationsHandler from './account/AccountDelegationsHandler';
-import AccountStakeHandler from './account/AccountStakeHandler';
+import AccountBalanceHandler from './account/AccountBalanceHandler';
 import AccountUnbondingsHandler from './account/AccountUnbondingsHandler';
 import arrayHandler from './arrayHandler';
 import bech32Manager from './bech32Manager';
@@ -23,7 +23,7 @@ import ValidatorsTableAdapter from './validators/ValidatorsTableAdapter';
 
 export {
   AccountDelegationsHandler,
-  AccountStakeHandler,
+  AccountBalanceHandler,
   AccountUnbondingsHandler,
   BlockProposerHandler,
   BlocksAttendanceCalculator,

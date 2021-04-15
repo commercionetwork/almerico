@@ -19,8 +19,8 @@
         <div class="pa-3 d-flex justify-center align-center">
           <span class="text-subtitle-1 text-capitalize" v-text="'membership:'" />
           <span class="pl-3 font-weight-bold" v-text="membershipText" />
-          <div class="pl-3 white">
-            <v-icon class="mx-1" :color="membershipColor" large>
+          <div class="ml-3 white">
+            <v-icon class="px-1" :color="membershipColor" large>
               mdi-card-account-details
             </v-icon>
           </div>
