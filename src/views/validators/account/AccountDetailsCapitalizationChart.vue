@@ -1,20 +1,19 @@
 <template>
-  <v-card outlined>
-    <v-card-text>
-      <div class="d-flex justify-center">
-        <BarChartComponent
-          :chartData="chartData"
-          :options="options"
-          height="300"
-          width="450"
-        />
-      </div>
-    </v-card-text>
-  </v-card>
+  <ChartContainerComponent>
+    <template v-slot:chart>
+      <BarChartComponent
+        :chartData="chartData"
+        :options="options"
+        height="300"
+        width="450"
+      />
+    </template>
+  </ChartContainerComponent>
 </template>
 
 <script>
 import BarChartComponent from '@/components/BarChartComponent';
+import ChartContainerComponent from '@/components/ChartContainerComponent';
 
 import { numberIntlFormatter } from '@/utils';
 
@@ -29,6 +28,7 @@ export default {
   },
   components: {
     BarChartComponent,
+    ChartContainerComponent,
   },
   computed: {
     chartData() {
@@ -60,6 +60,13 @@ export default {
         scales: {
           y: {
             beginAtZero: true,
+          },
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem, data) {
+              return data['datasets'][0]['data'][tooltipItem['index']];
+            },
           },
         },
       };

@@ -1,21 +1,19 @@
 <template>
-  <TopBodyCardComponent :title="caption">
-    <template v-slot:content>
-      <v-layout align-center justify-center column fill-height>
-        <DoughnutChartComponent
-          :chartData="chartData"
-          :options="options"
-          height="150"
-          width="150"
-        />
-      </v-layout>
+  <ChartContainerComponent>
+    <template v-slot:chart>
+      <DoughnutChartComponent
+        :chartData="chartData"
+        :options="options"
+        height="200"
+        width="200"
+      />
     </template>
-  </TopBodyCardComponent>
+  </ChartContainerComponent>
 </template>
 
 <script>
 import DoughnutChartComponent from '@/components/DoughnutChartComponent';
-import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
+import ChartContainerComponent from '@/components/ChartContainerComponent.vue';
 
 import { numberIntlFormatter } from '@/utils';
 
@@ -30,26 +28,19 @@ export default {
   },
   components: {
     DoughnutChartComponent,
-    TopBodyCardComponent,
+    ChartContainerComponent,
   },
   computed: {
     chartData() {
       return {
         labels: [
           this.formatPercent('Active', this.assets.active, this.assets.total),
-          this.formatPercent(
-            'Passive',
-            this.assets.passive,
-            this.assets.total,
-          ),
+          this.formatPercent('Passive', this.assets.passive, this.assets.total),
         ],
         datasets: [
           {
-            data: [
-              this.assets.active ,
-              this.assets.passive,
-            ],
-            backgroundColor: ['#009900', '#cc0000'],
+            data: [this.assets.active, this.assets.passive],
+            backgroundColor: ['#38ba8c', '#cc3333'],
           },
         ],
       };
@@ -58,7 +49,13 @@ export default {
       return {
         responsive: false,
         legend: {
-          display: false,
+          display: true,
+          position: 'left',
+        },
+        title: {
+          display: true,
+          position: 'top',
+          text: 'Assets',
         },
         tooltips: {
           callbacks: {
@@ -68,9 +65,6 @@ export default {
           },
         },
       };
-    },
-    caption() {
-      return `Assets`;
     },
   },
   methods: {
