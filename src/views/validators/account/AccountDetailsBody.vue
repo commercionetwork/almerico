@@ -10,7 +10,7 @@
       <AccountDetailsAssetsChart :assets="assets" />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountDetailsChart :capitalization="capitalization" />
+      <AccountDetailsCapitalizationChart :capitalization="capitalization" />
     </v-col>
     <v-col cols="12" md="6">
       <AccountDetailsCapitalization :capitalization="capitalization" />
@@ -29,7 +29,7 @@ import AccountDetailsAddress from './AccountDetailsAddress';
 import AccountDetailsAssetsChart from './AccountDetailsAssetsChart';
 import AccountDetailsBank from './AccountDetailsBank';
 import AccountDetailsCapitalization from './AccountDetailsCapitalization';
-import AccountDetailsChart from './AccountDetailsChart';
+import AccountDetailsCapitalizationChart from './AccountDetailsCapitalizationChart';
 import AccountDetailsDelegations from './AccountDetailsDelegations';
 import AccountDetailsUnbondings from './AccountDetailsUnbondings';
 
@@ -43,7 +43,7 @@ export default {
     AccountDetailsAssetsChart,
     AccountDetailsBank,
     AccountDetailsCapitalization,
-    AccountDetailsChart,
+    AccountDetailsCapitalizationChart,
     AccountDetailsDelegations,
     AccountDetailsUnbondings,
   },
