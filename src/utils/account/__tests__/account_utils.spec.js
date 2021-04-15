@@ -38,9 +38,8 @@ describe('utils/account', () => {
       bank: 100,
       active: 100,
       passive: 300,
-      total: 400
+      total: 400,
     };
-
 
     const balance = balanceHandler.build();
 

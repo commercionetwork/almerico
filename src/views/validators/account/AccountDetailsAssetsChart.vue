@@ -20,9 +20,9 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 import { numberIntlFormatter } from '@/utils';
 
 export default {
-  name: 'AccountDetailsBalanceChart',
+  name: 'AccountDetailsAssetsChart',
   props: {
-    amounts: {
+    assets: {
       type: Object,
       required: true,
       note: 'The balance amounts to display',
@@ -36,18 +36,18 @@ export default {
     chartData() {
       return {
         labels: [
-          this.formatPercent('Active', this.amounts.active, this.amounts.total),
+          this.formatPercent('Active', this.assets.active, this.assets.total),
           this.formatPercent(
             'Passive',
-            this.amounts.passive,
-            this.amounts.total,
+            this.assets.passive,
+            this.assets.total,
           ),
         ],
         datasets: [
           {
             data: [
-              this.amounts.active ,
-              this.amounts.passive,
+              this.assets.active ,
+              this.assets.passive,
             ],
             backgroundColor: ['#009900', '#cc0000'],
           },

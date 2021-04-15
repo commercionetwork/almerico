@@ -32,7 +32,7 @@ import { coinAdapter } from '@/utils';
 export default {
   name: 'AccountDetailsCapitalization',
   props: {
-    amounts: {
+    capitalization: {
       type: Object,
       required: true,
       note: 'The amounts to display',
@@ -55,9 +55,9 @@ export default {
       ];
     },
     items() {
-      return Object.keys(this.amounts).map((key) => ({
+      return Object.keys(this.capitalization).map((key) => ({
         caption: key,
-        amount: this.amounts[key],
+        amount: this.capitalization[key],
       }));
     },
   },

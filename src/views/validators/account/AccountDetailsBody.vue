@@ -7,13 +7,13 @@
       <AccountDetailsBank :balances="balances" />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountDetailsBalanceChart :amounts="amounts" />
+      <AccountDetailsAssetsChart :assets="assets" />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountDetailsChart :amounts="amounts" />
+      <AccountDetailsChart :capitalization="capitalization" />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountDetailsCapitalization :amounts="amounts" />
+      <AccountDetailsCapitalization :capitalization="capitalization" />
     </v-col>
     <v-col cols="12" md="6">
       <AccountDetailsDelegations />
@@ -26,7 +26,7 @@
 
 <script>
 import AccountDetailsAddress from './AccountDetailsAddress';
-import AccountDetailsBalanceChart from './AccountDetailsBalanceChart';
+import AccountDetailsAssetsChart from './AccountDetailsAssetsChart';
 import AccountDetailsBank from './AccountDetailsBank';
 import AccountDetailsCapitalization from './AccountDetailsCapitalization';
 import AccountDetailsChart from './AccountDetailsChart';
@@ -40,7 +40,7 @@ export default {
   name: 'AccountDetailsBody',
   components: {
     AccountDetailsAddress,
-    AccountDetailsBalanceChart,
+    AccountDetailsAssetsChart,
     AccountDetailsBank,
     AccountDetailsCapitalization,
     AccountDetailsChart,
@@ -58,14 +58,21 @@ export default {
       params: 'params',
     }),
     amounts() {
-      const balanceHandler = new AccountBalanceHandler({
+      return new AccountBalanceHandler({
         delegations: this.delegations,
         rewards: this.rewards,
         unbondings: this.unbondings,
         balances: this.balances,
         bondDenom: this.params.bond_denom,
-      });
-      return balanceHandler.build();
+      }).build();
+    },
+    assets() {
+      const amounts = { ...this.amounts };
+      return amounts ? AccountBalanceHandler.filterAssets(amounts) : {};
+    },
+    capitalization() {
+      const amounts = { ...this.amounts };
+      return amounts ? AccountBalanceHandler.filterCapitalization(amounts) : {};
     },
   },
 };

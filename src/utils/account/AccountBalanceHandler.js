@@ -8,7 +8,7 @@ export default class AccountBalanceHandler {
   }
 
   build() {
-    const capital = { delegations: 0, unbondings: 0, rewards: 0, bank: 0 };
+    const capital = { delegations: 0, rewards: 0, unbondings: 0, bank: 0 };
 
     if (this.delegations && this.delegations.length > 0) {
       capital.delegations = getDelegationsAmount(this.delegations);
@@ -28,6 +28,24 @@ export default class AccountBalanceHandler {
       capital.delegations + capital.rewards + capital.unbondings + capital.bank;
 
     return capital;
+  }
+
+  static filterAssets(capital) {
+    return {
+      active: capital.active,
+      passive: capital.passive,
+      total: capital.total,
+    };
+  }
+
+  static filterCapitalization(capital) {
+    return {
+      delegations: capital.delegations,
+      unbondings: capital.unbondings,
+      rewards: capital.rewards,
+      bank: capital.bank,
+      total: capital.total,
+    };
   }
 }
 

@@ -22,7 +22,7 @@ import { numberIntlFormatter } from '@/utils';
 export default {
   name: 'AccountDetailsChart',
   props: {
-    amounts: {
+    capitalization: {
       type: Object,
       required: true,
       note: 'The amounts to display',
@@ -64,16 +64,16 @@ export default {
       };
     },
     caption() {
-      return `Capitalization ${this.formatTokens(this.amounts['total'])} M`;
+      return `Capitalization ${this.formatTokens(this.capitalization['total'])} M`;
     },
     delegations() {
-      return this.formatTokens(this.amounts['delegations']);
+      return this.formatTokens(this.capitalization['delegations']);
     },
     unbondings() {
-      return this.formatTokens(this.amounts['unbondings']);
+      return this.formatTokens(this.capitalization['unbondings']);
     },
     rewards() {
-      return this.formatTokens(this.amounts['rewards']);
+      return this.formatTokens(this.capitalization['rewards']);
     },
   },
   methods: {
