@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.2.6
+
+- Updates:
+  - Account view
+  - Chain selector
+
 ## Version 2.2.5, 13/04/2021
 
 - News:
