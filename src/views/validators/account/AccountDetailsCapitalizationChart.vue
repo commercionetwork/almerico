@@ -38,16 +38,16 @@ export default {
           {
             data: this.datasets,
             backgroundColor: [
-              'rgba(51, 51, 153, 0.33)',
-              'rgba(102, 102, 153, 0.33)',
-              'rgba(102, 0, 204, 0.33)',
-              'rgba(153, 0, 255, 0.33)',
+              'rgba(54, 162, 235, 0.33)',
+              'rgba(75, 192, 192, 0.33)',
+              'rgba(255, 205, 86, 0.33)',
+              'rgba(255, 159, 64, 0.33)',
             ],
             borderColor: [
-              'rgb(51, 51, 153)',
-              'rgb(102, 102, 153)',
-              'rgb(102, 0, 204)',
-              'rgb(153, 0, 255)',
+              'rgb(54, 162, 235)',
+              'rgb(75, 192, 192)',
+              'rgb(255, 205, 86)',
+              'rgb(255, 159, 64)',
             ],
             borderWidth: 1,
           },
@@ -61,9 +61,13 @@ export default {
           display: false,
         },
         scales: {
-          y: {
-            beginAtZero: true,
-          },
+          xAxes: [
+            {
+              ticks: {
+                min: 0,
+              },
+            },
+          ],
         },
         tooltips: {
           callbacks: {
