@@ -31,12 +31,12 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: ['Active', 'Inactive'],
+        labels: ['Performing', 'Unused'],
         datasets: [
           {
             data: [
-              this.formatPercent(this.assets.active, this.assets.total),
-              this.formatPercent(this.assets.inactive, this.assets.total),
+              this.formatPercent(this.assets.performing, this.assets.total),
+              this.formatPercent(this.assets.unused, this.assets.total),
             ],
             backgroundColor: [
               'rgba(56, 186, 140, 0.33)',

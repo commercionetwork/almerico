@@ -22,8 +22,8 @@ export default class AccountBalanceHandler {
     if (this.balances && this.balances.length > 0) {
       capital.bank = getBankAmount(this.balances, this.bondDenom);
     }
-    capital.active = capital.delegations;
-    capital.inactive = capital.rewards + capital.unbondings + capital.bank;
+    capital.performing = capital.delegations;
+    capital.unused = capital.rewards + capital.unbondings + capital.bank;
     capital.total =
       capital.delegations + capital.rewards + capital.unbondings + capital.bank;
 
@@ -32,8 +32,8 @@ export default class AccountBalanceHandler {
 
   static filterAssets(capital) {
     return {
-      active: capital.active,
-      inactive: capital.inactive,
+      performing: capital.performing,
+      unused: capital.unused,
       total: capital.total,
     };
   }
