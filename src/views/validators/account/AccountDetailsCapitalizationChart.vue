@@ -1,11 +1,11 @@
 <template>
-  <ChartContainerComponent>
+  <ChartContainerComponent :title="title">
     <template v-slot:chart>
       <BarChartComponent
         :chartData="chartData"
         :options="options"
-        height="300"
-        width="450"
+        height="260"
+        width="520"
       />
     </template>
   </ChartContainerComponent>
@@ -56,12 +56,7 @@ export default {
     },
     options() {
       return {
-        responsive: true,
-        aspectRatio: 1.5,
-        title: {
-          display: true,
-          text: this.title,
-        },
+        maintainAspectRatio: false,
         legend: {
           display: false,
         },

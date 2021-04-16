@@ -1,12 +1,7 @@
 <template>
-  <ChartContainerComponent>
+  <ChartContainerComponent title="assets">
     <template v-slot:chart>
-      <BarChartComponent
-        :chartData="chartData"
-        :options="options"
-        height="200"
-        width="300"
-      />
+      <BarChartComponent :chartData="chartData" :options="options" />
     </template>
   </ChartContainerComponent>
 </template>
@@ -50,12 +45,7 @@ export default {
     },
     options() {
       return {
-        responsive: true,
-        maintainAspectRatio: true,
-        title: {
-          display: true,
-          text: 'Assets',
-        },
+        maintainAspectRatio: false,
         legend: {
           display: false,
         },
@@ -66,8 +56,8 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: function(tooltipItem, data) {
-              return `${data['datasets'][0]['data'][tooltipItem['index']]}%`;
+            label: function(ctx, data) {
+              return `${data['datasets'][0]['data'][ctx['index']]}%`;
             },
           },
         },
