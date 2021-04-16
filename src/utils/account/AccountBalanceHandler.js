@@ -23,7 +23,7 @@ export default class AccountBalanceHandler {
       capital.bank = getBankAmount(this.balances, this.bondDenom);
     }
     capital.performing = capital.delegations;
-    capital.unused = capital.rewards + capital.unbondings + capital.bank;
+    capital.unperforming = capital.rewards + capital.unbondings + capital.bank;
     capital.total =
       capital.delegations + capital.rewards + capital.unbondings + capital.bank;
 
@@ -33,7 +33,7 @@ export default class AccountBalanceHandler {
   static filterAssets(capital) {
     return {
       performing: capital.performing,
-      unused: capital.unused,
+      unperforming: capital.unperforming,
       total: capital.total,
     };
   }

@@ -7,7 +7,7 @@
       <AccountDetailsBank :balances="balances" />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountDetailsAssetsChart :assets="assets" />
+      <AccountDetailsPerformanceChart :assets="assets" />
     </v-col>
     <v-col cols="12" md="6">
       <AccountDetailsCapitalizationChart :capitalization="capitalization" />
@@ -26,7 +26,7 @@
 
 <script>
 import AccountDetailsAddress from './AccountDetailsAddress';
-import AccountDetailsAssetsChart from './AccountDetailsAssetsChart';
+import AccountDetailsPerformanceChart from './AccountDetailsPerformanceChart';
 import AccountDetailsBank from './AccountDetailsBank';
 import AccountDetailsCapitalization from './AccountDetailsCapitalization';
 import AccountDetailsCapitalizationChart from './AccountDetailsCapitalizationChart';
@@ -40,7 +40,7 @@ export default {
   name: 'AccountDetailsBody',
   components: {
     AccountDetailsAddress,
-    AccountDetailsAssetsChart,
+    AccountDetailsPerformanceChart,
     AccountDetailsBank,
     AccountDetailsCapitalization,
     AccountDetailsCapitalizationChart,

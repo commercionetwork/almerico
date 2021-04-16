@@ -1,5 +1,5 @@
 <template>
-  <ChartContainerComponent title="assets">
+  <ChartContainerComponent title="performance">
     <template v-slot:chart>
       <BarChartComponent :chartData="chartData" :options="options" />
     </template>
@@ -11,7 +11,7 @@ import BarChartComponent from '@/components/BarChartComponent';
 import ChartContainerComponent from '@/components/ChartContainerComponent.vue';
 
 export default {
-  name: 'AccountDetailsAssetsChart',
+  name: 'AccountDetailsPerformanceChart',
   props: {
     assets: {
       type: Object,
@@ -26,18 +26,18 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: ['Performing', 'Unused'],
+        labels: ['Performing', 'Unperforming'],
         datasets: [
           {
             data: [
               this.formatPercent(this.assets.performing, this.assets.total),
-              this.formatPercent(this.assets.unused, this.assets.total),
+              this.formatPercent(this.assets.unperforming, this.assets.total),
             ],
             backgroundColor: [
-              'rgba(56, 186, 140, 0.33)',
-              'rgba(204, 0, 0, 0.33)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(255, 99, 132, 0.2)',
             ],
-            borderColor: ['rgb(56, 186, 140)', 'rgb(204, 0, 0)'],
+            borderColor: ['rgb(75, 192, 192)', 'rgb(255, 99, 132)'],
             borderWidth: 1,
           },
         ],
