@@ -1,7 +1,7 @@
 <template>
   <ChartContainerComponent :title="title">
     <template v-slot:chart>
-      <BarChartComponent
+      <HorizontalBarChartComponent
         :chartData="chartData"
         :options="options"
         height="260"
@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import BarChartComponent from '@/components/BarChartComponent';
 import ChartContainerComponent from '@/components/ChartContainerComponent';
+import HorizontalBarChartComponent from '@/components/HorizontalBarChartComponent';
 
 import { numberIntlFormatter } from '@/utils';
 
@@ -27,13 +27,13 @@ export default {
     },
   },
   components: {
-    BarChartComponent,
     ChartContainerComponent,
+    HorizontalBarChartComponent,
   },
   computed: {
     chartData() {
       return {
-        labels: ['Delegations', 'Rewards', 'Unbondings', 'Bank'],
+        labels: ['Delegations', 'Unbondings', 'Rewards', 'Bank'],
         datasets: [
           {
             data: this.datasets,
@@ -83,8 +83,8 @@ export default {
     datasets() {
       return [
         this.capitalization.delegations / this.denominator,
-        this.capitalization.rewards / this.denominator,
         this.capitalization.unbondings / this.denominator,
+        this.capitalization.rewards / this.denominator,
         this.capitalization.bank / this.denominator,
       ];
     },
