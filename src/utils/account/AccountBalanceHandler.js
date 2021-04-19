@@ -8,8 +8,16 @@ export default class AccountBalanceHandler {
   }
 
   build() {
-    const capital = { delegations: 0, rewards: 0, unbondings: 0, availables: 0 };
+    const capital = {
+      availables: 0,
+      delegations: 0,
+      rewards: 0,
+      unbondings: 0,
+    };
 
+    if (this.balances && this.balances.length > 0) {
+      capital.availables = getAvailablesAmount(this.balances, this.bondDenom);
+    }
     if (this.delegations && this.delegations.length > 0) {
       capital.delegations = getDelegationsAmount(this.delegations);
     }
@@ -19,13 +27,14 @@ export default class AccountBalanceHandler {
     if (this.unbondings && this.unbondings.length > 0) {
       capital.unbondings = getUnbondingsAmount(this.unbondings);
     }
-    if (this.balances && this.balances.length > 0) {
-      capital.availables = getAvailablesAmount(this.balances, this.bondDenom);
-    }
     capital.earning = capital.delegations;
-    capital.notEarning = capital.rewards + capital.unbondings + capital.availables;
+    capital.notEarning =
+      capital.rewards + capital.unbondings + capital.availables;
     capital.total =
-      capital.delegations + capital.rewards + capital.unbondings + capital.availables;
+      capital.availables +
+      capital.delegations +
+      capital.rewards +
+      capital.unbondings;
 
     return capital;
   }
@@ -40,13 +49,23 @@ export default class AccountBalanceHandler {
 
   static filterCapitalization(capital) {
     return {
+      availables: capital.availables,
       delegations: capital.delegations,
       unbondings: capital.unbondings,
       rewards: capital.rewards,
-      availables: capital.availables,
       total: capital.total,
     };
   }
+}
+
+function getAvailablesAmount(balances, bondDenom) {
+  const filteredBalances = balances.filter(
+    (balance) => balance.denom === bondDenom,
+  );
+  return filteredBalances.reduce(
+    (acc, item) => acc + parseFloat(item.amount),
+    0,
+  );
 }
 
 function getDelegationsAmount(delegations) {
@@ -69,14 +88,4 @@ function getUnbondingsAmount(unbondings) {
     );
   }
   return amount;
-}
-
-function getAvailablesAmount(balances, bondDenom) {
-  const filteredBalances = balances.filter(
-    (balance) => balance.denom === bondDenom,
-  );
-  return filteredBalances.reduce(
-    (acc, item) => acc + parseFloat(item.amount),
-    0,
-  );
 }

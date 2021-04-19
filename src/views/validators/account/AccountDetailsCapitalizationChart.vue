@@ -33,21 +33,21 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: ['Delegations', 'Unbondings', 'Rewards', 'Availables'],
+        labels: ['Availables', 'Delegations', 'Unbondings', 'Rewards'],
         datasets: [
           {
             data: this.datasets,
             backgroundColor: [
+              'rgba(255, 159, 64, 0.2)',
               'rgba(54, 162, 235, 0.2)',
               'rgba(153, 102, 255, 0.2)',
               'rgba(255, 205, 86, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
             ],
             borderColor: [
+              'rgb(255, 159, 64)',
               'rgb(54, 162, 235)',
               'rgb(153, 102, 255)',
               'rgb(255, 205, 86)',
-              'rgb(255, 159, 64)',
             ],
             borderWidth: 1,
           },
@@ -82,14 +82,14 @@ export default {
     },
     title() {
       const total = this.formatTokens(this.capitalization.total);
-      return `Total ${total} M`;
+      return `Tokens Total ${total} M`;
     },
     datasets() {
       return [
+        this.capitalization.availables / this.denominator,
         this.capitalization.delegations / this.denominator,
         this.capitalization.unbondings / this.denominator,
         this.capitalization.rewards / this.denominator,
-        this.capitalization.availables / this.denominator,
       ];
     },
     denominator() {

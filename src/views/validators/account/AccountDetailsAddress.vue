@@ -4,7 +4,7 @@
       <v-col cols="12" md="6">
         <div class="pa-3 d-flex justify-center align-center">
           <span class="text-subtitle-1 text-capitalize" v-text="'address:'" />
-          <span class="pl-3 text-break font-weight-bold" v-text="address" />
+          <span class="pl-3 text-overline text-break font-weight-bold" v-text="address" />
           <div class="pl-3">
             <v-btn class="pa-1" color="black" icon @click.stop="dialog = true">
               <span class="pa-2 white">
