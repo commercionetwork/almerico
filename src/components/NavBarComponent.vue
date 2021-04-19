@@ -54,13 +54,7 @@
       </v-list>
       <v-divider></v-divider>
       <div class="pl-2">
-        <v-switch
-          v-model="$vuetify.theme.dark"
-          hint="This toggles the theme"
-          inset
-          label="Dark"
-          persistent-hint
-        ></v-switch>
+        <NavBarSwitchThemeComponent />
       </div>
     </v-navigation-drawer>
   </nav>
@@ -68,6 +62,7 @@
 
 <script>
 import NavBarItemComponent from './NavBarItemComponent';
+import NavBarSwitchThemeComponent from './NavBarSwitchThemeComponent';
 
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
@@ -76,6 +71,7 @@ export default {
   name: 'NavBarComponent',
   components: {
     NavBarItemComponent,
+    NavBarSwitchThemeComponent,
   },
   data: () => ({
     ROUTES,
