@@ -33,7 +33,7 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: ['Delegations', 'Unbondings', 'Rewards', 'Bank'],
+        labels: ['Delegations', 'Unbondings', 'Rewards', 'Availables'],
         datasets: [
           {
             data: this.datasets,
@@ -89,7 +89,7 @@ export default {
         this.capitalization.delegations / this.denominator,
         this.capitalization.unbondings / this.denominator,
         this.capitalization.rewards / this.denominator,
-        this.capitalization.bank / this.denominator,
+        this.capitalization.availables / this.denominator,
       ];
     },
     denominator() {

@@ -35,9 +35,9 @@ describe('utils/account', () => {
       delegations: 100,
       unbondings: 100,
       rewards: 100,
-      bank: 100,
-      performing: 100,
-      unperforming: 300,
+      availables: 100,
+      earning: 100,
+      notEarning: 300,
       total: 400,
     };
 

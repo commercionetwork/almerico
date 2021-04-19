@@ -8,7 +8,7 @@ export default class AccountBalanceHandler {
   }
 
   build() {
-    const capital = { delegations: 0, rewards: 0, unbondings: 0, bank: 0 };
+    const capital = { delegations: 0, rewards: 0, unbondings: 0, availables: 0 };
 
     if (this.delegations && this.delegations.length > 0) {
       capital.delegations = getDelegationsAmount(this.delegations);
@@ -20,20 +20,20 @@ export default class AccountBalanceHandler {
       capital.unbondings = getUnbondingsAmount(this.unbondings);
     }
     if (this.balances && this.balances.length > 0) {
-      capital.bank = getBankAmount(this.balances, this.bondDenom);
+      capital.availables = getAvailablesAmount(this.balances, this.bondDenom);
     }
-    capital.performing = capital.delegations;
-    capital.unperforming = capital.rewards + capital.unbondings + capital.bank;
+    capital.earning = capital.delegations;
+    capital.notEarning = capital.rewards + capital.unbondings + capital.availables;
     capital.total =
-      capital.delegations + capital.rewards + capital.unbondings + capital.bank;
+      capital.delegations + capital.rewards + capital.unbondings + capital.availables;
 
     return capital;
   }
 
   static filterAssets(capital) {
     return {
-      performing: capital.performing,
-      unperforming: capital.unperforming,
+      earning: capital.earning,
+      notEarning: capital.notEarning,
       total: capital.total,
     };
   }
@@ -43,7 +43,7 @@ export default class AccountBalanceHandler {
       delegations: capital.delegations,
       unbondings: capital.unbondings,
       rewards: capital.rewards,
-      bank: capital.bank,
+      availables: capital.availables,
       total: capital.total,
     };
   }
@@ -71,7 +71,7 @@ function getUnbondingsAmount(unbondings) {
   return amount;
 }
 
-function getBankAmount(balances, bondDenom) {
+function getAvailablesAmount(balances, bondDenom) {
   const filteredBalances = balances.filter(
     (balance) => balance.denom === bondDenom,
   );

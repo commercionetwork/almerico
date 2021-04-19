@@ -1,5 +1,5 @@
 <template>
-  <ChartContainerComponent title="performance">
+  <ChartContainerComponent title="tokens performance">
     <template v-slot:chart>
       <BarChartComponent :chartData="chartData" :options="options" />
     </template>
@@ -26,12 +26,12 @@ export default {
   computed: {
     chartData() {
       return {
-        labels: ['Performing', 'Unperforming'],
+        labels: ['Earning', 'Not Earning'],
         datasets: [
           {
             data: [
-              this.formatPercent(this.assets.performing, this.assets.total),
-              this.formatPercent(this.assets.unperforming, this.assets.total),
+              this.formatPercent(this.assets.earning, this.assets.total),
+              this.formatPercent(this.assets.notEarning, this.assets.total),
             ],
             backgroundColor: [
               'rgba(75, 192, 192, 0.2)',
