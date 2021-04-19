@@ -27,42 +27,12 @@
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app fixed>
-      <v-list nav dense>
-        <v-list-item-group>
-          <NavBarItemComponent
-            icon="mdi-view-dashboard"
-            title="Dashboard"
-            :to="{ name: ROUTES.NAMES.DASHBOARD }"
-          />
-          <NavBarItemComponent
-            icon="mdi-account-multiple"
-            title="Validators"
-            :to="{ name: ROUTES.NAMES.VALIDATORS }"
-          />
-          <NavBarItemComponent
-            icon="mdi-swap-horizontal-bold"
-            title="Transactions"
-            :to="{ name: ROUTES.NAMES.TRANSACTIONS }"
-          />
-          <NavBarItemComponent
-            icon="mdi-shape"
-            title="Blocks"
-            :to="{ name: ROUTES.NAMES.BLOCKS }"
-          />
-        </v-list-item-group>
-      </v-list>
-      <v-divider></v-divider>
-      <div class="pl-2">
-        <NavBarSwitchThemeComponent />
-      </div>
-    </v-navigation-drawer>
+    <NavBarNavigationDrawerComponent :drawer="drawer" />
   </nav>
 </template>
 
 <script>
-import NavBarItemComponent from './NavBarItemComponent';
-import NavBarSwitchThemeComponent from './NavBarSwitchThemeComponent';
+import NavBarNavigationDrawerComponent from './NavBarNavigationDrawerComponent';
 
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
@@ -70,8 +40,7 @@ import { ROUTES } from '@/constants';
 export default {
   name: 'NavBarComponent',
   components: {
-    NavBarItemComponent,
-    NavBarSwitchThemeComponent,
+    NavBarNavigationDrawerComponent,
   },
   data: () => ({
     ROUTES,
@@ -81,7 +50,7 @@ export default {
     ...mapGetters('starting', {
       info: 'nodeInfo',
     }),
-    imgSrc(){
+    imgSrc() {
       return require('@/assets/text-commercio.png');
     },
     netName() {
