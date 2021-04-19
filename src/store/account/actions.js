@@ -56,7 +56,7 @@ export default {
       commit('setMembership', response.data.result);
     } catch (error) {
       commit('setMembership', null);
-      //TODO: enable to manage the error once the CORS issues have been resolved
+      //TODO: enable to manage the error when the API will be fixed
       // if (error.response && error.response.status === 404) {
       //   commit('setMembership', null);
       // } else {
