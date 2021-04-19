@@ -50,9 +50,17 @@ export default {
           display: false,
         },
         scales: {
-          y: {
-            beginAtZero: true,
-          },
+          yAxes: [
+            {
+              display: true,
+              ticks: {
+                beginAtZero: true,
+                steps: 10,
+                stepValue: 5,
+                max: 100,
+              },
+            },
+          ],
         },
         tooltips: {
           callbacks: {
