@@ -13,7 +13,7 @@
         />
       </router-link>
       <v-img
-        :src="require('../assets/text-commercio.png')"
+        :src="imgSrc"
         alt="Commercio Name"
         class="shrink mt-1 hidden-sm-and-down"
         contain
@@ -81,6 +81,9 @@ export default {
     ...mapGetters('starting', {
       info: 'nodeInfo',
     }),
+    imgSrc(){
+      return require('@/assets/text-commercio.png');
+    },
     netName() {
       const name =
         this.info && this.info.node_info && this.info.node_info.network
