@@ -82,7 +82,7 @@ export default {
     },
     title() {
       const total = this.formatTokens(this.capitalization.total);
-      return `Tokens Total ${total} M`;
+      return `COM Total ${total} M`;
     },
     datasets() {
       return [

@@ -1,13 +1,18 @@
 <template>
   <ChartContainerComponent title="tokens performance">
     <template v-slot:chart>
-      <BarChartComponent :chartData="chartData" :options="options" />
+      <DoughnutChartComponent
+        :chartData="chartData"
+        :options="options"
+        height="150"
+        width="150"
+      />
     </template>
   </ChartContainerComponent>
 </template>
 
 <script>
-import BarChartComponent from '@/components/BarChartComponent';
+import DoughnutChartComponent from '@/components/DoughnutChartComponent';
 import ChartContainerComponent from '@/components/ChartContainerComponent.vue';
 
 export default {
@@ -20,56 +25,45 @@ export default {
     },
   },
   components: {
-    BarChartComponent,
+    DoughnutChartComponent,
     ChartContainerComponent,
   },
   computed: {
     chartData() {
       return {
-        labels: ['Earning', 'Not Earning'],
+        labels: [`Earning Rewards`, `Not Earning Rewards`],
         datasets: [
           {
-            data: [
-              this.formatPercent(this.assets.earning, this.assets.total),
-              this.formatPercent(this.assets.notEarning, this.assets.total),
-            ],
-            backgroundColor: [
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(255, 99, 132, 0.2)',
-            ],
-            borderColor: ['rgb(75, 192, 192)', 'rgb(255, 99, 132)'],
-            borderWidth: 1,
+            data: [this.earningRewards, this.notEarningRewards],
+            backgroundColor: ['rgb(47, 157, 119)', 'rgb(211, 47, 47)'],
           },
         ],
       };
     },
     options() {
       return {
-        maintainAspectRatio: false,
+        responsive: true,
         legend: {
           display: false,
         },
-        scales: {
-          yAxes: [
-            {
-              display: true,
-              ticks: {
-                beginAtZero: true,
-                steps: 10,
-                stepValue: 5,
-                max: 100,
-              },
-            },
-          ],
-        },
         tooltips: {
           callbacks: {
-            label: function(ctx, data) {
-              return `${data['datasets'][0]['data'][ctx['index']]}%`;
+            label: function(tooltipItem, data) {
+              const value = `${
+                data['datasets'][0]['data'][tooltipItem['index']]
+              }%`;
+              const label = data['labels'][tooltipItem['index']];
+              return [value, label];
             },
           },
         },
       };
+    },
+    earningRewards() {
+      return this.formatPercent(this.assets.earning, this.assets.total);
+    },
+    notEarningRewards() {
+      return this.formatPercent(this.assets.notEarning, this.assets.total);
     },
   },
   methods: {

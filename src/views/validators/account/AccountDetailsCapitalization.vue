@@ -46,7 +46,7 @@ export default {
       return this.params.bond_denom ? this.params.bond_denom : '';
     },
     caption() {
-      return 'Capitalization';
+      return 'COM Capitalization';
     },
     headers() {
       return [

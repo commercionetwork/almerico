@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     caption() {
-      return 'Tokens Balance';
+      return 'All Tokens Balance';
     },
     headers() {
       return [
