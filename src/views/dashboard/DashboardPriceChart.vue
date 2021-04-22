@@ -58,9 +58,9 @@ export default {
         datasets: [
           {
             data: this.priceMutations.map((update) => update.price.toFixed(2)),
-            backgroundColor: '#b3e0ff',
-            borderColor: '#4db8ff',
-            pointBackgroundColor: '#008ae6',
+            backgroundColor: 'rgba(179, 224, 255, 0.5)',
+            borderColor: 'rgb(77, 184, 255)',
+            pointBackgroundColor: 'rgb(0, 138, 230)',
           },
         ],
       };
