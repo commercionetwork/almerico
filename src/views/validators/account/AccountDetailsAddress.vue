@@ -2,10 +2,13 @@
   <v-card outlined>
     <v-row>
       <v-col cols="12" md="6">
-        <div class="pa-3 d-flex justify-center align-center">
-          <span class="text-subtitle-1 text-capitalize" v-text="'address:'" />
-          <span class="pl-3 text-overline text-break font-weight-bold" v-text="address" />
-          <div class="pl-3">
+        <div class="pa-3 d-flex justify-center align-end">
+          <span class="text-capitalize" v-text="'address:'" />
+          <span
+            class="pl-2 text-break font-weight-bold address-font"
+            v-text="address"
+          />
+          <div class="ml-3">
             <v-btn class="pa-1" color="black" icon @click.stop="dialog = true">
               <span class="pa-2 white">
                 <v-icon large>mdi-qrcode</v-icon>
@@ -16,9 +19,12 @@
         </div>
       </v-col>
       <v-col cols="12" md="6">
-        <div class="pa-3 d-flex justify-center align-center">
-          <span class="text-subtitle-1 text-capitalize" v-text="'membership:'" />
-          <span class="pl-3 font-weight-bold" v-text="membershipText" />
+        <div class="pa-3 d-flex justify-center align-end">
+          <span
+            class="text-capitalize"
+            v-text="'membership:'"
+          />
+          <span class="pl-2 font-weight-bold" v-text="membershipText" />
           <div class="ml-3 white">
             <v-icon class="px-1" :color="membershipColor" large>
               mdi-card-account-details
@@ -70,5 +76,10 @@ export default {
 .word-break {
   white-space: normal;
   word-break: break-all;
+}
+
+.address-font {
+  font-family: monospace;
+  font-size: 0.8rem;
 }
 </style>
