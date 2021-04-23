@@ -14,7 +14,7 @@
         <QrcodeVue :value="address" size="200" level="H" class="py-5" />
         <v-divider />
         <div class="text-caption" v-text="'Scan the address'" />
-        <div class="pb-3 text-caption font-weight-bold" v-text="address" />
+        <div class="pb-3 font-weight-bold address-font" v-text="address" />
       </div>
     </v-card>
   </v-dialog>
@@ -48,3 +48,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.address-font {
+  font-family: monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+</style>

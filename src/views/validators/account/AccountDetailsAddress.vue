@@ -20,11 +20,8 @@
       </v-col>
       <v-col cols="12" md="6">
         <div class="pa-3 d-flex justify-center align-end">
-          <span
-            class="text-capitalize"
-            v-text="'membership:'"
-          />
-          <span class="pl-2 font-weight-bold" v-text="membershipText" />
+          <span class="text-capitalize" v-text="'membership:'" />
+          <span class="pl-2 text-capitalize font-weight-bold" v-text="membershipText" />
           <div class="ml-3 white">
             <v-icon class="px-1" :color="membershipColor" large>
               mdi-card-account-details
@@ -81,5 +78,6 @@ export default {
 .address-font {
   font-family: monospace;
   font-size: 0.8rem;
+  text-transform: uppercase;
 }
 </style>

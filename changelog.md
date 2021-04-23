@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 2.2.6
+## Version 2.2.6, 23/04/2021
 
 - Updates:
   - Account view
