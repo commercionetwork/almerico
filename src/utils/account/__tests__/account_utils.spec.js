@@ -1,10 +1,11 @@
 import { mockDelegations } from '../../../store/account/__mocks__/delegations';
 import { mockRewards } from '../../../store/account/__mocks__/rewards';
+import { mockBalances } from '../../../store/account/__mocks__/balances';
 import { mockUnbondings } from '../../../store/account/__mocks__/unbondings';
 import { mockValidators } from '../../../store/validators/__mocks__/validators';
 import { mockValidatorDelegations } from '../../../store/validators/__mocks__/validator_delegations';
 import AccountDelegationsHandler from '../AccountDelegationsHandler';
-import AccountStakeHandler from '../AccountStakeHandler';
+import AccountBalanceHandler from '../AccountBalanceHandler';
 import AccountUnbondingsHandler from '../AccountUnbondingsHandler';
 
 describe('utils/account', () => {
@@ -22,20 +23,27 @@ describe('utils/account', () => {
     }
   });
 
-  test("if 'AccountStakeHandler' class returns the wanted stake", () => {
-    const stake = AccountStakeHandler.setDelegations(mockDelegations())
-      .setRewards(mockRewards())
-      .setUnbondings(mockUnbondings())
-      .get();
-
-    const expectedStake = {
-      delegations: 500,
-      unbondings: 500,
-      rewards: 100.9,
-      total: 1100.9,
+  test("if 'AccountBalanceHandler' class returns the wanted balance", () => {
+    const balanceHandler = new AccountBalanceHandler({
+      delegations: mockDelegations(1),
+      rewards: mockRewards(1),
+      unbondings: mockUnbondings(1),
+      balances: mockBalances(1),
+      bondDenom: 'ucommercio',
+    });
+    const expectedBalance = {
+      delegations: 100,
+      unbondings: 100,
+      rewards: 100,
+      availables: 100,
+      earning: 100,
+      notEarning: 300,
+      total: 400,
     };
 
-    expect(stake).toStrictEqual(expectedStake);
+    const balance = balanceHandler.build();
+
+    expect(balance).toStrictEqual(expectedBalance);
   });
 
   test("if 'AccountUnbondingsHandler' class returns an array of wanted unbondings delegations", () => {

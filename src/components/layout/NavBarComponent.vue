@@ -13,7 +13,7 @@
         />
       </router-link>
       <v-img
-        :src="require('../assets/text-commercio.png')"
+        :src="imgSrc"
         alt="Commercio Name"
         class="shrink mt-1 hidden-sm-and-down"
         contain
@@ -27,47 +27,12 @@
       </div>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app fixed>
-      <v-list nav dense>
-        <v-list-item-group>
-          <NavBarItemComponent
-            icon="mdi-view-dashboard"
-            title="Dashboard"
-            :to="{ name: ROUTES.NAMES.DASHBOARD }"
-          />
-          <NavBarItemComponent
-            icon="mdi-account-multiple"
-            title="Validators"
-            :to="{ name: ROUTES.NAMES.VALIDATORS }"
-          />
-          <NavBarItemComponent
-            icon="mdi-swap-horizontal-bold"
-            title="Transactions"
-            :to="{ name: ROUTES.NAMES.TRANSACTIONS }"
-          />
-          <NavBarItemComponent
-            icon="mdi-shape"
-            title="Blocks"
-            :to="{ name: ROUTES.NAMES.BLOCKS }"
-          />
-        </v-list-item-group>
-      </v-list>
-      <v-divider></v-divider>
-      <div class="pl-2">
-        <v-switch
-          v-model="$vuetify.theme.dark"
-          hint="This toggles the theme"
-          inset
-          label="Dark"
-          persistent-hint
-        ></v-switch>
-      </div>
-    </v-navigation-drawer>
+    <NavBarNavigationDrawerComponent :drawer="drawer" />
   </nav>
 </template>
 
 <script>
-import NavBarItemComponent from './NavBarItemComponent';
+import NavBarNavigationDrawerComponent from './NavBarNavigationDrawerComponent';
 
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
@@ -75,7 +40,7 @@ import { ROUTES } from '@/constants';
 export default {
   name: 'NavBarComponent',
   components: {
-    NavBarItemComponent,
+    NavBarNavigationDrawerComponent,
   },
   data: () => ({
     ROUTES,
@@ -85,6 +50,9 @@ export default {
     ...mapGetters('starting', {
       info: 'nodeInfo',
     }),
+    imgSrc() {
+      return require('@/assets/text-commercio.png');
+    },
     netName() {
       const name =
         this.info && this.info.node_info && this.info.node_info.network

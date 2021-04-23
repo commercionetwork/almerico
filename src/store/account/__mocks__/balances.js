@@ -1,7 +1,7 @@
 const mockBalance = () => {
   const item = {
     denom: 'ucommercio',
-    amount: '551580281',
+    amount: '100',
   };
   return item;
 };

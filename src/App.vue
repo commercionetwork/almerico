@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import FooterComponent from './components/FooterComponent';
-import NavBarComponent from './components/NavBarComponent';
+import FooterComponent from '@/components/layout/FooterComponent';
+import NavBarComponent from '@/components/layout/NavBarComponent';
 
 import { mapActions, mapGetters } from 'vuex';
 import { ROUTES } from './constants';

@@ -1,52 +1,49 @@
 <template>
   <v-row>
-    <v-col cols="12" md="4">
+    <v-col cols="12">
       <AccountDetailsAddress />
     </v-col>
-    <v-col cols="12" md="4">
-      <AccountDetailsChart :amounts="amounts" />
+    <v-col cols="12" md="6">
+      <AccountDetailsBank :balances="balances" />
     </v-col>
-    <v-col cols="12" md="4">
-      <v-card outlined>
-        <AccountDetailsCapitalization :amounts="amounts" />
-      </v-card>
+    <v-col cols="12" md="6">
+      <AccountDetailsPerformanceChart :assets="assets" />
     </v-col>
-    <v-col cols="12" md="4">
-      <v-card outlined>
-        <AccountDetailsBalance :balances="balances" />
-      </v-card>
+    <v-col cols="12" md="6">
+      <AccountDetailsCapitalizationChart :capitalization="capitalization" />
     </v-col>
-    <v-col cols="12" md="4">
-      <v-card outlined>
-        <AccountDetailsDelegations />
-      </v-card>
+    <v-col cols="12" md="6">
+      <AccountDetailsCapitalization :capitalization="capitalization" />
     </v-col>
-    <v-col cols="12" md="4">
-      <v-card outlined>
-        <AccountDetailsUnbondings />
-      </v-card>
+    <v-col cols="12" md="6">
+      <AccountDetailsDelegations />
+    </v-col>
+    <v-col cols="12" md="6">
+      <AccountDetailsUnbondings />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import AccountDetailsAddress from './AccountDetailsAddress';
-import AccountDetailsBalance from './AccountDetailsBalance';
+import AccountDetailsPerformanceChart from './AccountDetailsPerformanceChart';
+import AccountDetailsBank from './AccountDetailsBank';
 import AccountDetailsCapitalization from './AccountDetailsCapitalization';
-import AccountDetailsChart from './AccountDetailsChart';
+import AccountDetailsCapitalizationChart from './AccountDetailsCapitalizationChart';
 import AccountDetailsDelegations from './AccountDetailsDelegations';
 import AccountDetailsUnbondings from './AccountDetailsUnbondings';
 
 import { mapGetters } from 'vuex';
-import { AccountStakeHandler } from '@/utils';
+import { AccountBalanceHandler } from '@/utils';
 
 export default {
   name: 'AccountDetailsBody',
   components: {
     AccountDetailsAddress,
-    AccountDetailsBalance,
+    AccountDetailsPerformanceChart,
+    AccountDetailsBank,
     AccountDetailsCapitalization,
-    AccountDetailsChart,
+    AccountDetailsCapitalizationChart,
     AccountDetailsDelegations,
     AccountDetailsUnbondings,
   },
@@ -57,11 +54,25 @@ export default {
       rewards: 'rewards',
       unbondings: 'unbondings',
     }),
+    ...mapGetters('starting', {
+      params: 'params',
+    }),
     amounts() {
-      return AccountStakeHandler.setDelegations(this.delegations)
-        .setRewards(this.rewards)
-        .setUnbondings(this.unbondings)
-        .get();
+      return new AccountBalanceHandler({
+        delegations: this.delegations,
+        rewards: this.rewards,
+        unbondings: this.unbondings,
+        balances: this.balances,
+        bondDenom: this.params.bond_denom,
+      }).build();
+    },
+    assets() {
+      const amounts = { ...this.amounts };
+      return amounts ? AccountBalanceHandler.filterAssets(amounts) : {};
+    },
+    capitalization() {
+      const amounts = { ...this.amounts };
+      return amounts ? AccountBalanceHandler.filterCapitalization(amounts) : {};
     },
   },
 };
