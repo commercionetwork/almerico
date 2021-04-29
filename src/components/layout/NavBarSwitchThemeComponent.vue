@@ -1,11 +1,12 @@
 <template>
-  <v-switch
-    hint="Toggle the theme style"
-    inset
-    label="Dark"
-    persistent-hint
-    @change="toggleTheme"
-  ></v-switch>
+  <v-list-item v-on:click="toggleTheme">
+    <v-list-item-icon>
+      <v-icon aria-hidden="false">
+        mdi-theme-light-dark
+      </v-icon>
+    </v-list-item-icon>
+    <v-list-item-title v-text="'Toggle theme'" />
+  </v-list-item>
 </template>
 
 <script>
@@ -14,13 +15,16 @@ export default {
   methods: {
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      localStorage.setItem('theme-dark', this.$vuetify.theme.dark);
+      localStorage.setItem('dark-theme', this.$vuetify.theme.dark.toString());
     },
   },
-  created() {
-    this.$vuetify.theme.dark = localStorage.getItem('theme-dark')
-      ? localStorage.getItem('theme-dark')
-      : false;
+  mounted() {
+    const darkTheme = localStorage.getItem('dark-theme');
+    if (darkTheme && darkTheme === 'true') {
+      this.$vuetify.theme.dark = true;
+    } else {
+      this.$vuetify.theme.dark = false;
+    }
   },
 };
 </script>

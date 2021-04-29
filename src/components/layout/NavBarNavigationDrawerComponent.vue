@@ -22,12 +22,10 @@
           title="Blocks"
           :to="{ name: ROUTES.NAMES.BLOCKS }"
         />
+        <v-divider />
+        <NavBarSwitchThemeComponent />
       </v-list-item-group>
     </v-list>
-    <v-divider></v-divider>
-    <div class="pl-2">
-      <NavBarSwitchThemeComponent />
-    </div>
   </v-navigation-drawer>
 </template>
 
