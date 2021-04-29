@@ -4,4 +4,5 @@ export default {
   nodeInfo: (state) => state.nodeInfo,
   params: (state) => state.params,
   pool: (state) => state.pool,
+  tokens: (state) => state.tokens,
 };

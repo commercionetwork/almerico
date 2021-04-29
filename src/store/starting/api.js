@@ -9,6 +9,17 @@ export default {
   /**
    * @returns {Promise}
    */
+  requestAllTokens() {
+    return axios({
+      method: 'get',
+      baseURL: `${API.SUPPLY}`,
+      url: '/total',
+      headers: headers,
+    });
+  },
+  /**
+   * @returns {Promise}
+   */
   requestNodeInfo() {
     return axios({
       method: 'get',

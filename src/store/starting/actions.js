@@ -20,6 +20,7 @@ export default {
       dispatch('fetchNodeInfo'),
       dispatch('fetchParams'),
       dispatch('fetchPool'),
+      dispatch('fetchTokens'),
       dispatch('blocks/fetchLatestBlock', null, { root: true }),
       dispatch(
         'validators/initValidators',
@@ -61,6 +62,18 @@ export default {
     try {
       const response = await api.requestPool();
       commit('setPool', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchTokens({ dispatch, commit }) {
+    try {
+      const response = await api.requestAllTokens();
+      commit('setTokens', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
     }

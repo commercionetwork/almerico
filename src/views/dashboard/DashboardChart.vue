@@ -18,7 +18,7 @@ import DoughnutChartComponent from '@/components/DoughnutChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
-import { numberIntlFormatter } from '@/utils';
+import { TokensHandler } from '@/utils';
 
 export default {
   name: 'DashboardChart',
@@ -28,18 +28,32 @@ export default {
   },
   computed: {
     ...mapGetters('starting', {
+      params: 'params',
       pool: 'pool',
+      tokens: 'tokens',
     }),
+    allData() {
+      const tokensHandler = new TokensHandler({
+        params: this.params,
+        tokens: this.tokens,
+        pool: this.pool,
+      });
+      return tokensHandler.build();
+    },
+    caption() {
+      return `Pool ${this.allData.million.total}`;
+    },
     chartData() {
       return {
         labels: [
-          `Bonded ${this.tokenBonded}`,
-          `Not Bonded ${this.tokenNotBonded}`,
+          `Bonded ${this.allData.percent.bonded}`,
+          `Not Bonded ${this.allData.percent.unbonded}`,
         ],
         datasets: [
           {
-            data: [this.pool.bonded_tokens, this.pool.not_bonded_tokens],
-            backgroundColor: ['#2F9D77', '#4ECA9F'],
+            data: [this.allData.amount.bonded, this.allData.amount.unbonded],
+            backgroundColor: ['rgb(47, 157, 119)', 'rgb(78, 202, 159)'],
+            borderColor: ['rgb(235, 249, 244)', 'rgb(235, 249, 244)'],
           },
         ],
       };
@@ -58,33 +72,6 @@ export default {
           },
         },
       };
-    },
-    caption() {
-      return this.pool
-        ? `Pool: ${this.formatTokens(
-            parseInt(this.pool.bonded_tokens) +
-              parseInt(this.pool.not_bonded_tokens),
-          )}`
-        : 'Pool';
-    },
-    tokenBonded() {
-      return this.pool
-        ? this.formatTokens(parseInt(this.pool.bonded_tokens))
-        : '-';
-    },
-    tokenNotBonded() {
-      return this.pool
-        ? this.formatTokens(parseInt(this.pool.not_bonded_tokens))
-        : '-';
-    },
-  },
-  methods: {
-    formatTokens(value) {
-      return `${numberIntlFormatter.toDecimal({
-        amount: value / 1000000,
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
-      })} M`;
     },
   },
 };
