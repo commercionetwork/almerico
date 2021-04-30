@@ -9,10 +9,30 @@ const localVue = createLocalVue();
 localVue.use(Vuetify);
 
 describe('views/dashboard/DashboardPrice.vue', () => {
+  const mocks = {
+    $config: {
+      generic: {
+        stable_coin: {
+          name: 'commercio cash credits',
+          symbol: 'CCC',
+          denom: 'uccc',
+          value: {
+            amount: '1.00',
+            symbol: '€',
+          },
+        },
+      },
+    },
+  };
+  const computed = {
+    tokenDenom: () => 'com',
+  };
+
   test('if loading message is displayed', () => {
     const wrapper = shallowMount(DashboardPrice, {
       localVue,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
         conversionRate: () => '',
@@ -28,6 +48,7 @@ describe('views/dashboard/DashboardPrice.vue', () => {
     const wrapper = shallowMount(DashboardPrice, {
       localVue,
       computed: {
+        ...computed,
         error: () => ({
           message: 'Error',
           status: 400,
@@ -45,7 +66,11 @@ describe('views/dashboard/DashboardPrice.vue', () => {
   test('if content is displayed', () => {
     const wrapper = shallowMount(DashboardPrice, {
       localVue,
+      mocks: {
+        ...mocks,
+      },
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
         conversionRate: () => mockConversionRate(),

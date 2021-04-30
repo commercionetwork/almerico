@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.8, 30/04/2021
+
+- News:
+  - Added CCC value to dashboard
+
 ## Version 2.2.7, 30/04/2021
 
 - Fixes:

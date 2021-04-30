@@ -1,25 +1,36 @@
 <template>
-  <TopBodyCardComponent title="com">
+  <TopBodyCardComponent title="price">
     <template v-slot:content>
-      <span v-if="isLoading" data-test="loading">
+      <div v-if="isLoading" data-test="loading">
         <v-progress-circular
           color="primary"
           indeterminate
           size="50"
           widht="10"
         />
-      </span>
-      <span v-else-if="error" data-test="error">
+      </div>
+      <div v-else-if="error" data-test="error">
         <v-alert border="left" prominent text type="error">
           <span class="text-body-1" v-text="errorMessage" />
         </v-alert>
-      </span>
-      <span
+      </div>
+      <v-layout
         v-else
-        class="text-h2 font-weight-bold"
-        v-text="tokenValue"
+        fill-height
+        justify-center
+        align-center
         data-test="content"
-      />
+      >
+        <div class="pr-3">
+          <div class="text-overline font-weight-bold" v-text="coinDenom" />
+          <div class="text-h4 font-weight-bold" v-text="coinValue" />
+        </div>
+        <v-divider vertical />
+        <div class="pl-3">
+          <div class="text-overline font-weight-bold" v-text="tokenDenom" />
+          <div class="text-h4 font-weight-bold" v-text="tokenValue" />
+        </div>
+      </v-layout>
     </template>
   </TopBodyCardComponent>
 </template>
@@ -38,10 +49,22 @@ export default {
       error: 'error',
       isLoading: 'isLoading',
     }),
+    ...mapGetters('starting', {
+      params: 'params',
+    }),
     errorMessage() {
       return this.error && this.error.data
         ? this.error.data.error
         : JSON.stringify(this.error);
+    },
+    coinDenom() {
+      return this.$config.generic.stable_coin.symbol;
+    },
+    coinValue() {
+      return `${this.$config.generic.stable_coin.value.symbol} ${this.$config.generic.stable_coin.value.amount}`;
+    },
+    tokenDenom() {
+      return this.params.bond_denom.substring(1, 4);
     },
     tokenValue() {
       const rate = parseFloat(this.conversionRate);

@@ -1,10 +1,19 @@
 {
   "generic": {
     "logo": "https://commercio.network/wp-content/uploads/2019/08/logo_commercio_Bianco.png",
+    "stable_coin": {
+      "name": "commercio cash credits",
+      "symbol": "CCC",
+      "denom": "uccc",
+      "value": {
+        "amount": "1.00",
+        "symbol": "€"
+      }
+    },
     "coins": [
       {
         "name": "commercio",
-        "symbol": "CNT",
+        "symbol": "COM",
         "denom": "ucommercio",
         "exponent": 6,
         "stakeable": true
