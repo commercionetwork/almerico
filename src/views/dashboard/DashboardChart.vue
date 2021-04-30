@@ -41,7 +41,7 @@ export default {
       return tokensHandler.build();
     },
     caption() {
-      return `Pool ${this.allData.million.total}`;
+      return `Total ${this.allData.million.total}`;
     },
     chartData() {
       return {
@@ -52,8 +52,8 @@ export default {
         datasets: [
           {
             data: [this.allData.amount.bonded, this.allData.amount.unbonded],
-            backgroundColor: ['rgb(47, 157, 119)', 'rgb(78, 202, 159)'],
-            borderColor: ['rgb(235, 249, 244)', 'rgb(235, 249, 244)'],
+            backgroundColor: ['rgb(47, 157, 119)', 'rgb(230, 46, 0)'],
+            borderColor: ['rgb(235, 249, 244)', 'rgb(255, 235, 230)'],
           },
         ],
       };
