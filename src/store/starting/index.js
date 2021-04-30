@@ -1,6 +1,7 @@
 /**
  *
  * @typedef {Object} StartingState
+ * @property {Array.<Object>} tokens
  * @property {Boolean} isLoading
  * @property {Object} error
  * @property {Object} nodeInfo
@@ -18,6 +19,7 @@ const initialState = {
   nodeInfo: null,
   params: null,
   pool: null,
+  tokens: [],
 };
 
 export default {

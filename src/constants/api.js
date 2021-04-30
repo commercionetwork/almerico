@@ -14,6 +14,7 @@ export const API = {
   MINT: `${API_LCD_BASE}/commerciomint`,
   NODE_INFO: `${API_LCD_BASE}/node_info`,
   STAKING: `${API_LCD_BASE}/staking`,
+  SUPPLY: `${API_LCD_BASE}/supply`,
   TXS: `${API_LCD_BASE}/txs`,
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
   // Keybase

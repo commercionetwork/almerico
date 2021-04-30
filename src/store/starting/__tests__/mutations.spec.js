@@ -45,6 +45,16 @@ describe('store/starting/mutations', () => {
     expect(state.nodeInfo).toStrictEqual(nodeInfo);
   });
 
+  test('mutations.setParams', () => {
+    const params = {
+      id: 1,
+    };
+
+    mutations.setParams(state, params);
+
+    expect(state.params).toStrictEqual(params);
+  });
+
   test('mutations.setPool', () => {
     const pool = {
       id: 1,
@@ -55,13 +65,16 @@ describe('store/starting/mutations', () => {
     expect(state.pool).toStrictEqual(pool);
   });
 
-  test('mutations.setParams', () => {
-    const params = {
-      id: 1,
-    };
+  test('mutations.setTokens', () => {
+    const tokens = [
+      {
+        denom: 'ucommercio',
+        amount: '59999952300200',
+      },
+    ];
 
-    mutations.setParams(state, params);
+    mutations.setTokens(state, tokens);
 
-    expect(state.params).toStrictEqual(params);
+    expect(state.tokens).toStrictEqual(tokens);
   });
 });

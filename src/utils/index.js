@@ -1,5 +1,5 @@
-import AccountDelegationsHandler from './account/AccountDelegationsHandler';
 import AccountBalanceHandler from './account/AccountBalanceHandler';
+import AccountDelegationsHandler from './account/AccountDelegationsHandler';
 import AccountUnbondingsHandler from './account/AccountUnbondingsHandler';
 import arrayHandler from './arrayHandler';
 import bech32Manager from './bech32Manager';
@@ -9,6 +9,7 @@ import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import blocksHandler from './blocksHandler';
 import coinAdapter from './coinAdapter';
 import PriceHandler from './dashboard/PriceHandler';
+import TokensHandler from './dashboard/TokensHandler';
 import dateHandler from './dateHandler';
 import numberIntlFormatter from './numberIntlFormatter';
 import proposerHandler from './proposerHandler';
@@ -22,13 +23,14 @@ import ValidatorDelegatorsAggregator from './validators/ValidatorDelegatorsAggre
 import ValidatorsTableAdapter from './validators/ValidatorsTableAdapter';
 
 export {
-  AccountDelegationsHandler,
   AccountBalanceHandler,
+  AccountDelegationsHandler,
   AccountUnbondingsHandler,
   BlockProposerHandler,
   BlocksAttendanceCalculator,
   BlocksTableAdapter,
   PriceHandler,
+  TokensHandler,
   TransactionDetailsAdapter,
   TransactionsFilter,
   TransactionsTableAdapter,

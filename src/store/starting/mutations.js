@@ -52,4 +52,12 @@ export default {
       ...data,
     };
   },
+  /**
+   *
+   * @param {StartingState} state
+   * @param {Array.<Object>} data
+   */
+  setTokens(state, data) {
+    state.tokens = data.map((obj) => ({ ...obj }));
+  },
 };

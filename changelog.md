@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.2.7, 30/04/2021
+
+- Fixes:
+  - Dashboard pool chart
+  - Toggle theme
+
 ## Version 2.2.6, 23/04/2021
 
 - Updates:
