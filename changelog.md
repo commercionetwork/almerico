@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 2.2.7
+## Version 2.2.7, 30/04/2021
 
 - Fixes:
   - Dashboard pool chart
