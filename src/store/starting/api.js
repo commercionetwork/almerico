@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { API } from '@/constants';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
-
 export default {
   /**
    * @returns {Promise}
@@ -14,7 +10,6 @@ export default {
       method: 'get',
       baseURL: `${API.SUPPLY}`,
       url: '/total',
-      headers: headers,
     });
   },
   /**
@@ -24,7 +19,6 @@ export default {
     return axios({
       method: 'get',
       baseURL: `${API.NODE_INFO}`,
-      headers: headers,
     });
   },
   /**
@@ -35,7 +29,6 @@ export default {
       method: 'get',
       baseURL: `${API.STAKING}`,
       url: '/pool',
-      headers: headers,
     });
   },
   /**
@@ -46,7 +39,6 @@ export default {
       method: 'get',
       baseURL: `${API.STAKING}`,
       url: '/parameters',
-      headers: headers,
     });
   },
 };

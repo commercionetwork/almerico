@@ -3,24 +3,25 @@ import { API } from '@/constants';
 
 export default {
   /**
-   * @param {Number} height
+   *
    * @returns {Promise}
    */
-  requestBlock(height) {
+  requestAbrTokens() {
     return axios({
       method: 'get',
-      baseURL: `${API.BLOCKS}`,
-      url: `/${height}`,
+      baseURL: `${API.KYC}`,
+      url: `/funds`,
     });
   },
   /**
+   *
    * @returns {Promise}
    */
-  requestLatestBlock() {
+  requestVbrTokens() {
     return axios({
       method: 'get',
-      baseURL: `${API.BLOCKS}`,
-      url: '/latest',
+      baseURL: `${API.VBR}`,
+      url: `/funds`,
     });
   },
 };
