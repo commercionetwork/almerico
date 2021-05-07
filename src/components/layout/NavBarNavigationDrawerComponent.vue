@@ -22,6 +22,11 @@
           title="Blocks"
           :to="{ name: ROUTES.NAMES.BLOCKS }"
         />
+        <NavBarItemComponent
+          icon="mdi-table-eye"
+          title="Token Exchange Rate"
+          :to="{ name: ROUTES.NAMES.OVERVIEW }"
+        />
         <v-divider />
         <NavBarSwitchThemeComponent />
       </v-list-item-group>
