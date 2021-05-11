@@ -29,4 +29,8 @@ export const CHAIN = {
       lcd: 'https://lcd-demo.commercio.network',
     },
   ],
+  OVERVIEW_ACCOUNTS:
+    process.env.VUE_APP_OVERVIEW_ACCOUNTS !== undefined
+      ? process.env.VUE_APP_OVERVIEW_ACCOUNTS
+      : '',
 };
