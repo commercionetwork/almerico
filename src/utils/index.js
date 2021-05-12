@@ -12,6 +12,7 @@ import PriceHandler from './dashboard/PriceHandler';
 import TokensHandler from './dashboard/TokensHandler';
 import dateHandler from './dateHandler';
 import numberIntlFormatter from './numberIntlFormatter';
+import OverviewTableAdapter from './overview/OverviewTableAdapter';
 import proposerHandler from './proposerHandler';
 import regExpBuilder from './regExpBuilder';
 import TransactionDetailsAdapter from './transactions/TransactionDetailsAdapter';
@@ -29,6 +30,7 @@ export {
   BlockProposerHandler,
   BlocksAttendanceCalculator,
   BlocksTableAdapter,
+  OverviewTableAdapter,
   PriceHandler,
   TokensHandler,
   TransactionDetailsAdapter,
