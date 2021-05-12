@@ -1,12 +1,12 @@
 import mutations from '../mutations';
-import { initialState } from '../index';
+import store from '../index';
 
 describe('store/account/mutations', () => {
   let state = {};
 
   beforeEach(() => {
     state = {
-      ...initialState,
+      ...store.initialState,
     };
   });
 
