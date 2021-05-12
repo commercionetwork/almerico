@@ -1,12 +1,12 @@
 import mutations from '../mutations';
-import { initialState } from '../index';
+import store from '../index';
 
 describe('store/overview/mutations', () => {
   let state = {};
 
   beforeEach(() => {
     state = {
-      ...initialState,
+      ...store.initialState,
     };
   });
 
@@ -33,5 +33,48 @@ describe('store/overview/mutations', () => {
     mutations.setError(state, error);
 
     expect(state.error).toStrictEqual(error);
+  });
+
+  test('mutations.setAbrTokens', () => {
+    const data = [
+      {
+        denom: 'ucommercio',
+        amount: '11500000000000',
+      },
+    ];
+
+    mutations.setAbrTokens(state, data);
+
+    expect(state.abrTokens).toStrictEqual(data);
+  });
+
+  test('mutations.setVbrTokens', () => {
+    const data = [
+      {
+        denom: 'ucommercio',
+        amount: '12363544370772.000000000000000000',
+      },
+    ];
+
+    mutations.setVbrTokens(state, data);
+
+    expect(state.vbrTokens).toStrictEqual(data);
+  });
+
+  test('mutations.addAccountTokens', () => {
+    const data = {
+      name: 'validator',
+      address: 'did:com:1ke2h5tzpcsyak62ltaf45ca8ppzfuye6qasur6',
+      balance: [
+        {
+          denom: 'ucommercio',
+          amount: '8099619600000',
+        },
+      ],
+    };
+
+    mutations.addAccountTokens(state, data);
+
+    expect(state.accountsTokens).toStrictEqual([data]);
   });
 });

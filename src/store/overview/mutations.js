@@ -20,6 +20,30 @@ export default {
    * @param {Object} error
    */
   setError(state, error) {
-    state.error = { ...error };
+    state.error = error;
+  },
+  /**
+   *
+   * @param {OverviewState} state
+   * @param {Array.<Object>} data
+   */
+  setAbrTokens(state, data) {
+    state.abrTokens = data;
+  },
+  /**
+   *
+   * @param {OverviewState} state
+   * @param {Array.<Object>} data
+   */
+  setVbrTokens(state, data) {
+    state.vbrTokens = data;
+  },
+  /**
+   *
+   * @param {OverviewState} state
+   * @param {Object} data
+   */
+  addAccountTokens(state, data) {
+    state.accountsTokens.push(data);
   },
 };

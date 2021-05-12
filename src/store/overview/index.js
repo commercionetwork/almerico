@@ -1,6 +1,9 @@
 /**
  *
  * @typedef {Object} OverviewState
+ * @property {Array.<Object>} abrTokens
+ * @property {Array.<Object>} accountsTokens
+ * @property {Array.<Object>} vbrTokens
  * @property {Boolean} isLoading
  * @property {Object} error
  */
@@ -10,8 +13,11 @@ import getters from './getters';
 import mutations from './mutations';
 
 const initialState = {
+  abrTokens: [],
+  accountsTokens: [],
   error: null,
   isLoading: false,
+  vbrTokens: [],
 };
 
 export default {
