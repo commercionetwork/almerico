@@ -3,7 +3,6 @@ import { API } from '@/constants';
 
 export default {
   /**
-   *
    * @returns {Promise}
    */
   requestAbrTokens() {
@@ -14,7 +13,6 @@ export default {
     });
   },
   /**
-   *
    * @returns {Promise}
    */
   requestVbrTokens() {
@@ -22,6 +20,17 @@ export default {
       method: 'get',
       baseURL: `${API.VBR}`,
       url: `/funds`,
+    });
+  },
+  /**
+   * @param {String} address
+   * @returns {Promise}
+   */
+  requestBalances(address) {
+    return axios({
+      method: 'get',
+      baseURL: `${API.BANK}`,
+      url: `/${address}`,
     });
   },
 };

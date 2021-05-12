@@ -65,7 +65,7 @@ describe('store/overview/mutations', () => {
     const data = {
       name: 'validator',
       address: 'did:com:1ke2h5tzpcsyak62ltaf45ca8ppzfuye6qasur6',
-      balance: [
+      balances: [
         {
           denom: 'ucommercio',
           amount: '8099619600000',

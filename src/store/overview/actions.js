@@ -1,4 +1,5 @@
 import api from './api';
+import { CHAIN } from '@/constants';
 
 export default {
   /**
@@ -13,6 +14,7 @@ export default {
     await Promise.all([
       dispatch('fetchAbrTokens'),
       dispatch('fetchVbrTokens'),
+      dispatch('fetchAccountsTokens'),
     ]);
     commit('stopLoading');
   },
@@ -36,6 +38,18 @@ export default {
     try {
       const response = await api.requestVbrTokens();
       commit('setVbrTokens', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  async fetchAccountsTokens({ dispatch, commit }) {
+    try {
+      const accounts = JSON.parse(CHAIN.OVERVIEW_ACCOUNTS);
+      for (const account of accounts) {
+        const response = await api.requestBalances(account.address);
+        account.balances = response.data.result;
+        commit('addAccountTokens', account);
+      }
     } catch (error) {
       dispatch('handleError', error);
     }
