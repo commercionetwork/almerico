@@ -1,9 +1,45 @@
 import api from './api';
 
 export default {
-  async init({ dispatch, commit }) {},
-  async fetchAbrTokens({ commit }) {},
-  async fetchVbrTokens({ commit }) {},
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async init({ dispatch, commit }) {
+    commit('startLoading');
+    commit('setServerReachability', true, {
+      root: true,
+    });
+    await Promise.all([
+      dispatch('fetchAbrTokens'),
+      dispatch('fetchVbrTokens'),
+    ]);
+    commit('stopLoading');
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchAbrTokens({ dispatch, commit }) {
+    try {
+      const response = await api.requestAbrTokens();
+      commit('setAbrTokens', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchVbrTokens({ dispatch, commit }) {
+    try {
+      const response = await api.requestVbrTokens();
+      commit('setVbrTokens', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
   /**
    * @param {Function} commit
    * @param {Object} error
