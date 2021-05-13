@@ -10,14 +10,23 @@
           :hide-default-footer="true"
           disable-pagination
         >
+          <template v-slot:[`header.type`]="{ header }">
+            <span v-text="header.text.toUpperCase()" />
+          </template>
         </v-data-table>
       </v-card>
     </v-col>
     <v-col cols="12">
       <v-card flat outlined class="pa-3">
         <v-card-text>
-          <div class="text-uppercase text-h5 font-weight-black" v-text="exchangeRate" />
-          <div class="text-caption error--text" v-text='"(1€ divided the % of Circulating Supply)"'/>
+          <div
+            class="text-uppercase text-h5 font-weight-black"
+            v-text="exchangeRate"
+          />
+          <div
+            class="text-caption error--text"
+            v-text="'(1€ divided the % of Circulating Supply)'"
+          />
         </v-card-text>
       </v-card>
     </v-col>
@@ -42,14 +51,20 @@ export default {
     }),
     headers() {
       return [
-        { text: 'Token Type', value: 'type', sortable: false },
-        { text: 'Circulating Supply', value: 'circulating', sortable: false },
+        { text: 'Token Type', value: 'type', sortable: false, align: 'start' },
+        {
+          text: 'Circulating Supply',
+          value: 'circulating',
+          sortable: false,
+          align: 'end',
+        },
         {
           text: 'Non Circulating Supply',
           value: 'nonCirculating',
           sortable: false,
+          align: 'end',
         },
-        { text: 'Total', value: 'total', sortable: false },
+        { text: 'Total', value: 'total', sortable: false, align: 'end' },
       ];
     },
     items() {
@@ -85,9 +100,13 @@ export default {
 };
 </script>
 
-<style>
-.subtotal-font-weight {
+<style scoped>
+::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  padding-bottom: 10px;
+  font-size: 18px !important;
+}
+::v-deep .subtotal-font-weight {
   font-weight: bold;
-  background-color: rgba(56, 186, 140, 0.2);
+  background-color: rgba(56, 186, 140, 0.15);
 }
 </style>
