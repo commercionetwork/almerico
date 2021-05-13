@@ -3,7 +3,6 @@ const endCustomerSubtotal = 15000000;
 const communitySubtotal = 10000000;
 const vbrSubtotal = 12500000;
 const abrSubtotal = 12500000;
-const burned = 3500;
 
 export default class OverviewTableAdapter {
   tableData = [];
@@ -16,9 +15,10 @@ export default class OverviewTableAdapter {
     vbrSubtotal +
     abrSubtotal;
 
-  constructor({ accountsTokens, abrTokens, vbrTokens, denom }) {
+  constructor({ accountsTokens, abrTokens, allTokens, vbrTokens, denom }) {
     this.accounts = accountsTokens;
     this.abr = abrTokens;
+    this.all = allTokens;
     this.vbr = vbrTokens;
     this.denom = denom;
   }
@@ -176,6 +176,8 @@ export default class OverviewTableAdapter {
   }
 
   setBurnedData() {
+    const burned =
+      this.total - getTokensByDenom({ balances: this.all, denom: this.denom });
     this.addTableRow({
       type: 'Burned',
       circulating: null,

@@ -34,6 +34,7 @@ export default {
     ...mapGetters('overview', {
       abrTokens: 'abrTokens',
       accountsTokens: 'accountsTokens',
+      allTokens: 'allTokens',
       vbrTokens: 'vbrTokens',
     }),
     ...mapGetters('starting', {
@@ -66,6 +67,7 @@ export default {
       const overviewTableAdapter = new OverviewTableAdapter({
         accountsTokens: this.accountsTokens,
         abrTokens: this.abrTokens,
+        allTokens: this.allTokens,
         vbrTokens: this.vbrTokens,
         denom: this.params.bond_denom,
       });
