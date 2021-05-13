@@ -6,6 +6,7 @@ const abrSubtotal = 12500000;
 
 export default class OverviewTableAdapter {
   tableData = [];
+  validatorTokensDistributed = 0;
   totalCirculating = 0;
   totalNonCirculating = 0;
   total =
@@ -15,11 +16,19 @@ export default class OverviewTableAdapter {
     vbrSubtotal +
     abrSubtotal;
 
-  constructor({ accountsTokens, abrTokens, allTokens, vbrTokens, denom }) {
+  constructor({
+    accountsTokens,
+    abrTokens,
+    allTokens,
+    vbrTokens,
+    bondedTokens,
+    denom,
+  }) {
     this.accounts = accountsTokens;
     this.abr = abrTokens;
     this.all = allTokens;
     this.vbr = vbrTokens;
+    this.bonded = bondedTokens;
     this.denom = denom;
   }
 
@@ -46,12 +55,13 @@ export default class OverviewTableAdapter {
       denom: this.denom,
     });
     this.totalCirculating += notDistributed;
-    this.totalNonCirculating += validatorSubtotal - notDistributed;
+    this.validatorTokensDistributed = validatorSubtotal - notDistributed;
+    this.totalNonCirculating += this.validatorTokensDistributed;
     this.addTableRow({
       type: 'Validator Tokens Distributed',
       circulating: 0,
-      nonCirculating: toDecimal(validatorSubtotal - notDistributed),
-      total: toDecimal(validatorSubtotal - notDistributed),
+      nonCirculating: toDecimal(this.validatorTokensDistributed),
+      total: toDecimal(this.validatorTokensDistributed),
     });
     this.addTableRow({
       type: 'Validator Tokens Not Distributed',
@@ -149,17 +159,22 @@ export default class OverviewTableAdapter {
   }
 
   setAbrData() {
+    const bondedTokens = parseFloat(this.bonded / 1000000);
     const notDistributed = getTokensByDenom({
       balances: this.abr,
       denom: this.denom,
     });
-    this.totalCirculating += abrSubtotal - notDistributed - 463619;
-    this.totalNonCirculating += notDistributed + 463619;
+    const distributed = abrSubtotal - notDistributed;
+    const nonCirculatingDistributed =
+      bondedTokens - this.validatorTokensDistributed;
+    const circulatingDistributed = distributed - nonCirculatingDistributed;
+    this.totalCirculating += circulatingDistributed;
+    this.totalNonCirculating += notDistributed + nonCirculatingDistributed;
     this.addTableRow({
       type: 'ABR Tokens Distributed',
-      circulating: toDecimal(abrSubtotal - notDistributed - 463619),
-      nonCirculating: toDecimal(463619),
-      total: toDecimal(abrSubtotal - notDistributed),
+      circulating: toDecimal(circulatingDistributed),
+      nonCirculating: toDecimal(nonCirculatingDistributed),
+      total: toDecimal(distributed),
     });
     this.addTableRow({
       type: 'ABR Tokens Not Distributed',

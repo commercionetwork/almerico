@@ -48,6 +48,7 @@ export default {
     }),
     ...mapGetters('starting', {
       params: 'params',
+      pool: 'pool',
     }),
     headers() {
       return [
@@ -84,6 +85,7 @@ export default {
         abrTokens: this.abrTokens,
         allTokens: this.allTokens,
         vbrTokens: this.vbrTokens,
+        bondedTokens: this.pool.bonded_tokens,
         denom: this.params.bond_denom,
       });
       return overviewTableAdapter.build();
