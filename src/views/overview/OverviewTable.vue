@@ -6,6 +6,7 @@
           dense
           :headers="headers"
           :items="items"
+          :item-class="getRowStyle"
           :hide-default-footer="true"
           disable-pagination
         >
@@ -52,5 +53,19 @@ export default {
       return overviewTableAdapter.build();
     },
   },
+  methods: {
+    getRowStyle(item) {
+      return item.type.toLowerCase() === 'subtotal'
+        ? 'subtotal-font-weight'
+        : '';
+    },
+  },
 };
 </script>
+
+<style>
+.subtotal-font-weight {
+  font-weight: bold;
+  background-color: rgba(56, 186, 140, 0.2);
+}
+</style>
