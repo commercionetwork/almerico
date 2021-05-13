@@ -29,7 +29,7 @@ describe('store/overview/actions', () => {
     mockResponse = null;
   });
 
-  test('if "actions.init" dispatch "fetchAbrTokens", "fetchVbrTokens" and "fetchAccountsTokens" actions', async () => {
+  test('if "actions.init" dispatch "fetchAbrTokens", "fetchVbrTokens", "fetchAbrTokens" and "fetchAccountsTokens" actions', async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
@@ -39,8 +39,9 @@ describe('store/overview/actions', () => {
     });
 
     expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
-    expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAccountsTokens');
+    expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
+    expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
   });
 
   test('if "actions.fetchAbrTokens" set abr tokens', async () => {
@@ -92,6 +93,34 @@ describe('store/overview/actions', () => {
     mockError = true;
 
     await actions.fetchVbrTokens({
+      dispatch,
+      commit,
+    });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test('if "actions.fetchAllTokens" set all tokens', async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+
+    await actions.fetchAllTokens({
+      dispatch,
+      commit,
+    });
+
+    expect(commit).toHaveBeenCalledWith(
+      'setAllTokens',
+      mockResponse.data.result,
+    );
+  });
+
+  test('if "actions.fetchAllTokens" has an error, dispatch "handleError"', async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchAllTokens({
       dispatch,
       commit,
     });
@@ -154,6 +183,29 @@ jest.mock('./../api', () => ({
     });
   },
   requestVbrTokens: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
+
+        mockResponse = {
+          data: {
+            height: '1',
+            result: mockBalances(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestAllTokens: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {

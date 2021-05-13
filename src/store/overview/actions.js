@@ -13,8 +13,9 @@ export default {
     });
     await Promise.all([
       dispatch('fetchAbrTokens'),
-      dispatch('fetchVbrTokens'),
       dispatch('fetchAccountsTokens'),
+      dispatch('fetchAllTokens'),
+      dispatch('fetchVbrTokens'),
     ]);
     commit('stopLoading');
   },
@@ -42,6 +43,22 @@ export default {
       dispatch('handleError', error);
     }
   },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchAllTokens({ dispatch, commit }) {
+    try {
+      const response = await api.requestAllTokens();
+      commit('setAllTokens', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
   async fetchAccountsTokens({ dispatch, commit }) {
     try {
       const accounts = JSON.parse(CHAIN.OVERVIEW_ACCOUNTS);

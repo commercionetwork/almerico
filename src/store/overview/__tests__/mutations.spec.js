@@ -61,6 +61,14 @@ describe('store/overview/mutations', () => {
     expect(state.vbrTokens).toStrictEqual(data);
   });
 
+  test('mutations.setAllTokens', () => {
+    const data = [{ denom: 'ucommercio', amount: '59996499910000' }];
+
+    mutations.setAllTokens(state, data);
+
+    expect(state.allTokens).toStrictEqual(data);
+  });
+
   test('mutations.addAccountTokens', () => {
     const data = {
       name: 'validator',

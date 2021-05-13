@@ -3,6 +3,7 @@
  * @typedef {Object} OverviewState
  * @property {Array.<Object>} abrTokens
  * @property {Array.<Object>} accountsTokens
+ * @property {Array.<Object>} allTokens
  * @property {Array.<Object>} vbrTokens
  * @property {Boolean} isLoading
  * @property {Object} error
@@ -15,6 +16,7 @@ import mutations from './mutations';
 const initialState = {
   abrTokens: [],
   accountsTokens: [],
+  allTokens: [],
   error: null,
   isLoading: false,
   vbrTokens: [],

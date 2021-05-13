@@ -33,4 +33,14 @@ export default {
       url: `/${address}`,
     });
   },
+  /**
+   * @returns {Promise}
+   */
+  requestAllTokens() {
+    return axios({
+      method: 'get',
+      baseURL: `${API.SUPPLY}`,
+      url: '/total',
+    });
+  },
 };

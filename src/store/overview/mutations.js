@@ -41,6 +41,14 @@ export default {
   /**
    *
    * @param {OverviewState} state
+   * @param {Array.<Object>} data
+   */
+  setAllTokens(state, data) {
+    state.allTokens = data;
+  },
+  /**
+   *
+   * @param {OverviewState} state
    * @param {Object} data
    */
   addAccountTokens(state, data) {
