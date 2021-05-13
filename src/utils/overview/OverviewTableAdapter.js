@@ -7,6 +7,14 @@ const burned = 3500;
 
 export default class OverviewTableAdapter {
   tableData = [];
+  totalCirculating = 0;
+  totalNonCirculating = 0;
+  total =
+    validatorSubtotal +
+    endCustomerSubtotal +
+    communitySubtotal +
+    vbrSubtotal +
+    abrSubtotal;
 
   constructor({ accountsTokens, abrTokens, vbrTokens, denom }) {
     this.accounts = accountsTokens;
@@ -21,6 +29,8 @@ export default class OverviewTableAdapter {
     this.setCommunityData();
     this.setVbrData();
     this.setAbrData();
+    this.setBurnedData();
+    this.setTotalData();
     return this.tableData;
   }
 
@@ -34,6 +44,8 @@ export default class OverviewTableAdapter {
       name: 'validator',
       denom: this.denom,
     });
+    this.totalCirculating += notDistributed;
+    this.totalNonCirculating += validatorSubtotal - notDistributed;
     this.addTableRow({
       type: 'Validator Tokens Distributed',
       circulating: 0,
@@ -60,6 +72,8 @@ export default class OverviewTableAdapter {
       name: 'endCustomer',
       denom: this.denom,
     });
+    this.totalCirculating += notDistributed;
+    this.totalNonCirculating += endCustomerSubtotal - notDistributed;
     this.addTableRow({
       type: 'End customer Tokens Distributed',
       circulating: 0,
@@ -86,6 +100,7 @@ export default class OverviewTableAdapter {
       name: 'community',
       denom: this.denom,
     });
+    this.totalCirculating += communitySubtotal;
     this.addTableRow({
       type: 'Community Tokens Distributed',
       circulating: toDecimal(communitySubtotal - notDistributed),
@@ -111,6 +126,7 @@ export default class OverviewTableAdapter {
       balances: this.vbr,
       denom: this.denom,
     });
+    this.totalNonCirculating += vbrSubtotal;
     this.addTableRow({
       type: 'VBR Tokens Distributed',
       circulating: 0,
@@ -136,10 +152,12 @@ export default class OverviewTableAdapter {
       balances: this.abr,
       denom: this.denom,
     });
+    this.totalCirculating += abrSubtotal - notDistributed - 463619;
+    this.totalNonCirculating += notDistributed + 463619;
     this.addTableRow({
       type: 'ABR Tokens Distributed',
-      circulating: 0,
-      nonCirculating: 0,
+      circulating: toDecimal(abrSubtotal - notDistributed - 463619),
+      nonCirculating: toDecimal(463619),
       total: toDecimal(abrSubtotal - notDistributed),
     });
     this.addTableRow({
@@ -153,6 +171,30 @@ export default class OverviewTableAdapter {
       circulating: null,
       nonCirculating: null,
       total: toDecimal(abrSubtotal),
+    });
+  }
+
+  setBurnedData() {
+    this.addTableRow({
+      type: 'Burned',
+      circulating: null,
+      nonCirculating: toDecimal(burned),
+      total: null,
+    });
+  }
+
+  setTotalData() {
+    this.addTableRow({
+      type: 'TOTAL',
+      circulating: toDecimal(this.totalCirculating),
+      nonCirculating: toDecimal(this.totalNonCirculating),
+      total: toDecimal(this.total),
+    });
+    this.addTableRow({
+      type: 'Percentage',
+      circulating: toPercent(this.totalCirculating / this.total),
+      nonCirculating: toPercent(this.totalNonCirculating / this.total),
+      total: toPercent(1),
     });
   }
 }
@@ -172,5 +214,13 @@ const toDecimal = (amount) => {
     style: 'decimal',
     maximumFractionDigits: 0,
     minimumFractionDigits: 0,
+  }).format(amount);
+};
+
+const toPercent = (amount) => {
+  return new Intl.NumberFormat(undefined, {
+    style: 'percent',
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
   }).format(amount);
 };

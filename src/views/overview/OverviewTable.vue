@@ -55,7 +55,8 @@ export default {
   },
   methods: {
     getRowStyle(item) {
-      return item.type.toLowerCase() === 'subtotal'
+      return item.type.toLowerCase() === 'total' ||
+        item.type.toLowerCase() === 'subtotal'
         ? 'subtotal-font-weight'
         : '';
     },
