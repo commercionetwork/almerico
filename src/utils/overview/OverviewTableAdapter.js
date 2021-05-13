@@ -31,7 +31,8 @@ export default class OverviewTableAdapter {
     this.setAbrData();
     this.setBurnedData();
     this.setTotalData();
-    return this.tableData;
+    const rate = this.getExchangeRate();
+    return { tableData: this.tableData, exchangeRate: rate };
   }
 
   addTableRow({ type, circulating, nonCirculating, total }) {
@@ -196,6 +197,10 @@ export default class OverviewTableAdapter {
       nonCirculating: toPercent(this.totalNonCirculating / this.total),
       total: toPercent(1),
     });
+  }
+
+  getExchangeRate() {
+    return 1 / (this.totalCirculating / this.total);
   }
 }
 
