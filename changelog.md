@@ -3,7 +3,7 @@
 ## Version 2.2.9
 
 - News:
-  - Added page for Token Exchange Rate
+  - Added new page "Token Exchange Rate"
 
 ## Version 2.2.8, 30/04/2021
 
