@@ -5,6 +5,7 @@
  * @property {Array.<Object>} delegations
  * @property {Array.<Object>} unbondings
  * @property {Boolean} isLoading
+ * @property {Object} buyMembershipTx
  * @property {Object} error
  * @property {Object} membership
  * @property {Object} rewards
@@ -16,6 +17,7 @@ import mutations from './mutations';
 
 const initialState = {
   balances: [],
+  buyMembershipTx: null,
   delegations: [],
   error: null,
   isLoading: false,

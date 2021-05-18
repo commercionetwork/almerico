@@ -81,6 +81,16 @@ describe('store/account/mutations', () => {
     expect(state.membership).toStrictEqual(membership);
   });
 
+  test('mutations.setBuyMembershipTx', () => {
+    const tx = {
+      id: 1,
+    };
+
+    mutations.setBuyMembershipTx(state, tx);
+
+    expect(state.buyMembershipTx).toStrictEqual(tx);
+  });
+
   test('mutations.setRewards', () => {
     const rewards = {
       id: 1,

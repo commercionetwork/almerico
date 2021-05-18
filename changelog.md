@@ -4,6 +4,7 @@
 
 - News:
   - Added new page "Token Exchange Rate"
+  - Added link to buy membership tx to account details
 
 ## Version 2.2.8, 30/04/2021
 

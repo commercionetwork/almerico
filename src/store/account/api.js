@@ -47,6 +47,15 @@ export default {
     });
   },
   /**
+   * @param {String} query
+   * @param {Number} page
+   * @param {Number} limit
+   * @returns {Promise}
+   */
+  requestSearchTransactions({ query, page, limit }) {
+    return axios.get(`${API.TXS}?${query}&page=${page}&limit=${limit}`);
+  },
+  /**
    * @param {String} address
    * @returns {Promise}
    */
