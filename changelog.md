@@ -1,10 +1,10 @@
 # Changelog
 
-## Version 2.2.9
+## Version 2.2.9, 19/05/2021
 
 - News:
   - Added new page "Token Exchange Rate"
-  - Added link to buy membership tx to account details
+  - Added link from account details to buy membership tx
 
 ## Version 2.2.8, 30/04/2021
 
