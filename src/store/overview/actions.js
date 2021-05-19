@@ -28,7 +28,6 @@ export default {
       const response = await api.requestAbrTokens();
       commit('setAbrTokens', response.data.result);
     } catch (error) {
-      console.log('FETCH_ABR_TOKENS');
       dispatch('handleError', error);
     }
   },
@@ -41,7 +40,6 @@ export default {
       const response = await api.requestVbrTokens();
       commit('setVbrTokens', response.data.result);
     } catch (error) {
-      console.log('FETCH_VBR_TOKENS');
       dispatch('handleError', error);
     }
   },
@@ -54,7 +52,6 @@ export default {
       const response = await api.requestAllTokens();
       commit('setAllTokens', response.data.result);
     } catch (error) {
-      console.log('FETCH_ALL_TOKENS');
       dispatch('handleError', error);
     }
   },
@@ -63,15 +60,20 @@ export default {
    * @param {Function} commit
    */
   async fetchAccountsTokens({ dispatch, commit }) {
+    console.log(typeof CHAIN.OVERVIEW_ACCOUNTS);
+    console.log(CHAIN.OVERVIEW_ACCOUNTS);
     try {
-      const accounts = JSON.parse(CHAIN.OVERVIEW_ACCOUNTS);
+      const accounts =
+        CHAIN.OVERVIEW_ACCOUNTS !== ''
+          ? JSON.parse(CHAIN.OVERVIEW_ACCOUNTS)
+          : [];
+      if (accounts.length === 0) return;
       for (const account of accounts) {
         const response = await api.requestBalances(account.address);
         account.balances = response.data.result;
         commit('addAccountTokens', account);
       }
     } catch (error) {
-      console.log('FETCH_ACCOUNTS_TOKENS');
       dispatch('handleError', error);
     }
   },
@@ -85,10 +87,9 @@ export default {
     } else if (error.request) {
       commit('setError', error);
     } else {
-      console.log('setServerReachability');
-      // commit('setServerReachability', false, {
-      //   root: true,
-      // });
+      commit('setServerReachability', false, {
+        root: true,
+      });
     }
   },
 };
