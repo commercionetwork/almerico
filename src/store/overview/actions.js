@@ -28,6 +28,7 @@ export default {
       const response = await api.requestAbrTokens();
       commit('setAbrTokens', response.data.result);
     } catch (error) {
+      console.log('FETCH_ABR_TOKENS');
       dispatch('handleError', error);
     }
   },
@@ -40,6 +41,7 @@ export default {
       const response = await api.requestVbrTokens();
       commit('setVbrTokens', response.data.result);
     } catch (error) {
+      console.log('FETCH_VBR_TOKENS');
       dispatch('handleError', error);
     }
   },
@@ -52,6 +54,7 @@ export default {
       const response = await api.requestAllTokens();
       commit('setAllTokens', response.data.result);
     } catch (error) {
+      console.log('FETCH_ALL_TOKENS');
       dispatch('handleError', error);
     }
   },
@@ -68,6 +71,7 @@ export default {
         commit('addAccountTokens', account);
       }
     } catch (error) {
+      console.log('FETCH_ACCOUNTS_TOKENS');
       dispatch('handleError', error);
     }
   },
