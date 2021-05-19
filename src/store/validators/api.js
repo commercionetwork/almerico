@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { API } from '@/constants';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
-
 export default {
   /**
    * @param {String} status
@@ -15,7 +11,6 @@ export default {
   requestValidatorsList({ status, page, limit }) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.STAKING}`,
       url: '/validators',
       params: {
@@ -31,7 +26,6 @@ export default {
   requestLatestValidatorSets() {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.VALIDATORSETS}`,
       url: '/latest',
     });
@@ -43,7 +37,6 @@ export default {
   requestValidatorsetsFromHeight(height) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.VALIDATORSETS}`,
       url: `/${height}`,
     });
@@ -55,7 +48,6 @@ export default {
   requestValidatorDetails(address) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.STAKING}`,
       url: `/validators/${address}`,
     });
@@ -67,7 +59,6 @@ export default {
   requestValidatorDelegations(address) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.STAKING}`,
       url: `/validators/${address}/delegations`,
     });
@@ -79,7 +70,6 @@ export default {
   requestValidatorPictures(id) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.USER_LOOKUP}`,
       params: {
         key_suffix: id,

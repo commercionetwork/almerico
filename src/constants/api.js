@@ -17,6 +17,7 @@ export const API = {
   SUPPLY: `${API_LCD_BASE}/supply`,
   TXS: `${API_LCD_BASE}/txs`,
   VALIDATORSETS: `${API_LCD_BASE}/validatorsets`,
+  VBR: `${API_LCD_BASE}/vbr`,
   // Keybase
   USER_LOOKUP: `${API_KEYBASE}/user/lookup.json`,
 };

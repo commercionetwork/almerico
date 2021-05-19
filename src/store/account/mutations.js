@@ -67,6 +67,16 @@ export default {
    * @param {AccountState} state
    * @param {Object} data
    */
+  setBuyMembershipTx(state, data) {
+    state.buyMembershipTx = {
+      ...data,
+    };
+  },
+  /**
+   *
+   * @param {AccountState} state
+   * @param {Object} data
+   */
   setRewards(state, data) {
     state.rewards = {
       ...data,

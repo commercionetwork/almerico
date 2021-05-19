@@ -24,21 +24,12 @@ In order to run this project as a developer with the hot reload option enabled y
 2. Inside the `.env.development.local` file add the following data:
 
     ```env
-    VUE_APP_LCD=<LCD_ULR>
-    VUE_APP_WS=<WS_URL>
-    VUE_APP_ANCESTORS=<ANCESTORS_LIST>
-    VUE_APP_MAIN_TITLE=<APP_TITLE>
-    VUE_APP_BLOCKS_MONITOR=<MONITOR_VISIBILITY>
-    ```
-
-    E.g.:
-
-    ```env
-    VUE_APP_LCD=http://lcd.com
-    VUE_APP_WS=ws://rpc.com/websocket
-    VUE_APP_ANCESTORS= [{"lcd_ledger":"http://lcd.com", "lcd": "http://lcd.com", "ver": "0.12"}]
-    VUE_APP_MAIN_TITLE=Testnet
-    VUE_APP_BLOCKS_MONITOR=true
+    VUE_APP_LCD=VALUE (e.g., http://lcd.com)
+    VUE_APP_WS=VALUE (e.g., ws://rpc.com/websocket)
+    VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://lcd.com", "lcd": "http://lcd.com", "ver": "0.12"}])
+    VUE_APP_OVERVIEW_ACCOUNTS=VALUE (e.g., [{},{}.{}])
+    VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
+    VUE_APP_BLOCKS_MONITOR=VALUE (e.g., true)
     ```
 
 #### Compiles and hot-reloads for development
@@ -56,21 +47,12 @@ This will start a local web server and publish a web page to <http://localhost:8
 Create a file named `.env.production` inside the project root folder and set the following data with your values:
 
 ```env
-VUE_APP_LCD=<LCD_ULR>
-VUE_APP_WS=<WS_URL>
-VUE_APP_ANCESTORS= <ANCESTORS_LIST>
-VUE_APP_MAIN_TITLE=<APP_TITLE>
-VUE_APP_BLOCKS_MONITOR=<MONITOR_VISIBILITY>
-```
-  
-E.g.:
-
-```env
-VUE_APP_LCD=https://lcd.com
-VUE_APP_WS=wss://rpc.com/websocket
-VUE_APP_ANCESTORS= [{"lcd_ledger":"https://lcd.com", "lcd": "https://lcd.com", "ver": "0.12"}]
-VUE_APP_MAIN_TITLE=Mainnet
-VUE_APP_BLOCKS_MONITOR=false
+VUE_APP_LCD=VALUE (e.g., https://lcd.com)
+VUE_APP_WS=VALUE (e.g., wss://rpc.com/websocket)
+VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://lcd.com", "lcd": "https://lcd.com", "ver": "0.12"}])
+VUE_APP_OVERVIEW_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:"},{"name":"endCustomer","address":"did:com:"},{"name":"validator","address":"did:com:"}])
+VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
+VUE_APP_BLOCKS_MONITOR=VALUE (e.g., false)
 ```
 
 #### Compiles and minifies for production
@@ -104,6 +86,7 @@ docker build -t almerico \
   --build-arg LCD_URL=<LCD URL> \
   --build-arg WS_URL=<WebSocket URL> \
   --build-arg ANCESTORS_LIST=<Ancestors list> \
+  --build-arg OVERVIEW_ACCOUNTS=<Overview accounts list> \
   --build-arg MAIN_TITLE=<App title> \
   --build-arg BLOCKS_MONITOR=<Boolean> \
   .

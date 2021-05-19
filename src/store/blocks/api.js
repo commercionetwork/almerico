@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { API } from '@/constants';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
-
 export default {
   /**
    * @param {Number} height
@@ -13,7 +9,6 @@ export default {
   requestBlock(height) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.BLOCKS}`,
       url: `/${height}`,
     });
@@ -24,7 +19,6 @@ export default {
   requestLatestBlock() {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.BLOCKS}`,
       url: '/latest',
     });

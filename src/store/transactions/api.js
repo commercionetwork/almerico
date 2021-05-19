@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { API } from '@/constants';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
-
 export default {
   /**
    * @param {String} query
@@ -13,9 +9,7 @@ export default {
    * @returns {Promise}
    */
   requestSearchTransactions({ query, page, limit }) {
-    return axios.get(`${API.TXS}?${query}&page=${page}&limit=${limit}`, {
-      headers: headers,
-    });
+    return axios.get(`${API.TXS}?${query}&page=${page}&limit=${limit}`);
   },
   /**
    * @param {String} hash
@@ -24,7 +18,6 @@ export default {
   requestTransaction(hash) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.TXS}`,
       url: `/${hash}`,
     });
@@ -37,7 +30,6 @@ export default {
   requestAncestorTransaction({ lcd, hash }) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: lcd,
       url: `/txs/${hash}`,
     });
@@ -49,7 +41,6 @@ export default {
   requestBlockTransactions(height) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.TXS}`,
       params: {
         'tx.height': height,

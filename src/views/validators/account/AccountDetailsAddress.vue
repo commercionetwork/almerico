@@ -21,7 +21,20 @@
       <v-col cols="12" md="6">
         <div class="pa-3 d-flex justify-center align-end">
           <span class="text-capitalize" v-text="'membership:'" />
-          <span class="pl-2 text-capitalize font-weight-bold" v-text="membershipText" />
+          <router-link
+            v-if="txhash !== ''"
+            class="pl-2 text-capitalize font-weight-bold secondary--text"
+            :to="{
+              name: ROUTES.NAMES.TRANSACTIONS_DETAILS,
+              params: { id: txhash },
+            }"
+            v-text="membershipText"
+          />
+          <span
+            v-else
+            class="pl-2 text-capitalize font-weight-bold"
+            v-text="membershipText"
+          />
           <div class="ml-3 white">
             <v-icon class="px-1" :color="membershipColor" large>
               mdi-card-account-details
@@ -37,7 +50,7 @@
 import AccountDetailsQRCode from './AccountDetailsQRCode';
 
 import { mapGetters } from 'vuex';
-import { ACCOUNT } from '@/constants';
+import { ACCOUNT, ROUTES } from '@/constants';
 
 export default {
   name: 'AccountDetailsAddress',
@@ -45,10 +58,12 @@ export default {
     AccountDetailsQRCode,
   },
   data: () => ({
+    ROUTES,
     dialog: false,
   }),
   computed: {
     ...mapGetters('account', {
+      buyMembershipTx: 'buyMembershipTx',
       membership: 'membership',
     }),
     address() {
@@ -64,6 +79,11 @@ export default {
       return Object.keys(this.membership).length > 0
         ? this.membership.membership_type
         : `none`;
+    },
+    txhash() {
+      return this.buyMembershipTx && this.buyMembershipTx.txhash
+        ? this.buyMembershipTx.txhash
+        : '';
     },
   },
 };

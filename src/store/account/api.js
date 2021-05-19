@@ -1,10 +1,6 @@
 import axios from 'axios';
 import { API } from '@/constants';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
-
 export default {
   /**
    * @param {String} address
@@ -13,7 +9,6 @@ export default {
   requestBalances(address) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.BANK}`,
       url: `/${address}`,
     });
@@ -25,7 +20,6 @@ export default {
   requestDelegations(address) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.STAKING}`,
       url: `/delegators/${address}/delegations`,
     });
@@ -37,7 +31,6 @@ export default {
   requestMembership(address) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.KYC}`,
       url: `/membership/${address}`,
     });
@@ -49,10 +42,18 @@ export default {
   requestRewards(address) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.DISTRIBUTION}`,
       url: `/delegators/${address}/rewards`,
     });
+  },
+  /**
+   * @param {String} query
+   * @param {Number} page
+   * @param {Number} limit
+   * @returns {Promise}
+   */
+  requestSearchTransactions({ query, page, limit }) {
+    return axios.get(`${API.TXS}?${query}&page=${page}&limit=${limit}`);
   },
   /**
    * @param {String} address
@@ -61,7 +62,6 @@ export default {
   requestUnbondings(address) {
     return axios({
       method: 'get',
-      headers: headers,
       baseURL: `${API.STAKING}`,
       url: `/delegators/${address}/unbonding_delegations`,
     });

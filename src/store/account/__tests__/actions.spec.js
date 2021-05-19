@@ -4,6 +4,7 @@ import { mockDelegations } from '../__mocks__/delegations';
 import { mockMembership } from '../__mocks__/membership';
 import { mockRewards } from '../__mocks__/rewards';
 import { mockUnbondings } from '../__mocks__/unbondings';
+import { mockTxs } from '../../transactions/__mocks__/txs';
 
 const mockErrorResponse = {
   request: {},
@@ -147,6 +148,40 @@ describe('store/account/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
+  test("if 'actions.fetchBuyMembershipTx' set buy membership tx", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+
+    await actions.fetchBuyMembershipTx(
+      {
+        dispatch,
+        commit,
+      },
+      'address',
+    );
+
+    expect(commit).toHaveBeenCalledWith(
+      'setBuyMembershipTx',
+      mockResponse.data.txs[0],
+    );
+  });
+
+  test("if 'actions.fetchBuyMembershipTx' has an error, dispatch 'handleError'", async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchBuyMembershipTx(
+      {
+        dispatch,
+        commit,
+      },
+      'address',
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
   test("if 'actions.fetchUnbondings' set unbonding delegations", async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
@@ -181,7 +216,7 @@ describe('store/account/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test("if 'actions.getAccount' dispatch fetchMembership, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondings", async () => {
+  test("if 'actions.getAccount' dispatch fetchMembership, fetchBuyMembershipTx, fetchBalances, fetchDelegations, fetchRewards, fetchUnbondings", async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -195,6 +230,7 @@ describe('store/account/actions', () => {
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchBuyMembershipTx', address);
     expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchRewards', address);
@@ -312,6 +348,33 @@ jest.mock('./../api', () => ({
           data: {
             height: '1',
             result: mockRewards(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestSearchTransactions: (txs = 3) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
+
+        mockResponse = {
+          data: {
+            total_count: `${txs}`,
+            count: '1',
+            page_number: '1',
+            page_total: `${txs}`,
+            limit: '1',
+            txs: mockTxs(txs),
           },
         };
         resolve(mockResponse);

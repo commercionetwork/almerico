@@ -12,6 +12,7 @@ const Blocks = loadView('blocks/BlocksContainer');
 const BlocksDashboard = loadView('blocks/dashboard/index');
 const BlocksDetails = loadView('blocks/details/index');
 const Dashboard = loadView('dashboard/index');
+const Overview = loadView('overview/index');
 const Transactions = loadView('transactions/TransactionsContainer');
 const TransactionsDashboard = loadView('transactions/dashboard/index');
 const TransactionsDetails = loadView('transactions/details/index');
@@ -29,7 +30,6 @@ const routes = [
       name: ROUTES.NAMES.DASHBOARD,
     },
   },
-  // Blocks
   {
     path: ROUTES.PATHS.BLOCKS,
     component: Blocks,
@@ -60,17 +60,22 @@ const routes = [
       },
     ],
   },
-  // Dashboard
   {
     path: ROUTES.PATHS.DASHBOARD,
     name: ROUTES.NAMES.DASHBOARD,
     component: Dashboard,
     meta: {
-      egnition: true,
       title: ROUTES.TITLES.DASHBOARD,
     },
   },
-  // Transactions
+  {
+    path: ROUTES.PATHS.OVERVIEW,
+    name: ROUTES.NAMES.OVERVIEW,
+    component: Overview,
+    meta: {
+      title: ROUTES.TITLES.OVERVIEW,
+    },
+  },
   {
     path: ROUTES.PATHS.TRANSACTIONS,
     component: Transactions,
@@ -101,7 +106,6 @@ const routes = [
       },
     ],
   },
-  // Validators
   {
     path: ROUTES.PATHS.VALIDATORS,
     component: Validators,
@@ -140,7 +144,6 @@ const routes = [
       },
     ],
   },
-  // not found
   {
     path: ROUTES.PATHS.NOT_FOUND,
     name: ROUTES.NAMES.NOT_FOUND,
@@ -153,7 +156,6 @@ const routes = [
     path: '*',
     redirect: ROUTES.PATHS.NOT_FOUND,
   },
-  // service unavailable
   {
     path: ROUTES.PATHS.SERVER_UNREACHABLE,
     name: ROUTES.NAMES.SERVER_UNREACHABLE,
