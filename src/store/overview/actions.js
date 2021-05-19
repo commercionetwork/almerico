@@ -81,9 +81,10 @@ export default {
     } else if (error.request) {
       commit('setError', error);
     } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
+      console.log('setServerReachability');
+      // commit('setServerReachability', false, {
+      //   root: true,
+      // });
     }
   },
 };

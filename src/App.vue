@@ -81,6 +81,10 @@ export default {
   },
   created() {
     this.init();
+    console.log(
+      'VUE_APP_OVERVIEW_ACCOUNTS',
+      process.env.VUE_APP_OVERVIEW_ACCOUNTS,
+    );
   },
 };
 </script>
