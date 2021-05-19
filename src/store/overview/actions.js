@@ -60,8 +60,6 @@ export default {
    * @param {Function} commit
    */
   async fetchAccountsTokens({ dispatch, commit }) {
-    console.log(typeof CHAIN.OVERVIEW_ACCOUNTS);
-    console.log(CHAIN.OVERVIEW_ACCOUNTS);
     try {
       const accounts =
         CHAIN.OVERVIEW_ACCOUNTS !== ''
