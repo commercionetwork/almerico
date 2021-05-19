@@ -52,7 +52,8 @@ export default {
    * @param {Function} commit
    * @param {String} address
    */
-  async fetchMembership({ dispatch, commit }, address) {
+  //TODO: add  dispatch param
+  async fetchMembership({ commit }, address) {
     try {
       const response = await api.requestMembership(address);
       commit('setMembership', response.data.result);
