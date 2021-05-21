@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.10, 21/05/2021
+
+- Fixes:
+  - Rewards amount of account page
+
 ## Version 2.2.9, 19/05/2021
 
 - News:

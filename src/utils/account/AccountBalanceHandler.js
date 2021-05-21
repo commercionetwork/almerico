@@ -22,7 +22,7 @@ export default class AccountBalanceHandler {
       capital.delegations = getDelegationsAmount(this.delegations);
     }
     if (this.rewards && this.rewards.total && this.rewards.total.length > 0) {
-      capital.rewards = getRewardsAmount(this.rewards.total);
+      capital.rewards = getRewardsAmount(this.rewards.total, this.bondDenom);
     }
     if (this.unbondings && this.unbondings.length > 0) {
       capital.unbondings = getUnbondingsAmount(this.unbondings);
@@ -75,8 +75,14 @@ function getDelegationsAmount(delegations) {
   );
 }
 
-function getRewardsAmount(total) {
-  return total.reduce((acc, item) => acc + parseFloat(item.amount), 0);
+function getRewardsAmount(rewards, bondDenom) {
+  const filteredRewards = rewards.filter(
+    (reward) => reward.denom === bondDenom,
+  );
+  return filteredRewards.reduce(
+    (acc, item) => acc + parseFloat(item.amount),
+    0,
+  );
 }
 
 function getUnbondingsAmount(unbondings) {
