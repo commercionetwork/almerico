@@ -66,8 +66,8 @@ const formatFee = (fee) => {
     return 'Multi values';
   }
   return coinAdapter.format({
-    amount: fee.amount[0].amount,
-    denom: fee.amount[0].denom,
+    amount: fee.amount[0] ? fee.amount[0].amount : '0',
+    denom: fee.amount[0] ? fee.amount[0].denom : '',
   });
 };
 

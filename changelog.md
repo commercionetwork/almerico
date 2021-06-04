@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.11, 04/06/2021
+
+- Fixes:
+  - Txs list rendering when a tx has no fee
+
 ## Version 2.2.10, 21/05/2021
 
 - Fixes:
