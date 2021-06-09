@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.12, 09/06/2021
+
+- Updates:
+  - Amounts format of dashborad and overview pages
+
 ## Version 2.2.11, 04/06/2021
 
 - Fixes:

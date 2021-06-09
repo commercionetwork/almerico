@@ -61,14 +61,14 @@ export default {
       return this.$config.generic.stable_coin.symbol;
     },
     coinValue() {
-      return `${this.$config.generic.stable_coin.value.symbol} ${this.$config.generic.stable_coin.value.amount}`;
+      return this.$config.generic.stable_coin.value.amount;
     },
     tokenDenom() {
       return this.params.bond_denom.substring(1, 4);
     },
     tokenValue() {
       const rate = parseFloat(this.conversionRate);
-      return !isNaN(rate) && rate > 0 ? `€ ${(1 / rate).toFixed(2)}` : '-';
+      return !isNaN(rate) && rate > 0 ? (1 / rate).toFixed(2) : '-';
     },
   },
 };
