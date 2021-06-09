@@ -25,7 +25,7 @@
           />
           <div
             class="text-caption error--text"
-            v-text="'(1€ divided the % of Circulating Supply)'"
+            v-text="'(1 divided the % of Circulating Supply)'"
           />
         </v-card-text>
       </v-card>

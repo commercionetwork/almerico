@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "2.2.11",
+  "version": "2.2.12",
   "description": "A blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -14,10 +14,10 @@
     "axios": "^0.21.1",
     "bech32": "^2.0.0",
     "chart.js": "^2.9.4",
-    "core-js": "^3.13.1",
+    "core-js": "^3.14.0",
     "dayjs": "^1.10.5",
     "qrcode.vue": "^1.7.0",
-    "vue": "^2.6.13",
+    "vue": "^2.6.14",
     "vue-chartjs": "^3.5.1",
     "vue-router": "^3.5.1",
     "vuetify": "^2.5.3",
@@ -38,7 +38,7 @@
     "sass": "<1.33",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "^2.4.1",
-    "vue-template-compiler": "^2.6.13",
+    "vue-template-compiler": "^2.6.14",
     "vuetify-loader": "^1.7.2"
   }
 }
