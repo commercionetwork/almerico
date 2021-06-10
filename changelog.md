@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.13, 10/06/2021
+
+- Fixes:
+  - Update stored data when websocket emit many tx events in the same block
+
 ## Version 2.2.12, 09/06/2021
 
 - Updates:
