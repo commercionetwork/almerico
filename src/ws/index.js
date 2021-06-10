@@ -54,6 +54,25 @@ export const subscribeWebSocket = () => {
 
 const handleNewBlockEvent = (data) => {
   store.commit('blocks/setLatestBlock', data.result.data.value.block);
+  if (
+    data.result.data.value.block.data.txs &&
+    data.result.data.value.block.data.txs.length > 0
+  )
+    updateStoredData(data);
+};
+
+const updateStoredData = (data) => {
+  store.dispatch(
+    'transactions/fetchBlockTransactions',
+    data.result.data.value.block.header.height,
+  );
+  store.dispatch('validators/initValidators', {
+    statuses: [
+      STATUS.VALIDATOR.BONDED,
+      STATUS.VALIDATOR.UNBONDED,
+      STATUS.VALIDATOR.UNBONDING,
+    ],
+  });
 };
 
 const handleValidatorSetUpdates = (data) => {
@@ -64,21 +83,6 @@ const handleValidatorSetUpdates = (data) => {
 };
 
 const handleTxEvent = (data) => {
-  store.dispatch(
-    'transactions/fetchBlockTransactions',
-    data.result.data.value.TxResult.height,
-  );
-  store.dispatch('validators/initValidators', {
-    statuses: [
-      STATUS.VALIDATOR.BONDED,
-      STATUS.VALIDATOR.UNBONDED,
-      STATUS.VALIDATOR.UNBONDING,
-    ],
-  });
-  handleTxSetConversionRate(data);
-};
-
-const handleTxSetConversionRate = (data) => {
   const events = data.result.data.value.TxResult.result.events;
   const index = events.findIndex(
     (event) => (event.type = WS.TX_TYPES.NEW_CONVERSION_RATE),
