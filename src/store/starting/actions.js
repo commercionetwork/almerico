@@ -1,5 +1,5 @@
 import api from './api';
-import { STATUS, WS } from '@/constants';
+import { STATUS } from '@/constants';
 
 export default {
   /**
@@ -77,87 +77,6 @@ export default {
     } catch (error) {
       dispatch('handleError', error);
     }
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   */
-  subscribeWebSocket({ dispatch, commit }) {
-    const client = new WebSocket(WS.URL);
-    let connected = false;
-
-    client.onopen = function() {
-      if (!connected) {
-        Object.values(WS.EVENTS).forEach((event) => {
-          const msg = JSON.stringify({
-            jsonrpc: '2.0',
-            method: 'subscribe',
-            id: 0,
-            params: {
-              query: `tm.event='${event}'`,
-            },
-          });
-          client.send(msg);
-        });
-        connected = true;
-      }
-    };
-
-    client.onmessage = function(evt) {
-      let eventData = JSON.parse(evt.data);
-      let type =
-        eventData.result.data != undefined
-          ? eventData.result.data.type.replace('tendermint/event/', '')
-          : null;
-      switch (type) {
-        case WS.EVENTS.NEW_BLOCK:
-          commit('blocks/setLatestBlock', eventData.result.data.value.block, {
-            root: true,
-          });
-          break;
-        case WS.EVENTS.TX:
-          dispatch(
-            'transactions/fetchBlockTransactions',
-            eventData.result.data.value.TxResult.height,
-            {
-              root: true,
-            },
-          );
-          dispatch(
-            'validators/initValidators',
-            {
-              statuses: [
-                STATUS.VALIDATOR.BONDED,
-                STATUS.VALIDATOR.UNBONDED,
-                STATUS.VALIDATOR.UNBONDING,
-              ],
-            },
-            {
-              root: true,
-            },
-          );
-          break;
-        case WS.EVENTS.VALIDATOR_SET_UPDATES:
-          commit(
-            'validators/setLatestValidatorsSets',
-            eventData.result.data.value.validator_updates,
-            {
-              root: true,
-            },
-          );
-          break;
-        default:
-          break;
-      }
-    };
-
-    client.onerror = function(evt) {
-      commit('setError', evt.error);
-    };
-
-    client.onclose = function() {
-      connected = false;
-    };
   },
   /**
    * @param {Function} commit
