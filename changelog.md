@@ -1,50 +1,55 @@
 # Changelog
 
-## [2.2.13] - 10/06/2021
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.2.13](https://github.com/commercionetwork/almerico/compare/v2.2.12...v2.2.13) - 2021-06-10
 
 ### Fixed
 
 - Update stored data when websocket emit many tx events in the same block
 
-## [2.2.12] - 09/06/2021
+## [2.2.12](https://github.com/commercionetwork/almerico/compare/v2.2.11...v2.2.12) - 2021-06-09
 
 ### Changed
 
 - Amounts format of dashborad and overview pages
 
-## [2.2.11] - 04/06/2021
+## [2.2.11](https://github.com/commercionetwork/almerico/compare/v2.2.10...v2.2.11) - 2021-06-04
 
 ### Fixed
 
 - Txs list rendering when a tx has no fee
 
-## [2.2.10] - 21/05/2021
+## [2.2.10](https://github.com/commercionetwork/almerico/compare/v2.2.9...v2.2.10) - 2021-05-21
 
 ### Fixed
 
 - Rewards amount of account page
 
-## [2.2.9] - 19/05/2021
+## [2.2.9](https://github.com/commercionetwork/almerico/compare/v2.2.8...v2.2.9) - 2021-05-19
 
 ### Added
 
 - Add new page "Token Exchange Rate"
 - Add link from account details to buy membership tx
 
-## [2.2.8] - 30/04/2021
+## [2.2.8](https://github.com/commercionetwork/almerico/compare/v2.2.7...v2.2.8) - 2021-04-30
 
 ### Added
 
 - Add CCC value to dashboard
 
-## [2.2.7] - 30/04/2021
+## [2.2.7](https://github.com/commercionetwork/almerico/compare/v2.2.6...v2.2.7) - 2021-04-30
 
 ### Fixed
 
 - Dashboard pool chart
 - Toggle theme
 
-## [2.2.6] - 23/04/2021
+## [2.2.6](https://github.com/commercionetwork/almerico/compare/v2.2.5...v2.2.6) - 2021-04-23
 
 ### Changed
 
@@ -52,7 +57,7 @@
 - Chain selector
 - Persistence of selected theme
 
-## [2.2.5] - 13/04/2021
+## [2.2.5](https://github.com/commercionetwork/almerico/compare/v2.2.4...v2.2.5) - 2021-04-13
 
 ### Added
 
@@ -68,14 +73,14 @@
 
 - Readme guide
 
-## [2.2.4] - 30/03/2021
+## [2.2.4](https://github.com/commercionetwork/almerico/compare/v2.2.3...v2.2.4) - 2021-03-30
 
 ### Changed
   
 - Coins rendering
 - Dashboard data
 
-## [2.2.3] - 26/03/2021
+## [2.2.3](https://github.com/commercionetwork/almerico/compare/v2.2.2...v2.2.3) - 2021-03-26
 
 ### Changed
 
@@ -89,13 +94,13 @@
 
 - Account infinite scroll
 
-## [2.2.2] - 25/03/2021
+## [2.2.2](https://github.com/commercionetwork/almerico/compare/v2.2.1...v2.2.2) - 2021-03-25
 
 ### Fixed
 
 - Pipeline config
 
-## [2.2.1] - 25/03/2021
+## [2.2.1](https://github.com/commercionetwork/almerico/compare/v2.2.0...v2.2.1) - 2021-03-25
 
 ### Changed
 
@@ -110,7 +115,7 @@
 - Rendering of `MsgShareDocument` message template
 - Chian chooser addresses
 
-## [2.2.0] - 23/03/2021
+## [2.2.0](https://github.com/commercionetwork/almerico/compare/v0.0.4...v2.2.0) - 2021-03-23
 
 ### Added
 
