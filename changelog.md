@@ -28,14 +28,14 @@
 
 ### Added
 
-- Added new page "Token Exchange Rate"
-- Added link from account details to buy membership tx
+- Add new page "Token Exchange Rate"
+- Add link from account details to buy membership tx
 
 ## [2.2.8] - 30/04/2021
 
 ### Added
 
-- Added CCC value to dashboard
+- Add CCC value to dashboard
 
 ## [2.2.7] - 30/04/2021
 
@@ -82,7 +82,7 @@
 - Function to fetch tx from ancestors
 - Displaying the account details page error
 - Displaying the validator details page error
-- Added env variable to toggle the missing blocks monitor
+- Add env variable to toggle the missing blocks monitor
 - Coins rendering
 
 ### Fixed
