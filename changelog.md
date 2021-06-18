@@ -1,102 +1,121 @@
 # Changelog
 
-## Version 2.2.13, 10/06/2021
+## [2.2.13] - 10/06/2021
 
-- Fixes:
-  - Update stored data when websocket emit many tx events in the same block
+### Fixed
 
-## Version 2.2.12, 09/06/2021
+- Update stored data when websocket emit many tx events in the same block
 
-- Updates:
-  - Amounts format of dashborad and overview pages
+## [2.2.12] - 09/06/2021
 
-## Version 2.2.11, 04/06/2021
+### Changed
 
-- Fixes:
-  - Txs list rendering when a tx has no fee
+- Amounts format of dashborad and overview pages
 
-## Version 2.2.10, 21/05/2021
+## [2.2.11] - 04/06/2021
 
-- Fixes:
-  - Rewards amount of account page
+### Fixed
 
-## Version 2.2.9, 19/05/2021
+- Txs list rendering when a tx has no fee
 
-- News:
-  - Added new page "Token Exchange Rate"
-  - Added link from account details to buy membership tx
+## [2.2.10] - 21/05/2021
 
-## Version 2.2.8, 30/04/2021
+### Fixed
 
-- News:
-  - Added CCC value to dashboard
+- Rewards amount of account page
 
-## Version 2.2.7, 30/04/2021
+## [2.2.9] - 19/05/2021
 
-- Fixes:
-  - Dashboard pool chart
-  - Toggle theme
+### Added
 
-## Version 2.2.6, 23/04/2021
+- Added new page "Token Exchange Rate"
+- Added link from account details to buy membership tx
 
-- Updates:
-  - Account view
-  - Chain selector
-  - Persistence of selected theme
+## [2.2.8] - 30/04/2021
 
-## Version 2.2.5, 13/04/2021
+### Added
 
-- News:
-  - Dashboard price chart
-  - Support to `MsgSetCCCConversionRate` & `MsgSetCCCFreezePeriod` txs
+- Added CCC value to dashboard
 
-- Updates:
-  - Top body layout
-  - Websocket events
+## [2.2.7] - 30/04/2021
 
-- Fixes:
-  - Readme guide
+### Fixed
 
-## Version 2.2.4, 30/03/2021
+- Dashboard pool chart
+- Toggle theme
 
-- Updates:
-  - Coins rendering
-  - Dashboard data
+## [2.2.6] - 23/04/2021
 
-## Version 2.2.3, 26/03/2021
+### Changed
 
-- Updates:
-  - Function to fetch tx from ancestors
-  - Displaying the account details page error
-  - Displaying the validator details page error
-  - Added env variable to toggle the missing blocks monitor
-  - Coins rendering
+- Account view
+- Chain selector
+- Persistence of selected theme
 
-- Fixes:
-  - Account infinite scroll
+## [2.2.5] - 13/04/2021
 
-## Version 2.2.2, 25/03/2021
+### Added
 
-- Fixes:
-  - Pipeline config
+- Dashboard price chart
+- Support to `MsgSetCCCConversionRate` & `MsgSetCCCFreezePeriod` txs
 
-## Version 2.2.1, 25/03/2021
+### Changed
 
-- Updates:
-  - GUI style
-  - Coins rendering
+- Top body layout
+- Websocket events
 
-- Fixes:
-  - Displayed values of the validator tokens
-  - Displayed values of the account tokens
-  - Fetch validators list on new transatin
-  - Rendering of `MsgShareDocument` message template
-  - Chian chooser addresses
+### Fixed
 
-## Version 2.2.0, 23/03/2021
+- Readme guide
 
-- Completely redesigned GUI
-- Improved application responsiveness
-- Added infinite scroll to the list of transactions and blocks
-- Added RFC cross chain navigation
-- Added a switch to selcet a dark theme from navigation drawer
+## [2.2.4] - 30/03/2021
+
+### Changed
+  
+- Coins rendering
+- Dashboard data
+
+## [2.2.3] - 26/03/2021
+
+### Changed
+
+- Function to fetch tx from ancestors
+- Displaying the account details page error
+- Displaying the validator details page error
+- Added env variable to toggle the missing blocks monitor
+- Coins rendering
+
+### Fixed
+
+- Account infinite scroll
+
+## [2.2.2] - 25/03/2021
+
+### Fixed
+
+- Pipeline config
+
+## [2.2.1] - 25/03/2021
+
+### Changed
+
+- GUI style
+- Coins rendering
+
+### Fixed
+
+- Display values of the validator tokens
+- Display values of the account tokens
+- Fetch validators list on new transatin
+- Rendering of `MsgShareDocument` message template
+- Chian chooser addresses
+
+## [2.2.0] - 23/03/2021
+
+### Added
+
+- Completely redesign GUI
+- Improv application responsiveness
+- Add infinite scroll to the list of transactions and blocks
+- Add RFC cross chain navigation
+- Add a switch to selcet a dark theme from navigation drawer
