@@ -131,6 +131,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[2.2.14]: https://github.com/commercionetwork/almerico/compare/v2.2.13...v2.2.14
 [2.2.13]: https://github.com/commercionetwork/almerico/compare/v2.2.12...v2.2.13
 [2.2.12]: https://github.com/commercionetwork/almerico/compare/v2.2.11...v2.2.12
 [2.2.11]: https://github.com/commercionetwork/almerico/compare/v2.2.10...v2.2.11
