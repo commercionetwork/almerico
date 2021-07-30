@@ -97,7 +97,6 @@ export default {
 
 .address-font {
   font-family: monospace;
-  font-size: 0.8rem;
-  text-transform: uppercase;
+  font-size: 0.85rem;
 }
 </style>

@@ -56,9 +56,7 @@ export default {
       return this.$route.params.id;
     },
     errorMessage() {
-      return this.error && this.error.data
-        ? this.error.data.error
-        : JSON.stringify(this.error);
+      return 'Account does not exist';
     },
     infoMessage() {
       return 'No accounts with this id';

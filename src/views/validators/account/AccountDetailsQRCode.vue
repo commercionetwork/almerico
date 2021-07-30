@@ -53,6 +53,5 @@ export default {
 .address-font {
   font-family: monospace;
   font-size: 0.7rem;
-  text-transform: uppercase;
 }
 </style>
