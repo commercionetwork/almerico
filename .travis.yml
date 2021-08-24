@@ -7,10 +7,11 @@ services:
   - docker
 
 install:
-  - npm install --progress=false
+  - npm install -s --no-audit --no-fund
 
 script:
-  - npm test
+  - npm run build
+  - npm run test
 
 after_success:
   - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_TESTNET
