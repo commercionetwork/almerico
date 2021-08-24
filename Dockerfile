@@ -29,7 +29,7 @@ WORKDIR /app/tmp
 COPY package.json .
 
 # Install project dependencies
-RUN npm install
+RUN npm install -s --no-audit --no-fund
 
 # Copy project files and folders to the working directory
 COPY . .

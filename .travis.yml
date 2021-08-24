@@ -10,7 +10,6 @@ install:
   - npm install -s --no-audit --no-fund
 
 script:
-  - npm run build
   - npm run test
 
 after_success:
