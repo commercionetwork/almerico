@@ -62,8 +62,8 @@ export default {
   async fetchAccountsTokens({ dispatch, commit }) {
     try {
       const accounts =
-        CHAIN.OVERVIEW_ACCOUNTS !== ''
-          ? JSON.parse(CHAIN.OVERVIEW_ACCOUNTS)
+        CHAIN.SPREADSHEET_ACCOUNTS !== ''
+          ? JSON.parse(CHAIN.SPREADSHEET_ACCOUNTS)
           : [];
       if (accounts.length === 0) return;
       for (const account of accounts) {

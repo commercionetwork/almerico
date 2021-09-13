@@ -137,7 +137,7 @@ describe('store/spreadsheet/actions', () => {
       commit,
     });
 
-    const accounts = JSON.parse(CHAIN.OVERVIEW_ACCOUNTS);
+    const accounts = JSON.parse(CHAIN.SPREADSHEET_ACCOUNTS);
     for (const account of accounts) {
       account.balances = mockResponse.data.result;
       expect(commit).toHaveBeenCalledWith('addAccountTokens', account);
