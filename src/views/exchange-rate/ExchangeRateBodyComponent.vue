@@ -25,7 +25,7 @@ export default {
   name: 'ExchangeRateBodyComponent',
   components: {},
   computed: {
-    ...mapGetters('overview', {
+    ...mapGetters('spreadsheet', {
       error: 'error',
       isLoading: 'isLoading',
     }),

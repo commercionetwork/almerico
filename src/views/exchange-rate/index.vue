@@ -18,12 +18,12 @@ export default {
     ExchangeRateHeaderComponent,
   },
   methods: {
-    ...mapActions('overview', {
-      init: 'init',
+    ...mapActions('spreadsheet', {
+      initSpreadsheet: 'initSpreadsheet',
     }),
   },
   mounted() {
-    this.init();
+    this.initSpreadsheet();
   },
 };
 </script>

@@ -33,4 +33,8 @@ export const CHAIN = {
     process.env.VUE_APP_OVERVIEW_ACCOUNTS !== undefined
       ? process.env.VUE_APP_OVERVIEW_ACCOUNTS
       : '',
+  SPREADSHEET_ACCOUNTS:
+    process.env.VUE_APP_SPREADSHEET_ACCOUNTS !== undefined
+      ? process.env.VUE_APP_SPREADSHEET_ACCOUNTS
+      : '',
 };
