@@ -8,7 +8,8 @@ const VALIDATOR_SUBTOTAL = 10000000;
 const LIQUIDITY_POOL_SUBTOTAL = 15000000;
 const COMMUNITY_SUBTOTAL = 10000000;
 const FUNDS_SUBTOTAL = 25000000;
-const TOTAL_SUPPLY =
+
+const totalSupply =
   VALIDATOR_SUBTOTAL +
   LIQUIDITY_POOL_SUBTOTAL +
   COMMUNITY_SUBTOTAL +
@@ -35,10 +36,10 @@ const ExchangeRateTableTotalBuilder = {
     addTotalFundsData(vbrTokens, abrTokens, denom);
     addTableRow({
       label: 'Total Supply',
-      quantity: TOTAL_SUPPLY,
+      quantity: totalSupply,
       percentage: toPercent(1),
     });
-    return { tableData: data, totalSupply: TOTAL_SUPPLY };
+    return { tableData: data, totalSupply: totalSupply };
   },
 };
 
@@ -54,17 +55,17 @@ const addTotalValidatorData = (accounts, denom) => {
   addTableRow({
     label: 'Validator Tokens Distributed',
     quantity: toDecimal(distributed),
-    percentage: toPercent(distributed / TOTAL_SUPPLY),
+    percentage: toPercent(distributed / totalSupply),
   });
   addTableRow({
     label: 'Validator Tokens Not Distributed',
     quantity: toDecimal(notDistributed),
-    percentage: toPercent(notDistributed / TOTAL_SUPPLY),
+    percentage: toPercent(notDistributed / totalSupply),
   });
   addTableRow({
     label: 'Subtotal',
     quantity: toDecimal(VALIDATOR_SUBTOTAL),
-    percentage: toPercent(VALIDATOR_SUBTOTAL / TOTAL_SUPPLY),
+    percentage: toPercent(VALIDATOR_SUBTOTAL / totalSupply),
   });
 };
 
@@ -78,17 +79,17 @@ const addTotalLiquidityPoolData = (accounts, denom) => {
   addTableRow({
     label: 'Liquidity pool Tokens Distributed',
     quantity: toDecimal(distributed),
-    percentage: toPercent(distributed / TOTAL_SUPPLY),
+    percentage: toPercent(distributed / totalSupply),
   });
   addTableRow({
     label: 'Liquidity pool Tokens Not Distributed',
     quantity: toDecimal(notDistributed),
-    percentage: toPercent(notDistributed / TOTAL_SUPPLY),
+    percentage: toPercent(notDistributed / totalSupply),
   });
   addTableRow({
     label: 'Subtotal',
     quantity: toDecimal(LIQUIDITY_POOL_SUBTOTAL),
-    percentage: toPercent(LIQUIDITY_POOL_SUBTOTAL / TOTAL_SUPPLY),
+    percentage: toPercent(LIQUIDITY_POOL_SUBTOTAL / totalSupply),
   });
 };
 
@@ -102,17 +103,17 @@ const addTotalCommunityData = (accounts, denom) => {
   addTableRow({
     label: 'Community Tokens Distributed',
     quantity: toDecimal(distributed),
-    percentage: toPercent(distributed / TOTAL_SUPPLY),
+    percentage: toPercent(distributed / totalSupply),
   });
   addTableRow({
     label: 'Community Tokens Not Distributed',
     quantity: toDecimal(notDistributed),
-    percentage: toPercent(notDistributed / TOTAL_SUPPLY),
+    percentage: toPercent(notDistributed / totalSupply),
   });
   addTableRow({
     label: 'Subtotal',
     quantity: toDecimal(COMMUNITY_SUBTOTAL),
-    percentage: toPercent(COMMUNITY_SUBTOTAL / TOTAL_SUPPLY),
+    percentage: toPercent(COMMUNITY_SUBTOTAL / totalSupply),
   });
 };
 
@@ -128,22 +129,22 @@ const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
   addTableRow({
     label: 'VBR Tokens Distributed',
     quantity: toDecimal(vbrDistributed),
-    percentage: toPercent(vbrDistributed / TOTAL_SUPPLY),
+    percentage: toPercent(vbrDistributed / totalSupply),
   });
   addTableRow({
     label: 'ABR Tokens Distributed',
     quantity: toDecimal(abrDistributed),
-    percentage: toPercent(abrDistributed / TOTAL_SUPPLY),
+    percentage: toPercent(abrDistributed / totalSupply),
   });
   addTableRow({
     label: 'ABR and VBR Rewards Not Distributed',
     quantity: toDecimal(rewardsNotDistributed),
-    percentage: toPercent(rewardsNotDistributed / TOTAL_SUPPLY),
+    percentage: toPercent(rewardsNotDistributed / totalSupply),
   });
   addTableRow({
     label: 'Subtotal',
     quantity: toDecimal(FUNDS_SUBTOTAL),
-    percentage: toPercent(FUNDS_SUBTOTAL / TOTAL_SUPPLY),
+    percentage: toPercent(FUNDS_SUBTOTAL / totalSupply),
   });
 };
 
