@@ -2,29 +2,33 @@
   <v-row>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="totalHeaders"
-        :items="totalData"
+        :headers="model.totalHeaders"
+        :items="model.totalData"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="nonCirculatingHeaders"
-        :items="nonCirculatingData"
+        :headers="model.nonCirculatingHeaders"
+        :items="model.nonCirculatingData"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="circulatingHeaders"
-        :items="circulatingData"
+        :headers="model.circulatingHeaders"
+        :items="model.circulatingData"
         :getRowStyle="getRowStyle"
       />
+    </v-col>
+    <v-col cols="12">
+      <ExchangeRateIndexComponent :exchangeRate="model.exchangeRate" />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import ExchangeRateIndexComponent from './ExchangeRateIndexComponent.vue';
 import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
 
 import ExchangeRateTableBuilder from './helpers/ExchangeRateTableBuilder';
@@ -33,15 +37,19 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ExchangeRateSpreadsheetComponent',
   components: {
+    ExchangeRateIndexComponent,
     ExchangeRateTableComponent,
   },
   data: () => ({
-    circulatingData: [],
-    circulatingHeaders: [],
-    nonCirculatingData: [],
-    nonCirculatingHeaders: [],
-    totalData: [],
-    totalHeaders: [],
+    model: {
+      circulatingData: [],
+      circulatingHeaders: [],
+      nonCirculatingData: [],
+      nonCirculatingHeaders: [],
+      totalData: [],
+      totalHeaders: [],
+      exchangeRate: '',
+    },
   }),
   computed: {
     ...mapGetters('spreadsheet', {
@@ -73,12 +81,14 @@ export default {
       bondedTokens: this.pool.bonded_tokens,
       denom: this.params.bond_denom,
     }).then((data) => {
-      this.totalData = data.totalData;
-      this.totalHeaders = data.totalHeaders;
-      this.nonCirculatingData = data.nonCirculatingData;
-      this.nonCirculatingHeaders = data.nonCirculatingHeaders;
-      this.circulatingData = data.circulatingData;
-      this.circulatingHeaders = data.circulatingHeaders;
+      this.model.totalData = data.totalData;
+      this.model.totalHeaders = data.totalHeaders;
+      this.model.nonCirculatingData = data.nonCirculatingData;
+      this.model.nonCirculatingHeaders = data.nonCirculatingHeaders;
+      this.model.circulatingData = data.circulatingData;
+      this.model.circulatingHeaders = data.circulatingHeaders;
+      this.model.exchangeRate = data.exchangeRate;
+      console.log(data.exchangeRate);
     });
   },
 };

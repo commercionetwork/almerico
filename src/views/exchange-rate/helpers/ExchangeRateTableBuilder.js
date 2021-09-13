@@ -40,6 +40,8 @@ const ExchangeRateTableBuilder = {
         totalSupply,
         totalNonCirculatingSupply,
       })) || [];
+    const exchangeRate =
+      1 / (circulatingData.totalCirculatingSupply / totalSupply);
     return {
       totalData: totalData.tableData,
       totalHeaders: totalData.headers,
@@ -47,7 +49,7 @@ const ExchangeRateTableBuilder = {
       nonCirculatingHeaders: nonCirculatingData.headers,
       circulatingData: circulatingData.tableData,
       circulatingHeaders: circulatingData.headers,
-      exchangeRate: 1 / circulatingData.totalCirculatingSupply,
+      exchangeRate: toDecimal(exchangeRate, 2, 2),
     };
   },
 };
@@ -89,11 +91,15 @@ export const getTokensByDenom = ({ balances, denom }) => {
  * @param {Number} amount
  * @returns {String}
  */
-export const toDecimal = (amount) => {
+export const toDecimal = (
+  amount,
+  maximumFractionDigits = 0,
+  minimumFractionDigits = 0,
+) => {
   return new Intl.NumberFormat(undefined, {
     style: 'decimal',
-    maximumFractionDigits: 0,
-    minimumFractionDigits: 0,
+    maximumFractionDigits,
+    minimumFractionDigits,
   }).format(amount);
 };
 
