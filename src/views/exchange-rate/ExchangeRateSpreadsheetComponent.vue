@@ -2,15 +2,22 @@
   <v-row>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="headers"
+        :headers="totalHeaders"
         :items="totalData"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="headers"
+        :headers="nonCirculatingHeaders"
         :items="nonCirculatingData"
+        :getRowStyle="getRowStyle"
+      />
+    </v-col>
+    <v-col cols="12">
+      <ExchangeRateTableComponent
+        :headers="circulatingHeaders"
+        :items="circulatingData"
         :getRowStyle="getRowStyle"
       />
     </v-col>
@@ -29,8 +36,12 @@ export default {
     ExchangeRateTableComponent,
   },
   data: () => ({
+    circulatingData: [],
+    circulatingHeaders: [],
     nonCirculatingData: [],
+    nonCirculatingHeaders: [],
     totalData: [],
+    totalHeaders: [],
   }),
   computed: {
     ...mapGetters('spreadsheet', {
@@ -44,28 +55,6 @@ export default {
       params: 'params',
       pool: 'pool',
     }),
-    headers() {
-      return [
-        {
-          text: 'Label',
-          value: 'label',
-          sortable: false,
-          align: 'start',
-        },
-        {
-          text: 'Quantity',
-          value: 'quantity',
-          sortable: false,
-          align: 'end',
-        },
-        {
-          text: 'Percentage',
-          value: 'percentage',
-          sortable: false,
-          align: 'end',
-        },
-      ];
-    },
   },
   methods: {
     getRowStyle(item) {
@@ -85,7 +74,11 @@ export default {
       denom: this.params.bond_denom,
     }).then((data) => {
       this.totalData = data.totalData;
+      this.totalHeaders = data.totalHeaders;
       this.nonCirculatingData = data.nonCirculatingData;
+      this.nonCirculatingHeaders = data.nonCirculatingHeaders;
+      this.circulatingData = data.circulatingData;
+      this.circulatingHeaders = data.circulatingHeaders;
     });
   },
 };

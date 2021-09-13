@@ -1,3 +1,4 @@
+import ExchangeRateTableCirculatingBuilder from './ExchangeRateTableCirculatingBuilder';
 import ExchangeRateTableNonCirculatingBuilder from './ExchangeRateTableNonCirculatingBuilder';
 import ExchangeRateTableTotalBuilder from './ExchangeRateTableTotalBuilder';
 
@@ -34,14 +35,18 @@ const ExchangeRateTableBuilder = {
     );
     const totalNonCirculatingSupply =
       nonCirculatingData.totalNonCirculatingSupply;
-
-    //FIXME: update params
-    const exchangeRate = getExchangeRate(1, 1);
+    const circulatingData = await ExchangeRateTableCirculatingBuilder.build({
+      totalSupply,
+      totalNonCirculatingSupply,
+    });
     return {
       totalData: totalData.tableData,
+      totalHeaders: totalData.headers,
       nonCirculatingData: nonCirculatingData.tableData,
-      circulatingData: {}, // circulatingData.tableData,
-      exchangeRate,
+      nonCirculatingHeaders: nonCirculatingData.headers,
+      circulatingData: circulatingData.tableData,
+      circulatingHeaders: circulatingData.headers,
+      exchangeRate: 1 / circulatingData.totalCirculatingSupply,
     };
   },
 };
@@ -49,13 +54,24 @@ const ExchangeRateTableBuilder = {
 export default ExchangeRateTableBuilder;
 
 /**
- *
- * @param {Number} totalCirculating
- * @param {Number} total
- * @returns {Number}
+ * @param {Object} header
+ * @returns
  */
-const getExchangeRate = (totalCirculating, total) =>
-  1 / (totalCirculating / total);
+export const getHeaders = (header) => [
+  header,
+  {
+    text: 'Quantity',
+    value: 'quantity',
+    sortable: false,
+    align: 'end',
+  },
+  {
+    text: 'Percentage',
+    value: 'percentage',
+    sortable: false,
+    align: 'end',
+  },
+];
 
 /**
  * @param {Array.<Object>} Balances

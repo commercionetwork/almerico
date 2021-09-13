@@ -1,4 +1,5 @@
 import {
+  getHeaders,
   getTokensByDenom,
   toDecimal,
   toPercent,
@@ -31,6 +32,12 @@ const ExchangeRateTableNonCirculatingBuilder = {
    * @returns {Promise}
    */
   build({ abrTokens, vbrTokens, allTokens, totalSupply, bondedTokens, denom }) {
+    const headers = getHeaders({
+      text: 'Non Circulating Supply',
+      value: 'label',
+      sortable: false,
+      align: 'start',
+    });
     const abrQuantity = getTokensByDenom({ balances: abrTokens, denom: denom });
     const vbrQuantity = getTokensByDenom({ balances: vbrTokens, denom: denom });
     const burnedQuantity =
@@ -82,7 +89,8 @@ const ExchangeRateTableNonCirculatingBuilder = {
     return new Promise((resolve) =>
       resolve({
         tableData: data,
-        totalNonCirculatingSupply: totalNonCirculatingSupply,
+        headers,
+        totalNonCirculatingSupply,
       }),
     );
   },

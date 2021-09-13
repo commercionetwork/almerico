@@ -1,4 +1,5 @@
 import {
+  getHeaders,
   getTokensByDenom,
   toDecimal,
   toPercent,
@@ -37,6 +38,12 @@ const ExchangeRateTableTotalBuilder = {
    * @returns {Promise}
    */
   build({ accounts, abrTokens, vbrTokens, denom }) {
+    const headers = getHeaders({
+      text: 'Total Supply',
+      value: 'label',
+      sortable: false,
+      align: 'start',
+    });
     addTotalValidatorData(accounts, denom);
     addTotalLiquidityPoolData(accounts, denom);
     addTotalCommunityData(accounts, denom);
@@ -47,7 +54,7 @@ const ExchangeRateTableTotalBuilder = {
       percentage: toPercent(1),
     });
     return new Promise((resolve) =>
-      resolve({ tableData: data, totalSupply: totalSupply }),
+      resolve({ tableData: data, headers, totalSupply }),
     );
   },
 };
