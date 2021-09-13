@@ -22,7 +22,7 @@ export default {
       initSpreadsheet: 'initSpreadsheet',
     }),
   },
-  mounted() {
+  created() {
     this.initSpreadsheet();
   },
 };

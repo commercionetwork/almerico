@@ -16,29 +16,30 @@ const ExchangeRateTableBuilder = {
     bondedTokens,
     denom,
   }) {
-    const totalData = await ExchangeRateTableTotalBuilder.build({
-      accounts,
-      abrTokens,
-      vbrTokens,
-      denom,
-    });
-    const totalSupply = totalData.totalSupply;
-    const nonCirculatingData = await ExchangeRateTableNonCirculatingBuilder.build(
-      {
+    const totalData =
+      (await ExchangeRateTableTotalBuilder.build({
+        accounts,
+        abrTokens,
+        vbrTokens,
+        denom,
+      })) || [];
+    const totalSupply = totalData.totalSupply || 0;
+    const nonCirculatingData =
+      (await ExchangeRateTableNonCirculatingBuilder.build({
         abrTokens,
         vbrTokens,
         allTokens,
         totalSupply,
         bondedTokens,
         denom,
-      },
-    );
+      })) || [];
     const totalNonCirculatingSupply =
-      nonCirculatingData.totalNonCirculatingSupply;
-    const circulatingData = await ExchangeRateTableCirculatingBuilder.build({
-      totalSupply,
-      totalNonCirculatingSupply,
-    });
+      nonCirculatingData.totalNonCirculatingSupply || 0;
+    const circulatingData =
+      (await ExchangeRateTableCirculatingBuilder.build({
+        totalSupply,
+        totalNonCirculatingSupply,
+      })) || [];
     return {
       totalData: totalData.tableData,
       totalHeaders: totalData.headers,
