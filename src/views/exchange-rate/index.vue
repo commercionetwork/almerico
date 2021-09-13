@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ExchangeRateBodyComponent />
     <ExchangeRateHeaderComponent />
+    <ExchangeRateBodyComponent />
   </div>
 </template>
 

@@ -16,14 +16,17 @@
       </v-alert>
     </v-col>
   </v-row>
+  <ExchangeRateTableComponent v-else data-test="content" />
 </template>
 
 <script>
+import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
+
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ExchangeRateBodyComponent',
-  components: {},
+  components: { ExchangeRateTableComponent },
   computed: {
     ...mapGetters('spreadsheet', {
       error: 'error',
