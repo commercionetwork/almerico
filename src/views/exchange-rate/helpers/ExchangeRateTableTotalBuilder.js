@@ -49,8 +49,8 @@ const ExchangeRateTableTotalBuilder = {
     addTotalCommunityData(accounts, denom);
     addTotalFundsData(vbrTokens, abrTokens, denom);
     addTableRow({
-      label: 'Total Supply',
-      quantity: totalSupply,
+      label: 'Total Supply *',
+      quantity: toDecimal(totalSupply),
       percentage: toPercent(1),
     });
     return new Promise((resolve) =>

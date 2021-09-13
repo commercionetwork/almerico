@@ -28,12 +28,12 @@ const ExchangeRateTableCirculatingBuilder = {
     });
     const totalCirculatingSupply = totalSupply - totalNonCirculatingSupply;
     addTableRow({
-      label: 'Supply (total)',
+      label: '* Total Supply',
       quantity: toDecimal(totalSupply),
       percentage: toPercent(1),
     });
     addTableRow({
-      label: 'Non Circulating Supply (total)',
+      label: '** Total Non Circulating Supply',
       quantity: toDecimal(totalNonCirculatingSupply),
       percentage: toPercent(totalNonCirculatingSupply / totalSupply),
     });

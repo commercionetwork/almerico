@@ -81,7 +81,7 @@ const ExchangeRateTableNonCirculatingBuilder = {
       percentage: toPercent(UNCLAIMED_REWARDS / totalNonCirculatingSupply),
     });
     addTableRow({
-      label: 'Total Non Circulating Supply',
+      label: 'Total Non Circulating Supply **',
       quantity: toDecimal(totalNonCirculatingSupply),
       percentage: toPercent(1),
     });

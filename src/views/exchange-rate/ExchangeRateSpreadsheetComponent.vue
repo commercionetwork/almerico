@@ -88,7 +88,6 @@ export default {
       this.model.circulatingData = data.circulatingData;
       this.model.circulatingHeaders = data.circulatingHeaders;
       this.model.exchangeRate = data.exchangeRate;
-      console.log(data.exchangeRate);
     });
   },
 };
