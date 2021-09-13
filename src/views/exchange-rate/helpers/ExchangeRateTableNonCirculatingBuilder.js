@@ -21,16 +21,26 @@ const addTableRow = ({ label, quantity, percentage }) => {
 };
 
 const ExchangeRateTableNonCirculatingBuilder = {
+  /**
+   * @param {Array.<Object>} abrTokens
+   * @param {Array.<Object>} vbrTokens
+   * @param
+   * @param
+   * @param
+   * @param {String} denom
+   * @returns {Promise}
+   */
   build({ abrTokens, vbrTokens, allTokens, totalSupply, bondedTokens, denom }) {
     const abrQuantity = getTokensByDenom({ balances: abrTokens, denom: denom });
     const vbrQuantity = getTokensByDenom({ balances: vbrTokens, denom: denom });
     const burnedQuantity =
       totalSupply - getTokensByDenom({ balances: allTokens, denom: denom });
+    const bondedQuantity = parseFloat(bondedTokens) / 1000000;
     const totalNonCirculatingSupply =
       abrQuantity +
       vbrQuantity +
       burnedQuantity +
-      bondedTokens +
+      bondedQuantity +
       FREEZED_TOKENS +
       UNCLAIMED_REWARDS;
     addTableRow({
@@ -50,8 +60,8 @@ const ExchangeRateTableNonCirculatingBuilder = {
     });
     addTableRow({
       label: 'Bonded Tokens',
-      quantity: toDecimal(bondedTokens),
-      percentage: toPercent(bondedTokens / totalNonCirculatingSupply),
+      quantity: toDecimal(bondedQuantity),
+      percentage: toPercent(bondedQuantity / totalNonCirculatingSupply),
     });
     addTableRow({
       label: 'Freezed Tokens',
@@ -69,10 +79,12 @@ const ExchangeRateTableNonCirculatingBuilder = {
       percentage: toPercent(1),
     });
 
-    return {
-      tableData: data,
-      totalNonCirculatingSupply: totalNonCirculatingSupply,
-    };
+    return new Promise((resolve) =>
+      resolve({
+        tableData: data,
+        totalNonCirculatingSupply: totalNonCirculatingSupply,
+      }),
+    );
   },
 };
 

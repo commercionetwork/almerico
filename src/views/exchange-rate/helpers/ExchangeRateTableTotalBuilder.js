@@ -29,6 +29,13 @@ const addTableRow = ({ label, quantity, percentage }) => {
 };
 
 const ExchangeRateTableTotalBuilder = {
+  /**
+   * @param {Array.<Object>} accounts
+   * @param {Array.<Object>} abrTokens
+   * @param {Array.<Object>} vbrTokens
+   * @param {String} denom
+   * @returns {Promise}
+   */
   build({ accounts, abrTokens, vbrTokens, denom }) {
     addTotalValidatorData(accounts, denom);
     addTotalLiquidityPoolData(accounts, denom);
@@ -39,7 +46,9 @@ const ExchangeRateTableTotalBuilder = {
       quantity: totalSupply,
       percentage: toPercent(1),
     });
-    return { tableData: data, totalSupply: totalSupply };
+    return new Promise((resolve) =>
+      resolve({ tableData: data, totalSupply: totalSupply }),
+    );
   },
 };
 

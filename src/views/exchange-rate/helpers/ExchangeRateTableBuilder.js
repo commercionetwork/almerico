@@ -1,34 +1,48 @@
 import ExchangeRateTableNonCirculatingBuilder from './ExchangeRateTableNonCirculatingBuilder';
 import ExchangeRateTableTotalBuilder from './ExchangeRateTableTotalBuilder';
 
-const tableData = [];
-
 const ExchangeRateTableBuilder = {
-  build({ accounts, abrTokens, allTokens, vbrTokens, bondedTokens, denom }) {
-    const totalData = ExchangeRateTableTotalBuilder.build({
+  /**
+   *
+   * @param {*} param0
+   * @returns {Promise}
+   */
+  async build({
+    accounts,
+    abrTokens,
+    allTokens,
+    vbrTokens,
+    bondedTokens,
+    denom,
+  }) {
+    const totalData = await ExchangeRateTableTotalBuilder.build({
       accounts,
       abrTokens,
       vbrTokens,
       denom,
     });
-    tableData.push(...totalData.tableData);
     const totalSupply = totalData.totalSupply;
-    const nonCirculatingData = ExchangeRateTableNonCirculatingBuilder.build({
-      abrTokens,
-      vbrTokens,
-      allTokens,
-      totalSupply,
-      bondedTokens,
-      denom,
-    });
-    tableData.push(...nonCirculatingData.tableData);
+    const nonCirculatingData = await ExchangeRateTableNonCirculatingBuilder.build(
+      {
+        abrTokens,
+        vbrTokens,
+        allTokens,
+        totalSupply,
+        bondedTokens,
+        denom,
+      },
+    );
     const totalNonCirculatingSupply =
       nonCirculatingData.totalNonCirculatingSupply;
-    console.log(totalNonCirculatingSupply);
 
     //FIXME: update params
     const exchangeRate = getExchangeRate(1, 1);
-    return { tableData, exchangeRate };
+    return {
+      totalData: totalData.tableData,
+      nonCirculatingData: nonCirculatingData.tableData,
+      circulatingData: {}, // circulatingData.tableData,
+      exchangeRate,
+    };
   },
 };
 
