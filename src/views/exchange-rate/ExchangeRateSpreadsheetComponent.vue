@@ -67,9 +67,14 @@ export default {
   },
   methods: {
     getRowStyle(item) {
-      return item.type === OVERVIEW.ROW_STYLE.HIGHLIGHTED
-        ? 'subtotal-font-weight'
-        : '';
+      switch (item.type) {
+        case OVERVIEW.ROW_STYLE.COMING_SOON:
+          return 'coming-soon-row';
+        case OVERVIEW.ROW_STYLE.HIGHLIGHTED:
+          return 'highlighted-row';
+        default:
+          return '';
+      }
     },
   },
   mounted() {
@@ -98,7 +103,11 @@ export default {
   padding-bottom: 10px;
   font-size: 18px !important;
 }
-::v-deep .subtotal-font-weight {
+::v-deep .coming-soon-row {
+  color: #ff6600;
+}
+
+::v-deep .highlighted-row {
   font-weight: bold;
   background-color: rgba(56, 186, 140, 0.15);
 }

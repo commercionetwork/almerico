@@ -17,7 +17,8 @@ export const CUSTOMIZATION = {
 
 export const OVERVIEW = {
   ROW_STYLE: {
-    REGULAR: 'regular',
+    COMING_SOON: 'coming-soon',
     HIGHLIGHTED: 'highlighted',
+    REGULAR: 'regular',
   },
 };

@@ -54,7 +54,7 @@ const ExchangeRateTableTotalBuilder = {
       align: 'start',
     });
     addTotalValidatorData(accounts, denom);
-    addTotalLiquidityPoolData(accounts, denom);
+    const liquidityPoolDistributed = addTotalLiquidityPoolData(accounts, denom);
     addTotalCommunityData(accounts, denom);
     addTotalFundsData(vbrTokens, abrTokens, denom);
     addTableRow({
@@ -64,7 +64,12 @@ const ExchangeRateTableTotalBuilder = {
       type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
     });
     return new Promise((resolve) =>
-      resolve({ tableData: data, headers, totalSupply }),
+      resolve({
+        tableData: data,
+        headers,
+        liquidityPoolDistributed,
+        totalSupply,
+      }),
     );
   },
 };
@@ -103,6 +108,7 @@ const addTotalValidatorData = (accounts, denom) => {
 /**
  * @param {Array.<object>} accounts
  * @param {String} denom
+ * @returns {Number}
  */
 const addTotalLiquidityPoolData = (accounts, denom) => {
   const notDistributed = getTokensByAccount({
@@ -127,6 +133,7 @@ const addTotalLiquidityPoolData = (accounts, denom) => {
     percentage: toPercent(LIQUIDITY_POOL_SUBTOTAL / totalSupply),
     type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
+  return distributed;
 };
 
 /**

@@ -30,12 +30,15 @@ const ExchangeRateTableBuilder = {
         vbrTokens,
         denom,
       })) || [];
+    const totalLiquidityPoolDistributed =
+      totalData.liquidityPoolDistributed || 0;
     const totalSupply = totalData.totalSupply || 0;
     const nonCirculatingData =
       (await ExchangeRateTableNonCirculatingBuilder.build({
         abrTokens,
         vbrTokens,
         allTokens,
+        totalLiquidityPoolDistributed,
         totalSupply,
         bondedTokens,
         denom,

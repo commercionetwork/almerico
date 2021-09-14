@@ -6,9 +6,6 @@ import {
   toPercent,
 } from './ExchangeRateTableBuilder';
 
-const FREEZED_TOKENS = 10001;
-const UNCLAIMED_REWARDS = 0;
-
 const data = [];
 /** Row
  * @typedef {Object} TableRow
@@ -33,6 +30,7 @@ const ExchangeRateTableNonCirculatingBuilder = {
    * @property {Array.<Object>} abrTokens
    * @property {Array.<Object>} vbrTokens
    * @property {Array.<Object>} allTokens
+   * @property {Number} totalLiquidityPoolDistributed
    * @property {Number} totalSupply
    * @property {String} bondedTokens
    * @property {String} denom
@@ -40,7 +38,15 @@ const ExchangeRateTableNonCirculatingBuilder = {
    * @param {ParamBuild} p
    * @returns {Promise}
    */
-  build({ abrTokens, vbrTokens, allTokens, totalSupply, bondedTokens, denom }) {
+  build({
+    abrTokens,
+    vbrTokens,
+    allTokens,
+    totalLiquidityPoolDistributed,
+    totalSupply,
+    bondedTokens,
+    denom,
+  }) {
     const headers = getHeaders({
       text: 'Non Circulating Supply',
       value: 'label',
@@ -57,8 +63,7 @@ const ExchangeRateTableNonCirculatingBuilder = {
       vbrQuantity +
       burnedQuantity +
       bondedQuantity +
-      FREEZED_TOKENS +
-      UNCLAIMED_REWARDS;
+      totalLiquidityPoolDistributed;
     addTableRow({
       label: 'VBR Tokens Not Distributed',
       quantity: toDecimal(vbrQuantity),
@@ -81,13 +86,16 @@ const ExchangeRateTableNonCirculatingBuilder = {
     });
     addTableRow({
       label: 'Freezed Tokens',
-      quantity: toDecimal(FREEZED_TOKENS),
-      percentage: toPercent(FREEZED_TOKENS / totalNonCirculatingSupply),
+      quantity: toDecimal(totalLiquidityPoolDistributed),
+      percentage: toPercent(
+        totalLiquidityPoolDistributed / totalNonCirculatingSupply,
+      ),
     });
     addTableRow({
       label: 'Unclaimed Rewards',
-      quantity: toDecimal(UNCLAIMED_REWARDS),
-      percentage: toPercent(UNCLAIMED_REWARDS / totalNonCirculatingSupply),
+      quantity: 'Coming soon',
+      percentage: '-',
+      type: OVERVIEW.ROW_STYLE.COMING_SOON,
     });
     addTableRow({
       label: 'Total Non Circulating Supply',
