@@ -27,6 +27,7 @@ In order to run this project as a developer with the hot reload option enabled y
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
     VUE_APP_WS=VALUE (e.g., ws://rpc.com/websocket)
     VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://lcd.com", "lcd": "http://lcd.com", "ver": "0.12"}])
+    VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
     VUE_APP_OVERVIEW_ACCOUNTS=VALUE (e.g., [{},{}.{}])
     VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{},{}.{}])
     VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
@@ -51,6 +52,7 @@ Create a file named `.env.production` inside the project root folder and set the
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)
 VUE_APP_WS=VALUE (e.g., wss://rpc.com/websocket)
 VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://lcd.com", "lcd": "https://lcd.com", "ver": "0.12"}])
+VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
 VUE_APP_OVERVIEW_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:"},{"name":"endCustomer","address":"did:com:"},{"name":"validator","address":"did:com:"}])
 VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:"},{"name":"liquidityPool","address":"did:com:"},{"name":"validator","address":"did:com:"}])
 VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
@@ -88,6 +90,7 @@ docker build -t almerico \
   --build-arg LCD_URL=<LCD URL> \
   --build-arg WS_URL=<WebSocket URL> \
   --build-arg ANCESTORS_LIST=<Ancestors list> \
+  --build-arg MINTER_ACCOUNT=<Minter account address> \
   --build-arg OVERVIEW_ACCOUNTS=<Overview accounts list> \
   --build-arg SPREADSHEET_ACCOUNTS=<Spreadsheet accounts list> \
   --build-arg MAIN_TITLE=<App title> \
