@@ -50,8 +50,10 @@ const ExchangeRateTableBuilder = {
         totalSupply,
         totalNonCirculatingSupply,
       })) || [];
-    const exchangeRate =
-      1 / (circulatingData.totalCirculatingSupply / totalSupply);
+    const exchangeRate = this.getExchangeRate(
+      circulatingData.totalCirculatingSupply,
+      totalSupply,
+    );
     return {
       totalData: totalData.tableData,
       totalHeaders: totalData.headers,
@@ -59,8 +61,18 @@ const ExchangeRateTableBuilder = {
       nonCirculatingHeaders: nonCirculatingData.headers,
       circulatingData: circulatingData.tableData,
       circulatingHeaders: circulatingData.headers,
-      exchangeRate: toDecimal(exchangeRate, 2, 2),
+      exchangeRate,
     };
+  },
+  /**
+   * @param {Number} totalCirculatingSupply
+   * @param {Number} totalSupply
+   * @returns {String}
+   */
+  getExchangeRate(totalCirculatingSupply, totalSupply) {
+    if (totalCirculatingSupply === 0 || totalSupply === 0) return 0;
+    const rate = 1 / (totalCirculatingSupply / totalSupply);
+    return toDecimal(rate, 2, 2);
   },
 };
 

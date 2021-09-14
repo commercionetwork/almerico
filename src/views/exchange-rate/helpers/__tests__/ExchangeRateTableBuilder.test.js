@@ -1,10 +1,14 @@
-import ExchangeRateTableBuilder, {
-  getHeaders,
-  getTokensByDenom,
-} from '../ExchangeRateTableBuilder';
+import ExchangeRateTableBuilder, * as builderMethods from '../ExchangeRateTableBuilder';
 
 describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
   test('if "build" method returns an object well formed', async () => {
+    const mockExchangeRate = '1.00';
+    const mockGetExchangeRate = jest.spyOn(
+      ExchangeRateTableBuilder,
+      'getExchangeRate',
+    );
+    mockGetExchangeRate.mockImplementation(() => mockExchangeRate);
+
     const accounts = [
       {
         name: 'name',
@@ -15,7 +19,7 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
     const abrTokens = [{ denom: 'ucommercio', amount: '1' }];
     const allTokens = [{ denom: 'ucommercio', amount: '1' }];
     const vbrTokens = [{ denom: 'ucommercio', amount: '1' }];
-    const bondedTokens = '3969443110001';
+    const bondedTokens = '1';
     const denom = 'ucommercio';
 
     const expectedValue = {
@@ -25,7 +29,7 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
       nonCirculatingHeaders: [{ id: 1 }],
       circulatingData: [{ id: 1 }],
       circulatingHeaders: [{ id: 1 }],
-      exchangeRate: '1,00',
+      exchangeRate: mockExchangeRate,
     };
 
     const res = await ExchangeRateTableBuilder.build({
@@ -36,6 +40,7 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
       bondedTokens,
       denom,
     });
+
     expect(res).toStrictEqual(expectedValue);
   });
 
@@ -63,7 +68,7 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
       },
     ];
 
-    const res = getHeaders(header);
+    const res = builderMethods.getHeaders(header);
     expect(res).toStrictEqual(expectedValue);
   });
 
@@ -76,7 +81,7 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
 
     const expectedValue = 1 / 1000000;
 
-    const res = getTokensByDenom({ balances, denom });
+    const res = builderMethods.getTokensByDenom({ balances, denom });
 
     expect(res).toBe(expectedValue);
   });
