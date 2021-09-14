@@ -1,3 +1,4 @@
+import { OVERVIEW } from '@/constants';
 import {
   getHeaders,
   getTokensByDenom,
@@ -19,14 +20,19 @@ const totalSupply =
 const data = [];
 /** Row
  * @typedef {Object} TableRow
- * @property {String} type
+ * @property {String} label
  * @property {String} quantity
  * @property {String} percentage
+ * @property {String} type
  *
  * @param {TableRow}
  */
-const addTableRow = ({ label, quantity, percentage }) => {
-  data.push({ label, quantity, percentage });
+const addTableRow = (
+  { label, quantity, percentage, type = OVERVIEW.ROW_STYLE.REGULAR } = {
+    type: OVERVIEW.ROW_STYLE.REGULAR,
+  },
+) => {
+  data.push({ label, quantity, percentage, type });
 };
 
 const ExchangeRateTableTotalBuilder = {
@@ -39,7 +45,7 @@ const ExchangeRateTableTotalBuilder = {
    */
   build({ accounts, abrTokens, vbrTokens, denom }) {
     const headers = getHeaders({
-      text: 'Total Supply',
+      text: 'Max Supply',
       value: 'label',
       sortable: false,
       align: 'start',
@@ -49,9 +55,10 @@ const ExchangeRateTableTotalBuilder = {
     addTotalCommunityData(accounts, denom);
     addTotalFundsData(vbrTokens, abrTokens, denom);
     addTableRow({
-      label: 'Total Supply *',
+      label: 'Max Supply',
       quantity: toDecimal(totalSupply),
       percentage: toPercent(1),
+      type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
     });
     return new Promise((resolve) =>
       resolve({ tableData: data, headers, totalSupply }),
@@ -82,6 +89,7 @@ const addTotalValidatorData = (accounts, denom) => {
     label: 'Subtotal',
     quantity: toDecimal(VALIDATOR_SUBTOTAL),
     percentage: toPercent(VALIDATOR_SUBTOTAL / totalSupply),
+    type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };
 
@@ -106,6 +114,7 @@ const addTotalLiquidityPoolData = (accounts, denom) => {
     label: 'Subtotal',
     quantity: toDecimal(LIQUIDITY_POOL_SUBTOTAL),
     percentage: toPercent(LIQUIDITY_POOL_SUBTOTAL / totalSupply),
+    type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };
 
@@ -130,6 +139,7 @@ const addTotalCommunityData = (accounts, denom) => {
     label: 'Subtotal',
     quantity: toDecimal(COMMUNITY_SUBTOTAL),
     percentage: toPercent(COMMUNITY_SUBTOTAL / totalSupply),
+    type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };
 
@@ -161,6 +171,7 @@ const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
     label: 'Subtotal',
     quantity: toDecimal(FUNDS_SUBTOTAL),
     percentage: toPercent(FUNDS_SUBTOTAL / totalSupply),
+    type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };
 

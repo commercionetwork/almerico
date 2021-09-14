@@ -32,6 +32,7 @@ import ExchangeRateIndexComponent from './ExchangeRateIndexComponent.vue';
 import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
 
 import ExchangeRateTableBuilder from './helpers/ExchangeRateTableBuilder';
+import { OVERVIEW } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -66,8 +67,7 @@ export default {
   },
   methods: {
     getRowStyle(item) {
-      return item.label.substr(0, 5).toLowerCase() === 'total' ||
-        item.label.toLowerCase() === 'subtotal'
+      return item.type === OVERVIEW.ROW_STYLE.HIGHLIGHTED
         ? 'subtotal-font-weight'
         : '';
     },

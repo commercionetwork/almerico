@@ -14,3 +14,10 @@ export const CUSTOMIZATION = {
     TABLE_ITEMS: 25,
   },
 };
+
+export const OVERVIEW = {
+  ROW_STYLE: {
+    REGULAR: 'regular',
+    HIGHLIGHTED: 'highlighted',
+  },
+};
