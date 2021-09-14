@@ -42,6 +42,17 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
     });
 
     expect(res).toStrictEqual(expectedValue);
+    mockGetExchangeRate.mockRestore();
+  });
+
+  test('if "getExchangeRate" return the right rate', () => {
+    const expectedValue = '0.50';
+
+    const res = ExchangeRateTableBuilder.getExchangeRate(2, 1);
+    const bits = res.split(/[.,]+/);
+    const rate = `${bits[0]}.${bits[1]}`;
+
+    expect(rate).toBe(expectedValue);
   });
 
   test('if "getHeaders" add custom header to the beginning of default headers array', () => {
