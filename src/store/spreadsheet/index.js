@@ -6,6 +6,7 @@
  * @property {Array.<Object>} vbrTokens
  * @property {Boolean} isLoading
  * @property {Object} error
+ * @property {Object} freezedTokens
  */
 
 import actions from './actions';
@@ -17,6 +18,7 @@ const initialState = {
   accountsTokens: [],
   allTokens: [],
   error: null,
+  freezedTokens: null,
   isLoading: false,
   vbrTokens: [],
 };

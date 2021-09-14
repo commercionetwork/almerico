@@ -30,7 +30,7 @@ const ExchangeRateTableNonCirculatingBuilder = {
    * @property {Array.<Object>} abrTokens
    * @property {Array.<Object>} vbrTokens
    * @property {Array.<Object>} allTokens
-   * @property {Number} totalLiquidityPoolDistributed
+   * @property {Array.<Object>} freezedTokens
    * @property {Number} totalSupply
    * @property {String} bondedTokens
    * @property {String} denom
@@ -42,7 +42,7 @@ const ExchangeRateTableNonCirculatingBuilder = {
     abrTokens,
     vbrTokens,
     allTokens,
-    totalLiquidityPoolDistributed,
+    freezedTokens,
     totalSupply,
     bondedTokens,
     denom,
@@ -58,12 +58,16 @@ const ExchangeRateTableNonCirculatingBuilder = {
     const burnedQuantity =
       totalSupply - getTokensByDenom({ balances: allTokens, denom: denom });
     const bondedQuantity = parseFloat(bondedTokens) / 1000000;
+    const freezedQuantity = getTokensByDenom({
+      balances: freezedTokens,
+      denom: denom,
+    });
     const totalNonCirculatingSupply =
       abrQuantity +
       vbrQuantity +
       burnedQuantity +
       bondedQuantity +
-      totalLiquidityPoolDistributed;
+      freezedQuantity;
     addTableRow({
       label: 'VBR Tokens Not Distributed',
       quantity: toDecimal(vbrQuantity),
@@ -86,10 +90,8 @@ const ExchangeRateTableNonCirculatingBuilder = {
     });
     addTableRow({
       label: 'Freezed Tokens',
-      quantity: toDecimal(totalLiquidityPoolDistributed),
-      percentage: toPercent(
-        totalLiquidityPoolDistributed / totalNonCirculatingSupply,
-      ),
+      quantity: toDecimal(freezedQuantity),
+      percentage: toPercent(freezedQuantity / totalNonCirculatingSupply),
     });
     addTableRow({
       label: 'Unclaimed Rewards',

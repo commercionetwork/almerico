@@ -1,5 +1,6 @@
 import actions from '../actions.js';
 import { mockBalances } from '../../account/__mocks__/balances';
+import { mockFreezed } from '../__mocks__/freezed';
 import { CHAIN } from '@/constants';
 
 const mockErrorResponse = {
@@ -29,7 +30,7 @@ describe('store/spreadsheet/actions', () => {
     mockResponse = null;
   });
 
-  test('if "actions.initSpreadsheet" dispatch "fetchAbrTokens", "fetchVbrTokens", "fetchAbrTokens" and "fetchAccountsTokens" actions', async () => {
+  test('if "actions.initSpreadsheet" dispatch "fetchAbrTokens", "fetchVbrTokens", "fetchAbrTokens", "fetchAccountsTokens" and fetchFreezedTokens actions', async () => {
     const dispatch = jest.fn();
     const commit = jest.fn();
 
@@ -42,6 +43,7 @@ describe('store/spreadsheet/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchAccountsTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
+    expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
   });
 
   test('if "actions.fetchAbrTokens" set abr tokens', async () => {
@@ -156,6 +158,34 @@ describe('store/spreadsheet/actions', () => {
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
+
+  test('if "actions.fetchFreezedTokens" set freezed tokens', async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+
+    await actions.fetchFreezedTokens({
+      dispatch,
+      commit,
+    });
+
+    expect(commit).toHaveBeenCalledWith(
+      'setFreezedTokens',
+      mockResponse.data.result,
+    );
+  });
+
+  test('if "actions.fetchFreezedTokens" has an error, dispatch "handleError"', async () => {
+    const dispatch = jest.fn();
+    const commit = jest.fn();
+    mockError = true;
+
+    await actions.fetchVbrTokens({
+      dispatch,
+      commit,
+    });
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
 });
 
 jest.mock('./../http', () => ({
@@ -245,6 +275,29 @@ jest.mock('./../http', () => ({
           data: {
             height: '1',
             result: mockBalances(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestFreezedTokens: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+        if (mockErrorRequest) {
+          reject(mockErrorRequestResponse);
+        }
+        if (mockErrorServer) {
+          reject({});
+        }
+
+        mockResponse = {
+          data: {
+            height: '1',
+            result: mockFreezed(),
           },
         };
         resolve(mockResponse);

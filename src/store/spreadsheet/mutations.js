@@ -54,4 +54,12 @@ export default {
   addAccountTokens(state, data) {
     state.accountsTokens.push(data);
   },
+  /**
+   *
+   * @param {SpreadsheetState} state
+   * @param {Object} data
+   */
+  setFreezedTokens(state, data) {
+    state.freezedTokens = data;
+  },
 };

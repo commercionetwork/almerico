@@ -16,6 +16,7 @@ export default {
       dispatch('fetchAccountsTokens'),
       dispatch('fetchAllTokens'),
       dispatch('fetchVbrTokens'),
+      dispatch('fetchFreezedTokens'),
     ]);
     commit('stopLoading');
   },
@@ -71,6 +72,18 @@ export default {
         account.balances = response.data.result;
         commit('addAccountTokens', account);
       }
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
+   */
+  async fetchFreezedTokens({ dispatch, commit }) {
+    try {
+      const response = await http.requestFreezedTokens(CHAIN.MINTER_ACCOUNT);
+      commit('setFreezedTokens', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
     }

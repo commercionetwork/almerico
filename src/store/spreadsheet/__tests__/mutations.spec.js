@@ -85,4 +85,14 @@ describe('store/spreadsheet/mutations', () => {
 
     expect(state.accountsTokens).toStrictEqual([data]);
   });
+
+  test('mutations.setFreezedTokens', () => {
+    const data = {
+      id: 1,
+    };
+
+    mutations.setFreezedTokens(state, data);
+
+    expect(state.freezedTokens).toStrictEqual(data);
+  });
 });

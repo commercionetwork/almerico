@@ -54,7 +54,7 @@ const ExchangeRateTableTotalBuilder = {
       align: 'start',
     });
     addTotalValidatorData(accounts, denom);
-    const liquidityPoolDistributed = addTotalLiquidityPoolData(accounts, denom);
+    addTotalLiquidityPoolData(accounts, denom);
     addTotalCommunityData(accounts, denom);
     addTotalFundsData(vbrTokens, abrTokens, denom);
     addTableRow({
@@ -67,7 +67,6 @@ const ExchangeRateTableTotalBuilder = {
       resolve({
         tableData: data,
         headers,
-        liquidityPoolDistributed,
         totalSupply,
       }),
     );
@@ -133,7 +132,6 @@ const addTotalLiquidityPoolData = (accounts, denom) => {
     percentage: toPercent(LIQUIDITY_POOL_SUBTOTAL / totalSupply),
     type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
-  return distributed;
 };
 
 /**

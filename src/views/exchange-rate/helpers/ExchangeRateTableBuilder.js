@@ -8,6 +8,7 @@ const ExchangeRateTableBuilder = {
    * @property {Array.<Object>} accounts
    * @property {Array.<Object>} abrTokens
    * @property {Array.<Object>} allTokens
+   * @property {Array.<Object>} freezedTokens
    * @property {Array.<Object>} vbrTokens
    * @property {String} bondedTokens
    * @property {String} denom
@@ -19,6 +20,7 @@ const ExchangeRateTableBuilder = {
     accounts,
     abrTokens,
     allTokens,
+    freezedTokens,
     vbrTokens,
     bondedTokens,
     denom,
@@ -30,15 +32,13 @@ const ExchangeRateTableBuilder = {
         vbrTokens,
         denom,
       })) || [];
-    const totalLiquidityPoolDistributed =
-      totalData.liquidityPoolDistributed || 0;
     const totalSupply = totalData.totalSupply || 0;
     const nonCirculatingData =
       (await ExchangeRateTableNonCirculatingBuilder.build({
         abrTokens,
         vbrTokens,
         allTokens,
-        totalLiquidityPoolDistributed,
+        freezedTokens,
         totalSupply,
         bondedTokens,
         denom,

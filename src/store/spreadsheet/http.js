@@ -43,4 +43,15 @@ export default {
       url: '/total',
     });
   },
+  /**
+   * @param {String} address
+   * @returns {Promise}
+   */
+  requestFreezedTokens(address) {
+    return axios({
+      method: 'get',
+      baseURL: `${API.AUTH}`,
+      url: `/accounts/${address}`,
+    });
+  },
 };

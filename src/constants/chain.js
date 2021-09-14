@@ -1,7 +1,7 @@
 export const CHAIN = {
   MINTER_ACCOUNT:
-    process.env.VUE_MINTER_ACCOUNT !== undefined
-      ? process.env.VUE_MINTER_ACCOUNT
+    process.env.VUE_APP_MINTER_ACCOUNT !== undefined
+      ? process.env.VUE_APP_MINTER_ACCOUNT
       : '',
   ANCESTORS:
     process.env.VUE_APP_ANCESTORS !== undefined
