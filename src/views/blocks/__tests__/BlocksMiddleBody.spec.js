@@ -8,7 +8,6 @@ import { mockBlock, mockBlocks } from '../../../store/blocks/__mocks__/blocks';
 Vue.use(Vuetify);
 const localVue = createLocalVue();
 localVue.use(Vuex);
-localVue.use(Vuetify);
 
 describe('views/blocks/dashboard/BlocksMiddleBody.vue', () => {
   const actions = {
