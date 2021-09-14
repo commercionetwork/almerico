@@ -1,5 +1,6 @@
 import ExchangeRateTableBuilder, {
   getHeaders,
+  getTokensByDenom,
 } from '../ExchangeRateTableBuilder';
 
 describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
@@ -64,6 +65,20 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
 
     const res = getHeaders(header);
     expect(res).toStrictEqual(expectedValue);
+  });
+
+  test('if "getTokensByDenom" returns the right amount of tokens', () => {
+    const balances = [
+      { denom: 'ucommercio', amount: 1 },
+      { denom: 'uccc', amount: 1 },
+    ];
+    const denom = 'ucommercio';
+
+    const expectedValue = 1 / 1000000;
+
+    const res = getTokensByDenom({ balances, denom });
+
+    expect(res).toBe(expectedValue);
   });
 });
 
