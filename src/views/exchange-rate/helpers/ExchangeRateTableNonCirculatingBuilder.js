@@ -29,12 +29,15 @@ const addTableRow = (
 
 const ExchangeRateTableNonCirculatingBuilder = {
   /**
-   * @param {Array.<Object>} abrTokens
-   * @param {Array.<Object>} vbrTokens
-   * @param
-   * @param
-   * @param
-   * @param {String} denom
+   * @typedef {Object} ParamBuild
+   * @property {Array.<Object>} abrTokens
+   * @property {Array.<Object>} vbrTokens
+   * @property {Array.<Object>} allTokens
+   * @property {Number} totalSupply
+   * @property {String} bondedTokens
+   * @property {String} denom
+   *
+   * @param {ParamBuild} p
    * @returns {Promise}
    */
   build({ abrTokens, vbrTokens, allTokens, totalSupply, bondedTokens, denom }) {

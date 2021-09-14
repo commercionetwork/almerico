@@ -18,7 +18,7 @@ const totalSupply =
   FUNDS_SUBTOTAL;
 
 const data = [];
-/** Row
+/**
  * @typedef {Object} TableRow
  * @property {String} label
  * @property {String} quantity
@@ -37,10 +37,13 @@ const addTableRow = (
 
 const ExchangeRateTableTotalBuilder = {
   /**
-   * @param {Array.<Object>} accounts
-   * @param {Array.<Object>} abrTokens
-   * @param {Array.<Object>} vbrTokens
-   * @param {String} denom
+   * @typedef {Object} ParamBuild
+   * @property {Array.<Object>} accounts
+   * @property {Array.<Object>} abrTokens
+   * @property {Array.<Object>} vbrTokens
+   * @property {String} denom
+   *
+   * @param {ParamBuild} p
    * @returns {Promise}
    */
   build({ accounts, abrTokens, vbrTokens, denom }) {
@@ -68,6 +71,10 @@ const ExchangeRateTableTotalBuilder = {
 
 export default ExchangeRateTableTotalBuilder;
 
+/**
+ * @param {Array.<object>} accounts
+ * @param {String} denom
+ */
 const addTotalValidatorData = (accounts, denom) => {
   const notDistributed = getTokensByAccount({
     accounts: accounts,
@@ -93,6 +100,10 @@ const addTotalValidatorData = (accounts, denom) => {
   });
 };
 
+/**
+ * @param {Array.<object>} accounts
+ * @param {String} denom
+ */
 const addTotalLiquidityPoolData = (accounts, denom) => {
   const notDistributed = getTokensByAccount({
     accounts: accounts,
@@ -118,6 +129,10 @@ const addTotalLiquidityPoolData = (accounts, denom) => {
   });
 };
 
+/**
+ * @param {Array.<object>} accounts
+ * @param {String} denom
+ */
 const addTotalCommunityData = (accounts, denom) => {
   const notDistributed = getTokensByAccount({
     accounts: accounts,
@@ -143,6 +158,11 @@ const addTotalCommunityData = (accounts, denom) => {
   });
 };
 
+/**
+ * @param {Array.<object>} vbrTokens
+ * @param {Array.<object>} abrTokens
+ * @param {String} denom
+ */
 const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
   const vbrDistributed =
     FUNDS_SUBTOTAL / 2 -
@@ -176,9 +196,12 @@ const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
 };
 
 /**
- * @param {Array.<Object>} accounts
- * @param {String} name
- * @param {String} denom
+ * @typedef {Object} ParamGetTokensByAccount
+ * @property {Array.<Object>} accounts
+ * @property {String} name
+ * @property {String} denom
+ *
+ * @param {ParamGetTokensByAccount} p
  * @returns {Number}
  */
 const getTokensByAccount = ({ accounts, name, denom }) => {

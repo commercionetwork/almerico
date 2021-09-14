@@ -4,8 +4,15 @@ import ExchangeRateTableTotalBuilder from './ExchangeRateTableTotalBuilder';
 
 const ExchangeRateTableBuilder = {
   /**
+   * @typedef {Object} ParamBuild
+   * @property {Array.<Object>} accounts
+   * @property {Array.<Object>} abrTokens
+   * @property {Array.<Object>} allTokens
+   * @property {Array.<Object>} vbrTokens
+   * @property {String} bondedTokens
+   * @property {String} denom
    *
-   * @param {*} param0
+   * @param {ParamBuild} p
    * @returns {Promise}
    */
   async build({
@@ -57,8 +64,14 @@ const ExchangeRateTableBuilder = {
 export default ExchangeRateTableBuilder;
 
 /**
- * @param {Object} header
- * @returns
+ * @typedef {Object} Header
+ * @property {String} text
+ * @property {String} value
+ * @property {Boolean} sortable
+ * @property {String} align
+ *
+ * @param {Header} header
+ * @returns {Array.<Object>}
  */
 export const getHeaders = (header) => [
   header,
@@ -77,8 +90,11 @@ export const getHeaders = (header) => [
 ];
 
 /**
- * @param {Array.<Object>} Balances
- * @param {String} denom
+ * @typedef {Object} ParamGetTokensByDenom
+ * @property {Array.<Object>} Balances
+ * @property {String} denom
+ *
+ * @param {ParamGetTokensByDenom} p
  * @returns {Number}
  */
 export const getTokensByDenom = ({ balances, denom }) => {
@@ -89,6 +105,8 @@ export const getTokensByDenom = ({ balances, denom }) => {
 
 /**
  * @param {Number} amount
+ * @param {Number} maximumFractionDigits
+ * @param {Number} minimumFractionDigits
  * @returns {String}
  */
 export const toDecimal = (
@@ -105,12 +123,18 @@ export const toDecimal = (
 
 /**
  * @param {Number} amount
+ * @param {Number} maximumFractionDigits
+ * @param {Number} minimumFractionDigits
  * @returns {String}
  */
-export const toPercent = (amount) => {
+export const toPercent = (
+  amount,
+  maximumFractionDigits = 2,
+  minimumFractionDigits = 2,
+) => {
   return new Intl.NumberFormat(undefined, {
     style: 'percent',
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
+    maximumFractionDigits,
+    minimumFractionDigits,
   }).format(amount);
 };

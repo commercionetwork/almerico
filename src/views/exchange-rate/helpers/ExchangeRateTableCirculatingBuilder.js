@@ -2,7 +2,7 @@ import { OVERVIEW } from '@/constants';
 import { getHeaders, toDecimal, toPercent } from './ExchangeRateTableBuilder';
 
 const data = [];
-/** Row
+/**
  * @typedef {Object} TableRow
  * @property {String} label
  * @property {String} quantity
@@ -21,8 +21,11 @@ const addTableRow = (
 
 const ExchangeRateTableCirculatingBuilder = {
   /**
+   * @typedef {Object} ParamBuild
+   * @property {Number} totalSupply
+   * @property {Number} totalNonCirculatingSupply
    *
-   * @param {*} param0
+   * @param {ParamBuild} p
    * @returns {Promise}
    */
   build({ totalSupply, totalNonCirculatingSupply }) {
