@@ -7,17 +7,19 @@ services:
   - docker
 
 install:
-  - npm install --progress=false
+  - npm install -s --no-audit --no-fund
 
 script:
-  - npm test
+  - npm run test
 
 after_success:
   - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_TESTNET
     --build-arg LCD_URL=${ALMERICO_LCD_URL_TESTNET}
     --build-arg WS_URL=${ALMERICO_WS_URL_TESTNET}
     --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_TESTNET}"
+    --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_TESTNET}"
     --build-arg OVERVIEW_ACCOUNTS="${ALMERICO_OVERVIEW_ACCOUNTS_TESTNET}"
+    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_SPREADSHEET_ACCOUNTS_TESTNET}"
     --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_TESTNET}"
     --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_TESTNET}"
     .
@@ -25,7 +27,9 @@ after_success:
     --build-arg LCD_URL=${ALMERICO_LCD_URL_DEVNET}
     --build-arg WS_URL=${ALMERICO_WS_URL_DEVNET}
     --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_DEVNET}"
+    --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_DEVNET}"
     --build-arg OVERVIEW_ACCOUNTS="${ALMERICO_OVERVIEW_ACCOUNTS_DEVNET}"
+    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_SPREADSHEET_ACCOUNTS_DEVNET}"
     --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_DEVNET}"
     --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_DEVNET}"
     .
@@ -33,7 +37,9 @@ after_success:
     --build-arg LCD_URL=${ALMERICO_LCD_URL_MAINNET}
     --build-arg WS_URL=${ALMERICO_WS_URL_MAINNET}
     --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_MAINNET}"
+    --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_MAINNET}"
     --build-arg OVERVIEW_ACCOUNTS="${ALMERICO_OVERVIEW_ACCOUNTS_MAINNET}"
+    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_SPREADSHEET_ACCOUNTS_MAINNET}"
     --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_MAINNET}"
     --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_MAINNET}"
     .

@@ -17,8 +17,8 @@
 import DoughnutChartComponent from '@/components/DoughnutChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
+import dashboardChartBuilder from './helpers/dashboardChartBuilder';
 import { mapGetters } from 'vuex';
-import { TokensHandler } from '@/utils';
 
 export default {
   name: 'DashboardChart',
@@ -26,37 +26,50 @@ export default {
     DoughnutChartComponent,
     TopBodyCardComponent,
   },
+  data: () => ({
+    allData: null,
+  }),
   computed: {
+    ...mapGetters('spreadsheet', {
+      abrTokens: 'abrTokens',
+      vbrTokens: 'vbrTokens',
+    }),
     ...mapGetters('starting', {
       params: 'params',
       pool: 'pool',
       tokens: 'tokens',
     }),
-    allData() {
-      const tokensHandler = new TokensHandler({
-        params: this.params,
-        tokens: this.tokens,
-        pool: this.pool,
-      });
-      return tokensHandler.build();
-    },
     caption() {
-      return `Total ${this.allData.million.total}`;
+      return this.allData ? `Total ${this.allData.all.label} COM` : '';
     },
     chartData() {
-      return {
-        labels: [
-          `Bonded ${this.allData.percent.bonded}`,
-          `Not Bonded ${this.allData.percent.unbonded}`,
-        ],
-        datasets: [
-          {
-            data: [this.allData.amount.bonded, this.allData.amount.unbonded],
-            backgroundColor: ['rgb(47, 157, 119)', 'rgb(230, 46, 0)'],
-            borderColor: ['rgb(235, 249, 244)', 'rgb(255, 235, 230)'],
-          },
-        ],
-      };
+      return this.allData
+        ? {
+            labels: [
+              `Bonded ${this.allData.bonded.percent}`,
+              `Not Bonded ${this.allData.unbonded.percent}`,
+              `Unreleased rewards ${this.allData.unreleasedRewards.percent}`,
+              `Burned ${this.allData.burned.percent}`,
+            ],
+            datasets: [
+              {
+                data: [
+                  this.allData.bonded.decimal,
+                  this.allData.unbonded.decimal,
+                  this.allData.unreleasedRewards.decimal,
+                  this.allData.burned.decimal,
+                ],
+                backgroundColor: [
+                  'rgb(47, 157, 119)',
+                  'rgb(230, 46, 0)',
+                  'rgb(255, 102, 0)',
+                  'rgb(0, 0, 0)',
+                ],
+                borderColor: ['rgb(235, 249, 244)', 'rgb(255, 235, 230)'],
+              },
+            ],
+          }
+        : {};
     },
     options() {
       return {
@@ -73,6 +86,17 @@ export default {
         },
       };
     },
+  },
+  created() {
+    dashboardChartBuilder
+      .build({
+        abrTokens: this.abrTokens,
+        params: this.params,
+        pool: this.pool,
+        tokens: this.tokens,
+        vbrTokens: this.vbrTokens,
+      })
+      .then((data) => (this.allData = data));
   },
 };
 </script>

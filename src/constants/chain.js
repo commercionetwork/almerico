@@ -1,4 +1,8 @@
 export const CHAIN = {
+  MINTER_ACCOUNT:
+    process.env.VUE_APP_MINTER_ACCOUNT !== undefined
+      ? process.env.VUE_APP_MINTER_ACCOUNT
+      : '',
   ANCESTORS:
     process.env.VUE_APP_ANCESTORS !== undefined
       ? process.env.VUE_APP_ANCESTORS
@@ -32,5 +36,9 @@ export const CHAIN = {
   OVERVIEW_ACCOUNTS:
     process.env.VUE_APP_OVERVIEW_ACCOUNTS !== undefined
       ? process.env.VUE_APP_OVERVIEW_ACCOUNTS
+      : '',
+  SPREADSHEET_ACCOUNTS:
+    process.env.VUE_APP_SPREADSHEET_ACCOUNTS !== undefined
+      ? process.env.VUE_APP_SPREADSHEET_ACCOUNTS
       : '',
 };

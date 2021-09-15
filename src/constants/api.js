@@ -7,6 +7,7 @@ const API_LCD_BASE =
 export const API = {
   // LCD
   LCD: API_LCD_BASE,
+  AUTH: `${API_LCD_BASE}/auth`,
   BANK: `${API_LCD_BASE}/bank/balances`,
   BLOCKS: `${API_LCD_BASE}/blocks`,
   DISTRIBUTION: `${API_LCD_BASE}/distribution`,

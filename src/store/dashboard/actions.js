@@ -11,9 +11,11 @@ export default {
       root: true,
     });
     await Promise.all([
-      dispatch('fetchStartingDate'),
       dispatch('fetchConversionRate'),
       dispatch('fetchRateUpdates'),
+      dispatch('fetchStartingDate'),
+      dispatch('spreadsheet/fetchAbrTokens', null, { root: true }),
+      dispatch('spreadsheet/fetchVbrTokens', null, { root: true }),
     ]);
     commit('stopLoading');
   },

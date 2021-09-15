@@ -12,6 +12,7 @@ const Blocks = loadView('blocks/BlocksContainer');
 const BlocksDashboard = loadView('blocks/dashboard/index');
 const BlocksDetails = loadView('blocks/details/index');
 const Dashboard = loadView('dashboard/index');
+const ExchangeRate = loadView('exchange-rate/index');
 const Overview = loadView('overview/index');
 const Transactions = loadView('transactions/TransactionsContainer');
 const TransactionsDashboard = loadView('transactions/dashboard/index');
@@ -66,6 +67,14 @@ const routes = [
     component: Dashboard,
     meta: {
       title: ROUTES.TITLES.DASHBOARD,
+    },
+  },
+  {
+    path: ROUTES.PATHS.EXCHANGE_RATE,
+    name: ROUTES.NAMES.EXCHANGE_RATE,
+    component: ExchangeRate,
+    meta: {
+      title: ROUTES.TITLES.EXCHANGE_RATE,
     },
   },
   {

@@ -14,3 +14,11 @@ export const CUSTOMIZATION = {
     TABLE_ITEMS: 25,
   },
 };
+
+export const OVERVIEW = {
+  ROW_STYLE: {
+    COMING_SOON: 'coming-soon',
+    HIGHLIGHTED: 'highlighted',
+    REGULAR: 'regular',
+  },
+};

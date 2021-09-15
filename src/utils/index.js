@@ -9,7 +9,6 @@ import BlocksTableAdapter from './blocks/BlocksTableAdapter';
 import blocksHandler from './blocksHandler';
 import coinAdapter from './coinAdapter';
 import PriceHandler from './dashboard/PriceHandler';
-import TokensHandler from './dashboard/TokensHandler';
 import dateHandler from './dateHandler';
 import numberIntlFormatter from './numberIntlFormatter';
 import OverviewTableAdapter from './overview/OverviewTableAdapter';
@@ -32,7 +31,6 @@ export {
   BlocksTableAdapter,
   OverviewTableAdapter,
   PriceHandler,
-  TokensHandler,
   TransactionDetailsAdapter,
   TransactionsFilter,
   TransactionsTableAdapter,
