@@ -2,8 +2,20 @@ const UNIT_CONVERTER = 1000000;
 const MAX_SUPPLY = 60 * UNIT_CONVERTER;
 
 const dashboardChartBuilder = {
+  /**
+   * @typedef {Object} ParamBuild
+   * @property {Array.<Object>} abrTokens
+   * @property {Object} params
+   * @property {Object} pool
+   * @property {Array.<Object>} tokens
+   * @property {Array.<Object>} vbrTokens
+   *
+   * @param {ParamBuild} p
+   * @returns {Promise}
+   */
   build({ abrTokens, params, pool, tokens, vbrTokens }) {
     const data = getDecimal({ abrTokens, params, pool, tokens, vbrTokens });
+    console.log(data);
     return new Promise((resolve) => {
       resolve({
         all: {
@@ -32,6 +44,17 @@ const dashboardChartBuilder = {
 
 export default dashboardChartBuilder;
 
+/**
+ * @typedef {Object} ParamGetDecimal
+ * @property {Array.<Object>} abrTokens
+ * @property {Object} params
+ * @property {Object} pool
+ * @property {Array.<Object>} tokens
+ * @property {Array.<Object>} vbrTokens
+ *
+ * @param {ParamGetDecimal} p
+ * @returns {Object}
+ */
 export const getDecimal = ({ abrTokens, params, pool, tokens, vbrTokens }) => {
   const denom = params.bond_denom;
   const all = getTokensByDenom({ tokens: tokens, denom: denom });
@@ -41,7 +64,7 @@ export const getDecimal = ({ abrTokens, params, pool, tokens, vbrTokens }) => {
   const vbrs = getTokensByDenom({ tokens: vbrTokens, denom: denom });
   const unreleasedRewards = abrs + vbrs;
   const unbonded = all - bonded - burned - unreleasedRewards;
-  return { all, bonded, burned, unbonded, unreleasedRewards };
+  return { bonded, burned, unbonded, unreleasedRewards };
 };
 
 /**
