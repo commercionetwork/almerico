@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update dashboard chart helper
+
 ## [2.2.15] - 2021-09-15
 
 ### Added
