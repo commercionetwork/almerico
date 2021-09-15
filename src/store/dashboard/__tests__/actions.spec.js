@@ -39,6 +39,12 @@ describe('store/dashboard/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
     expect(dispatch).toHaveBeenCalledWith('fetchConversionRate');
     expect(dispatch).toHaveBeenCalledWith('fetchRateUpdates');
+    expect(dispatch).toHaveBeenCalledWith('spreadsheet/fetchAbrTokens', null, {
+      root: true,
+    });
+    expect(dispatch).toHaveBeenCalledWith('spreadsheet/fetchVbrTokens', null, {
+      root: true,
+    });
   });
 
   test("if 'actions.fetchConversionRate' set rate", async () => {
