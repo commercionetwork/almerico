@@ -1,6 +1,6 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import { getHeaders, getTokensByDenom } from './ExchangeRateTableBuilder';
+import ExchangeRateTableBuilder from './ExchangeRateTableBuilder';
 
 const VALIDATOR_SUBTOTAL = 10000000;
 const LIQUIDITY_POOL_SUBTOTAL = 15000000;
@@ -43,7 +43,7 @@ const ExchangeRateTableTotalBuilder = {
    * @returns {Promise}
    */
   build({ accounts, abrTokens, vbrTokens, denom }) {
-    const headers = getHeaders({
+    const headers = ExchangeRateTableBuilder.getHeaders({
       text: 'Max Supply',
       value: 'label',
       sortable: false,
@@ -247,10 +247,16 @@ const addTotalCommunityData = (accounts, denom) => {
 const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
   const vbrDistributed =
     FUNDS_SUBTOTAL / 2 -
-    getTokensByDenom({ balances: vbrTokens, denom: denom });
+    ExchangeRateTableBuilder.getTokensByDenom({
+      balances: vbrTokens,
+      denom: denom,
+    });
   const abrDistributed =
     FUNDS_SUBTOTAL / 2 -
-    getTokensByDenom({ balances: abrTokens, denom: denom });
+    ExchangeRateTableBuilder.getTokensByDenom({
+      balances: abrTokens,
+      denom: denom,
+    });
   const rewardsNotDistributed =
     FUNDS_SUBTOTAL - vbrDistributed - abrDistributed;
   addTableRow({
@@ -319,5 +325,8 @@ const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
  */
 const getTokensByAccount = ({ accounts, name, denom }) => {
   const account = accounts.find((account) => account.name === name);
-  return getTokensByDenom({ balances: account.balances, denom: denom });
+  return ExchangeRateTableBuilder.getTokensByDenom({
+    balances: account.balances,
+    denom: denom,
+  });
 };

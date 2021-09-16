@@ -79,46 +79,46 @@ const ExchangeRateTableBuilder = {
       minimumFractionDigits: 2,
     });
   },
+  /**
+   * @typedef {Object} Header
+   * @property {String} text
+   * @property {String} value
+   * @property {Boolean} sortable
+   * @property {String} align
+   *
+   * @param {Header} header
+   * @returns {Array.<Object>}
+   */
+  getHeaders(header) {
+    return [
+      header,
+      {
+        text: 'Quantity',
+        value: 'quantity',
+        sortable: false,
+        align: 'end',
+      },
+      {
+        text: 'Percentage',
+        value: 'percentage',
+        sortable: false,
+        align: 'end',
+      },
+    ];
+  },
+  /**
+   * @typedef {Object} ParamGetTokensByDenom
+   * @property {Array.<Object>} Balances
+   * @property {String} denom
+   *
+   * @param {ParamGetTokensByDenom} p
+   * @returns {Number}
+   */
+  getTokensByDenom({ balances, denom }) {
+    if (balances.length < 1) return 0;
+    const balance = balances.find((balance) => balance.denom === denom);
+    return parseFloat(balance.amount) / 1000000;
+  },
 };
 
 export default ExchangeRateTableBuilder;
-
-/**
- * @typedef {Object} Header
- * @property {String} text
- * @property {String} value
- * @property {Boolean} sortable
- * @property {String} align
- *
- * @param {Header} header
- * @returns {Array.<Object>}
- */
-export const getHeaders = (header) => [
-  header,
-  {
-    text: 'Quantity',
-    value: 'quantity',
-    sortable: false,
-    align: 'end',
-  },
-  {
-    text: 'Percentage',
-    value: 'percentage',
-    sortable: false,
-    align: 'end',
-  },
-];
-
-/**
- * @typedef {Object} ParamGetTokensByDenom
- * @property {Array.<Object>} Balances
- * @property {String} denom
- *
- * @param {ParamGetTokensByDenom} p
- * @returns {Number}
- */
-export const getTokensByDenom = ({ balances, denom }) => {
-  if (balances.length < 1) return 0;
-  const balance = balances.find((balance) => balance.denom === denom);
-  return parseFloat(balance.amount) / 1000000;
-};

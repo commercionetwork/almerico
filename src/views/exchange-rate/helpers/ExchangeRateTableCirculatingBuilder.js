@@ -1,6 +1,6 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import { getHeaders } from './ExchangeRateTableBuilder';
+import ExchangeRateTableBuilder from './ExchangeRateTableBuilder';
 
 const data = [];
 /**
@@ -30,7 +30,7 @@ const ExchangeRateTableCirculatingBuilder = {
    * @returns {Promise}
    */
   build({ totalSupply, totalNonCirculatingSupply }) {
-    const headers = getHeaders({
+    const headers = ExchangeRateTableBuilder.getHeaders({
       text: 'Circulating Supply',
       value: 'label',
       sortable: false,

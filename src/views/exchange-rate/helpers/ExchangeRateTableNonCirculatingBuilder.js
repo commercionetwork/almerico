@@ -1,6 +1,6 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import { getHeaders, getTokensByDenom } from './ExchangeRateTableBuilder';
+import ExchangeRateTableBuilder from './ExchangeRateTableBuilder';
 
 const data = [];
 /** Row
@@ -43,18 +43,28 @@ const ExchangeRateTableNonCirculatingBuilder = {
     bondedTokens,
     denom,
   }) {
-    const headers = getHeaders({
+    const headers = ExchangeRateTableBuilder.getHeaders({
       text: 'Non Circulating Supply',
       value: 'label',
       sortable: false,
       align: 'start',
     });
-    const abrQuantity = getTokensByDenom({ balances: abrTokens, denom: denom });
-    const vbrQuantity = getTokensByDenom({ balances: vbrTokens, denom: denom });
+    const abrQuantity = ExchangeRateTableBuilder.getTokensByDenom({
+      balances: abrTokens,
+      denom: denom,
+    });
+    const vbrQuantity = ExchangeRateTableBuilder.getTokensByDenom({
+      balances: vbrTokens,
+      denom: denom,
+    });
     const burnedQuantity =
-      totalSupply - getTokensByDenom({ balances: allTokens, denom: denom });
+      totalSupply -
+      ExchangeRateTableBuilder.getTokensByDenom({
+        balances: allTokens,
+        denom: denom,
+      });
     const bondedQuantity = parseFloat(bondedTokens) / 1000000;
-    const freezedQuantity = getTokensByDenom({
+    const freezedQuantity = ExchangeRateTableBuilder.getTokensByDenom({
       balances: freezedTokens,
       denom: denom,
     });
