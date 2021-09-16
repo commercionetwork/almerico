@@ -48,7 +48,7 @@ export default {
             labels: [
               `Bonded ${this.allData.bonded.percent}`,
               `Not Bonded ${this.allData.unbonded.percent}`,
-              `Unreleased rewards ${this.allData.unreleasedRewards.percent}`,
+              `Unrelease rewards ${this.allData.unreleasedRewards.percent}`,
               `Burned ${this.allData.burned.percent}`,
             ],
             datasets: [
@@ -61,11 +61,16 @@ export default {
                 ],
                 backgroundColor: [
                   'rgb(47, 157, 119)',
-                  'rgb(230, 46, 0)',
+                  'rgb(238, 51, 0)',
                   'rgb(255, 102, 0)',
                   'rgb(0, 0, 0)',
                 ],
-                borderColor: ['rgb(235, 249, 244)', 'rgb(255, 235, 230)'],
+                borderColor: [
+                  'rgb(235, 249, 244)',
+                  'rgb(255, 235, 230)',
+                  'rgb(255, 240, 230)',
+                  'rgb(242, 242, 242)',
+                ],
               },
             ],
           }
@@ -78,6 +83,7 @@ export default {
           display: false,
         },
         tooltips: {
+          bodyFontSize: 10,
           callbacks: {
             label: function(tooltipItem, data) {
               return data['labels'][tooltipItem['index']];
