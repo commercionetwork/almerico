@@ -1,10 +1,6 @@
 import { OVERVIEW } from '@/constants';
-import {
-  getHeaders,
-  getTokensByDenom,
-  toDecimal,
-  toPercent,
-} from './ExchangeRateTableBuilder';
+import { numberIntlFormatter } from '@/utils';
+import { getHeaders, getTokensByDenom } from './ExchangeRateTableBuilder';
 
 const data = [];
 /** Row
@@ -70,28 +66,68 @@ const ExchangeRateTableNonCirculatingBuilder = {
       freezedQuantity;
     addTableRow({
       label: 'VBR Tokens Not Distributed',
-      quantity: toDecimal(vbrQuantity),
-      percentage: toPercent(vbrQuantity / totalNonCirculatingSupply),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: vbrQuantity,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: vbrQuantity / totalNonCirculatingSupply,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
     });
     addTableRow({
       label: 'ABR Tokens Not Distributed',
-      quantity: toDecimal(abrQuantity),
-      percentage: toPercent(abrQuantity / totalNonCirculatingSupply),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: abrQuantity,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: abrQuantity / totalNonCirculatingSupply,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
     });
     addTableRow({
       label: 'Burned',
-      quantity: toDecimal(burnedQuantity),
-      percentage: toPercent(burnedQuantity / totalNonCirculatingSupply),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: burnedQuantity,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: burnedQuantity / totalNonCirculatingSupply,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
     });
     addTableRow({
       label: 'Bonded Tokens',
-      quantity: toDecimal(bondedQuantity),
-      percentage: toPercent(bondedQuantity / totalNonCirculatingSupply),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: bondedQuantity,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: bondedQuantity / totalNonCirculatingSupply,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
     });
     addTableRow({
       label: 'Freezed Tokens',
-      quantity: toDecimal(freezedQuantity),
-      percentage: toPercent(freezedQuantity / totalNonCirculatingSupply),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: freezedQuantity,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: freezedQuantity / totalNonCirculatingSupply,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
     });
     addTableRow({
       label: 'Unclaimed Rewards',
@@ -101,8 +137,16 @@ const ExchangeRateTableNonCirculatingBuilder = {
     });
     addTableRow({
       label: 'Total Non Circulating Supply',
-      quantity: toDecimal(totalNonCirculatingSupply),
-      percentage: toPercent(1),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: totalNonCirculatingSupply,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: 1,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
       type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
     });
 

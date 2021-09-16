@@ -1,3 +1,4 @@
+import { numberIntlFormatter } from '@/utils';
 import ExchangeRateTableCirculatingBuilder from './ExchangeRateTableCirculatingBuilder';
 import ExchangeRateTableNonCirculatingBuilder from './ExchangeRateTableNonCirculatingBuilder';
 import ExchangeRateTableTotalBuilder from './ExchangeRateTableTotalBuilder';
@@ -72,7 +73,11 @@ const ExchangeRateTableBuilder = {
   getExchangeRate(totalCirculatingSupply, totalSupply) {
     if (totalCirculatingSupply === 0 || totalSupply === 0) return 0;
     const rate = 1 / (totalCirculatingSupply / totalSupply);
-    return toDecimal(rate, 2, 2);
+    return numberIntlFormatter.toDecimal({
+      amount: rate,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
   },
 };
 
@@ -116,40 +121,4 @@ export const getTokensByDenom = ({ balances, denom }) => {
   if (balances.length < 1) return 0;
   const balance = balances.find((balance) => balance.denom === denom);
   return parseFloat(balance.amount) / 1000000;
-};
-
-/**
- * @param {Number} amount
- * @param {Number} maximumFractionDigits
- * @param {Number} minimumFractionDigits
- * @returns {String}
- */
-export const toDecimal = (
-  amount,
-  maximumFractionDigits = 0,
-  minimumFractionDigits = 0,
-) => {
-  return new Intl.NumberFormat(undefined, {
-    style: 'decimal',
-    maximumFractionDigits,
-    minimumFractionDigits,
-  }).format(amount);
-};
-
-/**
- * @param {Number} amount
- * @param {Number} maximumFractionDigits
- * @param {Number} minimumFractionDigits
- * @returns {String}
- */
-export const toPercent = (
-  amount,
-  maximumFractionDigits = 2,
-  minimumFractionDigits = 2,
-) => {
-  return new Intl.NumberFormat(undefined, {
-    style: 'percent',
-    maximumFractionDigits,
-    minimumFractionDigits,
-  }).format(amount);
 };

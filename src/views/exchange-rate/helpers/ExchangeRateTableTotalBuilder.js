@@ -1,10 +1,6 @@
 import { OVERVIEW } from '@/constants';
-import {
-  getHeaders,
-  getTokensByDenom,
-  toDecimal,
-  toPercent,
-} from './ExchangeRateTableBuilder';
+import { numberIntlFormatter } from '@/utils';
+import { getHeaders, getTokensByDenom } from './ExchangeRateTableBuilder';
 
 const VALIDATOR_SUBTOTAL = 10000000;
 const LIQUIDITY_POOL_SUBTOTAL = 15000000;
@@ -59,8 +55,16 @@ const ExchangeRateTableTotalBuilder = {
     addTotalFundsData(vbrTokens, abrTokens, denom);
     addTableRow({
       label: 'Max Supply',
-      quantity: toDecimal(totalSupply),
-      percentage: toPercent(1),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: totalSupply,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: 1,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
       type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
     });
     return new Promise((resolve) =>
@@ -88,18 +92,42 @@ const addTotalValidatorData = (accounts, denom) => {
   const distributed = VALIDATOR_SUBTOTAL - notDistributed;
   addTableRow({
     label: 'Validator Tokens Distributed',
-    quantity: toDecimal(distributed),
-    percentage: toPercent(distributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: distributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: distributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'Validator Tokens Not Distributed',
-    quantity: toDecimal(notDistributed),
-    percentage: toPercent(notDistributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: notDistributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: notDistributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'Subtotal',
-    quantity: toDecimal(VALIDATOR_SUBTOTAL),
-    percentage: toPercent(VALIDATOR_SUBTOTAL / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: VALIDATOR_SUBTOTAL,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: VALIDATOR_SUBTOTAL / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
     type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };
@@ -118,18 +146,42 @@ const addTotalLiquidityPoolData = (accounts, denom) => {
   const distributed = LIQUIDITY_POOL_SUBTOTAL - notDistributed;
   addTableRow({
     label: 'Liquidity pool Tokens Distributed',
-    quantity: toDecimal(distributed),
-    percentage: toPercent(distributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: distributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: distributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'Liquidity pool Tokens Not Distributed',
-    quantity: toDecimal(notDistributed),
-    percentage: toPercent(notDistributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: notDistributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: notDistributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'Subtotal',
-    quantity: toDecimal(LIQUIDITY_POOL_SUBTOTAL),
-    percentage: toPercent(LIQUIDITY_POOL_SUBTOTAL / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: LIQUIDITY_POOL_SUBTOTAL,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: LIQUIDITY_POOL_SUBTOTAL / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
     type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };
@@ -147,18 +199,42 @@ const addTotalCommunityData = (accounts, denom) => {
   const distributed = COMMUNITY_SUBTOTAL - notDistributed;
   addTableRow({
     label: 'Community Tokens Distributed',
-    quantity: toDecimal(distributed),
-    percentage: toPercent(distributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: distributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: distributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'Community Tokens Not Distributed',
-    quantity: toDecimal(notDistributed),
-    percentage: toPercent(notDistributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: notDistributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: notDistributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'Subtotal',
-    quantity: toDecimal(COMMUNITY_SUBTOTAL),
-    percentage: toPercent(COMMUNITY_SUBTOTAL / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: COMMUNITY_SUBTOTAL,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: COMMUNITY_SUBTOTAL / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
     type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };
@@ -179,23 +255,55 @@ const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
     FUNDS_SUBTOTAL - vbrDistributed - abrDistributed;
   addTableRow({
     label: 'VBR Tokens Distributed',
-    quantity: toDecimal(vbrDistributed),
-    percentage: toPercent(vbrDistributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: vbrDistributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: vbrDistributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'ABR Tokens Distributed',
-    quantity: toDecimal(abrDistributed),
-    percentage: toPercent(abrDistributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: abrDistributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: abrDistributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'ABR and VBR Rewards Not Distributed',
-    quantity: toDecimal(rewardsNotDistributed),
-    percentage: toPercent(rewardsNotDistributed / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: rewardsNotDistributed,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: rewardsNotDistributed / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
   });
   addTableRow({
     label: 'Subtotal',
-    quantity: toDecimal(FUNDS_SUBTOTAL),
-    percentage: toPercent(FUNDS_SUBTOTAL / totalSupply),
+    quantity: numberIntlFormatter.toDecimal({
+      amount: FUNDS_SUBTOTAL,
+      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+    }),
+    percentage: numberIntlFormatter.toPercent({
+      amount: FUNDS_SUBTOTAL / totalSupply,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }),
     type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
   });
 };

@@ -1,5 +1,6 @@
 import { OVERVIEW } from '@/constants';
-import { getHeaders, toDecimal, toPercent } from './ExchangeRateTableBuilder';
+import { numberIntlFormatter } from '@/utils';
+import { getHeaders } from './ExchangeRateTableBuilder';
 
 const data = [];
 /**
@@ -38,18 +39,42 @@ const ExchangeRateTableCirculatingBuilder = {
     const totalCirculatingSupply = totalSupply - totalNonCirculatingSupply;
     addTableRow({
       label: 'Max Supply',
-      quantity: toDecimal(totalSupply),
-      percentage: toPercent(1),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: totalSupply,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: 1,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
     });
     addTableRow({
       label: 'Total Non Circulating Supply',
-      quantity: toDecimal(totalNonCirculatingSupply),
-      percentage: toPercent(totalNonCirculatingSupply / totalSupply),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: totalNonCirculatingSupply,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: totalNonCirculatingSupply / totalSupply,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
     });
     addTableRow({
       label: 'Total Circulating Supply',
-      quantity: toDecimal(totalCirculatingSupply),
-      percentage: toPercent(totalCirculatingSupply / totalSupply),
+      quantity: numberIntlFormatter.toDecimal({
+        amount: totalCirculatingSupply,
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      }),
+      percentage: numberIntlFormatter.toPercent({
+        amount: totalCirculatingSupply / totalSupply,
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }),
       type: OVERVIEW.ROW_STYLE.HIGHLIGHTED,
     });
     return new Promise((resolve) =>
