@@ -1,7 +1,7 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 import TableRow from '../TableRow';
-import maxTableBuilder, { LIQUIDITY_POOL_SUBTOTAL, MAX_SUPPLY } from './index';
+import maxTableBuilder, { MAX_SUPPLY, SUBTOTAL } from './index';
 
 const maxLiquidityPoolDataBuilder = {
   /**
@@ -19,7 +19,7 @@ const maxLiquidityPoolDataBuilder = {
       name: 'liquidityPool',
       denom: denom,
     });
-    const distributed = LIQUIDITY_POOL_SUBTOTAL - notDistributed;
+    const distributed = SUBTOTAL.LIQUIDITY_POOL - notDistributed;
     data.push(
       new TableRow({
         label: 'Liquidity pool Tokens Distributed',
@@ -54,12 +54,12 @@ const maxLiquidityPoolDataBuilder = {
       new TableRow({
         label: 'Subtotal',
         quantity: numberIntlFormatter.toDecimal({
-          amount: LIQUIDITY_POOL_SUBTOTAL,
+          amount: SUBTOTAL.LIQUIDITY_POOL,
           maximumFractionDigits: 0,
           minimumFractionDigits: 0,
         }),
         percentage: numberIntlFormatter.toPercent({
-          amount: LIQUIDITY_POOL_SUBTOTAL / MAX_SUPPLY,
+          amount: SUBTOTAL.LIQUIDITY_POOL / MAX_SUPPLY,
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         }),

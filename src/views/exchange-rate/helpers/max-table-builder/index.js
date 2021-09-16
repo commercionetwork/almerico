@@ -7,15 +7,17 @@ import maxFundsDataBuilder from './maxFundsDataBuilder';
 import maxLiquidityPoolDataBuilder from './maxLiquidityPoolDataBuilder';
 import maxValidatorDataBuilder from './maxValidatorDataBuilder';
 
-export const VALIDATOR_SUBTOTAL = 10000000;
-export const LIQUIDITY_POOL_SUBTOTAL = 15000000;
-export const COMMUNITY_SUBTOTAL = 10000000;
-export const FUNDS_SUBTOTAL = 25000000;
+export const SUBTOTAL = {
+  VALIDATOR: 10000000,
+  LIQUIDITY_POOL: 15000000,
+  COMMUNITY: 10000000,
+  FUNDS: 25000000,
+};
 export const MAX_SUPPLY =
-  VALIDATOR_SUBTOTAL +
-  LIQUIDITY_POOL_SUBTOTAL +
-  COMMUNITY_SUBTOTAL +
-  FUNDS_SUBTOTAL;
+  SUBTOTAL.VALIDATOR +
+  SUBTOTAL.LIQUIDITY_POOL +
+  SUBTOTAL.COMMUNITY +
+  SUBTOTAL.FUNDS;
 
 const maxTableBuilder = {
   /**

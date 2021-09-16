@@ -1,7 +1,7 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 import TableRow from '../TableRow';
-import maxTableBuilder, { COMMUNITY_SUBTOTAL, MAX_SUPPLY } from './index';
+import maxTableBuilder, { MAX_SUPPLY, SUBTOTAL } from './index';
 
 const maxCommunityDataBuilder = {
   /**
@@ -19,7 +19,7 @@ const maxCommunityDataBuilder = {
       name: 'community',
       denom: denom,
     });
-    const distributed = COMMUNITY_SUBTOTAL - notDistributed;
+    const distributed = SUBTOTAL.COMMUNITY - notDistributed;
     data.push(
       new TableRow({
         label: 'Community Tokens Distributed',
@@ -54,12 +54,12 @@ const maxCommunityDataBuilder = {
       new TableRow({
         label: 'Subtotal',
         quantity: numberIntlFormatter.toDecimal({
-          amount: COMMUNITY_SUBTOTAL,
+          amount: SUBTOTAL.COMMUNITY,
           maximumFractionDigits: 0,
           minimumFractionDigits: 0,
         }),
         percentage: numberIntlFormatter.toPercent({
-          amount: COMMUNITY_SUBTOTAL / MAX_SUPPLY,
+          amount: SUBTOTAL.COMMUNITY / MAX_SUPPLY,
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         }),

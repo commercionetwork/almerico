@@ -1,7 +1,7 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 import TableRow from '../TableRow';
-import maxTableBuilder, { MAX_SUPPLY, VALIDATOR_SUBTOTAL } from './index';
+import maxTableBuilder, { MAX_SUPPLY, SUBTOTAL } from './index';
 
 const maxValidatorDataBuilder = {
   /**
@@ -19,7 +19,7 @@ const maxValidatorDataBuilder = {
       name: 'validator',
       denom: denom,
     });
-    const distributed = VALIDATOR_SUBTOTAL - notDistributed;
+    const distributed = SUBTOTAL.VALIDATOR - notDistributed;
     data.push(
       new TableRow({
         label: 'Validator Tokens Distributed',
@@ -54,12 +54,12 @@ const maxValidatorDataBuilder = {
       new TableRow({
         label: 'Subtotal',
         quantity: numberIntlFormatter.toDecimal({
-          amount: VALIDATOR_SUBTOTAL,
+          amount: SUBTOTAL.VALIDATOR,
           maximumFractionDigits: 0,
           minimumFractionDigits: 0,
         }),
         percentage: numberIntlFormatter.toPercent({
-          amount: VALIDATOR_SUBTOTAL / MAX_SUPPLY,
+          amount: SUBTOTAL.VALIDATOR / MAX_SUPPLY,
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         }),

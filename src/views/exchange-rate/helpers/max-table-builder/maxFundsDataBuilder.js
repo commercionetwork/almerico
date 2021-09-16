@@ -2,7 +2,7 @@ import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 import exchangeRateOverviewBuilder from '../exchangeRateOverviewBuilder';
 import TableRow from '../TableRow';
-import { FUNDS_SUBTOTAL, MAX_SUPPLY } from './index';
+import { MAX_SUPPLY, SUBTOTAL } from './index';
 
 const maxFundsDataBuilder = {
   /**
@@ -17,19 +17,19 @@ const maxFundsDataBuilder = {
   build({ vbrTokens, abrTokens, denom }) {
     const data = [];
     const vbrDistributed =
-      FUNDS_SUBTOTAL / 2 -
+      SUBTOTAL.FUNDS / 2 -
       exchangeRateOverviewBuilder.getTokensByDenom({
         balances: vbrTokens,
         denom: denom,
       });
     const abrDistributed =
-      FUNDS_SUBTOTAL / 2 -
+      SUBTOTAL.FUNDS / 2 -
       exchangeRateOverviewBuilder.getTokensByDenom({
         balances: abrTokens,
         denom: denom,
       });
     const rewardsNotDistributed =
-      FUNDS_SUBTOTAL - vbrDistributed - abrDistributed;
+      SUBTOTAL.FUNDS - vbrDistributed - abrDistributed;
     data.push(
       new TableRow({
         label: 'VBR Tokens Distributed',
@@ -79,12 +79,12 @@ const maxFundsDataBuilder = {
       new TableRow({
         label: 'Subtotal',
         quantity: numberIntlFormatter.toDecimal({
-          amount: FUNDS_SUBTOTAL,
+          amount: SUBTOTAL.FUNDS,
           maximumFractionDigits: 0,
           minimumFractionDigits: 0,
         }),
         percentage: numberIntlFormatter.toPercent({
-          amount: FUNDS_SUBTOTAL / MAX_SUPPLY,
+          amount: SUBTOTAL.FUNDS / MAX_SUPPLY,
           maximumFractionDigits: 2,
           minimumFractionDigits: 2,
         }),
