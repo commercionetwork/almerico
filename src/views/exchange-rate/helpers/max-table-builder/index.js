@@ -94,6 +94,7 @@ const maxTableBuilder = {
    * @returns {Number}
    */
   getTokensByAccount({ accounts, name, denom }) {
+    if (!accounts.length || !name || !denom) return 0;
     const account = accounts.find((account) => account.name === name);
     return exchangeRateOverviewBuilder.getTokensByDenom({
       balances: account.balances,
