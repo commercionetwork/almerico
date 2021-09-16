@@ -1,6 +1,6 @@
-import exchangeRateTableBuilder from '../exchangeRateTableBuilder';
+import exchangeRateOverviewBuilder from '../exchangeRateOverviewBuilder';
 
-describe('views/exchange-rate/helpers/exchangeRateTableBuilder.js', () => {
+describe('views/exchange-rate/helpers/exchangeRateOverviewBuilder.js', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -8,7 +8,7 @@ describe('views/exchange-rate/helpers/exchangeRateTableBuilder.js', () => {
   test('if "build" method returns an object well formed', async () => {
     const mockExchangeRate = '1.00';
     const mockGetExchangeRate = jest.spyOn(
-      exchangeRateTableBuilder,
+      exchangeRateOverviewBuilder,
       'getExchangeRate',
     );
     mockGetExchangeRate.mockReturnValue(mockExchangeRate);
@@ -36,7 +36,7 @@ describe('views/exchange-rate/helpers/exchangeRateTableBuilder.js', () => {
       exchangeRate: mockExchangeRate,
     };
 
-    const res = await exchangeRateTableBuilder.build({
+    const res = await exchangeRateOverviewBuilder.build({
       accounts,
       abrTokens,
       allTokens,
@@ -53,7 +53,7 @@ describe('views/exchange-rate/helpers/exchangeRateTableBuilder.js', () => {
   test('if "getExchangeRate" return the right rate', () => {
     const expectedValue = '0.50';
 
-    const res = exchangeRateTableBuilder.getExchangeRate(2, 1);
+    const res = exchangeRateOverviewBuilder.getExchangeRate(2, 1);
     const bits = res.split(/[.,]+/);
     const rate = `${bits[0]}.${bits[1]}`;
 
@@ -84,7 +84,7 @@ describe('views/exchange-rate/helpers/exchangeRateTableBuilder.js', () => {
       },
     ];
 
-    const res = exchangeRateTableBuilder.getHeaders(header);
+    const res = exchangeRateOverviewBuilder.getHeaders(header);
     expect(res).toStrictEqual(expectedValue);
   });
 
@@ -97,13 +97,16 @@ describe('views/exchange-rate/helpers/exchangeRateTableBuilder.js', () => {
 
     const expectedValue = 1 / 1000000;
 
-    const res = exchangeRateTableBuilder.getTokensByDenom({ balances, denom });
+    const res = exchangeRateOverviewBuilder.getTokensByDenom({
+      balances,
+      denom,
+    });
 
     expect(res).toBe(expectedValue);
   });
 });
 
-jest.mock('./../exchangeRateTableTotalBuilder.js', () => ({
+jest.mock('./../exchangeRateTableMaxBuilder.js', () => ({
   build: () => {
     return new Promise((resolve) => {
       setTimeout(

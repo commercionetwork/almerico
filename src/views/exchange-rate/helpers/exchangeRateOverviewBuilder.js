@@ -1,9 +1,9 @@
 import { numberIntlFormatter } from '@/utils';
-import exchangeRateTableCirculatingBuilder from './exchangeRateTableCirculatingBuilder';
-import exchangeRateTableNonCirculatingBuilder from './exchangeRateTableNonCirculatingBuilder';
-import exchangeRateTableTotalBuilder from './exchangeRateTableTotalBuilder';
+import circulatingTableBuilder from './circulating-table-builder/index';
+import nonCirculatingTableBuilder from './non-circulating-table-builder/index';
+import maxTableBuilder from './max-table-builder/index';
 
-const exchangeRateTableBuilder = {
+const exchangeRateOverviewBuilder = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Array.<Object>} accounts
@@ -26,38 +26,35 @@ const exchangeRateTableBuilder = {
     bondedTokens,
     denom,
   }) {
-    const totalData =
-      (await exchangeRateTableTotalBuilder.build({
-        accounts,
-        abrTokens,
-        vbrTokens,
-        denom,
-      })) || [];
-    const totalSupply = totalData.totalSupply || 0;
-    const nonCirculatingData =
-      (await exchangeRateTableNonCirculatingBuilder.build({
-        abrTokens,
-        vbrTokens,
-        allTokens,
-        freezedTokens,
-        totalSupply,
-        bondedTokens,
-        denom,
-      })) || [];
+    const maxData = await maxTableBuilder.build({
+      accounts,
+      abrTokens,
+      vbrTokens,
+      denom,
+    });
+    const maxSupply = maxData.maxSupply;
+    const nonCirculatingData = await nonCirculatingTableBuilder.build({
+      abrTokens,
+      vbrTokens,
+      allTokens,
+      freezedTokens,
+      maxSupply,
+      bondedTokens,
+      denom,
+    });
     const totalNonCirculatingSupply =
-      nonCirculatingData.totalNonCirculatingSupply || 0;
-    const circulatingData =
-      (await exchangeRateTableCirculatingBuilder.build({
-        totalSupply,
-        totalNonCirculatingSupply,
-      })) || [];
+      nonCirculatingData.totalNonCirculatingSupply;
+    const circulatingData = await circulatingTableBuilder.build({
+      maxSupply,
+      totalNonCirculatingSupply,
+    });
     const exchangeRate = this.getExchangeRate(
       circulatingData.totalCirculatingSupply,
-      totalSupply,
+      maxSupply,
     );
     return {
-      totalData: totalData.tableData,
-      totalHeaders: totalData.headers,
+      maxData: maxData.tableData,
+      maxHeaders: maxData.headers,
       nonCirculatingData: nonCirculatingData.tableData,
       nonCirculatingHeaders: nonCirculatingData.headers,
       circulatingData: circulatingData.tableData,
@@ -67,12 +64,12 @@ const exchangeRateTableBuilder = {
   },
   /**
    * @param {Number} totalCirculatingSupply
-   * @param {Number} totalSupply
+   * @param {Number} maxSupply
    * @returns {String}
    */
-  getExchangeRate(totalCirculatingSupply, totalSupply) {
-    if (totalCirculatingSupply === 0 || totalSupply === 0) return 0;
-    const rate = 1 / (totalCirculatingSupply / totalSupply);
+  getExchangeRate(totalCirculatingSupply, maxSupply) {
+    if (totalCirculatingSupply === 0 || maxSupply === 0) return 0;
+    const rate = 1 / (totalCirculatingSupply / maxSupply);
     return numberIntlFormatter.toDecimal({
       amount: rate,
       maximumFractionDigits: 2,
@@ -121,4 +118,4 @@ const exchangeRateTableBuilder = {
   },
 };
 
-export default exchangeRateTableBuilder;
+export default exchangeRateOverviewBuilder;

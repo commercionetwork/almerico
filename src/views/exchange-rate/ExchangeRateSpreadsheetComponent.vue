@@ -2,8 +2,8 @@
   <v-row>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.totalHeaders"
-        :items="model.totalData"
+        :headers="model.maxHeaders"
+        :items="model.maxData"
         :getRowStyle="getRowStyle"
       />
     </v-col>
@@ -31,7 +31,7 @@
 import ExchangeRateIndexComponent from './ExchangeRateIndexComponent.vue';
 import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
 
-import exchangeRateTableBuilder from './helpers/exchangeRateTableBuilder';
+import exchangeRateOverviewBuilder from './helpers/exchangeRateOverviewBuilder';
 import { OVERVIEW } from '@/constants';
 import { mapGetters } from 'vuex';
 
@@ -47,8 +47,8 @@ export default {
       circulatingHeaders: [],
       nonCirculatingData: [],
       nonCirculatingHeaders: [],
-      totalData: [],
-      totalHeaders: [],
+      maxData: [],
+      maxHeaders: [],
       exchangeRate: '',
     },
   }),
@@ -79,7 +79,7 @@ export default {
     },
   },
   mounted() {
-    exchangeRateTableBuilder
+    exchangeRateOverviewBuilder
       .build({
         accounts: this.accountsTokens,
         abrTokens: this.abrTokens,
@@ -90,8 +90,8 @@ export default {
         denom: this.params.bond_denom,
       })
       .then((data) => {
-        this.model.totalData = data.totalData;
-        this.model.totalHeaders = data.totalHeaders;
+        this.model.maxData = data.maxData;
+        this.model.maxHeaders = data.maxHeaders;
         this.model.nonCirculatingData = data.nonCirculatingData;
         this.model.nonCirculatingHeaders = data.nonCirculatingHeaders;
         this.model.circulatingData = data.circulatingData;
