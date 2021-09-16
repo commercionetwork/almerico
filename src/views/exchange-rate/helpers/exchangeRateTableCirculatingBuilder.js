@@ -1,6 +1,6 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import ExchangeRateTableBuilder from './ExchangeRateTableBuilder';
+import exchangeRateTableBuilder from './exchangeRateTableBuilder';
 
 const data = [];
 /**
@@ -20,7 +20,7 @@ const addTableRow = (
   data.push({ label, quantity, percentage, type });
 };
 
-const ExchangeRateTableCirculatingBuilder = {
+const exchangeRateTableCirculatingBuilder = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Number} totalSupply
@@ -30,7 +30,7 @@ const ExchangeRateTableCirculatingBuilder = {
    * @returns {Promise}
    */
   build({ totalSupply, totalNonCirculatingSupply }) {
-    const headers = ExchangeRateTableBuilder.getHeaders({
+    const headers = exchangeRateTableBuilder.getHeaders({
       text: 'Circulating Supply',
       value: 'label',
       sortable: false,
@@ -87,4 +87,4 @@ const ExchangeRateTableCirculatingBuilder = {
   },
 };
 
-export default ExchangeRateTableCirculatingBuilder;
+export default exchangeRateTableCirculatingBuilder;

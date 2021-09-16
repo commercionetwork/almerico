@@ -1,13 +1,17 @@
-import ExchangeRateTableBuilder, * as builderMethods from '../ExchangeRateTableBuilder';
+import exchangeRateTableBuilder from '../exchangeRateTableBuilder';
 
-describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
+describe('views/exchange-rate/helpers/exchangeRateTableBuilder.js', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('if "build" method returns an object well formed', async () => {
     const mockExchangeRate = '1.00';
     const mockGetExchangeRate = jest.spyOn(
-      ExchangeRateTableBuilder,
+      exchangeRateTableBuilder,
       'getExchangeRate',
     );
-    mockGetExchangeRate.mockImplementation(() => mockExchangeRate);
+    mockGetExchangeRate.mockReturnValue(mockExchangeRate);
 
     const accounts = [
       {
@@ -32,7 +36,7 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
       exchangeRate: mockExchangeRate,
     };
 
-    const res = await ExchangeRateTableBuilder.build({
+    const res = await exchangeRateTableBuilder.build({
       accounts,
       abrTokens,
       allTokens,
@@ -42,13 +46,14 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
     });
 
     expect(res).toStrictEqual(expectedValue);
+
     mockGetExchangeRate.mockRestore();
   });
 
   test('if "getExchangeRate" return the right rate', () => {
     const expectedValue = '0.50';
 
-    const res = ExchangeRateTableBuilder.getExchangeRate(2, 1);
+    const res = exchangeRateTableBuilder.getExchangeRate(2, 1);
     const bits = res.split(/[.,]+/);
     const rate = `${bits[0]}.${bits[1]}`;
 
@@ -79,7 +84,7 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
       },
     ];
 
-    const res = builderMethods.getHeaders(header);
+    const res = exchangeRateTableBuilder.getHeaders(header);
     expect(res).toStrictEqual(expectedValue);
   });
 
@@ -92,13 +97,13 @@ describe('views/exchange-rate/helpers/ExchangeRateTableBuilder.js', () => {
 
     const expectedValue = 1 / 1000000;
 
-    const res = builderMethods.getTokensByDenom({ balances, denom });
+    const res = exchangeRateTableBuilder.getTokensByDenom({ balances, denom });
 
     expect(res).toBe(expectedValue);
   });
 });
 
-jest.mock('./../ExchangeRateTableTotalBuilder.js', () => ({
+jest.mock('./../exchangeRateTableTotalBuilder.js', () => ({
   build: () => {
     return new Promise((resolve) => {
       setTimeout(
@@ -115,7 +120,7 @@ jest.mock('./../ExchangeRateTableTotalBuilder.js', () => ({
   },
 }));
 
-jest.mock('./../ExchangeRateTableNonCirculatingBuilder.js', () => ({
+jest.mock('./../exchangeRateTableNonCirculatingBuilder.js', () => ({
   build: () => {
     return new Promise((resolve) => {
       setTimeout(
@@ -131,7 +136,7 @@ jest.mock('./../ExchangeRateTableNonCirculatingBuilder.js', () => ({
   },
 }));
 
-jest.mock('./../ExchangeRateTableCirculatingBuilder.js', () => ({
+jest.mock('./../exchangeRateTableCirculatingBuilder.js', () => ({
   build: () => {
     return new Promise((resolve) => {
       setTimeout(

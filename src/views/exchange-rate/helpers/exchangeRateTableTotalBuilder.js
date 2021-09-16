@@ -1,6 +1,6 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import ExchangeRateTableBuilder from './ExchangeRateTableBuilder';
+import exchangeRateTableBuilder from './exchangeRateTableBuilder';
 
 const VALIDATOR_SUBTOTAL = 10000000;
 const LIQUIDITY_POOL_SUBTOTAL = 15000000;
@@ -31,7 +31,7 @@ const addTableRow = (
   data.push({ label, quantity, percentage, type });
 };
 
-const ExchangeRateTableTotalBuilder = {
+const exchangeRateTableTotalBuilder = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Array.<Object>} accounts
@@ -43,7 +43,7 @@ const ExchangeRateTableTotalBuilder = {
    * @returns {Promise}
    */
   build({ accounts, abrTokens, vbrTokens, denom }) {
-    const headers = ExchangeRateTableBuilder.getHeaders({
+    const headers = exchangeRateTableBuilder.getHeaders({
       text: 'Max Supply',
       value: 'label',
       sortable: false,
@@ -77,7 +77,7 @@ const ExchangeRateTableTotalBuilder = {
   },
 };
 
-export default ExchangeRateTableTotalBuilder;
+export default exchangeRateTableTotalBuilder;
 
 /**
  * @param {Array.<object>} accounts
@@ -247,13 +247,13 @@ const addTotalCommunityData = (accounts, denom) => {
 const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
   const vbrDistributed =
     FUNDS_SUBTOTAL / 2 -
-    ExchangeRateTableBuilder.getTokensByDenom({
+    exchangeRateTableBuilder.getTokensByDenom({
       balances: vbrTokens,
       denom: denom,
     });
   const abrDistributed =
     FUNDS_SUBTOTAL / 2 -
-    ExchangeRateTableBuilder.getTokensByDenom({
+    exchangeRateTableBuilder.getTokensByDenom({
       balances: abrTokens,
       denom: denom,
     });
@@ -325,7 +325,7 @@ const addTotalFundsData = (vbrTokens, abrTokens, denom) => {
  */
 const getTokensByAccount = ({ accounts, name, denom }) => {
   const account = accounts.find((account) => account.name === name);
-  return ExchangeRateTableBuilder.getTokensByDenom({
+  return exchangeRateTableBuilder.getTokensByDenom({
     balances: account.balances,
     denom: denom,
   });

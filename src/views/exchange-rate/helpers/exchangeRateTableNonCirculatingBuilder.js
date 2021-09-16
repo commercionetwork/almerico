@@ -1,6 +1,6 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import ExchangeRateTableBuilder from './ExchangeRateTableBuilder';
+import exchangeRateTableBuilder from './exchangeRateTableBuilder';
 
 const data = [];
 /** Row
@@ -20,7 +20,7 @@ const addTableRow = (
   data.push({ label, quantity, percentage, type });
 };
 
-const ExchangeRateTableNonCirculatingBuilder = {
+const exchangeRateTableNonCirculatingBuilder = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Array.<Object>} abrTokens
@@ -43,28 +43,28 @@ const ExchangeRateTableNonCirculatingBuilder = {
     bondedTokens,
     denom,
   }) {
-    const headers = ExchangeRateTableBuilder.getHeaders({
+    const headers = exchangeRateTableBuilder.getHeaders({
       text: 'Non Circulating Supply',
       value: 'label',
       sortable: false,
       align: 'start',
     });
-    const abrQuantity = ExchangeRateTableBuilder.getTokensByDenom({
+    const abrQuantity = exchangeRateTableBuilder.getTokensByDenom({
       balances: abrTokens,
       denom: denom,
     });
-    const vbrQuantity = ExchangeRateTableBuilder.getTokensByDenom({
+    const vbrQuantity = exchangeRateTableBuilder.getTokensByDenom({
       balances: vbrTokens,
       denom: denom,
     });
     const burnedQuantity =
       totalSupply -
-      ExchangeRateTableBuilder.getTokensByDenom({
+      exchangeRateTableBuilder.getTokensByDenom({
         balances: allTokens,
         denom: denom,
       });
     const bondedQuantity = parseFloat(bondedTokens) / 1000000;
-    const freezedQuantity = ExchangeRateTableBuilder.getTokensByDenom({
+    const freezedQuantity = exchangeRateTableBuilder.getTokensByDenom({
       balances: freezedTokens,
       denom: denom,
     });
@@ -170,4 +170,4 @@ const ExchangeRateTableNonCirculatingBuilder = {
   },
 };
 
-export default ExchangeRateTableNonCirculatingBuilder;
+export default exchangeRateTableNonCirculatingBuilder;

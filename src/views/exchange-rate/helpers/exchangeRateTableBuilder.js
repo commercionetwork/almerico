@@ -1,9 +1,9 @@
 import { numberIntlFormatter } from '@/utils';
-import ExchangeRateTableCirculatingBuilder from './ExchangeRateTableCirculatingBuilder';
-import ExchangeRateTableNonCirculatingBuilder from './ExchangeRateTableNonCirculatingBuilder';
-import ExchangeRateTableTotalBuilder from './ExchangeRateTableTotalBuilder';
+import exchangeRateTableCirculatingBuilder from './exchangeRateTableCirculatingBuilder';
+import exchangeRateTableNonCirculatingBuilder from './exchangeRateTableNonCirculatingBuilder';
+import exchangeRateTableTotalBuilder from './exchangeRateTableTotalBuilder';
 
-const ExchangeRateTableBuilder = {
+const exchangeRateTableBuilder = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Array.<Object>} accounts
@@ -27,7 +27,7 @@ const ExchangeRateTableBuilder = {
     denom,
   }) {
     const totalData =
-      (await ExchangeRateTableTotalBuilder.build({
+      (await exchangeRateTableTotalBuilder.build({
         accounts,
         abrTokens,
         vbrTokens,
@@ -35,7 +35,7 @@ const ExchangeRateTableBuilder = {
       })) || [];
     const totalSupply = totalData.totalSupply || 0;
     const nonCirculatingData =
-      (await ExchangeRateTableNonCirculatingBuilder.build({
+      (await exchangeRateTableNonCirculatingBuilder.build({
         abrTokens,
         vbrTokens,
         allTokens,
@@ -47,7 +47,7 @@ const ExchangeRateTableBuilder = {
     const totalNonCirculatingSupply =
       nonCirculatingData.totalNonCirculatingSupply || 0;
     const circulatingData =
-      (await ExchangeRateTableCirculatingBuilder.build({
+      (await exchangeRateTableCirculatingBuilder.build({
         totalSupply,
         totalNonCirculatingSupply,
       })) || [];
@@ -121,4 +121,4 @@ const ExchangeRateTableBuilder = {
   },
 };
 
-export default ExchangeRateTableBuilder;
+export default exchangeRateTableBuilder;

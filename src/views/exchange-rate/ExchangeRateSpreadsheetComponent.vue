@@ -31,7 +31,7 @@
 import ExchangeRateIndexComponent from './ExchangeRateIndexComponent.vue';
 import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
 
-import ExchangeRateTableBuilder from './helpers/ExchangeRateTableBuilder';
+import exchangeRateTableBuilder from './helpers/exchangeRateTableBuilder';
 import { OVERVIEW } from '@/constants';
 import { mapGetters } from 'vuex';
 
@@ -79,23 +79,25 @@ export default {
     },
   },
   mounted() {
-    ExchangeRateTableBuilder.build({
-      accounts: this.accountsTokens,
-      abrTokens: this.abrTokens,
-      allTokens: this.allTokens,
-      freezedTokens: this.freezedTokens,
-      vbrTokens: this.vbrTokens,
-      bondedTokens: this.pool.bonded_tokens,
-      denom: this.params.bond_denom,
-    }).then((data) => {
-      this.model.totalData = data.totalData;
-      this.model.totalHeaders = data.totalHeaders;
-      this.model.nonCirculatingData = data.nonCirculatingData;
-      this.model.nonCirculatingHeaders = data.nonCirculatingHeaders;
-      this.model.circulatingData = data.circulatingData;
-      this.model.circulatingHeaders = data.circulatingHeaders;
-      this.model.exchangeRate = data.exchangeRate;
-    });
+    exchangeRateTableBuilder
+      .build({
+        accounts: this.accountsTokens,
+        abrTokens: this.abrTokens,
+        allTokens: this.allTokens,
+        freezedTokens: this.freezedTokens,
+        vbrTokens: this.vbrTokens,
+        bondedTokens: this.pool.bonded_tokens,
+        denom: this.params.bond_denom,
+      })
+      .then((data) => {
+        this.model.totalData = data.totalData;
+        this.model.totalHeaders = data.totalHeaders;
+        this.model.nonCirculatingData = data.nonCirculatingData;
+        this.model.nonCirculatingHeaders = data.nonCirculatingHeaders;
+        this.model.circulatingData = data.circulatingData;
+        this.model.circulatingHeaders = data.circulatingHeaders;
+        this.model.exchangeRate = data.exchangeRate;
+      });
   },
 };
 </script>
