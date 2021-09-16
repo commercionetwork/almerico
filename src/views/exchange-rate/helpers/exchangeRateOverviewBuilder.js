@@ -1,7 +1,7 @@
 import { numberIntlFormatter } from '@/utils';
 import circulatingTableBuilder from './circulating-table-builder/index';
-import nonCirculatingTableBuilder from './non-circulating-table-builder/index';
 import maxTableBuilder from './max-table-builder/index';
+import nonCirculatingTableBuilder from './non-circulating-table-builder/index';
 
 const exchangeRateOverviewBuilder = {
   /**

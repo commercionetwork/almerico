@@ -1,11 +1,11 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 import exchangeRateOverviewBuilder from '../exchangeRateOverviewBuilder';
+import TableRow from '../TableRow';
 import maxCommunityDataBuilder from './maxCommunityDataBuilder';
 import maxFundsDataBuilder from './maxFundsDataBuilder';
 import maxLiquidityPoolDataBuilder from './maxLiquidityPoolDataBuilder';
 import maxValidatorDataBuilder from './maxValidatorDataBuilder';
-import TableRow from '../TableRow';
 
 export const VALIDATOR_SUBTOTAL = 10000000;
 export const LIQUIDITY_POOL_SUBTOTAL = 15000000;

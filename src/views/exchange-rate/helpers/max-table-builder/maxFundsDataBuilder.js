@@ -1,8 +1,8 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
 import exchangeRateOverviewBuilder from '../exchangeRateOverviewBuilder';
-import { FUNDS_SUBTOTAL, MAX_SUPPLY } from './index';
 import TableRow from '../TableRow';
+import { FUNDS_SUBTOTAL, MAX_SUPPLY } from './index';
 
 const maxFundsDataBuilder = {
   /**

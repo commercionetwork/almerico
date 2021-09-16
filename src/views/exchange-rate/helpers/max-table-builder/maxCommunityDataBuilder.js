@@ -1,7 +1,7 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import maxTableBuilder, { MAX_SUPPLY, COMMUNITY_SUBTOTAL } from './index';
 import TableRow from '../TableRow';
+import maxTableBuilder, { COMMUNITY_SUBTOTAL, MAX_SUPPLY } from './index';
 
 const maxCommunityDataBuilder = {
   /**

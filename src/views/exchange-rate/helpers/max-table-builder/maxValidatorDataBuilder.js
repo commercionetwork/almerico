@@ -1,7 +1,7 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import maxTableBuilder, { MAX_SUPPLY, VALIDATOR_SUBTOTAL } from './index';
 import TableRow from '../TableRow';
+import maxTableBuilder, { MAX_SUPPLY, VALIDATOR_SUBTOTAL } from './index';
 
 const maxValidatorDataBuilder = {
   /**

@@ -1,7 +1,7 @@
 import { OVERVIEW } from '@/constants';
 import { numberIntlFormatter } from '@/utils';
-import maxTableBuilder, { LIQUIDITY_POOL_SUBTOTAL, MAX_SUPPLY } from './index';
 import TableRow from '../TableRow';
+import maxTableBuilder, { LIQUIDITY_POOL_SUBTOTAL, MAX_SUPPLY } from './index';
 
 const maxLiquidityPoolDataBuilder = {
   /**
