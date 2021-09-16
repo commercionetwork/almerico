@@ -1,4 +1,5 @@
 import dashboardChartBuilder from '../dashboardChartBuilder';
+import { numberIntlFormatter } from '@/utils';
 
 describe('views/dashboard/helpers/dashboardChartBuilder', () => {
   test('if "build" method return expected object', async () => {
@@ -10,7 +11,7 @@ describe('views/dashboard/helpers/dashboardChartBuilder', () => {
     };
     dashboardChartBuilder.getDecimal = jest.fn().mockReturnValue(mockDecimals);
     const mockMaxSupply = '1';
-    dashboardChartBuilder.toDecimal = jest.fn().mockReturnValue(mockMaxSupply);
+    numberIntlFormatter.toDecimal = jest.fn().mockReturnValue(mockMaxSupply);
     const mockPercent = '1.00%';
     dashboardChartBuilder.getPercent = jest.fn().mockReturnValue(mockPercent);
 

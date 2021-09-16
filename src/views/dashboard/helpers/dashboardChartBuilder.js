@@ -1,3 +1,5 @@
+import { numberIntlFormatter } from '@/utils';
+
 const UNIT_CONVERTER = 1000000;
 const MAX_SUPPLY = 60 * UNIT_CONVERTER;
 
@@ -24,7 +26,11 @@ const dashboardChartBuilder = {
     return new Promise((resolve) => {
       resolve({
         all: {
-          label: this.toDecimal(MAX_SUPPLY),
+          label: numberIntlFormatter.toDecimal({
+            amount: MAX_SUPPLY,
+            maximumFractionDigits: 0,
+            minimumFractionDigits: 0,
+          }),
         },
         bonded: {
           decimal: data.bonded,
@@ -82,37 +88,13 @@ const dashboardChartBuilder = {
     return parseFloat(token.amount) / UNIT_CONVERTER;
   },
 
-  /**
-   * @param {Number} amount
-   * @param {Number} maximumFractionDigits
-   * @param {Number} minimumFractionDigits
-   * @returns {String}
-   */
-  toDecimal(amount, maximumFractionDigits = 0, minimumFractionDigits = 0) {
-    return new Intl.NumberFormat(undefined, {
-      style: 'decimal',
-      maximumFractionDigits,
-      minimumFractionDigits,
-    }).format(amount);
-  },
-
   getPercent(value) {
     const amount = value / MAX_SUPPLY;
-    return this.toPercent(amount);
-  },
-
-  /**
-   * @param {Number} amount
-   * @param {Number} maximumFractionDigits
-   * @param {Number} minimumFractionDigits
-   * @returns {String}
-   */
-  toPercent(amount, maximumFractionDigits = 2, minimumFractionDigits = 2) {
-    return new Intl.NumberFormat(undefined, {
-      style: 'percent',
-      maximumFractionDigits,
-      minimumFractionDigits,
-    }).format(amount);
+    return numberIntlFormatter.toPercent({
+      amount,
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
   },
 };
 
