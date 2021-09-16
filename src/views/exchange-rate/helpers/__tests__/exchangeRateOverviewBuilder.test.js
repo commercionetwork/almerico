@@ -27,8 +27,8 @@ describe('views/exchange-rate/helpers/exchangeRateOverviewBuilder.js', () => {
     const denom = 'ucommercio';
 
     const expectedValue = {
-      totalData: [{ id: 1 }],
-      totalHeaders: [{ id: 1 }],
+      maxData: [{ id: 1 }],
+      maxHeaders: [{ id: 1 }],
       nonCirculatingData: [{ id: 1 }],
       nonCirculatingHeaders: [{ id: 1 }],
       circulatingData: [{ id: 1 }],
@@ -106,7 +106,7 @@ describe('views/exchange-rate/helpers/exchangeRateOverviewBuilder.js', () => {
   });
 });
 
-jest.mock('./../exchangeRateTableMaxBuilder.js', () => ({
+jest.mock('./../max-table-builder/index.js', () => ({
   build: () => {
     return new Promise((resolve) => {
       setTimeout(
@@ -114,8 +114,7 @@ jest.mock('./../exchangeRateTableMaxBuilder.js', () => ({
           resolve({
             tableData: [{ id: 1 }],
             headers: [{ id: 1 }],
-            liquidityPoolDistributed: 1,
-            totalSupply: 1,
+            maxSupply: 1,
           }),
         1,
       );
@@ -123,7 +122,7 @@ jest.mock('./../exchangeRateTableMaxBuilder.js', () => ({
   },
 }));
 
-jest.mock('./../exchangeRateTableNonCirculatingBuilder.js', () => ({
+jest.mock('./../non-circulating-table-builder/index.js', () => ({
   build: () => {
     return new Promise((resolve) => {
       setTimeout(
@@ -139,7 +138,7 @@ jest.mock('./../exchangeRateTableNonCirculatingBuilder.js', () => ({
   },
 }));
 
-jest.mock('./../exchangeRateTableCirculatingBuilder.js', () => ({
+jest.mock('./../circulating-table-builder/index.js', () => ({
   build: () => {
     return new Promise((resolve) => {
       setTimeout(
