@@ -4,7 +4,7 @@
       <div class="fill-height d-flex flex-column justify-space-between">
         <div class="text-h2 font-weight-black" v-text="rate" />
         <div
-          class="text-caption font-weight-bold error--text"
+          class="text-caption font-weight-bold info--text"
           v-text="'1 divided the % of Circulating Supply'"
         />
       </div>

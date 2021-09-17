@@ -28,6 +28,7 @@
 import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
 
 import { OVERVIEW } from '@/constants';
+import { arrayHandler } from '@/utils';
 
 export default {
   name: 'ExchangeRateBodyComponent',
@@ -37,6 +38,17 @@ export default {
       type: Object,
       required: true,
       note: 'The spreadsheet data',
+      validator: (model) => {
+        const keys = Object.keys(model);
+        return arrayHandler.isArrayContentValid(keys, [
+          'circulatingData',
+          'circulatingHeaders',
+          'nonCirculatingData',
+          'nonCirculatingHeaders',
+          'maxData',
+          'maxHeaders',
+        ]);
+      },
     },
   },
   methods: {

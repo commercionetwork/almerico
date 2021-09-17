@@ -1,6 +1,15 @@
 const arrayHandler = {
   /**
    *
+   * @param {Array.<String>} testValues
+   * @param {Array.<String>} allowedValues
+   * @returns {Boolean}
+   */
+  isArrayContentValid(testValues, allowedValues) {
+    return testValues.every((value) => allowedValues.includes(value));
+  },
+  /**
+   *
    * @param {Array.<Object>} items
    * @param {String} key
    * @returns {Array.<Object>}
