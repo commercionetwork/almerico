@@ -1,42 +1,82 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
-    <v-col cols="12" class="pa-5">
-      <v-progress-linear
-        color="primary"
-        indeterminate
-        rounded
-        value="10"
-      ></v-progress-linear>
+  <v-row>
+    <v-col cols="12">
+      <ExchangeRateTableComponent
+        :headers="model.maxHeaders"
+        :items="model.maxData"
+        :getRowStyle="getRowStyle"
+      />
+    </v-col>
+    <v-col cols="12">
+      <ExchangeRateTableComponent
+        :headers="model.nonCirculatingHeaders"
+        :items="model.nonCirculatingData"
+        :getRowStyle="getRowStyle"
+      />
+    </v-col>
+    <v-col cols="12">
+      <ExchangeRateTableComponent
+        :headers="model.circulatingHeaders"
+        :items="model.circulatingData"
+        :getRowStyle="getRowStyle"
+      />
     </v-col>
   </v-row>
-  <v-row v-else-if="!isLoading && error !== null" data-test="error">
-    <v-col cols="12" class="pa-5">
-      <v-alert border="left" prominent text type="error">
-        <span class="text-body-1" v-text="errorMessage" />
-      </v-alert>
-    </v-col>
-  </v-row>
-  <ExchangeRateSpreadsheetComponent v-else data-test="content" />
 </template>
 
 <script>
-import ExchangeRateSpreadsheetComponent from './ExchangeRateSpreadsheetComponent.vue';
+import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
 
-import { mapGetters } from 'vuex';
+import { OVERVIEW } from '@/constants';
+import { arrayHandler } from '@/utils';
 
 export default {
   name: 'ExchangeRateBodyComponent',
-  components: { ExchangeRateSpreadsheetComponent },
-  computed: {
-    ...mapGetters('spreadsheet', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
-    errorMessage() {
-      return this.error && this.error.data
-        ? this.error.data.error
-        : JSON.stringify(this.error);
+  components: { ExchangeRateTableComponent },
+  props: {
+    model: {
+      type: Object,
+      required: true,
+      note: 'The spreadsheet data',
+      validator: (model) => {
+        const keys = Object.keys(model);
+        return arrayHandler.isArrayContentValid(keys, [
+          'circulatingData',
+          'circulatingHeaders',
+          'nonCirculatingData',
+          'nonCirculatingHeaders',
+          'maxData',
+          'maxHeaders',
+        ]);
+      },
+    },
+  },
+  methods: {
+    getRowStyle(item) {
+      switch (item.type) {
+        case OVERVIEW.ROW_STYLE.COMING_SOON:
+          return 'coming-soon-row';
+        case OVERVIEW.ROW_STYLE.HIGHLIGHTED:
+          return 'highlighted-row';
+        default:
+          return '';
+      }
     },
   },
 };
 </script>
+
+<style scoped>
+::v-deep .v-data-table > .v-data-table__wrapper > table > thead > tr > th {
+  padding-bottom: 10px;
+  font-size: 18px !important;
+}
+::v-deep .coming-soon-row {
+  color: #ff6600;
+}
+
+::v-deep .highlighted-row {
+  font-weight: bold;
+  background-color: rgba(56, 186, 140, 0.15);
+}
+</style>

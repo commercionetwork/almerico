@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "2.2.15",
+  "version": "2.2.16",
   "description": "A blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -35,7 +35,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.12.0",
-    "sass": "<1.33",
+    "sass": "~1.32.0",
     "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "^2.4.2",
     "vue-template-compiler": "^2.6.14",

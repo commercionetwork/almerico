@@ -1,19 +1,42 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import ExchangeRateBodyComponent from '../ExchangeRateBodyComponent.vue';
+import Vuex from 'vuex';
+import ExchangeRate from '../index.vue';
 
 Vue.use(Vuetify);
 const localVue = createLocalVue();
+localVue.use(Vuex);
 
-describe('views/exchange-rate/ExchangeRateBodyComponent', () => {
+describe('views/exchange-rate/index', () => {
+  const actions = {
+    initSpreadsheet: jest.fn(),
+  };
+  const mockStore = new Vuex.Store({
+    modules: {
+      spreadsheet: {
+        namespaced: true,
+        actions,
+      },
+    },
+  });
+  const mocks = {
+    $store: mockStore,
+  };
   const computed = {
-    errorMessage: () => 'errorMessage',
+    abrTokens: () => [],
+    accountsTokens: () => [],
+    allTokens: () => [],
+    freezedTokens: () => [],
+    vbrTokens: () => [],
+    params: () => ({}),
+    pool: () => ({}),
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(ExchangeRateBodyComponent, {
+    const wrapper = shallowMount(ExchangeRate, {
       localVue,
+      mocks,
       computed: {
         ...computed,
         error: () => null,
@@ -27,13 +50,16 @@ describe('views/exchange-rate/ExchangeRateBodyComponent', () => {
   });
 
   test('if error message is displayed', () => {
-    const wrapper = shallowMount(ExchangeRateBodyComponent, {
+    const wrapper = shallowMount(ExchangeRate, {
       localVue,
+      mocks,
       computed: {
         ...computed,
         error: () => ({
-          message: 'Error',
-          status: 400,
+          data: {
+            message: 'Error',
+            status: 400,
+          },
         }),
         isLoading: () => false,
       },
@@ -45,8 +71,9 @@ describe('views/exchange-rate/ExchangeRateBodyComponent', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(ExchangeRateBodyComponent, {
+    const wrapper = shallowMount(ExchangeRate, {
       localVue,
+      mocks,
       computed: {
         ...computed,
         error: () => null,

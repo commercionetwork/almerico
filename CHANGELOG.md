@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.16] - 2021-09-17
+
+### Added
+
+- Add blocks bar to exchange rate page
+
+### Changed
+
+- Improve tokens exchange rate helper
+- Improve tokens chart helper
+
 ## [2.2.15] - 2021-09-15
 
 ### Added
@@ -141,6 +152,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[2.2.16]: https://github.com/commercionetwork/almerico/compare/v2.2.15...v2.2.16
 [2.2.15]: https://github.com/commercionetwork/almerico/compare/v2.2.14...v2.2.15
 [2.2.14]: https://github.com/commercionetwork/almerico/compare/v2.2.13...v2.2.14
 [2.2.13]: https://github.com/commercionetwork/almerico/compare/v2.2.12...v2.2.13
