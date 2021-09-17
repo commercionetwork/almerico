@@ -1,11 +1,13 @@
 <template>
   <TopBodyCardComponent title="exchange rate">
     <template v-slot:content>
-      <div class="text-uppercase text-h2 font-weight-black" v-text="rate" />
-      <div
-        class="text-caption error--text"
-        v-text="'(1 divided the % of Circulating Supply)'"
-      />
+      <div class="fill-height d-flex flex-column justify-space-between">
+        <div class="text-uppercase text-h2 font-weight-black" v-text="rate" />
+        <div
+          class="text-caption error--text"
+          v-text="'(1 divided the % of Circulating Supply)'"
+        />
+      </div>
     </template>
   </TopBodyCardComponent>
 </template>

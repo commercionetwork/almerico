@@ -3,7 +3,7 @@ import { numberIntlFormatter } from '@/utils';
 const UNIT_CONVERTER = 1000000;
 const MAX_SUPPLY = 60 * UNIT_CONVERTER;
 
-const dashboardChartBuilder = {
+const tokensChartBuilder = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Array.<Object>} abrTokens
@@ -98,4 +98,4 @@ const dashboardChartBuilder = {
   },
 };
 
-export default dashboardChartBuilder;
+export default tokensChartBuilder;

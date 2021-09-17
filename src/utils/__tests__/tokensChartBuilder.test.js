@@ -1,7 +1,7 @@
-import dashboardChartBuilder from '../dashboardChartBuilder';
+import tokensChartBuilder from '../tokensChartBuilder';
 import { numberIntlFormatter } from '@/utils';
 
-describe('views/dashboard/helpers/dashboardChartBuilder', () => {
+describe('views/dashboard/helpers/tokensChartBuilder', () => {
   test('if "build" method return expected object', async () => {
     const mockDecimals = {
       bonded: 1,
@@ -9,11 +9,11 @@ describe('views/dashboard/helpers/dashboardChartBuilder', () => {
       unbonded: 1,
       unreleasedRewards: 1,
     };
-    dashboardChartBuilder.getDecimal = jest.fn().mockReturnValue(mockDecimals);
+    tokensChartBuilder.getDecimal = jest.fn().mockReturnValue(mockDecimals);
     const mockMaxSupply = '1';
     numberIntlFormatter.toDecimal = jest.fn().mockReturnValue(mockMaxSupply);
     const mockPercent = '1.00%';
-    dashboardChartBuilder.getPercent = jest.fn().mockReturnValue(mockPercent);
+    tokensChartBuilder.getPercent = jest.fn().mockReturnValue(mockPercent);
 
     const expectedValue = {
       all: {
@@ -37,7 +37,7 @@ describe('views/dashboard/helpers/dashboardChartBuilder', () => {
       },
     };
 
-    const res = await dashboardChartBuilder.build({
+    const res = await tokensChartBuilder.build({
       abrTokens: [],
       params: {},
       pool: {},

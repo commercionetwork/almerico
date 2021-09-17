@@ -21,7 +21,7 @@ import tokensChartBuilder from '@/utils/tokensChartBuilder';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'DashboardChart',
+  name: 'ExchangeRateChartComponent',
   components: {
     DoughnutChartComponent,
     TopBodyCardComponent,
