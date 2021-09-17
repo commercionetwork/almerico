@@ -18,7 +18,7 @@
   </v-row>
   <div v-else data-test="content">
     <ExchangeRateHeaderComponent />
-    <ExchangeRateTopBodyComponent :rate="model.exchangeRate" />
+    <ExchangeRateTopBodyComponent :rate="exchangeRate" />
     <ExchangeRateBodyComponent :model="model" />
   </div>
 </template>
@@ -39,6 +39,7 @@ export default {
     ExchangeRateTopBodyComponent,
   },
   data: () => ({
+    exchangeRate: '',
     model: {
       circulatingData: [],
       circulatingHeaders: [],
@@ -46,7 +47,6 @@ export default {
       nonCirculatingHeaders: [],
       maxData: [],
       maxHeaders: [],
-      exchangeRate: '',
     },
   }),
   computed: {
@@ -88,13 +88,13 @@ export default {
         });
       })
       .then((data) => {
+        this.exchangeRate = data.exchangeRate;
         this.model.maxData = data.maxData;
         this.model.maxHeaders = data.maxHeaders;
         this.model.nonCirculatingData = data.nonCirculatingData;
         this.model.nonCirculatingHeaders = data.nonCirculatingHeaders;
         this.model.circulatingData = data.circulatingData;
         this.model.circulatingHeaders = data.circulatingHeaders;
-        this.model.exchangeRate = data.exchangeRate;
       });
   },
 };
