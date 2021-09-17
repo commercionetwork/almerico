@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Blocks bar to exchange rate page
+- Add blocks bar to exchange rate page
 
 ### Changed
 
+- Improve tokens exchange rate helper
 - Improve tokens chart helper
 
 ## [2.2.15] - 2021-09-15
