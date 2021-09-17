@@ -50,7 +50,7 @@ export default {
     errorMessage() {
       return this.error && this.error.data
         ? this.error.data.error
-        : JSON.stringify(this.error);
+        : 'We are sorry but there was an error';
     },
     isBlocksMonitor() {
       return CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.VISIBILITY;
