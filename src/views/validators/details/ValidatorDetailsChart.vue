@@ -2,11 +2,13 @@
   <TopBodyCardComponent :title="caption">
     <template v-slot:content>
       <v-layout align-center justify-center column fill-height>
-        <DoughnutChartComponent
-          :chartData="chartData"
-          :options="options"
+        <ChartComponent
+          id="validator-details-chart"
           height="150"
           width="150"
+          type="doughnut"
+          :data="chartData"
+          :options="options"
         />
       </v-layout>
     </template>
@@ -14,7 +16,7 @@
 </template>
 
 <script>
-import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import ChartComponent from '@/components/chart/ChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { numberIntlFormatter } from '@/utils';
@@ -22,7 +24,7 @@ import { numberIntlFormatter } from '@/utils';
 export default {
   name: 'ValidatorDetailsChart',
   components: {
-    DoughnutChartComponent,
+    ChartComponent,
     TopBodyCardComponent,
   },
   props: {

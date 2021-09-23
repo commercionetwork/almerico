@@ -1,11 +1,13 @@
 <template>
   <ChartContainerComponent :title="title">
     <template v-slot:chart>
-      <HorizontalBarChartComponent
-        :chartData="chartData"
-        :options="options"
+      <ChartComponent
+        id="account-details-capitalization-chart"
         height="260"
         width="520"
+        type="bar"
+        :data="chartData"
+        :options="options"
       />
     </template>
   </ChartContainerComponent>
@@ -13,7 +15,7 @@
 
 <script>
 import ChartContainerComponent from '@/components/ChartContainerComponent';
-import HorizontalBarChartComponent from '@/components/HorizontalBarChartComponent';
+import ChartComponent from '@/components/chart/ChartComponent';
 
 import { numberIntlFormatter } from '@/utils';
 
@@ -28,7 +30,7 @@ export default {
   },
   components: {
     ChartContainerComponent,
-    HorizontalBarChartComponent,
+    ChartComponent,
   },
   computed: {
     chartData() {

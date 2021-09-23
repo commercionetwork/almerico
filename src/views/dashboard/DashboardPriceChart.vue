@@ -15,8 +15,19 @@
         </v-alert>
       </span>
       <span v-else data-test="content">
-        <v-layout align-center justify-center column fill-height>
-          <LineChartComponent :chartData="chartData" :options="options" />
+        <v-layout
+          class="pa-5"
+          column
+          justify-space-around
+          align-center
+          fill-height
+        >
+          <ChartComponent
+            id="dashboard-price-chart"
+            type="line"
+            :data="chartData"
+            :options="options"
+          />
           <DashboardPriceChartRange v-on:range-changed="chartRangeChange" />
         </v-layout>
       </span>
@@ -26,7 +37,7 @@
 
 <script>
 import DashboardPriceChartRange from './DashboardPriceChartRange.vue';
-import LineChartComponent from '@/components/LineChartComponent.vue';
+import ChartComponent from '@/components/chart/ChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
@@ -37,7 +48,7 @@ export default {
   name: 'DashboardPriceChart',
   components: {
     DashboardPriceChartRange,
-    LineChartComponent,
+    ChartComponent,
     TopBodyCardComponent,
   },
   data: () => ({
@@ -58,6 +69,7 @@ export default {
         datasets: [
           {
             data: this.priceMutations.map((update) => update.price.toFixed(2)),
+            fill: true,
             backgroundColor: 'rgba(179, 224, 255, 0.5)',
             borderColor: 'rgb(77, 184, 255)',
             pointBackgroundColor: 'rgb(0, 138, 230)',
@@ -70,20 +82,18 @@ export default {
         responsive: true,
         maintainAspectRatio: false,
         tension: 0.1,
-        legend: {
-          display: false,
-        },
         scales: {
-          xAxes: [
-            {
-              display: false,
-            },
-          ],
-          yAxes: [
-            {
-              display: false,
-            },
-          ],
+          x: {
+            display: false,
+          },
+          y: {
+            display: false,
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
       };
     },

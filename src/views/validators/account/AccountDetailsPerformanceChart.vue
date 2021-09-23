@@ -1,18 +1,20 @@
 <template>
   <ChartContainerComponent title="tokens performance">
     <template v-slot:chart>
-      <DoughnutChartComponent
-        :chartData="chartData"
-        :options="options"
+      <ChartComponent
+        id="account-details-performance-chart"
         height="150"
         width="150"
+        type="doughnut"
+        :data="chartData"
+        :options="options"
       />
     </template>
   </ChartContainerComponent>
 </template>
 
 <script>
-import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import ChartComponent from '@/components/chart/ChartComponent';
 import ChartContainerComponent from '@/components/ChartContainerComponent.vue';
 
 export default {
@@ -25,7 +27,7 @@ export default {
     },
   },
   components: {
-    DoughnutChartComponent,
+    ChartComponent,
     ChartContainerComponent,
   },
   computed: {
