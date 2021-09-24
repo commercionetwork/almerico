@@ -1,20 +1,23 @@
 <template>
-  <ChartContainerComponent :title="title">
-    <template v-slot:chart>
-      <v-layout fill-height>
-        <ChartComponent
-          id="account-details-capitalization-chart"
-          type="bar"
-          :data="chartData"
-          :options="options"
-        />
-      </v-layout>
-    </template>
-  </ChartContainerComponent>
+  <v-card outlined>
+    <v-card-title
+      class="justify-center text-center text-truncate text-overline font-weight-bold"
+      v-html="title"
+    />
+    <v-spacer />
+    <v-card-text>
+      <ChartComponent
+        id="account-details-capitalization-chart"
+        type="bar"
+        height="240"
+        :data="chartData"
+        :options="options"
+      />
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-import ChartContainerComponent from '@/components/ChartContainerComponent';
 import ChartComponent from '@/components/chart/ChartComponent';
 
 import { numberIntlFormatter } from '@/utils';
@@ -29,7 +32,6 @@ export default {
     },
   },
   components: {
-    ChartContainerComponent,
     ChartComponent,
   },
   computed: {
@@ -65,15 +67,7 @@ export default {
             display: false,
           },
         },
-        scales: {
-          xAxes: [
-            {
-              ticks: {
-                min: 0,
-              },
-            },
-          ],
-        },
+        indexAxis: 'y',
         tooltips: {
           callbacks: {
             label: function(tooltipItem, data) {
