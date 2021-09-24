@@ -1,25 +1,20 @@
 <template>
-  <v-card outlined>
-    <v-card-title
-      class="justify-center text-center text-truncate text-overline font-weight-bold"
-      v-html="'tokens performance'"
-    />
-    <v-spacer />
-    <v-card-text>
+  <ChartContainerComponent title="tokens performance">
+    <template v-slot:chart>
       <ChartComponent
         id="account-details-performance-chart"
         type="doughnut"
         height="150"
-        widht="150"
         :data="chartData"
         :options="options"
       />
-    </v-card-text>
-  </v-card>
+    </template>
+  </ChartContainerComponent>
 </template>
 
 <script>
 import ChartComponent from '@/components/chart/ChartComponent';
+import ChartContainerComponent from '@/components/chart/ChartContainerComponent';
 
 export default {
   name: 'AccountDetailsPerformanceChart',
@@ -32,6 +27,7 @@ export default {
   },
   components: {
     ChartComponent,
+    ChartContainerComponent,
   },
   computed: {
     chartData() {
