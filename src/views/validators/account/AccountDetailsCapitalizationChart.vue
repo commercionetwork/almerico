@@ -57,20 +57,20 @@ export default {
     },
     options() {
       return {
+        indexAxis: 'y',
         responsive: true,
         maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
           },
-        },
-        indexAxis: 'y',
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-              return data['datasets'][0]['data'][tooltipItem['index']].toFixed(
-                0,
-              );
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                const index = tooltipItem.dataIndex;
+                const value = tooltipItem.dataset.data[index].toFixed(0);
+                return `${tooltipItem.label} ${value}`;
+              },
             },
           },
         },
