@@ -37,7 +37,7 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 import { mapGetters } from 'vuex';
 import { RANGE } from '@/constants';
 import { dateHandler } from '@/utils';
-import priceHandler from './priceHandler';
+import priceHandler from './helpers/priceHandler';
 
 export default {
   name: 'DashboardPriceChart',
