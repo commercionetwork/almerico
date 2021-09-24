@@ -84,12 +84,11 @@ export default {
           legend: {
             display: false,
           },
-        },
-        tooltips: {
-          bodyFontSize: 10,
-          callbacks: {
-            label: function(tooltipItem, data) {
-              return data['labels'][tooltipItem['index']];
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.label;
+              },
             },
           },
         },

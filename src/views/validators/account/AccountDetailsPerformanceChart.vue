@@ -49,15 +49,12 @@ export default {
           legend: {
             display: false,
           },
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-              const value = `${
-                data['datasets'][0]['data'][tooltipItem['index']]
-              }%`;
-              const label = data['labels'][tooltipItem['index']];
-              return [value, label];
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                const index = tooltipItem.dataIndex;
+                return `${tooltipItem.label} ${tooltipItem.dataset.data[index]}%`;
+              },
             },
           },
         },
