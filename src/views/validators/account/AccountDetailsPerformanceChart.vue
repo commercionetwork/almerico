@@ -1,14 +1,14 @@
 <template>
   <ChartContainerComponent title="tokens performance">
     <template v-slot:chart>
-      <ChartComponent
-        id="account-details-performance-chart"
-        height="150"
-        width="150"
-        type="doughnut"
-        :data="chartData"
-        :options="options"
-      />
+      <v-layout fill-height>
+        <ChartComponent
+          id="account-details-performance-chart"
+          type="doughnut"
+          :data="chartData"
+          :options="options"
+        />
+      </v-layout>
     </template>
   </ChartContainerComponent>
 </template>
@@ -45,8 +45,11 @@ export default {
     options() {
       return {
         responsive: true,
-        legend: {
-          display: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
         tooltips: {
           callbacks: {

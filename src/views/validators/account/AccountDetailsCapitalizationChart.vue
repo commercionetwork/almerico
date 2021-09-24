@@ -1,14 +1,14 @@
 <template>
   <ChartContainerComponent :title="title">
     <template v-slot:chart>
-      <ChartComponent
-        id="account-details-capitalization-chart"
-        height="260"
-        width="520"
-        type="bar"
-        :data="chartData"
-        :options="options"
-      />
+      <v-layout fill-height>
+        <ChartComponent
+          id="account-details-capitalization-chart"
+          type="bar"
+          :data="chartData"
+          :options="options"
+        />
+      </v-layout>
     </template>
   </ChartContainerComponent>
 </template>
@@ -58,9 +58,12 @@ export default {
     },
     options() {
       return {
+        responsive: true,
         maintainAspectRatio: false,
-        legend: {
-          display: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
         scales: {
           xAxes: [

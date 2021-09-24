@@ -1,11 +1,12 @@
 <template>
   <TopBodyCardComponent :title="caption">
     <template v-slot:content>
-      <v-layout align-center justify-center column fill-height>
+      <div v-if="isLoading" data-test="loading">
+        <v-progress-circular color="primary" indeterminate size="100" />
+      </div>
+      <v-layout v-else fill-height data-test="content">
         <ChartComponent
           id="transactions-chart"
-          height="150"
-          width="150"
           type="doughnut"
           :data="chartData"
           :options="options"
@@ -29,6 +30,7 @@ export default {
   },
   computed: {
     ...mapGetters('transactions', {
+      isLoading: 'isLoading',
       transactions: 'transactions',
     }),
     chartData() {
@@ -45,8 +47,11 @@ export default {
     options() {
       return {
         responsive: true,
-        legend: {
-          display: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
         tooltips: {
           callbacks: {

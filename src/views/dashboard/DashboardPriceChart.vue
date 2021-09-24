@@ -9,16 +9,10 @@
           widht="10"
         />
       </div>
-      <div v-else-if="error" data-test="error">
-        <v-alert border="left" prominent text type="error">
-          <span class="text-body-1" v-text="errorMessage" />
-        </v-alert>
-      </div>
       <v-layout
-        class="pa-5"
+        class="pb-3"
         column
-        justify-space-around
-        align-center
+        justify-center
         fill-height
         v-else
         data-test="content"
@@ -56,7 +50,6 @@ export default {
   }),
   computed: {
     ...mapGetters('dashboard', {
-      error: 'error',
       isLoading: 'isLoading',
       rateUpdates: 'rateUpdates',
       startingDate: 'startingDate',
@@ -96,11 +89,6 @@ export default {
           },
         },
       };
-    },
-    errorMessage() {
-      return this.error && this.error.data
-        ? this.error.data.error
-        : 'We are sorry but there was an error';
     },
     firstRate() {
       return {

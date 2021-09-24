@@ -1,11 +1,9 @@
 <template>
   <TopBodyCardComponent :title="caption">
     <template v-slot:content>
-      <v-layout align-center justify-center column fill-height>
+      <v-layout fill-height>
         <ChartComponent
           id="validator-details-chart"
-          height="150"
-          width="150"
           type="doughnut"
           :data="chartData"
           :options="options"
@@ -49,8 +47,11 @@ export default {
     options() {
       return {
         responsive: true,
-        legend: {
-          display: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
         tooltips: {
           callbacks: {
