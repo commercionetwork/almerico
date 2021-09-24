@@ -35,7 +35,7 @@ export default {
       required: true,
       validator: (type) => allowedTypes.indexOf(type) > -1,
     },
-    data: {
+    dataset: {
       type: Object,
       required: true,
     },
@@ -44,17 +44,25 @@ export default {
       default: () => ({}),
     },
   },
+  data: () => ({
+    chart: null,
+  }),
   computed: {
     el() {
       return document.getElementById(this.id);
     },
   },
+  watch: {
+    dataset(value) {
+      if (value) chartBuilder.update(this.chart, value);
+    },
+  },
   methods: {
     render() {
-      return chartBuilder.build({
+      this.chart = chartBuilder.build({
         el: this.el,
         type: this.type,
-        data: this.data,
+        data: this.dataset,
         options: this.options,
       });
     },

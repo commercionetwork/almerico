@@ -5,7 +5,7 @@
         <ChartComponent
           id="validators-chart"
           type="doughnut"
-          :data="chartData"
+          :dataset="chartData"
           :options="options"
         />
       </v-layout>

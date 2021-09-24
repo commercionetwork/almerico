@@ -5,7 +5,7 @@
         id="account-details-capitalization-chart"
         type="bar"
         height="240"
-        :data="chartData"
+        :dataset="chartData"
         :options="options"
       />
     </template>
@@ -68,8 +68,7 @@ export default {
             callbacks: {
               label: function(tooltipItem) {
                 const index = tooltipItem.dataIndex;
-                const value = tooltipItem.dataset.data[index].toFixed(0);
-                return `${tooltipItem.label} ${value}`;
+                return tooltipItem.dataset.data[index].toFixed(0);
               },
             },
           },

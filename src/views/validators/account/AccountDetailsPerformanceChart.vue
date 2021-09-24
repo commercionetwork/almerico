@@ -5,7 +5,7 @@
         id="account-details-performance-chart"
         type="doughnut"
         height="150"
-        :data="chartData"
+        :dataset="chartData"
         :options="options"
       />
     </template>

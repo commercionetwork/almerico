@@ -20,7 +20,7 @@
         <ChartComponent
           id="dashboard-price-chart"
           type="line"
-          :data="chartData"
+          :dataset="chartData"
           :options="options"
         />
         <DashboardPriceChartRange v-on:range-changed="chartRangeChange" />
@@ -36,7 +36,8 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
 import { RANGE } from '@/constants';
-import { dateHandler, PriceHandler } from '@/utils';
+import { dateHandler } from '@/utils';
+import priceHandler from './priceHandler';
 
 export default {
   name: 'DashboardPriceChart',
@@ -87,6 +88,14 @@ export default {
           legend: {
             display: false,
           },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                const index = tooltipItem.dataIndex;
+                return `${tooltipItem.dataset.data[index]}`;
+              },
+            },
+          },
         },
       };
     },
@@ -97,11 +106,11 @@ export default {
       };
     },
     priceMutations() {
-      return new PriceHandler(
-        this.firstRate,
-        this.rateUpdates,
-        this.range,
-      ).getListingsByRange();
+      return priceHandler.getListingsByRange({
+        firstRate: this.firstRate,
+        rateUpdates: this.rateUpdates,
+        range: this.range,
+      });
     },
   },
   methods: {
