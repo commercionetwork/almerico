@@ -1,36 +1,36 @@
 <template>
   <TopBodyCardComponent title="trend">
     <template v-slot:content>
-      <span v-if="isLoading" data-test="loading">
+      <div v-if="isLoading" data-test="loading">
         <v-progress-circular
           color="primary"
           indeterminate
           size="50"
           widht="10"
         />
-      </span>
-      <span v-else-if="error" data-test="error">
+      </div>
+      <div v-else-if="error" data-test="error">
         <v-alert border="left" prominent text type="error">
           <span class="text-body-1" v-text="errorMessage" />
         </v-alert>
-      </span>
-      <span v-else data-test="content">
-        <v-layout
-          class="pa-5"
-          column
-          justify-space-around
-          align-center
-          fill-height
-        >
-          <ChartComponent
-            id="dashboard-price-chart"
-            type="line"
-            :data="chartData"
-            :options="options"
-          />
-          <DashboardPriceChartRange v-on:range-changed="chartRangeChange" />
-        </v-layout>
-      </span>
+      </div>
+      <v-layout
+        class="pa-5"
+        column
+        justify-space-around
+        align-center
+        fill-height
+        v-else
+        data-test="content"
+      >
+        <ChartComponent
+          id="dashboard-price-chart"
+          type="line"
+          :data="chartData"
+          :options="options"
+        />
+        <DashboardPriceChartRange v-on:range-changed="chartRangeChange" />
+      </v-layout>
     </template>
   </TopBodyCardComponent>
 </template>

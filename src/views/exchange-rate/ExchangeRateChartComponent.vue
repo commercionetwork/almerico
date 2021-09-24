@@ -1,11 +1,9 @@
 <template>
   <TopBodyCardComponent :title="caption">
     <template v-slot:content>
-      <v-layout align-center justify-center column fill-height>
+      <v-layout fill-height>
         <ChartComponent
           id="exchange-rate-chart"
-          height="150"
-          width="150"
           type="doughnut"
           :data="chartData"
           :options="options"
@@ -81,8 +79,11 @@ export default {
     options() {
       return {
         responsive: true,
-        legend: {
-          display: false,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
         },
         tooltips: {
           bodyFontSize: 10,
@@ -96,15 +97,13 @@ export default {
     },
   },
   created() {
-    tokensChartBuilder
-      .build({
-        abrTokens: this.abrTokens,
-        params: this.params,
-        pool: this.pool,
-        tokens: this.tokens,
-        vbrTokens: this.vbrTokens,
-      })
-      .then((data) => (this.allData = data));
+    this.allData = tokensChartBuilder.build({
+      abrTokens: this.abrTokens,
+      params: this.params,
+      pool: this.pool,
+      tokens: this.tokens,
+      vbrTokens: this.vbrTokens,
+    });
   },
 };
 </script>
