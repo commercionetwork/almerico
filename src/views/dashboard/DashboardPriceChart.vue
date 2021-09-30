@@ -37,7 +37,7 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 import { mapGetters } from 'vuex';
 import { RANGE } from '@/constants';
 import { dateHandler } from '@/utils';
-import priceHandler from './helpers/priceHandler';
+import priceChartHelper from './helpers/priceChartHelper';
 
 export default {
   name: 'DashboardPriceChart',
@@ -57,12 +57,12 @@ export default {
     }),
     chartData() {
       return {
-        labels: this.priceMutations.map((update) =>
+        labels: this.listings.map((update) =>
           dateHandler.getFormattedDate(update.date),
         ),
         datasets: [
           {
-            data: this.priceMutations.map((update) => update.price.toFixed(2)),
+            data: this.listings.map((update) => update.price.toFixed(2)),
             fill: true,
             backgroundColor: 'rgba(179, 224, 255, 0.5)',
             borderColor: 'rgb(77, 184, 255)',
@@ -105,10 +105,13 @@ export default {
         date: this.startingDate,
       };
     },
-    priceMutations() {
-      return priceHandler.getListingsByRange({
+    listings() {
+      const all = priceChartHelper.getAllSortedListings({
         firstRate: this.firstRate,
         rateUpdates: this.rateUpdates,
+      });
+      return priceChartHelper.getListingsByRange({
+        listings: all,
         range: this.range,
       });
     },
