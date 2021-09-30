@@ -1,6 +1,6 @@
 import { RANGE } from '@/constants';
 import { dateHandler } from '@/utils';
-import { mockRateUpdates } from '@/store/dashboard/__mocks__/rateUpdates';
+import { mockRateUpdates } from '@/store/dashboard/__mocks__/listings';
 import priceHandler from '../priceHandler';
 
 describe('views/dashboard/helpers/priceHandler', () => {

@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import { mockRateUpdates } from '../../../store/dashboard/__mocks__/rateUpdates';
+import { mockRateUpdates } from '../../../store/dashboard/__mocks__/listings';
 import DashboardPriceChart from '../DashboardPriceChart.vue';
 
 Vue.use(Vuetify);

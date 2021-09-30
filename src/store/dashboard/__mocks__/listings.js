@@ -1,16 +1,5 @@
 import { dateHandler } from '@/utils';
 
-const mockFirstRate = (
-  rate = '1.000000000000000000',
-  date = '2000-01-01T00:00:00.000Z',
-) => {
-  const item = {
-    rate,
-    date,
-  };
-  return item;
-};
-
 const mockRateUpdate = (
   rate = '1.000000000000000000',
   tms = '2000-01-01T00:00:00.000Z',
@@ -91,7 +80,7 @@ const mockRateUpdate = (
 };
 
 const mockRateUpdates = (
-  { updates: updates, year: year, month: month, day: day } = {
+  { updates, year, month, day } = {
     updates: 1,
     year: 2021,
     month: 1,
@@ -101,10 +90,10 @@ const mockRateUpdates = (
   let counter = day;
   const items = new Array(updates).fill(null).map(() => {
     const rate = Math.random().toFixed(18);
-    const tms = dateHandler.getUtcDate(`${year}-${month}-${counter++}`);
+    const tms = dateHandler.getUtcDate(`${year}/${month}/${counter++}`);
     return mockRateUpdate(rate, tms);
   });
   return items;
 };
 
-export { mockFirstRate, mockRateUpdate, mockRateUpdates };
+export { mockRateUpdate, mockRateUpdates };
