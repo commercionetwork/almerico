@@ -21,7 +21,7 @@
           id="dashboard-price-chart"
           type="line"
           :dataset="chartData"
-          :options="options"
+          :options="CHART_OPTIONS"
         />
         <DashboardPriceChartRange v-on:range-changed="chartRangeChange" />
       </v-layout>
@@ -36,8 +36,7 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
 import { RANGE } from '@/constants';
-import { dateHandler } from '@/utils';
-import priceChartHelper from './helpers/priceChartHelper';
+import priceChartHelper, { CHART_OPTIONS } from './helpers/priceChartHelper';
 
 export default {
   name: 'DashboardPriceChart',
@@ -47,6 +46,7 @@ export default {
     TopBodyCardComponent,
   },
   data: () => ({
+    CHART_OPTIONS,
     range: RANGE.MONTH,
   }),
   computed: {
@@ -56,62 +56,9 @@ export default {
       startingDate: 'startingDate',
     }),
     chartData() {
-      return {
-        labels: this.listings.map((update) =>
-          dateHandler.getFormattedDate(update.date),
-        ),
-        datasets: [
-          {
-            data: this.listings.map((update) => update.price.toFixed(2)),
-            fill: true,
-            backgroundColor: 'rgba(179, 224, 255, 0.5)',
-            borderColor: 'rgb(77, 184, 255)',
-            pointBackgroundColor: 'rgb(0, 138, 230)',
-          },
-        ],
-      };
-    },
-    options() {
-      return {
-        responsive: true,
-        maintainAspectRatio: false,
-        tension: 0.1,
-        scales: {
-          x: {
-            display: false,
-          },
-          y: {
-            display: false,
-          },
-        },
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              label: function(tooltipItem) {
-                const index = tooltipItem.dataIndex;
-                return `${tooltipItem.dataset.data[index]}`;
-              },
-            },
-          },
-        },
-      };
-    },
-    firstRate() {
-      return {
-        rate: '1.000000000000000000',
-        date: this.startingDate,
-      };
-    },
-    listings() {
-      const all = priceChartHelper.getAllSortedListings({
-        firstRate: this.firstRate,
+      return priceChartHelper.getChartData({
+        startingDate: this.startingDate,
         rateUpdates: this.rateUpdates,
-      });
-      return priceChartHelper.getListingsByRange({
-        listings: all,
         range: this.range,
       });
     },

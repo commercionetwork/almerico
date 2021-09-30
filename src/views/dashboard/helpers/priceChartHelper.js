@@ -1,23 +1,84 @@
-import { dateHandler } from '@/utils';
 import { RANGE } from '@/constants';
+import { dateHandler } from '@/utils';
 import { orderBy } from 'lodash';
+
+export const CHART_OPTIONS = {
+  responsive: true,
+  maintainAspectRatio: false,
+  tension: 0.2,
+  scales: {
+    x: {
+      display: false,
+    },
+    y: {
+      display: false,
+    },
+  },
+  plugins: {
+    legend: {
+      display: false,
+    },
+    tooltip: {
+      callbacks: {
+        label: function(tooltipItem) {
+          const index = tooltipItem.dataIndex;
+          return `${tooltipItem.dataset.data[index]}`;
+        },
+      },
+    },
+  },
+};
 
 const priceChartHelper = {
   /**
    *
+   * @typedef {Object} GetChartDataParams
+   * @property {String} startingDate
+   * @property {Array.<Object>} rateUpdates
+   * @property {String} range
+   *
+   * @param {GetChartDataParams} params
+   * @returns {Object}
+   */
+  getChartData({ startingDate, rateUpdates, range }) {
+    const all = this.getAllSortedListings({
+      startingDate,
+      rateUpdates,
+    });
+    const listings = this.getListingsByRange({
+      listings: all,
+      range,
+    });
+    return {
+      labels: listings.map((update) =>
+        dateHandler.getFormattedDate(update.date),
+      ),
+      datasets: [
+        {
+          data: listings.map((update) => update.price.toFixed(2)),
+          fill: true,
+          backgroundColor: 'rgba(179, 224, 255, 0.5)',
+          borderColor: 'rgb(77, 184, 255)',
+          pointBackgroundColor: 'rgb(0, 138, 230)',
+        },
+      ],
+    };
+  },
+  /**
+   *
    * @typedef {Object} GetAllSortedListingsParams
-   * @property {Object} firstRate
+   * @property {String} startingDate
    * @property {Array.<Object>} rateUpdates
    *
    * @param {GetAllSortedListingsParams} params
    * @returns {Array.<Object>}
    */
-  getAllSortedListings({ firstRate, rateUpdates }) {
+  getAllSortedListings({ startingDate, rateUpdates }) {
     let all = [];
     all.push(
       new Conversion({
-        rate: parseFloat(firstRate.rate),
-        date: firstRate.date,
+        rate: 1,
+        date: startingDate,
       }),
     );
     if (rateUpdates.length > 0) {
@@ -100,13 +161,6 @@ const _buildByRange = (listings, lastListing, startingTimestamp) => {
   if (!filteredListings.length) {
     return _buildFromOneListing(lastListing, startingTimestamp);
   }
-  if (filteredListings.length === 1) {
-    return _buildFromTwoListings(
-      filteredListings,
-      lastListing,
-      startingTimestamp,
-    );
-  }
   const firstListing = new Listing({ date: startingTimestamp });
   const firstDiscardedListingIndex =
     listings.findIndex((listing) => listing.date > startingTimestamp) - 1;
@@ -114,6 +168,9 @@ const _buildByRange = (listings, lastListing, startingTimestamp) => {
     firstDiscardedListingIndex < 0
       ? listings[0]['price']
       : listings[firstDiscardedListingIndex]['price'];
+  if (filteredListings.length === 1) {
+    return [firstListing, lastListing];
+  }
   return [firstListing, ...filteredListings, lastListing];
 };
 

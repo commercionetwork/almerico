@@ -1,5 +1,16 @@
 import { dateHandler } from '@/utils';
 
+const mockFirstRate = (
+  rate = '1.000000000000000000',
+  date = '2000-01-01T00:00:00.000Z',
+) => {
+  const item = {
+    rate,
+    date,
+  };
+  return item;
+};
+
 const mockRateUpdate = (
   rate = '1.000000000000000000',
   tms = '2000-01-01T00:00:00.000Z',
@@ -96,4 +107,4 @@ const mockRateUpdates = (
   return items;
 };
 
-export { mockRateUpdate, mockRateUpdates };
+export { mockFirstRate, mockRateUpdate, mockRateUpdates };
