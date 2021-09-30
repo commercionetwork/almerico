@@ -33,7 +33,7 @@ describe('views/dashboard/helpers/priceChartHelper', () => {
     });
   });
 
-  test('if "getListingsByRange" method return 2 listings when there are not updates', () => {
+  test('if "getListingsByRange" method return two listings at least', () => {
     const rateUpdates = [];
     const listings = priceChartHelper.getAllSortedListings({
       startingDate,
@@ -64,5 +64,74 @@ describe('views/dashboard/helpers/priceChartHelper', () => {
     res.forEach((el, i) => {
       expect(el.price).toBe(listings[i].price);
     });
+  });
+
+  test("if 'getListingsByRange' method return the today listings", () => {
+    const updates = 5;
+    const year = 2021;
+    const month = 1;
+    const day = 1;
+    const rateUpdates = mockRateUpdates({ updates, year, month, day });
+    const firstDay = dateHandler.getSubtractedDate(1, 'day');
+    const today = dateHandler.getSubtractedDate(0, 'day');
+
+    const listings = priceChartHelper.getAllSortedListings({
+      startingDate,
+      rateUpdates,
+    });
+
+    const res = priceChartHelper.getListingsByRange({
+      listings,
+      range: RANGE.TODAY,
+    });
+
+    expect(res[0].date).toBe(firstDay);
+    expect(res[res.length - 1].date).toBe(today);
+  });
+
+  test("if 'getListingsByRange' method return the week listings", () => {
+    const updates = 5;
+    const year = 2021;
+    const month = 1;
+    const day = 1;
+    const rateUpdates = mockRateUpdates({ updates, year, month, day });
+    const firstDay = dateHandler.getSubtractedDate(7, 'day');
+    const today = dateHandler.getSubtractedDate(0, 'day');
+
+    const listings = priceChartHelper.getAllSortedListings({
+      startingDate,
+      rateUpdates,
+    });
+
+    const res = priceChartHelper.getListingsByRange({
+      listings,
+      range: RANGE.WEEK,
+    });
+
+    expect(res[0].date).toBe(firstDay);
+    expect(res[res.length - 1].date).toBe(today);
+  });
+
+  test("if 'getListingsByRange' method return the month listings", () => {
+    const updates = 5;
+    const year = 2021;
+    const month = 1;
+    const day = 1;
+    const rateUpdates = mockRateUpdates({ updates, year, month, day });
+    const firstDay = dateHandler.getSubtractedDate(1, 'month');
+    const today = dateHandler.getSubtractedDate(0, 'day');
+
+    const listings = priceChartHelper.getAllSortedListings({
+      startingDate,
+      rateUpdates,
+    });
+
+    const res = priceChartHelper.getListingsByRange({
+      listings,
+      range: RANGE.MONTH,
+    });
+
+    expect(res[0].date).toBe(firstDay);
+    expect(res[res.length - 1].date).toBe(today);
   });
 });
