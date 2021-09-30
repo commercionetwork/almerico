@@ -8,14 +8,11 @@ describe('views/dashboard/helpers/priceChartHelper', () => {
   const startingDate = dateHandler.getUtcDate('2020/2/1');
 
   test('if "getAllSortedListings" method add first rate, order items by date and return objects with "rate" and "date" keys', () => {
-    const rateUpdates = shuffle(
-      mockRateUpdates({
-        updates: 5,
-        year: 2021,
-        month: 2,
-        day: 1,
-      }),
-    );
+    const updates = 5;
+    const year = 2021;
+    const month = 1;
+    const day = 1;
+    const rateUpdates = shuffle(mockRateUpdates({ updates, year, month, day }));
     const all = priceChartHelper.getAllSortedListings({
       startingDate,
       rateUpdates,
@@ -24,8 +21,10 @@ describe('views/dashboard/helpers/priceChartHelper', () => {
     expect(all[0].price).toBe(1);
     expect(all[0].date).toBe(startingDate);
     all.forEach((el, i) => {
+      const index = i + 1;
+      if (index === all.length) return;
       expect(new Date(el.date).getMilliseconds()).toBeLessThanOrEqual(
-        new Date(all[i++].date).getMilliseconds(),
+        new Date(all[index].date).getMilliseconds(),
       );
     });
     all.forEach((el) => {
