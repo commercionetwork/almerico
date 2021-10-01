@@ -171,7 +171,18 @@ const _buildByRange = (listings, lastListing, startingTimestamp) => {
   if (filteredListings.length === 1) {
     return [firstListing, lastListing];
   }
-  return [firstListing, ...filteredListings, lastListing];
+  const lastDuplicatedListing = _getLastDuplicatedListing(
+    filteredListings[filteredListings.length - 1]['date'],
+    lastListing['date'],
+    'day',
+  );
+  return lastDuplicatedListing
+    ? [firstListing, ...filteredListings]
+    : [firstListing, ...filteredListings, lastListing];
+};
+
+const _getLastDuplicatedListing = (lastFilteredTms, lastListingTms, unit) => {
+  return dateHandler.checkIsSame(lastFilteredTms, lastListingTms, unit);
 };
 
 const _getRate = (update) => {
