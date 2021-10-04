@@ -1,19 +1,20 @@
 <template>
   <ChartContainerComponent title="tokens performance">
     <template v-slot:chart>
-      <DoughnutChartComponent
-        :chartData="chartData"
-        :options="options"
+      <ChartComponent
+        id="account-details-performance-chart"
+        type="doughnut"
         height="150"
-        width="150"
+        :dataset="chartData"
+        :options="options"
       />
     </template>
   </ChartContainerComponent>
 </template>
 
 <script>
-import DoughnutChartComponent from '@/components/DoughnutChartComponent';
-import ChartContainerComponent from '@/components/ChartContainerComponent.vue';
+import ChartComponent from '@/components/chart/ChartComponent';
+import ChartContainerComponent from '@/components/chart/ChartContainerComponent';
 
 export default {
   name: 'AccountDetailsPerformanceChart',
@@ -25,7 +26,7 @@ export default {
     },
   },
   components: {
-    DoughnutChartComponent,
+    ChartComponent,
     ChartContainerComponent,
   },
   computed: {
@@ -43,17 +44,17 @@ export default {
     options() {
       return {
         responsive: true,
-        legend: {
-          display: false,
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-              const value = `${
-                data['datasets'][0]['data'][tooltipItem['index']]
-              }%`;
-              const label = data['labels'][tooltipItem['index']];
-              return [value, label];
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                const index = tooltipItem.dataIndex;
+                return `${tooltipItem.label} ${tooltipItem.dataset.data[index]}%`;
+              },
             },
           },
         },

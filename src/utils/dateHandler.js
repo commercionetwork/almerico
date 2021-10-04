@@ -8,6 +8,9 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
 const dateHandler = {
+  checkIsSame(d1, d2, unit = undefined) {
+    return dayjs(d1).isSame(d2, unit);
+  },
   getDay() {
     return dayjs().date();
   },

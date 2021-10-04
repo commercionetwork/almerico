@@ -13,7 +13,7 @@ const tokensChartBuilder = {
    * @property {Array.<Object>} vbrTokens
    *
    * @param {ParamBuild} p
-   * @returns {Promise}
+   * @returns {Object}
    */
   build({ abrTokens, params, pool, tokens, vbrTokens }) {
     const data = this.getDecimal({
@@ -23,33 +23,31 @@ const tokensChartBuilder = {
       tokens,
       vbrTokens,
     });
-    return new Promise((resolve) => {
-      resolve({
-        all: {
-          label: numberIntlFormatter.toDecimal({
-            amount: MAX_SUPPLY,
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          }),
-        },
-        bonded: {
-          decimal: data.bonded,
-          percent: this.getPercent(data.bonded),
-        },
-        burned: {
-          decimal: data.burned,
-          percent: this.getPercent(data.burned),
-        },
-        unbonded: {
-          decimal: data.unbonded,
-          percent: this.getPercent(data.unbonded),
-        },
-        unreleasedRewards: {
-          decimal: data.unreleasedRewards,
-          percent: this.getPercent(data.unreleasedRewards),
-        },
-      });
-    });
+    return {
+      all: {
+        label: numberIntlFormatter.toDecimal({
+          amount: MAX_SUPPLY,
+          maximumFractionDigits: 0,
+          minimumFractionDigits: 0,
+        }),
+      },
+      bonded: {
+        decimal: data.bonded,
+        percent: this.getPercent(data.bonded),
+      },
+      burned: {
+        decimal: data.burned,
+        percent: this.getPercent(data.burned),
+      },
+      unbonded: {
+        decimal: data.unbonded,
+        percent: this.getPercent(data.unbonded),
+      },
+      unreleasedRewards: {
+        decimal: data.unreleasedRewards,
+        percent: this.getPercent(data.unreleasedRewards),
+      },
+    };
   },
   /**
    * @typedef {Object} ParamGetDecimal

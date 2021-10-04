@@ -1,19 +1,20 @@
 <template>
   <ChartContainerComponent :title="title">
     <template v-slot:chart>
-      <HorizontalBarChartComponent
-        :chartData="chartData"
+      <ChartComponent
+        id="account-details-capitalization-chart"
+        type="bar"
+        height="240"
+        :dataset="chartData"
         :options="options"
-        height="260"
-        width="520"
       />
     </template>
   </ChartContainerComponent>
 </template>
 
 <script>
-import ChartContainerComponent from '@/components/ChartContainerComponent';
-import HorizontalBarChartComponent from '@/components/HorizontalBarChartComponent';
+import ChartComponent from '@/components/chart/ChartComponent';
+import ChartContainerComponent from '@/components/chart/ChartContainerComponent';
 
 import { numberIntlFormatter } from '@/utils';
 
@@ -27,8 +28,8 @@ export default {
     },
   },
   components: {
+    ChartComponent,
     ChartContainerComponent,
-    HorizontalBarChartComponent,
   },
   computed: {
     chartData() {
@@ -56,25 +57,19 @@ export default {
     },
     options() {
       return {
+        indexAxis: 'y',
+        responsive: true,
         maintainAspectRatio: false,
-        legend: {
-          display: false,
-        },
-        scales: {
-          xAxes: [
-            {
-              ticks: {
-                min: 0,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                const index = tooltipItem.dataIndex;
+                return tooltipItem.dataset.data[index].toFixed(0);
               },
-            },
-          ],
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-              return data['datasets'][0]['data'][tooltipItem['index']].toFixed(
-                0,
-              );
             },
           },
         },

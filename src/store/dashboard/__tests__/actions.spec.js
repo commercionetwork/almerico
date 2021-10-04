@@ -1,6 +1,6 @@
 import actions from '../actions.js';
 import { mockConversionRate } from '../__mocks__/conversionRate';
-import { mockRateUpdates } from '../__mocks__/rateUpdates';
+import { mockRateUpdates } from '../__mocks__/listings';
 import { mockBlock } from '../../blocks/__mocks__/blocks';
 
 const mockErrorResponse = {

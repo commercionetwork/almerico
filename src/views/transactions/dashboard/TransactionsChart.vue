@@ -1,12 +1,15 @@
 <template>
   <TopBodyCardComponent :title="caption">
     <template v-slot:content>
-      <v-layout align-center justify-center column fill-height>
-        <DoughnutChartComponent
-          :chartData="chartData"
+      <div v-if="isLoading" data-test="loading">
+        <v-progress-circular color="primary" indeterminate size="100" />
+      </div>
+      <v-layout v-else fill-height data-test="content">
+        <ChartComponent
+          id="transactions-chart"
+          type="doughnut"
+          :dataset="chartData"
           :options="options"
-          height="150"
-          width="150"
         />
       </v-layout>
     </template>
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import ChartComponent from '@/components/chart/ChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
@@ -22,11 +25,12 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'TransactionsChart',
   components: {
-    DoughnutChartComponent,
+    ChartComponent,
     TopBodyCardComponent,
   },
   computed: {
     ...mapGetters('transactions', {
+      isLoading: 'isLoading',
       transactions: 'transactions',
     }),
     chartData() {
@@ -43,13 +47,16 @@ export default {
     options() {
       return {
         responsive: true,
-        legend: {
-          display: false,
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem, data) {
-              return data['labels'][tooltipItem['index']];
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.label;
+              },
             },
           },
         },

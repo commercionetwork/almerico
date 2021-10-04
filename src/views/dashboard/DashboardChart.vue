@@ -1,12 +1,12 @@
 <template>
   <TopBodyCardComponent :title="caption">
     <template v-slot:content>
-      <v-layout align-center justify-center column fill-height>
-        <DoughnutChartComponent
-          :chartData="chartData"
+      <v-layout fill-height>
+        <ChartComponent
+          id="dashboard-chart"
+          type="doughnut"
+          :dataset="chartData"
           :options="options"
-          height="150"
-          width="150"
         />
       </v-layout>
     </template>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import DoughnutChartComponent from '@/components/DoughnutChartComponent';
+import ChartComponent from '@/components/chart/ChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import tokensChartBuilder from '@/utils/tokensChartBuilder';
@@ -23,7 +23,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'DashboardChart',
   components: {
-    DoughnutChartComponent,
+    ChartComponent,
     TopBodyCardComponent,
   },
   data: () => ({
@@ -79,14 +79,16 @@ export default {
     options() {
       return {
         responsive: true,
-        legend: {
-          display: false,
-        },
-        tooltips: {
-          bodyFontSize: 10,
-          callbacks: {
-            label: function(tooltipItem, data) {
-              return data['labels'][tooltipItem['index']];
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          },
+          tooltip: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.label;
+              },
             },
           },
         },
@@ -94,15 +96,13 @@ export default {
     },
   },
   created() {
-    tokensChartBuilder
-      .build({
-        abrTokens: this.abrTokens,
-        params: this.params,
-        pool: this.pool,
-        tokens: this.tokens,
-        vbrTokens: this.vbrTokens,
-      })
-      .then((data) => (this.allData = data));
+    this.allData = tokensChartBuilder.build({
+      abrTokens: this.abrTokens,
+      params: this.params,
+      pool: this.pool,
+      tokens: this.tokens,
+      vbrTokens: this.vbrTokens,
+    });
   },
 };
 </script>
