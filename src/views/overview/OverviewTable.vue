@@ -77,7 +77,7 @@ export default {
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
       });
-      return `exchange rate: ${rate}`;
+      return `CCC exchange rate: ${rate}`;
     },
     overviewTableAdapter() {
       const overviewTableAdapter = new OverviewTableAdapter({

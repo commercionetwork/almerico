@@ -1,5 +1,5 @@
 <template>
-  <TopBodyCardComponent title="exchange rate">
+  <TopBodyCardComponent title="ccc exchange rate">
     <template v-slot:content>
       <div class="fill-height d-flex flex-column justify-space-between">
         <div class="text-h2 font-weight-black" v-text="rate" />
