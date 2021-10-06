@@ -68,7 +68,7 @@ const tokensChartBuilder = {
     const abrs = this.getTokensByDenom({ tokens: abrTokens, denom: denom });
     const vbrs = this.getTokensByDenom({ tokens: vbrTokens, denom: denom });
     const unreleasedRewards = abrs + vbrs;
-    const unbonded = all - bonded - burned - unreleasedRewards;
+    const unbonded = MAX_SUPPLY - bonded - burned - unreleasedRewards;
     return { bonded, burned, unbonded, unreleasedRewards };
   },
 
