@@ -28,8 +28,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { blocksHandler, BlocksAttendanceCalculator } from '@/utils';
 import { CUSTOMIZATION } from '@/constants';
+import validatorDetailsBlocksHelper from './helpers/validatorDetailsBlocksHelper';
 
 export default {
   name: 'ValidatorDetailsBlocks',
@@ -47,18 +47,11 @@ export default {
       return `Last ${CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT} Blocks`;
     },
     verifiedBlocks() {
-      if (this.blocks.length < CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT) {
-        return [];
-      }
-      const restrictedBlocks = blocksHandler.restrictBlocks({
+      const attendance = validatorDetailsBlocksHelper.defineBlocksAttendance({
         blocks: this.blocks,
-        prop: ['header', 'height'],
-        limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
+        validator: this.details,
+        validatorsSet: this.latestValidatorsSets,
       });
-      const attendance = BlocksAttendanceCalculator.setBlocks(restrictedBlocks)
-        .setValidator(this.details)
-        .setValidatorsSet(this.latestValidatorsSets)
-        .get();
       return attendance !== null ? attendance.blocks : [];
     },
   },
