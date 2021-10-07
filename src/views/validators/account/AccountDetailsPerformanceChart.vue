@@ -1,12 +1,12 @@
 <template>
-  <ChartContainerComponent title="tokens performance">
+  <ChartContainerComponent :title="chartLabel">
     <template v-slot:chart>
       <ChartComponent
         id="account-details-performance-chart"
         type="doughnut"
         height="150"
         :dataset="chartData"
-        :options="options"
+        :options="chartOptions"
       />
     </template>
   </ChartContainerComponent>
@@ -15,6 +15,8 @@
 <script>
 import ChartComponent from '@/components/chart/ChartComponent';
 import ChartContainerComponent from '@/components/chart/ChartContainerComponent';
+
+import accountPerformanceChartHelper from './helpers/accountPerformanceChartHelper';
 
 export default {
   name: 'AccountDetailsPerformanceChart',
@@ -31,45 +33,13 @@ export default {
   },
   computed: {
     chartData() {
-      return {
-        labels: [`Earning Rewards`, `Not Earning Rewards`],
-        datasets: [
-          {
-            data: [this.earningRewards, this.notEarningRewards],
-            backgroundColor: ['rgb(47, 157, 119)', 'rgb(211, 47, 47)'],
-          },
-        ],
-      };
+      return accountPerformanceChartHelper.getChartData(this.assets);
     },
-    options() {
-      return {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              label: function(tooltipItem) {
-                const index = tooltipItem.dataIndex;
-                return `${tooltipItem.label} ${tooltipItem.dataset.data[index]}%`;
-              },
-            },
-          },
-        },
-      };
+    chartLabel() {
+      return accountPerformanceChartHelper.getChartLabel();
     },
-    earningRewards() {
-      return this.formatPercent(this.assets.earning, this.assets.total);
-    },
-    notEarningRewards() {
-      return this.formatPercent(this.assets.notEarning, this.assets.total);
-    },
-  },
-  methods: {
-    formatPercent(amount, total) {
-      return ((amount / total) * 100).toFixed(2);
+    chartOptions() {
+      return accountPerformanceChartHelper.getChartOptions();
     },
   },
 };
