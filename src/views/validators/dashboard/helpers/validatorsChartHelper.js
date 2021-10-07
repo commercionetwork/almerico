@@ -1,6 +1,6 @@
 const BONDED_STATUS = 2;
-const BACKGROUND_COLOR = ['rgb(48, 63, 159)', 'rgb(92, 107, 192)'];
-const BORDER_COLOR = ['rgb(235, 237, 249)', 'rgb(237, 238, 248)'];
+const BACKGROUND_COLOR = ['rgba(48, 63, 159, 1)', 'rgba(92, 107, 192, 1)'];
+const BORDER_COLOR = ['rgba(98, 113, 208, 1)', 'rgba(163, 172, 219, 1)'];
 const CHART_OPTIONS = {
   responsive: true,
   maintainAspectRatio: false,

@@ -7,7 +7,7 @@
       <v-layout v-else fill-height data-test="content">
         <ChartComponent
           id="blocks-chart"
-          type="doughnut"
+          type="pie"
           :dataset="chartData"
           :options="chartOptions"
         />

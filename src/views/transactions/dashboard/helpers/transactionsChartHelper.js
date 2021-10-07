@@ -1,5 +1,5 @@
-const BACKGROUND_COLOR = ['rgb(123, 31, 162)', 'rgb(171, 71, 188)'];
-const BORDER_COLOR = ['rgb(246, 234, 251)', 'rgb(246, 236, 248)'];
+const BACKGROUND_COLOR = ['rgba(123, 31, 162, 1)', 'rgba(171, 71, 188, 1)'];
+const BORDER_COLOR = ['rgba(171, 62, 218, 1)', 'rgba(204, 143, 214, 1)'];
 const CHART_OPTIONS = {
   responsive: true,
   maintainAspectRatio: false,

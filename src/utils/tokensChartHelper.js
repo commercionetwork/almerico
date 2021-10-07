@@ -3,16 +3,16 @@ import { numberIntlFormatter } from '@/utils';
 const UNIT_CONVERTER = 1000000;
 const MAX_SUPPLY = 60 * UNIT_CONVERTER;
 const BACKGROUND_COLOR = [
-  'rgb(47, 157, 119)',
-  'rgb(238, 51, 0)',
-  'rgb(255, 102, 0)',
-  'rgb(0, 0, 0)',
+  'rgba(47, 157, 119, 1)',
+  'rgba(238, 51, 0, 1)',
+  'rgba(255, 102, 0, 1)',
+  'rgba(0, 0, 0, 1)',
 ];
 const BORDER_COLOR = [
-  'rgb(235, 249, 244)',
-  'rgb(255, 235, 230)',
-  'rgb(255, 240, 230)',
-  'rgb(242, 242, 242)',
+  'rgba(98, 208, 170, 1)',
+  'rgba(255, 115, 77, 1)',
+  'rgba(255, 163, 102, 1)',
+  'rgba(51, 51, 51, 1)',
 ];
 const CHART_OPTIONS = {
   responsive: true,

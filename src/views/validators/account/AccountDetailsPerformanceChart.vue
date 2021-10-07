@@ -3,7 +3,7 @@
     <template v-slot:chart>
       <ChartComponent
         id="account-details-performance-chart"
-        type="doughnut"
+        type="pie"
         height="150"
         :dataset="chartData"
         :options="chartOptions"

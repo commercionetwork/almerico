@@ -4,7 +4,7 @@
       <v-layout fill-height>
         <ChartComponent
           id="validators-chart"
-          type="doughnut"
+          type="pie"
           :dataset="chartData"
           :options="chartOptions"
         />

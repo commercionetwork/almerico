@@ -1,7 +1,7 @@
 import { numberIntlFormatter } from '@/utils';
 
-const BACKGROUND_COLOR = ['rgb(66, 165, 245)', 'rgb(25, 118, 210)'];
-const BORDER_COLOR = ['rgb(231, 243, 254)', 'rgb(232, 242, 252)'];
+const BACKGROUND_COLOR = ['rgba(66, 165, 245, 1)', 'rgba(25, 118, 210, 1)'];
+const BORDER_COLOR = ['rgba(158, 209, 250, 1)', 'rgba(95, 166, 236, 1)'];
 const CHART_OPTIONS = {
   responsive: true,
   maintainAspectRatio: false,

@@ -3,8 +3,8 @@ import { dateHandler } from '@/utils';
 import { orderBy } from 'lodash';
 
 const BACKGROUND_COLOR = 'rgba(179, 224, 255, 0.5)';
-const BORDER_COLOR = 'rgb(77, 184, 255)';
-const POINT_BACKGROUND_COLOR = 'rgb(0, 138, 230)';
+const BORDER_COLOR = 'rgba(77, 184, 255, 1)';
+const POINT_BACKGROUND_COLOR = 'rgba(0, 138, 230, 1)';
 const CHART_OPTIONS = {
   responsive: true,
   maintainAspectRatio: false,
