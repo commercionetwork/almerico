@@ -10,6 +10,7 @@ const allowedTypes = [
   'bubble',
   'doughnut',
   'line',
+  'pie',
   'polarArea',
   'radar',
   'scatter',

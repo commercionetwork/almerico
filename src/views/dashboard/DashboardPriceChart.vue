@@ -1,5 +1,5 @@
 <template>
-  <TopBodyCardComponent title="trend">
+  <TopBodyCardComponent :title="chartLabel">
     <template v-slot:content>
       <div v-if="isLoading" data-test="loading">
         <v-progress-circular
@@ -21,7 +21,7 @@
           id="dashboard-price-chart"
           type="line"
           :dataset="chartData"
-          :options="CHART_OPTIONS"
+          :options="chartOptions"
         />
         <DashboardPriceChartRange v-on:range-changed="chartRangeChange" />
       </v-layout>
@@ -36,7 +36,7 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
 import { RANGE } from '@/constants';
-import priceChartHelper, { CHART_OPTIONS } from './helpers/priceChartHelper';
+import priceChartHelper from './helpers/priceChartHelper';
 
 export default {
   name: 'DashboardPriceChart',
@@ -46,7 +46,6 @@ export default {
     TopBodyCardComponent,
   },
   data: () => ({
-    CHART_OPTIONS,
     range: RANGE.MONTH,
   }),
   computed: {
@@ -61,6 +60,12 @@ export default {
         rateUpdates: this.rateUpdates,
         range: this.range,
       });
+    },
+    chartLabel() {
+      return priceChartHelper.getChartLabel();
+    },
+    chartOptions() {
+      return priceChartHelper.getChartOptions();
     },
   },
   methods: {

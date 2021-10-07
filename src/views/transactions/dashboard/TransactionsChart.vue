@@ -1,5 +1,5 @@
 <template>
-  <TopBodyCardComponent :title="caption">
+  <TopBodyCardComponent :title="chartLabel">
     <template v-slot:content>
       <div v-if="isLoading" data-test="loading">
         <v-progress-circular color="primary" indeterminate size="100" />
@@ -7,9 +7,9 @@
       <v-layout v-else fill-height data-test="content">
         <ChartComponent
           id="transactions-chart"
-          type="doughnut"
+          type="pie"
           :dataset="chartData"
-          :options="options"
+          :options="chartOptions"
         />
       </v-layout>
     </template>
@@ -20,6 +20,7 @@
 import ChartComponent from '@/components/chart/ChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
+import transactionsChartHelper from './helpers/transactionsChartHelper';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -34,45 +35,13 @@ export default {
       transactions: 'transactions',
     }),
     chartData() {
-      return {
-        labels: [`${this.txs} Txs`, `${this.msgs} Msgs`],
-        datasets: [
-          {
-            data: [this.txs, this.msgs],
-            backgroundColor: ['#7B1FA2', '#AB47BC'],
-          },
-        ],
-      };
+      return transactionsChartHelper.getChartData(this.transactions);
     },
-    options() {
-      return {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              label: function(tooltipItem) {
-                return tooltipItem.label;
-              },
-            },
-          },
-        },
-      };
+    chartLabel() {
+      return transactionsChartHelper.getChartLabel(this.transactions);
     },
-    caption() {
-      return `Msgs/txs: ${this.msgs}/${this.txs}`;
-    },
-    msgs() {
-      return this.transactions.reduce(
-        (acc, item) => acc + item.tx.value.msg.length,
-        0,
-      );
-    },
-    txs() {
-      return this.transactions.length;
+    chartOptions() {
+      return transactionsChartHelper.getChartOptions();
     },
   },
 };

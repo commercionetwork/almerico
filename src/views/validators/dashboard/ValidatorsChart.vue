@@ -1,12 +1,12 @@
 <template>
-  <TopBodyCardComponent :title="caption">
+  <TopBodyCardComponent :title="chartLabel">
     <template v-slot:content>
       <v-layout fill-height>
         <ChartComponent
           id="validators-chart"
-          type="doughnut"
+          type="pie"
           :dataset="chartData"
-          :options="options"
+          :options="chartOptions"
         />
       </v-layout>
     </template>
@@ -17,6 +17,7 @@
 import ChartComponent from '@/components/chart/ChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
+import validatorsChartHelper from './helpers/validatorsChartHelper';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -30,49 +31,13 @@ export default {
       validators: 'validators',
     }),
     chartData() {
-      return {
-        labels: [
-          `${this.validatorsBondeds} Bonded`,
-          `${this.validatorsNotBondeds} Not Bonded`,
-        ],
-        datasets: [
-          {
-            data: [this.validatorsBondeds, this.validatorsNotBondeds],
-            backgroundColor: ['#303F9F', '#5C6BC0'],
-          },
-        ],
-      };
+      return validatorsChartHelper.getChartData(this.validators);
     },
-    options() {
-      return {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              label: function(tooltipItem) {
-                return tooltipItem.label;
-              },
-            },
-          },
-        },
-      };
+    chartLabel() {
+      return validatorsChartHelper.getChartLabel(this.validators);
     },
-    caption() {
-      return this.validators.length > 0
-        ? `Validators: ${this.validators.length}`
-        : 'Validators';
-    },
-    validatorsBondeds() {
-      return this.validators.filter((validator) => validator.status === 2)
-        .length;
-    },
-    validatorsNotBondeds() {
-      return this.validators.filter((validator) => validator.status !== 2)
-        .length;
+    chartOptions() {
+      return validatorsChartHelper.getChartOptions();
     },
   },
 };

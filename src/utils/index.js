@@ -13,7 +13,7 @@ import numberIntlFormatter from './numberIntlFormatter';
 import OverviewTableAdapter from './overview/OverviewTableAdapter';
 import proposerHandler from './proposerHandler';
 import regExpBuilder from './regExpBuilder';
-import tokensChartBuilder from './tokensChartBuilder';
+import tokensChartHelper from './tokensChartHelper';
 import TransactionDetailsAdapter from './transactions/TransactionDetailsAdapter';
 import TransactionsFilter from './transactions/TransactionsFilter';
 import TransactionsTableAdapter from './transactions/TransactionsTableAdapter';
@@ -44,6 +44,6 @@ export {
   numberIntlFormatter,
   proposerHandler,
   regExpBuilder,
-  tokensChartBuilder,
+  tokensChartHelper,
   txHandler,
 };

@@ -2,7 +2,10 @@ import { RANGE } from '@/constants';
 import { dateHandler } from '@/utils';
 import { orderBy } from 'lodash';
 
-export const CHART_OPTIONS = {
+const BACKGROUND_COLOR = 'rgba(179, 224, 255, 0.5)';
+const BORDER_COLOR = 'rgba(77, 184, 255, 1)';
+const POINT_BACKGROUND_COLOR = 'rgba(0, 138, 230, 1)';
+const CHART_OPTIONS = {
   responsive: true,
   maintainAspectRatio: false,
   tension: 0.2,
@@ -57,12 +60,26 @@ const priceChartHelper = {
         {
           data: listings.map((update) => update.price.toFixed(2)),
           fill: true,
-          backgroundColor: 'rgba(179, 224, 255, 0.5)',
-          borderColor: 'rgb(77, 184, 255)',
-          pointBackgroundColor: 'rgb(0, 138, 230)',
+          backgroundColor: BACKGROUND_COLOR,
+          borderColor: BORDER_COLOR,
+          pointBackgroundColor: POINT_BACKGROUND_COLOR,
         },
       ],
     };
+  },
+  /**
+   *
+   * @returns {String}
+   */
+  getChartLabel() {
+    return 'trend';
+  },
+  /**
+   *
+   * @returns {Object}
+   */
+  getChartOptions() {
+    return CHART_OPTIONS;
   },
   /**
    *

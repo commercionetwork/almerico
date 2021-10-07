@@ -1,5 +1,5 @@
 <template>
-  <TopBodyCardComponent :title="caption">
+  <TopBodyCardComponent :title="chartLabel">
     <template v-slot:content>
       <div v-if="isLoading" data-test="loading">
         <v-progress-circular color="primary" indeterminate size="100" />
@@ -7,9 +7,9 @@
       <v-layout v-else fill-height data-test="content">
         <ChartComponent
           id="blocks-chart"
-          type="doughnut"
+          type="pie"
           :dataset="chartData"
-          :options="options"
+          :options="chartOptions"
         />
       </v-layout>
     </template>
@@ -20,6 +20,7 @@
 import ChartComponent from '@/components/chart/ChartComponent';
 import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
+import blocksChartHelper from './helpers/blocksChartHelper';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -34,46 +35,13 @@ export default {
       blocks: 'blocks',
     }),
     chartData() {
-      return {
-        labels: [`${this.txsValue} Txs`, `${this.blocksValue} Blocks`],
-        datasets: [
-          {
-            data: [this.txsValue, this.blocksValue],
-            backgroundColor: ['#FFA000', '#FFCA28'],
-          },
-        ],
-      };
+      return blocksChartHelper.getChartData(this.blocks);
     },
-    options() {
-      return {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              label: function(tooltipItem) {
-                return tooltipItem.label;
-              },
-            },
-          },
-        },
-      };
+    chartLabel() {
+      return blocksChartHelper.getChartLabel(this.blocks);
     },
-    caption() {
-      return `Txs/blocks: ${this.txsValue}/${this.blocksValue}`;
-    },
-    blocksValue() {
-      return this.blocks.length;
-    },
-    txsValue() {
-      return this.blocks.reduce(
-        (acc, block) =>
-          block.data && block.data.txs ? acc + block.data.txs.length : acc + 0,
-        0,
-      );
+    chartOptions() {
+      return blocksChartHelper.getChartOptions();
     },
   },
 };
