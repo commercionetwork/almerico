@@ -9,7 +9,7 @@ import { mockValidatorSets } from '@/store/validators/__mocks__/validator_sets';
 import validatorAttendanceCalculator from '../validatorAttendanceCalculator';
 import ValidatorDelegationsHandler from '../ValidatorDelegationsHandler';
 import ValidatorDelegatorsAggregator from '../ValidatorDelegatorsAggregator';
-import ValidatorsTableAdapter from '../ValidatorsTableAdapter';
+import validatorsTableAdapter from '../validatorsTableAdapter';
 
 describe('utils/validators', () => {
   test("if 'ValidatorDelegationsHandler' class returns the delegations total amounts", () => {
@@ -50,21 +50,22 @@ describe('utils/validators', () => {
     expect(isDuplicate).toBe(false);
   });
 
-  test("if 'ValidatorsTableAdapter' class returns an array of wanted validators", () => {
+  test("if 'validatorsTableAdapter.build' method returns an array of wanted validators", () => {
     const items = 5;
     const validators = mockValidators(items);
     const blocks = [];
     const coin = 'uccc';
     const pool = mockPool();
-    const validatorSets = mockValidatorSets().validators;
-    const prefix = 'did:com:';
-    const convertedValidators = ValidatorsTableAdapter.setValidators(validators)
-      .setBlocks(blocks)
-      .setCoin(coin)
-      .setPool(pool)
-      .setValidatorsSet(validatorSets)
-      .setAccountPrefix(prefix)
-      .get();
+    const validatorsSet = mockValidatorSets().validators;
+    const accountPrefix = 'did:com:';
+    const convertedValidators = validatorsTableAdapter.build({
+      validators,
+      accountPrefix,
+      blocks,
+      coin,
+      pool,
+      validatorsSet,
+    });
 
     const expectedKeys = [
       'rank',

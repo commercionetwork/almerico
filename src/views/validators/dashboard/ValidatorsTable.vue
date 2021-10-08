@@ -48,7 +48,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { CUSTOMIZATION, ROUTES } from '@/constants';
-import { ValidatorsTableAdapter } from '@/utils';
+import { validatorsTableAdapter } from '@/utils';
 
 export default {
   name: 'ValidatorsTable',
@@ -75,13 +75,14 @@ export default {
       return this.params.bond_denom ? this.params.bond_denom : '';
     },
     items() {
-      return ValidatorsTableAdapter.setValidators(this.validators)
-        .setBlocks(this.blocks)
-        .setCoin(this.bondDenom)
-        .setPool(this.pool)
-        .setValidatorsSet(this.latestValidatorsSets)
-        .setAccountPrefix(this.$config.generic.prefixes.account.address)
-        .get();
+      return validatorsTableAdapter.build({
+        validators: this.validators,
+        accountPrefix: this.$config.generic.prefixes.account.address,
+        blocks: this.blocks,
+        coin: this.bondDenom,
+        pool: this.pool,
+        validatorsSet: this.latestValidatorsSets,
+      });
     },
     headers() {
       let headers = [

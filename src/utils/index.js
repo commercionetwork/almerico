@@ -19,7 +19,7 @@ import txHandler from './txHandler';
 import validatorAttendanceCalculator from './validators/validatorAttendanceCalculator';
 import ValidatorDelegationsHandler from './validators/ValidatorDelegationsHandler';
 import ValidatorDelegatorsAggregator from './validators/ValidatorDelegatorsAggregator';
-import ValidatorsTableAdapter from './validators/ValidatorsTableAdapter';
+import validatorsTableAdapter from './validators/validatorsTableAdapter';
 
 export {
   AccountBalanceHandler,
@@ -33,7 +33,6 @@ export {
   TransactionsTableAdapter,
   ValidatorDelegationsHandler,
   ValidatorDelegatorsAggregator,
-  ValidatorsTableAdapter,
   arrayHandler,
   bech32Manager,
   coinAdapter,
@@ -44,4 +43,5 @@ export {
   tokensChartHelper,
   txHandler,
   validatorAttendanceCalculator,
+  validatorsTableAdapter,
 };
