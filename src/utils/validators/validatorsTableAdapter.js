@@ -4,6 +4,18 @@ import { orderBy } from 'lodash';
 import ValidatorExtraData from './ValidatorExtraData';
 
 const validatorsTableAdapter = {
+  /**
+   * @typedef {Object} BuildParam
+   * @property {Array.<Object>} validators
+   * @property {String} accountPrefix
+   * @property {Array.<Object>} blocks
+   * @property {String} coin
+   * @property {Object} pool
+   * @property {Array.<Object>}validatorsSet
+   *
+   * @param {BuildParam} p
+   * @returns {Array.<ValidatorsTableRow>}
+   */
   build({ validators, accountPrefix, blocks, coin, pool, validatorsSet }) {
     const sortedValidators = orderBy(
       validators,

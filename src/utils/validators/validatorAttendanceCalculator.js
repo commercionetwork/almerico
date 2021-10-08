@@ -2,6 +2,16 @@ import { bech32Manager, numberIntlFormatter } from '@/utils';
 import { orderBy, take } from 'lodash';
 
 const validatorAttendanceCalculator = {
+  /**
+   * @typedef {Object} GetDefinedBlocksParam
+   * @property {Array.<Object>} blocks
+   * @property {Object} validator
+   * @property {Array.<Object>} validatorsSet
+   * @property {Number} limit
+   *
+   * @param {GetDefinedBlocksParam} p
+   * @returns {Array.<Object>}
+   */
   getDefinedBlocks({ blocks, validator, validatorsSet, limit }) {
     if (blocks.length < limit) {
       return [];
@@ -10,9 +20,20 @@ const validatorAttendanceCalculator = {
     const address = _decodeAddress({ validator, validatorsSet });
     return _checkBlocks({ blocks: trackedBlocks, address });
   },
+  /**
+   *
+   * @param {Array.<Object>} definedBlocks
+   * @returns {Number}
+   */
   getAttendanceCount(definedBlocks) {
     return definedBlocks.filter((it) => it.status > 0).length;
   },
+  /**
+   *
+   * @param {Number} count
+   * @param {Number} limit
+   * @returns {String}
+   */
   getAttendancePercentage(count, limit) {
     return _calculatePercentage(count, limit);
   },
