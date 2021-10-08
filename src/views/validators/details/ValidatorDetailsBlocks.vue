@@ -8,9 +8,12 @@
       <v-alert type="info">Loading ...</v-alert>
     </v-card-text>
     <v-card-text
-      v-else-if="!isLoading && verifiedBlocks.length > 0"
-      data-test="content"
+      v-else-if="!isLoading && !verifiedBlocks.length"
+      data-test="warning"
     >
+      <v-alert type="warning">Not available</v-alert>
+    </v-card-text>
+    <v-card-text v-else data-test="content">
       <div class="grid">
         <div
           v-for="(verified, index) in verifiedBlocks"
@@ -19,9 +22,6 @@
           :title="verified.height"
         />
       </div>
-    </v-card-text>
-    <v-card-text v-else data-test="warning">
-      <v-alert type="warning">Not available</v-alert>
     </v-card-text>
   </v-card>
 </template>

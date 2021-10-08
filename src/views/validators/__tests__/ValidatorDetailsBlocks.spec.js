@@ -45,35 +45,8 @@ describe('views/validators/details/ValidatorDetailsBlocks.vue', () => {
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
-  });
-
-  test('if content is displayed', () => {
-    const wrapper = shallowMount(ValidatorDetailsBlocks, {
-      localVue,
-      mocks,
-      computed: {
-        ...computed,
-        isLoading: () => false,
-        verifiedBlocks: () => [
-          {
-            blocks: [
-              {
-                height: '1',
-                status: 1,
-              },
-            ],
-            count: 100,
-            percentage: '100.00%',
-          },
-        ],
-      },
-    });
-
-    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
   });
 
   test('if warning message is displayed', () => {
@@ -88,7 +61,28 @@ describe('views/validators/details/ValidatorDetailsBlocks.vue', () => {
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="warning"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+  });
+
+  test('if content is displayed', () => {
+    const wrapper = shallowMount(ValidatorDetailsBlocks, {
+      localVue,
+      mocks,
+      computed: {
+        ...computed,
+        isLoading: () => false,
+        verifiedBlocks: () => [
+          {
+            height: '1',
+            status: 1,
+          },
+        ],
+      },
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
   });
 });
