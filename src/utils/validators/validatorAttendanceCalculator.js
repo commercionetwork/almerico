@@ -1,31 +1,30 @@
-import { CUSTOMIZATION } from '@/constants';
 import { bech32Manager, numberIntlFormatter } from '@/utils';
 import { orderBy, take } from 'lodash';
 
-const validatorDetailsBlocksHelper = {
-  defineBlocksAttendance({ blocks, validator, validatorsSet }) {
-    if (blocks.length < CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT) {
+const validatorAttendanceCalculator = {
+  getDefinedBlocks({ blocks, validator, validatorsSet, limit }) {
+    if (blocks.length < limit) {
       return [];
     }
-    const trackedBlocks = _restrictBlocks(blocks);
+    const trackedBlocks = _restrictBlocks(blocks, limit);
     const address = _decodeAddress({ validator, validatorsSet });
-    const definedData = _checkBlocks({ blocks: trackedBlocks, address });
-    const attendance = _calculateAttendance(definedData);
-    return {
-      blocks: definedData,
-      count: attendance.count,
-      percentage: attendance.percentage,
-    };
+    return _checkBlocks({ blocks: trackedBlocks, address });
+  },
+  getAttendanceCount(definedBlocks) {
+    return definedBlocks.filter((it) => it.status > 0).length;
+  },
+  getAttendancePercentage(count, limit) {
+    return _calculatePercentage(count, limit);
   },
 };
 
-export default validatorDetailsBlocksHelper;
+export default validatorAttendanceCalculator;
 
-const _restrictBlocks = (blocks) => {
+const _restrictBlocks = (blocks, limit) => {
   const sortedBlocks = orderBy(blocks, (block) => block.header.height, [
     'desc',
   ]);
-  return take(sortedBlocks, CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT);
+  return take(sortedBlocks, limit);
 };
 
 const _decodeAddress = ({ validator, validatorsSet }) => {
@@ -60,15 +59,9 @@ class VerifiedData {
   }
 }
 
-const _calculateAttendance = (data) => {
-  const count = data.filter((it) => it.status > 0).length;
-  const percentage = _calcPercentage(count);
-  return { count, percentage };
-};
-
-const _calcPercentage = (amount) =>
+const _calculatePercentage = (amount, limit) =>
   numberIntlFormatter.toPercent({
-    amount: amount / CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
+    amount: amount / limit,
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   });

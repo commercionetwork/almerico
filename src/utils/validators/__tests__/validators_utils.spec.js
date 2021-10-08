@@ -1,10 +1,12 @@
-import { mockPool } from '../../../store/starting/__mocks__/pool';
+import { mockBlocks } from '@/store/blocks/__mocks__/blocks';
+import { mockPool } from '@/store/starting/__mocks__/pool';
 import {
   mockValidator,
   mockValidators,
-} from '../../../store/validators/__mocks__/validators';
-import { mockValidatorDelegations } from '../../../store/validators/__mocks__/validator_delegations';
-import { mockValidatorSets } from '../../../store/validators/__mocks__/validator_sets';
+} from '@/store/validators/__mocks__/validators';
+import { mockValidatorDelegations } from '@/store/validators/__mocks__/validator_delegations';
+import { mockValidatorSets } from '@/store/validators/__mocks__/validator_sets';
+import validatorAttendanceCalculator from '../validatorAttendanceCalculator';
 import ValidatorDelegationsHandler from '../ValidatorDelegationsHandler';
 import ValidatorDelegatorsAggregator from '../ValidatorDelegatorsAggregator';
 import ValidatorsTableAdapter from '../ValidatorsTableAdapter';
@@ -81,5 +83,30 @@ describe('utils/validators', () => {
     for (const validator of convertedValidators) {
       expect(Object.keys(validator)).toStrictEqual(expectedKeys);
     }
+  });
+
+  test('if "validatorAttendanceCalculator" method return the defined blocks, the attendance count and percentage', () => {
+    const limit = 100;
+    const blocks = mockBlocks(limit);
+    const validator = mockValidator();
+    const validatorsSet = mockValidatorSets().validators;
+
+    const definedBlocks = validatorAttendanceCalculator.getDefinedBlocks({
+      blocks,
+      validator,
+      validatorsSet,
+      limit,
+    });
+    expect(definedBlocks.length).toBe(limit);
+    const attendanceCount = validatorAttendanceCalculator.getAttendanceCount(
+      definedBlocks,
+    );
+    expect(attendanceCount).toBe(limit);
+    const attendancePercentage = validatorAttendanceCalculator.getAttendancePercentage(
+      attendanceCount,
+      limit,
+    );
+    const splitPercentage = attendancePercentage.split(/[,.]/);
+    expect(splitPercentage[0]).toBe(`${limit}`);
   });
 });

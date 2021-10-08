@@ -48,7 +48,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { CUSTOMIZATION, ROUTES } from '@/constants';
-import { blocksHandler, ValidatorsTableAdapter } from '@/utils';
+import { ValidatorsTableAdapter } from '@/utils';
 
 export default {
   name: 'ValidatorsTable',
@@ -75,16 +75,8 @@ export default {
       return this.params.bond_denom ? this.params.bond_denom : '';
     },
     items() {
-      const restrictedBlocks = CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR
-        .VISIBILITY
-        ? blocksHandler.restrictBlocks({
-            blocks: this.blocks,
-            prop: ['header', 'height'],
-            limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
-          })
-        : [];
       return ValidatorsTableAdapter.setValidators(this.validators)
-        .setBlocks(restrictedBlocks)
+        .setBlocks(this.blocks)
         .setCoin(this.bondDenom)
         .setPool(this.pool)
         .setValidatorsSet(this.latestValidatorsSets)

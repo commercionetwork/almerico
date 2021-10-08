@@ -2,7 +2,7 @@ import { CUSTOMIZATION } from '@/constants';
 import {
   arrayHandler,
   bech32Manager,
-  BlocksAttendanceCalculator,
+  validatorAttendanceCalculator,
   coinAdapter,
   numberIntlFormatter,
 } from '@/utils';
@@ -72,17 +72,19 @@ class ValidatorsTableAdapter {
         cumulative += power;
         votingPower = getPercent(power);
         formattedCumulative = getPercent(cumulative);
-        if (
-          this.blocks.length === CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT
-        ) {
-          const validatorAttendance = BlocksAttendanceCalculator.setBlocks(
-            this.blocks,
-          )
-            .setValidator(validator)
-            .setValidatorsSet(this.validatorsSet)
-            .get();
-          attendance = validatorAttendance.percentage;
-        }
+        const definedBlocks = validatorAttendanceCalculator.getDefinedBlocks({
+          blocks: this.blocks,
+          validator: validator,
+          validatorsSet: this.validatorsSet,
+          limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
+        });
+        const attendanceCount = validatorAttendanceCalculator.getAttendanceCount(
+          definedBlocks,
+        );
+        attendance = validatorAttendanceCalculator.getAttendancePercentage(
+          attendanceCount,
+          CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
+        );
       }
 
       validatorsTable.push({

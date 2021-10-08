@@ -29,7 +29,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { CUSTOMIZATION } from '@/constants';
-import validatorDetailsBlocksHelper from './helpers/validatorDetailsBlocksHelper';
+import { validatorAttendanceCalculator } from '@/utils';
 
 export default {
   name: 'ValidatorDetailsBlocks',
@@ -47,12 +47,12 @@ export default {
       return `Last ${CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT} Blocks`;
     },
     verifiedBlocks() {
-      const attendance = validatorDetailsBlocksHelper.defineBlocksAttendance({
+      return validatorAttendanceCalculator.getDefinedBlocks({
         blocks: this.blocks,
         validator: this.details,
         validatorsSet: this.latestValidatorsSets,
+        limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
       });
-      return attendance !== null ? attendance.blocks : [];
     },
   },
   methods: {
