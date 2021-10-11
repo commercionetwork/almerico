@@ -1,4 +1,4 @@
-import api from './api';
+import http from './http';
 
 export default {
   /**
@@ -7,7 +7,7 @@ export default {
    */
   async fetchLatestValidatorSets({ dispatch, commit }) {
     try {
-      const response = await api.requestLatestValidatorSets();
+      const response = await http.requestLatestValidatorSets();
       commit('setLatestValidatorsSets', response.data.result.validators);
     } catch (error) {
       dispatch('handleError', error);
@@ -22,7 +22,7 @@ export default {
    */
   async fetchValidatorsList({ dispatch, commit }, { status, page, limit }) {
     try {
-      const response = await api.requestValidatorsList({
+      const response = await http.requestValidatorsList({
         status,
         page,
         limit,
@@ -72,7 +72,7 @@ export default {
       root: true,
     });
     try {
-      const response = await api.requestValidatorsetsFromHeight(height);
+      const response = await http.requestValidatorsetsFromHeight(height);
       commit('setHeightValidatorsSets', response.data.result.validators);
     } catch (error) {
       dispatch('handleError', error);
@@ -94,7 +94,7 @@ export default {
    */
   async fetchValidatorDetails({ dispatch, commit }, address) {
     try {
-      const response = await api.requestValidatorDetails(address);
+      const response = await http.requestValidatorDetails(address);
       commit('setDetails', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
@@ -107,7 +107,7 @@ export default {
    */
   async fetchValidatorDelegations({ dispatch, commit }, address) {
     try {
-      const response = await api.requestValidatorDelegations(address);
+      const response = await http.requestValidatorDelegations(address);
       commit('addDetails', { delegations: response.data.result });
     } catch (error) {
       dispatch('handleError', error);
@@ -123,7 +123,7 @@ export default {
       return;
     }
     try {
-      const response = await api.requestValidatorPictures(id);
+      const response = await http.requestValidatorPictures(id);
       if (response.data.them && response.data.them.length > 0) {
         for (const item of response.data.them) {
           if ('primary' in item['pictures']) {

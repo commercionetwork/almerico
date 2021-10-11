@@ -1,4 +1,4 @@
-import api from './api';
+import http from './http';
 
 export default {
   /**
@@ -25,7 +25,7 @@ export default {
    */
   async fetchConversionRate({ dispatch, commit }) {
     try {
-      const response = await api.requestConversionRate();
+      const response = await http.requestConversionRate();
       commit('setConversionRate', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
@@ -40,7 +40,7 @@ export default {
     const limit = 30;
     let page = 1;
     try {
-      let response = await api.requestRateUpdates({ page, limit });
+      let response = await http.requestRateUpdates({ page, limit });
       if (response.data.page_total == 0) {
         return;
       }
@@ -48,7 +48,7 @@ export default {
       if (response.data.page_total > 1) {
         while (page < response.data.page_total) {
           page++;
-          response = await api.requestRateUpdates({ page, limit });
+          response = await http.requestRateUpdates({ page, limit });
           response.data.txs.forEach((tx) => updates.push(tx));
         }
       }
@@ -63,7 +63,7 @@ export default {
    */
   async fetchStartingDate({ dispatch, commit }) {
     try {
-      const response = await api.requestBlock('1');
+      const response = await http.requestBlock('1');
       commit('setStartingDate', response.data.block.header.time);
     } catch (error) {
       dispatch('handleError', error);

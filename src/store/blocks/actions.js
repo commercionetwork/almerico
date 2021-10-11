@@ -1,4 +1,4 @@
-import api from './api';
+import http from './http';
 
 export default {
   /**
@@ -12,7 +12,7 @@ export default {
       root: true,
     });
     try {
-      const response = await api.requestBlock(height);
+      const response = await http.requestBlock(height);
       commit('setBlockDetails', response.data);
     } catch (error) {
       dispatch('handleError', error);
@@ -26,7 +26,7 @@ export default {
    */
   async fetchLatestBlock({ dispatch, commit }) {
     try {
-      const response = await api.requestLatestBlock();
+      const response = await http.requestLatestBlock();
       commit('setLatestBlock', response.data.block);
     } catch (error) {
       dispatch('handleError', error);
@@ -107,7 +107,7 @@ export default {
 const setUpBlocksRequests = (maxHeight, minHeight) => {
   let requests = [];
   while (maxHeight > minHeight) {
-    requests.push(api.requestBlock(maxHeight));
+    requests.push(http.requestBlock(maxHeight));
     maxHeight--;
   }
   return requests;

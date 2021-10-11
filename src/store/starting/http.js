@@ -38,7 +38,7 @@ export default {
     return axios({
       method: 'get',
       baseURL: `${API.STAKING}`,
-      url: '/parameters',
+      url: '/params',
     });
   },
 };

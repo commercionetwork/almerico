@@ -1,4 +1,4 @@
-import api from './api';
+import http from './http';
 import { API, CHAIN, CUSTOMIZATION } from '@/constants';
 
 export default {
@@ -15,7 +15,7 @@ export default {
     commit('setTransactionDetails', null);
     let response;
     try {
-      response = await api.requestTransaction(hash);
+      response = await http.requestTransaction(hash);
       commit('setTransactionDetails', {
         data: response.data,
         ledger: API.LCD,
@@ -41,7 +41,7 @@ export default {
     if (ancestors.length === 0) return;
     for (const ancestor of ancestors) {
       try {
-        const response = await api.requestAncestorTransaction({
+        const response = await http.requestAncestorTransaction({
           lcd: ancestor.lcd,
           hash: hash,
         });
@@ -68,7 +68,7 @@ export default {
    */
   async getLastPage({ dispatch, commit }, { limit, query }) {
     try {
-      const response = await api.requestSearchTransactions({
+      const response = await http.requestSearchTransactions({
         query,
         page: 1,
         limit: 1,
@@ -89,7 +89,7 @@ export default {
    */
   async getTransactions({ dispatch, commit }, { page, limit, query }) {
     try {
-      const response = await api.requestSearchTransactions({
+      const response = await http.requestSearchTransactions({
         query: query,
         page: page,
         limit: limit,
@@ -184,7 +184,7 @@ export default {
       root: true,
     });
     try {
-      const response = await api.requestBlockTransactions(height);
+      const response = await http.requestBlockTransactions(height);
       if (response.data.txs.length > 0) {
         response.data.txs.forEach((tx) => {
           commit('addSingleTransaction', tx);

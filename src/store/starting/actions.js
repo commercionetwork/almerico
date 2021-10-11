@@ -1,4 +1,4 @@
-import api from './api';
+import http from './http';
 import { STATUS } from '@/constants';
 
 export default {
@@ -36,7 +36,7 @@ export default {
    */
   async fetchNodeInfo({ dispatch, commit }) {
     try {
-      const response = await api.requestNodeInfo();
+      const response = await http.requestNodeInfo();
       commit('setNodeInfo', response.data);
     } catch (error) {
       dispatch('handleError', error);
@@ -48,7 +48,7 @@ export default {
    */
   async fetchParams({ dispatch, commit }) {
     try {
-      const response = await api.requestStakingParameters();
+      const response = await http.requestStakingParameters();
       commit('setParams', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
@@ -60,7 +60,7 @@ export default {
    */
   async fetchPool({ dispatch, commit }) {
     try {
-      const response = await api.requestPool();
+      const response = await http.requestPool();
       commit('setPool', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
@@ -72,7 +72,7 @@ export default {
    */
   async fetchTokens({ dispatch, commit }) {
     try {
-      const response = await api.requestAllTokens();
+      const response = await http.requestAllTokens();
       commit('setTokens', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
