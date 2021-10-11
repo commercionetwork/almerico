@@ -10,7 +10,7 @@ export default {
     return axios({
       method: 'get',
       baseURL: `${API.BANK}`,
-      url: `/${address}`,
+      url: `/balances/${address}`,
     });
   },
   /**
@@ -21,7 +21,7 @@ export default {
     return axios({
       method: 'get',
       baseURL: `${API.STAKING}`,
-      url: `/delegators/${address}/delegations`,
+      url: `/delegations/${address}`,
     });
   },
   /**

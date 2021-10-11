@@ -1,4 +1,4 @@
-import api from './api';
+import http from './http';
 
 export default {
   /**
@@ -28,7 +28,7 @@ export default {
    */
   async fetchBalances({ dispatch, commit }, address) {
     try {
-      const response = await api.requestBalances(address);
+      const response = await http.requestBalances(address);
       commit('setBalances', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
@@ -41,7 +41,7 @@ export default {
    */
   async fetchDelegations({ dispatch, commit }, address) {
     try {
-      const response = await api.requestDelegations(address);
+      const response = await http.requestDelegations(address);
       commit('setDelegations', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
@@ -55,7 +55,7 @@ export default {
   //TODO: add  dispatch param
   async fetchMembership({ commit }, address) {
     try {
-      const response = await api.requestMembership(address);
+      const response = await http.requestMembership(address);
       commit('setMembership', response.data.result);
     } catch (error) {
       commit('setMembership', null);
@@ -75,7 +75,7 @@ export default {
   async fetchBuyMembershipTx({ dispatch, commit }, address) {
     const query = `assign_membership.owner=${address}`;
     try {
-      let response = await api.requestSearchTransactions({
+      let response = await http.requestSearchTransactions({
         query: query,
         page: 1,
         limit: 1,
@@ -85,7 +85,7 @@ export default {
         commit('setBuyMembershipTx', null);
         return;
       }
-      response = await api.requestSearchTransactions({
+      response = await http.requestSearchTransactions({
         query: query,
         page: pageTotal,
         limit: 1,
@@ -102,7 +102,7 @@ export default {
    */
   async fetchRewards({ dispatch, commit }, address) {
     try {
-      const response = await api.requestRewards(address);
+      const response = await http.requestRewards(address);
       commit('setRewards', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
@@ -115,7 +115,7 @@ export default {
    */
   async fetchUnbondings({ dispatch, commit }, address) {
     try {
-      const response = await api.requestUnbondings(address);
+      const response = await http.requestUnbondings(address);
       commit('setUnbondings', response.data.result);
     } catch (error) {
       dispatch('handleError', error);
