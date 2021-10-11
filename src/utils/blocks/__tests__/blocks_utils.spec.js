@@ -1,4 +1,3 @@
-import { numberIntlFormatter } from '@/utils';
 import { mockBlock, mockBlocks } from '../../../store/blocks/__mocks__/blocks';
 import {
   mockValidator,
@@ -6,8 +5,7 @@ import {
 } from '../../../store/validators/__mocks__/validators';
 import { mockValidatorSets } from '../../../store/validators/__mocks__/validator_sets';
 import BlockProposerHandler from '../BlockProposerHandler';
-import BlocksAttendanceCalculator from '../BlocksAttendanceCalculator';
-import BlocksTableAdapter from '../BlocksTableAdapter';
+import blocksTableAdapter from '../blocksTableAdapter';
 
 describe('utils/blocks', () => {
   const validatorConsensusAddressPrefix = 'did:com:valcons';
@@ -43,40 +41,17 @@ describe('utils/blocks', () => {
     expect(proposer).toStrictEqual(mockValidator());
   });
 
-  test("if 'BlocksAttendanceCalculator' class returns the wanted attendance", () => {
-    const items = 100;
-    const blocks = mockBlocks(items);
-    const validator = mockValidator();
-    const validatorSets = mockValidatorSets().validators;
-    const blocksAttendance = BlocksAttendanceCalculator.setBlocks(blocks)
-      .setValidator(validator)
-      .setValidatorsSet(validatorSets)
-      .get();
-
-    const expectedKeys = ['blocks', 'count', 'percentage'];
-
-    expect(Object.keys(blocksAttendance)).toStrictEqual(expectedKeys);
-    expect(blocksAttendance.blocks.length).toBe(items);
-    expect(blocksAttendance.count).toBe(items);
-    expect(blocksAttendance.percentage).toBe(
-      numberIntlFormatter.toPercent({
-        amount: items / items,
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2,
-      }),
-    );
-  });
-
-  test("if 'BlocksTableAdapter' class returns an array of wanted blocks", () => {
+  test("if 'blocksTableAdapter.build' method return an array of wanted blocks", () => {
     const items = 100;
     const blocks = mockBlocks(items);
     const validators = mockValidators();
     const validatorSets = mockValidatorSets().validators;
-    const convertedBlocks = BlocksTableAdapter.setBlocks(blocks)
-      .setValidators(validators)
-      .setValidatorsSet(validatorSets)
-      .setValidatorConsensusPrefix(validatorConsensusAddressPrefix)
-      .get();
+    const tableRows = blocksTableAdapter.build({
+      blocks,
+      validators,
+      validatorsSet: validatorSets,
+      prefix: validatorConsensusAddressPrefix,
+    });
 
     const expectedKeys = [
       'height',
@@ -87,9 +62,9 @@ describe('utils/blocks', () => {
       'date',
     ];
 
-    expect(convertedBlocks.length).toBe(items);
-    for (const block of convertedBlocks) {
-      expect(Object.keys(block)).toStrictEqual(expectedKeys);
+    expect(tableRows.length).toBe(items);
+    for (const row of tableRows) {
+      expect(Object.keys(row)).toStrictEqual(expectedKeys);
     }
   });
 });

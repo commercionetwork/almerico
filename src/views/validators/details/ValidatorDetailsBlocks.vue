@@ -8,9 +8,12 @@
       <v-alert type="info">Loading ...</v-alert>
     </v-card-text>
     <v-card-text
-      v-else-if="!isLoading && verifiedBlocks.length > 0"
-      data-test="content"
+      v-else-if="!isLoading && !verifiedBlocks.length"
+      data-test="warning"
     >
+      <v-alert type="warning">Not available</v-alert>
+    </v-card-text>
+    <v-card-text v-else data-test="content">
       <div class="grid">
         <div
           v-for="(verified, index) in verifiedBlocks"
@@ -20,16 +23,13 @@
         />
       </div>
     </v-card-text>
-    <v-card-text v-else data-test="warning">
-      <v-alert type="warning">Not available</v-alert>
-    </v-card-text>
   </v-card>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { blocksHandler, BlocksAttendanceCalculator } from '@/utils';
 import { CUSTOMIZATION } from '@/constants';
+import { validatorAttendanceCalculator } from '@/utils';
 
 export default {
   name: 'ValidatorDetailsBlocks',
@@ -47,19 +47,12 @@ export default {
       return `Last ${CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT} Blocks`;
     },
     verifiedBlocks() {
-      if (this.blocks.length < CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT) {
-        return [];
-      }
-      const restrictedBlocks = blocksHandler.restrictBlocks({
+      return validatorAttendanceCalculator.getDefinedBlocks({
         blocks: this.blocks,
-        prop: ['header', 'height'],
+        validator: this.details,
+        validatorsSet: this.latestValidatorsSets,
         limit: CUSTOMIZATION.VALIDATORS.BLOCKS_MONITOR.AMOUNT,
       });
-      const attendance = BlocksAttendanceCalculator.setBlocks(restrictedBlocks)
-        .setValidator(this.details)
-        .setValidatorsSet(this.latestValidatorsSets)
-        .get();
-      return attendance !== null ? attendance.blocks : [];
     },
   },
   methods: {

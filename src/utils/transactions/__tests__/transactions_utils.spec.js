@@ -1,7 +1,7 @@
 import { mockTx, mockTxs } from '../../../store/transactions/__mocks__/txs';
 import TransactionDetailsAdapter from '../TransactionDetailsAdapter';
-import TransactionsFilter from '../TransactionsFilter';
-import TransactionsTableAdapter from '../TransactionsTableAdapter';
+import transactionsFilter from '../txsFilter';
+import transactionsTableAdapter from '../txsTableAdapter';
 
 describe('utils/transactions', () => {
   test("if 'TransactionDetailsAdapter' class returns the adapted transaction", () => {
@@ -29,13 +29,11 @@ describe('utils/transactions', () => {
     expect(Object.keys(tx)).toStrictEqual(expectedKeys);
   });
 
-  test("if 'TransactionsFilter' class filter transactions", () => {
+  test("if 'transactionsFilter.filter' method return filtered transactions", () => {
     const txs = mockTxs();
     const filter = 'send';
 
-    const filterdTxs = TransactionsFilter.setTxs(txs)
-      .setFilter(filter)
-      .get();
+    const filterdTxs = transactionsFilter.filter(txs, filter);
     for (const tx of filterdTxs) {
       const logs = tx.logs;
       for (const log of logs) {
@@ -56,15 +54,11 @@ describe('utils/transactions', () => {
     }
   });
 
-  test("if 'TransactionsTableAdapter' class returns an array of wanted transactions", () => {
+  test("if 'transactionsTableAdapter.build' method return an array of wanted transactions", () => {
     const items = 10;
     const txs = mockTxs(items);
-    const multiTypes = 'Multi types';
     const filter = 'send';
-    const convertedTxs = TransactionsTableAdapter.setTxs(txs)
-      .setMultiTypes(multiTypes)
-      .setFilter(filter)
-      .get();
+    const convertedTxs = transactionsTableAdapter.build(txs, filter);
 
     const expectedKeys = [
       'height',
