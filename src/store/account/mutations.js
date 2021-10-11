@@ -17,14 +17,6 @@ export default {
   /**
    *
    * @param {AccountState} state
-   * @param {Object} error
-   */
-  setError(state, error) {
-    state.error = { ...error };
-  },
-  /**
-   *
-   * @param {AccountState} state
    * @param {Array.<Object>} data
    */
   setBalances(state, data) {

@@ -5,7 +5,6 @@
  * @property {Boolean} isLoading
  * @property {Number} currentHeight
  * @property {Object} details
- * @property {Object} error
  * @property {Object} latest
  */
 
@@ -17,7 +16,6 @@ const initialState = {
   blocks: [],
   currentHeight: 1,
   details: null,
-  error: null,
   isLoading: false,
   latest: null,
 };

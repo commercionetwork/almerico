@@ -31,8 +31,8 @@ export default {
   name: 'OverviewBody',
   components: { OverviewTable },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('overview', {
-      error: 'error',
       isLoading: 'isLoading',
     }),
     errorMessage() {

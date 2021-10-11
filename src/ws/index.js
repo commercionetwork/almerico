@@ -44,7 +44,7 @@ export const subscribeWebSocket = () => {
   };
 
   client.onerror = function(evt) {
-    store.dispatch('starting/handleError', evt.error);
+    store.dispatch('handleError', evt.error);
   };
 
   client.onclose = function() {

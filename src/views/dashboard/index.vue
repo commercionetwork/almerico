@@ -44,8 +44,8 @@ export default {
     DashboardTopBody,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('dashboard', {
-      error: 'error',
       isLoading: 'isLoading',
     }),
   },

@@ -17,14 +17,6 @@ export default {
   /**
    *
    * @param {TransactionsState} state
-   * @param {Object} error
-   */
-  setError(state, error) {
-    state.error = { ...error };
-  },
-  /**
-   *
-   * @param {TransactionsState} state
    * @param {String} filter
    */
   setFilter(state, filter) {

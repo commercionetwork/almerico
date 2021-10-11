@@ -7,9 +7,6 @@ export default {
    */
   async init({ dispatch, commit }) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     await Promise.all([
       dispatch('fetchConversionRate'),
       dispatch('fetchRateUpdates'),
@@ -28,7 +25,7 @@ export default {
       const response = await http.requestConversionRate();
       commit('setConversionRate', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -54,7 +51,7 @@ export default {
       }
       commit('setRateUpdates', updates);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -66,22 +63,7 @@ export default {
       const response = await http.requestBlock('1');
       commit('setStartingDate', response.data.block.header.time);
     } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
-      commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
+      dispatch('handleError', error, { root: true });
     }
   },
 };

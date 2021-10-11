@@ -48,8 +48,8 @@ export default {
     BlockDetailsTopBody,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('blocks', {
-      error: 'error',
       isLoading: 'isLoading',
     }),
     errorMessage() {

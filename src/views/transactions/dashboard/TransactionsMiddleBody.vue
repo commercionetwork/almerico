@@ -54,9 +54,9 @@ export default {
     msgType: '',
   }),
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('transactions', {
       isLoading: 'isLoading',
-      error: 'error',
       filter: 'filter',
       transactions: 'transactions',
     }),

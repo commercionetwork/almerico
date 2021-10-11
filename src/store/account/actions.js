@@ -8,9 +8,6 @@ export default {
    */
   async getAccount({ dispatch, commit }, address) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     await Promise.all([
       dispatch('fetchMembership', address),
       dispatch('fetchBuyMembershipTx', address),
@@ -31,7 +28,7 @@ export default {
       const response = await http.requestBalances(address);
       commit('setBalances', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -44,7 +41,7 @@ export default {
       const response = await http.requestDelegations(address);
       commit('setDelegations', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -63,7 +60,7 @@ export default {
       // if (error.response && error.response.status === 404) {
       //   commit('setMembership', null);
       // } else {
-      //   dispatch('handleError', error);
+      //   dispatch('handleError', error, { root: true });
       // }
     }
   },
@@ -92,7 +89,7 @@ export default {
       });
       commit('setBuyMembershipTx', response.data.txs[0]);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -105,7 +102,7 @@ export default {
       const response = await http.requestRewards(address);
       commit('setRewards', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -118,22 +115,7 @@ export default {
       const response = await http.requestUnbondings(address);
       commit('setUnbondings', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
-      commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
+      dispatch('handleError', error, { root: true });
     }
   },
 };

@@ -49,9 +49,9 @@ export default {
     TransactionDetailsHeader,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('transactions', {
       details: 'details',
-      error: 'error',
       isLoading: 'isLoading',
     }),
     hash() {

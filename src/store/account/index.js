@@ -6,7 +6,6 @@
  * @property {Array.<Object>} unbondings
  * @property {Boolean} isLoading
  * @property {Object} buyMembershipTx
- * @property {Object} error
  * @property {Object} membership
  * @property {Object} rewards
  */
@@ -19,7 +18,6 @@ const initialState = {
   balances: [],
   buyMembershipTx: null,
   delegations: [],
-  error: null,
   isLoading: false,
   membership: null,
   rewards: null,

@@ -14,19 +14,23 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    serverReachability: true,
+    error: null,
   },
   getters: {
-    getServerReachability: (state) => state.serverReachability,
+    error: (state) => state.error,
   },
   mutations: {
     /**
-     *
      * @param {Object} state
-     * @param {Boolean} payload
+     * @param {Object} error
      */
-    setServerReachability(state, payload) {
-      state.serverReachability = payload;
+    setError(state, error) {
+      state.error = error;
+    },
+  },
+  actions: {
+    handleError({ commit }, error) {
+      commit('setError', error);
     },
   },
   modules: {

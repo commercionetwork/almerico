@@ -51,9 +51,9 @@ export default {
     BlocksTable,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('blocks', {
       isLoading: 'isLoading',
-      error: 'error',
       latest: 'latest',
       blocks: 'blocks',
       currentHeight: 'currentHeight',

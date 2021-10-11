@@ -17,14 +17,6 @@ export default {
   /**
    *
    * @param {BlocksState} state
-   * @param {Object} error
-   */
-  setError(state, error) {
-    state.error = { ...error };
-  },
-  /**
-   *
-   * @param {BlocksState} state
    * @param {Number} height
    */
   changeHeight(state, height) {

@@ -8,14 +8,11 @@ export default {
    */
   async getBlock({ dispatch, commit }, height) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     try {
       const response = await http.requestBlock(height);
       commit('setBlockDetails', response.data);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     } finally {
       commit('stopLoading');
     }
@@ -29,7 +26,7 @@ export default {
       const response = await http.requestLatestBlock();
       commit('setLatestBlock', response.data.block);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -49,7 +46,7 @@ export default {
       }
       commit('changeHeight', minHeight);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -60,9 +57,6 @@ export default {
    */
   async getBlocks({ dispatch, commit }, { maxHeight, items }) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     commit('clearAllBlocks');
     await dispatch('fetchBlocks', {
       height: maxHeight,
@@ -78,29 +72,11 @@ export default {
    */
   async addBlocks({ dispatch, commit }, { currentHeight, items }) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     await dispatch('fetchBlocks', {
       height: currentHeight,
       items: items,
     });
     commit('stopLoading');
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
-      commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
-    }
   },
 };
 

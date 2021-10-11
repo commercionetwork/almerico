@@ -42,9 +42,9 @@ export default {
     ValidatorsTable,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('blocks', {
       isLoading: 'isLoading',
-      error: 'error',
       latest: 'latest',
     }),
     errorMessage() {

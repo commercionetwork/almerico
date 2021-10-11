@@ -10,7 +10,7 @@ export default {
       const response = await http.requestLatestValidatorSets();
       commit('setLatestValidatorsSets', response.data.result.validators);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -31,7 +31,7 @@ export default {
         commit('addValidators', response.data.result);
       }
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -43,9 +43,6 @@ export default {
    */
   async initValidators({ commit, dispatch }, { statuses, page, limit }) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     commit('setValidators', []);
     let requests = [dispatch('fetchLatestValidatorSets')];
     for (const status of statuses) {
@@ -68,14 +65,11 @@ export default {
    */
   async fetchValidatorsetsFromHeight({ dispatch, commit }, height) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     try {
       const response = await http.requestValidatorsetsFromHeight(height);
       commit('setHeightValidatorsSets', response.data.result.validators);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     } finally {
       commit('stopLoading');
     }
@@ -97,7 +91,7 @@ export default {
       const response = await http.requestValidatorDetails(address);
       commit('setDetails', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -110,7 +104,7 @@ export default {
       const response = await http.requestValidatorDelegations(address);
       commit('addDetails', { delegations: response.data.result });
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -147,28 +141,10 @@ export default {
    */
   async getValidatorData({ commit, dispatch }, { address }) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     commit('resetDetails');
     await dispatch('fetchValidatorDetails', address);
     await dispatch('fetchValidatorDelegations', address);
     dispatch('fetchValidatorPicture');
     commit('stopLoading');
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
-      commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
-    }
   },
 };

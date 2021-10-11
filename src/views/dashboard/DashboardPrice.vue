@@ -44,9 +44,9 @@ export default {
   name: 'DashboardPrice',
   components: { TopBodyCardComponent },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('dashboard', {
       conversionRate: 'conversionRate',
-      error: 'error',
       isLoading: 'isLoading',
     }),
     ...mapGetters('starting', {

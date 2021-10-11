@@ -56,11 +56,11 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('blocks', {
       details: 'details',
     }),
     ...mapGetters('validators', {
-      error: 'error',
       isLoading: 'isLoading',
       validators: 'validators',
       validatorsSets: 'heightValidatorsSets',

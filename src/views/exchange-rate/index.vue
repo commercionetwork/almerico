@@ -50,13 +50,13 @@ export default {
     },
   }),
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('spreadsheet', {
       abrTokens: 'abrTokens',
       accountsTokens: 'accountsTokens',
       allTokens: 'allTokens',
       freezedTokens: 'freezedTokens',
       vbrTokens: 'vbrTokens',
-      error: 'error',
       isLoading: 'isLoading',
     }),
     ...mapGetters('starting', {

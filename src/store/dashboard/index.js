@@ -3,18 +3,16 @@
  * @typedef {Object} DashboardState
  * @property {Array.<Object>} rateUpdates
  * @property {Boolean} isLoading
- * @property {Object} error
  * @property {String} conversionRate
  * @property {String} startingDate
  */
 
- import actions from './actions';
- import getters from './getters';
- import mutations from './mutations';
+import actions from './actions';
+import getters from './getters';
+import mutations from './mutations';
 
- const initialState = {
+const initialState = {
   conversionRate: '',
-  error: null,
   isLoading: false,
   rateUpdates: [],
   startingDate: '',

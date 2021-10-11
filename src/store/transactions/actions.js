@@ -9,9 +9,6 @@ export default {
    */
   async fetchTransaction({ dispatch, commit }, hash) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     commit('setTransactionDetails', null);
     let response;
     try {
@@ -25,7 +22,7 @@ export default {
       if (error.response && error.response.status === 404) {
         await dispatch('fetchAncestorTransaction', hash);
       } else {
-        dispatch('handleError', error);
+        dispatch('handleError', error, { root: true });
       }
     } finally {
       commit('stopLoading');
@@ -55,7 +52,7 @@ export default {
         if (error.response && error.response.status === 404) {
           continue;
         } else {
-          dispatch('handleError', error);
+          dispatch('handleError', error, { root: true });
         }
       }
     }
@@ -77,7 +74,7 @@ export default {
       commit('changePage', lastPage);
       commit('setHasNext', lastPage);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -96,7 +93,7 @@ export default {
       });
       commit('addTransactions', response.data.txs);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -111,9 +108,6 @@ export default {
     { limit = CUSTOMIZATION.TXS.TABLE_ITEMS, query = 'tx.minheight=1' } = {},
   ) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     commit('clearAllTransactions');
     commit('changePage', 1);
     commit('setHasNext', 1);
@@ -161,9 +155,6 @@ export default {
     if (!state.hasNext) return;
     const currentPage = state.currentPage - diff;
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     await dispatch('getTransactions', {
       page: currentPage,
       limit,
@@ -180,9 +171,6 @@ export default {
    */
   async fetchBlockTransactions({ dispatch, commit }, height) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     try {
       const response = await http.requestBlockTransactions(height);
       if (response.data.txs.length > 0) {
@@ -191,7 +179,7 @@ export default {
         });
       }
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     } finally {
       commit('stopLoading');
     }
@@ -203,20 +191,5 @@ export default {
    */
   setTransactionsFilter({ commit }, filter) {
     commit('setFilter', filter);
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
-      commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
-    }
   },
 };

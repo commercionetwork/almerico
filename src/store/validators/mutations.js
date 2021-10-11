@@ -17,14 +17,6 @@ export default {
   /**
    *
    * @param {ValidatorsState} state
-   * @param {Object} error
-   */
-  setError(state, error) {
-    state.error = { ...error };
-  },
-  /**
-   *
-   * @param {ValidatorsState} state
    * @param {Object} data
    */
   setFilter(state, data) {

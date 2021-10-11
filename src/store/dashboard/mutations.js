@@ -17,14 +17,6 @@ export default {
   /**
    *
    * @param {DashboardState} state
-   * @param {Object} error
-   */
-  setError(state, error) {
-    state.error = { ...error };
-  },
-  /**
-   *
-   * @param {DashboardState} state
    * @param {String} rate
    */
   setConversionRate(state, rate) {

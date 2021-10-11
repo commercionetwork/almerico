@@ -6,7 +6,6 @@
  * @property {Boolean} isLoading
  * @property {Number} currentPage
  * @property {Object} details
- * @property {Object} error
  * @property {String} filter
  */
 
@@ -17,7 +16,6 @@ import mutations from './mutations';
 const initialState = {
   currentPage: 1,
   details: null,
-  error: null,
   filter: '',
   hasNext: false,
   isLoading: false,

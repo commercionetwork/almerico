@@ -7,12 +7,11 @@
     <NavBarComponent />
     <!-- content -->
     <v-main>
-      <v-layout
+      <v-container
         v-if="isLoading"
-        align-center
-        justify-center
-        column
+        fluid
         fill-height
+        justify-center
         data-test="loading"
       >
         <v-progress-circular
@@ -21,7 +20,7 @@
           indeterminate
           color="primary"
         />
-      </v-layout>
+      </v-container>
       <v-container v-else-if="error !== null" data-test="error">
         <v-row>
           <v-col cols="12">
@@ -45,7 +44,6 @@ import FooterComponent from '@/components/layout/FooterComponent';
 import NavBarComponent from '@/components/layout/NavBarComponent';
 
 import { mapActions, mapGetters } from 'vuex';
-import { ROUTES } from './constants';
 import { subscribeWebSocket } from '@/ws';
 
 export default {
@@ -55,20 +53,12 @@ export default {
     NavBarComponent,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('starting', {
-      error: 'error',
       isLoading: 'isLoading',
     }),
     theme() {
       return this.$vuetify.theme.dark ? 'dark' : 'light';
-    },
-    serverReachability() {
-      return this.$store.getters.getServerReachability;
-    },
-  },
-  watch: {
-    serverReachability(value) {
-      if (!value) this.$router.push({ name: ROUTES.NAMES.SERVER_UNREACHABLE });
     },
   },
   methods: {

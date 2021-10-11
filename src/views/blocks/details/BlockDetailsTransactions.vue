@@ -36,8 +36,8 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('transactions', {
-      error: 'error',
       isLoading: 'isLoading',
       transactions: 'transactions',
     }),

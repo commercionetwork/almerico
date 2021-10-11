@@ -6,7 +6,6 @@
  * @property {Array.<Object>} validators
  * @property {Boolean} isLoading
  * @property {Object} details
- * @property {Object} error
  * @property {Object} filter
  */
 
@@ -16,7 +15,6 @@ import mutations from './mutations';
 
 const initialState = {
   details: null,
-  error: null,
   filter: null,
   heightValidatorsSets: [],
   isLoading: false,

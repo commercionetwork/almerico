@@ -51,8 +51,8 @@ export default {
     ValidatorDetailsHeader,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('validators', {
-      error: 'error',
       isLoading: 'isLoading',
       details: 'details',
     }),

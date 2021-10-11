@@ -17,14 +17,6 @@ export default {
   /**
    *
    * @param {StartingState} state
-   * @param {Object} error
-   */
-  setError(state, error) {
-    state.error = { ...error };
-  },
-  /**
-   *
-   * @param {StartingState} state
    * @param {Object} data
    */
   setNodeInfo(state, data) {

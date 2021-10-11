@@ -8,9 +8,6 @@ export default {
    */
   async init({ dispatch, commit }) {
     commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
     const statuses = [
       STATUS.VALIDATOR.BONDED,
       STATUS.VALIDATOR.UNBONDED,
@@ -20,7 +17,7 @@ export default {
       dispatch('fetchNodeInfo'),
       dispatch('fetchParams'),
       dispatch('fetchPool'),
-      dispatch('fetchTokens'),
+      // dispatch('fetchTokens'),
       dispatch('blocks/fetchLatestBlock', null, { root: true }),
       dispatch(
         'validators/initValidators',
@@ -39,7 +36,7 @@ export default {
       const response = await http.requestNodeInfo();
       commit('setNodeInfo', response.data);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -51,7 +48,7 @@ export default {
       const response = await http.requestStakingParameters();
       commit('setParams', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -63,7 +60,7 @@ export default {
       const response = await http.requestPool();
       commit('setPool', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      dispatch('handleError', error, { root: true });
     }
   },
   /**
@@ -75,22 +72,7 @@ export default {
       const response = await http.requestAllTokens();
       commit('setTokens', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
-      commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
+      dispatch('handleError', error, { root: true });
     }
   },
 };
