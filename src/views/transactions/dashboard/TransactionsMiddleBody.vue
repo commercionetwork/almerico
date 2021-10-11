@@ -43,7 +43,7 @@
 import TransactionsTable from './TransactionsTable';
 
 import { mapActions, mapGetters } from 'vuex';
-import { TransactionsTableAdapter } from '@/utils';
+import { transactionsTableAdapter } from '@/utils';
 
 export default {
   name: 'TransactionsMiddleBody',
@@ -61,10 +61,7 @@ export default {
       transactions: 'transactions',
     }),
     items() {
-      return TransactionsTableAdapter.setTxs(this.transactions)
-        .setMultiTypes('Multi types')
-        .setFilter(this.filter)
-        .get();
+      return transactionsTableAdapter.build(this.transactions, this.filter);
     },
   },
   watch: {
@@ -76,7 +73,7 @@ export default {
     ...mapActions('transactions', {
       changePage: 'changePage',
     }),
-    onIntersect(entries, observer, isIntersecting) {
+    onIntersect(_entries, _observer, isIntersecting) {
       if (isIntersecting) {
         this.changePage({ diff: 1 });
       }

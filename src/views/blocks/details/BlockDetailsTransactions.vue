@@ -21,7 +21,7 @@
 import BlockDetailsTable from './BlockDetailsTable';
 
 import { mapActions, mapGetters } from 'vuex';
-import { TransactionsTableAdapter } from '@/utils';
+import { transactionsTableAdapter } from '@/utils';
 
 export default {
   name: 'BlockDetailsTransactions',
@@ -42,10 +42,7 @@ export default {
       transactions: 'transactions',
     }),
     items() {
-      return TransactionsTableAdapter.setTxs(this.transactions)
-        .setMultiTypes('Multi types')
-        .setFilter(null)
-        .get();
+      return transactionsTableAdapter.build(this.transactions, '');
     },
   },
   methods: {

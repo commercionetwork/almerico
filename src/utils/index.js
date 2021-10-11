@@ -13,8 +13,7 @@ import proposerHandler from './proposerHandler';
 import regExpBuilder from './regExpBuilder';
 import tokensChartHelper from './tokensChartHelper';
 import TransactionDetailsAdapter from './transactions/TransactionDetailsAdapter';
-import TransactionsFilter from './transactions/TransactionsFilter';
-import TransactionsTableAdapter from './transactions/TransactionsTableAdapter';
+import transactionsTableAdapter from './transactions/txsTableAdapter';
 import txHandler from './txHandler';
 import validatorAttendanceCalculator from './validators/validatorAttendanceCalculator';
 import ValidatorDelegationsHandler from './validators/ValidatorDelegationsHandler';
@@ -29,8 +28,6 @@ export {
   BlocksTableAdapter,
   OverviewTableAdapter,
   TransactionDetailsAdapter,
-  TransactionsFilter,
-  TransactionsTableAdapter,
   ValidatorDelegationsHandler,
   ValidatorDelegatorsAggregator,
   arrayHandler,
@@ -41,6 +38,7 @@ export {
   proposerHandler,
   regExpBuilder,
   tokensChartHelper,
+  transactionsTableAdapter,
   txHandler,
   validatorAttendanceCalculator,
   validatorsTableAdapter,
