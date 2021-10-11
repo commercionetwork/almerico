@@ -4,7 +4,7 @@ import AccountUnbondingsHandler from './account/AccountUnbondingsHandler';
 import arrayHandler from './arrayHandler';
 import bech32Manager from './bech32Manager';
 import BlockProposerHandler from './blocks/BlockProposerHandler';
-import BlocksTableAdapter from './blocks/BlocksTableAdapter';
+import blocksTableAdapter from './blocks/blocksTableAdapter';
 import coinAdapter from './coinAdapter';
 import dateHandler from './dateHandler';
 import numberIntlFormatter from './numberIntlFormatter';
@@ -25,13 +25,13 @@ export {
   AccountDelegationsHandler,
   AccountUnbondingsHandler,
   BlockProposerHandler,
-  BlocksTableAdapter,
   OverviewTableAdapter,
   TransactionDetailsAdapter,
   ValidatorDelegationsHandler,
   ValidatorDelegatorsAggregator,
   arrayHandler,
   bech32Manager,
+  blocksTableAdapter,
   coinAdapter,
   dateHandler,
   numberIntlFormatter,

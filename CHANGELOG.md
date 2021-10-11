@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update validators utilities
 - Update transactions utilities
+- Update blocks utilities
 
 ## [2.2.19] - 2021-10-07
 

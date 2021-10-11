@@ -43,7 +43,7 @@
 import BlocksTable from './BlocksTable';
 
 import { mapActions, mapGetters } from 'vuex';
-import { BlocksTableAdapter } from '@/utils';
+import { blocksTableAdapter } from '@/utils';
 
 export default {
   name: 'BlocksMiddleBody',
@@ -63,13 +63,12 @@ export default {
       validatorsSet: 'latestValidatorsSets',
     }),
     items() {
-      return BlocksTableAdapter.setBlocks(this.blocks)
-        .setValidators(this.validators)
-        .setValidatorsSet(this.validatorsSet)
-        .setValidatorConsensusPrefix(
-          this.$config.generic.prefixes.validator.consensus.address,
-        )
-        .get();
+      return blocksTableAdapter.build({
+        blocks: this.blocks,
+        validators: this.validators,
+        validatorsSet: this.validatorsSet,
+        prefix: this.$config.generic.prefixes.validator.consensus.address,
+      });
     },
   },
   methods: {
