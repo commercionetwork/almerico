@@ -21,17 +21,17 @@
     ],
     "prefixes": {
       "account": {
-        "address": "did:com:",
-        "key": "did:com:pub"
+        "address": "cosmos",
+        "key": "cosmospub"
       },
       "validator": {
         "consensus": {
-          "address": "did:com:valcons",
-          "key": "did:com:valconspub"
+          "address": "cosmosvalcons",
+          "key": "cosmosvalconspub"
         },
         "operator": {
-          "address": "did:com:valoper",
-          "key": "did:com:valoperpub"
+          "address": "cosmosvaloper",
+          "key": "cosmosvaloperpub"
         }
       }
     }

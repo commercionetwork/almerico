@@ -38,7 +38,7 @@ export default {
    * @param {Array.<Object>} data
    */
   addValidators(state, data) {
-    state.validators.push(data);
+    state.validators.push(...data);
   },
   /**
    *

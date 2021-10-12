@@ -34,7 +34,7 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
 import { proposerHandler } from '@/utils';
-import { ROUTES } from '@/constants';
+import { ROUTES, STATUS } from '@/constants';
 
 export default {
   name: 'TopBodyBlockComponent',
@@ -98,8 +98,9 @@ export default {
         : 0;
     },
     validatorsBondeds() {
-      return this.validators.filter((validator) => validator.status === 2)
-        .length;
+      return this.validators.filter(
+        (validator) => validator.status === STATUS.VALIDATOR.BONDED,
+      ).length;
     },
     validatorsTotal() {
       return this.validators.length;

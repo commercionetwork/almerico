@@ -7,27 +7,29 @@
       <DashboardPrice />
     </template>
     <template v-slot:right-info>
-      <DashboardPriceChart />
+      <div>WORK IN PROGRESS</div>
+      <!-- <DashboardPriceChart /> -->
     </template>
     <template v-slot:optional-info>
-      <DashboardChart />
+      <div>WORK IN PROGRESS</div>
+      <!-- <DashboardChart /> -->
     </template>
   </TopBodyComponent>
 </template>
 
 <script>
-import DashboardChart from './DashboardChart';
+// import DashboardChart from './DashboardChart';
 import DashboardPrice from './DashboardPrice';
-import DashboardPriceChart from './DashboardPriceChart';
+// import DashboardPriceChart from './DashboardPriceChart';
 import TopBodyBlockComponent from '@/components/TopBodyBlockComponent';
 import TopBodyComponent from '@/components/TopBodyComponent';
 
 export default {
   name: 'DashboardTopBody',
   components: {
-    DashboardChart,
+    // DashboardChart,
     DashboardPrice,
-    DashboardPriceChart,
+    // DashboardPriceChart,
     TopBodyBlockComponent,
     TopBodyComponent,
   },

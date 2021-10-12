@@ -15,9 +15,9 @@ const proposerHandler = {
     const proposer = validatorsSet.find(
       (validator) => validator.address === consensusAddress,
     );
-    return validators.find(
-      (validator) => validator.consensus_pubkey === proposer.pub_key,
-    );
+    return validators.find((validator) => {
+      return validator.consensus_pubkey.key === proposer.pub_key.key;
+    });
   },
 };
 

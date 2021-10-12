@@ -32,7 +32,6 @@ export default {
   async fetchNodeInfo({ dispatch, commit }) {
     try {
       const response = await http.requestNodeInfo();
-      console.log(response);
       commit('setNodeInfo', response.data);
     } catch (error) {
       dispatch('handleError', error, { root: true });
