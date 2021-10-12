@@ -19,6 +19,7 @@ branches:
 after_success:
   - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_TESTNET
     --build-arg LCD_URL=${ALMERICO_LCD_URL_TESTNET}
+    --build-arg API_VERSION=${ALMERICO_API_VERSION_TESTNET}
     --build-arg WS_URL=${ALMERICO_WS_URL_TESTNET}
     --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_TESTNET}"
     --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_TESTNET}"
@@ -29,6 +30,7 @@ after_success:
     .
   - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_DEVNET
     --build-arg LCD_URL=${ALMERICO_LCD_URL_DEVNET}
+    --build-arg API_VERSION=${ALMERICO_API_VERSION_DEVNET}
     --build-arg WS_URL=${ALMERICO_WS_URL_DEVNET}
     --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_DEVNET}"
     --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_DEVNET}"
@@ -39,6 +41,7 @@ after_success:
     .
   - test $TRAVIS_BRANCH = "master" && docker build -t $DOCKER_IMAGE_MAINNET
     --build-arg LCD_URL=${ALMERICO_LCD_URL_MAINNET}
+    --build-arg API_VERSION=${ALMERICO_API_VERSION_MAINNET}
     --build-arg WS_URL=${ALMERICO_WS_URL_MAINNET}
     --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_MAINNET}"
     --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_MAINNET}"
