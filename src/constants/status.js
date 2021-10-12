@@ -1,7 +1,8 @@
 export const STATUS = {
   VALIDATOR: {
-    BONDED: 'bonded',
-    UNBONDED: 'unbonded',
-    UNBONDING: 'unbonding',
+    BONDED: 'BOND_STATUS_BONDED',
+    UNBONDED: 'BOND_STATUS_UNBONDED',
+    UNBONDING: 'BOND_STATUS_UNBONDING',
+    UNSPECIFIED: 'BOND_STATUS_UNSPECIFIED',
   },
 };
