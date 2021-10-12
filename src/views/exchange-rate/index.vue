@@ -1,5 +1,8 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
+  <v-card>
+    <v-card-title>Work in progress</v-card-title>
+  </v-card>
+  <!-- <v-row v-if="isLoading" data-test="loading">
     <v-col cols="12" class="pa-5">
       <v-progress-linear
         color="primary"
@@ -20,7 +23,7 @@
     <ExchangeRateHeaderComponent />
     <ExchangeRateTopBodyComponent :rate="exchangeRate" />
     <ExchangeRateBodyComponent :model="model" />
-  </div>
+  </div> -->
 </template>
 
 <script>

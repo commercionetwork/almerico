@@ -1,12 +1,15 @@
 <template>
-  <div>
+  <v-card>
+    <v-card-title>Work in progress</v-card-title>
+  </v-card>
+  <!-- <div>
     <v-row>
       <v-col cols="12">
         <OverviewHeader />
         <OverviewBody />
       </v-col>
     </v-row>
-  </div>
+  </div> -->
 </template>
 
 <script>
