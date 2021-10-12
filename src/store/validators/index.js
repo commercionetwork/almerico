@@ -7,6 +7,7 @@
  * @property {Boolean} isLoading
  * @property {Object} details
  * @property {Object} filter
+ * @property {Object} pagination
  */
 
 import actions from './actions';
@@ -19,6 +20,7 @@ const initialState = {
   heightValidatorsSets: [],
   isLoading: false,
   latestValidatorsSets: [],
+  pagination: null,
   validators: [],
 };
 

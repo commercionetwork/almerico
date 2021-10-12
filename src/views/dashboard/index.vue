@@ -1,5 +1,8 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
+  <v-card>
+    <v-card-title>DASHBOARD</v-card-title>
+  </v-card>
+  <!-- <v-row v-if="isLoading" data-test="loading">
     <v-col cols="12" class="pa-5">
       <v-progress-linear
         indeterminate
@@ -24,7 +27,7 @@
       <DashboardBanner class="py-1" />
       <DashboardMiddleBody class="py-1" />
     </v-col>
-  </v-row>
+  </v-row> -->
 </template>
 
 <script>
@@ -55,7 +58,7 @@ export default {
     }),
   },
   created() {
-    this.init();
+    // this.init();
   },
 };
 </script>

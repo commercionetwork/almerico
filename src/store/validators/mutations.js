@@ -1,7 +1,7 @@
 export default {
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    */
   startLoading(state) {
     state.error = null;
@@ -9,14 +9,14 @@ export default {
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    */
   stopLoading(state) {
     state.isLoading = false;
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    * @param {Object} data
    */
   setFilter(state, data) {
@@ -26,25 +26,31 @@ export default {
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    * @param {Array.<Object>} data
    */
   setValidators(state, data) {
-    state.validators = data.map((obj) => ({
-      ...obj,
-    }));
+    state.validators = data;
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    * @param {Array.<Object>} data
    */
   addValidators(state, data) {
-    state.validators.push.apply(state.validators, data);
+    state.validators.push(data);
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
+   * @param {Object} pagination
+   */
+  setPagination(state, pagination) {
+    state.pagination = pagination;
+  },
+  /**
+   *
+   * @param {import(".").ValidatorsState} state
    * @param {Array.<Object>} data
    */
   setHeightValidatorsSets(state, data) {
@@ -54,7 +60,7 @@ export default {
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    * @param {Array.<Object>} data
    */
   setLatestValidatorsSets(state, data) {
@@ -65,7 +71,7 @@ export default {
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    * @param {Object} data
    */
   setDetails(state, data) {
@@ -77,7 +83,7 @@ export default {
   /**
    * Add details to validator details
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    * @param {Object} data
    */
   addDetails(state, data) {
@@ -88,7 +94,7 @@ export default {
   },
   /**
    *
-   * @param {ValidatorsState} state
+   * @param {import(".").ValidatorsState} state
    */
   resetDetails(state) {
     for (let key in state.details) {

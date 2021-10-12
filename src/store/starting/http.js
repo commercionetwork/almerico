@@ -5,16 +5,6 @@ export default {
   /**
    * @returns {Promise}
    */
-  requestAllTokens() {
-    return axios({
-      method: 'get',
-      baseURL: `${API.SUPPLY}`,
-      url: '/total',
-    });
-  },
-  /**
-   * @returns {Promise}
-   */
   requestNodeInfo() {
     return axios({
       method: 'get',
@@ -39,6 +29,16 @@ export default {
       method: 'get',
       baseURL: `${API.STAKING}`,
       url: '/params',
+    });
+  },
+  /**
+   * @returns {Promise}
+   */
+  requestAllTokens() {
+    return axios({
+      method: 'get',
+      baseURL: `${API.BANK}`,
+      url: '/supply',
     });
   },
 };

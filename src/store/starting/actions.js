@@ -8,23 +8,21 @@ export default {
    */
   async init({ dispatch, commit }) {
     commit('startLoading');
-    const statuses = [
-      STATUS.VALIDATOR.BONDED,
-      STATUS.VALIDATOR.UNBONDED,
-      STATUS.VALIDATOR.UNBONDING,
-    ];
-    await Promise.all([
+    let requests = [
+      dispatch('fetchTokens'),
       dispatch('fetchNodeInfo'),
       dispatch('fetchParams'),
       dispatch('fetchPool'),
-      // dispatch('fetchTokens'),
       dispatch('blocks/fetchLatestBlock', null, { root: true }),
-      dispatch(
-        'validators/initValidators',
-        { statuses: statuses },
-        { root: true },
-      ),
-    ]);
+      dispatch('validators/fetchLatestValidatorSets', null, { root: true }),
+    ];
+    const statuses = Object.values(STATUS.VALIDATOR);
+    for (const status of statuses) {
+      requests.push(
+        dispatch('validators/getValidatorsList', { status }, { root: true }),
+      );
+    }
+    await Promise.all(requests);
     commit('stopLoading');
   },
   /**
@@ -34,6 +32,7 @@ export default {
   async fetchNodeInfo({ dispatch, commit }) {
     try {
       const response = await http.requestNodeInfo();
+      console.log(response);
       commit('setNodeInfo', response.data);
     } catch (error) {
       dispatch('handleError', error, { root: true });
@@ -46,7 +45,7 @@ export default {
   async fetchParams({ dispatch, commit }) {
     try {
       const response = await http.requestStakingParameters();
-      commit('setParams', response.data.result);
+      commit('setParams', response.data.params);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -58,7 +57,7 @@ export default {
   async fetchPool({ dispatch, commit }) {
     try {
       const response = await http.requestPool();
-      commit('setPool', response.data.result);
+      commit('setPool', response.data.pool);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -70,7 +69,7 @@ export default {
   async fetchTokens({ dispatch, commit }) {
     try {
       const response = await http.requestAllTokens();
-      commit('setTokens', response.data.result);
+      commit('setTokens', response.data.supply);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

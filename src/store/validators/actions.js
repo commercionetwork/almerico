@@ -2,60 +2,67 @@ import http from './http';
 
 export default {
   /**
+   *
+   * @param {Function} commit
+   * @param {Function} dispatch
+   * @param {String} status
+   * @param {Object} pagination
+   * @returns {Promise}
+   */
+  async initValidatorsDashboard({ commit, dispatch }, { status, pagination }) {
+    commit('setError', null, { root: true });
+    commit('setValidators', []);
+    commit('setPagination', null);
+    commit('startLoading');
+    const requests = [
+      dispatch('fetchLatestValidatorSets'),
+      dispatch('getValidatorsList', { status, pagination }),
+    ];
+    await Promise.all(requests);
+    commit('stopLoading');
+  },
+  /**
+   *
+   * @param {Function} dispatch
+   * @param {Function} commit
+   * @param {String} status
+   * @param {Object} pagination
+   * @returns {Promise}
+   */
+  async fetchValidators({ dispatch, commit }, { status, pagination }) {
+    commit('setError', null, { root: true });
+    commit('startLoading');
+    await dispatch('getValidatorsList', { status, pagination });
+    commit('stopLoading');
+  },
+  /**
+   *
+   * @param {Function} dispatch
+   * @param {Function} commit
+   * @param {String} status
+   * @param {Object} pagination
+   * @returns {Promise}
+   */
+  async getValidatorsList({ dispatch, commit }, { status, pagination }) {
+    try {
+      const response = await http.requestValidatorsList({ status, pagination });
+      commit('addValidators', response.data.validators);
+      commit('setPagination', response.data.pagination);
+    } catch (error) {
+      dispatch('handleError', error, { root: true });
+    }
+  },
+  /**
    * @param {Function} dispatch
    * @param {Function} commit
    */
   async fetchLatestValidatorSets({ dispatch, commit }) {
     try {
       const response = await http.requestLatestValidatorSets();
-      commit('setLatestValidatorsSets', response.data.result.validators);
+      commit('setLatestValidatorsSets', response.data.validators);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} status
-   * @param {Number} page
-   * @param {Number} limit
-   */
-  async fetchValidatorsList({ dispatch, commit }, { status, page, limit }) {
-    try {
-      const response = await http.requestValidatorsList({
-        status,
-        page,
-        limit,
-      });
-      if (response.data.result.length > 0) {
-        commit('addValidators', response.data.result);
-      }
-    } catch (error) {
-      dispatch('handleError', error, { root: true });
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Function} dispatch
-   * @param {Array.<String>} statuses
-   * @param {Number} page
-   * @param {Number} limit
-   */
-  async initValidators({ commit, dispatch }, { statuses, page, limit }) {
-    commit('startLoading');
-    commit('setValidators', []);
-    let requests = [dispatch('fetchLatestValidatorSets')];
-    for (const status of statuses) {
-      requests.push(
-        dispatch('fetchValidatorsList', {
-          status: status,
-          page: page,
-          limit: limit,
-        }),
-      );
-    }
-    await Promise.all(requests);
-    commit('stopLoading');
   },
   /**
    * @param {Function} dispatch

@@ -8,16 +8,16 @@ export default {
    * @param {Number} limit
    * @returns {Promise}
    */
-  requestValidatorsList({ status, page, limit }) {
+  requestValidatorsList({ status, pagination }) {
+    const params = {
+      status: status || undefined,
+      pagination: pagination || undefined,
+    };
     return axios({
       method: 'get',
       baseURL: `${API.STAKING}`,
       url: '/validators',
-      params: {
-        status,
-        page,
-        limit,
-      },
+      params,
     });
   },
   /**

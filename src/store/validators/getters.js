@@ -4,5 +4,10 @@ export default {
   heightValidatorsSets: (state) => state.heightValidatorsSets,
   isLoading: (state) => state.isLoading,
   latestValidatorsSets: (state) => state.latestValidatorsSets,
+  pagination: (state) => state.pagination,
   validators: (state) => state.validators,
+  nextKey: (state) =>
+    state.pagination && state.pagination.next_key
+      ? state.pagination.next_key
+      : null,
 };
