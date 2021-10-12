@@ -1,5 +1,5 @@
 import http from './http';
-import { STATUS } from '@/constants';
+import { VALIDATOR_STATUS } from '@/constants';
 
 export default {
   /**
@@ -16,10 +16,13 @@ export default {
       dispatch('blocks/fetchLatestBlock', null, { root: true }),
       dispatch('validators/fetchLatestValidatorSets', null, { root: true }),
     ];
-    const statuses = Object.values(STATUS.VALIDATOR);
-    for (const status of statuses) {
+    for (const status in VALIDATOR_STATUS) {
       requests.push(
-        dispatch('validators/getValidatorsList', { status }, { root: true }),
+        dispatch(
+          'validators/getValidatorsList',
+          { status: VALIDATOR_STATUS[status] },
+          { root: true },
+        ),
       );
     }
     await Promise.all(requests);

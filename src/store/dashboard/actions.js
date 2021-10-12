@@ -8,11 +8,20 @@ export default {
   async init({ dispatch, commit }) {
     commit('startLoading');
     await Promise.all([
-      dispatch('fetchConversionRate'),
-      dispatch('fetchRateUpdates'),
-      dispatch('fetchStartingDate'),
-      dispatch('spreadsheet/fetchAbrTokens', null, { root: true }),
-      dispatch('spreadsheet/fetchVbrTokens', null, { root: true }),
+      // dispatch('fetchConversionRate'),
+      // dispatch('fetchRateUpdates'),
+      // dispatch('fetchStartingDate'),
+      // dispatch('spreadsheet/fetchAbrTokens', null, { root: true }),
+      // dispatch('spreadsheet/fetchVbrTokens', null, { root: true }),
+      dispatch(
+        'transactions/getTransactions',
+        {
+          events: 'tx.minheight=1',
+          pagination: { limit: 10 },
+          orderBy: 'ORDER_BY_DESC',
+        },
+        { root: true },
+      ),
     ]);
     commit('stopLoading');
   },

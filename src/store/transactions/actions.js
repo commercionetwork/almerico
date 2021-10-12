@@ -80,16 +80,16 @@ export default {
   /**
    * @param {Function} dispatch
    * @param {Function} commit
-   * @param {Number} page
-   * @param {Number} limit
-   * @param {String} query
+   * @param {String} events
+   * @param {Object} pagination
+   * @param {String} orderBy
    */
-  async getTransactions({ dispatch, commit }, { page, limit, query }) {
+  async getTransactions({ dispatch, commit }, { events, pagination, orderBy }) {
     try {
       const response = await http.requestSearchTransactions({
-        query: query,
-        page: page,
-        limit: limit,
+        events,
+        pagination,
+        orderBy,
       });
       commit('addTransactions', response.data.txs);
     } catch (error) {

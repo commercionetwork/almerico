@@ -20,9 +20,7 @@ export default {
    * @param {Object} data
    */
   setFilter(state, data) {
-    state.filter = {
-      ...data,
-    };
+    state.filter = data;
   },
   /**
    *
@@ -54,9 +52,7 @@ export default {
    * @param {Array.<Object>} data
    */
   setHeightValidatorsSets(state, data) {
-    state.heightValidatorsSets = data.map((obj) => ({
-      ...obj,
-    }));
+    state.heightValidatorsSets = data;
   },
   /**
    *
@@ -64,10 +60,7 @@ export default {
    * @param {Array.<Object>} data
    */
   setLatestValidatorsSets(state, data) {
-    state.latestValidatorsSets = [];
-    state.latestValidatorsSets = data.map((obj) => ({
-      ...obj,
-    }));
+    state.latestValidatorsSets = data;
   },
   /**
    *
@@ -76,9 +69,7 @@ export default {
    */
   setDetails(state, data) {
     state.details = null;
-    state.details = {
-      ...data,
-    };
+    state.details = data;
   },
   /**
    * Add details to validator details

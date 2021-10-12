@@ -3,13 +3,26 @@ import { API } from '@/constants';
 
 export default {
   /**
-   * @param {String} query
-   * @param {Number} page
-   * @param {Number} limit
+   * @param {String} events
+   * @param {Object} pagination
+   * @param {String} orderBy
    * @returns {Promise}
    */
-  requestSearchTransactions({ query, page, limit }) {
-    return axios.get(`${API.TXS}?${query}&page=${page}&limit=${limit}`);
+  requestSearchTransactions({ events, pagination, orderBy }) {
+    const params = {
+      events,
+      'pagination.key': pagination.key || undefined,
+      'pagination.offset': pagination.offset || undefined,
+      'pagination.limit': pagination.limit || undefined,
+      'pagination.count_total': pagination.count_total || undefined,
+      'pagination.reverse': pagination.reverse || undefined,
+      order_by: orderBy || undefined,
+    };
+    return axios({
+      method: 'get',
+      baseURL: `${API.TXS}`,
+      params,
+    });
   },
   /**
    * @param {String} hash

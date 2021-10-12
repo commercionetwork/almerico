@@ -2,9 +2,8 @@ import { ACCOUNT } from './account';
 import { API } from './api';
 import { CHAIN } from './chain';
 import { CUSTOMIZATION, OVERVIEW } from './customization';
-import { RANGE } from './range';
+import { ORDER, RANGE, VALIDATOR_STATUS } from './listings';
 import { ROUTES } from './route';
-import { STATUS } from './status';
 import { WS } from './websocket';
 
 export {
@@ -12,9 +11,10 @@ export {
   API,
   CHAIN,
   CUSTOMIZATION,
+  ORDER,
   OVERVIEW,
   RANGE,
   ROUTES,
-  STATUS,
+  VALIDATOR_STATUS,
   WS,
 };

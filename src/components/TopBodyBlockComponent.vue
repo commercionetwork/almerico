@@ -34,7 +34,7 @@ import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
 
 import { mapGetters } from 'vuex';
 import { proposerHandler } from '@/utils';
-import { ROUTES, STATUS } from '@/constants';
+import { ROUTES, VALIDATOR_STATUS } from '@/constants';
 
 export default {
   name: 'TopBodyBlockComponent',
@@ -65,7 +65,8 @@ export default {
       return this.block.header.proposer_address || '-';
     },
     msgs() {
-      let txs = this.transactions.filter(
+      if (!this.transactions.length) return '0';
+      const txs = this.transactions.filter(
         (tx) => tx.height === this.block.header.height,
       );
       return txs.reduce((acc, item) => acc + item.tx.value.msg.length, 0);
@@ -79,12 +80,10 @@ export default {
       });
     },
     proposerLink() {
-      return this.proposer
-        ? {
-            name: ROUTES.NAMES.VALIDATORS_DETAILS,
-            params: { id: this.proposer.operator_address },
-          }
-        : {};
+      return {
+        name: ROUTES.NAMES.VALIDATORS_DETAILS,
+        params: { id: this.proposer ? this.proposer.operator_address : '' },
+      };
     },
     proposerName() {
       return this.proposer ? this.proposer.description.moniker : '-';
@@ -99,7 +98,7 @@ export default {
     },
     validatorsBondeds() {
       return this.validators.filter(
-        (validator) => validator.status === STATUS.VALIDATOR.BONDED,
+        (validator) => validator.status === VALIDATOR_STATUS.BONDED,
       ).length;
     },
     validatorsTotal() {

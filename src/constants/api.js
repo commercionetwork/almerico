@@ -30,7 +30,6 @@ export const API = {
 
   // Commercio
   VBR: `${API_LCD_BASE}/vbr`,
-  SUPPLY: `${API_LCD_BASE}/supply`,
   KYC: `${API_LCD_BASE}/commerciokyc`,
   MINT: `${API_LCD_BASE}/commerciomint`,
   // Keybase
