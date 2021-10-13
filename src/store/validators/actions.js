@@ -96,7 +96,7 @@ export default {
   async fetchValidatorDetails({ dispatch, commit }, address) {
     try {
       const response = await http.requestValidatorDetails(address);
-      commit('setDetails', response.data.result);
+      commit('setDetails', response.data.validator);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -109,7 +109,7 @@ export default {
   async fetchValidatorDelegations({ dispatch, commit }, address) {
     try {
       const response = await http.requestValidatorDelegations(address);
-      commit('addDetails', { delegations: response.data.result });
+      commit('addDetails', { delegations: response.data.delegation_responses });
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -151,7 +151,7 @@ export default {
     commit('resetDetails');
     await dispatch('fetchValidatorDetails', address);
     await dispatch('fetchValidatorDelegations', address);
-    dispatch('fetchValidatorPicture');
+    // dispatch('fetchValidatorPicture');
     commit('stopLoading');
   },
 };

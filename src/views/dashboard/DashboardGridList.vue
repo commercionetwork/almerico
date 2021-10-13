@@ -41,8 +41,5 @@ export default {
       return orderedTransactions.slice(0, this.limit);
     },
   },
-  created() {
-    console.log(this.txs);
-  },
 };
 </script>

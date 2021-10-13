@@ -5,7 +5,7 @@
         {{ moniker }}
         <div
           class="text-caption font-weight-bold"
-          :class="details.status === 2 ? 'info--text' : 'warning--text'"
+          :class="isActive ? 'info--text' : 'warning--text'"
           v-text="status"
         />
       </v-toolbar-title>
@@ -17,11 +17,7 @@
           max-width="75"
           :src="picture"
         />
-        <v-icon
-          v-else
-          size="50"
-          :color="details.status === 2 ? 'info' : 'warning'"
-        >
+        <v-icon v-else size="50" :color="isActive ? 'info' : 'warning'">
           mdi-hubspot
         </v-icon>
       </v-toolbar-items>
@@ -61,7 +57,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { ROUTES } from '@/constants';
+import { ROUTES, VALIDATOR_STATUS } from '@/constants';
 
 export default {
   name: 'ValidatorDetailsAddress',
@@ -93,8 +89,11 @@ export default {
     picture() {
       return this.details.picture ? this.details.picture : '';
     },
+    isActive() {
+      return this.details.status === VALIDATOR_STATUS.BONDED;
+    },
     status() {
-      return this.details.status === 2 ? 'active' : 'inactive';
+      return this.isActive ? 'active' : 'inactive';
     },
   },
 };
