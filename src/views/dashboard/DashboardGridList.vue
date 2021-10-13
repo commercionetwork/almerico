@@ -1,23 +1,5 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
-    <v-col cols="12" class="pa-5">
-      <v-progress-linear
-        indeterminate
-        rounded
-        color="primary"
-        height="25"
-        value="10"
-      ></v-progress-linear>
-    </v-col>
-  </v-row>
-  <v-row v-else-if="error !== null" data-test="error">
-    <v-col cols="12">
-      <v-alert border="left" prominent text type="error">
-        <span class="text-body-1" v-text="JSON.stringify(error)" />
-      </v-alert>
-    </v-col>
-  </v-row>
-  <v-row v-else data-test="content">
+  <v-row>
     <DashboardGridListItem
       v-for="(transaction, index) in transactions"
       :key="index"
@@ -29,7 +11,6 @@
 <script>
 import DashboardGridListItem from './DashboardGridListItem';
 
-import { mapGetters } from 'vuex';
 import { arrayHandler } from '@/utils';
 
 export default {
@@ -38,6 +19,10 @@ export default {
     DashboardGridListItem,
   },
   props: {
+    txs: {
+      type: Array,
+      default: () => [],
+    },
     limit: {
       type: Number,
       required: true,
@@ -45,11 +30,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['error']),
-    ...mapGetters('transactions', {
-      isLoading: 'isLoading',
-      txs: 'transactions',
-    }),
     transactions() {
       const unorderedTransactions = this.txs.map((obj) => ({
         ...obj,
@@ -60,6 +40,9 @@ export default {
       );
       return orderedTransactions.slice(0, this.limit);
     },
+  },
+  created() {
+    console.log(this.txs);
   },
 };
 </script>

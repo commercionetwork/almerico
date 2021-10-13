@@ -3,6 +3,17 @@ import { API } from '@/constants';
 
 export default {
   /**
+   * @param {String} query
+   * @param {Number} page
+   * @param {Number} limit
+   * @returns {Promise}
+   */
+  requestSearchTransactionsDEPRECATED({ query, page, limit }) {
+    return axios.get(
+      `${API.TXS_DEPRECATED}?${query}&page=${page}&limit=${limit}`,
+    );
+  },
+  /**
    * @param {String} events
    * @param {Object} pagination
    * @param {String} orderBy

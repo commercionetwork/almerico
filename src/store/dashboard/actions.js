@@ -14,13 +14,11 @@ export default {
       // dispatch('spreadsheet/fetchAbrTokens', null, { root: true }),
       // dispatch('spreadsheet/fetchVbrTokens', null, { root: true }),
       dispatch(
-        'transactions/getTransactions',
+        'transactions/fetchTransactionsDescendingOrder',
+        { limit: 10, query: 'tx.minheight=1' },
         {
-          events: 'tx.minheight=1',
-          pagination: { limit: 10 },
-          orderBy: 'ORDER_BY_DESC',
+          root: true,
         },
-        { root: true },
       ),
     ]);
     commit('stopLoading');

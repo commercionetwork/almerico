@@ -27,11 +27,12 @@ export const API = {
   NODE_INFO: `${API_LCD_BASE}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/node_info`,
   VALIDATORSETS: `${API_LCD_BASE}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/validatorsets`,
   TXS: `${API_LCD_BASE}/${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}/txs`,
-
   // Commercio
   VBR: `${API_LCD_BASE}/vbr`,
   KYC: `${API_LCD_BASE}/commerciokyc`,
   MINT: `${API_LCD_BASE}/commerciomint`,
   // Keybase
   USER_LOOKUP: `${API_KEYBASE}/user/lookup.json`,
+  // Deprecated
+  TXS_DEPRECATED: `${API_LCD_BASE}/txs`,
 };

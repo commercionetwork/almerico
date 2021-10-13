@@ -5,6 +5,28 @@ export default {
   /**
    * @param {Function} dispatch
    * @param {Function} commit
+   * @param {Number} page
+   * @param {Number} limit
+   * @param {String} query
+   */
+  async getTransactionsDEPRECATED(
+    { dispatch, commit },
+    { page, limit, query },
+  ) {
+    try {
+      const response = await http.requestSearchTransactionsDEPRECATED({
+        query: query,
+        page: page,
+        limit: limit,
+      });
+      commit('addTransactions', response.data.txs);
+    } catch (error) {
+      dispatch('handleError', error, { root: true });
+    }
+  },
+  /**
+   * @param {Function} dispatch
+   * @param {Function} commit
    * @param {String} hash
    */
   async fetchTransaction({ dispatch, commit }, hash) {
@@ -65,7 +87,7 @@ export default {
    */
   async getLastPage({ dispatch, commit }, { limit, query }) {
     try {
-      const response = await http.requestSearchTransactions({
+      const response = await http.requestSearchTransactionsDEPRECATED({
         query,
         page: 1,
         limit: 1,
@@ -119,7 +141,7 @@ export default {
       commit('stopLoading');
       return;
     }
-    await dispatch('getTransactions', {
+    await dispatch('getTransactionsDEPRECATED', {
       page: state.currentPage,
       limit,
       query,
@@ -128,7 +150,7 @@ export default {
       const currentPage = state.currentPage - 1;
       commit('changePage', currentPage);
       commit('setHasNext', currentPage);
-      await dispatch('getTransactions', {
+      await dispatch('getTransactionsDEPRECATED', {
         page: currentPage,
         limit,
         query,
