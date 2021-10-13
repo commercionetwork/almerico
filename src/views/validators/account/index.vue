@@ -13,7 +13,7 @@
   <v-row v-else>
     <v-col cols="12">
       <AccountDetailsHeader />
-      <v-row v-if="error !== null">
+      <v-row v-if="error">
         <v-col cols="12" v-if="error.status === 404" data-test="not-found">
           <v-alert border="left" prominent text type="info">
             <span class="text-body-1" v-text="infoMessage" />
@@ -48,9 +48,9 @@ export default {
     AccountDetailsHeader,
   },
   computed: {
+    ...mapGetters(['error']),
     ...mapGetters('account', {
       isLoading: 'isLoading',
-      error: 'error',
     }),
     address() {
       return this.$route.params.id;

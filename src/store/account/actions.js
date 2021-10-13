@@ -9,8 +9,8 @@ export default {
   async getAccount({ dispatch, commit }, address) {
     commit('startLoading');
     await Promise.all([
-      dispatch('fetchMembership', address),
-      dispatch('fetchBuyMembershipTx', address),
+      // dispatch('fetchMembership', address),
+      // dispatch('fetchBuyMembershipTx', address),
       dispatch('fetchBalances', address),
       dispatch('fetchDelegations', address),
       dispatch('fetchUnbondings', address),
@@ -26,7 +26,7 @@ export default {
   async fetchBalances({ dispatch, commit }, address) {
     try {
       const response = await http.requestBalances(address);
-      commit('setBalances', response.data.result);
+      commit('setBalances', response.data.balances);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -39,7 +39,7 @@ export default {
   async fetchDelegations({ dispatch, commit }, address) {
     try {
       const response = await http.requestDelegations(address);
-      commit('setDelegations', response.data.result);
+      commit('setDelegations', response.data.delegation_responses);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -100,7 +100,7 @@ export default {
   async fetchRewards({ dispatch, commit }, address) {
     try {
       const response = await http.requestRewards(address);
-      commit('setRewards', response.data.result);
+      commit('setRewards', response.data.rewards);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -113,7 +113,7 @@ export default {
   async fetchUnbondings({ dispatch, commit }, address) {
     try {
       const response = await http.requestUnbondings(address);
-      commit('setUnbondings', response.data.result);
+      commit('setUnbondings', response.data.unbonding_responses);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

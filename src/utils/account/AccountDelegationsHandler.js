@@ -23,7 +23,7 @@ class AccountDelegationsHandler {
 
     this.delegations.forEach((delegation) => {
       items.push({
-        moniker: getMoniker(this.validators, delegation),
+        moniker: getMoniker(this.validators, delegation.delegation),
         operator: delegation.validator_address,
         amount: parseFloat(delegation.balance.amount),
       });

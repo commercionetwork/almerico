@@ -19,7 +19,7 @@
         </div>
       </v-col>
       <v-col cols="12" md="6">
-        <div class="pa-3 d-flex justify-center align-end">
+        <!-- <div class="pa-3 d-flex justify-center align-end">
           <span class="text-capitalize" v-text="'membership:'" />
           <router-link
             v-if="txhash !== ''"
@@ -40,7 +40,7 @@
               mdi-card-account-details
             </v-icon>
           </div>
-        </div>
+        </div> -->
       </v-col>
     </v-row>
   </v-card>
@@ -49,7 +49,7 @@
 <script>
 import AccountDetailsQRCode from './AccountDetailsQRCode';
 
-import { mapGetters } from 'vuex';
+// import { mapGetters } from 'vuex';
 import { ACCOUNT, ROUTES } from '@/constants';
 
 export default {
@@ -62,29 +62,29 @@ export default {
     dialog: false,
   }),
   computed: {
-    ...mapGetters('account', {
-      buyMembershipTx: 'buyMembershipTx',
-      membership: 'membership',
-    }),
+    // ...mapGetters('account', {
+    //   buyMembershipTx: 'buyMembershipTx',
+    //   membership: 'membership',
+    // }),
     address() {
       return this.$route.params.id;
     },
-    membershipColor() {
-      const index = ACCOUNT.MEMBERSHIPS.findIndex(
-        (membership) => membership.name === this.membershipText,
-      );
-      return index !== -1 ? ACCOUNT.MEMBERSHIPS[index]['color'] : '#CCEEFF';
-    },
-    membershipText() {
-      return Object.keys(this.membership).length > 0
-        ? this.membership.membership_type
-        : `none`;
-    },
-    txhash() {
-      return this.buyMembershipTx && this.buyMembershipTx.txhash
-        ? this.buyMembershipTx.txhash
-        : '';
-    },
+    // membershipColor() {
+    //   const index = ACCOUNT.MEMBERSHIPS.findIndex(
+    //     (membership) => membership.name === this.membershipText,
+    //   );
+    //   return index !== -1 ? ACCOUNT.MEMBERSHIPS[index]['color'] : '#CCEEFF';
+    // },
+    // membershipText() {
+    //   return Object.keys(this.membership).length > 0
+    //     ? this.membership.membership_type
+    //     : `none`;
+    // },
+    // txhash() {
+    //   return this.buyMembershipTx && this.buyMembershipTx.txhash
+    //     ? this.buyMembershipTx.txhash
+    //     : '';
+    // },
   },
 };
 </script>
