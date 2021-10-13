@@ -1,4 +1,4 @@
-import { CUSTOMIZATION } from '@/constants';
+import { CUSTOMIZATION, VALIDATOR_STATUS } from '@/constants';
 import { bech32Manager, coinAdapter, numberIntlFormatter } from '@/utils';
 import { orderBy } from 'lodash';
 import ValidatorExtraData from './ValidatorExtraData';
@@ -46,7 +46,7 @@ const _getTableRows = ({
   let cumulativeCount = 0;
   return sortedValidators.map((validator, i) => {
     const rank = ++i;
-    const active = validator.status === 2 ? true : false;
+    const active = validator.status === VALIDATOR_STATUS.BONDED ? true : false;
     const moniker = validator.description.moniker;
     const operator = validator.operator_address;
     const account = _getAccountAddress(
