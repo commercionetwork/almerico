@@ -1,4 +1,4 @@
-import { STATUS, WS } from '@/constants';
+import { VALIDATOR_STATUS, WS } from '@/constants';
 import store from '../store';
 
 export const subscribeWebSocket = () => {
@@ -68,9 +68,9 @@ const updateStoredData = (data) => {
   );
   store.dispatch('validators/initValidators', {
     statuses: [
-      STATUS.VALIDATOR.BONDED,
-      STATUS.VALIDATOR.UNBONDED,
-      STATUS.VALIDATOR.UNBONDING,
+      VALIDATOR_STATUS.BONDED,
+      VALIDATOR_STATUS.UNBONDED,
+      VALIDATOR_STATUS.UNBONDING,
     ],
   });
 };
