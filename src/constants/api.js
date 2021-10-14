@@ -33,6 +33,8 @@ export const API = {
   MINT: `${API_LCD_BASE}/commerciomint`,
   // Keybase
   USER_LOOKUP: `${API_KEYBASE}/user/lookup.json`,
+  // RPC
+  BLOCKS_RPC: `${API_LCD_BASE}/blocks`,
   // Deprecated
   TXS_DEPRECATED: `${API_LCD_BASE}/txs`,
 };

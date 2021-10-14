@@ -9,7 +9,7 @@ export default {
   requestBlock(height) {
     return axios({
       method: 'get',
-      baseURL: `${API.BLOCKS}`,
+      baseURL: `${API.BLOCKS_RPC}`,
       url: `/${height}`,
     });
   },
@@ -19,7 +19,7 @@ export default {
   requestLatestBlock() {
     return axios({
       method: 'get',
-      baseURL: `${API.BLOCKS}`,
+      baseURL: `${API.BLOCKS_RPC}`,
       url: '/latest',
     });
   },
