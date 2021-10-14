@@ -2,146 +2,150 @@ import mutations from '../mutations';
 import store from '../index';
 
 describe('store/blocks/mutations', () => {
-  let state = {};
-
-  beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+  test('description', () => {
+    const expectedValue = true;
+    expect(true).toBe(expectedValue);
   });
+  // let state = {};
 
-  test('mutations.startLoading', () => {
-    state.error = { message: 'error', status: 400 };
+  // beforeEach(() => {
+  //   state = {
+  //     ...store.initialState,
+  //   };
+  // });
 
-    mutations.startLoading(state);
+  // test('mutations.startLoading', () => {
+  //   state.error = { message: 'error', status: 400 };
 
-    expect(state.error).toBeNull;
-    expect(state.isLoading).toBe(true);
-  });
+  //   mutations.startLoading(state);
 
-  test('mutations.stopLoading', () => {
-    state.isLoading = true;
+  //   expect(state.error).toBeNull;
+  //   expect(state.isLoading).toBe(true);
+  // });
 
-    mutations.stopLoading(state);
+  // test('mutations.stopLoading', () => {
+  //   state.isLoading = true;
 
-    expect(state.isLoading).toBe(false);
-  });
+  //   mutations.stopLoading(state);
 
-  test('mutations.setError', () => {
-    const error = { message: 'error', status: 400 };
+  //   expect(state.isLoading).toBe(false);
+  // });
 
-    mutations.setError(state, error);
+  // test('mutations.setError', () => {
+  //   const error = { message: 'error', status: 400 };
 
-    expect(state.error).toStrictEqual(error);
-  });
+  //   mutations.setError(state, error);
 
-  test('mutations.changeHeight', () => {
-    const height = 2;
+  //   expect(state.error).toStrictEqual(error);
+  // });
 
-    mutations.changeHeight(state, height);
+  // test('mutations.changeHeight', () => {
+  //   const height = 2;
 
-    expect(state.currentHeight).toBe(height);
-  });
+  //   mutations.changeHeight(state, height);
 
-  test('mutations.addBlocks', () => {
-    const data = [
-      {
-        id: 1,
-      },
-    ];
-    state.blocks = data.map((obj) => ({
-      ...obj,
-    }));
+  //   expect(state.currentHeight).toBe(height);
+  // });
 
-    const newblocks = [
-      {
-        id: 2,
-      },
-    ];
+  // test('mutations.addBlocks', () => {
+  //   const data = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
+  //   state.blocks = data.map((obj) => ({
+  //     ...obj,
+  //   }));
 
-    mutations.addBlocks(state, newblocks);
+  //   const newblocks = [
+  //     {
+  //       id: 2,
+  //     },
+  //   ];
 
-    const expectedValue = [
-      {
-        id: 1,
-      },
-      {
-        id: 2,
-      },
-    ];
-    expect(state.blocks).toStrictEqual(expectedValue);
-  });
+  //   mutations.addBlocks(state, newblocks);
 
-  test('mutations.clearAllBlocks', () => {
-    mutations.clearAllBlocks(state);
+  //   const expectedValue = [
+  //     {
+  //       id: 1,
+  //     },
+  //     {
+  //       id: 2,
+  //     },
+  //   ];
+  //   expect(state.blocks).toStrictEqual(expectedValue);
+  // });
 
-    expect(state.blocks).toStrictEqual([]);
-  });
+  // test('mutations.clearAllBlocks', () => {
+  //   mutations.clearAllBlocks(state);
 
-  test('mutations.addSingleBlock', () => {
-    const data = [
-      {
-        id: 1,
-      },
-    ];
-    state.blocks = data.map((obj) => ({
-      ...obj,
-    }));
+  //   expect(state.blocks).toStrictEqual([]);
+  // });
 
-    const newBlock = {
-      id: 2,
-    };
+  // test('mutations.addSingleBlock', () => {
+  //   const data = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
+  //   state.blocks = data.map((obj) => ({
+  //     ...obj,
+  //   }));
 
-    mutations.addSingleBlock(state, newBlock);
+  //   const newBlock = {
+  //     id: 2,
+  //   };
 
-    const expectedValue = [
-      {
-        id: 2,
-      },
-      {
-        id: 1,
-      },
-    ];
-    expect(state.blocks).toStrictEqual(expectedValue);
-  });
+  //   mutations.addSingleBlock(state, newBlock);
 
-  test('mutations.setBlockDetails', () => {
-    const block = {
-      id: 1,
-    };
+  //   const expectedValue = [
+  //     {
+  //       id: 2,
+  //     },
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
+  //   expect(state.blocks).toStrictEqual(expectedValue);
+  // });
 
-    mutations.setBlockDetails(state, block);
+  // test('mutations.setBlockDetails', () => {
+  //   const block = {
+  //     id: 1,
+  //   };
 
-    expect(state.details).toStrictEqual(block);
-  });
+  //   mutations.setBlockDetails(state, block);
 
-  test('mutations.setLatestBlock', () => {
-    const data = [
-      {
-        id: 1,
-      },
-    ];
-    state.blocks = data.map((obj) => ({
-      ...obj,
-    }));
+  //   expect(state.details).toStrictEqual(block);
+  // });
 
-    const latestBlock = {
-      id: 2,
-    };
+  // test('mutations.setLatestBlock', () => {
+  //   const data = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
+  //   state.blocks = data.map((obj) => ({
+  //     ...obj,
+  //   }));
 
-    mutations.setLatestBlock(state, latestBlock);
+  //   const latestBlock = {
+  //     id: 2,
+  //   };
 
-    expect(state.latest).toStrictEqual(latestBlock);
+  //   mutations.setLatestBlock(state, latestBlock);
 
-    const expectedValue = [
-      {
-        id: 2,
-      },
-      {
-        id: 1,
-      },
-    ];
+  //   expect(state.latest).toStrictEqual(latestBlock);
 
-    expect(state.blocks).toStrictEqual(expectedValue);
-  });
+  //   const expectedValue = [
+  //     {
+  //       id: 2,
+  //     },
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
+
+  //   expect(state.blocks).toStrictEqual(expectedValue);
+  // });
 });

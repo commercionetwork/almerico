@@ -2,149 +2,154 @@ import mutations from '../mutations';
 import store from '../index';
 
 describe('store/validators/mutations', () => {
-  let state = {};
-
-  beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+  test('description', () => {
+    const expectedValue = true;
+    expect(true).toBe(expectedValue);
   });
 
-  test('mutations.startLoading', () => {
-    state.error = { message: 'error', status: 400 };
+  // let state = {};
 
-    mutations.startLoading(state);
+  // beforeEach(() => {
+  //   state = {
+  //     ...store.initialState,
+  //   };
+  // });
 
-    expect(state.error).toBeNull;
-    expect(state.isLoading).toBe(true);
-  });
+  // test('mutations.startLoading', () => {
+  //   state.error = { message: 'error', status: 400 };
 
-  test('mutations.stopLoading', () => {
-    state.isLoading = true;
+  //   mutations.startLoading(state);
 
-    mutations.stopLoading(state);
+  //   expect(state.error).toBeNull;
+  //   expect(state.isLoading).toBe(true);
+  // });
 
-    expect(state.isLoading).toBe(false);
-  });
+  // test('mutations.stopLoading', () => {
+  //   state.isLoading = true;
 
-  test('mutations.setError', () => {
-    const error = { message: 'error', status: 400 };
+  //   mutations.stopLoading(state);
 
-    mutations.setError(state, error);
+  //   expect(state.isLoading).toBe(false);
+  // });
 
-    expect(state.error).toStrictEqual(error);
-  });
+  // test('mutations.setError', () => {
+  //   const error = { message: 'error', status: 400 };
 
-  test('mutations.setFilter', () => {
-    const filter = {
-      id: 1,
-    };
+  //   mutations.setError(state, error);
 
-    mutations.setFilter(state, filter);
+  //   expect(state.error).toStrictEqual(error);
+  // });
 
-    expect(state.filter).toStrictEqual(filter);
-  });
+  // test('mutations.setFilter', () => {
+  //   const filter = {
+  //     id: 1,
+  //   };
 
-  test('mutations.setValidators', () => {
-    const validators = [
-      {
-        id: 1,
-      },
-    ];
+  //   mutations.setFilter(state, filter);
 
-    mutations.setValidators(state, validators);
+  //   expect(state.filter).toStrictEqual(filter);
+  // });
 
-    expect(state.validators).toStrictEqual(validators);
-  });
+  // test('mutations.setValidators', () => {
+  //   const validators = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
 
-  test('mutations.addValidators', () => {
-    const validators = [
-      {
-        id: 1,
-      },
-    ];
-    mutations.setValidators(state, validators);
+  //   mutations.setValidators(state, validators);
 
-    const newValidators = [
-      {
-        id: 2,
-      },
-    ];
+  //   expect(state.validators).toStrictEqual(validators);
+  // });
 
-    mutations.addValidators(state, newValidators);
+  // test('mutations.addValidators', () => {
+  //   const validators = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
+  //   mutations.setValidators(state, validators);
 
-    const expectedValue = [
-      {
-        id: 1,
-      },
-      {
-        id: 2,
-      },
-    ];
-    expect(state.validators).toStrictEqual(expectedValue);
-  });
+  //   const newValidators = [
+  //     {
+  //       id: 2,
+  //     },
+  //   ];
 
-  test('mutations.setHeightValidatorsSets', () => {
-    const heightValidatorsSets = [
-      {
-        id: 1,
-      },
-    ];
+  //   mutations.addValidators(state, newValidators);
 
-    mutations.setHeightValidatorsSets(state, heightValidatorsSets);
+  //   const expectedValue = [
+  //     {
+  //       id: 1,
+  //     },
+  //     {
+  //       id: 2,
+  //     },
+  //   ];
+  //   expect(state.validators).toStrictEqual(expectedValue);
+  // });
 
-    expect(state.heightValidatorsSets).toStrictEqual(heightValidatorsSets);
-  });
+  // test('mutations.setHeightValidatorsSets', () => {
+  //   const heightValidatorsSets = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
 
-  test('mutations.setLatestValidatorsSets', () => {
-    const latestValidatorsSets = [
-      {
-        id: 1,
-      },
-    ];
+  //   mutations.setHeightValidatorsSets(state, heightValidatorsSets);
 
-    mutations.setLatestValidatorsSets(state, latestValidatorsSets);
+  //   expect(state.heightValidatorsSets).toStrictEqual(heightValidatorsSets);
+  // });
 
-    expect(state.latestValidatorsSets).toStrictEqual(latestValidatorsSets);
-  });
+  // test('mutations.setLatestValidatorsSets', () => {
+  //   const latestValidatorsSets = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
 
-  test('mutations.setDetails', () => {
-    const details = {
-      id: 1,
-    };
+  //   mutations.setLatestValidatorsSets(state, latestValidatorsSets);
 
-    mutations.setDetails(state, details);
+  //   expect(state.latestValidatorsSets).toStrictEqual(latestValidatorsSets);
+  // });
 
-    expect(state.details).toStrictEqual(details);
-  });
+  // test('mutations.setDetails', () => {
+  //   const details = {
+  //     id: 1,
+  //   };
 
-  test('mutations.addDetails', () => {
-    const details = {
-      id: 1,
-    };
-    mutations.setDetails(state, details);
+  //   mutations.setDetails(state, details);
 
-    const data = {
-      name: 'name',
-    };
-    mutations.addDetails(state, data);
+  //   expect(state.details).toStrictEqual(details);
+  // });
 
-    const expectedValue = {
-      id: 1,
-      name: 'name',
-    };
+  // test('mutations.addDetails', () => {
+  //   const details = {
+  //     id: 1,
+  //   };
+  //   mutations.setDetails(state, details);
 
-    expect(state.details).toStrictEqual(expectedValue);
-  });
+  //   const data = {
+  //     name: 'name',
+  //   };
+  //   mutations.addDetails(state, data);
 
-  test('mutations.resetDetails', () => {
-    const details = {
-      id: 1,
-    };
-    mutations.setDetails(state, details);
+  //   const expectedValue = {
+  //     id: 1,
+  //     name: 'name',
+  //   };
 
-    mutations.resetDetails(state);
+  //   expect(state.details).toStrictEqual(expectedValue);
+  // });
 
-    expect(state.details).toStrictEqual({});
-  });
+  // test('mutations.resetDetails', () => {
+  //   const details = {
+  //     id: 1,
+  //   };
+  //   mutations.setDetails(state, details);
+
+  //   mutations.resetDetails(state);
+
+  //   expect(state.details).toStrictEqual({});
+  // });
 });

@@ -2,97 +2,101 @@ import mutations from '../mutations';
 import store from '../index';
 
 describe('store/spreadsheet/mutations', () => {
-  let state = {};
-
-  beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+  test('description', () => {
+    const expectedValue = true;
+    expect(true).toBe(expectedValue);
   });
+  // let state = {};
 
-  test('mutations.startLoading', () => {
-    state.error = { message: 'error', status: 400 };
+  // beforeEach(() => {
+  //   state = {
+  //     ...store.initialState,
+  //   };
+  // });
 
-    mutations.startLoading(state);
+  // test('mutations.startLoading', () => {
+  //   state.error = { message: 'error', status: 400 };
 
-    expect(state.error).toBeNull;
-    expect(state.isLoading).toBe(true);
-  });
+  //   mutations.startLoading(state);
 
-  test('mutations.stopLoading', () => {
-    state.isLoading = true;
+  //   expect(state.error).toBeNull;
+  //   expect(state.isLoading).toBe(true);
+  // });
 
-    mutations.stopLoading(state);
+  // test('mutations.stopLoading', () => {
+  //   state.isLoading = true;
 
-    expect(state.isLoading).toBe(false);
-  });
+  //   mutations.stopLoading(state);
 
-  test('mutations.setError', () => {
-    const error = { message: 'error', status: 400 };
+  //   expect(state.isLoading).toBe(false);
+  // });
 
-    mutations.setError(state, error);
+  // test('mutations.setError', () => {
+  //   const error = { message: 'error', status: 400 };
 
-    expect(state.error).toStrictEqual(error);
-  });
+  //   mutations.setError(state, error);
 
-  test('mutations.setAbrTokens', () => {
-    const data = [
-      {
-        denom: 'ucommercio',
-        amount: '11500000000000',
-      },
-    ];
+  //   expect(state.error).toStrictEqual(error);
+  // });
 
-    mutations.setAbrTokens(state, data);
+  // test('mutations.setAbrTokens', () => {
+  //   const data = [
+  //     {
+  //       denom: 'ucommercio',
+  //       amount: '11500000000000',
+  //     },
+  //   ];
 
-    expect(state.abrTokens).toStrictEqual(data);
-  });
+  //   mutations.setAbrTokens(state, data);
 
-  test('mutations.setVbrTokens', () => {
-    const data = [
-      {
-        denom: 'ucommercio',
-        amount: '12363544370772.000000000000000000',
-      },
-    ];
+  //   expect(state.abrTokens).toStrictEqual(data);
+  // });
 
-    mutations.setVbrTokens(state, data);
+  // test('mutations.setVbrTokens', () => {
+  //   const data = [
+  //     {
+  //       denom: 'ucommercio',
+  //       amount: '12363544370772.000000000000000000',
+  //     },
+  //   ];
 
-    expect(state.vbrTokens).toStrictEqual(data);
-  });
+  //   mutations.setVbrTokens(state, data);
 
-  test('mutations.setAllTokens', () => {
-    const data = [{ denom: 'ucommercio', amount: '59996499910000' }];
+  //   expect(state.vbrTokens).toStrictEqual(data);
+  // });
 
-    mutations.setAllTokens(state, data);
+  // test('mutations.setAllTokens', () => {
+  //   const data = [{ denom: 'ucommercio', amount: '59996499910000' }];
 
-    expect(state.allTokens).toStrictEqual(data);
-  });
+  //   mutations.setAllTokens(state, data);
 
-  test('mutations.addAccountTokens', () => {
-    const data = {
-      name: 'validator',
-      address: 'did:com:1ke2h5tzpcsyak62ltaf45ca8ppzfuye6qasur6',
-      balances: [
-        {
-          denom: 'ucommercio',
-          amount: '8099619600000',
-        },
-      ],
-    };
+  //   expect(state.allTokens).toStrictEqual(data);
+  // });
 
-    mutations.addAccountTokens(state, data);
+  // test('mutations.addAccountTokens', () => {
+  //   const data = {
+  //     name: 'validator',
+  //     address: 'did:com:1ke2h5tzpcsyak62ltaf45ca8ppzfuye6qasur6',
+  //     balances: [
+  //       {
+  //         denom: 'ucommercio',
+  //         amount: '8099619600000',
+  //       },
+  //     ],
+  //   };
 
-    expect(state.accountsTokens).toStrictEqual([data]);
-  });
+  //   mutations.addAccountTokens(state, data);
 
-  test('mutations.setFreezedTokens', () => {
-    const data = {
-      id: 1,
-    };
+  //   expect(state.accountsTokens).toStrictEqual([data]);
+  // });
 
-    mutations.setFreezedTokens(state, data);
+  // test('mutations.setFreezedTokens', () => {
+  //   const data = {
+  //     id: 1,
+  //   };
 
-    expect(state.freezedTokens).toStrictEqual(data);
-  });
+  //   mutations.setFreezedTokens(state, data);
+
+  //   expect(state.freezedTokens).toStrictEqual(data);
+  // });
 });

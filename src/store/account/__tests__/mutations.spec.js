@@ -2,102 +2,106 @@ import mutations from '../mutations';
 import store from '../index';
 
 describe('store/account/mutations', () => {
-  let state = {};
-
-  beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+  test('description', () => {
+    const expectedValue = true;
+    expect(true).toBe(expectedValue);
   });
+  // let state = {};
 
-  test('mutations.startLoading', () => {
-    state.error = { message: 'error', status: 400 };
+  // beforeEach(() => {
+  //   state = {
+  //     ...store.initialState,
+  //   };
+  // });
 
-    mutations.startLoading(state);
+  // test('mutations.startLoading', () => {
+  //   state.error = { message: 'error', status: 400 };
 
-    expect(state.error).toBeNull;
-    expect(state.isLoading).toBe(true);
-  });
+  //   mutations.startLoading(state);
 
-  test('mutations.stopLoading', () => {
-    state.isLoading = true;
+  //   expect(state.error).toBeNull;
+  //   expect(state.isLoading).toBe(true);
+  // });
 
-    mutations.stopLoading(state);
+  // test('mutations.stopLoading', () => {
+  //   state.isLoading = true;
 
-    expect(state.isLoading).toBe(false);
-  });
+  //   mutations.stopLoading(state);
 
-  test('mutations.setError', () => {
-    const error = { message: 'error', status: 400 };
+  //   expect(state.isLoading).toBe(false);
+  // });
 
-    mutations.setError(state, error);
+  // test('mutations.setError', () => {
+  //   const error = { message: 'error', status: 400 };
 
-    expect(state.error).toStrictEqual(error);
-  });
+  //   mutations.setError(state, error);
 
-  test('mutations.setBalances', () => {
-    const balances = [
-      {
-        id: 1,
-      },
-    ];
+  //   expect(state.error).toStrictEqual(error);
+  // });
 
-    mutations.setBalances(state, balances);
+  // test('mutations.setBalances', () => {
+  //   const balances = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
 
-    expect(state.balances).toStrictEqual(balances);
-  });
+  //   mutations.setBalances(state, balances);
 
-  test('mutations.setDelegations', () => {
-    const delegations = [
-      {
-        id: 1,
-      },
-    ];
+  //   expect(state.balances).toStrictEqual(balances);
+  // });
 
-    mutations.setDelegations(state, delegations);
+  // test('mutations.setDelegations', () => {
+  //   const delegations = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
 
-    expect(state.delegations).toStrictEqual(delegations);
-  });
+  //   mutations.setDelegations(state, delegations);
 
-  test('mutations.setUnbondings', () => {
-    const unbondings = [
-      {
-        id: 1,
-      },
-    ];
+  //   expect(state.delegations).toStrictEqual(delegations);
+  // });
 
-    mutations.setUnbondings(state, unbondings);
+  // test('mutations.setUnbondings', () => {
+  //   const unbondings = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
 
-    expect(state.unbondings).toStrictEqual(unbondings);
-  });
+  //   mutations.setUnbondings(state, unbondings);
 
-  test('mutations.setMembership', () => {
-    const membership = {
-      id: 1,
-    };
+  //   expect(state.unbondings).toStrictEqual(unbondings);
+  // });
 
-    mutations.setMembership(state, membership);
+  // test('mutations.setMembership', () => {
+  //   const membership = {
+  //     id: 1,
+  //   };
 
-    expect(state.membership).toStrictEqual(membership);
-  });
+  //   mutations.setMembership(state, membership);
 
-  test('mutations.setBuyMembershipTx', () => {
-    const tx = {
-      id: 1,
-    };
+  //   expect(state.membership).toStrictEqual(membership);
+  // });
 
-    mutations.setBuyMembershipTx(state, tx);
+  // test('mutations.setBuyMembershipTx', () => {
+  //   const tx = {
+  //     id: 1,
+  //   };
 
-    expect(state.buyMembershipTx).toStrictEqual(tx);
-  });
+  //   mutations.setBuyMembershipTx(state, tx);
 
-  test('mutations.setRewards', () => {
-    const rewards = {
-      id: 1,
-    };
+  //   expect(state.buyMembershipTx).toStrictEqual(tx);
+  // });
 
-    mutations.setRewards(state, rewards);
+  // test('mutations.setRewards', () => {
+  //   const rewards = {
+  //     id: 1,
+  //   };
 
-    expect(state.rewards).toStrictEqual(rewards);
-  });
+  //   mutations.setRewards(state, rewards);
+
+  //   expect(state.rewards).toStrictEqual(rewards);
+  // });
 });

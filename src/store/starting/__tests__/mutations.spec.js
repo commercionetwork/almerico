@@ -2,79 +2,83 @@ import mutations from '../mutations';
 import store from '../index';
 
 describe('store/starting/mutations', () => {
-  let state = {};
-
-  beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+  test('description', () => {
+    const expectedValue = true;
+    expect(true).toBe(expectedValue);
   });
+  // let state = {};
 
-  test('mutations.startLoading', () => {
-    state.error = { message: 'error', status: 400 };
+  // beforeEach(() => {
+  //   state = {
+  //     ...store.initialState,
+  //   };
+  // });
 
-    mutations.startLoading(state);
+  // test('mutations.startLoading', () => {
+  //   state.error = { message: 'error', status: 400 };
 
-    expect(state.error).toBeNull;
-    expect(state.isLoading).toBe(true);
-  });
+  //   mutations.startLoading(state);
 
-  test('mutations.stopLoading', () => {
-    state.isLoading = true;
+  //   expect(state.error).toBeNull;
+  //   expect(state.isLoading).toBe(true);
+  // });
 
-    mutations.stopLoading(state);
+  // test('mutations.stopLoading', () => {
+  //   state.isLoading = true;
 
-    expect(state.isLoading).toBe(false);
-  });
+  //   mutations.stopLoading(state);
 
-  test('mutations.setError', () => {
-    const error = { message: 'error', status: 400 };
+  //   expect(state.isLoading).toBe(false);
+  // });
 
-    mutations.setError(state, error);
+  // test('mutations.setError', () => {
+  //   const error = { message: 'error', status: 400 };
 
-    expect(state.error).toStrictEqual(error);
-  });
+  //   mutations.setError(state, error);
 
-  test('mutations.setNodeInfo', () => {
-    const nodeInfo = {
-      id: 1,
-    };
+  //   expect(state.error).toStrictEqual(error);
+  // });
 
-    mutations.setNodeInfo(state, nodeInfo);
+  // test('mutations.setNodeInfo', () => {
+  //   const nodeInfo = {
+  //     id: 1,
+  //   };
 
-    expect(state.nodeInfo).toStrictEqual(nodeInfo);
-  });
+  //   mutations.setNodeInfo(state, nodeInfo);
 
-  test('mutations.setParams', () => {
-    const params = {
-      id: 1,
-    };
+  //   expect(state.nodeInfo).toStrictEqual(nodeInfo);
+  // });
 
-    mutations.setParams(state, params);
+  // test('mutations.setParams', () => {
+  //   const params = {
+  //     id: 1,
+  //   };
 
-    expect(state.params).toStrictEqual(params);
-  });
+  //   mutations.setParams(state, params);
 
-  test('mutations.setPool', () => {
-    const pool = {
-      id: 1,
-    };
+  //   expect(state.params).toStrictEqual(params);
+  // });
 
-    mutations.setPool(state, pool);
+  // test('mutations.setPool', () => {
+  //   const pool = {
+  //     id: 1,
+  //   };
 
-    expect(state.pool).toStrictEqual(pool);
-  });
+  //   mutations.setPool(state, pool);
 
-  test('mutations.setTokens', () => {
-    const tokens = [
-      {
-        denom: 'ucommercio',
-        amount: '59999952300200',
-      },
-    ];
+  //   expect(state.pool).toStrictEqual(pool);
+  // });
 
-    mutations.setTokens(state, tokens);
+  // test('mutations.setTokens', () => {
+  //   const tokens = [
+  //     {
+  //       denom: 'ucommercio',
+  //       amount: '59999952300200',
+  //     },
+  //   ];
 
-    expect(state.tokens).toStrictEqual(tokens);
-  });
+  //   mutations.setTokens(state, tokens);
+
+  //   expect(state.tokens).toStrictEqual(tokens);
+  // });
 });

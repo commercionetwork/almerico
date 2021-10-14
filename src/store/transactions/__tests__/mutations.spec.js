@@ -2,142 +2,146 @@ import mutations from '../mutations';
 import store from '../index';
 
 describe('store/transactions/mutations', () => {
-  let state = {};
-
-  beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+  test('description', () => {
+    const expectedValue = true;
+    expect(true).toBe(expectedValue);
   });
+  // let state = {};
 
-  test('mutations.startLoading', () => {
-    state.error = { message: 'error', status: 400 };
+  // beforeEach(() => {
+  //   state = {
+  //     ...store.initialState,
+  //   };
+  // });
 
-    mutations.startLoading(state);
+  // test('mutations.startLoading', () => {
+  //   state.error = { message: 'error', status: 400 };
 
-    expect(state.error).toBeNull;
-    expect(state.isLoading).toBe(true);
-  });
+  //   mutations.startLoading(state);
 
-  test('mutations.stopLoading', () => {
-    state.isLoading = true;
+  //   expect(state.error).toBeNull;
+  //   expect(state.isLoading).toBe(true);
+  // });
 
-    mutations.stopLoading(state);
+  // test('mutations.stopLoading', () => {
+  //   state.isLoading = true;
 
-    expect(state.isLoading).toBe(false);
-  });
+  //   mutations.stopLoading(state);
 
-  test('mutations.setError', () => {
-    const error = { message: 'error', status: 400 };
+  //   expect(state.isLoading).toBe(false);
+  // });
 
-    mutations.setError(state, error);
+  // test('mutations.setError', () => {
+  //   const error = { message: 'error', status: 400 };
 
-    expect(state.error).toStrictEqual(error);
-  });
+  //   mutations.setError(state, error);
 
-  test('mutations.setFilter', () => {
-    const filter = 'type';
+  //   expect(state.error).toStrictEqual(error);
+  // });
 
-    mutations.setFilter(state, filter);
+  // test('mutations.setFilter', () => {
+  //   const filter = 'type';
 
-    expect(state.filter).toBe(filter);
-  });
+  //   mutations.setFilter(state, filter);
 
-  test('mutations.changePage', () => {
-    const page = 2;
+  //   expect(state.filter).toBe(filter);
+  // });
 
-    mutations.changePage(state, page);
+  // test('mutations.changePage', () => {
+  //   const page = 2;
 
-    expect(state.currentPage).toBe(page);
-  });
+  //   mutations.changePage(state, page);
 
-  test('mutations.setHasNext', () => {
-    state.hasNext = false;
+  //   expect(state.currentPage).toBe(page);
+  // });
 
-    mutations.setHasNext(state, 2);
+  // test('mutations.setHasNext', () => {
+  //   state.hasNext = false;
 
-    expect(state.hasNext).toBe(true);
+  //   mutations.setHasNext(state, 2);
 
-    mutations.setHasNext(state, 1);
+  //   expect(state.hasNext).toBe(true);
 
-    expect(state.hasNext).toBe(false);
-  });
+  //   mutations.setHasNext(state, 1);
 
-  test('mutations.addTransactions', () => {
-    const data = [
-      {
-        id: 1,
-      },
-    ];
+  //   expect(state.hasNext).toBe(false);
+  // });
 
-    state.transactions = data.map((obj) => ({
-      ...obj,
-    }));
+  // test('mutations.addTransactions', () => {
+  //   const data = [
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
 
-    const newData = [
-      {
-        id: 2,
-      },
-    ];
+  //   state.transactions = data.map((obj) => ({
+  //     ...obj,
+  //   }));
 
-    mutations.addTransactions(state, newData);
+  //   const newData = [
+  //     {
+  //       id: 2,
+  //     },
+  //   ];
 
-    const expectedValue = [
-      {
-        id: 1,
-      },
-      {
-        id: 2,
-      },
-    ];
+  //   mutations.addTransactions(state, newData);
 
-    expect(state.transactions).toStrictEqual(expectedValue);
-  });
+  //   const expectedValue = [
+  //     {
+  //       id: 1,
+  //     },
+  //     {
+  //       id: 2,
+  //     },
+  //   ];
 
-  test('Check mutations.clearAllTransactions', () => {
-    mutations.clearAllTransactions(state);
+  //   expect(state.transactions).toStrictEqual(expectedValue);
+  // });
 
-    expect(state.transactions).toStrictEqual([]);
-  });
+  // test('Check mutations.clearAllTransactions', () => {
+  //   mutations.clearAllTransactions(state);
 
-  test('Check mutations.addSingleTransaction', () => {
-    const data = {
-      hasNext: true,
-      records: [
-        {
-          id: 1,
-        },
-      ],
-    };
+  //   expect(state.transactions).toStrictEqual([]);
+  // });
 
-    state.transactions = data.records.map((obj) => ({
-      ...obj,
-    }));
+  // test('Check mutations.addSingleTransaction', () => {
+  //   const data = {
+  //     hasNext: true,
+  //     records: [
+  //       {
+  //         id: 1,
+  //       },
+  //     ],
+  //   };
 
-    const newTransaction = {
-      id: 2,
-    };
+  //   state.transactions = data.records.map((obj) => ({
+  //     ...obj,
+  //   }));
 
-    mutations.addSingleTransaction(state, newTransaction);
+  //   const newTransaction = {
+  //     id: 2,
+  //   };
 
-    const expectedValue = [
-      {
-        id: 2,
-      },
-      {
-        id: 1,
-      },
-    ];
-    expect(state.transactions).toStrictEqual(expectedValue);
-  });
+  //   mutations.addSingleTransaction(state, newTransaction);
 
-  test('Check mutations.setTransactionDetails', () => {
-    const transaction = {
-      id: 1,
-    };
+  //   const expectedValue = [
+  //     {
+  //       id: 2,
+  //     },
+  //     {
+  //       id: 1,
+  //     },
+  //   ];
+  //   expect(state.transactions).toStrictEqual(expectedValue);
+  // });
 
-    mutations.setTransactionDetails(state, transaction);
+  // test('Check mutations.setTransactionDetails', () => {
+  //   const transaction = {
+  //     id: 1,
+  //   };
 
-    expect(state.details).toStrictEqual(transaction);
-  });
+  //   mutations.setTransactionDetails(state, transaction);
+
+  //   expect(state.details).toStrictEqual(transaction);
+  // });
 });
