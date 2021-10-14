@@ -195,8 +195,9 @@ export default {
     commit('startLoading');
     try {
       const response = await http.requestBlockTransactions(height);
-      if (response.data.txs.length > 0) {
-        response.data.txs.forEach((tx) => {
+      if (response.data.tx_responses.length > 0) {
+        response.data.tx_responses.forEach((tx) => {
+          console.log(tx);
           commit('addSingleTransaction', tx);
         });
       }

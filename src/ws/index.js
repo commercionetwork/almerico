@@ -53,7 +53,7 @@ export const subscribeWebSocket = () => {
 };
 
 const handleNewBlockEvent = (data) => {
-  store.commit('blocks/setLatestBlock', data.result.data.value.block);
+  store.dispatch('blocks/fetchLatestBlock');
   if (
     data.result.data.value.block.data.txs &&
     data.result.data.value.block.data.txs.length > 0
@@ -62,10 +62,8 @@ const handleNewBlockEvent = (data) => {
 };
 
 const updateStoredData = (data) => {
-  store.dispatch(
-    'transactions/fetchBlockTransactions',
-    data.result.data.value.block.header.height,
-  );
+  const height = data.result.data.value.block.header.height;
+  store.dispatch('transactions/fetchBlockTransactions', height);
   Object.values(VALIDATOR_STATUS).forEach((status) =>
     store.dispatch('validators/getValidatorsList', {
       status,

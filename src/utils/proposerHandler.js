@@ -11,7 +11,7 @@ const proposerHandler = {
    * @returns {Object}
    */
   getFromValidatorsSet({ address, prefix, validatorsSet, validators }) {
-    const consensusAddress = bech32Manager.encode(address, prefix);
+    const consensusAddress = _getConsensusAddress(address, prefix);
     const proposer = validatorsSet.find(
       (validator) => validator.address === consensusAddress,
     );
@@ -22,3 +22,21 @@ const proposerHandler = {
 };
 
 export default proposerHandler;
+
+const _getConsensusAddress = (address, prefix) => {
+  const hexAddress = _getHexAddressFromBase64(address);
+  return bech32Manager.encode(hexAddress, prefix);
+};
+
+const _getHexAddressFromBase64 = (address) => {
+  const bytes = Uint8Array.from(atob(address), (c) => c.charCodeAt(0));
+  return _toHexString(bytes);
+};
+
+const _toHexString = (byteArray) => {
+  const hex = byteArray.reduce(
+    (output, elem) => output + ('0' + elem.toString(16)).slice(-2),
+    '',
+  );
+  return hex.toUpperCase();
+};

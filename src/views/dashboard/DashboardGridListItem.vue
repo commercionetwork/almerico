@@ -83,12 +83,12 @@ export default {
       return this.transaction.code ? 'Failed' : 'Success';
     },
     time() {
-      return this.transaction
+      return this.transaction && this.transaction.timestamp
         ? dateHandler.getFormattedDifference(
             new Date(this.transaction.timestamp),
             new Date(),
           )
-        : '';
+        : '-';
     },
     msgs() {
       return this.transaction ? this.transaction.tx.value.msg : [];
