@@ -12,9 +12,9 @@ install:
 script:
   - npm run test
 
-branches:
-  except:
-    - /^wip\/.*/
+# branches:
+#   except:
+#     - /^wip\/.*/
 
 after_success:
   - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_TESTNET
