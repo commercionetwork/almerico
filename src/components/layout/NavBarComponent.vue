@@ -55,8 +55,10 @@ export default {
     },
     netName() {
       const name =
-        this.info && this.info.node_info && this.info.node_info.network
-          ? this.info.node_info.network
+        this.info &&
+        this.info.default_node_info &&
+        this.info.default_node_info.network
+          ? this.info.default_node_info.network
           : '-';
       const version =
         this.info &&
