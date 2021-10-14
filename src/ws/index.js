@@ -66,13 +66,11 @@ const updateStoredData = (data) => {
     'transactions/fetchBlockTransactions',
     data.result.data.value.block.header.height,
   );
-  store.dispatch('validators/initValidators', {
-    statuses: [
-      VALIDATOR_STATUS.BONDED,
-      VALIDATOR_STATUS.UNBONDED,
-      VALIDATOR_STATUS.UNBONDING,
-    ],
-  });
+  Object.values(VALIDATOR_STATUS).forEach((status) =>
+    store.dispatch('validators/getValidatorsList', {
+      status,
+    }),
+  );
 };
 
 const handleValidatorSetUpdates = (data) => {
@@ -85,7 +83,7 @@ const handleValidatorSetUpdates = (data) => {
 const handleTxEvent = (data) => {
   const events = data.result.data.value.TxResult.result.events;
   const index = events.findIndex(
-    (event) => (event.type = WS.TX_TYPES.NEW_CONVERSION_RATE),
+    (event) => event.type === WS.TX_TYPES.NEW_CONVERSION_RATE,
   );
   if (index > -1) {
     store.dispatch('dashboard/init');

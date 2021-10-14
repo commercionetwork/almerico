@@ -21,7 +21,7 @@
           color="primary"
         />
       </v-container>
-      <v-container v-else-if="error !== null" data-test="error">
+      <v-container v-else-if="!isLoading && error" data-test="error">
         <v-row>
           <v-col cols="12">
             <v-alert border="left" prominent text type="error">

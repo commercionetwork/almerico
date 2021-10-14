@@ -67,7 +67,7 @@ export default {
       method: 'get',
       baseURL: `${API.TXS}`,
       params: {
-        'tx.height': height,
+        events: `tx.height=${height}`,
       },
     });
   },

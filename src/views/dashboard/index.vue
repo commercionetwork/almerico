@@ -10,7 +10,7 @@
       ></v-progress-linear>
     </v-col>
   </v-row>
-  <v-row v-else-if="error !== null" data-test="error">
+  <v-row v-else-if="!isLoading && error" data-test="error">
     <v-col cols="12">
       <v-alert border="left" prominent text type="error">
         <span class="text-body-1" v-text="JSON.stringify(error)" />
