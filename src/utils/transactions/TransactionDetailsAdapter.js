@@ -17,19 +17,19 @@ class TransactionDetailsAdapter {
   get() {
     let item;
 
-    switch (this.details.version) {
-      case '':
-        item = current(this.details);
-        break;
-      case '0.38':
-        item = v038(this.details);
-        break;
-      default:
-        break;
-    }
+    // switch (this.details.version) {
+    //   case '':
+    //     item = current(this.details);
+    //     break;
+    //   case '0.38':
+    //     item = v038(this.details);
+    //     break;
+    //   default:
+    //     break;
+    // }
 
-    this.clear();
-    return item;
+    // this.clear();
+    return current(this.details);
   }
 }
 
@@ -41,7 +41,7 @@ const current = (details) => ({
   fee: formatFee(details.data.tx_response.tx.auth_info.fee.amount),
   gas: formatGas(details.data.tx_response),
   height: details.data.tx_response.height,
-  type: txHandler.getType(details.data.tx.body.messages),
+  type: txHandler.getTypeNew(details.data.tx.body.messages),
   msgs: details.data.tx.body.messages,
   ledger: details.ledger,
   version: details.version,
