@@ -108,7 +108,7 @@ export default {
     }),
   },
   created() {
-    if (this.height !== '') this.fetchValidatorsetsFromHeight(this.height);
+    if (this.height) this.fetchValidatorsetsFromHeight(this.height);
   },
 };
 </script>

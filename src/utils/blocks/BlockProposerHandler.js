@@ -60,7 +60,7 @@ const getProposer = ({ validators, validatorsSets, address, prefix }) => {
 
 const getValidator = (validators, pubKey) => {
   const index = validators.findIndex(
-    (validator) => validator.consensus_pubkey === pubKey,
+    (validator) => validator.consensus_pubkey.key === pubKey.key,
   );
   return index > -1 ? validators[index] : {};
 };
@@ -72,7 +72,22 @@ const getPubKey = (validatorsSets, address) => {
   return index > -1 ? validatorsSets[index]['pub_key'] : '';
 };
 
-const getEncodedAddress = (address, prefix) =>
-  bech32Manager.encode(address, prefix);
+const getEncodedAddress = (address, prefix) => {
+  const hexAddress = _getHexAddressFromBase64(address);
+  return bech32Manager.encode(hexAddress, prefix);
+};
+
+const _getHexAddressFromBase64 = (address) => {
+  const bytes = Uint8Array.from(atob(address), (c) => c.charCodeAt(0));
+  return _toHexString(bytes);
+};
+
+const _toHexString = (byteArray) => {
+  const hex = byteArray.reduce(
+    (output, elem) => output + ('0' + elem.toString(16)).slice(-2),
+    '',
+  );
+  return hex.toUpperCase();
+};
 
 export default new BlockProposerHandler();

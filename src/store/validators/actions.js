@@ -74,7 +74,7 @@ export default {
     commit('startLoading');
     try {
       const response = await http.requestValidatorsetsFromHeight(height);
-      commit('setHeightValidatorsSets', response.data.result.validators);
+      commit('setHeightValidatorsSets', response.data.validators);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     } finally {
