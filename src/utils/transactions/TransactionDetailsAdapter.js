@@ -34,18 +34,32 @@ class TransactionDetailsAdapter {
 }
 
 const current = (details) => ({
-  hash: details.data.txhash,
-  time: formatTimestamp(details.data.timestamp),
-  status: details.data.code ? 0 : 1,
-  rawLog: details.data.raw_log,
-  fee: formatFee(details.data.tx.value.fee.amount),
-  gas: formatGas(details.data),
-  height: details.data.height,
-  type: txHandler.getType(details.data.tx.value.msg),
-  msgs: details.data.tx.value.msg,
+  hash: details.data.tx_response.txhash,
+  time: formatTimestamp(details.data.tx_response.timestamp),
+  status: details.data.tx_response.code ? 0 : 1,
+  rawLog: details.data.tx_response.raw_log,
+  fee: formatFee(details.data.tx_response.tx.auth_info.fee.amount),
+  gas: formatGas(details.data.tx_response),
+  height: details.data.tx_response.height,
+  type: txHandler.getType(details.data.tx.body.messages),
+  msgs: details.data.tx.body.messages,
   ledger: details.ledger,
   version: details.version,
 });
+
+// const current = (details) => ({
+//   hash: details.data.txhash,
+//   time: formatTimestamp(details.data.timestamp),
+//   status: details.data.code ? 0 : 1,
+//   rawLog: details.data.raw_log,
+//   fee: formatFee(details.data.tx.value.fee.amount),
+//   gas: formatGas(details.data),
+//   height: details.data.height,
+//   type: txHandler.getType(details.data.tx.value.msg),
+//   msgs: details.data.tx.value.msg,
+//   ledger: details.ledger,
+//   version: details.version,
+// });
 
 const v038 = (details) => ({
   hash: details.data.txhash,

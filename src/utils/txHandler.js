@@ -5,9 +5,12 @@ const txHandler = {
    * @returns {String}
    */
   getType(msgs) {
-    if (msgs === null || msgs.length === 0) return '';
+    console.log(msgs);
+    if (msgs === null || !msgs.length) return '';
 
-    return msgs.length === 1 ? msgs[0].type.split('/').pop() : 'Multi Types';
+    return msgs.length === 1
+      ? msgs[0]['@type'].split('/').pop()
+      : 'Multi Types';
   },
 };
 
