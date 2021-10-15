@@ -17,7 +17,6 @@ export default {
       note: 'The item label',
     },
     content: {
-      type: String,
       required: true,
       note: 'The item content',
     },
