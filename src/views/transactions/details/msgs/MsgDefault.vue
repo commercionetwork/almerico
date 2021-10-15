@@ -28,16 +28,20 @@ export default {
   },
   computed: {
     props() {
-      const value = this.message.value;
+      const value = this.message;
       return Object.keys(value).map((key) => {
         return [key, value[key]];
       });
     },
     subTitle() {
-      return this.message.type ? this.message.type.split('/').shift() : '-';
+      return this.message['@type']
+        ? this.message['@type'].split('/').shift()
+        : '-';
     },
     title() {
-      return this.message.type ? this.message.type.split('/').pop() : '-';
+      return this.message['@type']
+        ? this.message['@type'].split('/').pop()
+        : '-';
     },
   },
   methods: {
