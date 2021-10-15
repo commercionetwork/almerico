@@ -6,6 +6,7 @@ export default {
    * @param {Function} commit
    */
   async init({ dispatch, commit }) {
+    dispatch('handleError', null, { root: true });
     commit('startLoading');
     await Promise.all([
       // dispatch('fetchConversionRate'),

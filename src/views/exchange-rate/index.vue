@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card outlined>
     <v-card-title>Work in progress</v-card-title>
   </v-card>
   <!-- <v-row v-if="isLoading" data-test="loading">
