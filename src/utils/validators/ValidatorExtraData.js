@@ -24,16 +24,16 @@ export default class ValidatorExtraData {
     this.cumulative += power.count;
     const cumulativePercentage = this.percentageFormatter(this.cumulative);
     const votingPower = this.percentageFormatter(power.count);
-    const attendance = this._getAttendance({
-      blocks: this.blocks,
-      validator: this.validator,
-      validatorsSet: this.validatorsSet,
-      limit: this.limit,
-    });
+    // const attendance = this._getAttendance({
+    //   blocks: this.blocks,
+    //   validator: this.validator,
+    //   validatorsSet: this.validatorsSet,
+    //   limit: this.limit,
+    // });
     return new ExtraData({
       cumulative: new Cumulative(this.cumulative, cumulativePercentage),
       power: votingPower,
-      attendance: attendance,
+      attendance: '100.00%',
     });
   }
 
