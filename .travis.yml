@@ -50,7 +50,7 @@ after_success:
     --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_MAINNET}"
     --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_MAINNET}"
 
-    - test $TRAVIS_BRANCH = "alfa" && docker build -t $DOCKER_IMAGE_ALFANET
+  - test $TRAVIS_BRANCH = "alfa" && docker build -t $DOCKER_IMAGE_ALFANET
     --build-arg LCD_URL=${ALMERICO_LCD_URL_ALFANET}
     --build-arg API_VERSION=${ALMERICO_API_VERSION_ALFANET}
     --build-arg WS_URL=${ALMERICO_WS_URL_ALFANET}
