@@ -7,6 +7,7 @@ export default {
    * @param {String} address
    */
   async getAccount({ dispatch, commit }, address) {
+    dispatch('handleError', null, { root: true });
     commit('startLoading');
     await Promise.all([
       // dispatch('fetchMembership', address),

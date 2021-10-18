@@ -56,6 +56,7 @@ export default {
    * @param {Number} items
    */
   async getBlocks({ dispatch, commit }, { maxHeight, items }) {
+    dispatch('handleError', null, { root: true });
     commit('startLoading');
     commit('clearAllBlocks');
     await dispatch('fetchBlocks', {

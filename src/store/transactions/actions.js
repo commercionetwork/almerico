@@ -129,6 +129,7 @@ export default {
     { commit, dispatch, state },
     { limit = CUSTOMIZATION.TXS.TABLE_ITEMS, query = 'tx.minheight=1' } = {},
   ) {
+    dispatch('handleError', null, { root: true });
     commit('startLoading');
     commit('clearAllTransactions');
     commit('changePage', 1);
