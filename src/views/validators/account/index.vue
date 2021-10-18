@@ -1,5 +1,8 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
+  <v-card outlined>
+    <v-card-title>Work in progress</v-card-title>
+  </v-card>
+  <!-- <v-row v-if="isLoading" data-test="loading">
     <v-col cols="12" class="pa-5">
       <v-progress-linear
         indeterminate
@@ -30,7 +33,7 @@
         <AccountDetailsFooter class="py-1" :address="address" />
       </div>
     </v-col>
-  </v-row>
+  </v-row> -->
 </template>
 
 <script>
@@ -72,8 +75,8 @@ export default {
       getAccount: 'getAccount',
     }),
   },
-  created() {
-    if (this.address) this.getAccount(this.address);
-  },
+  // created() {
+  //   if (this.address) this.getAccount(this.address);
+  // },
 };
 </script>

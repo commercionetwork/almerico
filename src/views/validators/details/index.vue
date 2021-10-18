@@ -1,5 +1,8 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
+  <v-card outlined>
+    <v-card-title>Work in progress</v-card-title>
+  </v-card>
+  <!-- <v-row v-if="isLoading" data-test="loading">
     <v-col cols="12" class="pa-5">
       <v-progress-linear
         indeterminate
@@ -34,7 +37,7 @@
         data-test="content"
       />
     </v-col>
-  </v-row>
+  </v-row> -->
 </template>
 
 <script>
@@ -95,10 +98,10 @@ export default {
       getValidatorData: 'getValidatorData',
     }),
   },
-  created() {
-    if (this.address != null) {
-      this.getValidatorData({ address: this.address });
-    }
-  },
+  // created() {
+  //   if (this.address != null) {
+  //     this.getValidatorData({ address: this.address });
+  //   }
+  // },
 };
 </script>
