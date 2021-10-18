@@ -11,14 +11,14 @@
         Msgs/Txs:
         <span class="font-weight-bold">{{ msgs }}/{{ txs }} </span>
       </span>
-      <!-- <span class="d-block">
+      <span class="d-block">
         Proposer:
         <router-link
           class="text-decoration-none font-weight-bold"
           v-text="proposerName"
           :to="proposerLink"
         />
-      </span> -->
+      </span>
       <span class="d-block">
         Validators:
         <span class="font-weight-bold">
@@ -71,23 +71,23 @@ export default {
       );
       return txs.reduce((acc, item) => acc + item.tx.value.msg.length, 0);
     },
-    // proposer() {
-    //   return proposerHandler.getFromValidatorsSet({
-    //     address: this.blockProposerAddress,
-    //     prefix: this.$config.generic.prefixes.validator.consensus.address,
-    //     validatorsSet: this.validatorsSet,
-    //     validators: this.validators,
-    //   });
-    // },
-    // proposerLink() {
-    //   return {
-    //     name: ROUTES.NAMES.VALIDATORS_DETAILS,
-    //     params: { id: this.proposer ? this.proposer.operator_address : '' },
-    //   };
-    // },
-    // proposerName() {
-    //   return this.proposer ? this.proposer.description.moniker : '-';
-    // },
+    proposer() {
+      return proposerHandler.getFromValidatorsSet({
+        address: this.blockProposerAddress,
+        prefix: this.$config.generic.prefixes.validator.consensus.address,
+        validatorsSet: this.validatorsSet,
+        validators: this.validators,
+      });
+    },
+    proposerLink() {
+      return {
+        name: ROUTES.NAMES.VALIDATORS_DETAILS,
+        params: { id: this.proposer ? this.proposer.operator_address : '' },
+      };
+    },
+    proposerName() {
+      return this.proposer ? this.proposer.description.moniker : '-';
+    },
     time() {
       return new Date(this.block.header.time).toLocaleString() || '-';
     },
