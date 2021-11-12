@@ -35,11 +35,7 @@
           />
         </template>
         <template v-slot:[`item.active`]="{ item }">
-          <span
-            class="font-weight-bold"
-            :class="item.active ? 'info--text' : 'error--text'"
-            v-text="item.active ? 'Yes' : 'Not'"
-          />
+          <span v-text="item.active ? $t('labels.yes') : $t('labels.not')" />
         </template>
         <template v-slot:[`item.tokens`]="{ item }">
           <span class="text-uppercase" v-text="item.tokens" />

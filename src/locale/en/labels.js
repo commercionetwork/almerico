@@ -31,6 +31,7 @@ export const labels = {
   multiValues: 'Multi values',
   name: 'Name',
   none: 'None',
+  not: 'Not',
   notBonded: 'Not Bonded',
   notEarningRewards: 'Not Earning Rewards',
   officialNode: 'official node (raw json)',
@@ -61,4 +62,5 @@ export const labels = {
   validators: 'Validators',
   votingPower: 'Voting Power',
   website: 'Website',
+  yes: 'Yes',
 };
