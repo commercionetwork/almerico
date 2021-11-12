@@ -5,7 +5,11 @@
         <v-form>
           <v-row>
             <v-col cols="10" offset="1">
-              <v-text-field v-model="model.height" :label="$t('labels.height')">
+              <v-text-field
+                :label="$t('labels.height')"
+                append-icon="mdi-magnify"
+                v-model="model.height"
+              >
                 <template v-slot:prepend>
                   <v-tooltip bottom>
                     <template v-slot:activator="{ on, attrs }">

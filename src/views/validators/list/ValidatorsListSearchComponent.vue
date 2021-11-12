@@ -2,24 +2,28 @@
   <TopContentCardComponent :title="$t('titles.searchValidator')">
     <template v-slot:content>
       <v-form @submit.prevent="onFilter(active)">
-        <v-text-field
-          v-model="moniker"
-          :label="$t('labels.search')"
-          append-icon="mdi-magnify"
-        >
-          <template v-slot:prepend>
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon color="info" dark v-bind="attrs" v-on="on">
-                  mdi-information-outline
-                </v-icon>
+        <v-row>
+          <v-col cols="10" offset="1">
+            <v-text-field
+              :label="$t('labels.search')"
+              append-icon="mdi-magnify"
+              v-model="moniker"
+            >
+              <template v-slot:prepend>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon color="info" dark v-bind="attrs" v-on="on">
+                      mdi-information-outline
+                    </v-icon>
+                  </template>
+                  <span v-html="$t('msgs.searchValidatorsInfo')" />
+                </v-tooltip>
               </template>
-              <span v-html="$t('msgs.searchValidatorTooltip')" />
-            </v-tooltip>
-          </template>
-        </v-text-field>
+            </v-text-field>
+          </v-col>
+        </v-row>
         <div class="d-flex justify-center">
-          <v-radio-group v-model="active" row>
+          <v-radio-group row v-model="active">
             <v-radio label="Active" :value="true" @click="onFilter" />
             <v-radio label="Inactive" :value="false" @click="onFilter" />
           </v-radio-group>
