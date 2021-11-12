@@ -1,0 +1,19 @@
+import circulatingTableBuilder from '../circulating-table-builder/index';
+
+describe('views/exchange-rate/helpers/circulating-table-builder', () => {
+  test('description', () => {
+    const expectedValue = true;
+    expect(true).toBe(expectedValue);
+  });
+
+  // test('if "build" method return data to be used by circulating table', async () => {
+  //   const res = await circulatingTableBuilder.build({
+  //     maxSupply: 2,
+  //     totalNonCirculatingSupply: 1,
+  //   });
+
+  //   expect(res.tableData.length).toBe(3);
+  //   expect(res.headers.length).toBe(3);
+  //   expect(res.totalCirculatingSupply).toBeDefined();
+  // });
+});

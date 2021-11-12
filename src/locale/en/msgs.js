@@ -1,0 +1,17 @@
+export const msgs = {
+  bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
+  bannerSecondary: 'Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe',
+  errorOccurred: 'Sorry, an error occurred',
+  failed: 'Failed',
+  noAccountFound: 'No accounts with this id',
+  noCode: 'No code available',
+  noMessage: 'No message available',
+  notAvailable: 'Not available',
+  notFound: 'Not found',
+  placeholderSearchBar: 'Search Address, Block Height, TxHash',
+  scanAddress: 'Scan the address',
+  searchValidatorTooltip: 'You can search by validator name and address or by linked account.<br>You can also filter by status',
+  success: 'Success',
+  triggeredAnError: 'Something happened in setting up the request that triggered an error',
+  unansweredRequest: 'The request was made but no response was received',
+};

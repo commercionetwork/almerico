@@ -1,0 +1,39 @@
+<template>
+  <v-row>
+    <v-col cols="12">
+      <v-card outlined>
+        <v-banner two-line>
+          <template v-slot:icon>
+            <v-img :src="logoSrc" alt="Commercio logo" />
+          </template>
+          <span class="text-body-2" v-html="message" />
+          <template v-slot:actions>
+            <v-btn
+              color="indigo accent-3"
+              href="https://commercio.network/"
+              target="_blank"
+              text
+              v-text="$t('labels.getOnline')"
+            />
+          </template>
+        </v-banner>
+      </v-card>
+    </v-col>
+  </v-row>
+</template>
+
+<script>
+export default {
+  name: 'HomeBannerComponent',
+  computed: {
+    logoSrc() {
+      return require('@/assets/img/logo-green.png');
+    },
+    message() {
+      return `<strong>${this.$t(
+        'msgs.bannerPrimary',
+      )} &trade;</strong>. ${this.$t('msgs.bannerSecondary')}.`;
+    },
+  },
+};
+</script>

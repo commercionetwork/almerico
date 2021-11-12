@@ -1,0 +1,15 @@
+export default {
+  abrTokens: (state) => state.abrTokens,
+  conversionRate: (state) => state.conversionRate,
+  isLoading: (state) => state.isLoading,
+  isAddingTx: (state) => state.isAddingTx,
+  pool: (state) => state.pool,
+  rateUpdates: (state) => state.rateUpdates,
+  rateUpdatesNextKey: (state) => state.rateUpdatesPagination.next_key,
+  rateUpdatesPagination: (state) => state.rateUpdatesPagination,
+  startingDate: (state) => state.startingDate,
+  supply: (state) => state.supply,
+  transactions: (state) => state.transactions,
+  txEventHeight: (state) => state.txEventHeight,
+  vbrTokens: (state) => state.vbrTokens,
+};
