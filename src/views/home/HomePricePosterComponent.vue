@@ -1,7 +1,7 @@
 <template>
   <TopContentCardComponent :title="$t('titles.price')">
     <template v-slot:content>
-      <v-row class="fill-height d-flex align-center" data-test="content">
+      <v-row class="fill-height d-flex align-center">
         <v-col cols="6" class="ma-0 pa-0">
           <div
             class="py-5 pl-5"

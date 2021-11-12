@@ -2,6 +2,7 @@ export const msgs = {
   bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
   bannerSecondary: 'Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe',
   errorOccurred: 'Sorry, an error occurred',
+  exchangeRateCalc: '1 divided the % of Circulating Supply',
   failed: 'Failed',
   noAccountFound: 'No accounts with this id',
   noCode: 'No code available',

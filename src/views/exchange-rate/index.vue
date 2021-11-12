@@ -7,14 +7,20 @@
   <v-row v-else data-test="content">
     <v-col cols="12">
       <HeaderComponent :title="$t('titles.exchangeRate')" />
-      <v-card>
-        <v-card-title>WORK IN PROGRESS</v-card-title>
-      </v-card>
+      <ExchangeRateTopContentComponent />
+      <v-row>
+        <v-col cols="12">
+          <v-card outlined>
+            <v-card-title>WORK IN PROGRESS</v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import ExchangeRateTopContentComponent from './ExchangeRateTopContentComponent.vue'
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
@@ -23,6 +29,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ExchangeRate',
   components: {
+    ExchangeRateTopContentComponent,
     HeaderComponent,
     LoadingLinearComponent,
   },
