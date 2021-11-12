@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update to new Cosmos REST API
 - Rename the old endpoints to `legacy`
+- Align loading data of all views
 - Improve validators detail layout
 
 ### Removed
