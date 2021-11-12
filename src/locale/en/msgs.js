@@ -11,6 +11,7 @@ export const msgs = {
   notFound: 'Not found',
   placeholderSearchBar: 'Search Address, Block Height, TxHash',
   scanAddress: 'Scan the address',
+  searchBlocksInfo: '100 blocks are searched in descending order<br>starting from the typed height',
   searchValidatorTooltip: 'You can search by validator name and address or by linked account.<br>You can also filter by status',
   success: 'Success',
   triggeredAnError: 'Something happened in setting up the request that triggered an error',

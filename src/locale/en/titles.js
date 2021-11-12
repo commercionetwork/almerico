@@ -22,6 +22,7 @@ export const titles = {
   notManagedType: 'Not Managed Type',
   price: 'Price',
   qrCode: 'QR Code',
+  searchBlocks: 'Search blocks',
   searchTxs: 'Search txs',
   searchValidator: 'Search validator',
   toggleTheme: 'Toggle theme',

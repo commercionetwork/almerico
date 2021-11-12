@@ -7,21 +7,21 @@
       <BlocksListChartComponent />
     </v-col>
     <v-col cols="12" md="4">
-      <v-card outlined>
-        <v-card-title>COMING SOON</v-card-title>
-      </v-card>
+      <BlocksListSearchComponent />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import LatestHeightComponent from '@/components/LatestHeightComponent';
 import BlocksListChartComponent from './BlocksListChartComponent.vue';
+import BlocksListSearchComponent from './BlocksListSearchComponent.vue';
+import LatestHeightComponent from '@/components/LatestHeightComponent';
 
 export default {
   name: 'BlocksListTopContentComponent',
   components: {
     BlocksListChartComponent,
+    BlocksListSearchComponent,
     LatestHeightComponent,
   },
 };

@@ -62,7 +62,7 @@
         },
       }"
     >
-      <LoadingLinearComponent v-if="isLoading" data-test="loading" />
+      <LoadingLinearComponent v-if="isAdding" data-test="loading" />
     </v-col>
   </v-row>
 </template>
@@ -90,7 +90,7 @@ export default {
       validatorSets: 'latestValidatorSets',
     }),
     ...mapGetters('blocks', {
-      isLoading: 'isAddingBlocks',
+      isAdding: 'isAddingBlocks',
       blocks: 'blocks',
       currentHeight: 'currentHeight',
     }),
@@ -125,7 +125,7 @@ export default {
       addBlocks: 'addBlocks',
     }),
     onIntersect(_entries, _observer, isIntersecting) {
-      if (isIntersecting && !this.isLoading) {
+      if (isIntersecting && !this.isAdding) {
         this.addBlocks(this.currentHeight);
       }
     },
