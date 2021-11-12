@@ -7,7 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.0]
 
+### Added
+
+- Implement localization management
+- Add env variable to set starting height
+- App version
+
 ### Changed
+
+- Update to new Cosmos REST API
+- Rename the old endpoints to `legacy`
+- Improve validators detail layout
+
+### Removed
+
+- Remove configuration file
 
 ## [2.2.20] - 2021-10-11
 
