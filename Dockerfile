@@ -52,4 +52,4 @@ WORKDIR /app
 RUN mv tmp/dist dist && rm -fr tmp
 
 # Start the server
-CMD [ "serve", "--single", "dist" ]
+CMD [ "serve", "--single", "-p", "5000", "dist" ]
