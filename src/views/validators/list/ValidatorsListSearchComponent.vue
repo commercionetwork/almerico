@@ -1,13 +1,15 @@
 <template>
   <TopContentCardComponent :title="$t('titles.searchValidator')">
     <template v-slot:content>
-      <v-form @submit.prevent="onFilter(active)">
+      <v-form>
         <v-row>
           <v-col cols="10" offset="1">
             <v-text-field
               :label="$t('labels.search')"
               append-icon="mdi-magnify"
               v-model="query"
+              @input="onFilter"
+              @blur="onFilter"
             >
               <template v-slot:prepend>
                 <v-tooltip bottom>
@@ -23,9 +25,14 @@
           </v-col>
         </v-row>
         <div class="d-flex justify-center">
-          <v-radio-group row v-model="active">
-            <v-radio label="Active" :value="true" @click="onFilter" />
-            <v-radio label="Inactive" :value="false" @click="onFilter" />
+          <v-radio-group
+            row
+            v-model="active"
+            @blur="onFilter"
+            @change="onFilter"
+          >
+            <v-radio :label="$t('labels.active')" :value="true" />
+            <v-radio :label="$t('labels.inactive')" :value="false" />
           </v-radio-group>
         </div>
       </v-form>
@@ -42,18 +49,18 @@ export default {
   name: 'ValidatorsListSearchComponent',
   components: { TopContentCardComponent },
   data: () => ({
-    query: '',
     active: true,
+    query: '',
   }),
   methods: {
     ...mapActions('validators', {
       setValidatorsFilter: 'setValidatorsFilter',
     }),
     onFilter() {
-      const filter = {};
-      filter.query = this.query;
-      filter.active = this.active;
-      this.setValidatorsFilter(filter);
+      this.setValidatorsFilter({
+        active: this.active,
+        query: this.query,
+      });
     },
   },
 };
