@@ -66,16 +66,12 @@ export default {
     }
   },
 
-  async fetchMembership({ commit, dispatch }, address) {
+  async fetchMembership({ commit }, address) {
     try {
       const response = await commercio.requestMembership(address);
       commit('setMembership', response.data.result);
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        commit('setMembership', null);
-      } else {
-        dispatch('handleError', error, { root: true });
-      }
+      commit('setMembership', null);
     }
   },
 

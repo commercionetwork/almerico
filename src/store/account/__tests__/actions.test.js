@@ -141,7 +141,7 @@ describe('store/account/actions', () => {
     });
   });
 
-  test('if "fetchMembership" action commit "setMembership" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchMembership" action commit "setMembership" mutation, and set membership to null if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -157,9 +157,7 @@ describe('store/account/actions', () => {
 
     await actions.fetchMembership({ commit, dispatch }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(commit).toHaveBeenCalledWith('setMembership', null);
   });
 
   test('if "fetchMembershipTxs" action commit "setMembershipTxs" mutation, and dispatch "handleError" if error is caught', async () => {
