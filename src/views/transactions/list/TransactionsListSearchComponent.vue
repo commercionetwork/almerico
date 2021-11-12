@@ -3,35 +3,40 @@
     <template v-slot:content>
       <div class="fill-height">
         <v-form>
-          <v-select
-            dense
-            flat
-            :label="$t('labels.type')"
-            v-model="selectedType"
-            :items="types"
-          >
-            <template v-slot:selection="{ item }">
-              <span
-                class="text-subtitle-2 font-weight-bold"
-                v-text="item.text"
-              />
-            </template>
-          </v-select>
           <v-row>
-            <v-col cols="6">
+            <v-col cols="10" offset="1">
+              <v-select
+                dense
+                flat
+                :label="$t('labels.type')"
+                v-model="selectedType"
+                :items="types"
+              >
+                <template v-slot:selection="{ item }">
+                  <span
+                    class="text-subtitle-2 font-weight-bold"
+                    v-text="item.text"
+                  />
+                </template>
+              </v-select>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" offset="2">
               <v-btn
+                @click="onSearch(false)"
                 block
                 color="primary"
-                @click="onSearch(false)"
+                depressed
                 v-text="$t('labels.search')"
               />
             </v-col>
-            <v-col cols="6">
+            <v-col cols="4">
               <v-btn
-                block
-                outlined
-                color="secondary"
                 @click="onSearch(true)"
+                block
+                color="secondary"
+                outlined
                 v-text="$t('labels.reset')"
               />
             </v-col>
