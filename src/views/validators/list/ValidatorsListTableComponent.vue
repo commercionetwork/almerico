@@ -6,7 +6,7 @@
         :headers="headers"
         :hide-default-footer="true"
         :items="items"
-        :search="search"
+        :search="filter.query"
         :sort-by.sync="sortBy"
         disable-pagination
       >
@@ -54,8 +54,6 @@ export default {
   name: 'ValidatorsListTableComponent',
   data: () => ({
     ROUTES,
-    active: true,
-    search: '',
     sortBy: 'rank',
   }),
   computed: {
@@ -89,7 +87,7 @@ export default {
         {
           text: this.$t('labels.active'),
           value: 'active',
-          filter: (value) => value === this.active,
+          filter: (value) => value === this.filter.active,
         },
         { text: this.$t('labels.tokens'), value: 'tokens' },
         { text: this.$t('labels.commission'), value: 'commission' },
@@ -108,12 +106,6 @@ export default {
       return this.active
         ? this.$t('titles.activeValidatorsList')
         : this.$t('titles.inactiveValidatorsList');
-    },
-  },
-  watch: {
-    filter(value) {
-      this.search = value.moniker;
-      this.active = value.active;
     },
   },
   methods: {

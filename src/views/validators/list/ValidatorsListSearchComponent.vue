@@ -7,7 +7,7 @@
             <v-text-field
               :label="$t('labels.search')"
               append-icon="mdi-magnify"
-              v-model="moniker"
+              v-model="query"
             >
               <template v-slot:prepend>
                 <v-tooltip bottom>
@@ -42,7 +42,7 @@ export default {
   name: 'ValidatorsListSearchComponent',
   components: { TopContentCardComponent },
   data: () => ({
-    moniker: '',
+    query: '',
     active: true,
   }),
   methods: {
@@ -51,7 +51,7 @@ export default {
     }),
     onFilter() {
       const filter = {};
-      filter.moniker = this.moniker;
+      filter.query = this.query;
       filter.active = this.active;
       this.setValidatorsFilter(filter);
     },
