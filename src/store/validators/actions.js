@@ -4,6 +4,10 @@ import { VALIDATORS } from '@/constants';
 export default {
   async initValidatorsList({ commit, dispatch }) {
     commit('setLoading', true);
+    commit('setFilter', {
+      active: true,
+      query: '',
+    });
     const requests = [dispatch('fetchPool')];
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
       commit('setBlocks', []);

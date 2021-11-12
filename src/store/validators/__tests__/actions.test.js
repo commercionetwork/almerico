@@ -28,7 +28,7 @@ describe('store/validators/actions', () => {
     process.env = OLD_ENV;
   });
 
-  test('if "initValidatorsList" set loading state, reset tracked blocks, dispatch "fetchPool" and "fetchTrackedBlocks" actions', async () => {
+  test('if "initValidatorsList" set loading state and validator filter, reset tracked blocks, dispatch "fetchPool" and "fetchTrackedBlocks" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -37,6 +37,10 @@ describe('store/validators/actions', () => {
     await actions.initValidatorsList({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(commit).toHaveBeenCalledWith('setFilter', {
+      active: true,
+      query: '',
+    });
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
     expect(commit).not.toHaveBeenCalledWith('setBlocks', []);

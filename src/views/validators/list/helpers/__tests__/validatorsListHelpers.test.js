@@ -21,6 +21,7 @@ describe('views/validators/list/helpers', () => {
   test('if "validatorsTableAdapter.build" method return an array of wanted validators', () => {
     const items = 5;
     const validators = mockValidators(items);
+    const status = true;
     const blocks = [];
     const coin = 'uccc';
     const pool = mockPool();
@@ -28,6 +29,7 @@ describe('views/validators/list/helpers', () => {
     const accountPrefix = 'did:com:';
     const convertedValidators = validatorsTableAdapter.build({
       validators,
+      status,
       accountPrefix,
       blocks,
       coin,

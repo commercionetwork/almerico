@@ -16,7 +16,15 @@ const validatorsTableAdapter = {
    * @param {BuildParam} p
    * @returns {Array.<ValidatorsTableRow>}
    */
-  build({ validators, accountPrefix, blocks, coin, pool, validatorSets }) {
+  build({
+    validators,
+    status,
+    accountPrefix,
+    blocks,
+    coin,
+    pool,
+    validatorSets,
+  }) {
     const sortedValidators = orderBy(
       validators,
       (validator) => parseInt(validator.tokens),
@@ -24,6 +32,7 @@ const validatorsTableAdapter = {
     );
     return _getTableRows({
       sortedValidators,
+      status,
       accountPrefix,
       blocks,
       coin,
@@ -37,6 +46,7 @@ export default validatorsTableAdapter;
 
 const _getTableRows = ({
   sortedValidators,
+  status,
   accountPrefix,
   blocks,
   coin,
@@ -44,7 +54,7 @@ const _getTableRows = ({
   validatorSets,
 }) => {
   let cumulativeCount = 0;
-  return sortedValidators.map((validator, i) => {
+  const rows = sortedValidators.map((validator, i) => {
     const rank = ++i;
     const active = validator.status === VALIDATORS.STATUS.BONDED ? true : false;
     const moniker = validator.description.moniker;
@@ -88,6 +98,7 @@ const _getTableRows = ({
 
     return row;
   });
+  return rows.filter((row) => row.active === status);
 };
 
 const _getAccountAddress = (address, prefix) => {

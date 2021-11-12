@@ -34,9 +34,6 @@
             }"
           />
         </template>
-        <template v-slot:[`item.active`]="{ item }">
-          <span v-text="item.active ? $t('labels.yes') : $t('labels.not')" />
-        </template>
         <template v-slot:[`item.tokens`]="{ item }">
           <span class="text-uppercase" v-text="item.tokens" />
         </template>
@@ -73,6 +70,7 @@ export default {
     items() {
       return validatorsTableAdapter.build({
         validators: this.validators,
+        status: this.filter.active,
         accountPrefix: CONFIG.PREFIXES.ACCOUNT.ADDRESS,
         blocks: this.blocks,
         coin: this.bondDenom,
@@ -84,11 +82,6 @@ export default {
       let headers = [
         { text: this.$t('labels.rank'), value: 'rank' },
         { text: this.$t('labels.validator'), value: 'moniker' },
-        {
-          text: this.$t('labels.active'),
-          value: 'active',
-          filter: (value) => value === this.filter.active,
-        },
         { text: this.$t('labels.tokens'), value: 'tokens' },
         { text: this.$t('labels.commission'), value: 'commission' },
         { text: this.$t('labels.votingPower'), value: 'votingPower' },
@@ -103,7 +96,7 @@ export default {
       return headers;
     },
     caption() {
-      return this.active
+      return this.filter.active
         ? this.$t('titles.activeValidatorsList')
         : this.$t('titles.inactiveValidatorsList');
     },
