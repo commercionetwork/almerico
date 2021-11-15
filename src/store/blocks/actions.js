@@ -12,7 +12,7 @@ export default {
 
   async addBlocks({ commit, dispatch }, lastHeight) {
     commit('setAddingBlocks', true);
-    dispatch('fetchBlocks', lastHeight);
+    await dispatch('fetchBlocks', lastHeight);
     commit('setAddingBlocks', false);
   },
 
