@@ -18,8 +18,6 @@ export const titles = {
   latestHeight: 'Latest height',
   message: 'Message',
   msgsTxs: 'Msgs/txs',
-  notManagedMsgSource: 'Not Managed Msg Source',
-  notManagedType: 'Not Managed Type',
   price: 'Price',
   qrCode: 'QR Code',
   searchBlocks: 'Search blocks',
