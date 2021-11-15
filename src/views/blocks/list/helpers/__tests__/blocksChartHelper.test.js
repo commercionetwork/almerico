@@ -3,7 +3,8 @@ import blocksChartHelper from '../blocksChartHelper';
 
 describe('views/blocks/list/helpers/blocksChartHelper', () => {
   test('if "getChartData" method return expected object', () => {
-    const data = blocksChartHelper.getChartData(mockBlocks(), {
+    const blocks = mockBlocks().map((it) => it.block);
+    const data = blocksChartHelper.getChartData(blocks, {
       blocks: 'blocks',
       txs: 'txs',
     });

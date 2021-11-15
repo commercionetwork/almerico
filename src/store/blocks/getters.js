@@ -6,6 +6,7 @@ export default {
   blocks: (state) => state.blocks,
   currentHeight: (state) => state.currentHeight,
   detail: (state) => state.detail,
-  isLoading: (state) => state.isLoading,
   isAddingBlocks: (state) => state.isAddingBlocks,
+  isLoading: (state) => state.isLoading,
+  newHeight: (state) => state.newHeight,
 };

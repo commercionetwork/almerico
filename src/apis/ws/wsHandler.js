@@ -37,7 +37,7 @@ const _handleNewBlockEvent = (data) => {
   store.commit('application/setLatestTransactions', []);
   const block = data.result.data.value.block;
   store.commit('application/setLatestBlock', block);
-  store.commit('blocks/addBlock', block);
+  store.commit('blocks/setNewHeight', block.header.height);
   if (block.data.txs.length > 0)
     store.dispatch('application/fetchLatestTransactions', block.header.height);
   if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY)

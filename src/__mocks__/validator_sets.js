@@ -1,12 +1,12 @@
-const mockValidatorSets = () => {
+const mockValidatorSets = (height = '1') => {
   const item = {
-    block_height: '8198',
+    block_height: height,
     validators: [
       {
-        address: 'did:com:valcons1nl0m3tchdz56q5sr46kyan4zql37xdwg3c586e',
+        address: 'did:com:valcons1hdd9sjn8z09zezc2rx2pp2lqn3h45x8sjaktwe',
         pub_key: {
           type: 'tendermint/PubKeyEd25519',
-          value: 'M096WOlaKj3fzov2FnpjMRgB1H90vyTxIgnDh6j86Yg=',
+          value: 'ET6Pifwl3+X/XCHaThqJLGG7MSX9ybXZNPLvxgIehCg=',
         },
         proposer_priority: '0',
         voting_power: '100',

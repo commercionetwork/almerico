@@ -20,13 +20,16 @@ export default {
     const maxHeight = parseInt(lastHeight);
     const minHeight =
       maxHeight - BLOCKS.TABLE_ITEMS > 0 ? maxHeight - BLOCKS.TABLE_ITEMS : 0;
-    const requests = setUpBlocksRequests(maxHeight, minHeight);
+    const requests = setUpBlocksRequests(dispatch, maxHeight, minHeight);
+    await Promise.all(requests);
+    commit('setCurrentHeight', minHeight);
+  },
+
+  async addBlocksItem({ commit, dispatch }, height) {
     try {
-      const responses = await Promise.all(requests);
-      for (const response of responses) {
-        commit('addBlock', response.data.block);
-      }
-      commit('setCurrentHeight', minHeight);
+      const resBlock = await tendermintRpc.requestBlock(height);
+      const resValidatorSets = await tendermintRpc.requestValidatorSets(height);
+      commit('addBlock', { ...resBlock.data, ...resValidatorSets.data.result });
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -86,10 +89,10 @@ export default {
   },
 };
 
-const setUpBlocksRequests = (maxHeight, minHeight) => {
+const setUpBlocksRequests = (dispatch, maxHeight, minHeight) => {
   const requests = [];
   while (maxHeight > minHeight) {
-    requests.push(tendermintRpc.requestBlock(maxHeight--));
+    requests.push(dispatch('addBlocksItem', maxHeight--));
   }
   return requests;
 };

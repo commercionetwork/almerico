@@ -35,14 +35,21 @@ export default {
     }),
     ...mapGetters('blocks', {
       isLoading: 'isLoading',
+      newHeight: 'newHeight',
     }),
     lastHeight() {
       return this.lastBlock.header.height;
     },
   },
+  watch: {
+    newHeight(value) {
+      if (value) this.addBlocksItem(value);
+    },
+  },
   methods: {
     ...mapActions('blocks', {
       initBlocksList: 'initBlocksList',
+      addBlocksItem: 'addBlocksItem',
     }),
   },
   created() {

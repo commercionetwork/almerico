@@ -7,14 +7,13 @@ const blocksTableAdapter = {
    * @param {*} param0
    * @returns
    */
-  build({ blocks, validators, validatorSets, prefix }) {
-    const sortedBlocks = orderBy(blocks, (block) => block.header.height, [
+  build({ blocks, validators, prefix }) {
+    const sortedBlocks = orderBy(blocks, (block) => block.block_height, [
       'desc',
     ]);
     return _getTableRows({
       blocks: sortedBlocks,
       validators,
-      validatorSets,
       prefix,
     });
   },
@@ -22,16 +21,16 @@ const blocksTableAdapter = {
 
 export default blocksTableAdapter;
 
-const _getTableRows = ({ blocks, validators, validatorSets, prefix }) => {
-  return blocks.map((block) => {
+const _getTableRows = ({ blocks, validators, prefix }) => {
+  return blocks.map((item) => {
     const proposer = proposerHandler.getFromHexAddress({
-      address: block.header.proposer_address,
+      address: item.block.header.proposer_address,
       prefix: prefix,
-      validatorSets: validatorSets,
+      validatorSets: item.validators,
       validators: validators,
     });
 
-    const tableRow = new BlockTableRow(block, proposer);
+    const tableRow = new BlockTableRow(item.block, proposer);
     return tableRow.data;
   });
 };

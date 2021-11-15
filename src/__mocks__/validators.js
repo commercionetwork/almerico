@@ -1,9 +1,9 @@
 const mockValidator = () => {
   const item = {
-    operator_address: 'did:com:valoper154xssuad424hc076aygm9y77nfjj70sr7e7lcs',
+    operator_address: 'did:com:valoper18h03de6awcjk4u9gaz8s5l0xxl8ulxjcgpfzx7',
     consensus_pubkey: {
       '@type': '/cosmos.crypto.ed25519.PubKey',
-      key: 'M096WOlaKj3fzov2FnpjMRgB1H90vyTxIgnDh6j86Yg=',
+      key: 'ET6Pifwl3+X/XCHaThqJLGG7MSX9ybXZNPLvxgIehCg=',
     },
     jailed: false,
     status: 'BOND_STATUS_BONDED',
@@ -24,7 +24,7 @@ const mockValidator = () => {
         max_rate: '0.200000000000000000',
         max_change_rate: '0.010000000000000000',
       },
-      update_time: '2021-11-04T09:52:26.953491822Z',
+      update_time: '2021-11-15T06:47:35.422606967Z',
     },
     min_self_delegation: '1',
   };

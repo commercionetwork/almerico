@@ -11,7 +11,7 @@ import accountDelegationsHelper from '../accountDelegationsHelper';
 import accountPerformanceChartHelper from '../accountPerformanceChartHelper';
 import accountUnbondingsHelper from '../accountUnbondingsHelper';
 
-describe('views/validators/account/helpers', () => {
+describe('views/account/helpers', () => {
   test('if "accountCapitalizationChartHelper.getChartData" method return expected object', () => {
     const mockCapitalization = {
       availables: 1,

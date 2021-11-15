@@ -87,7 +87,6 @@ export default {
   computed: {
     ...mapGetters('application', {
       validators: 'validators',
-      validatorSets: 'latestValidatorSets',
     }),
     ...mapGetters('blocks', {
       isAdding: 'isAddingBlocks',
@@ -115,7 +114,6 @@ export default {
       return blocksTableAdapter.build({
         blocks: this.blocks,
         validators: this.validators,
-        validatorSets: this.validatorSets,
         prefix: CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS,
       });
     },

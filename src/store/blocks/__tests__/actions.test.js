@@ -11,6 +11,7 @@ import { BLOCKS } from '@/constants';
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
 let mockResponse = null;
+let mockResponseValidatorSets = null;
 
 describe('store/blocks/actions', () => {
   beforeEach(() => {
@@ -47,24 +48,37 @@ describe('store/blocks/actions', () => {
     expect(commit).toHaveBeenCalledWith('setAddingBlocks', false);
   });
 
-  test('if "fetchBlocks" commit "addBlock" and "setCurrentHeight", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchBlocks" dispatch "addBlocksItem" and "setCurrentHeight"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const lastHeight = '1000';
-    const minHeight = parseInt(lastHeight) - BLOCKS.TABLE_ITEMS;
+    let maxHeight = parseInt(lastHeight);
+    let minHeight = maxHeight - BLOCKS.TABLE_ITEMS;
 
     await actions.fetchBlocks({ commit, dispatch }, lastHeight);
 
-    expect(commit).toHaveBeenNthCalledWith(
-      BLOCKS.TABLE_ITEMS,
-      'addBlock',
-      mockResponse.data.block,
-    );
+    expect(dispatch).toHaveBeenCalledTimes(BLOCKS.TABLE_ITEMS);
+    while (maxHeight > minHeight) {
+      expect(dispatch).toHaveBeenCalledWith('addBlocksItem', maxHeight--);
+    }
     commit('setCurrentHeight', minHeight);
+  });
+
+  test('if "addBlocksItem" commit "addBlock, and dispatch "handleError" if error is caught"', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const height = '100';
+
+    await actions.addBlocksItem({ commit, dispatch }, height);
+
+    expect(commit).toHaveBeenCalledWith('addBlock', {
+      ...mockResponse.data,
+      ...mockResponseValidatorSets.data.result,
+    });
 
     mockError = true;
 
-    await actions.fetchBlocks({ commit, dispatch }, lastHeight);
+    await actions.addBlocksItem({ commit, dispatch }, height);
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
       root: true,
@@ -111,7 +125,10 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchValidatorSets({ commit, dispatch }, height);
 
-    commit('setValidatorSets', mockResponse.data.result.validators);
+    commit(
+      'setValidatorSets',
+      mockResponseValidatorSets.data.result.validators,
+    );
 
     mockError = true;
 
@@ -179,13 +196,13 @@ jest.mock('../../../apis/http/tendermintRpc.js', () => ({
           reject(mockErrorResponse);
         }
 
-        mockResponse = {
+        mockResponseValidatorSets = {
           data: {
             height: '1',
             result: mockValidatorSets(),
           },
         };
-        resolve(mockResponse);
+        resolve(mockResponseValidatorSets);
       }, 1);
     });
   },

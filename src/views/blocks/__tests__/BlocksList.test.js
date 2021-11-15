@@ -27,6 +27,7 @@ describe('views/blocks/BlocksList.vue', () => {
   };
   const computed = {
     lastHeight: () => '1',
+    newHeight: () => '1',
   };
 
   test('if loading indicator is displayed', () => {

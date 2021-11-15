@@ -45,6 +45,13 @@ describe('store/blocks/mutations', () => {
     expect(state.currentHeight).toStrictEqual(payload);
   });
 
+  test('mutations.setNewHeight', () => {
+    const payload = '10';
+    mutations.setNewHeight(state, payload);
+
+    expect(state.newHeight).toStrictEqual(payload);
+  });
+
   test('mutations.setDetail', () => {
     const payload = { id: 1 };
     mutations.setDetail(state, payload);

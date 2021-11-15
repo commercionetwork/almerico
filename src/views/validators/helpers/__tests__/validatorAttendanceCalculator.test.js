@@ -4,7 +4,7 @@ import validatorAttendanceCalculator from '../validatorAttendanceCalculator';
 describe('views/validators/helpers/validatorAttendanceCalculator', () => {
   test('if "validatorAttendanceCalculator" methods return the defined blocks, the attendance count and percentage', () => {
     const limit = 100;
-    const blocks = mockBlocks(limit);
+    const blocks = mockBlocks(limit).map((it) => it.block);
     const validator = mockValidator();
     const validatorSets = mockValidatorSets().validators;
 

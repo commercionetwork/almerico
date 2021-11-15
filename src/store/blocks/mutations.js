@@ -8,6 +8,9 @@ export default {
   setCurrentHeight(state, payload) {
     state.currentHeight = payload;
   },
+  setNewHeight(state, payload) {
+    state.newHeight = payload;
+  },
   setAddingBlocks(state, payload) {
     state.isAddingBlocks = payload;
   },

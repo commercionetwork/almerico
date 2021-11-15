@@ -9,8 +9,9 @@ export const initialState = {
   blocks: [],
   currentHeight: 1,
   detail: null,
-  isLoading: false,
   isAddingBlocks: false,
+  isLoading: false,
+  newHeight: 0,
 };
 
 export default {
