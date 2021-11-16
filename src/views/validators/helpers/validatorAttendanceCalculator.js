@@ -60,11 +60,15 @@ const validatorAttendanceCalculator = {
 export default validatorAttendanceCalculator;
 
 const _restrictBlocks = (blocks, limit) => {
-  const sortedBlocks = orderBy(blocks, (block) => block.header.height, [
-    'desc',
-  ]);
-  return take(sortedBlocks, limit);
+  const sortedBlocks = orderBy(blocks, (it) => it.block_height, ['desc']);
+  const restrictedBlocks = take(sortedBlocks, limit);
+  return restrictedBlocks.map((it) => it.block);
 };
+
+// const _restrictBlocks = (blocks, limit) => {
+//   const sortedBlocks = orderBy(blocks, (it) => it.block_height, ['desc']);
+//   return take(sortedBlocks, limit);
+// };
 
 const _decodeAddress = ({ validator, validatorSets }) => {
   const index = validatorSets.findIndex(

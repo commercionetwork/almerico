@@ -41,7 +41,7 @@ const _handleNewBlockEvent = (data) => {
   if (block.data.txs.length > 0)
     store.dispatch('application/fetchLatestTransactions', block.header.height);
   if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY)
-    store.commit('validators/addSingleBlock', block);
+    store.commit('validators/setNewHeight', block.header.height);
 };
 
 const _handleNewValidatorSetsEvent = (data) => {

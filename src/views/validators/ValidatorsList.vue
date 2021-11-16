@@ -19,6 +19,7 @@ import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 import ValidatorsListTableComponent from './list/ValidatorsListTableComponent.vue';
 import ValidatorsListTopContentComponent from './list/ValidatorsListTopContentComponent.vue';
 
+import { VALIDATORS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -32,10 +33,18 @@ export default {
   computed: {
     ...mapGetters('validators', {
       isLoading: 'isLoading',
+      newHeight: 'newHeight',
     }),
+  },
+  watch: {
+    newHeight(value) {
+      if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY && value)
+        this.addBlocksItem(value);
+    },
   },
   methods: {
     ...mapActions('validators', {
+      addBlocksItem: 'addBlocksItem',
       initValidatorsList: 'initValidatorsList',
     }),
   },

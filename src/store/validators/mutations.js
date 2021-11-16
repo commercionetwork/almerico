@@ -5,8 +5,11 @@ export default {
   setBlocks(state, payload) {
     state.blocks = payload;
   },
-  addSingleBlock(state, payload) {
+  addBlock(state, payload) {
     state.blocks.push(payload);
+  },
+  setNewHeight(state, payload) {
+    state.newHeight = payload;
   },
   setFilter(state, payload) {
     state.filter = payload;

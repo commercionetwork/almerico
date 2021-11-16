@@ -26,17 +26,20 @@ export default {
     }
   },
 
-  async fetchTrackedBlocks({ commit, dispatch, rootGetters }) {
+  async fetchTrackedBlocks({ dispatch, rootGetters }) {
     const items = VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
     const latestBlock = rootGetters['application/latestBlock'];
     const maxHeight = parseInt(latestBlock.header.height);
     const minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
-    const requests = setUpBlocksRequests(maxHeight, minHeight);
+    const requests = setUpBlocksRequests(dispatch, maxHeight, minHeight);
+    await Promise.all(requests);
+  },
+
+  async addBlocksItem({ commit, dispatch }, height) {
     try {
-      const responses = await Promise.all(requests);
-      for (const response of responses) {
-        commit('addSingleBlock', response.data.block);
-      }
+      const resBlock = await tendermintRpc.requestBlock(height);
+      const resValidatorSets = await tendermintRpc.requestValidatorSets(height);
+      commit('addBlock', { ...resBlock.data, ...resValidatorSets.data.result });
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
@@ -80,10 +83,10 @@ export default {
   },
 };
 
-const setUpBlocksRequests = (maxHeight, minHeight) => {
+const setUpBlocksRequests = (dispatch, maxHeight, minHeight) => {
   const requests = [];
   while (maxHeight > minHeight) {
-    requests.push(tendermintRpc.requestBlock(maxHeight--));
+    requests.push(dispatch('addBlocksItem', maxHeight--));
   }
   return requests;
 };

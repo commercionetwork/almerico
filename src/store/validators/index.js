@@ -8,6 +8,7 @@ export const initialState = {
   detail: null,
   filter: null,
   isLoading: false,
+  newHeight: '',
   pool: null,
 };
 

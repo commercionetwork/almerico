@@ -24,14 +24,22 @@ describe('store/validators/mutations', () => {
     expect(state.blocks).toStrictEqual(blocks);
   });
 
-  test('mutations.addSingleBlock', () => {
+  test('mutations.addBlock', () => {
     state.blocks = [{ id: 1 }];
     const payload = { id: 2 };
     const expected = [{ id: 1 }, { id: 2 }];
 
-    mutations.addSingleBlock(state, payload);
+    mutations.addBlock(state, payload);
 
     expect(state.blocks).toStrictEqual(expected);
+  });
+
+  test('mutations.setNewHeight', () => {
+    const newHeight = '1';
+
+    mutations.setNewHeight(state, newHeight);
+
+    expect(state.newHeight).toBe(newHeight);
   });
 
   test('mutations.setFilter', () => {

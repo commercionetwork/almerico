@@ -20,7 +20,7 @@ import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 import ValidatorsDetailBodyContentComponent from './detail/ValidatorsDetailBodyContentComponent.vue';
 import ValidatorsDetailTopContentComponent from './detail/ValidatorsDetailTopContentComponent.vue';
 
-import { CONFIG } from '@/constants';
+import { CONFIG, VALIDATORS } from '@/constants';
 import { bech32Manager } from '@/utils';
 import { mapActions, mapGetters } from 'vuex';
 
@@ -35,6 +35,7 @@ export default {
   computed: {
     ...mapGetters('validators', {
       isLoading: 'isLoading',
+      newHeight: 'newHeight',
     }),
     account() {
       const hex = bech32Manager.decode(this.address);
@@ -48,9 +49,14 @@ export default {
     address(value) {
       if (value) this.initValidatorsDetail(value);
     },
+    newHeight(value) {
+      if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY && value)
+        this.addBlocksItem(value);
+    },
   },
   methods: {
     ...mapActions('validators', {
+      addBlocksItem: 'addBlocksItem',
       initValidatorsDetail: 'initValidatorsDetail',
     }),
   },
