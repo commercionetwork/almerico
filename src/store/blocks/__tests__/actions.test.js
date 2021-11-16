@@ -61,7 +61,7 @@ describe('store/blocks/actions', () => {
     while (maxHeight > minHeight) {
       expect(dispatch).toHaveBeenCalledWith('addBlocksItem', maxHeight--);
     }
-    commit('setCurrentHeight', minHeight);
+    expect(commit).toHaveBeenCalledWith('setCurrentHeight', minHeight);
   });
 
   test('if "addBlocksItem" commit "addBlock, and dispatch "handleError" if error is caught"', async () => {
