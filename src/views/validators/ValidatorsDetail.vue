@@ -33,6 +33,9 @@ export default {
     ValidatorsDetailTopContentComponent,
   },
   computed: {
+    ...mapGetters('application', {
+      latestBlock: 'latestBlock',
+    }),
     ...mapGetters('validators', {
       isLoading: 'isLoading',
       newHeight: 'newHeight',
@@ -44,10 +47,14 @@ export default {
     address() {
       return this.$route.params.id;
     },
+    lastHeight() {
+      return this.latestBlock.header.height;
+    },
   },
   watch: {
     address(value) {
-      if (value) this.initValidatorsDetail(value);
+      if (value)
+        this.initValidatorsDetail({ id: value, lastHeight: this.lastHeight });
     },
     newHeight(value) {
       if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY && value)
@@ -61,7 +68,10 @@ export default {
     }),
   },
   created() {
-    this.initValidatorsDetail(this.address);
+    this.initValidatorsDetail({
+      id: this.address,
+      lastHeight: this.lastHeight,
+    });
   },
 };
 </script>

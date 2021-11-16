@@ -31,10 +31,16 @@ export default {
     ValidatorsListTopContentComponent,
   },
   computed: {
+    ...mapGetters('application', {
+      latestBlock: 'latestBlock',
+    }),
     ...mapGetters('validators', {
       isLoading: 'isLoading',
       newHeight: 'newHeight',
     }),
+    lastHeight() {
+      return this.latestBlock.header.height;
+    },
   },
   watch: {
     newHeight(value) {
@@ -49,7 +55,7 @@ export default {
     }),
   },
   created() {
-    this.initValidatorsList();
+    this.initValidatorsList(this.lastHeight);
   },
 };
 </script>

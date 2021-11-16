@@ -26,7 +26,8 @@ describe('views/validators/ValidatorsList.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
-    newHeight: () => 'newHeight',
+    lastHeight: () => '1',
+    newHeight: () => '2',
   };
 
   test('if loading indicator is displayed', () => {

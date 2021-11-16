@@ -28,7 +28,8 @@ describe('views/validators/ValidatorsDetail.vue', () => {
   const computed = {
     account: () => 'account',
     address: () => 'address',
-    newHeight: () => 'newHeight',
+    lastHeight: () => '1',
+    newHeight: () => '2',
   };
 
   test('if loading indicator is displayed', () => {

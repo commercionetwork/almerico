@@ -2,7 +2,7 @@ import { staking, tendermintRpc } from '@/apis/http';
 import { VALIDATORS } from '@/constants';
 
 export default {
-  async initValidatorsList({ commit, dispatch }) {
+  async initValidatorsList({ commit, dispatch }, lastHeight) {
     commit('setLoading', true);
     commit('setFilter', {
       active: true,
@@ -11,7 +11,7 @@ export default {
     const requests = [dispatch('fetchPool')];
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
       commit('setBlocks', []);
-      requests.push(dispatch('fetchTrackedBlocks'));
+      requests.push(dispatch('fetchTrackedBlocks', lastHeight));
     }
     await Promise.all(requests);
     commit('setLoading', false);
@@ -26,10 +26,9 @@ export default {
     }
   },
 
-  async fetchTrackedBlocks({ dispatch, rootGetters }) {
+  async fetchTrackedBlocks({ dispatch }, lastHeight) {
     const items = VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
-    const latestBlock = rootGetters['application/latestBlock'];
-    const maxHeight = parseInt(latestBlock.header.height);
+    const maxHeight = parseInt(lastHeight);
     const minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
     const requests = setUpBlocksRequests(dispatch, maxHeight, minHeight);
     await Promise.all(requests);
@@ -49,15 +48,17 @@ export default {
     commit('setFilter', filter);
   },
 
-  async initValidatorsDetail({ commit, dispatch }, id) {
+  async initValidatorsDetail({ commit, dispatch }, { id, lastHeight }) {
     commit('setLoading', true);
     const requests = [
       dispatch('fetchDetail', id),
       dispatch('fetchDetailDelegations', id),
       dispatch('fetchPool'),
     ];
-    if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY)
-      requests.push(dispatch('fetchTrackedBlocks'));
+    if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
+      commit('setBlocks', []);
+      requests.push(dispatch('fetchTrackedBlocks', lastHeight));
+    }
     await Promise.all(requests);
     commit('setLoading', false);
   },
