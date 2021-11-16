@@ -4,6 +4,7 @@ import mutations from './mutations';
 
 export const initialState = {
   blockTxs: [],
+  blockTxsOffset: 0,
   blockTxsPagination: null,
   blockValidatorSets: [],
   blocks: [],

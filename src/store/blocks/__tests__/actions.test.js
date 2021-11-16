@@ -85,7 +85,7 @@ describe('store/blocks/actions', () => {
     });
   });
 
-  test('if "initBlocksDetail" set loading state, reset transactions list, dispatch "fetchBlock", "fetchTransactions" and "fetchValidatorSets" actions', async () => {
+  test('if "initBlocksDetail" set loading state, reset transactions list and offset, dispatch "fetchBlock", "fetchTransactions" and "fetchValidatorSets" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const height = '100';
@@ -94,6 +94,7 @@ describe('store/blocks/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setBlockTxsOffset', 0);
     expect(dispatch).toHaveBeenCalledWith('fetchBlock', height);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', height);
     expect(dispatch).toHaveBeenCalledWith('fetchValidatorSets', height);
@@ -107,7 +108,7 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchBlock({ commit, dispatch }, height);
 
-    commit('setDetail', mockResponse.data);
+    expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data);
 
     mockError = true;
 
@@ -125,7 +126,7 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchValidatorSets({ commit, dispatch }, height);
 
-    commit(
+    expect(commit).toHaveBeenCalledWith(
       'setValidatorSets',
       mockResponseValidatorSets.data.result.validators,
     );
@@ -143,30 +144,36 @@ describe('store/blocks/actions', () => {
     const dispatch = jest.fn();
     const getters = jest.fn();
     const height = '100';
-    const expectedParams = {
-      events: `tx.height = ${height}`,
-    };
 
     await actions.fetchTransactions({ dispatch, getters }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('getTransactions', {
-      params: expectedParams,
-    });
+    expect(dispatch).toHaveBeenCalledWith('addTransactions', { height });
   });
 
-  test('if "getTransactions" commit "addTransactions" and "setBlockTxsPagination", and dispatch "handleError" if error is caught', async () => {
+  test('if "addTransactions" commit "addTransactions" and "setBlockTxsPagination", and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const params = { params: 'params' };
+    const height = '100';
+    const offset = 10;
 
-    await actions.getTransactions({ commit, dispatch }, { params });
+    await actions.addTransactions({ commit, dispatch }, { height, offset });
 
-    commit('addTransactions', mockResponse.data.tx_responses);
-    commit('setBlockTxsPagination', mockResponse.data.pagination);
+    expect(commit).toHaveBeenCalledWith(
+      'addTransactions',
+      mockResponse.data.tx_responses,
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'setBlockTxsPagination',
+      mockResponse.data.pagination,
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'sumBlockTxsOffset',
+      mockResponse.data.tx_responses.length,
+    );
 
     mockError = true;
 
-    await actions.getTransactions({ commit, dispatch }, { params });
+    await actions.addTransactions({ commit, dispatch }, { height, offset });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
       root: true,
@@ -219,7 +226,7 @@ jest.mock('../../../apis/http/tx.js', () => ({
         mockResponse = {
           data: {
             tx: {},
-            tx_response: mockTransactions(),
+            tx_responses: mockTransactions(),
             pagination: mockPagination(),
           },
         };

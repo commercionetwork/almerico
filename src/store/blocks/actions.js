@@ -38,6 +38,7 @@ export default {
   async initBlocksDetail({ commit, dispatch }, height) {
     commit('setLoading', true);
     commit('setTransactions', []);
+    commit('setBlockTxsOffset', 0);
     const requests = [
       dispatch('fetchBlock', height),
       dispatch('fetchTransactions', height),
@@ -66,23 +67,27 @@ export default {
   },
 
   async fetchTransactions({ dispatch, getters }, height) {
-    const params = {
-      events: `tx.height = ${height}`,
-    };
-    await dispatch('getTransactions', { params });
-    while (getters['blockTxsNextKey']) {
-      await dispatch('getValidators', {
-        params,
-        pagination: { key: getters['blockTxsNextKey'] },
+    await dispatch('addTransactions', { height });
+    while (getters['blockTxsTotal'] > getters['blockTxsOffest']) {
+      await dispatch('addTransactions', {
+        height,
+        offset: getters['blockTxsOffest'],
       });
     }
   },
 
-  async getTransactions({ commit, dispatch }, { params, pagination }) {
+  async addTransactions({ commit, dispatch }, { height, offset }) {
+    const parameters = {
+      events: `tx.height = ${height}`,
+    };
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
     try {
-      const response = await tx.requestTxsList(params, pagination);
+      const response = await tx.requestTxsList(parameters, pagination);
       commit('addTransactions', response.data.tx_responses);
       commit('setBlockTxsPagination', response.data.pagination);
+      commit('sumBlockTxsOffset', response.data.tx_responses.length);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

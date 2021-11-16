@@ -1,7 +1,8 @@
 export default {
   blockTxs: (state) => state.blockTxs,
-  blockTxsNextKey: (state) => state.blockTxsPagination.next_key,
+  blockTxsOffest: (state) => state.blockTxsOffest,
   blockTxsPagination: (state) => state.blockTxsPagination,
+  blockTxsTotal: (state) => state.blockTxsPagination.total,
   blockValidatorSets: (state) => state.blockValidatorSets,
   blocks: (state) => state.blocks,
   currentHeight: (state) => state.currentHeight,

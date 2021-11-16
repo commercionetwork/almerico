@@ -26,6 +26,12 @@ export default {
   addTransactions(state, payload) {
     state.blockTxs.push(...payload);
   },
+  setBlockTxsOffset(state, payload) {
+    state.blockTxsOffset = payload;
+  },
+  sumBlockTxsOffset(state, payload) {
+    state.blockTxsOffset += payload;
+  },
   setBlockTxsPagination(state, payload) {
     state.blockTxsPagination = payload;
   },

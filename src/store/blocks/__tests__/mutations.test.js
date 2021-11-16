@@ -75,8 +75,26 @@ describe('store/blocks/mutations', () => {
     expect(state.blockTxs).toStrictEqual(expected);
   });
 
+  test('mutations.setBlockTxsOffset', () => {
+    const payload = 10;
+    mutations.setBlockTxsOffset(state, payload);
+
+    expect(state.blockTxsOffset).toBe(payload);
+  });
+
+  test('mutations.sumBlockTxsOffset', () => {
+    const payload = 10;
+    mutations.sumBlockTxsOffset(state, payload);
+
+    expect(state.blockTxsOffset).toBe(payload);
+
+    mutations.sumBlockTxsOffset(state, payload);
+
+    expect(state.blockTxsOffset).toBe(payload + payload);
+  });
+
   test('mutations.setBlockTxsPagination', () => {
-    const payload = { id: 1 };
+    const payload = { next_key: 'next_key', total: 'total' };
     mutations.setBlockTxsPagination(state, payload);
 
     expect(state.blockTxsPagination).toStrictEqual(payload);
