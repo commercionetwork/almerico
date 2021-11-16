@@ -107,6 +107,24 @@ describe('store/account/mutations', () => {
     expect(state.transactions).toStrictEqual(expected);
   });
 
+  test('mutations.setTransactionsOffset', () => {
+    const payload = 10;
+    mutations.setTransactionsOffset(state, payload);
+
+    expect(state.transactionsOffset).toBe(payload);
+  });
+
+  test('mutations.sumTransactionsOffset', () => {
+    const payload = 10;
+    mutations.sumTransactionsOffset(state, payload);
+
+    expect(state.transactionsOffset).toBe(payload);
+
+    mutations.sumTransactionsOffset(state, payload);
+
+    expect(state.transactionsOffset).toBe(payload + payload);
+  });
+
   test('mutations.setTransactionsPagination', () => {
     const pagination = {
       next_key: 'string',

@@ -35,6 +35,12 @@ export default {
   addTransactions(state, payload) {
     state.transactions.push(...payload);
   },
+  setTransactionsOffset(state, payload) {
+    state.transactionsOffset = payload;
+  },
+  sumTransactionsOffset(state, payload) {
+    state.transactionsOffset += payload;
+  },
   setTransactionsPagination(state, payload) {
     state.transactionsPagination = payload;
   },

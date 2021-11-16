@@ -7,7 +7,8 @@ export default {
   membershipTxs: (state) => state.membershipTxs,
   rewards: (state) => state.rewards,
   transactions: (state) => state.transactions,
-  transactionsNextKey: (state) => state.transactionsPagination.next_key,
+  transactionsOffset: (state) => state.transactionsOffset,
+  transactionsTotal: (state) => state.transactionsPagination.total,
   unbondings: (state) => state.unbondings,
   unbondingsNextKey: (state) => state.unbondingsPagination.next_key,
 };

@@ -50,8 +50,15 @@ describe('store/transactions/mutations', () => {
     mutations.setOffset(state, payload);
 
     expect(state.offset).toBe(payload);
+  });
 
-    mutations.setOffset(state, payload);
+  test('mutations.sumOffset', () => {
+    const payload = 10;
+    mutations.sumOffset(state, payload);
+
+    expect(state.offset).toBe(payload);
+
+    mutations.sumOffset(state, payload);
 
     expect(state.offset).toBe(payload + payload);
   });

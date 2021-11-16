@@ -1,10 +1,11 @@
 import { bank, commercio, distribution, staking, tx } from '@/apis/http';
-import { APIS } from '@/constants';
+import { ACCOUNT, APIS } from '@/constants';
 
 export default {
   async initAccount({ commit, dispatch }, address) {
     commit('setLoading', true);
     commit('setTransactions', []);
+    commit('setTransactionsOffset', 0);
     const requests = [
       dispatch('fetchBalances', address),
       dispatch('fetchDelegations', address),
@@ -85,23 +86,28 @@ export default {
     }
   },
 
-  async fetchTransactions({ commit, dispatch }, { address, pagination }) {
+  async fetchTransactions({ commit, dispatch }, { address, offset }) {
     const parameters = {
       events: `message.sender='${address}'`,
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
     };
+    const pagination = {
+      limit: ACCOUNT.TRANSACTIONS_NUMBER,
+      offset: offset ? offset : 0,
+    };
     try {
       const response = await tx.requestTxsList(parameters, pagination);
       commit('addTransactions', response.data.tx_responses);
+      commit('sumTransactionsOffset', ACCOUNT.TRANSACTIONS_NUMBER);
       commit('setTransactionsPagination', response.data.pagination);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
   },
 
-  async addTransactions({ commit, dispatch }, { address, pagination }) {
+  async addTransactions({ commit, dispatch }, { address, offset }) {
     commit('setAddingTxs', true);
-    await dispatch('fetchTransactions', { address, pagination });
+    await dispatch('fetchTransactions', { address, offset });
     commit('setAddingTxs', false);
   },
 };

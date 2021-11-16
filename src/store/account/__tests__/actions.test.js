@@ -8,6 +8,7 @@ import {
   mockTransactions,
   mockUnbondings,
 } from '@/__mocks__';
+import { ACCOUNT } from '@/constants';
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
@@ -24,7 +25,7 @@ describe('store/account/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initAccount" set loading state, reset transactions, dispatch "fetchBalances", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", fetchTransactions and "fetchUnbondings" actions', async () => {
+  test('if "initAccount" set loading state, reset transactions and txs offset, dispatch "fetchBalances", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", fetchTransactions and "fetchUnbondings" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -33,6 +34,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setTransactionsOffset', 0);
     expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
@@ -181,20 +183,20 @@ describe('store/account/actions', () => {
     });
   });
 
-  test('if "fetchTransactions" commit "addTransactions" and "setTransactionsPagination", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchTransactions" commit "addTransactions", "sumTransactionsOffset" and "setTransactionsPagination", and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
-    const pagination = { key: 'key' };
 
-    await actions.fetchTransactions(
-      { commit, dispatch },
-      { address, pagination },
-    );
+    await actions.fetchTransactions({ commit, dispatch }, { address });
 
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
       mockResponse.data.tx_responses,
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'sumTransactionsOffset',
+      ACCOUNT.TRANSACTIONS_NUMBER,
     );
     expect(commit).toHaveBeenCalledWith(
       'setTransactionsPagination',
@@ -203,10 +205,7 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.fetchTransactions(
-      { commit, dispatch },
-      { address, pagination },
-    );
+    await actions.fetchTransactions({ commit, dispatch }, { address });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
       root: true,
@@ -217,17 +216,14 @@ describe('store/account/actions', () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
-    const pagination = { key: 'key' };
+    const offset = ACCOUNT.TRANSACTIONS_NUMBER;
 
-    await actions.addTransactions(
-      { commit, dispatch },
-      { address, pagination },
-    );
+    await actions.addTransactions({ commit, dispatch }, { address, offset });
 
     expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       address,
-      pagination,
+      offset,
     });
     expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
   });

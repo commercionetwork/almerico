@@ -36,7 +36,8 @@ export default {
   computed: {
     ...mapGetters('account', {
       isAdding: 'isAddingTxs',
-      nextKey: 'transactionsNextKey',
+      offset: 'transactionsOffset',
+      total: 'transactionsTotal',
       transactions: 'transactions',
     }),
     address() {
@@ -57,10 +58,10 @@ export default {
       addTransactions: 'addTransactions',
     }),
     onIntersect(_entries, _observer, isIntersecting) {
-      if (this.nextKey && isIntersecting) {
+      if (isIntersecting && this.total > this.offset) {
         this.addTransactions({
           address: this.address,
-          pagination: { key: this.nextKey },
+          offset: this.offset,
         });
       }
     },

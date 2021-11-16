@@ -4,6 +4,7 @@ import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
 export default {
   async initTransactionsList({ commit, dispatch }) {
     commit('setLoading', true);
+    commit('setOffset', 0);
     commit('setTransactions', []);
     const requests = [dispatch('fetchTransactions')];
     await Promise.all(requests);
@@ -23,7 +24,7 @@ export default {
       const response = await tx.requestTxsList(params, pagination);
       commit('addTransactions', response.data.tx_responses);
       commit('setPagination', response.data.pagination);
-      commit('setOffset', TRANSACTIONS.TABLE_ITEMS);
+      commit('sumOffset', TRANSACTIONS.TABLE_ITEMS);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

@@ -11,6 +11,7 @@ export const initialState = {
   membershipTxs: [],
   rewards: null,
   transactions: [],
+  transactionsOffset: 0,
   transactionsPagination: [],
   unbondings: [],
   unbondingsPagination: null,

@@ -25,19 +25,20 @@ describe('store/transactions/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initTransactionsList" set loading state, reset transactions, dispatch "fetchTransactionsList" action', async () => {
+  test('if "initTransactionsList" set loading state, reset offset and transactions, dispatch "fetchTransactionsList" action', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.initTransactionsList({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(commit).toHaveBeenCalledWith('setOffset', 0);
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchTransactions" commit "setTransactions", "setPagination" and "setOffset"', async () => {
+  test('if "fetchTransactions" commit "setTransactions", "setPagination" and "sumOffset"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -51,7 +52,7 @@ describe('store/transactions/actions', () => {
       'setPagination',
       mockResponse.data.pagination,
     );
-    expect(commit).toHaveBeenCalledWith('setOffset', TRANSACTIONS.TABLE_ITEMS);
+    expect(commit).toHaveBeenCalledWith('sumOffset', TRANSACTIONS.TABLE_ITEMS);
   });
 
   test('if "addTransactions" set loading state and dispatch action "fetchTransactions"', async () => {
