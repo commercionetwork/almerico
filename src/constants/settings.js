@@ -13,11 +13,6 @@ const MINTER_ACCOUNT =
     ? process.env.VUE_APP_MINTER_ACCOUNT
     : '';
 
-const OVERVIEW_ACCOUNTS =
-  process.env.VUE_APP_OVERVIEW_ACCOUNTS !== undefined
-    ? process.env.VUE_APP_OVERVIEW_ACCOUNTS
-    : '';
-
 const SPREADSHEET_ACCOUNTS =
   process.env.VUE_APP_SPREADSHEET_ACCOUNTS !== undefined
     ? process.env.VUE_APP_SPREADSHEET_ACCOUNTS
@@ -32,6 +27,5 @@ export const SETTINGS = {
   FIRST_HEIGHT,
   LEGACY_VERSIONS,
   MINTER_ACCOUNT,
-  OVERVIEW_ACCOUNTS,
   SPREADSHEET_ACCOUNTS,
 };

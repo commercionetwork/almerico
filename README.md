@@ -33,7 +33,6 @@ you have to:
     VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1234)
     VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://lcd.com", "lcd": "http://lcd.com", "ver": "0.12"}])
     VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
-    VUE_APP_OVERVIEW_ACCOUNTS=VALUE (e.g., [{},{}.{}])
     VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{},{}.{}])
     VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
     VUE_APP_BLOCKS_MONITOR=VALUE (e.g., true)
@@ -61,7 +60,6 @@ VUE_APP_WS=VALUE (e.g., wss://rpc.com/websocket)
 VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
 VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://lcd.com", "lcd": "https://lcd.com", "ver": "0.12"}])
 VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
-VUE_APP_OVERVIEW_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:"},{"name":"endCustomer","address":"did:com:"},{"name":"validator","address":"did:com:"}])
 VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:"},{"name":"liquidityPool","address":"did:com:"},{"name":"validator","address":"did:com:"}])
 VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
 VUE_APP_BLOCKS_MONITOR=VALUE (e.g., false)
@@ -101,7 +99,6 @@ docker build -t almerico \
   --build-arg FIRST_HEIGHT=<First height> \
   --build-arg ANCESTORS_LIST=<Ancestors list> \
   --build-arg MINTER_ACCOUNT=<Minter account address> \
-  --build-arg OVERVIEW_ACCOUNTS=<Overview accounts list> \
   --build-arg SPREADSHEET_ACCOUNTS=<Spreadsheet accounts list> \
   --build-arg MAIN_TITLE=<App title> \
   --build-arg BLOCKS_MONITOR=<Boolean> \
