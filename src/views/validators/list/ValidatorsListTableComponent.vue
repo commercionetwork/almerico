@@ -43,9 +43,9 @@
 </template>
 
 <script>
+import validatorsTableAdapter from './helpers/validatorsTableAdapter';
 import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
-import validatorsTableAdapter from './helpers/validatorsTableAdapter';
 
 export default {
   name: 'ValidatorsListTableComponent',
@@ -55,7 +55,6 @@ export default {
   }),
   computed: {
     ...mapGetters('application', {
-      latestValidatorSets: 'latestValidatorSets',
       params: 'stakingParams',
       validators: 'validators',
     }),
@@ -75,7 +74,6 @@ export default {
         blocks: this.blocks,
         coin: this.bondDenom,
         pool: this.pool,
-        validatorSets: this.latestValidatorSets,
       });
     },
     headers() {

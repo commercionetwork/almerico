@@ -11,20 +11,11 @@ const validatorsTableAdapter = {
    * @property {Array.<Object>} blocks
    * @property {String} coin
    * @property {Object} pool
-   * @property {Array.<Object>}validatorSets
    *
    * @param {BuildParam} p
    * @returns {Array.<ValidatorsTableRow>}
    */
-  build({
-    validators,
-    status,
-    accountPrefix,
-    blocks,
-    coin,
-    pool,
-    validatorSets,
-  }) {
+  build({ validators, status, accountPrefix, blocks, coin, pool }) {
     const sortedValidators = orderBy(
       validators,
       (validator) => parseInt(validator.tokens),
@@ -37,7 +28,6 @@ const validatorsTableAdapter = {
       blocks,
       coin,
       pool,
-      validatorSets,
     });
   },
 };
@@ -51,7 +41,6 @@ const _getTableRows = ({
   blocks,
   coin,
   pool,
-  validatorSets,
 }) => {
   let cumulativeCount = 0;
   const rows = sortedValidators.map((validator, i) => {
@@ -87,7 +76,6 @@ const _getTableRows = ({
         cumulative: cumulativeCount,
         limit: VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
         pool,
-        validatorSets,
         percentageFormatter: _getPercentage,
       }).data;
       cumulativeCount = extraData.cumulative.count;

@@ -25,7 +25,6 @@ describe('views/validators/list/helpers', () => {
     const blocks = [];
     const coin = 'uccc';
     const pool = mockPool();
-    const validatorSets = mockValidatorSets().validators;
     const accountPrefix = 'did:com:';
     const convertedValidators = validatorsTableAdapter.build({
       validators,
@@ -34,7 +33,6 @@ describe('views/validators/list/helpers', () => {
       blocks,
       coin,
       pool,
-      validatorSets,
     });
 
     const expectedKeys = [

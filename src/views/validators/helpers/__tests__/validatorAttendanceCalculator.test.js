@@ -1,4 +1,4 @@
-import { mockBlocks, mockValidator, mockValidatorSets } from '@/__mocks__';
+import { mockBlocks, mockValidator } from '@/__mocks__';
 import validatorAttendanceCalculator from '../validatorAttendanceCalculator';
 
 describe('views/validators/helpers/validatorAttendanceCalculator', () => {
@@ -6,12 +6,10 @@ describe('views/validators/helpers/validatorAttendanceCalculator', () => {
     const limit = 100;
     const blocks = mockBlocks(limit);
     const validator = mockValidator();
-    const validatorSets = mockValidatorSets().validators;
 
     const definedBlocks = validatorAttendanceCalculator.getDefinedBlocks({
       blocks,
       validator,
-      validatorSets,
       limit,
     });
     expect(definedBlocks.length).toBe(limit);

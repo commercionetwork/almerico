@@ -12,13 +12,12 @@ const validatorAttendanceCalculator = {
    * @param {GetDefinedBlocksParam} p
    * @returns {Array.<Object>}
    */
-  getDefinedBlocks({ blocks, validator, validatorSets, limit }) {
+  getDefinedBlocks({ blocks, validator, limit }) {
     if (blocks.length < limit) {
       return [];
     }
     const trackedBlocks = _restrictBlocks(blocks, limit);
-    const address = _decodeAddress({ validator, validatorSets });
-    return address ? _checkBlocks({ blocks: trackedBlocks, address }) : [];
+    return _checkBlocks(validator, trackedBlocks);
   },
   /**
    * @typedef {Object} GetDefinedBlocksParam
@@ -30,13 +29,12 @@ const validatorAttendanceCalculator = {
    * @param {GetDefinedBlocksParam} p
    * @returns {Array.<Object>}
    */
-  getDetailDefinedBlocks({ blocks, validator, validatorSets, limit }) {
+  getDetailDefinedBlocks({ blocks, validator, limit }) {
     if (blocks.length < limit) {
       return [];
     }
     const trackedBlocks = _restrictBlocks(blocks, limit);
-    const address = _decodeDetailAddress({ validator, validatorSets });
-    return address ? _checkBlocks({ blocks: trackedBlocks, address }) : [];
+    return _checkDetailBlocks(validator, trackedBlocks);
   },
   /**
    *
@@ -61,38 +59,45 @@ export default validatorAttendanceCalculator;
 
 const _restrictBlocks = (blocks, limit) => {
   const sortedBlocks = orderBy(blocks, (it) => it.block_height, ['desc']);
-  const restrictedBlocks = take(sortedBlocks, limit);
-  return restrictedBlocks.map((it) => it.block);
+  return take(sortedBlocks, limit);
 };
 
-// const _restrictBlocks = (blocks, limit) => {
-//   const sortedBlocks = orderBy(blocks, (it) => it.block_height, ['desc']);
-//   return take(sortedBlocks, limit);
-// };
-
-const _decodeAddress = ({ validator, validatorSets }) => {
-  const index = validatorSets.findIndex(
-    (val) => val.pub_key.value === validator.consensus_pubkey.key,
-  );
-  return index > -1 ? bech32Manager.decode(validatorSets[index].address) : null;
-};
-
-const _decodeDetailAddress = ({ validator, validatorSets }) => {
-  const index = validatorSets.findIndex(
-    (val) => val.pub_key.value === validator.consensus_pubkey.value,
-  );
-  return index > -1 ? bech32Manager.decode(validatorSets[index].address) : null;
-};
-
-const _checkBlocks = ({ blocks, address }) => {
-  return blocks.map((block) => {
-    const index = block.last_commit.signatures.findIndex(
+const _checkBlocks = (validator, blocks) => {
+  return blocks.map((it) => {
+    const address = _decodeAddress(validator, it.validators);
+    const index = it.block.last_commit.signatures.findIndex(
       (signature) =>
         signature.validator_address.toUpperCase() === address.toUpperCase(),
     );
-    const data = new VerifiedData({ block, index });
+    const data = new VerifiedData({ block: it.block, index });
     return data.result;
   });
+};
+
+const _decodeAddress = (validator, validators) => {
+  const index = validators.findIndex(
+    (val) => val.pub_key.value === validator.consensus_pubkey.key,
+  );
+  return index > -1 ? bech32Manager.decode(validators[index].address) : null;
+};
+
+const _checkDetailBlocks = (validator, blocks) => {
+  return blocks.map((it) => {
+    const address = _decodeDetailAddress(validator, it.validators);
+    const index = it.block.last_commit.signatures.findIndex(
+      (signature) =>
+        signature.validator_address.toUpperCase() === address.toUpperCase(),
+    );
+    const data = new VerifiedData({ block: it.block, index });
+    return data.result;
+  });
+};
+
+const _decodeDetailAddress = (validator, validators) => {
+  const index = validators.findIndex(
+    (val) => val.pub_key.value === validator.consensus_pubkey.value,
+  );
+  return index > -1 ? bech32Manager.decode(validators[index].address) : null;
 };
 
 class VerifiedData {

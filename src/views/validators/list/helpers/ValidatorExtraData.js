@@ -7,7 +7,6 @@ export default class ValidatorExtraData {
     cumulative,
     limit,
     pool,
-    validatorSets,
     percentageFormatter,
   }) {
     this.validator = validator;
@@ -15,7 +14,6 @@ export default class ValidatorExtraData {
     this.cumulative = cumulative;
     this.limit = limit;
     this.pool = pool;
-    this.validatorSets = validatorSets;
     this.percentageFormatter = percentageFormatter;
   }
 
@@ -27,7 +25,6 @@ export default class ValidatorExtraData {
     const attendance = this._getAttendance({
       blocks: this.blocks,
       validator: this.validator,
-      validatorSets: this.validatorSets,
       limit: this.limit,
     });
     return new ExtraData({
@@ -43,11 +40,10 @@ export default class ValidatorExtraData {
     return new Power(tokens, bondedTokens);
   }
 
-  _getAttendance({ blocks, validator, validatorSets, limit }) {
+  _getAttendance({ blocks, validator, limit }) {
     const definedBlocks = validatorAttendanceCalculator.getDefinedBlocks({
       blocks: blocks,
       validator: validator,
-      validatorSets: validatorSets,
       limit: limit,
     });
     const attendanceCount =

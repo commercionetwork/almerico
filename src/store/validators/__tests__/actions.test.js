@@ -4,6 +4,7 @@ import {
   mockValidator,
   mockDelegation,
 } from '@/__mocks__';
+import { VALIDATORS } from '@/constants';
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
@@ -75,6 +76,44 @@ describe('store/validators/actions', () => {
       root: true,
     });
   });
+
+  // test('if "fetchTrackedBlocks" dispatch "addBlocksItem"', async () => {
+  //   const commit = jest.fn();
+  //   const dispatch = jest.fn();
+  //   const lastHeight = '1000';
+  //   let maxHeight = parseInt(lastHeight);
+  //   let minHeight = maxHeight - VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
+
+  //   await actions.fetchTrackedBlocks({ commit, dispatch }, lastHeight);
+
+  //   expect(dispatch).toHaveBeenCalledTimes(
+  //     VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
+  //   );
+  //   while (maxHeight > minHeight) {
+  //     expect(dispatch).toHaveBeenCalledWith('addBlocksItem', maxHeight--);
+  //   }
+  // });
+
+  // test('if "addBlocksItem" commit "addBlock, and dispatch "handleError" if error is caught"', async () => {
+  //   const commit = jest.fn();
+  //   const dispatch = jest.fn();
+  //   const height = '100';
+
+  //   await actions.addBlocksItem({ commit, dispatch }, height);
+
+  //   expect(commit).toHaveBeenCalledWith('addBlock', {
+  //     ...mockResponse.data,
+  //     ...mockResponseValidatorSets.data.result,
+  //   });
+
+  //   mockError = true;
+
+  //   await actions.addBlocksItem({ commit, dispatch }, height);
+
+  //   expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
+  //     root: true,
+  //   });
+  // });
 
   test('if "initValidatorsDetail" set loading state and dispatch "fetchDetail" action', async () => {
     const commit = jest.fn();

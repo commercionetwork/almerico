@@ -31,9 +31,6 @@ import validatorAttendanceCalculator from '../helpers/validatorAttendanceCalcula
 export default {
   name: 'ValidatorsDetailBlocksComponent',
   computed: {
-    ...mapGetters('application', {
-      latestValidatorSets: 'latestValidatorSets',
-    }),
     ...mapGetters('validators', {
       detail: 'detail',
       blocks: 'blocks',
@@ -45,7 +42,6 @@ export default {
       return validatorAttendanceCalculator.getDetailDefinedBlocks({
         blocks: this.blocks,
         validator: this.detail,
-        validatorSets: this.latestValidatorSets,
         limit: this.limit,
       });
     },
