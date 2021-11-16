@@ -6,6 +6,7 @@ export const initialState = {
   detail: null,
   isAddingTxs: false,
   isLoading: false,
+  offset: 0,
   pagination: null,
   transactions: [],
 };

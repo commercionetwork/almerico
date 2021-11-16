@@ -14,6 +14,9 @@ export default {
   setPagination(state, payload) {
     state.pagination = payload;
   },
+  setOffset(state, payload) {
+    state.offset += payload;
+  },
   setDetail(state, payload) {
     state.detail = payload;
   },

@@ -10,27 +10,28 @@ export default {
     commit('setLoading', false);
   },
 
-  async fetchTransactions({ commit, dispatch }, key) {
+  async fetchTransactions({ commit, dispatch }, offset = 0) {
     const params = {
       events: 'tx.height >= 1',
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
     };
     const pagination = {
-      key: key,
       limit: TRANSACTIONS.TABLE_ITEMS,
+      offset: offset,
     };
     try {
       const response = await tx.requestTxsList(params, pagination);
       commit('addTransactions', response.data.tx_responses);
       commit('setPagination', response.data.pagination);
+      commit('setOffset', TRANSACTIONS.TABLE_ITEMS);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
   },
 
-  async addTransactions({ commit, dispatch }, key) {
+  async addTransactions({ commit, dispatch }, offset) {
     commit('setAddingTxs', true);
-    await dispatch('fetchTransactions', key);
+    await dispatch('fetchTransactions', offset);
     commit('setAddingTxs', false);
   },
 

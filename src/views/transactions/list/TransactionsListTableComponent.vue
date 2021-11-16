@@ -98,7 +98,8 @@ export default {
   computed: {
     ...mapGetters('transactions', {
       isAdding: 'isAddingTxs',
-      nextKey: 'nextKey',
+      offset: 'offset',
+      total: 'total',
       transactions: 'transactions',
     }),
     headers() {
@@ -127,8 +128,8 @@ export default {
       addTransactions: 'addTransactions',
     }),
     onIntersect(_entries, _observer, isIntersecting) {
-      if (this.nextKey && isIntersecting) {
-        this.addTransactions(this.nextKey);
+      if (isIntersecting && this.total > this.offset) {
+        this.addTransactions(this.offset);
       }
     },
   },

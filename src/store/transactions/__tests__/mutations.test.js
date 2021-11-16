@@ -45,6 +45,17 @@ describe('store/transactions/mutations', () => {
     expect(state.pagination).toStrictEqual(payload);
   });
 
+  test('mutations.setOffset', () => {
+    const payload = 10;
+    mutations.setOffset(state, payload);
+
+    expect(state.offset).toBe(payload);
+
+    mutations.setOffset(state, payload);
+
+    expect(state.offset).toBe(payload + payload);
+  });
+
   test('mutations.setDetail', () => {
     const payload = { id: 1 };
     mutations.setDetail(state, payload);

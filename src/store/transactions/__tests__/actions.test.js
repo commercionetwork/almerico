@@ -1,4 +1,4 @@
-import { APIS, SETTINGS } from '@/constants';
+import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
 import {
   mockErrors,
   mockPagination,
@@ -37,7 +37,7 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchTransactions" commit "setTransactions" and "setPagination"', async () => {
+  test('if "fetchTransactions" commit "setTransactions", "setPagination" and "setOffset"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -51,17 +51,18 @@ describe('store/transactions/actions', () => {
       'setPagination',
       mockResponse.data.pagination,
     );
+    expect(commit).toHaveBeenCalledWith('setOffset', TRANSACTIONS.TABLE_ITEMS);
   });
 
   test('if "addTransactions" set loading state and dispatch action "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const key = 'key';
+    const offset = '10';
 
-    await actions.addTransactions({ commit, dispatch }, key);
+    await actions.addTransactions({ commit, dispatch }, offset);
 
     expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', key);
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', offset);
     expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
   });
 
