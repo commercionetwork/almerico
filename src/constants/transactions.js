@@ -28,7 +28,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgDelegate',
-      text: 'cosmos-sdk/MsgDelegate',
+      text: '/cosmos.staking.v1beta1.MsgDelegate',
       value: 'delegate',
     },
     {
