@@ -3,12 +3,12 @@ export const TRANSACTIONS = {
   SUPPORTED_TYPES: [
     {
       name: 'MsgBeginRedelegate',
-      text: 'cosmos-sdk/MsgBeginRedelegate',
+      text: '/cosmos.staking.v1beta1.MsgBeginRedelegate',
       value: 'begin_redelegate',
     },
     {
       name: 'MsgBurnCCC',
-      text: 'commercio/MsgBurnCCC',
+      text: '/commercionetwork.commercionetwork.commerciomint.MsgBurnCCC',
       value: 'burnCCC',
     },
     {
@@ -23,7 +23,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgCreateValidator',
-      text: 'cosmos-sdk/MsgCreateValidator',
+      text: '/cosmos.staking.v1beta1.MsgCreateValidator',
       value: 'create_validator',
     },
     {
@@ -38,7 +38,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgEditValidator',
-      text: 'cosmos-sdk/MsgEditValidator',
+      text: '/cosmos.staking.v1beta1.MsgEditValidator',
       value: 'edit_validator',
     },
     {
@@ -48,7 +48,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgMintCCC',
-      text: 'commercio/MsgMintCCC',
+      text: '/commercionetwork.commercionetwork.commerciomint.MsgMintCCC',
       value: 'mintCCC',
     },
     {
@@ -98,12 +98,12 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgUnjail',
-      text: 'cosmos-sdk/MsgUnjail',
+      text: '/cosmos.slashing.v1beta1.MsgUnjail',
       value: 'unjail',
     },
     {
       name: 'MsgWithdrawDelegatorReward',
-      text: 'cosmos-sdk/MsgWithdrawDelegatorReward',
+      text: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
       value: 'withdraw_delegator_reward',
     },
   ],
