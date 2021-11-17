@@ -68,7 +68,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgSetCCCConversionRate',
-      text: 'commercio/MsgSetCCCConversionRate',
+      text: '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate',
       value: 'setEtpsConversionRate',
     },
     {
@@ -83,7 +83,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgSetMembership',
-      text: 'commercio/MsgSetMembership',
+      text: '/commercionetwork.commercionetwork.commerciokyc.MsgSetMembership',
       value: 'setMembership',
     },
     {
