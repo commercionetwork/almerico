@@ -13,13 +13,8 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgBuyMembership',
-      text: 'commercio/MsgBuyMembership',
+      text: '/commercionetwork.commercionetwork.commerciokyc.MsgBuyMembership',
       value: 'buyMembership',
-    },
-    {
-      name: 'MsgChangePowerUpStatus',
-      text: 'commercio/MsgChangePowerUpStatus',
-      value: 'changePowerUpStatus',
     },
     {
       name: 'MsgCreateValidator',
@@ -33,7 +28,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgDepositIntoLiquidityPool',
-      text: 'commercio/MsgDepositIntoLiquidityPool',
+      text: '/commercionetwork.commercionetwork.commerciokyc.MsgDepositIntoLiquidityPool',
       value: 'depositIntoLiquidityPool',
     },
     {
@@ -43,7 +38,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgInviteUser',
-      text: 'commercio/MsgInviteUser',
+      text: '/commercionetwork.commercionetwork.commerciokyc.MsgInviteUser',
       value: 'inviteUser',
     },
     {
@@ -52,18 +47,13 @@ export const TRANSACTIONS = {
       value: 'mintCCC',
     },
     {
-      name: 'MsgRequestDidPowerUp',
-      text: 'commercio/MsgRequestDidPowerUp',
-      value: 'requestDidPowerUp',
-    },
-    {
       name: 'MsgSend',
       text: '/cosmos.bank.v1beta1.MsgSend',
       value: 'send',
     },
     {
       name: 'MsgSendDocumentReceipt',
-      text: 'commercio/MsgSendDocumentReceipt',
+      text: '/commercionetwork.commercionetwork.documents.MsgSendDocumentReceipt',
       value: 'sendDocumentReceipt',
     },
     {
@@ -73,12 +63,12 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgSetCCCFreezePeriod',
-      text: 'commercio/MsgSetCCCFreezePeriod',
+      text: '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCFreezePeriod',
       value: 'setEtpsFreezePeriod',
     },
     {
       name: 'MsgSetIdentity',
-      text: 'commercio/MsgSetIdentity',
+      text: '/commercionetwork.commercionetwork.did.MsgSetIdentity',
       value: 'setIdentity',
     },
     {
@@ -88,7 +78,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgShareDocument',
-      text: 'commercio/MsgShareDocument',
+      text: '/commercionetwork.commercionetwork.documents.MsgShareDocument',
       value: 'shareDocument',
     },
     {
