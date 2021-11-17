@@ -58,7 +58,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgSend',
-      text: 'cosmos-sdk/MsgSend',
+      text: '/cosmos.bank.v1beta1.MsgSend',
       value: 'send',
     },
     {

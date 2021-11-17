@@ -19,4 +19,8 @@ export default {
   getMessageTypeRegExp() {
     return new RegExp(/\.[a-z0-9]{1,}$/, 'igm');
   },
+  // Return a regular expression to match the first 3 segments, separated by a dot, of a string beginning with a '/'
+  getMessageSourceRegExp() {
+    return new RegExp(/^\/[a-z0-9]{1,}\.[a-z0-9]{1,}\.[a-z0-9]{1,}/, 'igm');
+  },
 };
