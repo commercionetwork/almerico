@@ -1,3 +1,4 @@
+import { ACCOUNT } from '@/constants';
 import {
   mockBalances,
   mockDelegations,
@@ -8,7 +9,6 @@ import {
   mockTransactions,
   mockUnbondings,
 } from '@/__mocks__';
-import { ACCOUNT } from '@/constants';
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
@@ -196,7 +196,7 @@ describe('store/account/actions', () => {
     );
     expect(commit).toHaveBeenCalledWith(
       'sumTransactionsOffset',
-      ACCOUNT.TRANSACTIONS_NUMBER,
+      mockResponse.data.tx_responses.length,
     );
     expect(commit).toHaveBeenCalledWith(
       'setTransactionsPagination',
