@@ -7,8 +7,8 @@
   <v-row v-else data-test="content">
     <v-col cols="12">
       <HeaderComponent :title="$t('titles.transactions')" />
-      <TransactionsListTopContentComponent />
-      <TransactionsListTableComponent />
+      <TransactionsListTopContentComponent v-on:search-txs="onSearchTxs" />
+      <TransactionsListTableComponent :txType="txType" />
     </v-col>
   </v-row>
 </template>
@@ -29,6 +29,9 @@ export default {
     TransactionsListTableComponent,
     TransactionsListTopContentComponent,
   },
+  data: () => ({
+    txType: '',
+  }),
   computed: {
     ...mapGetters('transactions', {
       isLoading: 'isLoading',
@@ -37,7 +40,17 @@ export default {
   methods: {
     ...mapActions('transactions', {
       initTransactionsList: 'initTransactionsList',
+      searchTransactions: 'searchTransactions',
     }),
+    onSearchTxs(txType) {
+      this.txType = txType;
+      if (!txType) {
+        this.initTransactionsList();
+        return;
+      }
+      const query = `message.action='${txType}'`;
+      this.searchTransactions({ query, offset: 0 });
+    },
   },
   created() {
     this.initTransactionsList();

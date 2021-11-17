@@ -77,7 +77,7 @@ export default {
   },
 
   async fetchMembershipTxs({ commit, dispatch }, address) {
-    const parameters = { events: `message.subscriber='${address}'` };
+    const parameters = { events: `assign_membership.owner='${address}'` };
     try {
       const response = await tx.requestTxsList(parameters);
       commit('setMembershipTxs', response.data.tx_responses);
@@ -88,7 +88,7 @@ export default {
 
   async fetchTransactions({ commit, dispatch }, { address, offset }) {
     const parameters = {
-      events: `message.sender='${address}'`,
+      events: `transfer.sender='${address}'`,
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
     };
     const pagination = {

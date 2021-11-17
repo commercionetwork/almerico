@@ -15,6 +15,7 @@ export const msgs = {
   scanAddress: 'Scan the address',
   searchBlocksInfo: 'Search 100 blocks in descending order<br>starting from the typed height',
   searchValidatorsInfo: 'Search validator by name, address and linked account,<br>filter list by status',
+  startTypingToFilterTypes: 'Start typing to filter types',
   success: 'Success',
   triggeredAnError: 'Something happened in setting up the request that triggered an error',
   unansweredRequest: 'The request was made but no response was received',

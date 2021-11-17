@@ -6,14 +6,25 @@ export default {
     commit('setLoading', true);
     commit('setOffset', 0);
     commit('setTransactions', []);
-    const requests = [dispatch('fetchTransactions')];
+    const requests = [
+      dispatch('fetchTransactions', { query: 'tx.height >= 1', offset: 0 }),
+    ];
     await Promise.all(requests);
     commit('setLoading', false);
   },
 
-  async fetchTransactions({ commit, dispatch }, offset = 0) {
+  async searchTransactions({ commit, dispatch }, { query, offset }) {
+    commit('setLoading', true);
+    commit('setOffset', 0);
+    commit('setPagination', null);
+    commit('setTransactions', []);
+    await dispatch('fetchTransactions', { query, offset });
+    commit('setLoading', false);
+  },
+
+  async fetchTransactions({ commit, dispatch }, { query, offset }) {
     const params = {
-      events: 'tx.height >= 1',
+      events: query,
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
     };
     const pagination = {
@@ -30,9 +41,9 @@ export default {
     }
   },
 
-  async addTransactions({ commit, dispatch }, offset) {
+  async addTransactions({ commit, dispatch }, { query, offset }) {
     commit('setAddingTxs', true);
-    await dispatch('fetchTransactions', offset);
+    await dispatch('fetchTransactions', { query, offset });
     commit('setAddingTxs', false);
   },
 

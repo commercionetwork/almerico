@@ -86,9 +86,15 @@ import transactionsTableAdapter from './helpers/transactionsTableAdapter';
 
 export default {
   name: 'TransactionsListTableComponent',
-
   components: {
     LoadingLinearComponent,
+  },
+  props: {
+    txType: {
+      type: String,
+      default: '',
+      note: 'The tx type to search',
+    },
   },
   data: () => ({
     ROUTES,
@@ -122,6 +128,11 @@ export default {
         },
       });
     },
+    query() {
+      return !this.txType
+        ? 'tx.height >= 1'
+        : `message.action='${this.txType}'`;
+    },
   },
   methods: {
     ...mapActions('transactions', {
@@ -129,7 +140,7 @@ export default {
     }),
     onIntersect(_entries, _observer, isIntersecting) {
       if (isIntersecting && this.total > this.offset) {
-        this.addTransactions(this.offset);
+        this.addTransactions({ query: this.query, offset: this.offset });
       }
     },
   },

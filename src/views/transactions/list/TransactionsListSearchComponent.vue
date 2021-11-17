@@ -5,20 +5,19 @@
         <v-form>
           <v-row>
             <v-col cols="10" offset="1">
-              <v-select
-                dense
-                flat
+              <v-autocomplete
+                :items="items"
                 :label="$t('labels.type')"
+                :loading="isLoading"
+                :placeholder="$t('msgs.startTypingToFilterTypes')"
+                dense
+                hide-no-data
+                hide-selected
+                item-text="name"
+                item-value="value"
+                outlined
                 v-model="selectedType"
-                :items="types"
-              >
-                <template v-slot:selection="{ item }">
-                  <span
-                    class="text-subtitle-2 font-weight-bold"
-                    v-text="item.text"
-                  />
-                </template>
-              </v-select>
+              />
             </v-col>
           </v-row>
           <v-row>
@@ -50,20 +49,34 @@
 <script>
 import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
 
+import { TRANSACTIONS } from '@/constants';
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'TransactionsListSearchComponent',
   components: { TopContentCardComponent },
   data: () => ({
+    nameLimit: 60,
     selectedType: '',
   }),
   computed: {
-    types() {
-      return [];
+    ...mapGetters('transactions', {
+      isLoadingTxs: 'isLoading',
+      isAddingTxs: 'isAddingTxs',
+    }),
+    isLoading() {
+      return this.isLoadingTxs || this.isAddingTxs;
+    },
+    items() {
+      return TRANSACTIONS.SUPPORTED_TYPES;
     },
   },
   methods: {
     onSearch(isReset) {
-      console.log(isReset);
+      if (isReset) {
+        this.selectedType = '';
+      }
+      this.$parent.$emit('search-txs', this.selectedType);
     },
   },
 };
