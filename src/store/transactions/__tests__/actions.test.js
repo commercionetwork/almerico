@@ -1,4 +1,4 @@
-import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
+import { APIS, SETTINGS } from '@/constants';
 import {
   mockErrors,
   mockPagination,
@@ -25,7 +25,7 @@ describe('store/transactions/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initTransactionsList" set loading state, reset offset and transactions, dispatch "fetchTransactionsList" action', async () => {
+  test('if "initTransactionsList" set loading state, reset offset and transactions, dispatch "fetchTransactions" action', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -34,15 +34,40 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(commit).toHaveBeenCalledWith('setOffset', 0);
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
+      query: 'tx.height >= 1',
+      offset: 0,
+    });
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchTransactions" commit "setTransactions", "setPagination" and "sumOffset"', async () => {
+  test('if "searchTransactions" set loading state, reset offset, pagination and transactions, dispatch "fetchTransactions" action', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const query = 'query';
+    const offset = '10';
+
+    await actions.searchTransactions({ commit, dispatch }, { query, offset });
+
+    expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(commit).toHaveBeenCalledWith('setOffset', 0);
+    expect(commit).toHaveBeenCalledWith('setPagination', null);
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
+      query,
+      offset,
+    });
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
+
+  test('if "fetchTransactions" commit "addTransactions", "setPagination" and "sumOffset"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
-    await actions.fetchTransactions({ commit, dispatch });
+    await actions.fetchTransactions(
+      { commit, dispatch },
+      { query: 'query', offset: 0 },
+    );
 
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
@@ -52,18 +77,25 @@ describe('store/transactions/actions', () => {
       'setPagination',
       mockResponse.data.pagination,
     );
-    expect(commit).toHaveBeenCalledWith('sumOffset', TRANSACTIONS.TABLE_ITEMS);
+    expect(commit).toHaveBeenCalledWith(
+      'sumOffset',
+      mockResponse.data.tx_responses.length,
+    );
   });
 
-  test('if "addTransactions" set loading state and dispatch action "fetchTransactions"', async () => {
+  test('if "addTransactions" set loading state and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
+    const query = 'query';
     const offset = '10';
 
-    await actions.addTransactions({ commit, dispatch }, offset);
+    await actions.addTransactions({ commit, dispatch }, { query, offset });
 
     expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', offset);
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
+      query,
+      offset,
+    });
     expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
   });
 
@@ -145,7 +177,7 @@ jest.mock('../../../apis/http/tx.js', () => ({
         mockResponse = {
           data: {
             tx: {},
-            tx_response: mockTransactions(),
+            tx_responses: mockTransactions(),
             pagination: mockPagination(),
           },
         };

@@ -35,7 +35,7 @@ export default {
       const response = await tx.requestTxsList(params, pagination);
       commit('addTransactions', response.data.tx_responses);
       commit('setPagination', response.data.pagination);
-      commit('sumOffset', TRANSACTIONS.TABLE_ITEMS);
+      commit('sumOffset', response.data.tx_responses.length);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

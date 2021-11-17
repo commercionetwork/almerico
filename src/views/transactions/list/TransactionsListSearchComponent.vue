@@ -16,6 +16,7 @@
                 item-text="name"
                 item-value="value"
                 outlined
+                prepend-inner-icon="mdi-magnify"
                 v-model="selectedType"
               />
             </v-col>
@@ -23,7 +24,7 @@
           <v-row>
             <v-col cols="4" offset="2">
               <v-btn
-                @click="onSearch(false)"
+                @click="search(true)"
                 block
                 color="primary"
                 depressed
@@ -32,7 +33,7 @@
             </v-col>
             <v-col cols="4">
               <v-btn
-                @click="onSearch(true)"
+                @click="search(false)"
                 block
                 color="secondary"
                 outlined
@@ -72,8 +73,8 @@ export default {
     },
   },
   methods: {
-    onSearch(isReset) {
-      if (isReset) {
+    search(isSearch) {
+      if (!isSearch) {
         this.selectedType = '';
       }
       this.$parent.$emit('search-txs', this.selectedType);
