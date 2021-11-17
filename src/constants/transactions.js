@@ -93,7 +93,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgUndelegate',
-      text: 'cosmos-sdk/MsgUndelegate',
+      text: '/cosmos.staking.v1beta1.MsgUndelegate',
       value: 'begin_unbonding',
     },
     {
