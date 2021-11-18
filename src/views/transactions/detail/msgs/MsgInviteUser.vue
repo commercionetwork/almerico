@@ -59,10 +59,10 @@ export default {
       return firstSegments.substring(1);
     },
     recipient() {
-      return this.message.value.recipient;
+      return this.message.recipient;
     },
     sender() {
-      return this.message.value.sender;
+      return this.message.sender;
     },
   },
 };

@@ -62,10 +62,10 @@ export default {
       return firstSegments.substring(1);
     },
     depositorAddress() {
-      return this.message.value.depositor;
+      return this.message.depositor;
     },
     amounts() {
-      return this.message.amount.map((amount) =>
+      return this.message.deposit_amount.map((amount) =>
         coinAdapter.format({
           amount: amount.amount,
           denom: amount.denom,
@@ -73,7 +73,7 @@ export default {
       );
     },
     id() {
-      return this.message.value.id;
+      return this.message.ID;
     },
   },
 };

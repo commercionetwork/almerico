@@ -68,7 +68,7 @@ export default {
       });
     },
     id() {
-      return this.message.id;
+      return this.message.ID;
     },
   },
 };
