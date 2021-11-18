@@ -1,12 +1,20 @@
 <template>
   <v-card outlined>
     <v-card-text>
-      <div v-text="detail.block.header.height" class="text-h6" />
-      <div v-text="$t('labels.height')" class="font-weight-bold" />
-    </v-card-text>
-    <v-divider class="mx-3" />
-    <v-card-text>
       <v-list>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title
+              class="pb-1 text-h6"
+              v-text="detail.block.header.height"
+            />
+            <v-list-item-subtitle
+              class="pb-1 font-weight-bold"
+              v-text="$t('labels.height')"
+            />
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
         <DetailItemComponent :label="$t('labels.time')" :content="time" />
         <DetailItemComponent
           :label="$t('labels.hash')"

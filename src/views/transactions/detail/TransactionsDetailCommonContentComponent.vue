@@ -45,7 +45,7 @@
           }"
           look="text-decoration-none"
         />
-        <v-divider class="mx-3" />
+        <v-divider />
         <DetailUrlComponent
           :label="$t('labels.officialNode')"
           :content="rawJsonLink"
