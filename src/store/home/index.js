@@ -9,6 +9,7 @@ export const initialState = {
   isAddingTx: false,
   pool: null,
   rateUpdates: [],
+  rateUpdatesOffset: 0,
   rateUpdatesPagination: null,
   startingDate: '',
   supply: [],

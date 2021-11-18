@@ -4,7 +4,7 @@ import { mockRateUpdates } from '@/__mocks__';
 import { shuffle } from 'lodash';
 import priceChartHelper from '../priceChartHelper';
 
-describe('views/dashboard/helpers/priceChartHelper', () => {
+describe('views/home/helpers/priceChartHelper', () => {
   const startingDate = dateHandler.getUtcDate('2020/2/1');
 
   test('if "getAllSortedListings" method add first rate, order items by date and return objects with "rate" and "date" keys', () => {

@@ -23,7 +23,7 @@ describe('store/home/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initHome" set loading state, reset rate updates and transactions,z dispatch "fetchAbrTokens", "fetchAllTokens", "fetchConversionRate", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens and "transactions/fetchLastTransactions" actions', async () => {
+  test('if "initHome" set loading state, reset rate updates, rate updates offset and transactions, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchConversionRate", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens and "transactions/fetchLastTransactions" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -31,6 +31,7 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(commit).toHaveBeenCalledWith('setRateUpdates', []);
+    expect(commit).toHaveBeenCalledWith('setRateUpdatesOffset', 0);
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
     expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
@@ -63,34 +64,38 @@ describe('store/home/actions', () => {
     });
   });
 
-  test('if "fetchRateUpdates" dispatch action "getRateUpdates"', async () => {
+  test('if "fetchRateUpdates" dispatch action "addRateUpdates"', async () => {
     const dispatch = jest.fn();
     const getters = jest.fn();
 
     await actions.fetchRateUpdates({ dispatch, getters });
 
-    expect(dispatch).toHaveBeenCalledWith('getRateUpdates', {});
+    expect(dispatch).toHaveBeenCalledWith('addRateUpdates');
   });
 
-  test('if "getRateUpdates" action commit "addRateUpdates" and "setRateUpdatesPagination" mutations, and dispatch "handleError" if error is caught', async () => {
+  test('if "addRateUpdates" action commit "addRateUpdates", "setRateUpdatesPagination" and "sumRateUpdatesOffset" mutations, and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const pagination = { key: 'key' };
+    const offset = 10;
 
-    await actions.getRateUpdates({ commit, dispatch }, pagination);
+    await actions.addRateUpdates({ commit, dispatch }, offset);
 
     expect(commit).toHaveBeenCalledWith(
       'addRateUpdates',
-      mockResponse.data.txs,
+      mockResponse.data.tx_responses,
     );
     expect(commit).toHaveBeenCalledWith(
       'setRateUpdatesPagination',
       mockResponse.data.pagination,
     );
+    expect(commit).toHaveBeenCalledWith(
+      'sumRateUpdatesOffset',
+      mockResponse.data.tx_responses.length,
+    );
 
     mockError = true;
 
-    await actions.getRateUpdates({ commit, dispatch }, pagination);
+    await actions.addRateUpdates({ commit, dispatch }, offset);
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
       root: true,
@@ -385,7 +390,8 @@ jest.mock('../../../apis/http/tx.js', () => ({
 
         mockResponse = {
           data: {
-            txs: mockTransactions(),
+            txs: [],
+            tx_responses: mockTransactions(),
             pagination: mockPagination(),
           },
         };

@@ -41,6 +41,24 @@ describe('store/home/mutations', () => {
     expect(state.rateUpdates).toStrictEqual(expected);
   });
 
+  test('mutations.setRateUpdatesOffset', () => {
+    const payload = 10;
+    mutations.setRateUpdatesOffset(state, payload);
+
+    expect(state.rateUpdatesOffset).toBe(payload);
+  });
+
+  test('mutations.sumRateUpdatesOffset', () => {
+    const payload = 10;
+    mutations.sumRateUpdatesOffset(state, payload);
+
+    expect(state.rateUpdatesOffset).toBe(payload);
+
+    mutations.sumRateUpdatesOffset(state, payload);
+
+    expect(state.rateUpdatesOffset).toBe(payload + payload);
+  });
+
   test('mutations.setRateUpdatesPagination', () => {
     const pagination = {
       next_key: 'string',

@@ -196,10 +196,11 @@ const _getLastDuplicatedListing = (lastFilteredTms, lastListingTms, unit) => {
 };
 
 const _getRate = (update) => {
-  const type = 'commercio/MsgSetCCCConversionRate';
-  const msgs = update.tx.value.msg;
-  const index = msgs.findIndex((msg) => msg.type === type);
-  return parseFloat(msgs[index].value.rate);
+  const type =
+    '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate';
+  const msgs = update.tx.body.messages;
+  const index = msgs.findIndex((msg) => msg['@type'] === type);
+  return parseFloat(msgs[index].rate);
 };
 
 class Conversion {

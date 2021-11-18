@@ -11,6 +11,12 @@ export default {
   addRateUpdates(state, payload) {
     state.rateUpdates.push(...payload);
   },
+  setRateUpdatesOffset(state, payload) {
+    state.rateUpdatesOffset = payload;
+  },
+  sumRateUpdatesOffset(state, payload) {
+    state.rateUpdatesOffset += payload;
+  },
   setRateUpdatesPagination(state, payload) {
     state.rateUpdatesPagination = payload;
   },

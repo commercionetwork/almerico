@@ -86,8 +86,8 @@ export default {
     try {
       const response = await tx.requestTxsList(parameters, pagination);
       commit('addTransactions', response.data.tx_responses);
-      commit('sumBlockTxsOffset', response.data.tx_responses.length);
       commit('setBlockTxsPagination', response.data.pagination);
+      commit('sumBlockTxsOffset', response.data.tx_responses.length);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

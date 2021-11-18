@@ -5,13 +5,16 @@ const mockRateUpdate = (
   tms = '2000-01-01T00:00:00.000Z',
 ) => {
   const item = {
-    height: '470',
-    txhash: '88F2CE058A8C05CFF1BBE0ECDEC1CC25CEC38E6404B2F51B7608125E21CC8AAD',
-    raw_log: `[{"msg_index":0,"log":"conversion rate changed successfully to ${rate}","events":[{"type":"message","attributes":[{"key":"action","value":"setEtpsConversionRate"},{"key":"sender","value":"did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u"}]},{"type":"new_conversion_rate","attributes":[{"key":"rate","value":${rate}}]}]}]`,
+    height: '1825',
+    txhash: '372999F3B77662743BF1DC7DC3A54015D567CE193A038B2FBC2C6E02303E0D4F',
+    codespace: '',
+    code: 0,
+    data: '0A2D0A1573657445747073436F6E76657273696F6E5261746512140A12393530303030303030303030303030303030',
+    raw_log: `[{"events":[{"type":"message","attributes":[{"key":"action","value":"setEtpsConversionRate"}]},{"type":"new_conversion_rate","attributes":[{"key":"rate","value":${rate}}]}]}]`,
     logs: [
       {
         msg_index: 0,
-        log: `conversion rate changed successfully to ${rate}`,
+        log: '',
         events: [
           {
             type: 'message',
@@ -19,10 +22,6 @@ const mockRateUpdate = (
               {
                 key: 'action',
                 value: 'setEtpsConversionRate',
-              },
-              {
-                key: 'sender',
-                value: 'did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u',
               },
             ],
           },
@@ -38,18 +37,38 @@ const mockRateUpdate = (
         ],
       },
     ],
+    info: '',
     gas_wanted: '200000',
-    gas_used: '56778',
+    gas_used: '55080',
     tx: {
-      type: 'cosmos-sdk/StdTx',
-      value: {
-        msg: [
+      '@type': '/cosmos.tx.v1beta1.Tx',
+      body: {
+        messages: [
           {
-            type: 'commercio/MsgSetCCCConversionRate',
-            value: {
-              signer: 'did:com:19fe4e45jakkwcf7ysajf3zqekd982a66zl4a6u',
-              rate: `${rate}`,
+            '@type':
+              '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate',
+            signer: 'did:com:1zg4jreq2g57s4efrl7wnh2swtrz3jt9nfaumcm',
+            rate: rate,
+          },
+        ],
+        memo: '',
+        timeout_height: '0',
+        extension_options: [],
+        non_critical_extension_options: [],
+      },
+      auth_info: {
+        signer_infos: [
+          {
+            public_key: {
+              '@type': '/cosmos.crypto.secp256k1.PubKey',
+              key: 'AozghctBHDjw+w1sHK5ghoTGQU1YH0tgCNNK24FC1dM0',
             },
+            mode_info: {
+              single: {
+                mode: 'SIGN_MODE_DIRECT',
+              },
+            },
+            sequence: '2',
           },
         ],
         fee: {
@@ -59,20 +78,14 @@ const mockRateUpdate = (
               amount: '10000',
             },
           ],
-          gas: '200000',
+          gas_limit: '200000',
+          payer: '',
+          granter: '',
         },
-        signatures: [
-          {
-            pub_key: {
-              type: 'tendermint/PubKeySecp256k1',
-              value: 'A9irAhAmueFHdWexvQk8r9MJvEmXc+2tIcOxn0pL8db0',
-            },
-            signature:
-              'N9QQp0pkU9hn1J3KStHfkCMJKM6L8egoI98qN0zRUD1MkkMb3M+hcrdizvU5/AphkB/OB3c/N3J2fnk/7r/YwA==',
-          },
-        ],
-        memo: '',
       },
+      signatures: [
+        'oaCXIKZuu2FOMFRlQRVHuSQJlPF71D8vEImmggCR4uVlSq+Vl5gHauMOJ3ThVe+RhmTVgh2k2q1Ch/H7ry2Yzg==',
+      ],
     },
     timestamp: tms,
   };

@@ -5,6 +5,7 @@ export default {
   async initHome({ commit, dispatch }) {
     commit('setLoading', true);
     commit('setRateUpdates', []);
+    commit('setRateUpdatesOffset', 0);
     commit('setTransactions', []);
     const requests = [
       dispatch('fetchAbrTokens'),
@@ -30,23 +31,26 @@ export default {
   },
 
   async fetchRateUpdates({ dispatch, getters }) {
-    await dispatch('getRateUpdates', {});
-    while (getters['rateUpdatesNextKey']) {
-      await dispatch('getRateUpdates', {
-        pagination: { key: getters['rateUpdatesNextKey'] },
+    await dispatch('addRateUpdates');
+    while (getters['rateUpdatesTotal'] > getters['rateUpdatesOffset']) {
+      await dispatch('addRateUpdates', {
+        offset: getters['rateUpdatesOffset'],
       });
     }
   },
 
-  async getRateUpdates({ commit, dispatch }, pagination) {
+  async addRateUpdates({ commit, dispatch }, offset) {
+    const parameters = {
+      events: "message.action='setEtpsConversionRate'",
+    };
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
     try {
-      //TODO: verify query
-      const response = await tx.requestTxsList(
-        { events: "message.action='/commerciomint.setEtpsConversionRate'" },
-        pagination,
-      );
-      commit('addRateUpdates', response.data.txs);
+      const response = await tx.requestTxsList(parameters, pagination);
+      commit('addRateUpdates', response.data.tx_responses);
       commit('setRateUpdatesPagination', response.data.pagination);
+      commit('sumRateUpdatesOffset', response.data.tx_responses.length);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }
