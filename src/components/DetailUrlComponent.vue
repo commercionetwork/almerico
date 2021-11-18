@@ -1,8 +1,10 @@
 <template>
   <v-list-item>
     <v-list-item-content>
-      <div class="text-capitalize font-weight-bold" v-text="label" />
-      <a :class="look" :href="link" target="_blank" v-text="content" />
+      <v-list-item-title class="py-1" v-text="label" />
+      <v-list-item-subtitle>
+        <a :class="look" :href="link" target="_blank" v-text="content" />
+      </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
 </template>

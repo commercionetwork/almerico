@@ -45,16 +45,14 @@
           }"
           look="text-decoration-none"
         />
+        <v-divider class="mx-3" />
+        <DetailUrlComponent
+          :label="$t('labels.officialNode')"
+          :content="rawJsonLink"
+          :link="rawJsonLink"
+          look="text-break"
+        />
       </v-list>
-    </v-card-text>
-    <v-divider class="mx-3" />
-    <v-card-text>
-      <TransactionsDetailOfficialNodeComponent
-        :link="rawJsonLink"
-        :text="rawJsonLink"
-        look="text-break"
-        :label="$t('labels.officialNode')"
-      />
     </v-card-text>
   </v-card>
 </template>
@@ -62,7 +60,7 @@
 <script>
 import DetailItemComponent from '@/components/DetailItemComponent.vue';
 import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TransactionsDetailOfficialNodeComponent from './TransactionsDetailOfficialNodeComponent.vue';
+import DetailUrlComponent from '@/components/DetailUrlComponent.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -71,7 +69,7 @@ export default {
   components: {
     DetailItemComponent,
     DetailLinkComponent,
-    TransactionsDetailOfficialNodeComponent,
+    DetailUrlComponent,
   },
   props: {
     tx: {

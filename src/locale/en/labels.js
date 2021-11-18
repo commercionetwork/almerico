@@ -47,7 +47,7 @@ export const labels = {
   not: 'Not',
   notBonded: 'Not Bonded',
   notEarningRewards: 'Not Earning Rewards',
-  officialNode: 'official node (raw json)',
+  officialNode: 'Official node (raw json)',
   operator: 'Operator',
   others: 'Others',
   proposer: 'Proposer',
