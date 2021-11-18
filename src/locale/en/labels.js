@@ -24,6 +24,7 @@ export const labels = {
   earningRewards: 'Earning Rewards',
   failed: 'Failed',
   fee: 'Fee',
+  freezePeriod: 'freeze period',
   fromAddress: 'From address',
   gasUsedWanted: 'Gas (Used/Wanted)',
   getOnline: 'Get online',
