@@ -72,4 +72,6 @@ export const labels = {
   votingPower: 'Voting Power',
   website: 'Website',
   yes: 'Yes',
+  destinationValidatorAddress: 'Destination validator address',
+  sourceValidatorAddress: 'Source validator address',
 };
