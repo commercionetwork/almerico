@@ -17,6 +17,7 @@ export const labels = {
   delegations: 'Delegations',
   delegator: 'Delegator',
   delegatorAddress: 'Delegator address',
+  depositor: 'Depositor',
   destinationValidatorAddress: 'Destination validator address',
   details: 'Details',
   earningRewards: 'Earning Rewards',
