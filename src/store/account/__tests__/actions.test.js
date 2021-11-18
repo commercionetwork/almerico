@@ -25,7 +25,7 @@ describe('store/account/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initAccount" set loading state, reset transactions and txs offset, dispatch "fetchBalances", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", fetchTransactions and "fetchUnbondings" actions', async () => {
+  test('if "initAccount" set loading state, reset transactions, txs offset, unbondings and unbondings offset, dispatch "fetchBalances", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", fetchTransactions and "fetchUnbondings" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -35,6 +35,8 @@ describe('store/account/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
     expect(commit).toHaveBeenCalledWith('setTransactionsOffset', 0);
+    expect(commit).toHaveBeenCalledWith('setUnbondings', []);
+    expect(commit).toHaveBeenCalledWith('setUnbondingsOffset', 0);
     expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
@@ -105,25 +107,23 @@ describe('store/account/actions', () => {
     });
   });
 
-  test('if "fetchUnbondings" commit "setUnbondings" and dispatch action "getUnbondings"', async () => {
-    const commit = jest.fn();
+  test('if "fetchUnbondings" dispatch "addUnbondings" action', async () => {
     const dispatch = jest.fn();
     const getters = jest.fn();
     const address = 'address';
 
-    await actions.fetchUnbondings({ commit, dispatch, getters }, address);
+    await actions.fetchUnbondings({ dispatch, getters }, address);
 
-    expect(commit).toHaveBeenCalledWith('setUnbondings', []);
-    expect(dispatch).toHaveBeenCalledWith('getUnbondings', { address });
+    expect(dispatch).toHaveBeenCalledWith('addUnbondings', { address });
   });
 
-  test('if "getUnbondings" action commit "addUnbondings" and "setUnbondingsPagination" mutations, and dispatch "handleError" if error is caught', async () => {
+  test('if "addUnbondings" action commit "addUnbondings", "setUnbondingsPagination" and "sumUnbondingsOffset" mutations, and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
-    const pagination = { key: 'key' };
+    const offset = 10;
 
-    await actions.getUnbondings({ commit, dispatch }, { address, pagination });
+    await actions.addUnbondings({ commit, dispatch }, { address, offset });
 
     expect(commit).toHaveBeenCalledWith(
       'addUnbondings',
@@ -133,10 +133,14 @@ describe('store/account/actions', () => {
       'setUnbondingsPagination',
       mockResponse.data.pagination,
     );
+    expect(commit).toHaveBeenCalledWith(
+      'sumUnbondingsOffset',
+      mockResponse.data.unbonding_responses.length,
+    );
 
     mockError = true;
 
-    await actions.getUnbondings({ commit, dispatch }, { address, pagination });
+    await actions.addUnbondings({ commit, dispatch }, { address, offset });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
       root: true,

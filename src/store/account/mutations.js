@@ -17,6 +17,12 @@ export default {
   addUnbondings(state, payload) {
     state.unbondings.push(...payload);
   },
+  setUnbondingsOffset(state, payload) {
+    state.unbondingsOffset = payload;
+  },
+  sumUnbondingsOffset(state, payload) {
+    state.unbondingsOffset += payload;
+  },
   setUnbondingsPagination(state, payload) {
     state.unbondingsPagination = payload;
   },

@@ -58,6 +58,24 @@ describe('store/account/mutations', () => {
     expect(state.unbondings).toStrictEqual(expected);
   });
 
+  test('mutations.setUnbondingsOffset', () => {
+    const payload = 10;
+    mutations.setUnbondingsOffset(state, payload);
+
+    expect(state.unbondingsOffset).toBe(payload);
+  });
+
+  test('mutations.sumUnbondingsOffset', () => {
+    const payload = 10;
+    mutations.sumUnbondingsOffset(state, payload);
+
+    expect(state.unbondingsOffset).toBe(payload);
+
+    mutations.sumUnbondingsOffset(state, payload);
+
+    expect(state.unbondingsOffset).toBe(payload + payload);
+  });
+
   test('mutations.setUnbondingsPagination', () => {
     const pagination = {
       next_key: 'string',

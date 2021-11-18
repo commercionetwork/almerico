@@ -6,6 +6,8 @@ export default {
     commit('setLoading', true);
     commit('setTransactions', []);
     commit('setTransactionsOffset', 0);
+    commit('setUnbondings', []);
+    commit('setUnbondingsOffset', 0);
     const requests = [
       dispatch('fetchBalances', address),
       dispatch('fetchDelegations', address),
@@ -46,22 +48,25 @@ export default {
     }
   },
 
-  async fetchUnbondings({ commit, dispatch, getters }, address) {
-    commit('setUnbondings', []);
-    await dispatch('getUnbondings', { address });
-    while (getters['unbondingsNextKey']) {
-      await dispatch('getUnbondings', {
+  async fetchUnbondings({ dispatch, getters }, address) {
+    await dispatch('addUnbondings', { address });
+    while (getters['unbondingsTotal'] > getters['unbondingsOffset']) {
+      await dispatch('addUnbondings', {
         address,
-        pagination: { key: getters['unbondingsNextKey'] },
+        offset: getters['unbondingsOffset'],
       });
     }
   },
 
-  async getUnbondings({ commit, dispatch }, { address, pagination }) {
+  async addUnbondings({ commit, dispatch }, { address, offset }) {
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
     try {
       const response = await staking.requestUnbondings(address, pagination);
       commit('addUnbondings', response.data.unbonding_responses);
       commit('setUnbondingsPagination', response.data.pagination);
+      commit('sumUnbondingsOffset', response.data.unbonding_responses.length);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

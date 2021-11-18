@@ -14,6 +14,7 @@ export const initialState = {
   transactionsOffset: 0,
   transactionsPagination: [],
   unbondings: [],
+  unbondingsOffset: 0,
   unbondingsPagination: null,
 };
 

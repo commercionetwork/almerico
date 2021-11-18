@@ -10,5 +10,6 @@ export default {
   transactionsOffset: (state) => state.transactionsOffset,
   transactionsTotal: (state) => state.transactionsPagination.total,
   unbondings: (state) => state.unbondings,
-  unbondingsNextKey: (state) => state.unbondingsPagination.next_key,
+  unbondingsOffset: (state) => state.unbondingsOffset,
+  unbondingsTotal: (state) => state.unbondingsPagination.total,
 };
