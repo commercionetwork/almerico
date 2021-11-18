@@ -1,10 +1,11 @@
 <template>
-  <TxMsgComponent :subtitle="subtitle" :title="title">
+  <TxMsgComponent>
     <div slot="body">
       <v-list-item v-for="(prop, index) in props" :key="index">
         <DetailItemComponent
           :label="formatKeyProp(prop[0])"
           :content="prop[1]"
+          :isLoop="true"
         />
       </v-list-item>
     </div>
@@ -34,12 +35,6 @@ export default {
       return Object.keys(value).map((key) => {
         return [key, value[key]];
       });
-    },
-    subtitle() {
-      return '-';
-    },
-    title() {
-      return '-';
     },
   },
   methods: {

@@ -1,5 +1,13 @@
 <template>
-  <v-list-item>
+  <v-list-item-content v-if="isLoop">
+    <v-list-item-title class="py-1 text-capitalize" v-text="label" />
+    <v-list-item-subtitle
+      class="py-1 word-break"
+      :class="look"
+      v-text="content"
+    />
+  </v-list-item-content>
+  <v-list-item v-else>
     <v-list-item-content>
       <v-list-item-title class="py-1 text-capitalize" v-text="label" />
       <v-list-item-subtitle
@@ -23,6 +31,11 @@ export default {
     content: {
       required: true,
       note: 'The item value',
+    },
+    isLoop: {
+      type: Boolean,
+      default: false,
+      note: 'true if used within a v-for loop',
     },
     look: {
       type: String,

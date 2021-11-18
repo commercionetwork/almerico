@@ -1,33 +1,27 @@
 <template>
   <TxMsgComponent :subtitle="subtitle" :title="title">
     <div slot="body">
-      <v-list-item>
-        <DetailLinkComponent
-          :label="$t('labels.delegatorAddress')"
-          :content="delegatorAddress"
-          :route="{
-            name: ROUTES.NAME.ACCOUNT,
-            params: { id: delegatorAddress },
-          }"
-        />
-      </v-list-item>
-      <v-list-item>
-        <DetailLinkComponent
-          :label="$t('labels.validatorAddress')"
-          :content="validatorAddress"
-          :route="{
-            name: ROUTES.NAME.VALIDATORS_DETAIL,
-            params: { id: validatorAddress },
-          }"
-        />
-      </v-list-item>
-      <v-list-item>
-        <DetailItemComponent
-          :label="$t('labels.amount')"
-          :content="amount"
-          look="text-uppercase"
-        />
-      </v-list-item>
+      <DetailLinkComponent
+        :label="$t('labels.delegatorAddress')"
+        :content="delegatorAddress"
+        :route="{
+          name: ROUTES.NAME.ACCOUNT,
+          params: { id: delegatorAddress },
+        }"
+      />
+      <DetailLinkComponent
+        :label="$t('labels.validatorAddress')"
+        :content="validatorAddress"
+        :route="{
+          name: ROUTES.NAME.VALIDATORS_DETAIL,
+          params: { id: validatorAddress },
+        }"
+      />
+      <DetailItemComponent
+        :label="$t('labels.amount')"
+        :content="amount"
+        look="text-uppercase"
+      />
     </div>
   </TxMsgComponent>
 </template>

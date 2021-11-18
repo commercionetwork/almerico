@@ -9,8 +9,6 @@ export const msgs = {
   noMessage: 'No message available',
   notAvailable: 'Not available',
   notFound: 'Not found',
-  notSupportedMsgSource: 'Not supported message source',
-  notSupportedMsgType: 'Not supported message type',
   placeholderSearchBar: 'Search Address, Block Height, TxHash',
   scanAddress: 'Scan the address',
   searchBlocksInfo: 'Search 100 blocks in descending order<br>starting from the typed height',

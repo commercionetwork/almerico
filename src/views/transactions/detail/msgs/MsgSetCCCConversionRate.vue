@@ -1,19 +1,15 @@
 <template>
   <TxMsgComponent :subtitle="subtitle" :title="title">
     <div slot="body">
-      <v-list-item>
-        <DetailLinkComponent
-          :label="$t('labels.signer')"
-          :content="signer"
-          :route="{
-            name: ROUTES.NAME.ACCOUNT,
-            params: { id: signer },
-          }"
-        />
-      </v-list-item>
-      <v-list-item>
-        <DetailItemComponent :label="$t('labels.rate')" :content="rate" />
-      </v-list-item>
+      <DetailLinkComponent
+        :label="$t('labels.signer')"
+        :content="signer"
+        :route="{
+          name: ROUTES.NAME.ACCOUNT,
+          params: { id: signer },
+        }"
+      />
+      <DetailItemComponent :label="$t('labels.rate')" :content="rate" />
     </div>
   </TxMsgComponent>
 </template>

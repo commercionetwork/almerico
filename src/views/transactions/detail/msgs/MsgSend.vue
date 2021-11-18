@@ -1,30 +1,27 @@
 <template>
   <TxMsgComponent :subtitle="subtitle" :title="title">
     <div slot="body">
-      <v-list-item>
-        <DetailLinkComponent
-          :label="$t('labels.fromAddress')"
-          :content="fromAddress"
-          :route="{
-            name: ROUTES.NAME.ACCOUNT,
-            params: { id: fromAddress },
-          }"
-        />
-      </v-list-item>
-      <v-list-item>
-        <DetailLinkComponent
-          :label="$t('labels.toAddress')"
-          :content="toAddress"
-          :route="{
-            name: ROUTES.NAME.ACCOUNT,
-            params: { id: toAddress },
-          }"
-        />
-      </v-list-item>
+      <DetailLinkComponent
+        :label="$t('labels.fromAddress')"
+        :content="fromAddress"
+        :route="{
+          name: ROUTES.NAME.ACCOUNT,
+          params: { id: fromAddress },
+        }"
+      />
+      <DetailLinkComponent
+        :label="$t('labels.toAddress')"
+        :content="toAddress"
+        :route="{
+          name: ROUTES.NAME.ACCOUNT,
+          params: { id: toAddress },
+        }"
+      />
       <v-list-item v-for="(amount, index) in amounts" :key="index">
         <DetailItemComponent
           :label="$t('labels.amount')"
           :content="amount"
+          :isLoop="true"
           look="text-uppercase"
         />
       </v-list-item>

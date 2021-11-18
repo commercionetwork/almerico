@@ -1,32 +1,26 @@
 <template>
   <TxMsgComponent :subtitle="subtitle" :title="title">
     <div slot="body">
-      <v-list-item>
-        <DetailLinkComponent
-          :label="$t('labels.government')"
-          :content="governmentAddress"
-          :route="{
-            name: ROUTES.NAME.ACCOUNT,
-            params: { id: governmentAddress },
-          }"
-        />
-      </v-list-item>
-      <v-list-item>
-        <DetailLinkComponent
-          :label="$t('labels.subscriber')"
-          :content="subscriberAddress"
-          :route="{
-            name: ROUTES.NAME.ACCOUNT,
-            params: { id: subscriberAddress },
-          }"
-        />
-      </v-list-item>
-      <v-list-item>
-        <DetailItemComponent
-          :label="$t('labels.newMembership')"
-          :content="newMembership"
-        />
-      </v-list-item>
+      <DetailLinkComponent
+        :label="$t('labels.government')"
+        :content="governmentAddress"
+        :route="{
+          name: ROUTES.NAME.ACCOUNT,
+          params: { id: governmentAddress },
+        }"
+      />
+      <DetailLinkComponent
+        :label="$t('labels.subscriber')"
+        :content="subscriberAddress"
+        :route="{
+          name: ROUTES.NAME.ACCOUNT,
+          params: { id: subscriberAddress },
+        }"
+      />
+      <DetailItemComponent
+        :label="$t('labels.newMembership')"
+        :content="newMembership"
+      />
     </div>
   </TxMsgComponent>
 </template>

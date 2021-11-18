@@ -7,6 +7,7 @@
             <v-list-item-title class="pb-1 font-weight-bold" v-text="title" />
             <v-list-item-subtitle
               class="pb-1 text-capitalize font-italic"
+              v-if="subtitle"
               v-text="subtitle"
             />
           </v-list-item-content>
@@ -25,15 +26,13 @@ export default {
   props: {
     subtitle: {
       type: String,
-      default: function () {
-        return this.$t('msgs.notSupportedMsgSource');
-      },
+      default: '',
       note: 'The transaction type source',
     },
     title: {
       type: String,
       default: function () {
-        return this.$t('msgs.notSupportedMsgType');
+        return this.$t('titles.message');
       },
       note: 'The transaction type',
     },

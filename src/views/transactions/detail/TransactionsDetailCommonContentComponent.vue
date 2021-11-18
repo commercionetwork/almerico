@@ -1,12 +1,20 @@
 <template>
   <v-card outlined>
     <v-card-text>
-      <div v-text="tx.hash" class="font-monotype" style="font-size: 1.15em" />
-      <div v-text="$t('labels.hash')" class="font-weight-bold" />
-    </v-card-text>
-    <v-divider class="mx-3" />
-    <v-card-text>
       <v-list>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title
+              class="pb-1 font-monotype wrap-text"
+              v-text="tx.hash"
+            />
+            <v-list-item-subtitle
+              class="pb-1 font-weight-bold"
+              v-text="$t('labels.hash')"
+            />
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider />
         <DetailItemComponent :label="$t('labels.time')" :content="tx.time" />
         <DetailItemComponent
           :label="$t('labels.status')"
@@ -82,3 +90,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.wrap-text {
+  white-space: normal;
+}
+</style>
