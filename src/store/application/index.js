@@ -10,6 +10,7 @@ export const initialState = {
   latestValidatorSets: [],
   stakingParams: null,
   validators: [],
+  validatorsOffset: 0,
   validatorsPagination: null,
 };
 

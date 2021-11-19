@@ -76,6 +76,24 @@ describe('store/application/mutations', () => {
     expect(state.validators).toStrictEqual(expected);
   });
 
+  test('mutations.setValidatorsOffset', () => {
+    const payload = 10;
+    mutations.setValidatorsOffset(state, payload);
+
+    expect(state.validatorsOffset).toBe(payload);
+  });
+
+  test('mutations.sumValidatorsOffset', () => {
+    const payload = 10;
+    mutations.sumValidatorsOffset(state, payload);
+
+    expect(state.validatorsOffset).toBe(payload);
+
+    mutations.sumValidatorsOffset(state, payload);
+
+    expect(state.validatorsOffset).toBe(payload + payload);
+  });
+
   test('mutations.setValidatorsPagination', () => {
     const payload = { id: 1 };
     mutations.setValidatorsPagination(state, payload);

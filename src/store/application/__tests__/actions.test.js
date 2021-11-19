@@ -33,6 +33,7 @@ describe('store/application/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(commit).toHaveBeenCalledWith('setLatestTransactions', []);
     expect(commit).toHaveBeenCalledWith('setValidators', []);
+    expect(commit).toHaveBeenCalledWith('setValidatorsOffset', 0);
     expect(dispatch).toHaveBeenCalledWith('fetchInfo');
     expect(dispatch).toHaveBeenCalledWith('fetchLatestBlock');
     expect(dispatch).toHaveBeenCalledWith('fetchLatestValidatorSets');
@@ -118,28 +119,29 @@ describe('store/application/actions', () => {
     });
   });
 
-  test('if "fetchValidators" dispatch "getValidators" action for each validators status', async () => {
+  test('if "fetchValidators" dispatch "addValidators" action for each validators status', async () => {
+    const commit = jest.fn();
     const dispatch = jest.fn();
     const getters = jest.fn();
     const statuses = Object.values(VALIDATORS.STATUS);
 
-    await actions.fetchValidators({ dispatch, getters });
+    await actions.fetchValidators({ commit, dispatch, getters });
 
     for (const status of statuses) {
-      expect(dispatch).toHaveBeenCalledWith('getValidators', {
+      expect(dispatch).toHaveBeenCalledWith('addValidators', {
         params: { status },
-        pagination: {},
       });
+      expect(commit).toHaveBeenCalledWith('setValidatorsOffset', 0);
     }
   });
 
-  test('if "getValidators" action commit "addValidators" and "setValidatorsPagination" mutations, and dispatch "handleError" if error is caught', async () => {
+  test('if "addValidators" action commit "addValidators", "sumValidatorsOffset" and "setValidatorsPagination" mutations, and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const params = { status: 'status' };
-    const pagination = { key: 'key' };
+    const offset = 10;
 
-    await actions.getValidators({ commit, dispatch }, { params, pagination });
+    await actions.addValidators({ commit, dispatch }, { params, offset });
 
     expect(commit).toHaveBeenCalledWith(
       'addValidators',
@@ -149,10 +151,14 @@ describe('store/application/actions', () => {
       'setValidatorsPagination',
       mockResponse.data.pagination,
     );
+    expect(commit).toHaveBeenCalledWith(
+      'sumValidatorsOffset',
+      mockResponse.data.validators.length,
+    );
 
     mockError = true;
 
-    await actions.getValidators({ commit, dispatch }, { params, pagination });
+    await actions.addValidators({ commit, dispatch }, { params, offset });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
       root: true,

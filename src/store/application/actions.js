@@ -6,6 +6,7 @@ export default {
     commit('setLoading', true);
     commit('setLatestTransactions', []);
     commit('setValidators', []);
+    commit('setValidatorsOffset', 0);
     const requests = [
       dispatch('fetchInfo'),
       dispatch('fetchLatestBlock'),
@@ -64,27 +65,31 @@ export default {
     }
   },
 
-  async fetchValidators({ dispatch, getters }) {
+  async fetchValidators({ commit, dispatch, getters }) {
     const statuses = Object.values(VALIDATORS.STATUS);
     for (const status of statuses) {
-      await dispatch('getValidators', {
+      await dispatch('addValidators', {
         params: { status },
-        pagination: {},
       });
-      while (getters['validatorsNextKey']) {
-        await dispatch('getValidators', {
+      while (getters['validatorsTotal'] > getters['validatorsOffset']) {
+        await dispatch('addValidators', {
           params: { status },
-          pagination: { key: getters['validatorsNextKey'] },
+          offset: getters['validatorsOffset'],
         });
       }
+      commit('setValidatorsOffset', 0);
     }
   },
 
-  async getValidators({ commit, dispatch }, { params, pagination }) {
+  async addValidators({ commit, dispatch }, { params, offset }) {
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
     try {
       const response = await staking.requestValidatorsList(params, pagination);
       commit('addValidators', response.data.validators);
       commit('setValidatorsPagination', response.data.pagination);
+      commit('sumValidatorsOffset', response.data.validators.length);
     } catch (error) {
       dispatch('handleError', error, { root: true });
     }

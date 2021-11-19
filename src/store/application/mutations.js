@@ -26,6 +26,12 @@ export default {
   addValidators(state, payload) {
     state.validators.push(...payload);
   },
+  setValidatorsOffset(state, payload) {
+    state.validatorsOffset = payload;
+  },
+  sumValidatorsOffset(state, payload) {
+    state.validatorsOffset += payload;
+  },
   setValidatorsPagination(state, payload) {
     state.validatorsPagination = payload;
   },
