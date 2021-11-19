@@ -4,6 +4,7 @@ import mutations from './mutations';
 
 export const initialState = {
   detail: null,
+  error: null,
   isAddingTxs: false,
   isLoading: false,
   offset: 0,

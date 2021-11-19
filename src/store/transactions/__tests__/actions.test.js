@@ -25,15 +25,14 @@ describe('store/transactions/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initTransactionsList" set loading state, reset offset and transactions, dispatch "fetchTransactions" action', async () => {
+  test('if "initTransactionsList" reset store, set loading state and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.initTransactionsList({ commit, dispatch });
 
+    expect(dispatch).toHaveBeenCalledWith('resetTransactionsList');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setOffset', 0);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       query: 'tx.height >= 1',
       offset: 0,
@@ -41,7 +40,7 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "searchTransactions" set loading state, reset offset, pagination and transactions, dispatch "fetchTransactions" action', async () => {
+  test('if "searchTransactions" reset store, set loading state, and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const query = 'query';
@@ -49,10 +48,8 @@ describe('store/transactions/actions', () => {
 
     await actions.searchTransactions({ commit, dispatch }, { query, offset });
 
+    expect(dispatch).toHaveBeenCalledWith('resetTransactionsList');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setOffset', 0);
-    expect(commit).toHaveBeenCalledWith('setPagination', null);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       query,
       offset,
@@ -60,7 +57,7 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchTransactions" commit "addTransactions", "setPagination" and "sumOffset"', async () => {
+  test('if "fetchTransactions" commit "addTransactions", "setPagination" and "sumOffset", and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -81,6 +78,15 @@ describe('store/transactions/actions', () => {
       'sumOffset',
       mockResponse.data.tx_responses.length,
     );
+
+    mockError = true;
+
+    await actions.fetchTransactions(
+      { commit, dispatch },
+      { query: 'query', offset: 0 },
+    );
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "addTransactions" set loading state and dispatch "fetchTransactions"', async () => {
@@ -99,13 +105,14 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
   });
 
-  test('if "initTransactionsDetail" set loading state and dispatch "fetchTransactionByHash" action', async () => {
+  test('if "initTransactionsDetail" reset store, set loading state and dispatch "fetchTransactionByHash"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const hash = 'hash';
 
     await actions.initTransactionsDetail({ commit, dispatch }, hash);
 
+    expect(dispatch).toHaveBeenCalledWith('resetTransactionsDetail');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactionByHash', hash);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
@@ -135,9 +142,7 @@ describe('store/transactions/actions', () => {
 
     await actions.fetchTransactionByHash({ commit, dispatch }, hash);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchAncestorTransaction" action commit "setDetail",  and dispatch "handleError" if error is caught', async () => {
@@ -160,9 +165,7 @@ describe('store/transactions/actions', () => {
 
     await actions.fetchTransactionByHash({ commit, dispatch }, hash);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 });
 

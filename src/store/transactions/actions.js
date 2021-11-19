@@ -3,9 +3,8 @@ import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
 
 export default {
   async initTransactionsList({ commit, dispatch }) {
+    dispatch('resetTransactionsList');
     commit('setLoading', true);
-    commit('setOffset', 0);
-    commit('setTransactions', []);
     const requests = [
       dispatch('fetchTransactions', { query: 'tx.height >= 1', offset: 0 }),
     ];
@@ -14,10 +13,8 @@ export default {
   },
 
   async searchTransactions({ commit, dispatch }, { query, offset }) {
+    dispatch('resetTransactionsList');
     commit('setLoading', true);
-    commit('setOffset', 0);
-    commit('setPagination', null);
-    commit('setTransactions', []);
     await dispatch('fetchTransactions', { query, offset });
     commit('setLoading', false);
   },
@@ -37,7 +34,7 @@ export default {
       commit('setPagination', response.data.pagination);
       commit('sumOffset', response.data.tx_responses.length);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -48,6 +45,7 @@ export default {
   },
 
   async initTransactionsDetail({ commit, dispatch }, hash) {
+    dispatch('resetTransactionsDetail');
     commit('setLoading', true);
     const requests = [dispatch('fetchTransactionByHash', hash)];
     await Promise.all(requests);
@@ -66,7 +64,7 @@ export default {
       if (error.response && error.response.status === 404) {
         await dispatch('fetchAncestorTransaction', hash);
       } else {
-        dispatch('handleError', error, { root: true });
+        dispatch('handleError', error);
       }
     }
   },
@@ -87,10 +85,26 @@ export default {
         if (error.response && error.response.status === 404) {
           continue;
         } else {
-          dispatch('handleError', error, { root: true });
+          dispatch('handleError', error);
         }
       }
     }
+  },
+
+  handleError({ commit }, error) {
+    commit('setError', error);
+  },
+
+  resetTransactionsList({ commit }) {
+    commit('setError', null);
+    commit('setOffset', 0);
+    commit('setPagination', null);
+    commit('setTransactions', []);
+  },
+
+  resetTransactionsDetail({ commit }) {
+    commit('setError', null);
+    commit('setDetail', null);
   },
 };
 

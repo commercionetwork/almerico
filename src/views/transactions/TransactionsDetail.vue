@@ -1,11 +1,17 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
-    <v-col cols="12" class="pa-5">
+  <v-row>
+    <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <LoadingLinearComponent :height="25" />
     </v-col>
-  </v-row>
-  <v-row v-else data-test="content">
-    <v-col cols="12">
+    <v-col
+      cols="12"
+      class="pa-5"
+      v-else-if="!isLoading && error"
+      data-test="error"
+    >
+      <ErrorMessageComponent :error="error" />
+    </v-col>
+    <v-col cols="12" v-else data-test="content">
       <HeaderComponent :title="$t('titles.transactionDetail')" />
       <TransactionsDetailContentComponent />
     </v-col>
@@ -13,6 +19,7 @@
 </template>
 
 <script>
+import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 import TransactionsDetailContentComponent from './detail/TransactionsDetailContentComponent.vue';
@@ -22,12 +29,14 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'TransactionsDetail',
   components: {
+    ErrorMessageComponent,
     HeaderComponent,
     LoadingLinearComponent,
     TransactionsDetailContentComponent,
   },
   computed: {
     ...mapGetters('transactions', {
+      error: 'error',
       isLoading: 'isLoading',
     }),
     hash() {
