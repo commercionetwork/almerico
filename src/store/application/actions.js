@@ -3,10 +3,8 @@ import { VALIDATORS } from '@/constants';
 
 export default {
   async initAppData({ commit, dispatch }) {
+    dispatch('resetApplication');
     commit('setLoading', true);
-    commit('setLatestTransactions', []);
-    commit('setValidators', []);
-    commit('setValidatorsOffset', 0);
     const requests = [
       dispatch('fetchInfo'),
       dispatch('fetchLatestBlock'),
@@ -23,7 +21,7 @@ export default {
       const response = await gaiaRest.requestNodeInfo();
       commit('setInfo', response.data);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -32,7 +30,7 @@ export default {
       const response = await tendermintRpc.requestBlockLatest();
       commit('setLatestBlock', response.data.block);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -43,7 +41,7 @@ export default {
       });
       commit('addLatestTransactions', response.data.txs);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -52,7 +50,7 @@ export default {
       const response = await tendermintRpc.requestValidatorSetsLatest();
       commit('setLatestValidatorSets', response.data.result.validators);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -61,7 +59,7 @@ export default {
       const response = await staking.requestParameters();
       commit('setStakingParams', response.data.params);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -91,7 +89,18 @@ export default {
       commit('setValidatorsPagination', response.data.pagination);
       commit('sumValidatorsOffset', response.data.validators.length);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
+  },
+
+  handleError({ commit }, error) {
+    commit('setError', error);
+  },
+
+  resetApplication({ commit }) {
+    commit('setError', null);
+    commit('setLatestTransactions', []);
+    commit('setValidators', []);
+    commit('setValidatorsOffset', 0);
   },
 };

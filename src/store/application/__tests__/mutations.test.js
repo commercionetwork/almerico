@@ -10,6 +10,14 @@ describe('store/application/mutations', () => {
     };
   });
 
+  test('mutations.setError', () => {
+    const payload = { message: 'error' };
+
+    mutations.setError(state, payload);
+
+    expect(state.error).toBe(payload);
+  });
+
   test('mutations.setInfo', () => {
     const payload = { id: 1 };
     mutations.setInfo(state, payload);

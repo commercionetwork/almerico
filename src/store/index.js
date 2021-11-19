@@ -12,22 +12,10 @@ import validators from './validators';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    error: null,
-  },
-  getters: {
-    error: (state) => state.error,
-  },
-  mutations: {
-    setError(state, error) {
-      state.error = error;
-    },
-  },
-  actions: {
-    handleError({ commit }, error) {
-      commit('setError', error);
-    },
-  },
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
   modules: {
     account,
     blocks,

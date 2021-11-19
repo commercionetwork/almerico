@@ -24,16 +24,14 @@ describe('store/application/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initAppData" set loading state, reset latest transactions and validators list, dispatch "fetchInfo", "fetchLatestBlock", "fetchLatestValidatorSets, "fetchStakingParams" and "fetchValidators" actions', async () => {
+  test('if "initAppData" reset store, set loading state, dispatch "fetchInfo", "fetchLatestBlock", "fetchLatestValidatorSets, "fetchStakingParams" and "fetchValidators" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.initAppData({ commit, dispatch });
 
+    expect(dispatch).toHaveBeenCalledWith('resetApplication');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setLatestTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setValidators', []);
-    expect(commit).toHaveBeenCalledWith('setValidatorsOffset', 0);
     expect(dispatch).toHaveBeenCalledWith('fetchInfo');
     expect(dispatch).toHaveBeenCalledWith('fetchLatestBlock');
     expect(dispatch).toHaveBeenCalledWith('fetchLatestValidatorSets');
@@ -54,9 +52,7 @@ describe('store/application/actions', () => {
 
     await actions.fetchInfo({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchLatestBlock" action commit "setLatestBlock" mutation, and dispatch "handleError" if error is caught', async () => {
@@ -74,9 +70,7 @@ describe('store/application/actions', () => {
 
     await actions.fetchLatestBlock({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchLatestValidatorSets" action commit "setLatestValidatorSets" mutation, and dispatch "handleError" if error is caught', async () => {
@@ -94,9 +88,7 @@ describe('store/application/actions', () => {
 
     await actions.fetchLatestValidatorSets({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchStakingParams" action commit "setStakingParams" mutation, and dispatch "handleError" if error is caught', async () => {
@@ -114,9 +106,7 @@ describe('store/application/actions', () => {
 
     await actions.fetchStakingParams({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchValidators" dispatch "addValidators" action for each validators status', async () => {
@@ -160,9 +150,27 @@ describe('store/application/actions', () => {
 
     await actions.addValidators({ commit, dispatch }, { params, offset });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test('if "handleError" set error', () => {
+    const commit = jest.fn();
+    const error = new Error('message');
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toHaveBeenCalledWith('setError', error);
+  });
+
+  test('if "resetApplication" reset latest transactions, validators and validators offset', () => {
+    const commit = jest.fn();
+
+    actions.resetApplication({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setLatestTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setValidators', []);
+    expect(commit).toHaveBeenCalledWith('setValidatorsOffset', 0);
   });
 });
 

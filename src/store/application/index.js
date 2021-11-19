@@ -3,6 +3,7 @@ import getters from './getters';
 import mutations from './mutations';
 
 export const initialState = {
+  error: null,
   info: null,
   isLoading: false,
   latestBlock: null,

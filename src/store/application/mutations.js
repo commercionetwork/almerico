@@ -1,4 +1,7 @@
 export default {
+  setError(state, error) {
+    state.error = error;
+  },
   setInfo(state, payload) {
     state.info = payload;
   },

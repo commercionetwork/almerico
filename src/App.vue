@@ -36,8 +36,8 @@ export default {
     NavBarComponent,
   },
   computed: {
-    ...mapGetters(['error']),
     ...mapGetters('application', {
+      error: 'error',
       isLoading: 'isLoading',
     }),
   },

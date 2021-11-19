@@ -1,4 +1,5 @@
 export default {
+  error: (state) => state.error,
   info: (state) => state.info,
   isLoading: (state) => state.isLoading,
   latestBlock: (state) => state.latestBlock,
