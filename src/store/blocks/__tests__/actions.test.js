@@ -23,15 +23,15 @@ describe('store/blocks/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initBlocksList" set loading state, reset block list, dispatch "fetchBlocks" action', async () => {
+  test('if "initBlocksList" reset store, set loading state, dispatch "fetchBlocks" action', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const lastHeight = '100';
 
     await actions.initBlocksList({ commit, dispatch }, lastHeight);
 
+    expect(dispatch).toHaveBeenCalledWith('resetBlocksList');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setBlocks', []);
     expect(dispatch).toHaveBeenCalledWith('fetchBlocks', lastHeight);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
@@ -80,21 +80,18 @@ describe('store/blocks/actions', () => {
 
     await actions.addBlocksItem({ commit, dispatch }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "initBlocksDetail" set loading state, reset transactions list and offset, dispatch "fetchBlock", "fetchTransactions" and "fetchValidatorSets" actions', async () => {
+  test('if "initBlocksDetail" reset store, set loading state, dispatch "fetchBlock", "fetchTransactions" and "fetchValidatorSets" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const height = '100';
 
     await actions.initBlocksDetail({ commit, dispatch }, height);
 
+    expect(dispatch).toHaveBeenCalledWith('resetBlocksDetail');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setBlockTxsOffset', 0);
     expect(dispatch).toHaveBeenCalledWith('fetchBlock', height);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', height);
     expect(dispatch).toHaveBeenCalledWith('fetchValidatorSets', height);
@@ -114,9 +111,7 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchBlock({ commit, dispatch }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchValidatorSets" commit "setValidatorSets", and dispatch "handleError" if error is caught', async () => {
@@ -135,9 +130,7 @@ describe('store/blocks/actions', () => {
 
     await actions.fetchValidatorSets({ commit, dispatch }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchTransactions" dispatch "getTransactions"', async () => {
@@ -175,9 +168,35 @@ describe('store/blocks/actions', () => {
 
     await actions.addTransactions({ commit, dispatch }, { height, offset });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test('if "handleError" set error', () => {
+    const commit = jest.fn();
+    const error = new Error('message');
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toHaveBeenCalledWith('setError', error);
+  });
+
+  test('if "resetBlocksList" reset error and blocs', () => {
+    const commit = jest.fn();
+
+    actions.resetBlocksList({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setBlocks', []);
+  });
+
+  test('if "resetBlocksDetail" reset error, txs and offset', () => {
+    const commit = jest.fn();
+
+    actions.resetBlocksDetail({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setBlockTxsOffset', 0);
   });
 });
 

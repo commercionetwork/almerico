@@ -36,11 +36,30 @@ describe('views/blocks/BlocksList.vue', () => {
       mocks,
       computed: {
         ...computed,
+        error: () => null,
         isLoading: () => true,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+  });
+
+  test('if message error is displayed', () => {
+    const error = Error('message');
+    const wrapper = shallowMount(BlocksList, {
+      localVue,
+      mocks,
+      computed: {
+        ...computed,
+        error: () => error,
+        isLoading: () => false,
+      },
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
@@ -50,11 +69,13 @@ describe('views/blocks/BlocksList.vue', () => {
       mocks,
       computed: {
         ...computed,
+        error: () => null,
         isLoading: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
   });
 });

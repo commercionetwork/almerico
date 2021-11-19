@@ -3,8 +3,8 @@ import { BLOCKS } from '@/constants';
 
 export default {
   async initBlocksList({ commit, dispatch }, lastHeight) {
+    dispatch('resetBlocksList');
     commit('setLoading', true);
-    commit('setBlocks', []);
     const requests = [dispatch('fetchBlocks', lastHeight)];
     await Promise.all(requests);
     commit('setLoading', false);
@@ -31,14 +31,13 @@ export default {
       const resValidatorSets = await tendermintRpc.requestValidatorSets(height);
       commit('addBlock', { ...resBlock.data, ...resValidatorSets.data.result });
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
   async initBlocksDetail({ commit, dispatch }, height) {
+    dispatch('resetBlocksDetail');
     commit('setLoading', true);
-    commit('setTransactions', []);
-    commit('setBlockTxsOffset', 0);
     const requests = [
       dispatch('fetchBlock', height),
       dispatch('fetchTransactions', height),
@@ -53,7 +52,7 @@ export default {
       const response = await tendermintRpc.requestBlock(height);
       commit('setDetail', response.data);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -62,7 +61,7 @@ export default {
       const response = await tendermintRpc.requestValidatorSets(height);
       commit('setValidatorSets', response.data.result.validators);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -89,8 +88,23 @@ export default {
       commit('setBlockTxsPagination', response.data.pagination);
       commit('sumBlockTxsOffset', response.data.tx_responses.length);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
+  },
+
+  handleError({ commit }, error) {
+    commit('setError', error);
+  },
+
+  resetBlocksList({ commit }) {
+    commit('setError', null);
+    commit('setBlocks', []);
+  },
+
+  resetBlocksDetail({ commit }) {
+    commit('setError', null);
+    commit('setTransactions', []);
+    commit('setBlockTxsOffset', 0);
   },
 };
 

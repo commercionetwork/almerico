@@ -10,6 +10,7 @@ export const initialState = {
   blocks: [],
   currentHeight: 1,
   detail: null,
+  error: null,
   isAddingBlocks: false,
   isLoading: false,
   newHeight: 0,
