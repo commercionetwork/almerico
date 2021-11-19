@@ -3,8 +3,8 @@ import { SETTINGS } from '@/constants';
 
 export default {
   async initExchangeRate({ commit, dispatch }) {
+    dispatch('resetExchangeRate');
     commit('setLoading', true);
-    commit('setAccounts', []);
     const requests = [
       dispatch('fetchAbrTokens'),
       dispatch('fetchAccounts'),
@@ -22,7 +22,7 @@ export default {
       const response = await commercio.requestAbrTokens();
       commit('setAbrTokens', response.data.result);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -38,7 +38,7 @@ export default {
         commit('addAccount', account);
       }
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -47,7 +47,7 @@ export default {
       const response = await auth.requestFreezedTokensLegacy();
       commit('setFreezedTokens', response.data.result);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -56,7 +56,7 @@ export default {
       const response = await staking.requestPool();
       commit('setPool', response.data.pool);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -65,7 +65,7 @@ export default {
       const response = await bank.requestSupply();
       commit('setSupply', response.data.supply);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -74,7 +74,16 @@ export default {
       const response = await commercio.requestVbrTokens();
       commit('setVbrTokens', response.data.funds);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
+  },
+
+  handleError({ commit }, error) {
+    commit('setError', error);
+  },
+
+  resetExchangeRate({ commit }) {
+    commit('setError', null);
+    commit('setAccounts', []);
   },
 };

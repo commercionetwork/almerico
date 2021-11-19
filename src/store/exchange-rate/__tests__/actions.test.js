@@ -16,15 +16,14 @@ describe('store/exchange-rate/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initExchangeRate" set loading state, reset accounts, dispatch "fetchAbrTokens", "fetchAccounts", "fetchFreezedTokens", "fetchPool", "fetchSupply" and "fetchVbrTokens" actions', async () => {
+  test('if "initExchangeRate" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAccounts", "fetchFreezedTokens", "fetchPool", "fetchSupply" and "fetchVbrTokens" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.initExchangeRate({ commit, dispatch });
 
+    expect(dispatch).toHaveBeenCalledWith('resetExchangeRate');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setAccounts', []);
-    expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAccounts');
     expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
@@ -45,9 +44,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchAbrTokens({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchAccounts" commit "addAccount", and dispatch "handleError" if error is caught', async () => {
@@ -66,9 +63,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchAccounts({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchFreezedTokens" commit "setFreezedTokens", and dispatch "handleError" if error is caught', async () => {
@@ -83,9 +78,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchFreezedTokens({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchPool" commit "setPool", and dispatch "handleError" if error is caught', async () => {
@@ -100,9 +93,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchPool({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchSupply" commit "setSupply", and dispatch "handleError" if error is caught', async () => {
@@ -117,9 +108,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchSupply({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchVbrTokens" commit "setVbrTokens", and dispatch "handleError" if error is caught', async () => {
@@ -134,9 +123,25 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchVbrTokens({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test('if "handleError" set error', () => {
+    const commit = jest.fn();
+    const error = new Error('message');
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toHaveBeenCalledWith('setError', error);
+  });
+
+  test('if "resetExchangeRate" reset error and accounts', () => {
+    const commit = jest.fn();
+
+    actions.resetExchangeRate({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setAccounts', []);
   });
 });
 
