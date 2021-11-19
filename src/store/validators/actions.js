@@ -3,14 +3,10 @@ import { VALIDATORS } from '@/constants';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
+    dispatch('resetValidatorsList');
     commit('setLoading', true);
-    commit('setFilter', {
-      active: true,
-      query: '',
-    });
     const requests = [dispatch('fetchPool')];
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
-      commit('setBlocks', []);
       requests.push(dispatch('fetchTrackedBlocks', lastHeight));
     }
     await Promise.all(requests);
@@ -22,7 +18,7 @@ export default {
       const response = await staking.requestPool();
       commit('setPool', response.data.pool);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -40,15 +36,12 @@ export default {
       const resValidatorSets = await tendermintRpc.requestValidatorSets(height);
       commit('addBlock', { ...resBlock.data, ...resValidatorSets.data.result });
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
-  setValidatorsFilter({ commit }, filter) {
-    commit('setFilter', filter);
-  },
-
   async initValidatorsDetail({ commit, dispatch }, { id, lastHeight }) {
+    dispatch('resetValidatorsDetail');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchDetail', id),
@@ -56,7 +49,6 @@ export default {
       dispatch('fetchPool'),
     ];
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
-      commit('setBlocks', []);
       requests.push(dispatch('fetchTrackedBlocks', lastHeight));
     }
     await Promise.all(requests);
@@ -68,7 +60,7 @@ export default {
       const response = await staking.requestValidatorsDetailLegacy(id);
       commit('setDetail', response.data.result);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -79,8 +71,32 @@ export default {
       );
       commit('setDelegations', response.data.result);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
+  },
+
+  handleError({ commit }, error) {
+    commit('setError', error);
+  },
+
+  resetValidatorsList({ commit }) {
+    commit('setError', null);
+    commit('setFilter', {
+      active: true,
+      query: '',
+    });
+    commit('setBlocks', []);
+  },
+
+  setValidatorsFilter({ commit }, filter) {
+    commit('setFilter', filter);
+  },
+
+  resetValidatorsDetail({ commit }) {
+    commit('setError', null);
+    commit('setDetail', null);
+    commit('setDelegations', []);
+    commit('setBlocks', []);
   },
 };
 

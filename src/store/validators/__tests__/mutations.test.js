@@ -10,6 +10,14 @@ describe('store/validators/mutations', () => {
     };
   });
 
+  test('mutations.setError', () => {
+    const payload = { message: 'error' };
+
+    mutations.setError(state, payload);
+
+    expect(state.error).toBe(payload);
+  });
+
   test('mutations.setLoading', () => {
     mutations.setLoading(state, true);
 

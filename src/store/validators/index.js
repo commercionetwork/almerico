@@ -6,6 +6,7 @@ export const initialState = {
   blocks: [],
   delegations: [],
   detail: null,
+  error: null,
   filter: null,
   isLoading: false,
   newHeight: '',

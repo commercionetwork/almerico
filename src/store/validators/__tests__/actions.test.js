@@ -32,7 +32,7 @@ describe('store/validators/actions', () => {
     process.env = OLD_ENV;
   });
 
-  test('if "initValidatorsList" set loading state and default filter, reset tracked blocks, dispatch "fetchPool" and "fetchTrackedBlocks" actions', async () => {
+  test('if "initValidatorsList" reset store, set loading state, dispatch "fetchPool" and "fetchTrackedBlocks" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const lastHeight = '1000';
@@ -41,21 +41,16 @@ describe('store/validators/actions', () => {
 
     await actions.initValidatorsList({ commit, dispatch }, lastHeight);
 
+    expect(dispatch).toHaveBeenCalledWith('resetValidatorsList');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setFilter', {
-      active: true,
-      query: '',
-    });
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
-    expect(commit).toHaveBeenCalledWith('setLoading', false);
-    expect(commit).not.toHaveBeenCalledWith('setBlocks', []);
     expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
 
     process.env.VUE_APP_BLOCKS_MONITOR = 'true';
 
     await actions.initValidatorsList({ commit, dispatch }, lastHeight);
 
-    expect(commit).toHaveBeenCalledWith('setBlocks', []);
     expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
   });
 
@@ -77,9 +72,7 @@ describe('store/validators/actions', () => {
       dispatch,
     });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchTrackedBlocks" dispatch "addBlocksItem"', async () => {
@@ -114,12 +107,10 @@ describe('store/validators/actions', () => {
 
     await actions.addBlocksItem({ commit, dispatch }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "initValidatorsDetail" set loading state, reset tracked blocks, dispatch "fetchDetail", "fetchDetailDelegations", "fetchPool" and "fetchTrackedBlocks" actions', async () => {
+  test('if "initValidatorsDetail" reset store, set loading state, dispatch "fetchDetail", "fetchDetailDelegations", "fetchPool" and "fetchTrackedBlocks" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -132,13 +123,13 @@ describe('store/validators/actions', () => {
       { id: address, lastHeight },
     );
 
+    expect(dispatch).toHaveBeenCalledWith('resetValidatorsDetail');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchDetail', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetailDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
-    expect(commit).toHaveBeenCalledWith('setLoading', false);
-    expect(commit).not.toHaveBeenCalledWith('setBlocks', []);
     expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
 
     process.env.VUE_APP_BLOCKS_MONITOR = 'true';
 
@@ -147,7 +138,6 @@ describe('store/validators/actions', () => {
       { id: address, lastHeight },
     );
 
-    expect(commit).toHaveBeenCalledWith('setBlocks', []);
     expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
   });
 
@@ -164,9 +154,7 @@ describe('store/validators/actions', () => {
 
     await actions.fetchDetail({ commit, dispatch }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchDetailDelegations" action commit "setDelegations", and dispatch "handleError" if error is caught', async () => {
@@ -185,9 +173,52 @@ describe('store/validators/actions', () => {
 
     await actions.fetchDetailDelegations({ commit, dispatch }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test('if "handleError" set error', () => {
+    const commit = jest.fn();
+    const error = new Error('message');
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toHaveBeenCalledWith('setError', error);
+  });
+
+  test('if "resetValidatorsList" reset error, filter and blocks', () => {
+    const commit = jest.fn();
+
+    actions.resetValidatorsList({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setFilter', {
+      active: true,
+      query: '',
     });
+    expect(commit).toHaveBeenCalledWith('setBlocks', []);
+  });
+
+  test('if "setValidatorsFilter" set filter', () => {
+    const commit = jest.fn();
+    const filter = {
+      active: true,
+      query: 'query',
+    };
+
+    actions.setValidatorsFilter({ commit }, filter);
+
+    expect(commit).toHaveBeenCalledWith('setFilter', filter);
+  });
+
+  test('if "resetValidatorsDetail" reset error, detail, delegations and blocks', () => {
+    const commit = jest.fn();
+
+    actions.resetValidatorsDetail({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setDetail', null);
+    expect(commit).toHaveBeenCalledWith('setDelegations', []);
+    expect(commit).toHaveBeenCalledWith('setBlocks', []);
   });
 });
 
