@@ -23,7 +23,7 @@ describe('store/home/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchConversionRate", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens and "fetchTransactions"', async () => {
+  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchConversionRate", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -219,36 +219,16 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "fetchNewTransactions" set loading state and dispatch "getTransactionsAtHeight"', async () => {
+  test('if "refreshTransactions" reset txs, set loading state, dispatch "getTransactionsAtHeight" and finally reset event height', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const height = '1';
 
-    await actions.fetchNewTransactions({ commit, dispatch }, height);
+    await actions.refreshTransactions({ commit, dispatch });
 
-    expect(commit).toHaveBeenCalledWith('setAddingTx', true);
-    expect(dispatch).toHaveBeenCalledWith('getTransactionsAtHeight', height);
-    expect(commit).toHaveBeenCalledWith('setAddingTx', false);
-  });
-
-  test('if "getTransactionsAtHeight" commit "addTransactions", dispatch "handleError" if error is caught, and finally reset tx event height', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const height = '1';
-
-    await actions.getTransactionsAtHeight({ commit, dispatch }, height);
-
-    expect(commit).toHaveBeenCalledWith(
-      'addTransactions',
-      mockResponse.data.tx_responses,
-    );
-    expect(commit).toHaveBeenCalledWith('setTxEventHeight', '');
-
-    mockError = true;
-
-    await actions.getTransactionsAtHeight({ commit, dispatch }, height);
-
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setRefreshing', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
+    expect(commit).toHaveBeenCalledWith('setRefreshing', false);
     expect(commit).toHaveBeenCalledWith('setTxEventHeight', '');
   });
 

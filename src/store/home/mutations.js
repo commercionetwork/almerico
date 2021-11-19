@@ -5,6 +5,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setRefreshing(state, payload) {
+    state.isRefreshing = payload;
+  },
   setConversionRate(state, payload) {
     state.conversionRate = parseFloat(payload);
   },
@@ -43,9 +46,6 @@ export default {
   },
   addTransactions(state, payload) {
     state.transactions.push(...payload);
-  },
-  setAddingTx(state, payload) {
-    state.isAddingTx = payload;
   },
   setTxEventHeight(state, payload) {
     state.txEventHeight = payload;

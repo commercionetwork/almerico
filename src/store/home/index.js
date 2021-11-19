@@ -7,7 +7,7 @@ export const initialState = {
   conversionRate: 1,
   error: null,
   isLoading: false,
-  isAddingTx: false,
+  isRefreshing: false,
   pool: null,
   rateUpdates: [],
   rateUpdatesOffset: 0,

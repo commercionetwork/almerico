@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
+  <v-row v-if="isRefreshing" data-test="loading">
     <v-col cols="12" class="pa-5">
       <LoadingLinearComponent />
     </v-col>
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     ...mapGetters('home', {
-      isLoading: 'isAddingTx',
+      isRefreshing: 'isRefreshing',
       transactions: 'transactions',
       txEventHeight: 'txEventHeight',
     }),
@@ -39,13 +39,13 @@ export default {
     },
   },
   watch: {
-    txEventHeight(height) {
-      if (height) this.fetchNewTransactions(height);
+    txEventHeight(value) {
+      if (value) this.refreshTransactions();
     },
   },
   methods: {
     ...mapActions('home', {
-      fetchNewTransactions: 'fetchNewTransactions',
+      refreshTransactions: 'refreshTransactions',
     }),
   },
 };

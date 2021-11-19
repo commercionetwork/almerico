@@ -24,6 +24,12 @@ describe('store/home/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
+  test('mutations.setRefreshing', () => {
+    mutations.setRefreshing(state, true);
+
+    expect(state.isRefreshing).toBe(true);
+  });
+
   test('mutations.setConversionRate', () => {
     const payload = '1.000000000000000000';
     mutations.setConversionRate(state, payload);
@@ -139,12 +145,6 @@ describe('store/home/mutations', () => {
     mutations.addTransactions(state, txs);
 
     expect(state.transactions).toStrictEqual(expected);
-  });
-
-  test('mutations.setAddingTx', () => {
-    mutations.setAddingTx(state, true);
-
-    expect(state.isAddingTx).toBe(true);
   });
 
   test('mutations.setTxEventHeight', () => {

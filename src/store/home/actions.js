@@ -114,24 +114,12 @@ export default {
     }
   },
 
-  async fetchNewTransactions({ commit, dispatch }, height) {
-    commit('setAddingTx', true);
-    await dispatch('getTransactionsAtHeight', height);
-    commit('setAddingTx', false);
-  },
-
-  async getTransactionsAtHeight({ commit, dispatch }, height) {
-    const params = {
-      events: `tx.height = ${height}`,
-    };
-    try {
-      const response = await tx.requestTxsList(params);
-      commit('addTransactions', response.data.tx_responses);
-    } catch (error) {
-      dispatch('handleError', error);
-    } finally {
-      commit('setTxEventHeight', '');
-    }
+  async refreshTransactions({ commit, dispatch }) {
+    commit('setTransactions', []);
+    commit('setRefreshing', true);
+    await dispatch('fetchTransactions');
+    commit('setRefreshing', false);
+    commit('setTxEventHeight', '');
   },
 
   handleError({ commit }, error) {
