@@ -1,6 +1,7 @@
 export default {
   balances: (state) => state.balances,
   delegations: (state) => state.delegations,
+  error: (state) => state.error,
   isLoading: (state) => state.isLoading,
   isAddingTxs: (state) => state.isAddingTxs,
   membership: (state) => state.membership,

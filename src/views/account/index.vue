@@ -1,11 +1,17 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
-    <v-col cols="12" class="pa-5">
+  <v-row>
+    <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <LoadingLinearComponent :height="25" />
     </v-col>
-  </v-row>
-  <v-row v-else data-test="content">
-    <v-col cols="12">
+    <v-col
+      cols="12"
+      class="pa-5"
+      v-else-if="!isLoading && error"
+      data-test="error"
+    >
+      <ErrorMessageComponent :error="error" />
+    </v-col>
+    <v-col cols="12" v-else data-test="content">
       <HeaderComponent :title="$t('titles.accountDetail')" />
       <AccountTopComponent />
       <AccountMiddleComponent />
@@ -18,6 +24,7 @@
 import AccountBottomComponent from './AccountBottomComponent.vue';
 import AccountMiddleComponent from './AccountMiddleComponent.vue';
 import AccountTopComponent from './AccountTopComponent.vue';
+import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
@@ -29,11 +36,13 @@ export default {
     AccountBottomComponent,
     AccountMiddleComponent,
     AccountTopComponent,
+    ErrorMessageComponent,
     HeaderComponent,
     LoadingLinearComponent,
   },
   computed: {
     ...mapGetters('account', {
+      error: 'error',
       isLoading: 'isLoading',
     }),
     address() {

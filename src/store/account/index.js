@@ -5,6 +5,7 @@ import mutations from './mutations';
 export const initialState = {
   balances: [],
   delegations: [],
+  error: null,
   isLoading: false,
   isAddingTxs: false,
   membership: null,

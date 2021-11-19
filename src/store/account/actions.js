@@ -3,11 +3,8 @@ import { ACCOUNT, APIS } from '@/constants';
 
 export default {
   async initAccount({ commit, dispatch }, address) {
+    dispatch('resetAccount');
     commit('setLoading', true);
-    commit('setTransactions', []);
-    commit('setTransactionsOffset', 0);
-    commit('setUnbondings', []);
-    commit('setUnbondingsOffset', 0);
     const requests = [
       dispatch('fetchBalances', address),
       dispatch('fetchDelegations', address),
@@ -26,7 +23,7 @@ export default {
       const response = await bank.requestBalancesLegacy(address);
       commit('setBalances', response.data.result);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -35,7 +32,7 @@ export default {
       const response = await staking.requestDelegationsLegacy(address);
       commit('setDelegations', response.data.result);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -44,7 +41,7 @@ export default {
       const response = await distribution.requestRewards(address);
       commit('setRewards', response.data);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -68,7 +65,7 @@ export default {
       commit('setUnbondingsPagination', response.data.pagination);
       commit('sumUnbondingsOffset', response.data.unbonding_responses.length);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -87,7 +84,7 @@ export default {
       const response = await tx.requestTxsList(parameters);
       commit('setMembershipTxs', response.data.tx_responses);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -106,7 +103,7 @@ export default {
       commit('setTransactionsPagination', response.data.pagination);
       commit('sumTransactionsOffset', response.data.tx_responses.length);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -114,5 +111,17 @@ export default {
     commit('setAddingTxs', true);
     await dispatch('fetchTransactions', { address, offset });
     commit('setAddingTxs', false);
+  },
+
+  handleError({ commit }, error) {
+    commit('setError', error);
+  },
+
+  resetAccount({ commit }) {
+    commit('setError', null);
+    commit('setTransactions', []);
+    commit('setTransactionsOffset', 0);
+    commit('setUnbondings', []);
+    commit('setUnbondingsOffset', 0);
   },
 };
