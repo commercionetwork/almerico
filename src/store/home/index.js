@@ -5,6 +5,7 @@ import mutations from './mutations';
 export const initialState = {
   abrTokens: [],
   conversionRate: 1,
+  error: null,
   isLoading: false,
   isAddingTx: false,
   pool: null,

@@ -3,10 +3,8 @@ import { APIS, HOME, SETTINGS } from '@/constants';
 
 export default {
   async initHome({ commit, dispatch }) {
+    dispatch('resetHome');
     commit('setLoading', true);
-    commit('setRateUpdates', []);
-    commit('setRateUpdatesOffset', 0);
-    commit('setTransactions', []);
     const requests = [
       dispatch('fetchAbrTokens'),
       dispatch('fetchAllTokens'),
@@ -26,7 +24,7 @@ export default {
       const response = await commercio.requestConversionRate();
       commit('setConversionRate', response.data.rate);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -52,7 +50,7 @@ export default {
       commit('setRateUpdatesPagination', response.data.pagination);
       commit('sumRateUpdatesOffset', response.data.tx_responses.length);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -61,7 +59,7 @@ export default {
       const response = await tendermintRpc.requestBlock(SETTINGS.FIRST_HEIGHT);
       commit('setStartingDate', response.data.block.header.time);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -70,7 +68,7 @@ export default {
       const response = await commercio.requestAbrTokens();
       commit('setAbrTokens', response.data.result);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -79,7 +77,7 @@ export default {
       const response = await commercio.requestVbrTokens();
       commit('setVbrTokens', response.data.funds);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -88,7 +86,7 @@ export default {
       const response = await bank.requestSupply();
       commit('setSupply', response.data.supply);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -97,7 +95,7 @@ export default {
       const response = await staking.requestPool();
       commit('setPool', response.data.pool);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -112,7 +110,7 @@ export default {
       });
       commit('addTransactions', response.data.tx_responses);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     }
   },
 
@@ -130,9 +128,20 @@ export default {
       const response = await tx.requestTxsList(params);
       commit('addTransactions', response.data.tx_responses);
     } catch (error) {
-      dispatch('handleError', error, { root: true });
+      dispatch('handleError', error);
     } finally {
       commit('setTxEventHeight', '');
     }
+  },
+
+  handleError({ commit }, error) {
+    commit('setError', error);
+  },
+
+  resetHome({ commit }) {
+    commit('setError', null);
+    commit('setRateUpdates', []);
+    commit('setRateUpdatesOffset', 0);
+    commit('setTransactions', []);
   },
 };

@@ -1,6 +1,7 @@
 export default {
   abrTokens: (state) => state.abrTokens,
   conversionRate: (state) => state.conversionRate,
+  error: (state) => state.error,
   isLoading: (state) => state.isLoading,
   isAddingTx: (state) => state.isAddingTx,
   pool: (state) => state.pool,

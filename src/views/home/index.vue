@@ -1,11 +1,17 @@
 <template>
-  <v-row v-if="isLoading" data-test="loading">
-    <v-col cols="12" class="pa-5">
+  <v-row>
+    <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <LoadingLinearComponent :height="25" />
     </v-col>
-  </v-row>
-  <v-row v-else data-test="content">
-    <v-col cols="12">
+    <v-col
+      cols="12"
+      class="pa-5"
+      v-else-if="!isLoading && error"
+      data-test="error"
+    >
+      <ErrorMessageComponent :error="error" />
+    </v-col>
+    <v-col cols="12" v-else data-test="content">
       <HeaderComponent
         :title="$t('titles.dashboard')"
         :hasOptionalContent="true"
@@ -20,6 +26,7 @@
 </template>
 
 <script>
+import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import ChainChooserComponent from '@/components/ChainChooserComponent';
 import HeaderComponent from '@/components/HeaderComponent';
 import HomeBannerComponent from './HomeBannerComponent';
@@ -33,6 +40,7 @@ export default {
   name: 'Home',
   components: {
     ChainChooserComponent,
+    ErrorMessageComponent,
     HeaderComponent,
     HomeBannerComponent,
     HomeGridListComponent,
@@ -41,6 +49,7 @@ export default {
   },
   computed: {
     ...mapGetters('home', {
+      error: 'error',
       isLoading: 'isLoading',
     }),
   },

@@ -23,16 +23,14 @@ describe('store/home/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initHome" set loading state, reset rate updates, rate updates offset and transactions, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchConversionRate", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens and "transactions/fetchLastTransactions" actions', async () => {
+  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchConversionRate", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens and "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.initHome({ commit, dispatch });
 
+    expect(dispatch).toHaveBeenCalledWith('resetHome');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setRateUpdates', []);
-    expect(commit).toHaveBeenCalledWith('setRateUpdatesOffset', 0);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
     expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchConversionRate');
@@ -59,12 +57,10 @@ describe('store/home/actions', () => {
 
     await actions.fetchConversionRate({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "fetchRateUpdates" dispatch action "addRateUpdates"', async () => {
+  test('if "fetchRateUpdates" dispatch "addRateUpdates"', async () => {
     const dispatch = jest.fn();
     const getters = jest.fn();
 
@@ -97,9 +93,7 @@ describe('store/home/actions', () => {
 
     await actions.addRateUpdates({ commit, dispatch }, offset);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchStartingDate" action commit "setStartingDate", and dispatch "handleError" if error is caught', async () => {
@@ -117,9 +111,7 @@ describe('store/home/actions', () => {
 
     await actions.fetchStartingDate({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchAbrTokens" action commit "setAbrTokens", and dispatch "handleError" if error is caught', async () => {
@@ -143,9 +135,7 @@ describe('store/home/actions', () => {
       dispatch,
     });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchVbrTokens" action commit "setVbrTokens", and dispatch "handleError" if error is caught', async () => {
@@ -169,9 +159,7 @@ describe('store/home/actions', () => {
       dispatch,
     });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchAllTokens" action commit "setSupply", and dispatch "handleError" if error is caught', async () => {
@@ -192,9 +180,7 @@ describe('store/home/actions', () => {
       dispatch,
     });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchPool" action commit "setPool", and dispatch "handleError" if error is caught', async () => {
@@ -215,9 +201,7 @@ describe('store/home/actions', () => {
       dispatch,
     });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchTransactions" commit "addTransactions", and dispatch "handleError" if error is caught', async () => {
@@ -232,9 +216,7 @@ describe('store/home/actions', () => {
 
     await actions.fetchTransactions({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
   test('if "fetchNewTransactions" set loading state and dispatch "getTransactionsAtHeight"', async () => {
@@ -266,10 +248,28 @@ describe('store/home/actions', () => {
 
     await actions.getTransactionsAtHeight({ commit, dispatch }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse, {
-      root: true,
-    });
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
     expect(commit).toHaveBeenCalledWith('setTxEventHeight', '');
+  });
+
+  test('if "handleError" set error', () => {
+    const commit = jest.fn();
+    const error = new Error('message');
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toHaveBeenCalledWith('setError', error);
+  });
+
+  test('if "resetHome" reset error, rate updates, rate updates offset and transactions', () => {
+    const commit = jest.fn();
+
+    actions.resetHome({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setRateUpdates', []);
+    expect(commit).toHaveBeenCalledWith('setRateUpdatesOffset', 0);
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
   });
 });
 
