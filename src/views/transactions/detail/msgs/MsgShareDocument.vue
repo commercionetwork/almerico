@@ -41,6 +41,7 @@
           <DetailUrlComponent
             :label="$t('labels.metadataContentUri')"
             :content="metadataContentUri"
+            :link="metadataContentUri"
           />
           <span v-if="metadataSchemaType !== '-'">
             <DetailItemComponent
@@ -52,6 +53,7 @@
             <DetailUrlComponent
               :label="$t('labels.metadataSchemaUri')"
               :content="metadataSchemaUri"
+              :link="metadataSchemaUri"
             />
             <DetailItemComponent
               :label="$t('labels.metadataSchemaVersion')"
@@ -63,6 +65,7 @@
       <DetailUrlComponent
         :label="$t('labels.contentUri')"
         :content="contentUri"
+        :link="contentUri"
       />
       <v-list-item>
         <v-list-item-content>
@@ -97,6 +100,7 @@
           <DetailUrlComponent
             :label="$t('labels.storageUri')"
             :content="doSignStorageUri"
+            :link="doSignStorageUri"
           />
           <DetailItemComponent
             :label="$t('labels.signerInstance')"
@@ -123,8 +127,8 @@
 <script>
 import DetailItemComponent from '@/components/DetailItemComponent.vue';
 import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
 import DetailUrlComponent from '@/components/DetailUrlComponent.vue';
+import TxMsgComponent from '@/components/TxMsgComponent.vue';
 
 import { ROUTES } from '@/constants';
 import { regExpBuilder } from '@/utils';
@@ -135,8 +139,8 @@ export default {
   components: {
     DetailItemComponent,
     DetailLinkComponent,
-    TxMsgComponent,
     DetailUrlComponent,
+    TxMsgComponent,
   },
   props: {
     message: {
@@ -168,11 +172,11 @@ export default {
       return this.message.recipients || [];
     },
     uuid() {
-      return this.message.uuid || '-';
+      return this.message.UUID || '-';
     },
     metadataContentUri() {
-      return this.message.metadata && this.message.metadata.content_uri
-        ? this.message.metadata.content_uri
+      return this.message.metadata && this.message.metadata.contentURI
+        ? this.message.metadata.contentURI
         : '-';
     },
     metadataSchemaType() {
@@ -183,8 +187,8 @@ export default {
     metadataSchemaUri() {
       return this.message.metadata &&
         this.message.metadata.schema &&
-        this.message.metadata.schema.uri
-        ? this.message.metadata.schema.uri
+        this.message.metadata.schema.URI
+        ? this.message.metadata.schema.URI
         : '-';
     },
     metadataSchemaVersion() {
@@ -195,7 +199,7 @@ export default {
         : '-';
     },
     contentUri() {
-      return this.message.content_uri || '-';
+      return this.message.contentURI || '-';
     },
     checksumValue() {
       return this.message.checksum && this.message.checksum.value
@@ -208,39 +212,39 @@ export default {
         : '-';
     },
     encryptionDataKeys() {
-      return this.message.encryption_data && this.message.encryption_data.keys
-        ? JSON.stringify(this.message.encryption_data.keys)
+      return this.message.encryptionData && this.message.encryptionData.keys
+        ? JSON.stringify(this.message.encryptionData.keys)
         : '-';
     },
     encryptionDataEncryptedData() {
-      return this.message.encryption_data &&
-        this.message.encryption_data.encrypted_data
-        ? this.message.encryption_data.encrypted_data.toString()
+      return this.message.encryptionData &&
+        this.message.encryptionData.encrypted_data
+        ? this.message.encryptionData.encrypted_data.toString()
         : '-';
     },
     doSignStorageUri() {
-      return this.message.do_sign && this.message.do_sign.storage_uri
-        ? this.message.do_sign.storage_uri
+      return this.message.doSign && this.message.doSign.storage_uri
+        ? this.message.doSign.storage_uri
         : '-';
     },
     doSignSigner() {
-      return this.message.do_sign && this.message.do_sign.signer_instance
-        ? this.message.do_sign.signer_instance
+      return this.message.doSign && this.message.doSign.signer_instance
+        ? this.message.doSign.signer_instance
         : '-';
     },
     doSignSdn() {
-      return this.message.do_sign && this.message.do_sign.sdn_data
-        ? this.message.do_sign.sdn_data.toString()
+      return this.message.doSign && this.message.doSign.sdn_data
+        ? this.message.doSign.sdn_data.toString()
         : '-';
     },
     doSignVcr() {
-      return this.message.do_sign && this.message.do_sign.vcr_id
-        ? this.message.do_sign.vcr_id
+      return this.message.doSign && this.message.doSign.vcr_id
+        ? this.message.doSign.vcr_id
         : '-';
     },
     doSignCertificate() {
-      return this.message.do_sign && this.message.do_sign.certificate_profile
-        ? this.message.do_sign.certificate_profile
+      return this.message.doSign && this.message.doSign.certificate_profile
+        ? this.message.doSign.certificate_profile
         : '-';
     },
   },
