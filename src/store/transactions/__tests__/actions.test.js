@@ -167,6 +167,35 @@ describe('store/transactions/actions', () => {
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
+
+  test('if "handleError" set error', () => {
+    const commit = jest.fn();
+    const error = new Error('message');
+
+    actions.handleError({ commit }, error);
+
+    expect(commit).toHaveBeenCalledWith('setError', error);
+  });
+
+  test('if "resetTransactionsList" reset error, offset, pagination and txs', () => {
+    const commit = jest.fn();
+
+    actions.resetTransactionsList({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setOffset', 0);
+    expect(commit).toHaveBeenCalledWith('setPagination', null);
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
+  });
+
+  test('if "resetTransactionsDetail" reset error and detail', () => {
+    const commit = jest.fn();
+
+    actions.resetTransactionsDetail({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', null);
+    expect(commit).toHaveBeenCalledWith('setDetail', null);
+  });
 });
 
 jest.mock('../../../apis/http/tx.js', () => ({
