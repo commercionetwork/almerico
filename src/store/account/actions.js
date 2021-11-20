@@ -3,7 +3,7 @@ import { ACCOUNT, APIS } from '@/constants';
 
 export default {
   async initAccount({ commit, dispatch }, address) {
-    dispatch('resetAccount');
+    commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchBalances', address),
