@@ -10,19 +10,14 @@ export default {
     commit('setLoading', false);
   },
 
-  async addBlocks({ commit, dispatch }, lastHeight) {
-    commit('setAddingBlocks', true);
-    await dispatch('fetchBlocks', lastHeight);
-    commit('setAddingBlocks', false);
-  },
-
-  async fetchBlocks({ commit, dispatch }, lastHeight) {
-    const maxHeight = parseInt(lastHeight);
-    const minHeight =
-      maxHeight - BLOCKS.TABLE_ITEMS > 0 ? maxHeight - BLOCKS.TABLE_ITEMS : 0;
-    const requests = setUpBlocksRequests(dispatch, maxHeight, minHeight);
+  async fetchBlocks({ commit, dispatch }, height) {
+    const requests = setUpBlocksRequests({
+      height,
+      items: BLOCKS.TABLE_ITEMS,
+      commit,
+      dispatch,
+    });
     await Promise.all(requests);
-    commit('setCurrentHeight', minHeight);
   },
 
   async addBlocksItem({ commit, dispatch }, height) {
@@ -33,6 +28,26 @@ export default {
     } catch (error) {
       dispatch('handleError', error);
     }
+  },
+
+  async addBlocks({ commit, dispatch }, height) {
+    commit('setAddingBlocks', true);
+    await dispatch('fetchBlocks', height);
+    commit('setAddingBlocks', false);
+  },
+
+  async searchBlocks({ commit, dispatch }, height) {
+    commit('setBlocks', []);
+    commit('setCurrentHeight', '');
+    commit('setSearching', true);
+    const requests = setUpBlocksRequests({
+      height,
+      items: BLOCKS.SEARCH_ITEMS,
+      commit,
+      dispatch,
+    });
+    await Promise.all(requests);
+    commit('setSearching', false);
   },
 
   async initBlocksDetail({ commit, dispatch }, height) {
@@ -97,10 +112,13 @@ export default {
   },
 };
 
-const setUpBlocksRequests = (dispatch, maxHeight, minHeight) => {
+const setUpBlocksRequests = ({ height, items, commit, dispatch }) => {
   const requests = [];
+  let maxHeight = parseInt(height);
+  let minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
   while (maxHeight > minHeight) {
     requests.push(dispatch('addBlocksItem', maxHeight--));
   }
+  commit('setCurrentHeight', minHeight);
   return requests;
 };

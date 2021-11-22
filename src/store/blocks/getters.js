@@ -10,5 +10,6 @@ export default {
   error: (state) => state.error,
   isAddingBlocks: (state) => state.isAddingBlocks,
   isLoading: (state) => state.isLoading,
+  isSearching: (state) => state.isSearching,
   newHeight: (state) => state.newHeight,
 };

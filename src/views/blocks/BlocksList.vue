@@ -13,7 +13,9 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <HeaderComponent :title="$t('titles.blocks')" />
-      <BlocksListTopContentComponent />
+      <BlocksListTopContentComponent
+        v-on:searching-blocks="onSearchingBlocks"
+      />
       <BlocksListTableComponent />
     </v-col>
   </v-row>
@@ -37,6 +39,9 @@ export default {
     HeaderComponent,
     LoadingLinearComponent,
   },
+  data: () => ({
+    isSearching: false,
+  }),
   computed: {
     ...mapGetters('application', {
       lastBlock: 'latestBlock',
@@ -52,14 +57,23 @@ export default {
   },
   watch: {
     newHeight(value) {
-      if (value) this.addBlocksItem(value);
+      if (value && !this.isSearching) this.addBlocksItem(value);
     },
   },
   methods: {
     ...mapActions('blocks', {
       initBlocksList: 'initBlocksList',
       addBlocksItem: 'addBlocksItem',
+      searchBlocks: 'searchBlocks',
     }),
+    onSearchingBlocks(height) {
+      if (height) {
+        this.searchBlocks(height);
+      } else {
+        this.initBlocksList(this.lastHeight);
+      }
+      this.isSearching = height ? true : false;
+    },
   },
   created() {
     this.initBlocksList(this.lastHeight);

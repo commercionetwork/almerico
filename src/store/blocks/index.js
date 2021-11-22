@@ -13,6 +13,7 @@ export const initState = () => ({
   error: null,
   isAddingBlocks: false,
   isLoading: false,
+  isSearching: false,
   newHeight: 0,
 });
 

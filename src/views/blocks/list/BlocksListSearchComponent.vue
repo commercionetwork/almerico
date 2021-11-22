@@ -9,6 +9,7 @@
                 :label="$t('labels.height')"
                 append-icon="mdi-magnify"
                 v-model="model.height"
+                v-on:keydown.enter.prevent="search"
               >
                 <template v-slot:prepend>
                   <v-tooltip bottom>
@@ -17,7 +18,9 @@
                         mdi-information-outline
                       </v-icon>
                     </template>
-                    <span v-html="$t('msgs.searchBlocksInfo')" />
+                    <i18n tag="span" path="msgs.searchBlocksInfo">
+                      <span v-text="BLOCKS.TABLE_ITEMS" />
+                    </i18n>
                   </v-tooltip>
                 </template>
               </v-text-field>
@@ -26,7 +29,7 @@
           <v-row>
             <v-col cols="4" offset="2">
               <v-btn
-                @click="onSearch(false)"
+                @click="search(true)"
                 block
                 color="primary"
                 depressed
@@ -35,7 +38,7 @@
             </v-col>
             <v-col cols="4">
               <v-btn
-                @click="onSearch(true)"
+                @click="search(false)"
                 block
                 color="secondary"
                 outlined
@@ -52,18 +55,21 @@
 <script>
 import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
 
+import { BLOCKS } from '@/constants';
+
 export default {
   name: 'BlocksListSearchComponent',
   components: {
     TopContentCardComponent,
   },
   data: () => ({
-    isSearching: false,
+    BLOCKS,
     model: { height: '' },
   }),
   methods: {
-    onSearch(isSearching) {
-      this.isSearching = isSearching;
+    search(isSearching) {
+      if (!isSearching) this.model.height = '';
+      this.$parent.$emit('searching-blocks', this.model.height);
     },
   },
 };

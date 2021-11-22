@@ -1,5 +1,10 @@
 <template>
-  <v-row>
+  <v-row v-if="isSearching" data-test="loading">
+    <v-col cols="12" class="pa-5">
+      <LoadingLinearComponent />
+    </v-col>
+  </v-row>
+  <v-row v-else data-test="content">
     <v-col cols="12">
       <v-data-table
         :headers="headers"
@@ -62,7 +67,7 @@
         },
       }"
     >
-      <LoadingLinearComponent v-if="isAdding" data-test="loading" />
+      <LoadingLinearComponent v-if="isAdding" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
@@ -90,6 +95,7 @@ export default {
     }),
     ...mapGetters('blocks', {
       isAdding: 'isAddingBlocks',
+      isSearching: 'isSearching',
       blocks: 'blocks',
       currentHeight: 'currentHeight',
     }),

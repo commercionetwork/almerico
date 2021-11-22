@@ -22,6 +22,9 @@ export default {
   setAddingBlocks(state, payload) {
     state.isAddingBlocks = payload;
   },
+  setSearching(state, payload) {
+    state.isSearching = payload;
+  },
   addBlock(state, payload) {
     state.blocks.push(payload);
   },
