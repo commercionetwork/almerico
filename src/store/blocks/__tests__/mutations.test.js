@@ -1,5 +1,5 @@
-import mutations from '../mutations';
 import { initState } from '../index';
+import mutations from '../mutations';
 
 describe('store/blocks/mutations', () => {
   let state = {};

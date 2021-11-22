@@ -2,24 +2,24 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-export const initialState = {
+export const initState = () => ({
   blocks: [],
   delegations: [],
   detail: null,
   error: null,
-  filter: null,
+  filter: {
+    active: true,
+    query: '',
+  },
   isLoading: false,
   newHeight: '',
   pool: null,
-};
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
+  state: initState(),
   getters,
-  actions,
   mutations,
+  actions,
 };

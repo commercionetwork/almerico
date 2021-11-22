@@ -41,7 +41,7 @@ describe('store/validators/actions', () => {
 
     await actions.initValidatorsList({ commit, dispatch }, lastHeight);
 
-    expect(dispatch).toHaveBeenCalledWith('resetValidatorsList');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
@@ -123,7 +123,7 @@ describe('store/validators/actions', () => {
       { id: address, lastHeight },
     );
 
-    expect(dispatch).toHaveBeenCalledWith('resetValidatorsDetail');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchDetail', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetailDelegations', address);
@@ -185,19 +185,6 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', error);
   });
 
-  test('if "resetValidatorsList" reset error, filter and blocks', () => {
-    const commit = jest.fn();
-
-    actions.resetValidatorsList({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setFilter', {
-      active: true,
-      query: '',
-    });
-    expect(commit).toHaveBeenCalledWith('setBlocks', []);
-  });
-
   test('if "setValidatorsFilter" set filter', () => {
     const commit = jest.fn();
     const filter = {
@@ -208,17 +195,6 @@ describe('store/validators/actions', () => {
     actions.setValidatorsFilter({ commit }, filter);
 
     expect(commit).toHaveBeenCalledWith('setFilter', filter);
-  });
-
-  test('if "resetValidatorsDetail" reset error, detail, delegations and blocks', () => {
-    const commit = jest.fn();
-
-    actions.resetValidatorsDetail({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setDetail', null);
-    expect(commit).toHaveBeenCalledWith('setDelegations', []);
-    expect(commit).toHaveBeenCalledWith('setBlocks', []);
   });
 });
 

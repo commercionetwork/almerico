@@ -3,7 +3,7 @@ import { VALIDATORS } from '@/constants';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
-    dispatch('resetValidatorsList');
+    commit('reset');
     commit('setLoading', true);
     const requests = [dispatch('fetchPool')];
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
@@ -41,7 +41,7 @@ export default {
   },
 
   async initValidatorsDetail({ commit, dispatch }, { id, lastHeight }) {
-    dispatch('resetValidatorsDetail');
+    commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchDetail', id),
@@ -79,24 +79,8 @@ export default {
     commit('setError', error);
   },
 
-  resetValidatorsList({ commit }) {
-    commit('setError', null);
-    commit('setFilter', {
-      active: true,
-      query: '',
-    });
-    commit('setBlocks', []);
-  },
-
   setValidatorsFilter({ commit }, filter) {
     commit('setFilter', filter);
-  },
-
-  resetValidatorsDetail({ commit }) {
-    commit('setError', null);
-    commit('setDetail', null);
-    commit('setDelegations', []);
-    commit('setBlocks', []);
   },
 };
 
