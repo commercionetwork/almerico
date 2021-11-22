@@ -2,14 +2,28 @@
   <v-list-item-content v-if="isLoop">
     <v-list-item-title class="py-1" v-text="label" />
     <v-list-item-subtitle>
-      <a :class="look" :href="link" target="_blank" v-text="content" />
+      <a
+        v-if="link"
+        :class="look"
+        :href="link"
+        target="_blank"
+        v-text="content"
+      />
+      <span v-else v-text="'-'" />
     </v-list-item-subtitle>
   </v-list-item-content>
   <v-list-item v-else>
     <v-list-item-content>
       <v-list-item-title class="py-1" v-text="label" />
       <v-list-item-subtitle>
-        <a :class="look" :href="link" target="_blank" v-text="content" />
+        <a
+          v-if="link"
+          :class="look"
+          :href="link"
+          target="_blank"
+          v-text="content"
+        />
+        <span v-else v-text="'-'" />
       </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
@@ -24,15 +38,15 @@ export default {
       required: true,
       note: 'The link label',
     },
-    content: {
-      type: String,
-      required: true,
-      note: 'The item value',
-    },
     link: {
       type: String,
       required: true,
       note: 'The link value',
+    },
+    content: {
+      type: String,
+      required: true,
+      note: 'The item value',
     },
     isLoop: {
       type: Boolean,

@@ -177,7 +177,7 @@ export default {
     metadataContentUri() {
       return this.message.metadata && this.message.metadata.contentURI
         ? this.message.metadata.contentURI
-        : '-';
+        : '';
     },
     metadataSchemaType() {
       return this.message.metadata && this.message.metadata.schema_type
@@ -189,7 +189,7 @@ export default {
         this.message.metadata.schema &&
         this.message.metadata.schema.URI
         ? this.message.metadata.schema.URI
-        : '-';
+        : '';
     },
     metadataSchemaVersion() {
       return this.message.metadata &&
@@ -199,7 +199,7 @@ export default {
         : '-';
     },
     contentUri() {
-      return this.message.contentURI || '-';
+      return this.message.contentURI || '';
     },
     checksumValue() {
       return this.message.checksum && this.message.checksum.value
@@ -225,7 +225,7 @@ export default {
     doSignStorageUri() {
       return this.message.doSign && this.message.doSign.storage_uri
         ? this.message.doSign.storage_uri
-        : '-';
+        : '';
     },
     doSignSigner() {
       return this.message.doSign && this.message.doSign.signer_instance

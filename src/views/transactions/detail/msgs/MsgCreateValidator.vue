@@ -132,7 +132,7 @@ export default {
     descriptionWebsite() {
       return this.message.description && this.message.description.website
         ? this.message.description.website
-        : '-';
+        : '';
     },
     descriptionSecurityContact() {
       return this.message.description &&
