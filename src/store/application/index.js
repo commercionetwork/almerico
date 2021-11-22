@@ -2,7 +2,7 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-export const initialState = {
+export const initState = () => ({
   error: null,
   info: null,
   isLoading: false,
@@ -13,15 +13,12 @@ export const initialState = {
   validators: [],
   validatorsOffset: 0,
   validatorsPagination: null,
-};
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
+  state: initState(),
   getters,
-  actions,
   mutations,
+  actions,
 };

@@ -30,7 +30,7 @@ describe('store/application/actions', () => {
 
     await actions.initAppData({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('resetApplication');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchInfo');
     expect(dispatch).toHaveBeenCalledWith('fetchLatestBlock');
@@ -160,17 +160,6 @@ describe('store/application/actions', () => {
     actions.handleError({ commit }, error);
 
     expect(commit).toHaveBeenCalledWith('setError', error);
-  });
-
-  test('if "resetApplication" reset latest transactions, validators and validators offset', () => {
-    const commit = jest.fn();
-
-    actions.resetApplication({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setLatestTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setValidators', []);
-    expect(commit).toHaveBeenCalledWith('setValidatorsOffset', 0);
   });
 });
 

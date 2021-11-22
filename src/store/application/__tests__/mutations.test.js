@@ -1,13 +1,25 @@
 import mutations from '../mutations';
-import store from '../index';
+import { initState } from '../index';
 
 describe('store/application/mutations', () => {
   let state = {};
 
   beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+    state = initState();
+  });
+
+  test('mutations.reset', () => {
+    state.error = new Error('error');
+    state.isLoading = true;
+    state.info = { id: 1 };
+    state.latestTransactions = [{ id: 1 }];
+    state.validatorsOffset = 10;
+
+    const expected = initState();
+
+    mutations.reset(state);
+
+    expect(state).toStrictEqual(expected);
   });
 
   test('mutations.setError', () => {
@@ -18,17 +30,17 @@ describe('store/application/mutations', () => {
     expect(state.error).toBe(payload);
   });
 
+  test('mutations.setLoading', () => {
+    mutations.setLoading(state, true);
+
+    expect(state.isLoading).toBe(true);
+  });
+
   test('mutations.setInfo', () => {
     const payload = { id: 1 };
     mutations.setInfo(state, payload);
 
     expect(state.info).toStrictEqual(payload);
-  });
-
-  test('mutations.setLoading', () => {
-    mutations.setLoading(state, true);
-
-    expect(state.isLoading).toBe(true);
   });
 
   test('mutations.setLatestBlock', () => {

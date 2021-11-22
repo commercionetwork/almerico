@@ -3,7 +3,7 @@ import { VALIDATORS } from '@/constants';
 
 export default {
   async initAppData({ commit, dispatch }) {
-    dispatch('resetApplication');
+    commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchInfo'),
@@ -95,12 +95,5 @@ export default {
 
   handleError({ commit }, error) {
     commit('setError', error);
-  },
-
-  resetApplication({ commit }) {
-    commit('setError', null);
-    commit('setLatestTransactions', []);
-    commit('setValidators', []);
-    commit('setValidatorsOffset', 0);
   },
 };
