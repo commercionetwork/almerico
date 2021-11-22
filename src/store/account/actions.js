@@ -116,12 +116,4 @@ export default {
   handleError({ commit }, error) {
     commit('setError', error);
   },
-
-  resetAccount({ commit }) {
-    commit('setError', null);
-    commit('setTransactions', []);
-    commit('setTransactionsOffset', 0);
-    commit('setUnbondings', []);
-    commit('setUnbondingsOffset', 0);
-  },
 };

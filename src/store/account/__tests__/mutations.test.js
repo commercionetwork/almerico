@@ -1,13 +1,28 @@
+import { initState } from '../index';
 import mutations from '../mutations';
-import store from '../index';
 
 describe('store/account/mutations', () => {
   let state = {};
 
   beforeEach(() => {
-    state = {
-      ...store.initialState,
+    state = initState();
+  });
+
+  test('mutations.reset', () => {
+    state.error = new Error('error');
+    state.isLoading = true;
+    state.balances = [{ id: 1 }];
+    state.unbondingsOffset = 10;
+    state.unbondingsPagination = {
+      next_key: 'string',
+      total: 'string',
     };
+
+    const expected = initState();
+
+    mutations.reset(state);
+
+    expect(state).toStrictEqual(expected);
   });
 
   test('mutations.setError', () => {

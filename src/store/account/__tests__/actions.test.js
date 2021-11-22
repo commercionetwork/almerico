@@ -32,7 +32,7 @@ describe('store/account/actions', () => {
 
     await actions.initAccount({ commit, dispatch }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('resetAccount');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
@@ -223,18 +223,6 @@ describe('store/account/actions', () => {
     actions.handleError({ commit }, error);
 
     expect(commit).toHaveBeenCalledWith('setError', error);
-  });
-
-  test('if "resetAccount" reset error, transactions, transactions offset, unbondings and unbondings offset', () => {
-    const commit = jest.fn();
-
-    actions.resetAccount({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setTransactionsOffset', 0);
-    expect(commit).toHaveBeenCalledWith('setUnbondings', []);
-    expect(commit).toHaveBeenCalledWith('setUnbondingsOffset', 0);
   });
 });
 
