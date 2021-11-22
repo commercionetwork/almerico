@@ -30,7 +30,7 @@ describe('store/blocks/actions', () => {
 
     await actions.initBlocksList({ commit, dispatch }, lastHeight);
 
-    expect(dispatch).toHaveBeenCalledWith('resetBlocksList');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchBlocks', lastHeight);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
@@ -90,7 +90,7 @@ describe('store/blocks/actions', () => {
 
     await actions.initBlocksDetail({ commit, dispatch }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('resetBlocksDetail');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchBlock', height);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', height);
@@ -178,25 +178,6 @@ describe('store/blocks/actions', () => {
     actions.handleError({ commit }, error);
 
     expect(commit).toHaveBeenCalledWith('setError', error);
-  });
-
-  test('if "resetBlocksList" reset error and blocs', () => {
-    const commit = jest.fn();
-
-    actions.resetBlocksList({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setBlocks', []);
-  });
-
-  test('if "resetBlocksDetail" reset error, txs and offset', () => {
-    const commit = jest.fn();
-
-    actions.resetBlocksDetail({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setBlockTxsOffset', 0);
   });
 });
 

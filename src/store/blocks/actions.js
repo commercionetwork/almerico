@@ -3,7 +3,7 @@ import { BLOCKS } from '@/constants';
 
 export default {
   async initBlocksList({ commit, dispatch }, lastHeight) {
-    dispatch('resetBlocksList');
+    commit('reset');
     commit('setLoading', true);
     const requests = [dispatch('fetchBlocks', lastHeight)];
     await Promise.all(requests);
@@ -36,7 +36,7 @@ export default {
   },
 
   async initBlocksDetail({ commit, dispatch }, height) {
-    dispatch('resetBlocksDetail');
+    commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchBlock', height),
@@ -94,17 +94,6 @@ export default {
 
   handleError({ commit }, error) {
     commit('setError', error);
-  },
-
-  resetBlocksList({ commit }) {
-    commit('setError', null);
-    commit('setBlocks', []);
-  },
-
-  resetBlocksDetail({ commit }) {
-    commit('setError', null);
-    commit('setTransactions', []);
-    commit('setBlockTxsOffset', 0);
   },
 };
 
