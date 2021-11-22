@@ -48,8 +48,8 @@ describe('store/transactions/actions', () => {
 
     await actions.searchTransactions({ commit, dispatch }, { query, offset });
 
-    expect(dispatch).toHaveBeenCalledWith('resetTransactionsList');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       query,
       offset,
@@ -103,6 +103,22 @@ describe('store/transactions/actions', () => {
       offset,
     });
     expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
+  });
+
+  test('if "refreshTransactions" reset txs, set loading state, dispatch "fetchTransactions" and finally reset event height', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.refreshTransactions({ commit, dispatch });
+
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setRefreshing', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
+      query: 'tx.height >= 1',
+      offset: 0,
+    });
+    expect(commit).toHaveBeenCalledWith('setRefreshing', false);
+    expect(commit).toHaveBeenCalledWith('setTxEventHeight', '');
   });
 
   test('if "initTransactionsDetail" reset store, set loading state and dispatch "fetchTransactionByHash"', async () => {

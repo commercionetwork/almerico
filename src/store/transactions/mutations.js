@@ -7,6 +7,9 @@ export default {
   setError(state, error) {
     state.error = error;
   },
+  setRefreshing(state, payload) {
+    state.isRefreshing = payload;
+  },
   setLoading(state, payload) {
     state.isLoading = payload;
   },
@@ -27,6 +30,9 @@ export default {
   },
   sumOffset(state, payload) {
     state.offset += payload;
+  },
+  setTxEventHeight(state, payload) {
+    state.txEventHeight = payload;
   },
   setDetail(state, payload) {
     state.detail = payload;

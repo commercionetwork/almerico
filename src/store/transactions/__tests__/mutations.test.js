@@ -39,6 +39,12 @@ describe('store/transactions/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
+  test('mutations.setRefreshing', () => {
+    mutations.setRefreshing(state, true);
+
+    expect(state.isRefreshing).toBe(true);
+  });
+
   test('mutations.setAddingTxs', () => {
     mutations.setAddingTxs(state, true);
 
@@ -84,6 +90,13 @@ describe('store/transactions/mutations', () => {
     mutations.sumOffset(state, payload);
 
     expect(state.offset).toBe(payload + payload);
+  });
+
+  test('mutations.setTxEventHeight', () => {
+    const payload = '1';
+    mutations.setTxEventHeight(state, payload);
+
+    expect(state.txEventHeight).toBe(payload);
   });
 
   test('mutations.setDetail', () => {

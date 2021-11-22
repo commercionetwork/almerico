@@ -13,7 +13,7 @@ export default {
   },
 
   async searchTransactions({ commit, dispatch }, { query, offset }) {
-    dispatch('resetTransactionsList');
+    commit('setTransactions', []);
     commit('setLoading', true);
     await dispatch('fetchTransactions', { query, offset });
     commit('setLoading', false);
@@ -42,6 +42,14 @@ export default {
     commit('setAddingTxs', true);
     await dispatch('fetchTransactions', { query, offset });
     commit('setAddingTxs', false);
+  },
+
+  async refreshTransactions({ commit, dispatch }) {
+    commit('setTransactions', []);
+    commit('setRefreshing', true);
+    await dispatch('fetchTransactions', { query: 'tx.height >= 1', offset: 0 });
+    commit('setRefreshing', false);
+    commit('setTxEventHeight', '');
   },
 
   async initTransactionsDetail({ commit, dispatch }, hash) {

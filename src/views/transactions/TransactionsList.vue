@@ -44,11 +44,18 @@ export default {
     ...mapGetters('transactions', {
       error: 'error',
       isLoading: 'isLoading',
+      txEventHeight: 'txEventHeight',
     }),
+  },
+  watch: {
+    txEventHeight(value) {
+      if (value && !this.txType) this.refreshTransactions();
+    },
   },
   methods: {
     ...mapActions('transactions', {
       initTransactionsList: 'initTransactionsList',
+      refreshTransactions: 'refreshTransactions',
       searchTransactions: 'searchTransactions',
     }),
     onSearchTxs(txType) {

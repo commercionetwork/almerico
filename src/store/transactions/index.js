@@ -7,9 +7,11 @@ export const initState = () => ({
   error: null,
   isAddingTxs: false,
   isLoading: false,
+  isRefreshing: false,
   offset: 0,
   pagination: null,
   transactions: [],
+  txEventHeight: '',
 });
 
 export default {

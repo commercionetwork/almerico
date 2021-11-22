@@ -1,5 +1,10 @@
 <template>
-  <v-row>
+  <v-row v-if="isRefreshing" data-test="loading">
+    <v-col cols="12" class="pa-5">
+      <LoadingLinearComponent />
+    </v-col>
+  </v-row>
+  <v-row v-else data-test="content">
     <v-col cols="12">
       <v-data-table
         :headers="headers"
@@ -72,7 +77,7 @@
         },
       }"
     >
-      <LoadingLinearComponent v-if="isAdding" />
+      <LoadingLinearComponent v-if="isAdding" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
@@ -104,6 +109,7 @@ export default {
   computed: {
     ...mapGetters('transactions', {
       isAdding: 'isAddingTxs',
+      isRefreshing: 'isRefreshing',
       offset: 'offset',
       total: 'total',
       transactions: 'transactions',
