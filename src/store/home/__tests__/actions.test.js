@@ -29,7 +29,7 @@ describe('store/home/actions', () => {
 
     await actions.initHome({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('resetHome');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
@@ -239,17 +239,6 @@ describe('store/home/actions', () => {
     actions.handleError({ commit }, error);
 
     expect(commit).toHaveBeenCalledWith('setError', error);
-  });
-
-  test('if "resetHome" reset error, rate updates, rate updates offset and transactions', () => {
-    const commit = jest.fn();
-
-    actions.resetHome({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setRateUpdates', []);
-    expect(commit).toHaveBeenCalledWith('setRateUpdatesOffset', 0);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
   });
 });
 

@@ -3,7 +3,7 @@ import { APIS, HOME, SETTINGS } from '@/constants';
 
 export default {
   async initHome({ commit, dispatch }) {
-    dispatch('resetHome');
+    commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchAbrTokens'),
@@ -124,12 +124,5 @@ export default {
 
   handleError({ commit }, error) {
     commit('setError', error);
-  },
-
-  resetHome({ commit }) {
-    commit('setError', null);
-    commit('setRateUpdates', []);
-    commit('setRateUpdatesOffset', 0);
-    commit('setTransactions', []);
   },
 };
