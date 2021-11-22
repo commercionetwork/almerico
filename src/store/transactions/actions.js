@@ -3,7 +3,7 @@ import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
 
 export default {
   async initTransactionsList({ commit, dispatch }) {
-    dispatch('resetTransactionsList');
+    commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchTransactions', { query: 'tx.height >= 1', offset: 0 }),
@@ -45,7 +45,7 @@ export default {
   },
 
   async initTransactionsDetail({ commit, dispatch }, hash) {
-    dispatch('resetTransactionsDetail');
+    commit('reset');
     commit('setLoading', true);
     const requests = [dispatch('fetchTransactionByHash', hash)];
     await Promise.all(requests);
@@ -93,18 +93,6 @@ export default {
 
   handleError({ commit }, error) {
     commit('setError', error);
-  },
-
-  resetTransactionsList({ commit }) {
-    commit('setError', null);
-    commit('setOffset', 0);
-    commit('setPagination', null);
-    commit('setTransactions', []);
-  },
-
-  resetTransactionsDetail({ commit }) {
-    commit('setError', null);
-    commit('setDetail', null);
   },
 };
 

@@ -2,7 +2,7 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-export const initialState = {
+export const initState = () => ({
   detail: null,
   error: null,
   isAddingTxs: false,
@@ -10,15 +10,12 @@ export const initialState = {
   offset: 0,
   pagination: null,
   transactions: [],
-};
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
+  state: initState(),
   getters,
-  actions,
   mutations,
+  actions,
 };

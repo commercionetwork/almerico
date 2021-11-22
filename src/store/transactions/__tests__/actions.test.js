@@ -31,7 +31,7 @@ describe('store/transactions/actions', () => {
 
     await actions.initTransactionsList({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('resetTransactionsList');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       query: 'tx.height >= 1',
@@ -112,7 +112,7 @@ describe('store/transactions/actions', () => {
 
     await actions.initTransactionsDetail({ commit, dispatch }, hash);
 
-    expect(dispatch).toHaveBeenCalledWith('resetTransactionsDetail');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactionByHash', hash);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
@@ -175,26 +175,6 @@ describe('store/transactions/actions', () => {
     actions.handleError({ commit }, error);
 
     expect(commit).toHaveBeenCalledWith('setError', error);
-  });
-
-  test('if "resetTransactionsList" reset error, offset, pagination and txs', () => {
-    const commit = jest.fn();
-
-    actions.resetTransactionsList({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setOffset', 0);
-    expect(commit).toHaveBeenCalledWith('setPagination', null);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
-  });
-
-  test('if "resetTransactionsDetail" reset error and detail', () => {
-    const commit = jest.fn();
-
-    actions.resetTransactionsDetail({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setDetail', null);
   });
 });
 
