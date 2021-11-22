@@ -62,17 +62,18 @@ export default {
   },
   methods: {
     ...mapActions('blocks', {
-      initBlocksList: 'initBlocksList',
       addBlocksItem: 'addBlocksItem',
+      initBlocksList: 'initBlocksList',
       searchBlocks: 'searchBlocks',
     }),
     onSearchingBlocks(height) {
       if (height) {
+        this.isSearching = true;
         this.searchBlocks(height);
       } else {
+        this.isSearching = false;
         this.initBlocksList(this.lastHeight);
       }
-      this.isSearching = height ? true : false;
     },
   },
   created() {

@@ -45,6 +45,12 @@ describe('store/blocks/mutations', () => {
     expect(state.isAddingBlocks).toBe(true);
   });
 
+  test('mutations.setSearching', () => {
+    mutations.setSearching(state, true);
+
+    expect(state.isSearching).toBe(true);
+  });
+
   test('mutations.setBlocks', () => {
     const payload = [{ id: 1 }];
     mutations.setBlocks(state, payload);

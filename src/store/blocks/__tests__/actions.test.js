@@ -36,26 +36,14 @@ describe('store/blocks/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "addBlocks" commit "setAddingBlocks" and dispatch "fetchBlocks" action', async () => {
+  test('if "fetchBlocks" dispatch "addBlocksItem" and commit "setCurrentHeight"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const lastHeight = '100';
-
-    await actions.addBlocks({ commit, dispatch }, lastHeight);
-
-    expect(commit).toHaveBeenCalledWith('setAddingBlocks', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchBlocks', lastHeight);
-    expect(commit).toHaveBeenCalledWith('setAddingBlocks', false);
-  });
-
-  test('if "fetchBlocks" dispatch "addBlocksItem" and "setCurrentHeight"', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const lastHeight = '1000';
-    let maxHeight = parseInt(lastHeight);
+    const height = '1000';
+    let maxHeight = parseInt(height);
     let minHeight = maxHeight - BLOCKS.TABLE_ITEMS;
 
-    await actions.fetchBlocks({ commit, dispatch }, lastHeight);
+    await actions.fetchBlocks({ commit, dispatch }, height);
 
     expect(dispatch).toHaveBeenCalledTimes(BLOCKS.TABLE_ITEMS);
     while (maxHeight > minHeight) {
@@ -81,6 +69,36 @@ describe('store/blocks/actions', () => {
     await actions.addBlocksItem({ commit, dispatch }, height);
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test('if "addBlocks" commit "setAddingBlocks" and dispatch "fetchBlocks" action', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const lastHeight = '100';
+
+    await actions.addBlocks({ commit, dispatch }, lastHeight);
+
+    expect(commit).toHaveBeenCalledWith('setAddingBlocks', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchBlocks', lastHeight);
+    expect(commit).toHaveBeenCalledWith('setAddingBlocks', false);
+  });
+
+  test('if "searchBlocks" reset blocks adn current height, set searching state, fetch blocks and set current height', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const height = '1000';
+    let maxHeight = parseInt(height);
+    let minHeight = maxHeight - BLOCKS.SEARCH_ITEMS;
+
+    await actions.searchBlocks({ commit, dispatch }, height);
+
+    expect(commit).toHaveBeenCalledWith('setBlocks', []);
+    expect(commit).toHaveBeenCalledWith('setCurrentHeight', '');
+    expect(dispatch).toHaveBeenCalledTimes(BLOCKS.SEARCH_ITEMS);
+    while (maxHeight > minHeight) {
+      expect(dispatch).toHaveBeenCalledWith('addBlocksItem', maxHeight--);
+    }
+    expect(commit).toHaveBeenCalledWith('setCurrentHeight', minHeight);
   });
 
   test('if "initBlocksDetail" reset store, set loading state, dispatch "fetchBlock", "fetchTransactions" and "fetchValidatorSets" actions', async () => {
