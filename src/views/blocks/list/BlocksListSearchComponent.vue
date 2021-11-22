@@ -19,7 +19,7 @@
                       </v-icon>
                     </template>
                     <i18n tag="span" path="msgs.searchBlocksInfo">
-                      <span v-text="BLOCKS.TABLE_ITEMS" />
+                      <span v-text="BLOCKS.SEARCH_ITEMS" />
                     </i18n>
                   </v-tooltip>
                 </template>
