@@ -1,13 +1,24 @@
+import { initState } from '../index';
 import mutations from '../mutations';
-import store from '../index';
 
 describe('store/exchange-rate/mutations', () => {
   let state = {};
 
   beforeEach(() => {
-    state = {
-      ...store.initialState,
-    };
+    state = initState();
+  });
+
+  test('mutations.reset', () => {
+    state.error = new Error('error');
+    state.isLoading = true;
+    state.abrTokens = [{ id: 1 }];
+    state.pool = { id: 1 };
+
+    const expected = initState();
+
+    mutations.reset(state);
+
+    expect(state).toStrictEqual(expected);
   });
 
   test('mutations.setError', () => {

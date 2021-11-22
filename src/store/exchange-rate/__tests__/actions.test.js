@@ -22,7 +22,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.initExchangeRate({ commit, dispatch });
 
-    expect(dispatch).toHaveBeenCalledWith('resetExchangeRate');
+    expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchAccounts');
     expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
@@ -133,15 +133,6 @@ describe('store/exchange-rate/actions', () => {
     actions.handleError({ commit }, error);
 
     expect(commit).toHaveBeenCalledWith('setError', error);
-  });
-
-  test('if "resetExchangeRate" reset error and accounts', () => {
-    const commit = jest.fn();
-
-    actions.resetExchangeRate({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', null);
-    expect(commit).toHaveBeenCalledWith('setAccounts', []);
   });
 });
 

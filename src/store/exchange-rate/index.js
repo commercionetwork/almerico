@@ -2,7 +2,7 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-export const initialState = {
+export const initState = () => ({
   abrTokens: [],
   accounts: [],
   error: null,
@@ -11,15 +11,12 @@ export const initialState = {
   pool: null,
   supply: [],
   vbrTokens: [],
-};
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
+  state: initState(),
   getters,
-  actions,
   mutations,
+  actions,
 };

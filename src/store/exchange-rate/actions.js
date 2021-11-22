@@ -3,7 +3,7 @@ import { SETTINGS } from '@/constants';
 
 export default {
   async initExchangeRate({ commit, dispatch }) {
-    dispatch('resetExchangeRate');
+    commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchAbrTokens'),
@@ -80,10 +80,5 @@ export default {
 
   handleError({ commit }, error) {
     commit('setError', error);
-  },
-
-  resetExchangeRate({ commit }) {
-    commit('setError', null);
-    commit('setAccounts', []);
   },
 };
