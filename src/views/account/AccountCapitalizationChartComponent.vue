@@ -37,6 +37,7 @@ export default {
         this.capitalization,
         {
           availables: this.$t('labels.availables'),
+          commission: this.$t('labels.commission'),
           delegations: this.$t('labels.delegations'),
           unbondings: this.$t('labels.unbondings'),
           rewards: this.$t('labels.rewards'),

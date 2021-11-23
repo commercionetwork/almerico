@@ -52,6 +52,7 @@ export default {
     }),
     ...mapGetters('account', {
       balances: 'balances',
+      commission: 'commission',
       delegations: 'delegations',
       rewards: 'rewards',
       unbondings: 'unbondings',
@@ -59,6 +60,7 @@ export default {
     capital() {
       return accountBalanceHelper.build({
         balances: this.balances,
+        commission: this.commission,
         delegations: this.delegations,
         rewards: this.rewards,
         unbondings: this.unbondings,

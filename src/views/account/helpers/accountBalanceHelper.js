@@ -1,9 +1,19 @@
 const accountBalanceHelper = {
-  build({ balances, delegations, rewards, unbondings, bondDenom }) {
+  build({ balances, commission, delegations, rewards, unbondings, bondDenom }) {
     const capital = new Capital();
 
     if (balances && balances.length > 0) {
       capital.availables = _getAvailablesAmount(balances, bondDenom);
+    }
+    if (
+      commission &&
+      commission.commission &&
+      commission.commission.length > 0
+    ) {
+      capital.commission = _getCommissionAmount(
+        commission.commission,
+        bondDenom,
+      );
     }
     if (delegations && delegations.length > 0) {
       capital.delegations = _getDelegationsAmount(delegations);
@@ -26,6 +36,16 @@ const _getAvailablesAmount = (balances, bondDenom) => {
     (balance) => balance.denom === bondDenom,
   );
   return filteredBalances.reduce(
+    (acc, item) => acc + parseFloat(item.amount),
+    0,
+  );
+};
+
+const _getCommissionAmount = (commission, bondDenom) => {
+  const filteredCommission = commission.filter(
+    (item) => item.denom === bondDenom,
+  );
+  return filteredCommission.reduce(
     (acc, item) => acc + parseFloat(item.amount),
     0,
   );
@@ -62,6 +82,7 @@ const _getUnbondingsAmount = (unbondings) => {
 class Capital {
   constructor() {
     this.availables = 0;
+    this.commission = 0;
     this.delegations = 0;
     this.rewards = 0;
     this.unbondings = 0;
@@ -72,11 +93,17 @@ class Capital {
   }
 
   get notEarning() {
-    return this.availables + this.rewards + this.unbondings;
+    return this.availables + this.commission + this.rewards + this.unbondings;
   }
 
   get total() {
-    return this.availables + this.delegations + this.rewards + this.unbondings;
+    return (
+      this.availables +
+      this.commission +
+      this.delegations +
+      this.rewards +
+      this.unbondings
+    );
   }
 
   get assets() {
@@ -90,6 +117,7 @@ class Capital {
   get capitalization() {
     return {
       availables: this.availables,
+      commission: this.commission,
       delegations: this.delegations,
       unbondings: this.unbondings,
       rewards: this.rewards,

@@ -34,8 +34,8 @@ export default {
   computed: {
     chartData() {
       return accountPerformanceChartHelper.getChartData(this.assets, {
-        earning: this.$t('labels.earningRewards'),
-        notEarning: this.$t('labels.notEarningRewards'),
+        earning: this.$t('labels.earning'),
+        notEarning: this.$t('labels.notEarning'),
       });
     },
     chartLabel() {

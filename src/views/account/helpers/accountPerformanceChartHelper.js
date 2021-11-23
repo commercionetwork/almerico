@@ -25,13 +25,13 @@ const accountPerformanceChartHelper = {
    * @returns {Object}
    */
   getChartData(assets, labels) {
-    const earningRewards = _formatPercent(assets.earning, assets.total);
-    const notEarningRewards = _formatPercent(assets.notEarning, assets.total);
+    const earning = _formatPercent(assets.earning, assets.total);
+    const notEarning = _formatPercent(assets.notEarning, assets.total);
     return {
       labels: [labels.earning, labels.notEarning],
       datasets: [
         {
-          data: [earningRewards, notEarningRewards],
+          data: [earning, notEarning],
           backgroundColor: BACKGROUND_COLOR,
           borderColor: BORDER_COLOR,
         },
