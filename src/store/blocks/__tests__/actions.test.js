@@ -52,6 +52,24 @@ describe('store/blocks/actions', () => {
     expect(commit).toHaveBeenCalledWith('setCurrentHeight', minHeight);
   });
 
+  test('if "searchBlocks" reset blocks adn current height, set searching state, fetch blocks and set current height', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const height = '1000';
+    let maxHeight = parseInt(height);
+    let minHeight = maxHeight - BLOCKS.SEARCH_ITEMS;
+
+    await actions.searchBlocks({ commit, dispatch }, height);
+
+    expect(commit).toHaveBeenCalledWith('setBlocks', []);
+    expect(commit).toHaveBeenCalledWith('setCurrentHeight', '');
+    expect(dispatch).toHaveBeenCalledTimes(BLOCKS.SEARCH_ITEMS);
+    while (maxHeight > minHeight) {
+      expect(dispatch).toHaveBeenCalledWith('addBlocksItem', maxHeight--);
+    }
+    expect(commit).toHaveBeenCalledWith('setCurrentHeight', minHeight);
+  });
+
   test('if "addBlocksItem" commit "addBlock, and dispatch "handleError" if error is caught"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
@@ -81,24 +99,6 @@ describe('store/blocks/actions', () => {
     expect(commit).toHaveBeenCalledWith('setAddingBlocks', true);
     expect(dispatch).toHaveBeenCalledWith('fetchBlocks', lastHeight);
     expect(commit).toHaveBeenCalledWith('setAddingBlocks', false);
-  });
-
-  test('if "searchBlocks" reset blocks adn current height, set searching state, fetch blocks and set current height', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const height = '1000';
-    let maxHeight = parseInt(height);
-    let minHeight = maxHeight - BLOCKS.SEARCH_ITEMS;
-
-    await actions.searchBlocks({ commit, dispatch }, height);
-
-    expect(commit).toHaveBeenCalledWith('setBlocks', []);
-    expect(commit).toHaveBeenCalledWith('setCurrentHeight', '');
-    expect(dispatch).toHaveBeenCalledTimes(BLOCKS.SEARCH_ITEMS);
-    while (maxHeight > minHeight) {
-      expect(dispatch).toHaveBeenCalledWith('addBlocksItem', maxHeight--);
-    }
-    expect(commit).toHaveBeenCalledWith('setCurrentHeight', minHeight);
   });
 
   test('if "initBlocksDetail" reset store, set loading state, dispatch "fetchBlock", "fetchTransactions" and "fetchValidatorSets" actions', async () => {

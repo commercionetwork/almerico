@@ -11,13 +11,29 @@ export default {
   },
 
   async fetchBlocks({ commit, dispatch }, height) {
-    const requests = setUpBlocksRequests({
-      height,
-      items: BLOCKS.TABLE_ITEMS,
-      commit,
+    const min = _getMinHeight(height, BLOCKS.TABLE_ITEMS);
+    const requests = _setUpBlocksRequests({
+      max: height,
+      min,
       dispatch,
     });
     await Promise.all(requests);
+    commit('setCurrentHeight', min);
+  },
+
+  async searchBlocks({ commit, dispatch }, height) {
+    commit('setBlocks', []);
+    commit('setCurrentHeight', '');
+    commit('setSearching', true);
+    const min = _getMinHeight(height, BLOCKS.SEARCH_ITEMS);
+    const requests = _setUpBlocksRequests({
+      max: height,
+      min,
+      dispatch,
+    });
+    await Promise.all(requests);
+    commit('setCurrentHeight', min);
+    commit('setSearching', false);
   },
 
   async addBlocksItem({ commit, dispatch }, height) {
@@ -34,20 +50,6 @@ export default {
     commit('setAddingBlocks', true);
     await dispatch('fetchBlocks', height);
     commit('setAddingBlocks', false);
-  },
-
-  async searchBlocks({ commit, dispatch }, height) {
-    commit('setBlocks', []);
-    commit('setCurrentHeight', '');
-    commit('setSearching', true);
-    const requests = setUpBlocksRequests({
-      height,
-      items: BLOCKS.SEARCH_ITEMS,
-      commit,
-      dispatch,
-    });
-    await Promise.all(requests);
-    commit('setSearching', false);
   },
 
   async initBlocksDetail({ commit, dispatch }, height) {
@@ -112,13 +114,15 @@ export default {
   },
 };
 
-const setUpBlocksRequests = ({ height, items, commit, dispatch }) => {
+const _getMinHeight = (height, items) => {
+  const maxHeight = parseInt(height);
+  return maxHeight - items > 0 ? maxHeight - items : 0;
+};
+
+const _setUpBlocksRequests = ({ max, min, dispatch }) => {
   const requests = [];
-  let maxHeight = parseInt(height);
-  let minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
-  while (maxHeight > minHeight) {
-    requests.push(dispatch('addBlocksItem', maxHeight--));
+  while (max > min) {
+    requests.push(dispatch('addBlocksItem', max--));
   }
-  commit('setCurrentHeight', minHeight);
   return requests;
 };
