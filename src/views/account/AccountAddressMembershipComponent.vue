@@ -1,17 +1,9 @@
 <template>
-  <div class="d-flex flex-column flex-md-row justify-center align-center">
-    <v-card color="white" flat class="pa-1">
-      <v-btn class="pa-1" color="black" icon>
-        <v-icon :color="membershipColor" large>
-          mdi-card-account-details
-        </v-icon>
-      </v-btn>
-    </v-card>
-    <div class="pl-md-2 text-center text-md-left">
-      <div class="text-capitalize" v-text="$t('labels.membership')" />
+  <v-card-text class="d-flex flex-row justify-space-between align-center">
+    <div>
       <router-link
         v-if="txhash"
-        class="pl-2 text-capitalize font-weight-bold secondary--text"
+        class="text-h5 text-capitalize font-weight-bold secondary--text"
         :to="{
           name: ROUTES.NAME.TRANSACTIONS_DETAIL,
           params: { id: txhash },
@@ -20,11 +12,19 @@
       />
       <div
         v-else
-        class="text-capitalize font-weight-bold"
+        class="text-h5 text-capitalize font-weight-bold"
         v-text="membershipText"
       />
+      <div class="text-caption font-italic" v-text="$t('titles.membership')" />
     </div>
-  </div>
+    <div>
+      <v-card color="white" flat class="pa-1">
+        <v-icon size="50" :color="membershipColor">
+          mdi-card-account-details
+        </v-icon>
+      </v-card>
+    </div>
+  </v-card-text>
 </template>
 
 <script>
@@ -32,7 +32,7 @@ import { ACCOUNT, ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'AccountMembershipComponent',
+  name: 'AccountAddressMembershipComponent',
   data: () => ({
     ROUTES,
   }),

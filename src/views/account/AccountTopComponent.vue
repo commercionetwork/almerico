@@ -1,45 +1,50 @@
 <template>
-  <v-card outlined>
-    <v-card-text>
-      <v-row>
-        <v-col cols="12" md="6">
-          <AccountAddressComponent
-            :address="address"
-            v-on:open-qrcode="onOpenQrcode"
-          />
-          <AccountQRCodeComponent v-model="dialog" :address="address" />
-        </v-col>
-        <v-col cols="12" md="6">
-          <AccountMembershipComponent />
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+  <v-row>
+    <v-col cols="12" md="4">
+      <AccountAddressComponent />
+    </v-col>
+    <v-col cols="12" md="4">
+      <AccountPerformanceChartComponent :assets="capital.assets" />
+    </v-col>
+    <v-col cols="12" md="4">
+      <AccountBankComponent :balances="balances" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 import AccountAddressComponent from './AccountAddressComponent.vue';
-import AccountMembershipComponent from './AccountMembershipComponent.vue';
-import AccountQRCodeComponent from './AccountQRCodeComponent.vue';
+import AccountBankComponent from './AccountBankComponent.vue';
+import AccountPerformanceChartComponent from './AccountPerformanceChartComponent.vue';
+
+import accountBalanceHelper from './helpers/accountBalanceHelper';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'AccountTopComponent',
   components: {
     AccountAddressComponent,
-    AccountMembershipComponent,
-    AccountQRCodeComponent,
+    AccountBankComponent,
+    AccountPerformanceChartComponent,
   },
-  data: () => ({
-    dialog: false,
-  }),
   computed: {
-    address() {
-      return this.$route.params.id;
-    },
-  },
-  methods: {
-    onOpenQrcode() {
-      this.dialog = true;
+    ...mapGetters('application', {
+      params: 'stakingParams',
+    }),
+    ...mapGetters('account', {
+      balances: 'balances',
+      delegations: 'delegations',
+      rewards: 'rewards',
+      unbondings: 'unbondings',
+    }),
+    capital() {
+      return accountBalanceHelper.build({
+        balances: this.balances,
+        delegations: this.delegations,
+        rewards: this.rewards,
+        unbondings: this.unbondings,
+        bondDenom: this.params.bond_denom,
+      });
     },
   },
 };

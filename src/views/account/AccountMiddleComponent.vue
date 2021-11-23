@@ -1,12 +1,6 @@
 <template>
   <v-row class="mt-1">
     <v-col cols="12" md="6">
-      <AccountBankComponent :balances="balances" />
-    </v-col>
-    <v-col cols="12" md="6">
-      <AccountPerformanceChartComponent :assets="capital.assets" />
-    </v-col>
-    <v-col cols="12" md="6">
       <AccountCapitalizationChartComponent
         :capitalization="capital.capitalization"
       />
@@ -35,11 +29,9 @@
 </template>
 
 <script>
-import AccountBankComponent from './AccountBankComponent.vue';
 import AccountCapitalizationChartComponent from './AccountCapitalizationChartComponent.vue';
 import AccountCapitalizationComponent from './AccountCapitalizationComponent.vue';
 import AccountDelegationsComponent from './AccountDelegationsComponent.vue';
-import AccountPerformanceChartComponent from './AccountPerformanceChartComponent.vue';
 import AccountUnbondingsComponent from './AccountUnbondingsComponent.vue';
 
 import accountBalanceHelper from './helpers/accountBalanceHelper';
@@ -48,10 +40,8 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'AccountMiddleComponent',
   components: {
-    AccountBankComponent,
     AccountCapitalizationChartComponent,
     AccountCapitalizationComponent,
-    AccountPerformanceChartComponent,
     AccountDelegationsComponent,
     AccountUnbondingsComponent,
   },

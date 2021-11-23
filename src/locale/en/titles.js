@@ -21,6 +21,7 @@ export const titles = {
   keys: 'Keys',
   lastBlocks : 'Last {0} blocks',
   latestHeight: 'Latest height',
+  membership: 'Membership',
   message: 'Message',
   metadata: 'Metadata',
   msgsTxs: 'Msgs/txs',
