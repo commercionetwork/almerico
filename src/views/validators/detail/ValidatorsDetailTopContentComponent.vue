@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" :md="isBlocksMonitor ? 4 : 6">
-      <ValidatorsDetailMonikerComponent :account="account" />
+      <ValidatorsDetailAddressComponent :account="account" />
     </v-col>
     <v-col cols="12" :md="isBlocksMonitor ? 4 : 6">
       <ValidatorsDetailSpecComponent />
@@ -14,7 +14,7 @@
 
 <script>
 import ValidatorsDetailBlocksComponent from './ValidatorsDetailBlocksComponent.vue';
-import ValidatorsDetailMonikerComponent from './ValidatorsDetailMonikerComponent.vue';
+import ValidatorsDetailAddressComponent from './ValidatorsDetailAddressComponent.vue';
 import ValidatorsDetailSpecComponent from './ValidatorsDetailSpecComponent.vue';
 
 import { VALIDATORS } from '@/constants';
@@ -23,7 +23,7 @@ export default {
   name: 'ValidatorsDetailTopContentComponent',
   components: {
     ValidatorsDetailBlocksComponent,
-    ValidatorsDetailMonikerComponent,
+    ValidatorsDetailAddressComponent,
     ValidatorsDetailSpecComponent,
   },
   props: {

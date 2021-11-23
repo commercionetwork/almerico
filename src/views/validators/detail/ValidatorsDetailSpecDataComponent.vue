@@ -1,7 +1,7 @@
 <template>
   <div class="pa-1">
     <div class="text-capitalize font-weight-bold" v-text="label" />
-    <div v-text="value" />
+    <div class="pl-1" v-text="value" />
   </div>
 </template>
 
