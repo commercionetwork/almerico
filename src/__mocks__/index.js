@@ -1,5 +1,6 @@
 import { mockBalance, mockBalances } from './balances';
 import { mockBlock, mockBlocks } from './blocks';
+import { mockCommission } from './commission';
 import { mockConversionRate } from './conversion_rate';
 import { mockDelegation, mockDelegations } from './delegations';
 import { mockErrors } from './errors';
@@ -26,6 +27,7 @@ export {
   mockBalances,
   mockBlock,
   mockBlocks,
+  mockCommission,
   mockConversionRate,
   mockDelegation,
   mockDelegations,

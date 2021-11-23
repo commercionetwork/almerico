@@ -2,11 +2,12 @@ import { bank, commercio, distribution, staking, tx } from '@/apis/http';
 import { ACCOUNT, APIS } from '@/constants';
 
 export default {
-  async initAccount({ commit, dispatch }, address) {
+  async initAccount({ commit, dispatch }, { address, validator }) {
     commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchBalances', address),
+      dispatch('fetchCommission', validator),
       dispatch('fetchDelegations', address),
       dispatch('fetchMembership', address),
       dispatch('fetchMembershipTxs', address),
@@ -22,6 +23,15 @@ export default {
     try {
       const response = await bank.requestBalancesLegacy(address);
       commit('setBalances', response.data.result);
+    } catch (error) {
+      dispatch('handleError', error);
+    }
+  },
+
+  async fetchCommission({ commit, dispatch }, validator) {
+    try {
+      const response = await distribution.requestCommission(validator);
+      commit('setCommission', response.data.commission);
     } catch (error) {
       dispatch('handleError', error);
     }

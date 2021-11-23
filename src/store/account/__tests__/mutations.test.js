@@ -47,6 +47,14 @@ describe('store/account/mutations', () => {
     expect(state.balances).toStrictEqual(balances);
   });
 
+  test('mutations.setCommission', () => {
+    const commission = { id: 1 };
+
+    mutations.setCommission(state, commission);
+
+    expect(state.commission).toStrictEqual(commission);
+  });
+
   test('mutations.setDelegations', () => {
     const delegations = [{ id: 1 }];
 

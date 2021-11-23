@@ -1,5 +1,6 @@
 export default {
   balances: (state) => state.balances,
+  commission: (state) => state.commission,
   delegations: (state) => state.delegations,
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,

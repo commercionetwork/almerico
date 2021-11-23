@@ -4,6 +4,7 @@ import mutations from './mutations';
 
 export const initState = () => ({
   balances: [],
+  commission: null,
   delegations: [],
   error: null,
   isLoading: false,

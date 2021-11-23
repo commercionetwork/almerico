@@ -28,6 +28,8 @@ import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
+import { CONFIG } from '@/constants';
+import { bech32Manager } from '@/utils';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -48,6 +50,13 @@ export default {
     address() {
       return this.$route.params.id;
     },
+    validator() {
+      const hex = bech32Manager.decode(this.address);
+      return bech32Manager.encode(
+        hex,
+        CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS,
+      );
+    },
   },
   watch: {
     address(value) {
@@ -60,7 +69,7 @@ export default {
     }),
   },
   created() {
-    this.initAccount(this.address);
+    this.initAccount({ address: this.address, validator: this.validator });
   },
 };
 </script>

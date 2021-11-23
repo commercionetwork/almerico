@@ -27,6 +27,7 @@ describe('views/account/Account.vue', () => {
   };
   const computed = {
     address: () => 'address',
+    validator: () => 'validator',
   };
 
   test('if loading indicator is displayed', () => {

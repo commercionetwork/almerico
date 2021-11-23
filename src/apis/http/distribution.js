@@ -14,4 +14,16 @@ export default {
       url: `/delegators/${address}/rewards`,
     });
   },
+  /**
+   *
+   * @param {String} address
+   * @returns {AxiosPromise}
+   */
+  requestCommission(address) {
+    return axios({
+      method: 'get',
+      baseURL: `${APIS.HTTP.DISTRIBUTION}`,
+      url: `/validators/${address}/commission`,
+    });
+  },
 };

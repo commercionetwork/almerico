@@ -1,6 +1,7 @@
 import { ACCOUNT } from '@/constants';
 import {
   mockBalances,
+  mockCommission,
   mockDelegations,
   mockErrors,
   mockMembership,
@@ -29,11 +30,14 @@ describe('store/account/actions', () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
+    const validator = 'validator';
 
-    await actions.initAccount({ commit, dispatch }, address);
+    await actions.initAccount({ commit, dispatch }, { address, validator });
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchCommission', validator);
     expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembershipTxs', address);
@@ -58,6 +62,25 @@ describe('store/account/actions', () => {
     mockError = true;
 
     await actions.fetchBalances({ commit, dispatch }, address);
+
+    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+  });
+
+  test('if "fetchCommission" action commit "setCommission" mutation, and dispatch "handleError" if error is caught', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const validator = 'validator';
+
+    await actions.fetchCommission({ commit, dispatch }, validator);
+
+    expect(commit).toHaveBeenCalledWith(
+      'setCommission',
+      mockResponse.data.commission,
+    );
+
+    mockError = true;
+
+    await actions.fetchCommission({ commit, dispatch }, validator);
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
@@ -276,6 +299,22 @@ jest.mock('../../../apis/http/distribution.js', () => ({
 
         mockResponse = {
           data: mockRewards(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestCommission: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            commission: mockCommission(),
+          },
         };
         resolve(mockResponse);
       }, 1);

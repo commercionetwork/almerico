@@ -13,6 +13,9 @@ export default {
   setBalances(state, payload) {
     state.balances = payload;
   },
+  setCommission(state, payload) {
+    state.commission = payload;
+  },
   setDelegations(state, payload) {
     state.delegations = payload;
   },
