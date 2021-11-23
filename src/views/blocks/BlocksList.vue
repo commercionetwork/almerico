@@ -28,6 +28,7 @@ import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
+import { SETTINGS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -67,12 +68,18 @@ export default {
       searchBlocks: 'searchBlocks',
     }),
     onSearchingBlocks(height) {
-      if (height) {
+      if (!height) {
+        this.isSearching = false;
+        this.initBlocksList(this.lastHeight);
+      } else if (
+        !isNaN(height) &&
+        height <= this.lastHeight &&
+        height >= SETTINGS.FIRST_HEIGHT
+      ) {
         this.isSearching = true;
         this.searchBlocks(height);
       } else {
-        this.isSearching = false;
-        this.initBlocksList(this.lastHeight);
+        return;
       }
     },
   },

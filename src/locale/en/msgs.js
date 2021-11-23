@@ -11,7 +11,7 @@ export const msgs = {
   notFound: 'Not found',
   placeholderSearchBar: 'Search Address, Block Height, TxHash',
   scanAddress: 'Scan the address',
-  searchBlocksInfo: 'Search {0} blocks in descending order starting from an height',
+  searchBlocksInfo: 'Search {0} blocks in descending order starting from an height (min {1})',
   searchValidatorsInfo: 'Search validator by name, address and linked account,<br>filter list by status',
   startTypingToFilterTypes: 'Start typing to filter types',
   success: 'Success',

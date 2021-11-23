@@ -20,6 +20,7 @@
                     </template>
                     <i18n tag="span" path="msgs.searchBlocksInfo">
                       <span v-text="BLOCKS.SEARCH_ITEMS" />
+                      <span v-text="SETTINGS.FIRST_HEIGHT" />
                     </i18n>
                   </v-tooltip>
                 </template>
@@ -55,7 +56,7 @@
 <script>
 import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
 
-import { BLOCKS } from '@/constants';
+import { BLOCKS, SETTINGS } from '@/constants';
 
 export default {
   name: 'BlocksListSearchComponent',
@@ -64,6 +65,7 @@ export default {
   },
   data: () => ({
     BLOCKS,
+    SETTINGS,
     model: { height: '' },
   }),
   methods: {
