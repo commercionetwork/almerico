@@ -49,6 +49,7 @@ const priceChartHelper = {
       rateUpdates,
     });
     const listings = this.getListingsByRange({
+      startingDate,
       listings: all,
       range,
     });
@@ -112,9 +113,9 @@ const priceChartHelper = {
    * @param {GetPriceByRangeParams} params
    * @returns {Array.<Object>}
    */
-  getListingsByRange({ listings, range }) {
+  getListingsByRange({ startingDate, listings, range }) {
     const lastListing = _getLastListing(listings);
-    const startingTimestamp = _getStartingTimestamp(range);
+    const startingTimestamp = _getStartingTimestamp(startingDate, range);
     if (listings.length === 1) {
       return _buildFromOneListing(lastListing, startingTimestamp);
     }
@@ -135,17 +136,25 @@ const _getLastListing = (listings) => {
   });
 };
 
-const _getStartingTimestamp = (range) => {
+const _getStartingTimestamp = (startingDate, range) => {
+  let firstDate;
   switch (range) {
     case HOME.RANGE.TODAY:
-      return dateHandler.getSubtractedDate(1, 'day');
+      firstDate = dateHandler.getSubtractedDate(1, 'day');
+      break;
     case HOME.RANGE.WEEK:
-      return dateHandler.getSubtractedDate(7, 'day');
+      firstDate = dateHandler.getSubtractedDate(7, 'day');
+      break;
     case HOME.RANGE.MONTH:
-      return dateHandler.getSubtractedDate(1, 'month');
+      firstDate = dateHandler.getSubtractedDate(1, 'month');
+      break;
     default:
-      return dateHandler.getSubtractedDate(1, 'month');
+      firstDate = dateHandler.getSubtractedDate(1, 'month');
+      break;
   }
+  return dateHandler.chseckIsBefore(firstDate, startingDate)
+    ? startingDate
+    : firstDate;
 };
 
 const _buildFromOneListing = (lastListing, startingTimestamp) => {
