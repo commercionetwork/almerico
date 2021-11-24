@@ -1,5 +1,6 @@
 import {
   mockBalances,
+  mockCommission,
   mockDelegations,
   mockRewards,
   mockUnbondings,
@@ -15,16 +16,18 @@ describe('views/account/helpers', () => {
   test('if "accountCapitalizationChartHelper.getChartData" method return expected object', () => {
     const mockCapitalization = {
       availables: 1,
+      commission: 1,
       delegations: 1,
       unbondings: 1,
       rewards: 1,
       total: 4,
     };
     const mockLabels = {
+      availables: 'availables',
+      commission: 'commission',
       delegations: 'delegations',
       rewards: 'rewards',
       unbondings: 'unbondings',
-      availables: 'availables',
     };
     const data = accountCapitalizationChartHelper.getChartData(
       mockCapitalization,
@@ -32,7 +35,7 @@ describe('views/account/helpers', () => {
     );
 
     expect(data).toHaveProperty('labels');
-    expect(data.labels).toHaveLength(4);
+    expect(data.labels).toHaveLength(5);
     expect(data).toHaveProperty('datasets');
     expect(data.datasets).toHaveLength(1);
     expect(data.datasets[0]).toHaveProperty('data');
@@ -65,21 +68,32 @@ describe('views/account/helpers', () => {
   test('if "accountBalanceHelper.build" method return the wanted capital', () => {
     const capital = accountBalanceHelper.build({
       balances: mockBalances(),
+      commission: mockCommission,
       delegations: mockDelegations(),
       rewards: mockRewards(),
       unbondings: mockUnbondings(),
       bondDenom: 'ucommercio',
     });
 
-    const expectedKeys = ['availables', 'delegations', 'rewards', 'unbondings'];
+    const expectedKeys = [
+      'availables',
+      'commission',
+      'delegations',
+      'rewards',
+      'unbondings',
+    ];
     expect(Object.keys(capital)).toStrictEqual(expectedKeys);
     expect(capital.earning).toEqual(capital.delegations);
     expect(capital.notEarning).toEqual(
-      capital.availables + capital.rewards + capital.unbondings,
+      capital.availables +
+        capital.commission +
+        capital.rewards +
+        capital.unbondings,
     );
     expect(capital.total).toEqual(
-      capital.delegations +
-        capital.availables +
+      capital.availables +
+        capital.commission +
+        capital.delegations +
         capital.rewards +
         capital.unbondings,
     );
@@ -90,6 +104,7 @@ describe('views/account/helpers', () => {
     });
     expect(capital.capitalization).toStrictEqual({
       availables: capital.availables,
+      commission: capital.commission,
       delegations: capital.delegations,
       unbondings: capital.unbondings,
       rewards: capital.rewards,
