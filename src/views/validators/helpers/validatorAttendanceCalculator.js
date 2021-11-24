@@ -30,7 +30,7 @@ const validatorAttendanceCalculator = {
    * @returns {Array.<Object>}
    */
   getDetailDefinedBlocks({ blocks, validator, limit }) {
-    if (blocks.length < limit) {
+    if (validator.status !== 3 || blocks.length < limit) {
       return [];
     }
     const trackedBlocks = _restrictBlocks(blocks, limit);
