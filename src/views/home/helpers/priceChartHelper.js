@@ -1,6 +1,8 @@
-import { HOME } from '@/constants';
+import { HOME, SETTINGS } from '@/constants';
 import { dateHandler } from '@/utils';
-import { orderBy } from 'lodash';
+
+const TX_TYPE =
+  '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate';
 
 const BACKGROUND_COLOR = 'rgba(179, 224, 255, 0.5)';
 const BORDER_COLOR = 'rgba(77, 184, 255, 1)';
@@ -43,23 +45,13 @@ const priceChartHelper = {
    * @param {GetChartDataParams} params
    * @returns {Object}
    */
-  getChartData({ startingDate, rateUpdates, range }) {
-    const all = this.getAllSortedListings({
-      startingDate,
-      rateUpdates,
-    });
-    const listings = this.getListingsByRange({
-      startingDate,
-      listings: all,
-      range,
-    });
+  getChartData({ firstDate, rateUpdates, range }) {
+    const listings = _getListings({ firstDate, rateUpdates, range });
     return {
-      labels: listings.map((update) =>
-        dateHandler.getFormattedDate(update.date),
-      ),
+      labels: listings.map((listing) => listing.label),
       datasets: [
         {
-          data: listings.map((update) => update.price.toFixed(2)),
+          data: listings.map((listing) => listing.pricing.price),
           fill: true,
           backgroundColor: BACKGROUND_COLOR,
           borderColor: BORDER_COLOR,
@@ -75,153 +67,93 @@ const priceChartHelper = {
   getChartOptions() {
     return CHART_OPTIONS;
   },
-  /**
-   *
-   * @typedef {Object} GetAllSortedListingsParams
-   * @property {String} startingDate
-   * @property {Array.<Object>} rateUpdates
-   *
-   * @param {GetAllSortedListingsParams} params
-   * @returns {Array.<Object>}
-   */
-  getAllSortedListings({ startingDate, rateUpdates }) {
-    let all = [];
-    all.push(
-      new Conversion({
-        rate: 1,
-        date: startingDate,
-      }),
-    );
-    if (rateUpdates.length > 0) {
-      for (const update of rateUpdates) {
-        all.push(
-          new Conversion({ rate: _getRate(update), date: update.timestamp }),
-        );
-      }
-    }
-    const listings = all.map(
-      (it) => new Listing({ price: 1 / it.rate, date: it.date }),
-    );
-    return orderBy(listings, [`date`], ['asc']);
-  },
-  /**
-   *
-   * @typedef {Object} GetPriceByRangeParams
-   * @property {Array.<Object>} prices
-   * @property {String} range
-   *
-   * @param {GetPriceByRangeParams} params
-   * @returns {Array.<Object>}
-   */
-  getListingsByRange({ startingDate, listings, range }) {
-    const lastListing = _getLastListing(listings);
-    const startingTimestamp = _getStartingTimestamp(startingDate, range);
-    if (listings.length === 1) {
-      return _buildFromOneListing(lastListing, startingTimestamp);
-    }
-    if (listings.length === 2) {
-      return _buildFromTwoListings(listings, lastListing, startingTimestamp);
-    }
-    return _buildByRange(listings, lastListing, startingTimestamp);
-  },
 };
 
 export default priceChartHelper;
 
-const _getLastListing = (listings) => {
-  const lastPrice = listings[listings.length - 1];
-  return new Listing({
-    price: lastPrice.price,
-    date: dateHandler.getUtcDate(),
-  });
-};
-
-const _getStartingTimestamp = (startingDate, range) => {
-  let firstDate;
-  switch (range) {
-    case HOME.RANGE.TODAY:
-      firstDate = dateHandler.getSubtractedDate(1, 'day');
-      break;
-    case HOME.RANGE.WEEK:
-      firstDate = dateHandler.getSubtractedDate(7, 'day');
-      break;
-    case HOME.RANGE.MONTH:
-      firstDate = dateHandler.getSubtractedDate(1, 'month');
-      break;
-    default:
-      firstDate = dateHandler.getSubtractedDate(1, 'month');
-      break;
+const _getListings = ({ firstDate, rateUpdates, range }) => {
+  const startDate = _getStartingUTCDate(firstDate, range);
+  if (!rateUpdates.length) {
+    return _buildListingFromSingleValue(
+      SETTINGS.FIRST_CONVERSION_RATE,
+      startDate,
+    );
   }
-  return dateHandler.chseckIsBefore(firstDate, startingDate)
-    ? startingDate
-    : firstDate;
-};
-
-const _buildFromOneListing = (lastListing, startingTimestamp) => {
-  const firstListing = new Listing({
-    price: lastListing.price,
-    date: startingTimestamp,
-  });
-  return [firstListing, lastListing];
-};
-
-const _buildFromTwoListings = (listings, lastListing, startingTimestamp) => {
-  const firstListing = new Listing({
-    price: listings[0].price,
-    date: startingTimestamp,
-  });
-  return [firstListing, lastListing];
-};
-
-const _buildByRange = (listings, lastListing, startingTimestamp) => {
-  const filteredListings = listings.filter(
-    (listing) => listing.date > startingTimestamp,
-  );
-  if (!filteredListings.length) {
-    return _buildFromOneListing(lastListing, startingTimestamp);
+  const wantedUpdates = _getWantedUpdates(startDate, rateUpdates);
+  if (!wantedUpdates.length) {
+    const lastUpdate = rateUpdates[rateUpdates.length - 1];
+    return _buildListingFromSingleValue(_getRateFromTx(lastUpdate), startDate);
   }
-  const firstListing = new Listing({ date: startingTimestamp });
-  const firstDiscardedListingIndex =
-    listings.findIndex((listing) => listing.date > startingTimestamp) - 1;
-  firstListing.price =
-    firstDiscardedListingIndex < 0
-      ? listings[0]['price']
-      : listings[firstDiscardedListingIndex]['price'];
-  if (filteredListings.length === 1) {
-    return [firstListing, lastListing];
+  const hasAllUpdates = wantedUpdates.length === rateUpdates.length;
+  const listings = [];
+  if (!hasAllUpdates) {
+    const firstDiscardedIndex =
+      rateUpdates.findIndex((rate) => rate.timestamp >= startDate) - 1;
+    listings.push(_getListingFromUpdate(rateUpdates[firstDiscardedIndex]));
+  } else {
+    listings.push(new Listing(SETTINGS.FIRST_CONVERSION_RATE, startDate));
   }
-  const lastDuplicatedListing = _getLastDuplicatedListing(
-    filteredListings[filteredListings.length - 1]['date'],
-    lastListing['date'],
-    'day',
-  );
-  return lastDuplicatedListing
-    ? [firstListing, ...filteredListings]
-    : [firstListing, ...filteredListings, lastListing];
+  listings.push(..._buildListingsFromValues(wantedUpdates));
+  listings[0].date = startDate;
+  return listings;
 };
 
-const _getLastDuplicatedListing = (lastFilteredTms, lastListingTms, unit) => {
-  return dateHandler.checkIsSame(lastFilteredTms, lastListingTms, unit);
+const _buildListingFromSingleValue = (rate, startDate) => {
+  const startListing = new Listing(rate, startDate);
+  const endDate = dateHandler.getUtcDate();
+  const endListing = new Listing(rate, endDate);
+  return [startListing, endListing];
 };
 
-const _getRate = (update) => {
-  const type =
-    '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate';
-  const msgs = update.tx.body.messages;
-  const index = msgs.findIndex((msg) => msg['@type'] === type);
+const _buildListingsFromValues = (updates) =>
+  updates.map((update) => _getListingFromUpdate(update));
+
+const _getListingFromUpdate = (update) => {
+  const rate = _getRateFromTx(update);
+  return new Listing(rate, update.timestamp);
+};
+
+const _getWantedUpdates = (startDate, rateUpdates) =>
+  rateUpdates.filter((rate) => rate.timestamp >= startDate);
+
+const _getRateFromTx = (tx) => {
+  const msgs = tx.tx.body.messages;
+  const index = msgs.findIndex((msg) => msg['@type'] === TX_TYPE);
   return parseFloat(msgs[index].rate);
 };
 
-class Conversion {
-  constructor({ rate, date }) {
+const _getStartingUTCDate = (firstDate, range) => {
+  const rangeDate = _getStartingDateFromRange(range);
+  return dateHandler.checkIsBefore(rangeDate, firstDate)
+    ? firstDate
+    : rangeDate;
+};
+
+const _getStartingDateFromRange = (range) => {
+  switch (range) {
+    case HOME.RANGE.TODAY:
+      return dateHandler.getSubtractedDate(1, 'day');
+    case HOME.RANGE.WEEK:
+      return dateHandler.getSubtractedDate(7, 'day');
+    case HOME.RANGE.MONTH:
+      return dateHandler.getSubtractedDate(1, 'month');
+    default:
+      return dateHandler.getSubtractedDate(1, 'month');
+  }
+};
+
+class Listing {
+  constructor(rate, date) {
     this.rate = rate;
     this.date = date;
   }
-}
 
-class Listing {
-  constructor({ price, date }) {
-    this.price = price;
-    this.date = date;
+  get pricing() {
+    const price = (1 / this.rate).toFixed(2);
+    return { price, date: this.date };
+  }
+
+  get label() {
+    return dateHandler.getFormattedDate(this.date);
   }
 }

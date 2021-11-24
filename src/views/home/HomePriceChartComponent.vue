@@ -42,7 +42,7 @@ export default {
     }),
     chartData() {
       return priceChartHelper.getChartData({
-        startingDate: this.startingDate,
+        firstDate: this.startingDate,
         rateUpdates: this.rateUpdates,
         range: this.range,
       });
@@ -55,6 +55,9 @@ export default {
     chartRangeChange(range) {
       this.range = range;
     },
+  },
+  created() {
+    console.log(this.chartData.datasets);
   },
 };
 </script>
