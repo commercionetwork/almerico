@@ -131,7 +131,7 @@ describe('views/account/helpers', () => {
       validators: mockValidators(),
     });
 
-    const expectedKeys = ['date', 'moniker', 'height', 'amount'];
+    const expectedKeys = ['date', 'moniker', 'height', 'balance'];
 
     for (const unbonding of unbondings) {
       expect(Object.keys(unbonding)).toStrictEqual(expectedKeys);
