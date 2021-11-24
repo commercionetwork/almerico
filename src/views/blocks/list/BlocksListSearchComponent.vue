@@ -6,7 +6,7 @@
           <v-row>
             <v-col cols="10" offset="1">
               <v-text-field
-                :label="$t('labels.height')"
+                :label="$t('labels.searchHeight')"
                 append-icon="mdi-magnify"
                 v-model="model.height"
                 v-on:keydown.enter.prevent="search"

@@ -82,6 +82,8 @@ export const labels = {
   scan: 'Scan',
   sdnData: 'SDN data',
   search: 'Search',
+  searchHeight: 'Search Height',
+  searchNameAddressAccount: 'Search Name, Address, Account',
   securityContact: 'Security contact',
   self: 'Self',
   sender: 'Sender',

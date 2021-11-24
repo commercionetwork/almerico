@@ -5,7 +5,7 @@
         <v-row>
           <v-col cols="10" offset="1">
             <v-text-field
-              :label="$t('labels.search')"
+              :label="$t('labels.searchNameAddressAccount')"
               append-icon="mdi-magnify"
               v-model="query"
               @input="onFilter"
