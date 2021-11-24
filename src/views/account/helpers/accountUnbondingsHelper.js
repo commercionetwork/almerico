@@ -8,7 +8,7 @@ const accountUnbondingsHelper = {
           date: entry.completion_time,
           moniker: _getMoniker(validators, unbonding),
           height: entry.creation_height,
-          amount: entry.balance,
+          balance: entry.balance,
         });
       });
     });

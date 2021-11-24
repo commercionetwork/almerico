@@ -36,10 +36,10 @@
           }"
         />
       </template>
-      <template v-slot:[`item.amount`]="{ item }">
+      <template v-slot:[`item.balance`]="{ item }">
         <span
           class="text-uppercase font-weight-bold"
-          v-text="formatTokens(item.amount)"
+          v-text="formatTokens(item.balance)"
         />
       </template>
     </v-data-table>
@@ -78,10 +78,10 @@ export default {
   computed: {
     headers() {
       return [
-        { text: this.$t('labels.date'), value: 'date' },
+        { text: this.$t('labels.completionDate'), value: 'date' },
         { text: this.$t('labels.validator'), value: 'moniker' },
         { text: this.$t('labels.height'), value: 'height' },
-        { text: this.$t('labels.amount'), value: 'amount' },
+        { text: this.$t('labels.balance'), value: 'balance' },
       ];
     },
     items() {

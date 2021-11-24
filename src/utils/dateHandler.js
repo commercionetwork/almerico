@@ -8,6 +8,9 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
 export default {
+  chseckIsBefore(d1, d2) {
+    return dayjs(d1).isBefore(dayjs(d2));
+  },
   checkIsSame(d1, d2, unit = undefined) {
     return dayjs(d1).isSame(d2, unit);
   },
