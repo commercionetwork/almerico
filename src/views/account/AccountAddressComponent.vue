@@ -10,17 +10,21 @@
           v-text="address"
         />
         <div class="py-3">
-          <v-btn plain @click="openDialog">
-            {{ $t('labels.scan') }}
-            <v-icon right>mdi-qrcode</v-icon>
-          </v-btn>
+          <span class="px-1">
+            <v-btn outlined @click="openDialog">
+              {{ $t('labels.scan') }}
+              <v-icon right>mdi-qrcode</v-icon>
+            </v-btn>
+          </span>
           <AccountQRCodeComponent v-model="dialog" :address="address" />
           <v-tooltip top v-model="tooltip">
             <template v-slot:activator="{}">
-              <v-btn plain @click="copyToClipboard">
-                {{ $t('labels.copy') }}
-                <v-icon right>mdi-content-copy</v-icon>
-              </v-btn>
+              <span class="px-1">
+                <v-btn outlined @click="copyToClipboard">
+                  {{ $t('labels.copy') }}
+                  <v-icon right>mdi-content-copy</v-icon>
+                </v-btn>
+              </span>
             </template>
             <span v-text="$t('msgs.copied')" />
           </v-tooltip>

@@ -3,15 +3,15 @@ const BACKGROUND_COLOR = [
   'rgba(255, 205, 86, 0.2)',
   'rgba(255, 159, 64, 0.2)',
   'rgba(0, 204, 68, 0.2)',
-  'rgba(153, 102, 255, 0.2)',
   'rgba(54, 162, 235, 0.2)',
+  'rgba(153, 102, 255, 0.2)',
 ];
 const BORDER_COLOR = [
   'rgb(255, 205, 86)',
   'rgb(255, 159, 64)',
   'rgb(0, 204, 68)',
-  'rgb(153, 102, 255)',
   'rgb(54, 162, 235)',
+  'rgb(153, 102, 255)',
 ];
 const CHART_OPTIONS = {
   indexAxis: 'y',
