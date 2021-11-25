@@ -59,8 +59,4 @@ const blocksChartHelper = {
 export default blocksChartHelper;
 
 const _getTxs = (blocks) =>
-  blocks.reduce(
-    (acc, block) =>
-      block.data && block.data.txs ? acc + block.data.txs.length : acc + 0,
-    0,
-  );
+  blocks.reduce((acc, block) => acc + block.block.data.txs.length, 0);
