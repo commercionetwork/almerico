@@ -71,10 +71,10 @@ const priceChartHelper = {
 
 export default priceChartHelper;
 
-const _getListings = ({ firstDate, rateUpdates, range }) => {
+export const _getListings = ({ firstDate, rateUpdates, range }) => {
   const startDate = _getStartingUTCDate(firstDate, range);
   if (!rateUpdates.length) {
-    return _buildListingFromSingleValue(
+    return _buildListingsFromSingleValue(
       parseFloat(SETTINGS.FIRST_CONVERSION_RATE),
       startDate,
     );
@@ -82,12 +82,12 @@ const _getListings = ({ firstDate, rateUpdates, range }) => {
   const wantedUpdates = _getWantedUpdates(startDate, rateUpdates);
   if (!wantedUpdates.length) {
     const lastUpdate = rateUpdates[rateUpdates.length - 1];
-    return _buildListingFromSingleValue(_getRateFromTx(lastUpdate), startDate);
+    return _buildListingsFromSingleValue(_getRateFromTx(lastUpdate), startDate);
   }
   return _buildListingsFromValues(rateUpdates, wantedUpdates, startDate);
 };
 
-const _getStartingUTCDate = (firstDate, range) => {
+export const _getStartingUTCDate = (firstDate, range) => {
   const rangeDate = _getStartingDateFromRange(range);
   return dateHandler.checkIsBefore(rangeDate, firstDate)
     ? firstDate
@@ -107,7 +107,7 @@ const _getStartingDateFromRange = (range) => {
   }
 };
 
-const _buildListingFromSingleValue = (rate, startDate) => {
+export const _buildListingsFromSingleValue = (rate, startDate) => {
   const startListing = new Listing(rate, startDate);
   const endDate = dateHandler.getUtcDate();
   const endListing = new Listing(rate, endDate);

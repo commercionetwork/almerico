@@ -1,136 +1,75 @@
 import { HOME } from '@/constants';
 import { dateHandler } from '@/utils';
 import { mockRateUpdates } from '@/__mocks__';
-import { shuffle } from 'lodash';
-import priceChartHelper from '../priceChartHelper';
+import priceChartHelper, {
+  _getListings,
+  _getStartingUTCDate,
+  _buildListingsFromSingleValue,
+} from '../priceChartHelper';
 
 describe('views/home/helpers/priceChartHelper', () => {
-  const startingDate = dateHandler.getUtcDate('2020/2/1');
+  const mockDate = dateHandler.getUtcDate('1/1/2021');
 
-  test('if "getAllSortedListings" method add first rate, order items by date and return objects with "rate" and "date" keys', () => {
-    const updates = 5;
-    const year = 2021;
-    const month = 1;
-    const day = 1;
-    const rateUpdates = shuffle(mockRateUpdates({ updates, year, month, day }));
-    const all = priceChartHelper.getAllSortedListings({
-      startingDate,
-      rateUpdates,
+  test('if "getChartData" return the data to render the chart', () => {
+    const range = HOME.RANGE.MONTH;
+
+    const chartData = priceChartHelper.getChartData({
+      firstDate: mockDate,
+      rateUpdates: mockRateUpdates(),
+      range,
     });
 
-    expect(all[0].price).toBe(1);
-    expect(all[0].date).toBe(startingDate);
-    all.forEach((el, i) => {
-      const index = i + 1;
-      if (index === all.length) return;
-      expect(new Date(el.date).getMilliseconds()).toBeLessThanOrEqual(
-        new Date(all[index].date).getMilliseconds(),
-      );
-    });
-    all.forEach((el) => {
-      expect(Object.keys(el)).toStrictEqual(['price', 'date']);
-    });
+    const expectedKeys = ['labels', 'datasets'];
+    const expectedDatasetKeys = [
+      'data',
+      'fill',
+      'backgroundColor',
+      'borderColor',
+      'pointBackgroundColor',
+    ];
+
+    expect(Object.keys(chartData)).toStrictEqual(expectedKeys);
+    expect(chartData.datasets.length).toBe(1);
+    expect(Object.keys(chartData.datasets[0])).toStrictEqual(
+      expectedDatasetKeys,
+    );
   });
 
-  test('if "getListingsByRange" method return two listings at least', () => {
-    const rateUpdates = [];
-    const listings = priceChartHelper.getAllSortedListings({
-      startingDate,
-      rateUpdates,
+  test('if "_getListings" return label and data to build the chart', () => {
+    const range = HOME.RANGE.MONTH;
+
+    const listings = _getListings({
+      firstDate: mockDate,
+      rateUpdates: mockRateUpdates(),
+      range,
     });
 
-    const res = priceChartHelper.getListingsByRange({
-      listings,
-      range: HOME.RANGE.MONTH,
-    });
+    const expectedKeys = ['labels', 'data'];
 
-    expect(res.length).toBe(2);
+    expect(Object.keys(listings)).toStrictEqual(expectedKeys);
   });
 
-  test('if "getListingsByRange" method return the wanted 2 listings when there are 1 updates', () => {
-    const rateUpdates = mockRateUpdates();
-    const listings = priceChartHelper.getAllSortedListings({
-      startingDate,
-      rateUpdates,
-    });
+  test('if "_getStartingUTCDate" return right date', () => {
+    const range = HOME.RANGE.MONTH;
+    let firstDate = dateHandler.getSubtractedDate(1, 'day');
 
-    const res = priceChartHelper.getListingsByRange({
-      listings,
-      range: HOME.RANGE.MONTH,
-    });
+    let startDate = _getStartingUTCDate(firstDate, range);
 
-    expect(res.length).toBe(2);
-    res.forEach((el, i) => {
-      expect(el.price).toBe(listings[i].price);
-    });
+    expect(startDate).toBe(firstDate);
+
+    firstDate = dateHandler.getSubtractedDate(2, 'month');
+
+    startDate = _getStartingUTCDate(firstDate, range);
+
+    expect(startDate).toBe(dateHandler.getSubtractedDate(1, range));
   });
 
-  test("if 'getListingsByRange' method return the today listings", () => {
-    const updates = 5;
-    const year = 2021;
-    const month = 1;
-    const day = 1;
-    const rateUpdates = mockRateUpdates({ updates, year, month, day });
-    const firstDay = dateHandler.getSubtractedDate(1, 'day');
-    const today = dateHandler.getSubtractedDate(0, 'day');
+  test('if "_buildListingsFromSingleValue" return 2 listings', () => {
+    const rate = '1';
 
-    const listings = priceChartHelper.getAllSortedListings({
-      startingDate,
-      rateUpdates,
-    });
+    const listings = _buildListingsFromSingleValue(rate, mockDate);
 
-    const res = priceChartHelper.getListingsByRange({
-      listings,
-      range: HOME.RANGE.TODAY,
-    });
-
-    expect(res[0].date).toBe(firstDay);
-    expect(res[res.length - 1].date).toBe(today);
-  });
-
-  test("if 'getListingsByRange' method return the week listings", () => {
-    const updates = 5;
-    const year = 2021;
-    const month = 1;
-    const day = 1;
-    const rateUpdates = mockRateUpdates({ updates, year, month, day });
-    const firstDay = dateHandler.getSubtractedDate(7, 'day');
-    const today = dateHandler.getSubtractedDate(0, 'day');
-
-    const listings = priceChartHelper.getAllSortedListings({
-      startingDate,
-      rateUpdates,
-    });
-
-    const res = priceChartHelper.getListingsByRange({
-      listings,
-      range: HOME.RANGE.WEEK,
-    });
-
-    expect(res[0].date).toBe(firstDay);
-    expect(res[res.length - 1].date).toBe(today);
-  });
-
-  test("if 'getListingsByRange' method return the month listings", () => {
-    const updates = 5;
-    const year = 2021;
-    const month = 1;
-    const day = 1;
-    const rateUpdates = mockRateUpdates({ updates, year, month, day });
-    const firstDay = dateHandler.getSubtractedDate(1, 'month');
-    const today = dateHandler.getSubtractedDate(0, 'day');
-
-    const listings = priceChartHelper.getAllSortedListings({
-      startingDate,
-      rateUpdates,
-    });
-
-    const res = priceChartHelper.getListingsByRange({
-      listings,
-      range: HOME.RANGE.MONTH,
-    });
-
-    expect(res[0].date).toBe(firstDay);
-    expect(res[res.length - 1].date).toBe(today);
+    expect(listings.labels.length).toBe(2);
+    expect(listings.data.length).toBe(2);
   });
 });
