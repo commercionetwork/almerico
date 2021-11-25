@@ -56,8 +56,5 @@ export default {
       this.range = range;
     },
   },
-  created() {
-    console.log(this.chartData.datasets);
-  },
 };
 </script>

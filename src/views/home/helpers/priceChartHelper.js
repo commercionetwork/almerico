@@ -48,10 +48,10 @@ const priceChartHelper = {
   getChartData({ firstDate, rateUpdates, range }) {
     const listings = _getListings({ firstDate, rateUpdates, range });
     return {
-      labels: listings.map((listing) => listing.label),
+      labels: listings.labels,
       datasets: [
         {
-          data: listings.map((listing) => listing.pricing.price),
+          data: listings.data,
           fill: true,
           backgroundColor: BACKGROUND_COLOR,
           borderColor: BORDER_COLOR,
@@ -75,7 +75,7 @@ const _getListings = ({ firstDate, rateUpdates, range }) => {
   const startDate = _getStartingUTCDate(firstDate, range);
   if (!rateUpdates.length) {
     return _buildListingFromSingleValue(
-      SETTINGS.FIRST_CONVERSION_RATE,
+      parseFloat(SETTINGS.FIRST_CONVERSION_RATE),
       startDate,
     );
   }
@@ -84,42 +84,7 @@ const _getListings = ({ firstDate, rateUpdates, range }) => {
     const lastUpdate = rateUpdates[rateUpdates.length - 1];
     return _buildListingFromSingleValue(_getRateFromTx(lastUpdate), startDate);
   }
-  const hasAllUpdates = wantedUpdates.length === rateUpdates.length;
-  const listings = [];
-  if (!hasAllUpdates) {
-    const firstDiscardedIndex =
-      rateUpdates.findIndex((rate) => rate.timestamp >= startDate) - 1;
-    listings.push(_getListingFromUpdate(rateUpdates[firstDiscardedIndex]));
-  } else {
-    listings.push(new Listing(SETTINGS.FIRST_CONVERSION_RATE, startDate));
-  }
-  listings.push(..._buildListingsFromValues(wantedUpdates));
-  listings[0].date = startDate;
-  return listings;
-};
-
-const _buildListingFromSingleValue = (rate, startDate) => {
-  const startListing = new Listing(rate, startDate);
-  const endDate = dateHandler.getUtcDate();
-  const endListing = new Listing(rate, endDate);
-  return [startListing, endListing];
-};
-
-const _buildListingsFromValues = (updates) =>
-  updates.map((update) => _getListingFromUpdate(update));
-
-const _getListingFromUpdate = (update) => {
-  const rate = _getRateFromTx(update);
-  return new Listing(rate, update.timestamp);
-};
-
-const _getWantedUpdates = (startDate, rateUpdates) =>
-  rateUpdates.filter((rate) => rate.timestamp >= startDate);
-
-const _getRateFromTx = (tx) => {
-  const msgs = tx.tx.body.messages;
-  const index = msgs.findIndex((msg) => msg['@type'] === TX_TYPE);
-  return parseFloat(msgs[index].rate);
+  return _buildListingsFromValues(rateUpdates, wantedUpdates, startDate);
 };
 
 const _getStartingUTCDate = (firstDate, range) => {
@@ -141,6 +106,63 @@ const _getStartingDateFromRange = (range) => {
       return dateHandler.getSubtractedDate(1, 'month');
   }
 };
+
+const _buildListingFromSingleValue = (rate, startDate) => {
+  const startListing = new Listing(rate, startDate);
+  const endDate = dateHandler.getUtcDate();
+  const endListing = new Listing(rate, endDate);
+  return _setupChartData([startListing, endListing]);
+};
+
+const _setupChartData = (listings) => ({
+  labels: listings.map((listing) => listing.label),
+  data: listings.map((listing) => listing.pricing.price),
+});
+
+const _getRateFromTx = (tx) => {
+  const msgs = tx.tx.body.messages;
+  const index = msgs.findIndex((msg) => msg['@type'] === TX_TYPE);
+  return parseFloat(msgs[index].rate);
+};
+
+const _getWantedUpdates = (startDate, rateUpdates) =>
+  rateUpdates.filter((rate) => rate.timestamp >= startDate);
+
+const _buildListingsFromValues = (rateUpdates, wantedUpdates, startDate) => {
+  const hasAllUpdates = wantedUpdates.length === rateUpdates.length;
+  const listings = [];
+  if (!hasAllUpdates) {
+    const firstDiscardedIndex =
+      rateUpdates.findIndex((rate) => rate.timestamp >= startDate) - 1;
+    listings.push(_getListingFromUpdate(rateUpdates[firstDiscardedIndex]));
+    listings[0].date = startDate;
+  } else {
+    listings.push(
+      new Listing(parseFloat(SETTINGS.FIRST_CONVERSION_RATE), startDate),
+    );
+  }
+  listings.push(..._buildListingsFromUpdates(wantedUpdates));
+  if (
+    !dateHandler.checkIsSame(
+      dateHandler.getUtcDate(),
+      listings[listings.length - 1].date,
+      'day',
+    )
+  ) {
+    listings.push(
+      new Listing(listings[listings.length - 1].rate, dateHandler.getUtcDate()),
+    );
+  }
+  return _setupChartData(listings);
+};
+
+const _getListingFromUpdate = (update) => {
+  const rate = _getRateFromTx(update);
+  return new Listing(rate, update.timestamp);
+};
+
+const _buildListingsFromUpdates = (updates) =>
+  updates.map((update) => _getListingFromUpdate(update));
 
 class Listing {
   constructor(rate, date) {
