@@ -219,7 +219,7 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "refreshTransactions" reset txs, set loading state, dispatch "fetchTransactions" and finally reset event height', async () => {
+  test('if "refreshTransactions" reset txs, set loading state and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -229,7 +229,6 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setRefreshing', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
     expect(commit).toHaveBeenCalledWith('setRefreshing', false);
-    expect(commit).toHaveBeenCalledWith('setTxEventHeight', '');
   });
 
   test('if "handleError" set error', () => {

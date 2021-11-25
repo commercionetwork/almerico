@@ -104,10 +104,11 @@ export default {
       events: 'tx.height >= 1',
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
     };
+    const pagination = {
+      limit: HOME.TRANSACTIONS_NUMBER,
+    };
     try {
-      const response = await tx.requestTxsList(params, {
-        limit: HOME.TRANSACTIONS_NUMBER,
-      });
+      const response = await tx.requestTxsList(params, pagination);
       commit('addTransactions', response.data.tx_responses);
     } catch (error) {
       dispatch('handleError', error);
@@ -119,7 +120,6 @@ export default {
     commit('setRefreshing', true);
     await dispatch('fetchTransactions');
     commit('setRefreshing', false);
-    commit('setTxEventHeight', '');
   },
 
   handleError({ commit }, error) {
