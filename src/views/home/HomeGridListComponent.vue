@@ -6,7 +6,7 @@
   </v-row>
   <v-row v-else data-test="content">
     <HomeGridListItemComponent
-      v-for="(transaction, index) in latestTransactions"
+      v-for="(transaction, index) in transactions"
       :key="index"
       :transaction="transaction"
     />
@@ -17,9 +17,7 @@
 import HomeGridListItemComponent from './HomeGridListItemComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
-import { HOME } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
-import { orderBy, take } from 'lodash';
 
 export default {
   name: 'HomeGridListComponent',
@@ -33,10 +31,6 @@ export default {
       transactions: 'transactions',
       txEventHeight: 'txEventHeight',
     }),
-    latestTransactions() {
-      const sortedTxs = orderBy(this.transactions, ['timestamp'], ['desc']);
-      return take(sortedTxs, HOME.TRANSACTIONS_NUMBER);
-    },
   },
   watch: {
     txEventHeight(value) {
