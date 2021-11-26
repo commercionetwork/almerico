@@ -72,6 +72,13 @@ describe('views/exchange-rate/ExchangeRate.vue', () => {
     const wrapper = shallowMount(ExchangeRate, {
       localVue,
       mocks,
+      data() {
+        return {
+          model: {
+            exchangeRate: 0,
+          },
+        };
+      },
       computed: {
         ...computed,
         error: () => null,
