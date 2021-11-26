@@ -76,7 +76,7 @@ export default {
       this.model = exchangeRateOverviewBuilder.build({
         abrTokens: this.abrTokens,
         accounts: this.accounts,
-        freezedTokens: this.freezedTokens,
+        // freezedTokens: this.freezedTokens,
         pool: this.pool,
         supply: this.supply,
         vbrTokens: this.vbrTokens,

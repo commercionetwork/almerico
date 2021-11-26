@@ -19,7 +19,7 @@ export default {
   build({
     abrTokens,
     accounts,
-    freezedTokens,
+    // freezedTokens,
     pool,
     supply,
     vbrTokens,
@@ -36,7 +36,7 @@ export default {
     const nonCirculatingData = nonCirculatingTableBuilder.build({
       abrTokens,
       bondedTokens,
-      freezedTokens,
+      // freezedTokens,
       maxSupply,
       supply,
       vbrTokens,

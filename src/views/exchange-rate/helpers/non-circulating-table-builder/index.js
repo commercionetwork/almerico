@@ -19,7 +19,7 @@ export default {
   build({
     abrTokens,
     bondedTokens,
-    freezedTokens,
+    // freezedTokens,
     maxSupply,
     supply,
     vbrTokens,
