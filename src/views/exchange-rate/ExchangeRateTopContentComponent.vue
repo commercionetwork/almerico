@@ -7,22 +7,29 @@
       <ExchangeRateChartComponent />
     </v-col>
     <v-col cols="12" md="4">
-      <ExchangeRatePosterComponent rate="-" />
+      <ExchangeRatePosterComponent :rate="rate" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ExchangeRateChartComponent from './ExchangeRateChartComponent.vue'
-import ExchangeRatePosterComponent from './ExchangeRatePosterComponent.vue'
+import ExchangeRateChartComponent from './ExchangeRateChartComponent.vue';
+import ExchangeRatePosterComponent from './ExchangeRatePosterComponent.vue';
 import LatestHeightComponent from '@/components/LatestHeightComponent';
 
 export default {
-name: 'ExchangeRateTopContentComponent',
+  name: 'ExchangeRateTopContentComponent',
   components: {
     ExchangeRateChartComponent,
     ExchangeRatePosterComponent,
     LatestHeightComponent,
   },
-}
+  props: {
+    rate: {
+      Type: Number,
+      default: 0,
+      note: 'The exchange rate value',
+    },
+  },
+};
 </script>

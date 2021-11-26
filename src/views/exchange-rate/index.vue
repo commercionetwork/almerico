@@ -13,44 +13,50 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <HeaderComponent :title="$t('titles.exchangeRate')" />
-      <ExchangeRateTopContentComponent />
-      <v-row>
+      <ExchangeRateTopContentComponent :rate="model.exchangeRate" />
+      <v-row v-if="isBuilding">
         <v-col cols="12">
-          <v-card outlined>
-            <v-card-title>WORK IN PROGRESS</v-card-title>
-          </v-card>
+          <LoadingLinearComponent />
         </v-col>
       </v-row>
+      <ExchangeRateBodyComponent v-else :model="model" />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
+import ExchangeRateBodyComponent from './ExchangeRateBodyComponent.vue';
 import ExchangeRateTopContentComponent from './ExchangeRateTopContentComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
+import exchangeRateOverviewBuilder from './helpers/exchangeRateOverviewBuilder';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'ExchangeRate',
   components: {
     ErrorMessageComponent,
+    ExchangeRateBodyComponent,
     ExchangeRateTopContentComponent,
     HeaderComponent,
     LoadingLinearComponent,
   },
+  data: () => ({
+    isBuilding: false,
+    model: null,
+  }),
   computed: {
     ...mapGetters('application', {
       params: 'stakingParams',
     }),
     ...mapGetters('exchangeRate', {
+      error: 'error',
+      isLoading: 'isLoading',
       abrTokens: 'abrTokens',
       accounts: 'accounts',
-      error: 'error',
       freezedTokens: 'freezedTokens',
-      isLoading: 'isLoading',
       pool: 'pool',
       supply: 'supply',
       vbrTokens: 'vbrTokens',
@@ -63,6 +69,21 @@ export default {
   },
   created() {
     this.initExchangeRate();
+  },
+  mounted() {
+    this.isBuilding = true;
+    this.$nextTick(() => {
+      this.model = exchangeRateOverviewBuilder.build({
+        abrTokens: this.abrTokens,
+        accounts: this.accounts,
+        freezedTokens: this.freezedTokens,
+        pool: this.pool,
+        supply: this.supply,
+        vbrTokens: this.vbrTokens,
+        denom: this.params.bond_denom,
+      });
+    });
+    this.isBuilding = false;
   },
 };
 </script>

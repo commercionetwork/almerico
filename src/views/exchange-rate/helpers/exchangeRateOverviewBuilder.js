@@ -16,7 +16,7 @@ export default {
    * @param {ParamBuild} p
    * @returns {Object}
    */
-  async build({
+  build({
     abrTokens,
     accounts,
     freezedTokens,

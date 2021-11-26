@@ -48,7 +48,9 @@ export default {
       });
     const bondedQuantity = parseFloat(bondedTokens) / 1000000;
     const freezedQuantity = exchangeRateOverviewBuilder.getTokensByDenom({
-      balances: freezedTokens,
+      // TODO: enable when ready
+      // balances: freezedTokens,
+      balances: [],
       denom: denom,
     });
     const totalNonCirculatingSupply =

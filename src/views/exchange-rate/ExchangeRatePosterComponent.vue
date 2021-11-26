@@ -20,12 +20,6 @@ import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
 export default {
   name: 'ExchangeRatePosterComponent',
   components: { TopContentCardComponent },
-  props: {
-    rate: {
-      type: String,
-      required: true,
-      note: 'The exchange rate',
-    },
-  },
+  props: ['rate'],
 };
 </script>
