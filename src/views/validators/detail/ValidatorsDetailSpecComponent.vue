@@ -24,9 +24,8 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-list dense>
-            <DetailUrlComponent
+            <DetailItemComponent
               :label="$t('labels.website')"
-              :link="website"
               :content="website"
             />
             <DetailItemComponent
@@ -50,17 +49,13 @@
 
 <script>
 import DetailItemComponent from '@/components/DetailItemComponent';
-import DetailUrlComponent from '@/components/DetailUrlComponent';
 
 import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsDetailSpecComponent',
-  components: {
-    DetailItemComponent,
-    DetailUrlComponent,
-  },
+  components: { DetailItemComponent },
   computed: {
     ...mapGetters('application', {
       params: 'stakingParams',
@@ -109,7 +104,7 @@ export default {
       }).format(percent);
     },
     website() {
-      return this.detail.description.website || '';
+      return this.detail.description.website || '-';
     },
   },
 };
