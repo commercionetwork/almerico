@@ -7,6 +7,7 @@ const accountUnbondingsHelper = {
         items.push({
           date: entry.completion_time,
           moniker: _getMoniker(validators, unbonding),
+          operator: unbonding.validator_address,
           height: entry.creation_height,
           balance: entry.balance,
         });

@@ -36,9 +36,9 @@
 </template>
 
 <script>
+import accountDelegationsHelper from './helpers/accountDelegationsHelper';
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
-import accountDelegationsHelper from './helpers/accountDelegationsHelper';
 
 export default {
   name: 'AccountDelegationsComponent',
