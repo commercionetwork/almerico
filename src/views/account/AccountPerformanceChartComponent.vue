@@ -1,20 +1,27 @@
 <template>
-  <ChartContainerComponent :title="chartLabel">
-    <template v-slot:chart>
+  <v-card outlined class="d-flex fill-height flex-column">
+    <v-card-title
+      class="
+        justify-center
+        text-center text-truncate text-overline
+        font-weight-bold
+      "
+      v-text="chartLabel"
+    />
+    <v-card-text>
       <ChartComponent
         id="account-details-performance-chart"
+        height="175"
         type="pie"
-        height="150"
         :dataset="chartData"
         :options="chartOptions"
       />
-    </template>
-  </ChartContainerComponent>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 import ChartComponent from '@/components/chart/ChartComponent';
-import ChartContainerComponent from '@/components/chart/ChartContainerComponent';
 
 import accountPerformanceChartHelper from './helpers/accountPerformanceChartHelper';
 
@@ -27,10 +34,7 @@ export default {
       note: 'The balance amounts to display',
     },
   },
-  components: {
-    ChartComponent,
-    ChartContainerComponent,
-  },
+  components: { ChartComponent },
   computed: {
     chartData() {
       return accountPerformanceChartHelper.getChartData(this.assets, {

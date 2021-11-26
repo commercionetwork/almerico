@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="d-flex fill-height flex-column">
     <AccountAddressMembershipComponent />
     <v-divider class="mx-3" />
     <v-card-text>

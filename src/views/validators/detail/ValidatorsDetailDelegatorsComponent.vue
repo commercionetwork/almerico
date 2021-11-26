@@ -3,8 +3,8 @@
     <v-card-text>
       <v-data-table
         :headers="headers"
-        :items-per-page="2"
         :items="items"
+        :items-per-page="2"
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
         :footer-props="{ itemsPerPageOptions: [2] }"

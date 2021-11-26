@@ -1,48 +1,50 @@
 <template>
-  <v-card outlined>
-    <v-data-table
-      :headers="headers"
-      :items-per-page="5"
-      :items="items"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
-    >
-      <template v-slot:top>
-        <div
-          class="py-2 text-center text-overline font-weight-bold"
-          v-text="$t('titles.unbondingDelegations')"
-        />
-      </template>
-      <template v-slot:[`item.date`]="{ item }">
-        <span class="font-weight-bold" v-text="formatDate(item.date)" />
-      </template>
-      <template v-slot:[`item.moniker`]="{ item }">
-        <router-link
-          class="text-decoration-none"
-          v-text="item.moniker"
-          :to="{
-            name: ROUTES.NAME.VALIDATORS_DETAIL,
-            params: { id: item.operator },
-          }"
-        />
-      </template>
-      <template v-slot:[`item.height`]="{ item }">
-        <router-link
-          class="text-decoration-none"
-          v-text="item.height"
-          :to="{
-            name: ROUTES.NAME.BLOCKS_DETAIL,
-            params: { id: item.height },
-          }"
-        />
-      </template>
-      <template v-slot:[`item.balance`]="{ item }">
-        <span
-          class="text-uppercase font-weight-bold"
-          v-text="formatTokens(item.balance)"
-        />
-      </template>
-    </v-data-table>
+  <v-card outlined class="d-flex fill-height flex-column">
+    <v-card-text>
+      <v-data-table
+        :headers="headers"
+        :items-per-page="5"
+        :items="items"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
+      >
+        <template v-slot:top>
+          <div
+            class="py-2 text-center text-overline font-weight-bold"
+            v-text="$t('titles.unbondingDelegations')"
+          />
+        </template>
+        <template v-slot:[`item.date`]="{ item }">
+          <span class="font-weight-bold" v-text="formatDate(item.date)" />
+        </template>
+        <template v-slot:[`item.moniker`]="{ item }">
+          <router-link
+            class="text-decoration-none"
+            v-text="item.moniker"
+            :to="{
+              name: ROUTES.NAME.VALIDATORS_DETAIL,
+              params: { id: item.operator },
+            }"
+          />
+        </template>
+        <template v-slot:[`item.height`]="{ item }">
+          <router-link
+            class="text-decoration-none"
+            v-text="item.height"
+            :to="{
+              name: ROUTES.NAME.BLOCKS_DETAIL,
+              params: { id: item.height },
+            }"
+          />
+        </template>
+        <template v-slot:[`item.balance`]="{ item }">
+          <span
+            class="text-uppercase font-weight-bold"
+            v-text="formatTokens(item.balance)"
+          />
+        </template>
+      </v-data-table>
+    </v-card-text>
   </v-card>
 </template>
 

@@ -14,7 +14,6 @@
     <v-col cols="12" v-else data-test="content">
       <HeaderComponent :title="$t('titles.validatorDetail')" />
       <ValidatorsDetailTopContentComponent :account="account" />
-      <v-divider class="my-3" />
       <ValidatorsDetailBodyContentComponent :account="account" />
     </v-col>
   </v-row>
