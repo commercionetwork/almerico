@@ -1,38 +1,43 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items-per-page="3"
-    :items="items"
-    :sort-by.sync="sortBy"
-    :sort-desc.sync="sortDesc"
-  >
-    <template v-slot:top>
-      <div
-        class="py-2 text-center text-overline font-weight-bold"
-        v-text="caption"
-      />
-    </template>
-    <template v-slot:[`item.delegator`]="{ item }">
-      <router-link
-        class="d-inline-block text-truncate text-decoration-none"
-        style="max-width: 100px"
-        v-text="item.delegator"
-        :to="{
-          name: ROUTES.NAME.ACCOUNT,
-          params: { id: item.delegator },
-        }"
-      />
-    </template>
-    <template v-slot:[`item.amount`]="{ item }">
-      <span
-        class="text-uppercase font-weight-bold"
-        v-text="formatTokens(item.amount)"
-      />
-    </template>
-    <template v-slot:[`item.share`]="{ item }">
-      <span class="font-weight-bold" v-text="formatPercent(item.share)" />
-    </template>
-  </v-data-table>
+  <v-card outlined class="d-flex fill-height flex-column">
+    <v-card-text>
+      <v-data-table
+        :headers="headers"
+        :items-per-page="2"
+        :items="items"
+        :sort-by.sync="sortBy"
+        :sort-desc.sync="sortDesc"
+        :footer-props="{ itemsPerPageOptions: [2] }"
+      >
+        <template v-slot:top>
+          <div
+            class="py-2 text-center text-overline font-weight-bold"
+            v-text="caption"
+          />
+        </template>
+        <template v-slot:[`item.delegator`]="{ item }">
+          <router-link
+            class="d-inline-block text-truncate text-decoration-none"
+            style="max-width: 100px"
+            v-text="item.delegator"
+            :to="{
+              name: ROUTES.NAME.ACCOUNT,
+              params: { id: item.delegator },
+            }"
+          />
+        </template>
+        <template v-slot:[`item.amount`]="{ item }">
+          <span
+            class="text-uppercase font-weight-bold"
+            v-text="formatTokens(item.amount)"
+          />
+        </template>
+        <template v-slot:[`item.share`]="{ item }">
+          <span class="font-weight-bold" v-text="formatPercent(item.share)" />
+        </template>
+      </v-data-table>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>

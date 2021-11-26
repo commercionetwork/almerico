@@ -1,42 +1,47 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="d-flex fill-height flex-column">
     <v-card-text>
       <v-row>
         <v-col cols="12" md="6">
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.tokens')"
-            :value="tokens"
-          />
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.votingPower')"
-            :value="votingPower"
-          />
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.commission')"
-            :value="commission"
-          />
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.updateTime')"
-            :value="updateTime"
-          />
+          <v-list dense>
+            <DetailItemComponent
+              :label="$t('labels.tokens')"
+              :content="tokens"
+            />
+            <DetailItemComponent
+              :label="$t('labels.votingPower')"
+              :content="votingPower"
+            />
+            <DetailItemComponent
+              :label="$t('labels.commission')"
+              :content="commission"
+            />
+            <DetailItemComponent
+              :label="$t('labels.updateTime')"
+              :content="updateTime"
+            />
+          </v-list>
         </v-col>
         <v-col cols="12" md="6">
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.website')"
-            :value="website"
-          />
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.securityContact')"
-            :value="securityContact"
-          />
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.identity')"
-            :value="identity"
-          />
-          <ValidatorsDetailSpecDataComponent
-            :label="$t('labels.udetails')"
-            :value="particulars"
-          />
+          <v-list dense>
+            <DetailUrlComponent
+              :label="$t('labels.website')"
+              :link="website"
+              :content="website"
+            />
+            <DetailItemComponent
+              :label="$t('labels.securityContact')"
+              :content="securityContact"
+            />
+            <DetailItemComponent
+              :label="$t('labels.identity')"
+              :content="identity"
+            />
+            <DetailItemComponent
+              :label="$t('labels.udetails')"
+              :content="particulars"
+            />
+          </v-list>
         </v-col>
       </v-row>
     </v-card-text>
@@ -44,13 +49,18 @@
 </template>
 
 <script>
-import ValidatorsDetailSpecDataComponent from './ValidatorsDetailSpecDataComponent.vue';
+import DetailItemComponent from '@/components/DetailItemComponent';
+import DetailUrlComponent from '@/components/DetailUrlComponent';
+
 import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsDetailSpecComponent',
-  components: { ValidatorsDetailSpecDataComponent },
+  components: {
+    DetailItemComponent,
+    DetailUrlComponent,
+  },
   computed: {
     ...mapGetters('application', {
       params: 'stakingParams',
@@ -99,7 +109,7 @@ export default {
       }).format(percent);
     },
     website() {
-      return this.detail.description.website || '-';
+      return this.detail.description.website || '';
     },
   },
 };

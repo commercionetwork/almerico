@@ -1,30 +1,33 @@
 <template>
-  <TopContentCardComponent :title="chartLabel">
-    <template v-slot:content>
-      <v-layout class="fill-height">
-        <ChartComponent
-          id="validator-details-chart"
-          type="pie"
-          :dataset="chartData"
-          :options="chartOptions"
-        />
-      </v-layout>
-    </template>
-  </TopContentCardComponent>
+  <v-card outlined class="d-flex fill-height flex-column">
+    <v-card-title
+      class="
+        justify-center
+        text-center text-truncate text-overline
+        font-weight-bold
+      "
+      v-text="chartLabel"
+    />
+    <v-card-text>
+      <ChartComponent
+        id="validator-details-chart"
+        height="175"
+        type="pie"
+        :dataset="chartData"
+        :options="chartOptions"
+      />
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
 import ChartComponent from '@/components/chart/ChartComponent';
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
 
 import validatorsDetailChartHelper from './helpers/validatorsDetailChartHelper';
 
 export default {
   name: 'ValidatorsDetailChartComponent',
-  components: {
-    ChartComponent,
-    TopContentCardComponent,
-  },
+  components: { ChartComponent },
   props: {
     delegations: {
       type: Object,

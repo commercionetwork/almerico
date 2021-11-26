@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined>
+  <v-card outlined class="d-flex fill-height flex-column">
     <v-card-title
       class="justify-center text-center text-overline font-weight-bold"
     >
@@ -11,14 +11,17 @@
       <v-alert type="warning" v-text="$t('msgs.notAvailable')" />
     </v-card-text>
     <v-card-text v-else data-test="content">
-      <div class="grid">
-        <div
-          v-for="(verified, index) in verifiedBlocks"
-          :key="index"
-          :class="verified.status === 0 ? 'missing' : ''"
-          :title="verified.height"
-        />
-      </div>
+      <v-row>
+        <v-col cols="12" md="10" offset-md="1">
+          <div class="grid">
+            <div
+              v-for="(verified, index) in verifiedBlocks"
+              :key="index"
+              :class="verified.status === 0 ? 'missing' : ''"
+              :title="verified.height"
+            /></div
+        ></v-col>
+      </v-row>
     </v-card-text>
   </v-card>
 </template>
