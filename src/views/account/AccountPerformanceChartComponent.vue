@@ -1,11 +1,7 @@
 <template>
   <v-card outlined class="d-flex fill-height flex-column">
     <v-card-title
-      class="
-        justify-center
-        text-center text-truncate text-overline
-        font-weight-bold
-      "
+      class="justify-center text-truncate text-overline font-weight-bold"
       v-text="chartLabel"
     />
     <v-card-text>

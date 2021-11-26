@@ -1,8 +1,6 @@
 <template>
   <v-card outlined class="d-flex fill-height flex-column">
-    <v-card-title
-      class="justify-center text-center text-overline font-weight-bold"
-    >
+    <v-card-title class="justify-center text-overline font-weight-bold">
       <i18n tag="span" path="titles.lastBlocks">
         <span v-text="limit" />
       </i18n>
