@@ -13,13 +13,13 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <HeaderComponent :title="$t('titles.exchangeRate')" />
-      <ExchangeRateTopContentComponent :rate="model.exchangeRate" />
+      <ExchangeRateTopContentComponent :rate="0" />
       <v-row v-if="isBuilding">
         <v-col cols="12">
           <LoadingLinearComponent />
         </v-col>
       </v-row>
-      <ExchangeRateBodyComponent v-else :model="model" />
+      <!-- <ExchangeRateBodyComponent v-else :model="model" /> -->
     </v-col>
   </v-row>
 </template>
@@ -31,7 +31,7 @@ import ExchangeRateTopContentComponent from './ExchangeRateTopContentComponent.v
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
-import exchangeRateOverviewBuilder from './helpers/exchangeRateOverviewBuilder';
+import exchangeRateHelper from './helpers';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -73,10 +73,10 @@ export default {
   mounted() {
     this.isBuilding = true;
     this.$nextTick(() => {
-      this.model = exchangeRateOverviewBuilder.build({
+      this.model = exchangeRateHelper.getOverviewData({
         abrTokens: this.abrTokens,
         accounts: this.accounts,
-        // freezedTokens: this.freezedTokens,
+        freezedTokens: this.freezedTokens,
         pool: this.pool,
         supply: this.supply,
         vbrTokens: this.vbrTokens,
