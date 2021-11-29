@@ -64,9 +64,33 @@ export default {
       );
 
       resolve({
-        maxSupplyRows,
-        nonCirculatingSupplyRows,
-        circulatingSupplyRows,
+        maxSupply: {
+          headers: _getHeaders({
+            text: 'Max Supply',
+            value: 'label',
+            sortable: false,
+            align: 'start',
+          }),
+          rows: maxSupplyRows,
+        },
+        nonCirculatingSupply: {
+          headers: _getHeaders({
+            text: 'Non Circulating Supply',
+            value: 'label',
+            sortable: false,
+            align: 'start',
+          }),
+          rows: nonCirculatingSupplyRows,
+        },
+        circulatingSupply: {
+          headers: _getHeaders({
+            text: 'Circulating Supply',
+            value: 'label',
+            sortable: false,
+            align: 'start',
+          }),
+          rows: circulatingSupplyRows,
+        },
         exchangeRate,
       });
     });
@@ -86,4 +110,30 @@ const _getExchangeRate = (maxSupply, circulatingSupply) => {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   }).format(rate);
+};
+
+/**
+ *
+ * @property {String} text
+ * @property {String} value
+ * @property {Boolean} sortable
+ * @property {String} align
+ * @returns {Array.<Object>}
+ */
+const _getHeaders = (header) => {
+  return [
+    header,
+    {
+      text: 'Quantity',
+      value: 'quantity',
+      sortable: false,
+      align: 'end',
+    },
+    {
+      text: 'Percentage',
+      value: 'percentage',
+      sortable: false,
+      align: 'end',
+    },
+  ];
 };

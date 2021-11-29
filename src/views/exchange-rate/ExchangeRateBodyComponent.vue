@@ -1,26 +1,26 @@
 <template>
   <v-row>
-    <!-- <v-col cols="12">
+    <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.maxHeaders"
-        :items="model.maxData"
+        :headers="model.maxSupply.headers"
+        :items="model.maxSupply.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.nonCirculatingHeaders"
-        :items="model.nonCirculatingData"
+        :headers="model.nonCirculatingSupply.headers"
+        :items="model.nonCirculatingSupply.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.circulatingHeaders"
-        :items="model.circulatingData"
+        :headers="model.circulatingSupply.headers"
+        :items="model.circulatingSupply.rows"
         :getRowStyle="getRowStyle"
       />
-    </v-col> -->
+    </v-col>
   </v-row>
 </template>
 
@@ -37,21 +37,21 @@ export default {
       type: Object,
       required: true,
       note: 'The spreadsheet data',
-      // validator: (model) => {
-      //   const keys = Object.keys(model);
-      //   const values = [
-      //     'maxSupplyRows',
-      //     'nonCirculatingSupplyRows',
-      //     'circulatingSupplyRows',
-      //     'exchangeRate',
-      //   ];
-      //   return keys.every((key) => values.includes(key));
-      // },
+      validator: (model) => {
+        const keys = Object.keys(model);
+        const values = [
+          'maxSupply',
+          'nonCirculatingSupply',
+          'circulatingSupply',
+          'exchangeRate',
+        ];
+        return keys.every((key) => values.includes(key));
+      },
     },
   },
   methods: {
     getRowStyle(item) {
-      switch (item.type) {
+      switch (item.style) {
         case EXCHANGE_RATE.ROW_STYLE.COMING_SOON:
           return 'coming-soon-row';
         case EXCHANGE_RATE.ROW_STYLE.HIGHLIGHTED:

@@ -47,6 +47,15 @@ export class Row {
     this.style = style || EXCHANGE_RATE.ROW_STYLE.REGULAR;
   }
 
+  get quantity() {
+    if (isNaN(this.value)) return this.value;
+    return new Intl.NumberFormat(undefined, {
+      style: 'decimal',
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    }).format(this.value);
+  }
+
   get percentage() {
     if (isNaN(this.value)) return this.value;
     return new Intl.NumberFormat(undefined, {
