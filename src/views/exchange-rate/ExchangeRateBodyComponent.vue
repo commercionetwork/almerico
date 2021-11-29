@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12">
+    <!-- <v-col cols="12">
       <ExchangeRateTableComponent
         :headers="model.maxHeaders"
         :items="model.maxData"
@@ -20,7 +20,7 @@
         :items="model.circulatingData"
         :getRowStyle="getRowStyle"
       />
-    </v-col>
+    </v-col> -->
   </v-row>
 </template>
 
@@ -37,19 +37,16 @@ export default {
       type: Object,
       required: true,
       note: 'The spreadsheet data',
-      validator: (model) => {
-        const keys = Object.keys(model);
-        const values = [
-          'circulatingData',
-          'circulatingHeaders',
-          'nonCirculatingData',
-          'nonCirculatingHeaders',
-          'maxData',
-          'maxHeaders',
-          'exchangeRate',
-        ];
-        return keys.every((key) => values.includes(key));
-      },
+      // validator: (model) => {
+      //   const keys = Object.keys(model);
+      //   const values = [
+      //     'maxSupplyRows',
+      //     'nonCirculatingSupplyRows',
+      //     'circulatingSupplyRows',
+      //     'exchangeRate',
+      //   ];
+      //   return keys.every((key) => values.includes(key));
+      // },
     },
   },
   methods: {

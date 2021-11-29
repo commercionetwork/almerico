@@ -33,7 +33,7 @@ export const getTokensByAccount = ({ accounts, name, denom }) => {
  * @returns {Number}
  */
 export const getTokensByDenom = (balances, denom) => {
-  if (balances.length < 1) return 0;
+  if (!balances.length) return 0;
   const balance = balances.find((balance) => balance.denom === denom);
   return parseFloat(balance.amount) / 1000000;
 };

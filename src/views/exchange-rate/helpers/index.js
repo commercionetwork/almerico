@@ -9,7 +9,7 @@ export default {
    * @property {Array.<Object>} vbrTokens
    * @property {Object} pool
    * @property {String} denom
-   * @returns {Object}
+   * @returns {Promise}
    */
   getOverviewData({
     abrTokens,
@@ -20,54 +20,56 @@ export default {
     vbrTokens,
     denom,
   }) {
-    const maxSupplyRows = model.maxSupply.getRows({
-      accounts,
-      abrTokens,
-      vbrTokens,
-      denom,
+    return new Promise((resolve) => {
+      const maxSupplyRows = model.maxSupply.getRows({
+        accounts,
+        abrTokens,
+        vbrTokens,
+        denom,
+      });
+      const maxSupplyAmount = model.maxSupply.getTotal();
+
+      const bondedTokens = pool ? pool.bonded_tokens : '0';
+      const nonCirculatingSupplyRows = model.nonCirculatingSupply.getRows({
+        abrTokens,
+        bondedTokens,
+        freezedTokens,
+        maxSupply: maxSupplyAmount,
+        supply,
+        vbrTokens,
+        denom,
+      });
+      const nonCirculatingSupplyAmount = model.nonCirculatingSupply.getTotal({
+        abrTokens,
+        bondedTokens,
+        freezedTokens,
+        maxSupply: maxSupplyAmount,
+        supply,
+        vbrTokens,
+        denom,
+      });
+
+      const circulatingSupplyRows = model.circulatingSupply.getRows(
+        maxSupplyAmount,
+        nonCirculatingSupplyAmount,
+      );
+      const circulatingSupplyAmount = model.circulatingSupply.getTotal(
+        maxSupplyAmount,
+        nonCirculatingSupplyAmount,
+      );
+
+      const exchangeRate = _getExchangeRate(
+        maxSupplyAmount,
+        circulatingSupplyAmount,
+      );
+
+      resolve({
+        maxSupplyRows,
+        nonCirculatingSupplyRows,
+        circulatingSupplyRows,
+        exchangeRate,
+      });
     });
-    const maxSupplyAmount = model.maxSupply.getTotal();
-
-    const bondedTokens = pool ? pool.bonded_tokens : '0';
-    const nonCirculatingSupplyRows = model.nonCirculatingSupply.getRows({
-      abrTokens,
-      bondedTokens,
-      freezedTokens,
-      maxSupply: maxSupplyAmount,
-      supply,
-      vbrTokens,
-      denom,
-    });
-    const nonCirculatingSupplyAmount = model.nonCirculatingSupply.getTotal({
-      abrTokens,
-      bondedTokens,
-      freezedTokens,
-      maxSupply: maxSupplyAmount,
-      supply,
-      vbrTokens,
-      denom,
-    });
-
-    const circulatingSupplyRows = model.circulatingSupply.getRows(
-      maxSupplyAmount,
-      nonCirculatingSupplyAmount,
-    );
-    const circulatingSupplyAmount = model.circulatingSupply.getTotal(
-      maxSupplyAmount,
-      nonCirculatingSupplyAmount,
-    );
-
-    const excahngeRate = _getExchangeRate(
-      maxSupplyAmount,
-      circulatingSupplyAmount,
-    );
-
-    return {
-      maxSupplyRows,
-      nonCirculatingSupplyRows,
-      circulatingSupplyRows,
-      excahngeRate,
-    };
   },
 };
 
