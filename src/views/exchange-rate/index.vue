@@ -14,12 +14,7 @@
     <v-col cols="12" v-else data-test="content">
       <HeaderComponent :title="$t('titles.exchangeRate')" />
       <ExchangeRateTopContentComponent :rate="0" />
-      <v-row v-if="isBuilding">
-        <v-col cols="12">
-          <LoadingLinearComponent />
-        </v-col>
-      </v-row>
-      <!-- <ExchangeRateBodyComponent v-else :model="model" /> -->
+      <!-- <ExchangeRateBodyComponent :model="model" /> -->
     </v-col>
   </v-row>
 </template>
@@ -69,21 +64,18 @@ export default {
   },
   created() {
     this.initExchangeRate();
-  },
-  mounted() {
-    this.isBuilding = true;
-    this.$nextTick(() => {
-      this.model = exchangeRateHelper.getOverviewData({
-        abrTokens: this.abrTokens,
-        accounts: this.accounts,
-        freezedTokens: this.freezedTokens,
-        pool: this.pool,
-        supply: this.supply,
-        vbrTokens: this.vbrTokens,
-        denom: this.params.bond_denom,
-      });
+    this.model = exchangeRateHelper.getOverviewData({
+      abrTokens: this.abrTokens,
+      accounts: this.accounts,
+      freezedTokens: this.freezedTokens,
+      pool: this.pool,
+      supply: this.supply,
+      vbrTokens: this.vbrTokens,
+      denom: this.params.bond_denom,
     });
-    this.isBuilding = false;
+  },
+  updated() {
+    console.log(this.model);
   },
 };
 </script>

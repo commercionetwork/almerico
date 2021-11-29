@@ -48,6 +48,7 @@ export class Row {
   }
 
   get percentage() {
+    if (isNaN(this.value)) return this.value;
     return new Intl.NumberFormat(undefined, {
       style: 'percent',
       maximumFractionDigits: 2,

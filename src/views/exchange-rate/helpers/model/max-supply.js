@@ -22,6 +22,9 @@ export default {
       [totalRow],
     );
   },
+  getTotal() {
+    return MAX_SUPPLY_TOTAL;
+  },
 };
 
 const _getValidatorRows = (accounts, denom) => {
