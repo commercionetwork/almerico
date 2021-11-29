@@ -38,7 +38,7 @@ const _getNonCirculatingSupplyRow = (maxSupply, nonCirculatingSupply) =>
 const _getCirculatingSupplyRow = (maxSupply, nonCirculatingSupply) =>
   new Row({
     rank: 3,
-    label: 'Total Non Circulating Supply',
+    label: 'Total Circulating Supply',
     value: maxSupply - nonCirculatingSupply,
     total: maxSupply,
     style: EXCHANGE_RATE.ROW_STYLE.HIGHLIGHTED,

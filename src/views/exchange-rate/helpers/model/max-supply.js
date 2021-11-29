@@ -8,12 +8,16 @@ const MAX_SUPPLY_TOTAL =
   EXCHANGE_RATE.SUBTOTAL.VALIDATOR;
 
 export default {
-  getRows({ accounts, abrTokens, vbrTokens, denom }) {
-    const validatorRows = _getValidatorRows(accounts, denom);
-    const liquidityPoolRows = _getLiquidityPoolRows(accounts, denom);
-    const communityRows = _getCommunityRows(accounts, denom);
-    const fundsRows = _getFundsRows(vbrTokens, abrTokens, denom);
-    const totalRow = _getTotalRow();
+  getRows({ accounts, abrTokens, vbrTokens, denom, translator }) {
+    const validatorRows = _getValidatorRows(accounts, denom, translator);
+    const liquidityPoolRows = _getLiquidityPoolRows(
+      accounts,
+      denom,
+      translator,
+    );
+    const communityRows = _getCommunityRows(accounts, denom, translator);
+    const fundsRows = _getFundsRows(vbrTokens, abrTokens, denom, translator);
+    const totalRow = _getTotalRow(translator);
     return [].concat(
       validatorRows,
       liquidityPoolRows,
@@ -27,7 +31,8 @@ export default {
   },
 };
 
-const _getValidatorRows = (accounts, denom) => {
+const _getValidatorRows = (accounts, denom, translator) => {
+  const $t = translator;
   const notDistributed = getTokensByAccount({
     accounts: accounts,
     name: 'validator',

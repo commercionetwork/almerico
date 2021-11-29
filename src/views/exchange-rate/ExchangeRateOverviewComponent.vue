@@ -54,6 +54,8 @@ export default {
         supply: this.supply,
         vbrTokens: this.vbrTokens,
         denom: this.params.bond_denom,
+        translator: this.$t,
+        ctx: this,
       })
       .then((data) => {
         this.model = data;

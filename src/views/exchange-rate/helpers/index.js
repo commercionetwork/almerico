@@ -19,13 +19,18 @@ export default {
     supply,
     vbrTokens,
     denom,
+    translator,
+    ctx,
   }) {
+    const $t = translator.bind(ctx);
+
     return new Promise((resolve) => {
       const maxSupplyRows = model.maxSupply.getRows({
         accounts,
         abrTokens,
         vbrTokens,
         denom,
+        translator: $t,
       });
       const maxSupplyAmount = model.maxSupply.getTotal();
 
@@ -38,6 +43,7 @@ export default {
         supply,
         vbrTokens,
         denom,
+        $t,
       });
       const nonCirculatingSupplyAmount = model.nonCirculatingSupply.getTotal({
         abrTokens,
@@ -52,6 +58,7 @@ export default {
       const circulatingSupplyRows = model.circulatingSupply.getRows(
         maxSupplyAmount,
         nonCirculatingSupplyAmount,
+        $t,
       );
       const circulatingSupplyAmount = model.circulatingSupply.getTotal(
         maxSupplyAmount,
@@ -65,30 +72,39 @@ export default {
 
       resolve({
         maxSupply: {
-          headers: _getHeaders({
-            text: 'Max Supply',
-            value: 'label',
-            sortable: false,
-            align: 'start',
-          }),
+          headers: _getHeaders(
+            {
+              text: $t('labels.maxSupply'),
+              value: 'label',
+              sortable: false,
+              align: 'start',
+            },
+            $t,
+          ),
           rows: maxSupplyRows,
         },
         nonCirculatingSupply: {
-          headers: _getHeaders({
-            text: 'Non Circulating Supply',
-            value: 'label',
-            sortable: false,
-            align: 'start',
-          }),
+          headers: _getHeaders(
+            {
+              text: $t('labels.nonCirculatingSupply'),
+              value: 'label',
+              sortable: false,
+              align: 'start',
+            },
+            $t,
+          ),
           rows: nonCirculatingSupplyRows,
         },
         circulatingSupply: {
-          headers: _getHeaders({
-            text: 'Circulating Supply',
-            value: 'label',
-            sortable: false,
-            align: 'start',
-          }),
+          headers: _getHeaders(
+            {
+              text: $t('labels.circulatingSupply'),
+              value: 'label',
+              sortable: false,
+              align: 'start',
+            },
+            $t,
+          ),
           rows: circulatingSupplyRows,
         },
         exchangeRate,
@@ -120,17 +136,18 @@ const _getExchangeRate = (maxSupply, circulatingSupply) => {
  * @property {String} align
  * @returns {Array.<Object>}
  */
-const _getHeaders = (header) => {
+const _getHeaders = (header, translator) => {
+  const $t = translator;
   return [
     header,
     {
-      text: 'Quantity',
+      text: $t('labels.quantity'),
       value: 'quantity',
       sortable: false,
       align: 'end',
     },
     {
-      text: 'Percentage',
+      text: $t('labels.percentage'),
       value: 'percentage',
       sortable: false,
       align: 'end',
