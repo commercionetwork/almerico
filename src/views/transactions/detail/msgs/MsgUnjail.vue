@@ -8,6 +8,7 @@
           name: ROUTES.NAME.VALIDATORS_DETAIL,
           params: { id: address },
         }"
+        look="font-monotype"
       />
     </div>
   </TxMsgComponent>

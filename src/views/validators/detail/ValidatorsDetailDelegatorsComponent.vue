@@ -17,7 +17,11 @@
         </template>
         <template v-slot:[`item.delegator`]="{ item }">
           <router-link
-            class="d-inline-block text-truncate text-decoration-none"
+            class="
+              d-inline-block
+              text-truncate text-decoration-none
+              font-monotype
+            "
             style="max-width: 100px"
             v-text="item.delegator"
             :to="{

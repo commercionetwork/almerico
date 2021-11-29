@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: recipient },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.sender')"
@@ -16,6 +17,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: sender },
         }"
+        look="font-monotype"
       />
     </div>
   </TxMsgComponent>

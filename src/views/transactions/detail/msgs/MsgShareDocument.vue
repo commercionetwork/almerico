@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: senderAddress },
         }"
+        look="font-monotype"
       />
       <v-list-item>
         <v-list-item-content>
@@ -27,6 +28,7 @@
                 name: ROUTES.NAME.ACCOUNT,
                 params: { id: recipientAddress },
               }"
+              look="font-monotype"
             />
           </v-list-item>
         </v-list-item-content>

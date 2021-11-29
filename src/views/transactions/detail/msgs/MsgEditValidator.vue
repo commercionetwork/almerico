@@ -37,6 +37,7 @@
           name: ROUTES.NAME.VALIDATORS_DETAIL,
           params: { id: address },
         }"
+        look="font-monotype"
       />
       <DetailItemComponent
         :label="$t('labels.rate')"

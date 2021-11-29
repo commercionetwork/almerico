@@ -12,6 +12,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: buyerAddress },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.tsp')"
@@ -20,6 +21,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: tspAddress },
         }"
+        look="font-monotype"
       />
     </div>
   </TxMsgComponent>

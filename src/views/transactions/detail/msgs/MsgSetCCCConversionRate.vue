@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: signer },
         }"
+        look="font-monotype"
       />
       <DetailItemComponent :label="$t('labels.rate')" :content="rate" />
     </div>

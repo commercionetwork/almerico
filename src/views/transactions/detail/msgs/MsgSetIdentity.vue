@@ -9,6 +9,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: id },
         }"
+        look="font-monotype"
       />
       <v-list-item>
         <v-list-item-content>
@@ -33,6 +34,7 @@
                   name: ROUTES.NAME.ACCOUNT,
                   params: { id: pubKey.controller },
                 }"
+                look="font-monotype"
               />
               <DetailItemComponent
                 :label="$t('labels.publicKeyPem')"

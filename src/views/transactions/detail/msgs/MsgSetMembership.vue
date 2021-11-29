@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: governmentAddress },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.subscriber')"
@@ -16,6 +17,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: subscriberAddress },
         }"
+        look="font-monotype"
       />
       <DetailItemComponent
         :label="$t('labels.newMembership')"

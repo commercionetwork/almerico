@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: depositorAddress },
         }"
+        look="font-monotype"
       />
       <v-list-item v-for="(amount, index) in amounts" :key="index">
         <DetailItemComponent

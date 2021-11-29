@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: delegatorAddress },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.destinationValidatorAddress')"
@@ -16,6 +17,7 @@
           name: ROUTES.NAME.VALIDATORS_DETAIL,
           params: { id: validatorDstAddress },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.sourceValidatorAddress')"
@@ -24,6 +26,7 @@
           name: ROUTES.NAME.VALIDATORS_DETAIL,
           params: { id: validatorSrcAddress },
         }"
+        look="font-monotype"
       />
       <DetailItemComponent
         :label="$t('labels.amount')"

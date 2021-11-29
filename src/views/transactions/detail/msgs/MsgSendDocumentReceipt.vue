@@ -9,6 +9,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: senderAddress },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.recipient')"
@@ -17,8 +18,13 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: recipientAddress },
         }"
+        look="font-monotype"
       />
-      <DetailItemComponent :label="$t('labels.txHash')" :content="txHash" />
+      <DetailItemComponent
+        :label="$t('labels.txHash')"
+        :content="txHash"
+        look="font-monotype"
+      />
       <DetailItemComponent
         :label="$t('labels.documentUUID')"
         :content="documentUuid"

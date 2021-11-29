@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: fromAddress },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.toAddress')"
@@ -16,6 +17,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: toAddress },
         }"
+        look="font-monotype"
       />
       <v-list-item v-for="(amount, index) in amounts" :key="index">
         <DetailItemComponent

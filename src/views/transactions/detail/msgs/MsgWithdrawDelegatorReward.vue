@@ -8,6 +8,7 @@
           name: ROUTES.NAME.ACCOUNT,
           params: { id: delegatorAddress },
         }"
+        look="font-monotype"
       />
       <DetailLinkComponent
         :label="$t('labels.validatorAddress')"
@@ -16,6 +17,7 @@
           name: ROUTES.NAME.VALIDATORS_DETAIL,
           params: { id: validatorAddress },
         }"
+        look="font-monotype"
       />
     </div>
   </TxMsgComponent>
