@@ -61,7 +61,7 @@ export default {
 const _getAmounts = ({
   abrTokens,
   bondedTokens,
-  freezedTokens,
+  // freezedTokens,
   maxSupply,
   supply,
   vbrTokens,
