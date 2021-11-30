@@ -12,6 +12,9 @@
         <template v-slot:[`header.label`]="{ header }">
           <span v-text="header.text.toUpperCase()" />
         </template>
+        <template v-slot:[`item.label`]="{ item }">
+          <span class="text-capitalize" v-text="item.label" />
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
