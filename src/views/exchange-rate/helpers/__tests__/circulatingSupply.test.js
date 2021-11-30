@@ -1,4 +1,4 @@
-import circulatingSupply from '../overview/circulating-supply';
+import circulatingSupply from '../overview/circulatingSupply';
 
 describe('views/exchange-rate/helpers/overview/circulatingSupply', () => {
   test('if "getTable" return table headers and rows, plus total', () => {

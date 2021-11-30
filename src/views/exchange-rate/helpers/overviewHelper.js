@@ -1,7 +1,7 @@
-import circulatingSupply from './overview/circulating-supply';
-import exchangeRate from './overview/exchange-rate';
-import maxSupply from './overview/max-supply';
-import nonCirculatingSupply from './overview/non-circulating-supply';
+import circulatingSupply from './overview/circulatingSupply';
+import exchangeRate from './overview/exchangeRate';
+import maxSupply from './overview/maxSupply';
+import nonCirculatingSupply from './overview/nonCirculatingSupply';
 
 export default {
   /**
