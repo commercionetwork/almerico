@@ -10,7 +10,9 @@ export default {
     supply,
     vbrTokens,
     denom,
+    translator,
   }) {
+    const $t = translator;
     const amounts = _getAmounts({
       abrTokens,
       bondedTokens,
@@ -20,13 +22,39 @@ export default {
       vbrTokens,
       denom,
     });
-    const vbrRow = _getVbrRow(amounts.vbrAmount, amounts.total);
-    const abrRow = _getAbrRow(amounts.abrAmount, amounts.total);
-    const burnedRow = _getBurnedRow(amounts.burnedAmount, amounts.total);
-    const bondedRow = _getBondedRow(amounts.bondedAmount, amounts.total);
-    const freezedRow = _getFreezedRow(amounts.freezedAmount, amounts.total);
-    const unclaimedRewardsRow = _getUnclaimedRewardsRow();
-    const totalRow = _getTotalRow(amounts.total);
+    const vbrRow = _getVbrRow(
+      amounts.vbrAmount,
+      amounts.total,
+      $t('labels.vbrTokensNotDistributed'),
+    );
+    const abrRow = _getAbrRow(
+      amounts.abrAmount,
+      amounts.total,
+      $t('labels.abrTokensNotDistributed'),
+    );
+    const burnedRow = _getBurnedRow(
+      amounts.burnedAmount,
+      amounts.total,
+      $t('labels.burned'),
+    );
+    const bondedRow = _getBondedRow(
+      amounts.bondedAmount,
+      amounts.total,
+      $t('labels.bondedTokens'),
+    );
+    const freezedRow = _getFreezedRow(
+      amounts.freezedAmount,
+      amounts.total,
+      $t('labels.freezedTokens'),
+    );
+    const unclaimedRewardsRow = _getUnclaimedRewardsRow(
+      $t('labels.unclaimedRewards'),
+      $t('msgs.comingSoon'),
+    );
+    const totalRow = _getTotalRow(
+      amounts.total,
+      $t('labels.totalNonCirculatingSupply'),
+    );
     return [
       vbrRow,
       abrRow,
@@ -84,64 +112,64 @@ const _getAmounts = ({
   };
 };
 
-const _getVbrRow = (vbrTokens, total) => {
+const _getVbrRow = (vbrTokens, total, label) => {
   return new Row({
     rank: 1,
-    label: 'VBR Tokens Not Distributed',
+    label,
     value: vbrTokens,
     total,
   });
 };
 
-const _getAbrRow = (abrTokens, total) => {
+const _getAbrRow = (abrTokens, total, label) => {
   return new Row({
     rank: 2,
-    label: 'ABR Tokens Not Distributed',
+    label,
     value: abrTokens,
     total,
   });
 };
 
-const _getBurnedRow = (burnedTokens, total) => {
+const _getBurnedRow = (burnedTokens, total, label) => {
   return new Row({
     rank: 3,
-    label: 'Burned',
+    label,
     value: burnedTokens,
     total,
   });
 };
 
-const _getBondedRow = (bondedTokens, total) => {
+const _getBondedRow = (bondedTokens, total, label) => {
   return new Row({
     rank: 4,
-    label: 'Bonded Tokens',
+    label,
     value: bondedTokens,
     total,
   });
 };
 
-const _getFreezedRow = (freezedTokens, total) => {
+const _getFreezedRow = (freezedTokens, total, label) => {
   return new Row({
     rank: 5,
-    label: 'Freezed Tokens',
+    label,
     value: freezedTokens,
     total,
   });
 };
 
-const _getUnclaimedRewardsRow = () => {
+const _getUnclaimedRewardsRow = (label, msg) => {
   return new Row({
     rank: 6,
-    label: 'Unclaimed Rewards',
-    value: 'Coming soon',
+    label,
+    value: msg,
     style: EXCHANGE_RATE.ROW_STYLE.COMING_SOON,
   });
 };
 
-const _getTotalRow = (total) =>
+const _getTotalRow = (total, label) =>
   new Row({
     rank: 7,
-    label: 'Total Non Circulating Supply',
+    label,
     value: total,
     total,
     style: EXCHANGE_RATE.ROW_STYLE.HIGHLIGHTED,

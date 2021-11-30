@@ -43,7 +43,7 @@ export default {
         supply,
         vbrTokens,
         denom,
-        $t,
+        translator: $t,
       });
       const nonCirculatingSupplyAmount = model.nonCirculatingSupply.getTotal({
         abrTokens,
@@ -55,11 +55,11 @@ export default {
         denom,
       });
 
-      const circulatingSupplyRows = model.circulatingSupply.getRows(
-        maxSupplyAmount,
-        nonCirculatingSupplyAmount,
-        $t,
-      );
+      const circulatingSupplyRows = model.circulatingSupply.getRows({
+        maxSupply: maxSupplyAmount,
+        nonCirculatingSupply: nonCirculatingSupplyAmount,
+        translator: $t,
+      });
       const circulatingSupplyAmount = model.circulatingSupply.getTotal(
         maxSupplyAmount,
         nonCirculatingSupplyAmount,
