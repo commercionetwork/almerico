@@ -1,5 +1,5 @@
 import { EXCHANGE_RATE } from '@/constants';
-import { Row } from './index';
+import { Row } from './commons';
 
 export default {
   getRows({ maxSupply, nonCirculatingSupply, translator }) {

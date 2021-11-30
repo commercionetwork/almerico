@@ -1,14 +1,4 @@
-import circulatingSupply from './circulating-supply';
-import maxSupply from './max-supply';
-import nonCirculatingSupply from './non-circulating-supply';
-
 import { EXCHANGE_RATE } from '@/constants';
-
-export default {
-  circulatingSupply,
-  maxSupply,
-  nonCirculatingSupply,
-};
 
 /**
  *

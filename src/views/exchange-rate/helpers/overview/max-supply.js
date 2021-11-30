@@ -1,5 +1,5 @@
 import { EXCHANGE_RATE } from '@/constants';
-import { getTokensByAccount, getTokensByDenom, Row } from './index';
+import { getTokensByAccount, getTokensByDenom, Row } from './commons';
 
 const MAX_SUPPLY_TOTAL =
   EXCHANGE_RATE.SUBTOTAL.FUNDS +

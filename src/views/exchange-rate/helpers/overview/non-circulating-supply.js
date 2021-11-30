@@ -1,5 +1,5 @@
 import { EXCHANGE_RATE } from '@/constants';
-import { getTokensByDenom, Row } from './index';
+import { getTokensByDenom, Row } from './commons';
 
 export default {
   getRows({

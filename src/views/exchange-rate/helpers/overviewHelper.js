@@ -1,4 +1,7 @@
-import model from './model';
+import circulatingSupply from './overview/circulating-supply';
+import maxSupply from './overview/max-supply';
+import nonCirculatingSupply from './overview/non-circulating-supply';
+import exchangeRate from './overview/exchange-rate';
 
 export default {
   /**
@@ -11,7 +14,7 @@ export default {
    * @property {String} denom
    * @returns {Promise}
    */
-  getOverviewData({
+  getOverviewTables({
     abrTokens,
     accounts,
     freezedTokens,
@@ -25,17 +28,17 @@ export default {
     const $t = translator.bind(ctx);
 
     return new Promise((resolve) => {
-      const maxSupplyRows = model.maxSupply.getRows({
+      const maxSupplyRows = maxSupply.getRows({
         accounts,
         abrTokens,
         vbrTokens,
         denom,
         translator: $t,
       });
-      const maxSupplyAmount = model.maxSupply.getTotal();
+      const maxSupplyAmount = maxSupply.getTotal();
 
       const bondedTokens = pool ? pool.bonded_tokens : '0';
-      const nonCirculatingSupplyRows = model.nonCirculatingSupply.getRows({
+      const nonCirculatingSupplyRows = nonCirculatingSupply.getRows({
         abrTokens,
         bondedTokens,
         freezedTokens,
@@ -45,7 +48,7 @@ export default {
         denom,
         translator: $t,
       });
-      const nonCirculatingSupplyAmount = model.nonCirculatingSupply.getTotal({
+      const nonCirculatingSupplyAmount = nonCirculatingSupply.getTotal({
         abrTokens,
         bondedTokens,
         freezedTokens,
@@ -55,17 +58,17 @@ export default {
         denom,
       });
 
-      const circulatingSupplyRows = model.circulatingSupply.getRows({
+      const circulatingSupplyRows = circulatingSupply.getRows({
         maxSupply: maxSupplyAmount,
         nonCirculatingSupply: nonCirculatingSupplyAmount,
         translator: $t,
       });
-      const circulatingSupplyAmount = model.circulatingSupply.getTotal(
+      const circulatingSupplyAmount = circulatingSupply.getTotal(
         maxSupplyAmount,
         nonCirculatingSupplyAmount,
       );
 
-      const exchangeRate = _getExchangeRate(
+      const rate = exchangeRate.getRate(
         maxSupplyAmount,
         circulatingSupplyAmount,
       );
@@ -107,25 +110,10 @@ export default {
           ),
           rows: circulatingSupplyRows,
         },
-        exchangeRate,
+        exchangeRate: rate,
       });
     });
   },
-};
-
-/**
- * @param {Number} totalCirculatingSupply
- * @param {Number} maxSupply
- * @returns {String}
- */
-const _getExchangeRate = (maxSupply, circulatingSupply) => {
-  if (circulatingSupply === 0 || maxSupply === 0) return 0;
-  const rate = 1 / (circulatingSupply / maxSupply);
-  return new Intl.NumberFormat(undefined, {
-    style: 'decimal',
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  }).format(rate);
 };
 
 /**

@@ -11,7 +11,7 @@ import ExchangeRateBodyComponent from './ExchangeRateBodyComponent.vue';
 import ExchangeRateTopContentComponent from './ExchangeRateTopContentComponent.vue';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
-import exchangeRateHelper from './helpers';
+import overviewHelper from './helpers/overviewHelper';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -45,8 +45,8 @@ export default {
   },
   created() {
     this.isBuilding = true;
-    exchangeRateHelper
-      .getOverviewData({
+    overviewHelper
+      .getOverviewTables({
         abrTokens: this.abrTokens,
         accounts: this.accounts,
         freezedTokens: this.freezedTokens,
