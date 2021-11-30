@@ -23,8 +23,9 @@ export const getTokensByAccount = ({ accounts, name, denom }) => {
  */
 export const getTokensByDenom = (balances, denom) => {
   if (!balances.length) return 0;
-  const balance = balances.find((balance) => balance.denom === denom);
-  return parseFloat(balance.amount) / 1000000;
+  const index = balances.findIndex((balance) => balance.denom === denom);
+  if (index === -1) return 0;
+  return parseFloat(balances[index]['amount']) / 1000000;
 };
 
 /**
