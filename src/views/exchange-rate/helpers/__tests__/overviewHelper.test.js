@@ -40,9 +40,12 @@ describe('views/exchange-rate/helpers/overviewHelper', () => {
       ctx,
     });
 
-    Object.keys(overview).forEach((key) => {
+    const overviewKeys = Object.keys(overview);
+
+    expect(overviewKeys.length).toBe(4);
+    overviewKeys.forEach((key) => {
       const index = expectedKeys.findIndex((it) => it === key);
-      expect(index).toBeGreaterThan(-1);
+      expect(index).toBeGreaterThanOrEqual(0);
     });
   });
 });
