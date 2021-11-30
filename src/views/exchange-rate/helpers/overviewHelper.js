@@ -5,16 +5,18 @@ import nonCirculatingSupply from './overview/non-circulating-supply';
 
 export default {
   /**
-   * @property {Array.<Object>} abrTokens
-   * @property {Array.<Object>} accounts
-   * @property {Array.<Object>} freezedTokens
-   * @property {Array.<Object>} supply
-   * @property {Array.<Object>} vbrTokens
-   * @property {Object} pool
-   * @property {String} denom
+   * @param {Array.<Object>} abrTokens
+   * @param {Array.<Object>} accounts
+   * @param {Array.<Object>} freezedTokens
+   * @param {Array.<Object>} supply
+   * @param {Array.<Object>} vbrTokens
+   * @param {Function} translator
+   * @param {Object} context The context to bind to the translator function
+   * @param {Object} pool
+   * @param {String} denom
    * @returns {Promise}
    */
-  getOverviewTables({
+  getOverview({
     abrTokens,
     accounts,
     freezedTokens,

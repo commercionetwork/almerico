@@ -2,22 +2,23 @@ import { EXCHANGE_RATE } from '@/constants';
 
 /**
  *
- * @property {Array.<Object>} accounts
- * @property {String} name
- * @property {String} denom
+ * @param {Array.<Object>} accounts
+ * @param {String} denom
+ * @param {String} name
  * @returns {Number}
  */
 export const getTokensByAccount = ({ accounts, name, denom }) => {
   if (!accounts.length || !name || !denom) return 0;
-  const account = accounts.find((account) => account.name === name);
-  const tokens = getTokensByDenom(account.balances, denom);
+  const index = accounts.findIndex((account) => account.name === name);
+  if (index === -1) return 0;
+  const tokens = getTokensByDenom(accounts[index]['balances'], denom);
   return tokens;
 };
 
 /**
  *
- * @property {Array.<Object>} Balances
- * @property {String} denom
+ * @param {Array.<Object>} Balances
+ * @param {String} denom
  * @returns {Number}
  */
 export const getTokensByDenom = (balances, denom) => {
@@ -28,10 +29,7 @@ export const getTokensByDenom = (balances, denom) => {
 
 /**
  *
- * @property {String} text
- * @property {String} value
- * @property {Boolean} sortable
- * @property {String} align
+ * @param {Function} translator
  * @returns {Array.<Object>}
  */
 export const getCommonHeaders = (translator) => {

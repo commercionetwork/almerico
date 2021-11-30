@@ -46,7 +46,7 @@ export default {
   created() {
     this.isBuilding = true;
     overviewHelper
-      .getOverviewTables({
+      .getOverview({
         abrTokens: this.abrTokens,
         accounts: this.accounts,
         freezedTokens: this.freezedTokens,

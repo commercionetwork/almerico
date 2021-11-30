@@ -1,6 +1,6 @@
 export default {
   /**
-   * @param {Number} totalCirculatingSupply
+   * @param {Number} circulatingSupply
    * @param {Number} maxSupply
    * @returns {String}
    */
