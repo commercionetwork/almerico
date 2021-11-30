@@ -1,7 +1,7 @@
 import circulatingSupply from './overview/circulating-supply';
+import exchangeRate from './overview/exchange-rate';
 import maxSupply from './overview/max-supply';
 import nonCirculatingSupply from './overview/non-circulating-supply';
-import exchangeRate from './overview/exchange-rate';
 
 export default {
   /**
@@ -25,120 +25,44 @@ export default {
     translator,
     ctx,
   }) {
-    const $t = translator.bind(ctx);
-
     return new Promise((resolve) => {
-      const maxSupplyRows = maxSupply.getRows({
+      const maxSupplyTable = maxSupply.getTable({
         accounts,
         abrTokens,
         vbrTokens,
         denom,
-        translator: $t,
+        translator: translator.bind(ctx),
       });
-      const maxSupplyAmount = maxSupply.getTotal();
 
       const bondedTokens = pool ? pool.bonded_tokens : '0';
-      const nonCirculatingSupplyRows = nonCirculatingSupply.getRows({
+      const nonCirculatingSupplyTable = nonCirculatingSupply.getTable({
         abrTokens,
         bondedTokens,
         freezedTokens,
-        maxSupply: maxSupplyAmount,
+        maxSupply: maxSupplyTable.total,
         supply,
         vbrTokens,
         denom,
-        translator: $t,
-      });
-      const nonCirculatingSupplyAmount = nonCirculatingSupply.getTotal({
-        abrTokens,
-        bondedTokens,
-        freezedTokens,
-        maxSupply: maxSupplyAmount,
-        supply,
-        vbrTokens,
-        denom,
+        translator: translator.bind(ctx),
       });
 
-      const circulatingSupplyRows = circulatingSupply.getRows({
-        maxSupply: maxSupplyAmount,
-        nonCirculatingSupply: nonCirculatingSupplyAmount,
-        translator: $t,
+      const circulatingSupplyTable = circulatingSupply.getTable({
+        maxSupply: maxSupplyTable.total,
+        nonCirculatingSupply: nonCirculatingSupplyTable.total,
+        translator: translator.bind(ctx),
       });
-      const circulatingSupplyAmount = circulatingSupply.getTotal(
-        maxSupplyAmount,
-        nonCirculatingSupplyAmount,
-      );
 
       const rate = exchangeRate.getRate(
-        maxSupplyAmount,
-        circulatingSupplyAmount,
+        maxSupplyTable.total,
+        circulatingSupplyTable.total,
       );
 
       resolve({
-        maxSupply: {
-          headers: _getHeaders(
-            {
-              text: $t('labels.maxSupply'),
-              value: 'label',
-              sortable: false,
-              align: 'start',
-            },
-            $t,
-          ),
-          rows: maxSupplyRows,
-        },
-        nonCirculatingSupply: {
-          headers: _getHeaders(
-            {
-              text: $t('labels.nonCirculatingSupply'),
-              value: 'label',
-              sortable: false,
-              align: 'start',
-            },
-            $t,
-          ),
-          rows: nonCirculatingSupplyRows,
-        },
-        circulatingSupply: {
-          headers: _getHeaders(
-            {
-              text: $t('labels.circulatingSupply'),
-              value: 'label',
-              sortable: false,
-              align: 'start',
-            },
-            $t,
-          ),
-          rows: circulatingSupplyRows,
-        },
+        maxSupplyTable,
+        nonCirculatingSupplyTable,
+        circulatingSupplyTable,
         exchangeRate: rate,
       });
     });
   },
-};
-
-/**
- *
- * @property {String} text
- * @property {String} value
- * @property {Boolean} sortable
- * @property {String} align
- * @returns {Array.<Object>}
- */
-const _getHeaders = (header, translator) => {
-  const $t = translator;
-  return [
-    header,
-    {
-      text: $t('labels.quantity'),
-      value: 'quantity',
-      sortable: false,
-      align: 'end',
-    },
-    {
-      text: $t('labels.percentage'),
-      value: 'percentage',
-      sortable: false,
-      align: 'end',
-    },
-  ];
 };

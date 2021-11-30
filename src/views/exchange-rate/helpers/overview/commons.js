@@ -28,6 +28,55 @@ export const getTokensByDenom = (balances, denom) => {
   return parseFloat(balance.amount) / 1000000;
 };
 
+/**
+ *
+ * @property {String} text
+ * @property {String} value
+ * @property {Boolean} sortable
+ * @property {String} align
+ * @returns {Array.<Object>}
+ */
+export const getCommonHeaders = (translator) => {
+  const $t = translator;
+  return [
+    new Header({
+      text: $t('labels.quantity'),
+      value: 'quantity',
+      sortable: false,
+      align: 'end',
+    }),
+    new Header({
+      text: $t('labels.percentage'),
+      value: 'percentage',
+      sortable: false,
+      align: 'end',
+    }),
+  ];
+};
+
+export class Table {
+  /**
+   *
+   * @param {Array.<Header>} headers
+   * @param {Array.<Row>} rows
+   * @param {Number} total
+   */
+  constructor({ headers, rows, total }) {
+    this.headers = headers;
+    this.rows = rows;
+    this.total = total;
+  }
+}
+
+export class Header {
+  constructor({ text, value, sortable, align }) {
+    this.text = text;
+    this.value = value;
+    this.sortable = sortable;
+    this.align = align;
+  }
+}
+
 export class Row {
   constructor({ rank, label, value, total, style }) {
     this.rank = rank;

@@ -1,48 +1,50 @@
 import { EXCHANGE_RATE } from '@/constants';
-import { Row } from './commons';
+import { getCommonHeaders, Header, Row, Table } from './commons';
 
 export default {
-  getRows({ maxSupply, nonCirculatingSupply, translator }) {
-    const $t = translator;
-    const maxSupplyRow = _getMaxSupplyRow(maxSupply, $t('labels.maxSupply'));
-    const nonCirculatingSupplyRow = _getNonCirculatingSupplyRow(
-      maxSupply,
-      nonCirculatingSupply,
-      $t('labels.totalNonCirculatingSupply'),
-    );
-    const circulatingSupplyRow = _getCirculatingSupplyRow(
-      maxSupply,
-      nonCirculatingSupply,
-      $t('labels.totalCirculatingSupply'),
-    );
-    return [maxSupplyRow, nonCirculatingSupplyRow, circulatingSupplyRow];
-  },
-  getTotal(maxSupply, nonCirculatingSupply) {
-    return maxSupply - nonCirculatingSupply;
+  getTable({ maxSupply, nonCirculatingSupply, translator }) {
+    const headers = _getHeaders(translator);
+    const rows = _getRows({ maxSupply, nonCirculatingSupply, translator });
+    const total = _getTotal(maxSupply, nonCirculatingSupply);
+    return new Table({ headers, rows, total });
   },
 };
 
-const _getMaxSupplyRow = (maxSupply, label) =>
-  new Row({
+const _getHeaders = (translator) => {
+  const $t = translator;
+  const header = new Header({
+    text: $t('labels.circulatingSupply'),
+    value: 'label',
+    sortable: false,
+    align: 'start',
+  });
+  const commonHeaders = getCommonHeaders($t);
+  return [header].concat(commonHeaders);
+};
+
+const _getRows = ({ maxSupply, nonCirculatingSupply, translator }) => {
+  const $t = translator;
+  const maxSupplyRow = new Row({
     rank: 1,
-    label,
+    label: $t('labels.maxSupply'),
     value: maxSupply,
     total: maxSupply,
   });
-
-const _getNonCirculatingSupplyRow = (maxSupply, nonCirculatingSupply, label) =>
-  new Row({
+  const nonCirculatingSupplyRow = new Row({
     rank: 2,
-    label,
+    label: $t('labels.totalNonCirculatingSupply'),
     value: nonCirculatingSupply,
     total: maxSupply,
   });
-
-const _getCirculatingSupplyRow = (maxSupply, nonCirculatingSupply, label) =>
-  new Row({
+  const circulatingSupplyRow = new Row({
     rank: 3,
-    label,
+    label: $t('labels.totalCirculatingSupply'),
     value: maxSupply - nonCirculatingSupply,
     total: maxSupply,
     style: EXCHANGE_RATE.ROW_STYLE.HIGHLIGHTED,
   });
+  return [maxSupplyRow, nonCirculatingSupplyRow, circulatingSupplyRow];
+};
+
+const _getTotal = (maxSupply, nonCirculatingSupply) =>
+  maxSupply - nonCirculatingSupply;

@@ -2,22 +2,22 @@
   <v-row>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.maxSupply.headers"
-        :items="model.maxSupply.rows"
+        :headers="model.maxSupplyTable.headers"
+        :items="model.maxSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.nonCirculatingSupply.headers"
-        :items="model.nonCirculatingSupply.rows"
+        :headers="model.nonCirculatingSupplyTable.headers"
+        :items="model.nonCirculatingSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.circulatingSupply.headers"
-        :items="model.circulatingSupply.rows"
+        :headers="model.circulatingSupplyTable.headers"
+        :items="model.circulatingSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
@@ -40,9 +40,9 @@ export default {
       validator: (model) => {
         const keys = Object.keys(model);
         const values = [
-          'maxSupply',
-          'nonCirculatingSupply',
-          'circulatingSupply',
+          'maxSupplyTable',
+          'nonCirculatingSupplyTable',
+          'circulatingSupplyTable',
           'exchangeRate',
         ];
         return keys.every((key) => values.includes(key));
