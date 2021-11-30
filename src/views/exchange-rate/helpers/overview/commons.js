@@ -10,10 +10,8 @@ import { EXCHANGE_RATE } from '@/constants';
 export const getTokensByAccount = ({ accounts, name, denom }) => {
   if (!accounts.length || !name || !denom) return 0;
   const account = accounts.find((account) => account.name === name);
-  return getTokensByDenom({
-    balances: account.balances,
-    denom: denom,
-  });
+  const tokens = getTokensByDenom(account.balances, denom);
+  return tokens;
 };
 
 /**
