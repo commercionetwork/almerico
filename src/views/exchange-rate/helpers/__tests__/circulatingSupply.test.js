@@ -1,7 +1,7 @@
 import circulatingSupply from '../overview/circulatingSupply';
 
 describe('views/exchange-rate/helpers/overview/circulatingSupply', () => {
-  test('if "getTable" return table headers and rows, plus total', () => {
+  test('if "getTable" return table headers and rows, plus total value', () => {
     const maxSupply = 2;
     const nonCirculatingSupply = 1;
     const translator = (msg) => msg;

@@ -1,7 +1,7 @@
 import overviewHelper from '../overviewHelper';
 
 describe('views/exchange-rate/helpers/overviewHelper', () => {
-  test('if "getOverview" method return the 3 tables plus the exchange rate', async () => {
+  test('if "getOverview" method return the 3 tables, plus the exchange rate value', async () => {
     const abrTokens = [{ denom: 'ucommercio', amount: '1' }];
     const accounts = [
       {
