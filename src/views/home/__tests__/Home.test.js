@@ -25,12 +25,16 @@ describe('views/home/index.vue', () => {
     $store: mockStore,
     $t: (msg) => msg,
   };
+  const computed = {
+    txEventHeight: () => 'txEventHeight',
+  };
 
   test('if loading indicator is displayed', () => {
     const wrapper = shallowMount(Home, {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -47,6 +51,7 @@ describe('views/home/index.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -62,6 +67,7 @@ describe('views/home/index.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
       },

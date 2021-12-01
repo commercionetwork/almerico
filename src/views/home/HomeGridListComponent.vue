@@ -17,7 +17,7 @@
 import HomeGridListItemComponent from './HomeGridListItemComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'HomeGridListComponent',
@@ -29,17 +29,6 @@ export default {
     ...mapGetters('home', {
       isRefreshing: 'isRefreshing',
       transactions: 'transactions',
-      txEventHeight: 'txEventHeight',
-    }),
-  },
-  watch: {
-    txEventHeight(value) {
-      if (value) this.refreshTransactions();
-    },
-  },
-  methods: {
-    ...mapActions('home', {
-      refreshTransactions: 'refreshTransactions',
     }),
   },
 };

@@ -26,7 +26,6 @@ describe('views/home/HomeGridListComponent.vue', () => {
   };
   const computed = {
     transactions: () => [],
-    txEventHeight: () => 'txEventHeight',
   };
 
   test('if loading indicator is displayed', () => {

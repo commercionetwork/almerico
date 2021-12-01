@@ -51,11 +51,18 @@ export default {
     ...mapGetters('home', {
       error: 'error',
       isLoading: 'isLoading',
+      txEventHeight: 'txEventHeight',
     }),
+  },
+  watch: {
+    txEventHeight(value) {
+      if (value) this.refreshTransactions();
+    },
   },
   methods: {
     ...mapActions('home', {
       initHome: 'initHome',
+      refreshTransactions: 'refreshTransactions',
     }),
   },
   created() {
