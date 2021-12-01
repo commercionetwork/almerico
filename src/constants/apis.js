@@ -6,8 +6,6 @@ const API_VERSION =
     ? process.env.VUE_APP_API_VERSION
     : '';
 
-const WS = process.env.VUE_APP_WS !== undefined ? process.env.VUE_APP_WS : '';
-
 const API_PATHS = {
   BASE: 'base',
   COMMERCIO: 'commercionetwork',
@@ -16,21 +14,7 @@ const API_PATHS = {
   TX: 'tx',
 };
 
-const EVENTS = {
-  NEW_BLOCK: 'NewBlock',
-  TX: 'Tx',
-  VALIDATOR_SET_UPDATES: 'ValidatorSetUpdates',
-};
-
-const SORTING_ORDERS = {
-  ORDER_BY_ASC: 'ORDER_BY_ASC',
-  ORDER_BY_DESC: 'ORDER_BY_DESC',
-  ORDER_BY_UNSPECIFIED: 'ORDER_BY_UNSPECIFIED',
-};
-
-const TX_TYPES = {
-  NEW_CONVERSION_RATE: 'new_conversion_rate',
-};
+const WS = process.env.VUE_APP_WS !== undefined ? process.env.VUE_APP_WS : '';
 
 export const APIS = {
   HTTP: {
@@ -63,10 +47,17 @@ export const APIS = {
     STAKING_LEGACY: `${LCD}/staking`,
     TXS_LEGACY: `${LCD}/txs`,
   },
-  SORTING_ORDERS: SORTING_ORDERS,
+  SORTING_ORDERS: {
+    ORDER_BY_ASC: 'ORDER_BY_ASC',
+    ORDER_BY_DESC: 'ORDER_BY_DESC',
+    ORDER_BY_UNSPECIFIED: 'ORDER_BY_UNSPECIFIED',
+  },
   WS: {
-    EVENTS,
-    TX_TYPES,
+    EVENTS: {
+      NEW_BLOCK: 'NewBlock',
+      TX: 'Tx',
+      VALIDATOR_SET_UPDATES: 'ValidatorSetUpdates',
+    },
     URL: WS,
   },
 };
