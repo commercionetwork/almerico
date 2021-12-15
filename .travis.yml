@@ -6,6 +6,9 @@ node_js:
 services:
   - docker
 
+before_script:
+  - bash ./scripts/docker_check_vars.sh
+
 install:
   - npm install -s --no-audit --no-fund
 
@@ -69,16 +72,16 @@ after_success:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: bash docker_push_dev.sh
+    script: bash ./scripts/docker_push_dev.sh
     on:
       branch: development
   - provider: script
     skip_cleanup: true
-    script: bash docker_push_latest.sh
+    script: bash ./scripts/docker_push_latest.sh
     on:
       branch: master
   - provider: script
     skip_cleanup: true
-    script: bash docker_push_alfa.sh
+    script: bash ./scripts/docker_push_alfa.sh
     on:
       branch: alfa
