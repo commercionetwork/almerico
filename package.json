@@ -7,8 +7,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
-    "test": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "vue-cli-service test:unit --setupTestFrameworkScriptFile=./tests/setup.js"
   },
   "dependencies": {
     "axios": "^0.24.0",
