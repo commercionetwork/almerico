@@ -1,3 +1,8 @@
+const BROWSER_STORAGE_KEYS = {
+  THEME: 'almerico-dark-theme',
+  VALIDATORS: 'almerico-my-validators',
+};
+
 const CHAIN = {
   DEFAULT_INDEX: 1,
   LIST: [
@@ -58,6 +63,7 @@ const TOKEN = {
 };
 
 export const CONFIG = {
+  BROWSER_STORAGE_KEYS,
   CHAIN,
   PREFIXES,
   STABLE_COIN,
