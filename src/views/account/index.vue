@@ -60,7 +60,8 @@ export default {
   },
   watch: {
     address(value) {
-      if (value) this.initAccount(value);
+      if (value)
+        this.initAccount({ address: value, validator: this.validator });
     },
   },
   methods: {
