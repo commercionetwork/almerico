@@ -3,22 +3,22 @@
     <div>
       <div class="text-h5 text-capitalize font-weight-bold" v-text="moniker" />
       <div>
+        <v-icon small left :color="isActive ? 'info' : 'warning'">
+          mdi-hubspot
+        </v-icon>
         <span
-          class="text-caption font-italic"
+          class="text-caption"
           :class="isActive ? 'info--text' : 'warning--text'"
           v-text="isActive ? $t('labels.active') : $t('labels.inactive')"
         />
-        <v-btn icon @click="handleBookmark(detail.operator_address)">
-          <v-icon small color="amber darken-2">
-            {{ bookmarkIcon }}
-          </v-icon>
-        </v-btn>
       </div>
     </div>
     <div>
-      <v-icon size="50" :color="isActive ? 'info' : 'warning'">
-        mdi-hubspot
-      </v-icon>
+      <v-btn icon @click="handleBookmark(detail.operator_address)">
+        <v-icon size="35" color="amber darken-2">
+          {{ bookmarkIcon }}
+        </v-icon>
+      </v-btn>
     </div>
   </v-card-text>
 </template>
