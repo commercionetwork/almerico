@@ -15,7 +15,7 @@ const validatorsTableAdapter = {
    * @param {BuildParam} p
    * @returns {Array.<ValidatorsTableRow>}
    */
-  build({ validators, status, accountPrefix, blocks, coin, pool }) {
+  build({ validators, status, accountPrefix, blocks, coin, pool, bookmarks }) {
     const sortedValidators = orderBy(
       validators,
       (validator) => parseInt(validator.tokens),
@@ -28,6 +28,7 @@ const validatorsTableAdapter = {
       blocks,
       coin,
       pool,
+      bookmarks,
     });
   },
 };
@@ -41,6 +42,7 @@ const _getTableRows = ({
   blocks,
   coin,
   pool,
+  bookmarks,
 }) => {
   let cumulativeCount = 0;
   const rows = sortedValidators.map((validator, i) => {
@@ -48,6 +50,8 @@ const _getTableRows = ({
     const active = validator.status === VALIDATORS.STATUS.BONDED ? true : false;
     const moniker = validator.description.moniker;
     const operator = validator.operator_address;
+    const bookmark =
+      bookmarks.findIndex((address) => address === operator) > -1;
     const account = _getAccountAddress(
       validator.operator_address,
       accountPrefix,
@@ -67,6 +71,7 @@ const _getTableRows = ({
       account,
       tokens,
       commission,
+      bookmark,
     });
 
     if (active) {
@@ -114,6 +119,7 @@ class ValidatorsTableRow {
     votingPower,
     cumulative,
     attendance,
+    bookmark,
   }) {
     this.rank = rank;
     this.active = active;
@@ -125,5 +131,6 @@ class ValidatorsTableRow {
     this.votingPower = votingPower;
     this.cumulative = cumulative;
     this.attendance = attendance;
+    this.bookmark = bookmark;
   }
 }

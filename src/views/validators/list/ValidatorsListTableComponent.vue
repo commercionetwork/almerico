@@ -19,7 +19,7 @@
         <template v-slot:[`item.rank`]="{ item }">
           <div
             class="py-1 px-3 rounded-circle d-inline-block"
-            :class="item.active ? 'primary' : 'warning'"
+            :class="item.active ? 'primary' : 'error'"
           >
             <span class="font-weight-bold white--text" v-text="item.rank" />
           </div>
@@ -33,6 +33,12 @@
               params: { id: item.operator },
             }"
           />
+          <v-btn icon @click="handleBookmark(item.operator, item.bookmark)">
+            <v-icon v-if="item.bookmark" color="amber darken-2">
+              mdi-star
+            </v-icon>
+            <v-icon v-else color="amber darken-2">mdi-star-outline</v-icon>
+          </v-btn>
         </template>
         <template v-slot:[`item.tokens`]="{ item }">
           <span class="text-uppercase" v-text="item.tokens" />
@@ -43,6 +49,7 @@
 </template>
 
 <script>
+import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import validatorsTableAdapter from './helpers/validatorsTableAdapter';
 import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
@@ -74,6 +81,7 @@ export default {
         blocks: this.blocks,
         coin: this.bondDenom,
         pool: this.pool,
+        bookmarks: validatorsStorageHandler.get(),
       });
     },
     headers() {
@@ -113,6 +121,13 @@ export default {
         }
       }
       return found;
+    },
+    handleBookmark(address, status) {
+      if (status) {
+        validatorsStorageHandler.remove(address);
+      } else {
+        validatorsStorageHandler.set(address);
+      }
     },
   },
 };
