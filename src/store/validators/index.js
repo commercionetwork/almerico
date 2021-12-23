@@ -1,7 +1,7 @@
+import { VALIDATORS } from '@/constants';
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
-import { VALIDATORS } from '@/constants';
 
 export const initState = () => ({
   blocks: [],
