@@ -44,4 +44,5 @@ export const titles = {
   unbondingDelegations: 'Unbonding Delegations',
   validatorDetail: 'Validator detail',
   validators: 'Validators',
+  validatorsList: 'Validators list',
 };

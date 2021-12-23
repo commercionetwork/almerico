@@ -1,6 +1,7 @@
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
+import { VALIDATORS } from '@/constants';
 
 export const initState = () => ({
   blocks: [],
@@ -8,7 +9,7 @@ export const initState = () => ({
   detail: null,
   error: null,
   filter: {
-    active: true,
+    status: VALIDATORS.FILTER.ACTIVE,
     query: '',
   },
   isLoading: false,

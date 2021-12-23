@@ -13,4 +13,9 @@ export const VALIDATORS = {
     UNBONDED: 'BOND_STATUS_UNBONDED',
     UNBONDING: 'BOND_STATUS_UNBONDING',
   },
+  FILTER: {
+    ACTIVE: 'active',
+    INACTIVE: 'inactive',
+    BOOKMARK: 'bookmark',
+  },
 };

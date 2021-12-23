@@ -6,10 +6,9 @@
           <v-col cols="10" offset="1">
             <v-text-field
               :label="$t('labels.searchNameAddressAccount')"
-              append-icon="mdi-magnify"
               v-model="query"
-              @input="onFilter"
-              @blur="onFilter"
+              @input="search"
+              @blur="search"
             >
               <template v-slot:prepend>
                 <v-tooltip bottom>
@@ -21,20 +20,19 @@
                   <span v-html="$t('msgs.searchValidatorsInfo')" />
                 </v-tooltip>
               </template>
+              <template v-slot:append-outer>
+                <v-menu open-on-hover left>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon v-bind="attrs" v-on="on">
+                      <v-icon>mdi-filter-outline</v-icon>
+                    </v-btn>
+                  </template>
+                  <ValidatorsListFilterComponent v-on:filter="onFilter" />
+                </v-menu>
+              </template>
             </v-text-field>
           </v-col>
         </v-row>
-        <div class="d-flex justify-center">
-          <v-radio-group
-            row
-            v-model="active"
-            @blur="onFilter"
-            @change="onFilter"
-          >
-            <v-radio :label="$t('labels.active')" :value="true" />
-            <v-radio :label="$t('labels.inactive')" :value="false" />
-          </v-radio-group>
-        </div>
       </v-form>
     </template>
   </TopContentCardComponent>
@@ -42,23 +40,31 @@
 
 <script>
 import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
-
+import ValidatorsListFilterComponent from './ValidatorsListFilterComponent.vue';
+import { VALIDATORS } from '@/constants';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'ValidatorsListSearchComponent',
-  components: { TopContentCardComponent },
+  components: {
+    ValidatorsListFilterComponent,
+    TopContentCardComponent,
+  },
   data: () => ({
-    active: true,
+    status: VALIDATORS.FILTER.ACTIVE,
     query: '',
   }),
   methods: {
     ...mapActions('validators', {
       setValidatorsFilter: 'setValidatorsFilter',
     }),
-    onFilter() {
+    onFilter(filter) {
+      this.status = filter;
+      this.search();
+    },
+    search() {
       this.setValidatorsFilter({
-        active: this.active,
+        status: this.status,
         query: this.query,
       });
     },

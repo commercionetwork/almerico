@@ -15,7 +15,7 @@ const validatorsTableAdapter = {
    * @param {BuildParam} p
    * @returns {Array.<ValidatorsTableRow>}
    */
-  build({ validators, status, accountPrefix, blocks, coin, pool, bookmarks }) {
+  build({ validators, accountPrefix, blocks, coin, pool, bookmarks, filter }) {
     const sortedValidators = orderBy(
       validators,
       (validator) => parseInt(validator.tokens),
@@ -23,12 +23,12 @@ const validatorsTableAdapter = {
     );
     return _getTableRows({
       sortedValidators,
-      status,
       accountPrefix,
       blocks,
       coin,
       pool,
       bookmarks,
+      filter,
     });
   },
 };
@@ -37,12 +37,12 @@ export default validatorsTableAdapter;
 
 const _getTableRows = ({
   sortedValidators,
-  status,
   accountPrefix,
   blocks,
   coin,
   pool,
   bookmarks,
+  filter,
 }) => {
   let cumulativeCount = 0;
   const rows = sortedValidators.map((validator, i) => {
@@ -91,7 +91,8 @@ const _getTableRows = ({
 
     return row;
   });
-  return rows.filter((row) => row.active === status);
+
+  return _filtering(rows, filter);
 };
 
 const _getAccountAddress = (address, prefix) => {
@@ -105,6 +106,18 @@ const _getPercentage = (amount) => {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   }).format(amount);
+};
+
+const _filtering = (rows, filter) => {
+  return rows.filter((row) => {
+    if (filter.status === VALIDATORS.FILTER.ACTIVE) {
+      return row.active === true;
+    } else if (filter.status === VALIDATORS.FILTER.INACTIVE) {
+      return row.active === false;
+    } else if (filter.status === VALIDATORS.FILTER.BOOKMARK) {
+      return row.bookmark === true;
+    }
+  });
 };
 
 class ValidatorsTableRow {

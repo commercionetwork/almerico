@@ -72,6 +72,7 @@ export const labels = {
   msgsOnTxs: 'Msgs/Txs',
   multiTypes: 'Multi types',
   multiValues: 'Multi values',
+  myValidators: 'My validators',
   name: 'Name',
   newMembership: 'New membership',
   nonCirculatingSupply: 'Non circulating supply',

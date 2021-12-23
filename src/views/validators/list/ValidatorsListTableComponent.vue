@@ -13,7 +13,7 @@
         <template v-slot:top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
-            v-text="caption"
+            v-text="$t('titles.validatorsList')"
           />
         </template>
         <template v-slot:[`item.rank`]="{ item }">
@@ -77,12 +77,12 @@ export default {
     items() {
       return validatorsTableAdapter.build({
         validators: this.validators,
-        status: this.filter.active,
         accountPrefix: CONFIG.PREFIXES.ACCOUNT.ADDRESS,
         blocks: this.blocks,
         coin: this.bondDenom,
         pool: this.pool,
         bookmarks: this.bookmarks,
+        filter: this.filter,
       });
     },
     headers() {
@@ -101,11 +101,6 @@ export default {
         });
       }
       return headers;
-    },
-    caption() {
-      return this.filter.active
-        ? this.$t('titles.activeValidatorsList')
-        : this.$t('titles.inactiveValidatorsList');
     },
   },
   methods: {
