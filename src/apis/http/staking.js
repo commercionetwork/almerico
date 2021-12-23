@@ -105,10 +105,10 @@ export default {
    * @param {String} id
    * @returns {Promise}
    */
-  requestValidatorsDetailDelegationsLegacy(id) {
+  requestValidatorsDetailDelegations(id) {
     return axios({
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
+      baseURL: `${APIS.HTTP.STAKING}`,
       url: `/validators/${id}/delegations`,
     });
   },

@@ -66,10 +66,8 @@ export default {
 
   async fetchDetailDelegations({ commit, dispatch }, id) {
     try {
-      const response = await staking.requestValidatorsDetailDelegationsLegacy(
-        id,
-      );
-      commit('setDelegations', response.data.result);
+      const response = await staking.requestValidatorsDetailDelegations(id);
+      commit('setDelegations', response.data.delegation_responses);
     } catch (error) {
       dispatch('handleError', error);
     }

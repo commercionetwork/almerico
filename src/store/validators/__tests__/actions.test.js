@@ -3,6 +3,7 @@ import {
   mockBlock,
   mockDelegation,
   mockErrors,
+  mockPagination,
   mockPool,
   mockValidator,
   mockValidatorSets,
@@ -166,7 +167,7 @@ describe('store/validators/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setDelegations',
-      mockResponse.data.result,
+      mockResponse.data.delegation_responses,
     );
 
     mockError = true;
@@ -229,7 +230,7 @@ jest.mock('../../../apis/http/staking.js', () => ({
       }, 1);
     });
   },
-  requestValidatorsDetailDelegationsLegacy: () => {
+  requestValidatorsDetailDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -237,7 +238,10 @@ jest.mock('../../../apis/http/staking.js', () => ({
         }
 
         mockResponse = {
-          data: { result: mockDelegation(), height: '0' },
+          data: {
+            delegation_responses: mockDelegation(),
+            pagination: mockPagination(),
+          },
         };
         resolve(mockResponse);
       }, 1);
