@@ -59,6 +59,7 @@ export default {
   data: () => ({
     ROUTES,
     sortBy: 'rank',
+    bookmarks: [],
   }),
   computed: {
     ...mapGetters('application', {
@@ -81,7 +82,7 @@ export default {
         blocks: this.blocks,
         coin: this.bondDenom,
         pool: this.pool,
-        bookmarks: validatorsStorageHandler.get(),
+        bookmarks: this.bookmarks,
       });
     },
     headers() {
@@ -128,7 +129,11 @@ export default {
       } else {
         validatorsStorageHandler.set(address);
       }
+      this.bookmarks = validatorsStorageHandler.get();
     },
+  },
+  created() {
+    this.bookmarks = validatorsStorageHandler.get();
   },
 };
 </script>
