@@ -78,6 +78,18 @@ export default {
   },
   /**
    *
+   * @param {String} address
+   * @returns {AxiosPromise}
+   */
+  requestDelegationsLegacy(address) {
+    return axios({
+      method: 'get',
+      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
+      url: `/delegators/${address}/delegations`,
+    });
+  },
+  /**
+   *
    * @param {String} id
    * @returns {AxiosPromise}
    */
@@ -98,18 +110,6 @@ export default {
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
       url: `/validators/${id}/delegations`,
-    });
-  },
-  /**
-   *
-   * @param {String} address
-   * @returns {AxiosPromise}
-   */
-  requestDelegationsLegacy(address) {
-    return axios({
-      method: 'get',
-      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-      url: `/delegators/${address}/delegations`,
     });
   },
 };
