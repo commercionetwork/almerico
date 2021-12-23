@@ -26,6 +26,7 @@ describe('views/validators/list/helpers', () => {
     const coin = 'uccc';
     const pool = mockPool();
     const accountPrefix = 'did:com:';
+    const bookmarks = ['address'];
     const convertedValidators = validatorsTableAdapter.build({
       validators,
       status,
@@ -33,6 +34,7 @@ describe('views/validators/list/helpers', () => {
       blocks,
       coin,
       pool,
+      bookmarks,
     });
 
     const expectedKeys = [
@@ -46,6 +48,7 @@ describe('views/validators/list/helpers', () => {
       'votingPower',
       'cumulative',
       'attendance',
+      'bookmark',
     ];
 
     expect(convertedValidators.length).toBe(items);
