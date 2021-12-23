@@ -33,9 +33,6 @@ const validatorsStorageHandler = {
       JSON.stringify(validators),
     );
   },
-  reset() {
-    localStorage.removeItem(CONFIG.BROWSER_STORAGE_KEYS.VALIDATORS);
-  },
 };
 
 export default validatorsStorageHandler;

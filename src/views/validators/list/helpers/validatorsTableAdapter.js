@@ -92,7 +92,7 @@ const _getTableRows = ({
     return row;
   });
 
-  return _filtering(rows, filter);
+  return _filtering(rows, filter.status);
 };
 
 const _getAccountAddress = (address, prefix) => {
@@ -108,13 +108,14 @@ const _getPercentage = (amount) => {
   }).format(amount);
 };
 
-const _filtering = (rows, filter) => {
+const _filtering = (rows, status) => {
+  if (!status) return rows;
   return rows.filter((row) => {
-    if (filter.status === VALIDATORS.FILTER.ACTIVE) {
+    if (status === VALIDATORS.FILTER.ACTIVE) {
       return row.active === true;
-    } else if (filter.status === VALIDATORS.FILTER.INACTIVE) {
+    } else if (status === VALIDATORS.FILTER.INACTIVE) {
       return row.active === false;
-    } else if (filter.status === VALIDATORS.FILTER.BOOKMARK) {
+    } else if (status === VALIDATORS.FILTER.BOOKMARK) {
       return row.bookmark === true;
     }
   });
