@@ -1,4 +1,6 @@
-const mockValidator = () => {
+import { VALIDATORS } from '@/constants';
+
+const mockValidator = (status = VALIDATORS.STATUS.BONDED) => {
   const item = {
     operator_address: 'did:com:valoper18h03de6awcjk4u9gaz8s5l0xxl8ulxjcgpfzx7',
     consensus_pubkey: {
@@ -6,7 +8,7 @@ const mockValidator = () => {
       key: 'ET6Pifwl3+X/XCHaThqJLGG7MSX9ybXZNPLvxgIehCg=',
     },
     jailed: false,
-    status: 'BOND_STATUS_BONDED',
+    status,
     tokens: '100000000',
     delegator_shares: '100000000.000000000000000000',
     description: {

@@ -1,4 +1,5 @@
-import { mockPool, mockValidators, mockValidatorSets } from '@/__mocks__';
+import { VALIDATORS } from '@/constants';
+import { mockPool, mockValidators } from '@/__mocks__';
 import validatorsChartHelper from '../validatorsChartHelper';
 import validatorsTableAdapter from '../validatorsTableAdapter';
 
@@ -21,20 +22,20 @@ describe('views/validators/list/helpers', () => {
   test('if "validatorsTableAdapter.build" method return an array of wanted validators', () => {
     const items = 5;
     const validators = mockValidators(items);
-    const status = true;
     const blocks = [];
     const coin = 'uccc';
     const pool = mockPool();
     const accountPrefix = 'did:com:';
     const bookmarks = ['address'];
-    const convertedValidators = validatorsTableAdapter.build({
+    const filter = { status: VALIDATORS.FILTER.ACTIVE, query: '' };
+    const validatorsRows = validatorsTableAdapter.build({
       validators,
-      status,
       accountPrefix,
       blocks,
       coin,
       pool,
       bookmarks,
+      filter,
     });
 
     const expectedKeys = [
@@ -51,8 +52,8 @@ describe('views/validators/list/helpers', () => {
       'bookmark',
     ];
 
-    expect(convertedValidators.length).toBe(items);
-    for (const validator of convertedValidators) {
+    expect(validatorsRows.length).toBe(items);
+    for (const validator of validatorsRows) {
       expect(Object.keys(validator)).toStrictEqual(expectedKeys);
     }
   });
