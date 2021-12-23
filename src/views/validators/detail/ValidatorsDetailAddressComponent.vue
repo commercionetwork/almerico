@@ -1,6 +1,10 @@
 <template>
   <v-card outlined class="d-flex fill-height flex-column">
-    <ValidatorsDetailAddressMonikerComponent :detail="detail" />
+    <ValidatorsDetailAddressMonikerComponent
+      :detail="detail"
+      :isBookmark="isBookmark"
+      v-on:handleBookmark="onHandleBookmark"
+    />
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="px-1">
@@ -36,6 +40,7 @@
 </template>
 
 <script>
+import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import ValidatorsDetailAddressMonikerComponent from './ValidatorsDetailAddressMonikerComponent.vue';
 import { ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
@@ -46,11 +51,19 @@ export default {
   props: ['account'],
   data: () => ({
     tooltip: false,
+    bookmarks: [],
   }),
   computed: {
     ...mapGetters('validators', {
       detail: 'detail',
     }),
+    isBookmark() {
+      return (
+        this.bookmarks.findIndex(
+          (address) => address === this.detail.operator_address,
+        ) > -1
+      );
+    },
     toAccount() {
       return {
         name: ROUTES.NAME.ACCOUNT,
@@ -71,6 +84,17 @@ export default {
         }, 500);
       });
     },
+    onHandleBookmark(address) {
+      if (this.isBookmark) {
+        validatorsStorageHandler.remove(address);
+      } else {
+        validatorsStorageHandler.set(address);
+      }
+      this.bookmarks = validatorsStorageHandler.get();
+    },
+  },
+  created() {
+    this.bookmarks = validatorsStorageHandler.get();
   },
 };
 </script>
