@@ -1,27 +1,32 @@
 <template>
   <TopContentCardComponent :title="$t('titles.latestHeight')">
     <template v-slot:content>
-      <router-link
-        class="text-h4 text-decoration-none font-weight-bold"
-        v-text="blockHeight"
-        :to="blockLink"
-      />
-      <div class="font-weight-bold" v-text="time" />
-      <div>
-        <span v-text="$t('labels.msgsOnTxs')" />
-        <span class="pl-1 font-weight-bold" v-text="msgsOnTxs" />
-      </div>
-      <div>
-        <span v-text="$t('labels.proposer')" />
+      <div class="text-center">
         <router-link
-          class="pl-1 text-decoration-none font-weight-bold"
-          v-text="proposerName"
-          :to="proposerLink"
+          class="text-h4 text-decoration-none font-weight-bold"
+          v-text="blockHeight"
+          :to="blockLink"
         />
-      </div>
-      <div>
-        <span v-text="$t('labels.validators')" />
-        <span class="pl-1 font-weight-bold" v-text="bondedOnTotalValidators" />
+        <div class="font-weight-bold" v-text="time" />
+        <div>
+          <span v-text="$t('labels.msgsOnTxs')" />
+          <span class="pl-1 font-weight-bold" v-text="msgsOnTxs" />
+        </div>
+        <div>
+          <span v-text="$t('labels.proposer')" />
+          <router-link
+            class="pl-1 text-decoration-none font-weight-bold"
+            v-text="proposerName"
+            :to="proposerLink"
+          />
+        </div>
+        <div>
+          <span v-text="$t('labels.validators')" />
+          <span
+            class="pl-1 font-weight-bold"
+            v-text="bondedOnTotalValidators"
+          />
+        </div>
       </div>
     </template>
   </TopContentCardComponent>
