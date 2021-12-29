@@ -21,7 +21,7 @@
             v-text="CONFIG.STABLE_COIN.VALUE.AMOUNT"
           />
         </div>
-        <v-divider vertical style="border: 1px solid" />
+        <v-divider vertical />
         <div
           class="
             d-flex

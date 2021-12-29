@@ -8,7 +8,7 @@
       :isBookmark="isBookmark"
       v-on:handleBookmark="onHandleBookmark"
     />
-    <v-divider class="mx-3" style="border: 1px solid" />
+    <v-divider class="mx-3" />
     <v-card-text>
       <div class="px-1">
         <div>
