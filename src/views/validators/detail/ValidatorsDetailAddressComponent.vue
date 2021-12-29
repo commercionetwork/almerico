@@ -1,11 +1,14 @@
 <template>
-  <v-card outlined class="d-flex fill-height flex-column">
+  <v-card
+    outlined
+    class="fill-height d-flex flex-column justify-start align-content-center"
+  >
     <ValidatorsDetailAddressMonikerComponent
       :detail="detail"
       :isBookmark="isBookmark"
       v-on:handleBookmark="onHandleBookmark"
     />
-    <v-divider class="mx-3" />
+    <v-divider class="mx-3" style="border: 1px solid" />
     <v-card-text>
       <div class="px-1">
         <div>
