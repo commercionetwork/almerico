@@ -1,7 +1,9 @@
 <template>
   <TopContentCardComponent :title="$t('titles.latestHeight')">
     <template v-slot:content>
-      <div class="text-center">
+      <div
+        class="fill-height d-flex flex-column justify-space-around align-center"
+      >
         <router-link
           class="text-h4 text-decoration-none font-weight-bold"
           v-text="blockHeight"

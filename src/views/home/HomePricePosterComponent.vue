@@ -5,12 +5,7 @@
         class="fill-height d-flex flex-row justify-space-between align-center"
       >
         <div
-          class="
-            d-flex
-            flex-column flex-grow-1
-            justify-space-between
-            align-center
-          "
+          class="d-flex flex-column flex-grow-1 justify-space-between align-center"
         >
           <div
             class="text-overline font-weight-bold"
@@ -21,14 +16,9 @@
             v-text="CONFIG.STABLE_COIN.VALUE.AMOUNT"
           />
         </div>
-        <v-divider vertical />
+        <v-divider vertical style="border: 1px solid currentcolor" />
         <div
-          class="
-            d-flex
-            flex-column flex-grow-1
-            justify-space-between
-            align-center
-          "
+          class="d-flex flex-column flex-grow-1 justify-space-between align-center"
         >
           <div class="text-overline font-weight-bold" v-text="tokenDenom" />
           <div class="text-h4 font-weight-bold" v-text="tokenValue" />
