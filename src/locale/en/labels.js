@@ -44,6 +44,7 @@ export const labels = {
   encryptionDataKeys: 'Encryption data keys',
   failed: 'Failed',
   fee: 'Fee',
+  filter: 'Filter',
   freezePeriod: 'Freeze period',
   freezedTokens: 'Freezed tokens',
   fromAddress: 'From address',

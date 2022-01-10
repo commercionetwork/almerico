@@ -1,12 +1,23 @@
 <template>
   <v-select
-    v-model="select"
+    :label="$t('labels.filter')"
     :items="items"
     item-text="label"
     item-value="status"
     return-object
+    v-model="select"
     @change="filtering"
   >
+    <template v-slot:prepend>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-icon color="info" dark v-bind="attrs" v-on="on">
+            mdi-information-outline
+          </v-icon>
+        </template>
+        <span v-html="$t('msgs.filterValidatorsInfo')" />
+      </v-tooltip>
+    </template>
   </v-select>
 </template>
 
@@ -40,12 +51,6 @@ export default {
     filtering() {
       this.$emit('filter', this.select.status);
     },
-  },
-  created() {
-    this.select = {
-      label: this.$t('labels.active'),
-      status: VALIDATORS.FILTER.ACTIVE,
-    };
   },
 };
 </script>
