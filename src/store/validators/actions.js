@@ -64,10 +64,28 @@ export default {
     }
   },
 
-  async fetchDetailDelegations({ commit, dispatch }, id) {
+  async fetchDetailDelegations({ dispatch, getters }, id) {
+    await dispatch('addDetailDelegations', { id });
+    while (getters['delegationsTotal'] > getters['delegationsOffset']) {
+      await dispatch('addDetailDelegations', {
+        id,
+        offset: getters['delegationsOffset'],
+      });
+    }
+  },
+
+  async addDetailDelegations({ commit, dispatch }, { id, offset }) {
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
     try {
-      const response = await staking.requestValidatorsDetailDelegations(id);
-      commit('setDelegations', response.data.delegation_responses);
+      const response = await staking.requestValidatorsDetailDelegations(
+        id,
+        pagination,
+      );
+      commit('addDelegations', response.data.delegation_responses);
+      commit('setDelegationsPagination', response.data.pagination);
+      commit('sumDelegationsOffset', response.data.delegation_responses.length);
     } catch (error) {
       dispatch('handleError', error);
     }

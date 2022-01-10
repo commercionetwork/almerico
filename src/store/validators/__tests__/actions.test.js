@@ -145,34 +145,53 @@ describe('store/validators/actions', () => {
   test('if "fetchDetail" action commit "setDetail", and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const address = 'address';
+    const id = 'id';
 
-    await actions.fetchDetail({ commit, dispatch }, address);
+    await actions.fetchDetail({ commit, dispatch }, id);
 
     expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data.result);
 
     mockError = true;
 
-    await actions.fetchDetail({ commit, dispatch }, address);
+    await actions.fetchDetail({ commit, dispatch }, id);
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "fetchDetailDelegations" action commit "setDelegations", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchDetailDelegations" dispatch "addDetailDelegations" action', async () => {
+    const dispatch = jest.fn();
+    const getters = jest.fn();
+    const id = 'id';
+
+    await actions.fetchDetailDelegations({ dispatch, getters }, id);
+
+    expect(dispatch).toHaveBeenCalledWith('addDetailDelegations', { id });
+  });
+
+  test('if "addDetailDelegations" action commit "addDelegations", "setDelegationsPagination" and "sumDelegationsOffset" mutations, and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const address = 'address';
+    const id = 'id';
+    const offset = 10;
 
-    await actions.fetchDetailDelegations({ commit, dispatch }, address);
+    await actions.addDetailDelegations({ commit, dispatch }, { id, offset });
 
     expect(commit).toHaveBeenCalledWith(
-      'setDelegations',
+      'addDelegations',
       mockResponse.data.delegation_responses,
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'setDelegationsPagination',
+      mockResponse.data.pagination,
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'sumDelegationsOffset',
+      mockResponse.data.delegation_responses.length,
     );
 
     mockError = true;
 
-    await actions.fetchDetailDelegations({ commit, dispatch }, address);
+    await actions.addDetailDelegations({ commit, dispatch }, { id, offset });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });

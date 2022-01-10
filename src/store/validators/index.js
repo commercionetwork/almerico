@@ -6,6 +6,8 @@ import mutations from './mutations';
 export const initState = () => ({
   blocks: [],
   delegations: [],
+  delegationsOffset: 0,
+  delegationsPagination: null,
   detail: null,
   error: null,
   filter: {

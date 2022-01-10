@@ -92,4 +92,43 @@ describe('store/validators/mutations', () => {
 
     expect(state.delegations).toStrictEqual(delegations);
   });
+
+  test('mutations.addDelegations', () => {
+    state.delegations = [{ id: 1 }];
+    const payload = [{ id: 2 }];
+    const expected = [{ id: 1 }, { id: 2 }];
+
+    mutations.addDelegations(state, payload);
+
+    expect(state.delegations).toStrictEqual(expected);
+  });
+
+  test('mutations.setDelegationsOffset', () => {
+    const payload = 10;
+    mutations.setDelegationsOffset(state, payload);
+
+    expect(state.delegationsOffset).toBe(payload);
+  });
+
+  test('mutations.sumDelegationsOffset', () => {
+    const payload = 10;
+    mutations.sumDelegationsOffset(state, payload);
+
+    expect(state.delegationsOffset).toBe(payload);
+
+    mutations.sumDelegationsOffset(state, payload);
+
+    expect(state.delegationsOffset).toBe(payload + payload);
+  });
+
+  test('mutations.setDelegationsPagination', () => {
+    const pagination = {
+      next_key: 'string',
+      total: 'string',
+    };
+
+    mutations.setDelegationsPagination(state, pagination);
+
+    expect(state.delegationsPagination).toStrictEqual(pagination);
+  });
 });

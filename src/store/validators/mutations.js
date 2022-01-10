@@ -31,4 +31,16 @@ export default {
   setDelegations(state, payload) {
     state.delegations = payload;
   },
+  addDelegations(state, payload) {
+    state.delegations.push(...payload);
+  },
+  setDelegationsOffset(state, payload) {
+    state.delegationsOffset = payload;
+  },
+  sumDelegationsOffset(state, payload) {
+    state.delegationsOffset += payload;
+  },
+  setDelegationsPagination(state, payload) {
+    state.delegationsPagination = payload;
+  },
 };
