@@ -3,9 +3,10 @@
     <template v-slot:content>
       <v-form>
         <v-row>
-          <v-col cols="10" offset="1">
+          <v-col cols="10" offset-md="1">
             <v-text-field
               :label="$t('labels.searchNameAddressAccount')"
+              append-icon="mdi-magnify"
               v-model="query"
               @input="search"
               @blur="search"
@@ -20,17 +21,10 @@
                   <span v-html="$t('msgs.searchValidatorsInfo')" />
                 </v-tooltip>
               </template>
-              <template v-slot:append-outer>
-                <v-menu open-on-hover left>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn icon v-bind="attrs" v-on="on">
-                      <v-icon>mdi-filter-outline</v-icon>
-                    </v-btn>
-                  </template>
-                  <ValidatorsListFilterComponent v-on:filter="onFilter" />
-                </v-menu>
-              </template>
             </v-text-field>
+          </v-col>
+          <v-col cols="8" offset-md="2">
+            <ValidatorsListFilterComponent v-on:filter="onFilter" />
           </v-col>
         </v-row>
       </v-form>
