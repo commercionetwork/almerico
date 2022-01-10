@@ -1,5 +1,5 @@
 import { staking, tendermintRpc } from '@/apis/http';
-import { VALIDATORS } from '@/constants';
+import { SETTINGS, VALIDATORS } from '@/constants';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
@@ -23,10 +23,7 @@ export default {
   },
 
   async fetchTrackedBlocks({ dispatch }, lastHeight) {
-    const items = VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
-    const maxHeight = parseInt(lastHeight);
-    const minHeight = maxHeight - items > 0 ? maxHeight - items : 0;
-    const requests = setUpBlocksRequests(dispatch, maxHeight, minHeight);
+    const requests = setUpBlocksRequests(dispatch, lastHeight);
     await Promise.all(requests);
   },
 
@@ -100,9 +97,26 @@ export default {
   },
 };
 
-const setUpBlocksRequests = (dispatch, maxHeight, minHeight) => {
+export const getMinHeight = (items, firstHeight, maxHeight) => {
+  let minHeight = 1;
+  if (maxHeight - items > 1) {
+    minHeight = maxHeight - items;
+    if (firstHeight > minHeight) {
+      minHeight = firstHeight;
+    }
+  }
+  return minHeight;
+};
+
+export const setUpBlocksRequests = (dispatch, lastHeight) => {
+  let maxHeight = parseInt(lastHeight);
+  const minHeight = getMinHeight(
+    VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
+    SETTINGS.FIRST_HEIGHT,
+    maxHeight,
+  );
   const requests = [];
-  while (maxHeight > minHeight) {
+  while (maxHeight >= minHeight) {
     requests.push(dispatch('addBlocksItem', maxHeight--));
   }
   return requests;
