@@ -1,5 +1,6 @@
 <template>
   <v-select
+    append-icon="mdi-filter-outline"
     :label="$t('labels.filter')"
     :items="items"
     item-text="label"
