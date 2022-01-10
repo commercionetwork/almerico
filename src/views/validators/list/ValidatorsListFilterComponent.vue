@@ -1,10 +1,11 @@
 <template>
   <v-select
-    v-model="select"
+    :label="$t('labels.filter')"
     :items="items"
     item-text="label"
     item-value="status"
     return-object
+    v-model="select"
     @change="filtering"
   >
   </v-select>
@@ -40,12 +41,6 @@ export default {
     filtering() {
       this.$emit('filter', this.select.status);
     },
-  },
-  created() {
-    this.select = {
-      label: this.$t('labels.active'),
-      status: VALIDATORS.FILTER.ACTIVE,
-    };
   },
 };
 </script>
