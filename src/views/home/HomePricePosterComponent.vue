@@ -1,32 +1,29 @@
 <template>
   <TopContentCardComponent :title="$t('titles.price')">
     <template v-slot:content>
-      <v-row class="fill-height d-flex align-center">
-        <v-col cols="6" class="ma-0 pa-0">
+      <div
+        class="fill-height d-flex flex-row justify-space-between align-center"
+      >
+        <div
+          class="d-flex flex-column flex-grow-1 justify-space-between align-center"
+        >
           <div
-            class="py-5 pl-5"
-            style="border-width: 0 1px 0 0; border-style: solid"
-          >
-            <div
-              class="text-overline font-weight-bold"
-              v-text="CONFIG.STABLE_COIN.SYMBOL"
-            />
-            <div
-              class="text-h4 font-weight-bold"
-              v-text="CONFIG.STABLE_COIN.VALUE.AMOUNT"
-            />
-          </div>
-        </v-col>
-        <v-col cols="6" class="ma-0 pa-0">
+            class="text-overline font-weight-bold"
+            v-text="CONFIG.STABLE_COIN.SYMBOL"
+          />
           <div
-            class="py-5 pr-5"
-            style="border-width: 0 0 0 1px; border-style: hidden"
-          >
-            <div class="text-overline font-weight-bold" v-text="tokenDenom" />
-            <div class="text-h4 font-weight-bold" v-text="tokenValue" />
-          </div>
-        </v-col>
-      </v-row>
+            class="text-h4 font-weight-bold"
+            v-text="CONFIG.STABLE_COIN.VALUE.AMOUNT"
+          />
+        </div>
+        <v-divider vertical style="border: 1px solid currentcolor" />
+        <div
+          class="d-flex flex-column flex-grow-1 justify-space-between align-center"
+        >
+          <div class="text-overline font-weight-bold" v-text="tokenDenom" />
+          <div class="text-h4 font-weight-bold" v-text="tokenValue" />
+        </div>
+      </div>
     </template>
   </TopContentCardComponent>
 </template>
