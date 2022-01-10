@@ -1,5 +1,8 @@
 <template>
-  <v-card outlined class="d-flex fill-height flex-column">
+  <v-card
+    outlined
+    class="fill-height d-flex flex-column justify-start align-center"
+  >
     <v-card-text>
       <v-data-table
         :headers="headers"

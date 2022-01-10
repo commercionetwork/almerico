@@ -1,15 +1,15 @@
 <template>
   <TopContentCardComponent :title="$t('titles.cccExchangeRate')">
     <template v-slot:content>
-      <v-row class="fill-height d-flex align-center">
-        <v-col cols="12" class="mx-auto">
-          <div class="py-1 text-h2 font-weight-black" v-text="rate" />
-          <div
-            class="text-caption font-weight-bold info--text"
-            v-text="$t('msgs.exchangeRateCalc')"
-          />
-        </v-col>
-      </v-row>
+      <div
+        class="fill-height d-flex flex-column justify-space-around align-center"
+      >
+        <div class="py-1 text-h2 font-weight-black" v-text="rate" />
+        <div
+          class="text-caption font-weight-bold info--text"
+          v-text="$t('msgs.exchangeRateCalc')"
+        />
+      </div>
     </template>
   </TopContentCardComponent>
 </template>

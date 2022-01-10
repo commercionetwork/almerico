@@ -1,11 +1,13 @@
 <template>
-  <v-card outlined>
+  <v-card
+    outlined
+    class="d-flex flex-column justify-space-between align-center"
+  >
     <v-card-title
-      class="justify-center text-center text-truncate text-overline font-weight-bold"
+      class="text-truncate text-overline font-weight-bold"
       v-html="title"
     />
-    <v-spacer />
-    <v-card-text class="text-center card-text">
+    <v-card-text class="card-text">
       <slot name="content" />
     </v-card-text>
   </v-card>
