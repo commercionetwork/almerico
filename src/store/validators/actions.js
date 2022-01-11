@@ -97,27 +97,19 @@ export default {
   },
 };
 
-export const getMinHeight = (items, firstHeight, maxHeight) => {
-  let minHeight = 1;
-  if (maxHeight - items > 1) {
-    minHeight = maxHeight - items;
-    if (firstHeight > minHeight) {
-      minHeight = firstHeight;
-    }
-  }
-  return minHeight;
-};
+const getMinHeight = ({ height, items, firstHeight }) =>
+  height - items < firstHeight ? firstHeight : height - items;
 
-export const setUpBlocksRequests = (dispatch, lastHeight) => {
-  let maxHeight = parseInt(lastHeight);
-  const minHeight = getMinHeight(
-    VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
-    SETTINGS.FIRST_HEIGHT,
-    maxHeight,
-  );
+const setUpBlocksRequests = (dispatch, lastHeight) => {
+  let height = parseInt(lastHeight);
+  const minHeight = getMinHeight({
+    height: height,
+    items: VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
+    firstHeight: SETTINGS.FIRST_HEIGHT,
+  });
   const requests = [];
-  while (maxHeight > minHeight) {
-    requests.push(dispatch('addBlocksItem', maxHeight--));
+  while (height > minHeight) {
+    requests.push(dispatch('addBlocksItem', height--));
   }
   return requests;
 };

@@ -79,16 +79,16 @@ describe('store/validators/actions', () => {
   test('if "fetchTrackedBlocks" dispatch "addBlocksItem"', async () => {
     const dispatch = jest.fn();
     const lastHeight = '1000';
-    let maxHeight = parseInt(lastHeight);
-    let minHeight = maxHeight - VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
+    let height = parseInt(lastHeight);
+    let minHeight = height - VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
 
     await actions.fetchTrackedBlocks({ dispatch }, lastHeight);
 
     expect(dispatch).toHaveBeenCalledTimes(
       VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
     );
-    while (maxHeight > minHeight) {
-      expect(dispatch).toHaveBeenCalledWith('addBlocksItem', maxHeight--);
+    while (height > minHeight) {
+      expect(dispatch).toHaveBeenCalledWith('addBlocksItem', height--);
     }
   });
 
