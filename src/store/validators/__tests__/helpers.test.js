@@ -5,29 +5,43 @@ describe('store/validators/actions - helpers', () => {
     const items = 100;
 
     let firstHeight = 1;
-    let maxHeight = 10;
+    let maxHeight = 100;
     let expectedValue = 1;
 
     let minHeight = getMinHeight(items, firstHeight, maxHeight);
     expect(minHeight).toBe(expectedValue);
 
     firstHeight = 1;
-    maxHeight = 1000;
-    expectedValue = 900;
+    maxHeight = 101;
+    expectedValue = 1;
+
+    minHeight = getMinHeight(items, firstHeight, maxHeight);
+    expect(minHeight).toBe(expectedValue);
+
+    firstHeight = 1;
+    maxHeight = 102;
+    expectedValue = 2;
 
     minHeight = getMinHeight(items, firstHeight, maxHeight);
     expect(minHeight).toBe(expectedValue);
 
     firstHeight = 1000;
-    maxHeight = 1010;
+    maxHeight = 1099;
     expectedValue = 1000;
 
     minHeight = getMinHeight(items, firstHeight, maxHeight);
     expect(minHeight).toBe(expectedValue);
 
     firstHeight = 1000;
-    maxHeight = 2000;
-    expectedValue = 1900;
+    maxHeight = 1100;
+    expectedValue = 1000;
+
+    minHeight = getMinHeight(items, firstHeight, maxHeight);
+    expect(minHeight).toBe(expectedValue);
+
+    firstHeight = 1000;
+    maxHeight = 1101;
+    expectedValue = 1001;
 
     minHeight = getMinHeight(items, firstHeight, maxHeight);
     expect(minHeight).toBe(expectedValue);
