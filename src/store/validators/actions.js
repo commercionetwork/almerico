@@ -116,7 +116,7 @@ export const setUpBlocksRequests = (dispatch, lastHeight) => {
     maxHeight,
   );
   const requests = [];
-  while (maxHeight >= minHeight) {
+  while (maxHeight > minHeight) {
     requests.push(dispatch('addBlocksItem', maxHeight--));
   }
   return requests;
