@@ -26,12 +26,16 @@ describe('App.vue', () => {
   const mocks = {
     $store: mockStore,
   };
+  const computed = {
+    style: () => ({ background: '#fff' }),
+  };
 
   test('if loading indicator is displayed', () => {
     const wrapper = shallowMount(App, {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -48,6 +52,7 @@ describe('App.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -63,6 +68,7 @@ describe('App.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
       },

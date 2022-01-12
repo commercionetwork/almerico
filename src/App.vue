@@ -1,8 +1,5 @@
 <template>
-  <v-app
-    id="main"
-    :style="{ background: $vuetify.theme.themes[theme].background }"
-  >
+  <v-app id="main" :style="style">
     <v-container v-if="isLoading" fluid fill-height data-test="loading">
       <LoadingCircularComponent />
     </v-container>
@@ -43,8 +40,9 @@ export default {
       error: 'error',
       isLoading: 'isLoading',
     }),
-    theme() {
-      return this.$vuetify.theme.dark ? 'dark' : 'light';
+    style() {
+      const theme = this.$vuetify.theme.dark ? 'dark' : 'light';
+      return { background: this.$vuetify.theme.themes[theme].background };
     },
   },
   methods: {
