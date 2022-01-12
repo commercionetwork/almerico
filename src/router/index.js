@@ -36,11 +36,15 @@ const router = new VueRouter({
   routes,
   scrollBehavior(to) {
     if (to.hash) {
-      return {
-        selector: to.hash,
-      };
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({
+            selector: to.hash,
+            behavior: 'smooth',
+          });
+        }, 500);
+      });
     }
-    return { x: 0, y: 0 };
   },
 });
 
