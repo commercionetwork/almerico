@@ -78,15 +78,9 @@ export default {
   },
   methods: {
     copyToClipboard() {
-      if (this.copied) {
-        this.copied = false;
-        return;
-      }
       navigator.clipboard.writeText(this.detail.operator_address).then(() => {
         this.copied = true;
-        setTimeout(() => {
-          if (this.copied) this.copied = false;
-        }, 1000);
+        setTimeout(() => (this.copied = false), 1000);
       });
     },
     onHandleBookmark(address) {
