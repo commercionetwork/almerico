@@ -3,6 +3,7 @@ export const msgs = {
   bannerSecondary: 'Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe',
   comingSoon: 'Coming soon',
   copied: 'Copied',
+  copy: 'Copy',
   errorOccurred: 'Sorry, an error occurred',
   exchangeRateCalc: '1 divided the % of Circulating Supply',
   failed: 'Failed',

@@ -16,13 +16,15 @@
             class="text-capitalize font-weight-bold"
             v-text="$t('labels.operator')"
           />
-          <v-tooltip top v-model="tooltip">
-            <template v-slot:activator="{}">
-              <v-btn icon @click="copyToClipboard">
-                <v-icon small>mdi-content-copy</v-icon>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
+                <v-icon small>
+                  {{ !copied ? 'mdi-content-copy' : 'mdi-check-all' }}
+                </v-icon>
               </v-btn>
             </template>
-            <span v-text="$t('msgs.copied')" />
+            <span v-text="$t('msgs.copy')" />
           </v-tooltip>
         </div>
         <div class="pl-1 font-monotype" v-text="detail.operator_address" />
@@ -53,7 +55,7 @@ export default {
   components: { ValidatorsDetailAddressMonikerComponent },
   props: ['account'],
   data: () => ({
-    tooltip: false,
+    copied: false,
     bookmarks: [],
   }),
   computed: {
@@ -76,15 +78,15 @@ export default {
   },
   methods: {
     copyToClipboard() {
-      if (this.tooltip) {
-        this.tooltip = false;
+      if (this.copied) {
+        this.copied = false;
         return;
       }
       navigator.clipboard.writeText(this.detail.operator_address).then(() => {
-        this.tooltip = true;
+        this.copied = true;
         setTimeout(() => {
-          if (this.tooltip) this.tooltip = false;
-        }, 500);
+          if (this.copied) this.copied = false;
+        }, 1000);
       });
     },
     onHandleBookmark(address) {
