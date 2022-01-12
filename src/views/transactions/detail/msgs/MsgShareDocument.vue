@@ -1,5 +1,5 @@
 <template>
-  <TxMsgComponent :subtitle="subtitle" :title="title">
+  <TxMsgComponent :subtitle="subtitle" :title="title" :id="uuid">
     <div slot="body">
       <DetailLinkComponent
         :label="$t('labels.sender')"

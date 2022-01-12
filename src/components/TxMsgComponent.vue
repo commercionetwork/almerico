@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined class="mb-3">
+  <v-card outlined class="mb-3" :id="id">
     <v-card-text>
       <v-list class="text-break">
         <v-list-item>
@@ -24,17 +24,22 @@ export default {
   name: 'TxMsgComponent',
   description: 'Container for a transaction message',
   props: {
+    id: {
+      type: String,
+      default: '',
+      note: 'The message id',
+    },
     subtitle: {
       type: String,
       default: '',
-      note: 'The transaction type source',
+      note: 'The message source',
     },
     title: {
       type: String,
       default: function () {
         return this.$t('titles.message');
       },
-      note: 'The transaction type',
+      note: 'The message type',
     },
   },
 };
