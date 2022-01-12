@@ -7,31 +7,32 @@
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="pl-md-2 text-center text-md-left">
-        <div class="text-capitalize" v-text="$t('labels.address')" />
+        <div>
+          <span class="text-capitalize" v-text="$t('labels.address')" />
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
+                <v-icon small>
+                  {{ !copied ? 'mdi-content-copy' : 'mdi-check-all' }}
+                </v-icon>
+              </v-btn>
+            </template>
+            <span v-text="$t('msgs.copy')" />
+          </v-tooltip>
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on" @click="openDialog">
+                <v-icon small>mdi-qrcode</v-icon>
+              </v-btn>
+            </template>
+            <span v-text="$t('msgs.scan')" />
+          </v-tooltip>
+          <AccountQRCodeComponent v-model="dialog" :address="address" />
+        </div>
         <div
           class="text-break font-weight-bold font-monotype"
           v-text="address"
         />
-        <div class="py-3">
-          <span class="px-1">
-            <v-btn outlined @click="openDialog">
-              {{ $t('labels.scan') }}
-              <v-icon right>mdi-qrcode</v-icon>
-            </v-btn>
-          </span>
-          <AccountQRCodeComponent v-model="dialog" :address="address" />
-          <v-tooltip top v-model="tooltip">
-            <template v-slot:activator="{}">
-              <span class="px-1">
-                <v-btn outlined @click="copyToClipboard">
-                  {{ $t('labels.copy') }}
-                  <v-icon right>mdi-content-copy</v-icon>
-                </v-btn>
-              </span>
-            </template>
-            <span v-text="$t('msgs.copied')" />
-          </v-tooltip>
-        </div>
       </div>
     </v-card-text>
   </v-card>
@@ -48,8 +49,8 @@ export default {
     AccountQRCodeComponent,
   },
   data: () => ({
+    copied: false,
     dialog: false,
-    tooltip: false,
   }),
   computed: {
     address() {
@@ -58,15 +59,9 @@ export default {
   },
   methods: {
     copyToClipboard() {
-      if (this.tooltip) {
-        this.tooltip = false;
-        return;
-      }
       navigator.clipboard.writeText(this.address).then(() => {
-        this.tooltip = true;
-        setTimeout(() => {
-          if (this.tooltip) this.tooltip = false;
-        }, 500);
+        this.copied = true;
+        setTimeout(() => (this.copied = false), 1000);
       });
     },
     openDialog() {
