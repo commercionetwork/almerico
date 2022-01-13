@@ -1,5 +1,5 @@
 <template>
-  <TxMsgComponent :subtitle="subtitle" :title="title">
+  <TxMsgComponent :message="message">
     <div slot="body">
       <DetailItemComponent :label="$t('labels.context')" :content="context" />
       <DetailLinkComponent
@@ -114,7 +114,6 @@ import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
 import TxMsgComponent from '@/components/TxMsgComponent.vue';
 
 import { ROUTES } from '@/constants';
-import { regExpBuilder } from '@/utils';
 
 export default {
   name: 'MsgSetIdentity',
@@ -135,18 +134,6 @@ export default {
     ROUTES,
   }),
   computed: {
-    title() {
-      const lastSegment = this.message['@type'].match(
-        regExpBuilder.getMessageTypeRegExp(),
-      )[0];
-      return lastSegment.substring(1);
-    },
-    subtitle() {
-      const firstSegments = this.message['@type'].match(
-        regExpBuilder.getMessageSourceRegExp(),
-      )[0];
-      return firstSegments.substring(1);
-    },
     context() {
       return this.message['@context'] || '-';
     },

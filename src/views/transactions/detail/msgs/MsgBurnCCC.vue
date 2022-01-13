@@ -1,5 +1,5 @@
 <template>
-  <TxMsgComponent :subtitle="subtitle" :title="title">
+  <TxMsgComponent :message="message">
     <div slot="body">
       <DetailLinkComponent
         :label="$t('labels.signer')"
@@ -26,7 +26,7 @@ import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
 import TxMsgComponent from '@/components/TxMsgComponent.vue';
 
 import { ROUTES } from '@/constants';
-import { coinAdapter, regExpBuilder } from '@/utils';
+import { coinAdapter } from '@/utils';
 
 export default {
   name: 'MsgBurnCCC',
@@ -47,18 +47,6 @@ export default {
     ROUTES,
   }),
   computed: {
-    title() {
-      const lastSegment = this.message['@type'].match(
-        regExpBuilder.getMessageTypeRegExp(),
-      )[0];
-      return lastSegment.substring(1);
-    },
-    subtitle() {
-      const firstSegments = this.message['@type'].match(
-        regExpBuilder.getMessageSourceRegExp(),
-      )[0];
-      return firstSegments.substring(1);
-    },
     signerAddress() {
       return this.message.signer;
     },
