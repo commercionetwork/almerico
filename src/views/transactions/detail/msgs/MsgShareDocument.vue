@@ -1,5 +1,15 @@
 <template>
-  <TxMsgComponent :subtitle="subtitle" :title="title" :id="uuid">
+  <TxMsgComponent :message="message" :id="uuid">
+    <v-tooltip top slot="export">
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
+          <v-icon small>
+            {{ !copied ? 'mdi-export-variant' : 'mdi-check-all' }}
+          </v-icon>
+        </v-btn>
+      </template>
+      <span v-text="$t('msgs.copy')" />
+    </v-tooltip>
     <div slot="body">
       <DetailLinkComponent
         :label="$t('labels.sender')"
@@ -133,7 +143,6 @@ import DetailUrlComponent from '@/components/DetailUrlComponent.vue';
 import TxMsgComponent from '@/components/TxMsgComponent.vue';
 
 import { ROUTES } from '@/constants';
-import { regExpBuilder } from '@/utils';
 
 export default {
   name: 'MsgShareDocument',
@@ -153,20 +162,9 @@ export default {
   },
   data: () => ({
     ROUTES,
+    copied: false,
   }),
   computed: {
-    title() {
-      const lastSegment = this.message['@type'].match(
-        regExpBuilder.getMessageTypeRegExp(),
-      )[0];
-      return lastSegment.substring(1);
-    },
-    subtitle() {
-      const firstSegments = this.message['@type'].match(
-        regExpBuilder.getMessageSourceRegExp(),
-      )[0];
-      return firstSegments.substring(1);
-    },
     senderAddress() {
       return this.message.sender || '-';
     },
@@ -248,6 +246,15 @@ export default {
       return this.message.doSign && this.message.doSign.certificate_profile
         ? this.message.doSign.certificate_profile
         : '-';
+    },
+  },
+  methods: {
+    copyToClipboard() {
+      const link = `${location.protocol}//${location.host}${location.pathname}#${this.uuid}`;
+      navigator.clipboard.writeText(link).then(() => {
+        this.copied = true;
+        setTimeout(() => (this.copied = false), 1000);
+      });
     },
   },
 };
