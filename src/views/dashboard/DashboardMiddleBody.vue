@@ -36,9 +36,7 @@ export default {
     }),
   },
   created() {
-    this.fetchTransactionsDescendingOrder({
-      limit: CUSTOMIZATION.TXS.DASHBOARD_ITEMS,
-    });
+    this.fetchTransactionsDescendingOrder();
   },
 };
 </script>

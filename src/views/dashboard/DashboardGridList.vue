@@ -12,8 +12,17 @@
   </v-row>
   <v-row v-else-if="error !== null" data-test="error">
     <v-col cols="12">
-      <v-alert border="left" prominent text type="error">
-        <span class="text-body-1" v-text="JSON.stringify(error)" />
+      <v-alert border="left" prominent text type="info">
+        <span
+          class="text-body-1"
+          v-text="
+            'At this point in time the data, unfortunately, is not available, please refresh the page.'
+          "
+        />
+        <v-btn class="ml-3" outlined color="info" @click="refresh">
+          <v-icon>mdi-reload</v-icon>
+          <span>Refresh</span>
+        </v-btn>
       </v-alert>
     </v-col>
   </v-row>
@@ -54,11 +63,17 @@ export default {
       const unorderedTransactions = this.txs.map((obj) => ({
         ...obj,
       }));
-      const orderedTransactions = arrayHandler.sortObjectsByStringPropertyValueDesc(
-        unorderedTransactions,
-        'timestamp',
-      );
+      const orderedTransactions =
+        arrayHandler.sortObjectsByStringPropertyValueDesc(
+          unorderedTransactions,
+          'timestamp',
+        );
       return orderedTransactions.slice(0, this.limit);
+    },
+  },
+  methods: {
+    refresh() {
+      window.location.reload();
     },
   },
 };
