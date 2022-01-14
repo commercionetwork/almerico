@@ -30,7 +30,7 @@ const validatorsDetailChartHelper = {
       labels: [`${labels.others} ${others} M`, `${labels.self} ${self} M`],
       datasets: [
         {
-          data: [others, self],
+          data: [parseFloat(others), parseFloat(self)],
           backgroundColor: BACKGROUND_COLOR,
           borderColor: BORDER_COLOR,
         },
