@@ -38,7 +38,6 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchRateUpdates');
     expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
     expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
@@ -204,13 +203,18 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "fetchTransactions" commit "addTransactions", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchTransactions" set loading state and commit "addTransactions", and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.fetchTransactions({ commit, dispatch });
 
-    commit('addTransactions', mockResponse.data.tx_responses);
+    expect(commit).toHaveBeenCalledWith('setFetchingTxs', true);
+    expect(commit).toHaveBeenCalledWith(
+      'addTransactions',
+      mockResponse.data.tx_responses,
+    );
+    expect(commit).toHaveBeenCalledWith('setFetchingTxs', false);
 
     mockError = true;
 
@@ -219,16 +223,14 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "refreshTransactions" reset txs, set loading state and dispatch "fetchTransactions"', async () => {
+  test('if "refreshTransactions" reset txs and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.refreshTransactions({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setRefreshing', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
-    expect(commit).toHaveBeenCalledWith('setRefreshing', false);
   });
 
   test('if "handleError" set error', () => {

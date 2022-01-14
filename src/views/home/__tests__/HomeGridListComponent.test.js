@@ -11,7 +11,7 @@ const localVue = createLocalVue();
 
 describe('views/home/HomeGridListComponent.vue', () => {
   const actions = {
-    refreshTransactions: jest.fn(),
+    fetchTransactions: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
@@ -34,7 +34,7 @@ describe('views/home/HomeGridListComponent.vue', () => {
       mocks,
       computed: {
         ...computed,
-        isRefreshing: () => true,
+        isFetchingTxs: () => true,
       },
     });
 
@@ -48,7 +48,7 @@ describe('views/home/HomeGridListComponent.vue', () => {
       mocks,
       computed: {
         ...computed,
-        isRefreshing: () => false,
+        isFetchingTxs: () => false,
       },
     });
 

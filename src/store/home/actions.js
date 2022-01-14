@@ -13,7 +13,6 @@ export default {
       dispatch('fetchRateUpdates'),
       dispatch('fetchStartingDate'),
       dispatch('fetchVbrTokens'),
-      dispatch('fetchTransactions'),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
@@ -107,19 +106,19 @@ export default {
     const pagination = {
       limit: HOME.TRANSACTIONS_NUMBER,
     };
+    commit('setFetchingTxs', true);
     try {
       const response = await tx.requestTxsList(params, pagination);
       commit('addTransactions', response.data.tx_responses);
     } catch (error) {
       dispatch('handleError', error);
     }
+    commit('setFetchingTxs', false);
   },
 
   async refreshTransactions({ commit, dispatch }) {
     commit('setTransactions', []);
-    commit('setRefreshing', true);
     await dispatch('fetchTransactions');
-    commit('setRefreshing', false);
   },
 
   handleError({ commit }, error) {

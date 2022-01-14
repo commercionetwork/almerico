@@ -39,10 +39,10 @@ describe('store/home/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('mutations.setRefreshing', () => {
-    mutations.setRefreshing(state, true);
+  test('mutations.setFetchingTxs', () => {
+    mutations.setFetchingTxs(state, true);
 
-    expect(state.isRefreshing).toBe(true);
+    expect(state.isFetchingTxs).toBe(true);
   });
 
   test('mutations.setConversionRate', () => {

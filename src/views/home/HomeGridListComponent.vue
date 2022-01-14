@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="isRefreshing" data-test="loading">
+  <v-row v-if="isFetchingTxs" data-test="loading">
     <v-col cols="12" class="pa-5">
       <LoadingLinearComponent />
     </v-col>
@@ -17,7 +17,7 @@
 import HomeGridListItemComponent from './HomeGridListItemComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'HomeGridListComponent',
@@ -27,9 +27,17 @@ export default {
   },
   computed: {
     ...mapGetters('home', {
-      isRefreshing: 'isRefreshing',
+      isFetchingTxs: 'isFetchingTxs',
       transactions: 'transactions',
     }),
+  },
+  methods: {
+    ...mapActions('home', {
+      fetchTransactions: 'fetchTransactions',
+    }),
+  },
+  created() {
+    this.fetchTransactions();
   },
 };
 </script>
