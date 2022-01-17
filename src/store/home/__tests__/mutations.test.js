@@ -45,13 +45,6 @@ describe('store/home/mutations', () => {
     expect(state.isLoadingTxs).toBe(true);
   });
 
-  test('mutations.setConversionRate', () => {
-    const payload = '1.000000000000000000';
-    mutations.setConversionRate(state, payload);
-
-    expect(state.conversionRate).toBe(parseFloat(payload));
-  });
-
   test('mutations.setRateUpdates', () => {
     const txs = [{ id: 1 }];
 
@@ -121,6 +114,14 @@ describe('store/home/mutations', () => {
     mutations.setVbrTokens(state, vbrTokens);
 
     expect(state.vbrTokens).toStrictEqual(vbrTokens);
+  });
+
+  test('mutations.setParams', () => {
+    const params = { id: 1 };
+
+    mutations.setParams(state, params);
+
+    expect(state.params).toStrictEqual(params);
   });
 
   test('mutations.setPool', () => {

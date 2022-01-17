@@ -13,9 +13,6 @@ export default {
   setLoadingTxs(state, payload) {
     state.isLoadingTxs = payload;
   },
-  setConversionRate(state, payload) {
-    state.conversionRate = parseFloat(payload);
-  },
   setRateUpdates(state, payload) {
     state.rateUpdates = payload;
   },
@@ -39,6 +36,9 @@ export default {
   },
   setVbrTokens(state, payload) {
     state.vbrTokens = payload;
+  },
+  setParams(state, payload) {
+    state.params = payload;
   },
   setPool(state, payload) {
     state.pool = payload;

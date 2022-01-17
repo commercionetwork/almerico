@@ -8,7 +8,7 @@ export default {
     const requests = [
       dispatch('fetchAbrTokens'),
       dispatch('fetchAllTokens'),
-      dispatch('fetchConversionRate'),
+      dispatch('fetchParams'),
       dispatch('fetchPool'),
       dispatch('fetchRateUpdates'),
       dispatch('fetchStartingDate'),
@@ -21,10 +21,10 @@ export default {
     commit('setLoadingTxs', false);
   },
 
-  async fetchConversionRate({ commit, dispatch }) {
+  async fetchParams({ commit, dispatch }) {
     try {
-      const response = await commercio.requestConversionRate();
-      commit('setConversionRate', response.data.params.conversion_rate);
+      const response = await commercio.requestParams();
+      commit('setParams', response.data.params);
     } catch (error) {
       dispatch('handleError', error);
     }

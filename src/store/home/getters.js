@@ -1,9 +1,10 @@
 export default {
   abrTokens: (state) => state.abrTokens,
-  conversionRate: (state) => state.conversionRate,
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
   isLoadingTxs: (state) => state.isLoadingTxs,
+  conversionRate: (state) =>
+    state.params ? parseFloat(state.params.conversion_rate) : 1,
   pool: (state) => state.pool,
   rateUpdates: (state) => state.rateUpdates,
   rateUpdatesOffset: (state) => state.rateUpdatesOffset,

@@ -23,7 +23,7 @@ describe('store/home/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchConversionRate", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
+  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchParams", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -33,7 +33,7 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
-    expect(dispatch).toHaveBeenCalledWith('fetchConversionRate');
+    expect(dispatch).toHaveBeenCalledWith('fetchParams');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).toHaveBeenCalledWith('fetchRateUpdates');
     expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
@@ -44,20 +44,17 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
   });
 
-  test('if "fetchConversionRate" action commit "setConversionRate" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchParams" action commit "setParams" mutation, and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
-    await actions.fetchConversionRate({ commit, dispatch });
+    await actions.fetchParams({ commit, dispatch });
 
-    expect(commit).toHaveBeenCalledWith(
-      'setConversionRate',
-      mockResponse.data.params.conversion_rate,
-    );
+    expect(commit).toHaveBeenCalledWith('setParams', mockResponse.data.params);
 
     mockError = true;
 
-    await actions.fetchConversionRate({ commit, dispatch });
+    await actions.fetchParams({ commit, dispatch });
 
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
@@ -283,7 +280,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
       }, 1);
     });
   },
-  requestConversionRate: () => {
+  requestParams: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -291,9 +288,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
         }
 
         mockResponse = {
-          data: {
-            params: mockParams(),
-          },
+          data: mockParams(),
         };
         resolve(mockResponse);
       }, 1);

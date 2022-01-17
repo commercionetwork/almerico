@@ -6,7 +6,7 @@ export default {
    *
    * @returns {AxiosPromise}
    */
-  requestConversionRate() {
+  requestParams() {
     return axios({
       method: 'get',
       baseURL: `${APIS.HTTP.MINT}`,

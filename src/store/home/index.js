@@ -4,10 +4,10 @@ import mutations from './mutations';
 
 export const initState = () => ({
   abrTokens: [],
-  conversionRate: 1,
   error: null,
   isLoading: false,
   isLoadingTxs: false,
+  params: null,
   pool: null,
   rateUpdates: [],
   rateUpdatesOffset: 0,
