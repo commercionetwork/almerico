@@ -3,6 +3,7 @@ import {
   mockBlock,
   mockErrors,
   mockPagination,
+  mockParams,
   mockPool,
   mockTransactions,
 } from '@/__mocks__';
@@ -291,10 +292,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
 
         mockResponse = {
           data: {
-            params: {
-              conversion_rate: '0.100000000000000000',
-              freeze_period: '1000000s',
-            },
+            params: mockParams(),
           },
         };
         resolve(mockResponse);

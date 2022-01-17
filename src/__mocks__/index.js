@@ -1,13 +1,13 @@
 import { mockBalance, mockBalances } from './balances';
 import { mockBlock, mockBlocks } from './blocks';
 import { mockCommission } from './commission';
-import { mockConversionRate } from './conversion_rate';
 import { mockDelegation, mockDelegations } from './delegations';
 import { mockErrors } from './errors';
 import { mockFreezed } from './freezed';
 import { mockMembership } from './membership';
 import { mockNodeInfo } from './node_info';
 import { mockPagination } from './pagination';
+import { mockParams } from './params';
 import { mockPool } from './pool';
 import { mockRateUpdate, mockRateUpdates } from './rate_updates';
 import { mockRewards } from './rewards';
@@ -28,7 +28,6 @@ export {
   mockBlock,
   mockBlocks,
   mockCommission,
-  mockConversionRate,
   mockDelegation,
   mockDelegations,
   mockErrors,
@@ -36,6 +35,7 @@ export {
   mockMembership,
   mockNodeInfo,
   mockPagination,
+  mockParams,
   mockPool,
   mockRateUpdate,
   mockRateUpdates,
