@@ -42,9 +42,11 @@ describe('store/account/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembershipTxs', address);
     expect(dispatch).toHaveBeenCalledWith('fetchRewards', address);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', { address });
     expect(dispatch).toHaveBeenCalledWith('fetchUnbondings', address);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
+    expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', { address });
+    expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
   });
 
   test('if "fetchBalances" action commit "setBalances" mutation, and dispatch "handleError" if error is caught', async () => {

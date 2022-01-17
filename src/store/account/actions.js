@@ -12,11 +12,13 @@ export default {
       dispatch('fetchMembership', address),
       dispatch('fetchMembershipTxs', address),
       dispatch('fetchRewards', address),
-      dispatch('fetchTransactions', { address }),
       dispatch('fetchUnbondings', address),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
+    commit('setAddingTxs', true);
+    await dispatch('fetchTransactions', { address });
+    commit('setAddingTxs', false);
   },
 
   async fetchBalances({ commit, dispatch }, address) {
