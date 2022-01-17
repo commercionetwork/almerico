@@ -7,7 +7,7 @@ export const initState = () => ({
   conversionRate: 1,
   error: null,
   isLoading: false,
-  isFetchingTxs: false,
+  isLoadingTxs: false,
   pool: null,
   rateUpdates: [],
   rateUpdatesOffset: 0,

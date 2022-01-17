@@ -3,7 +3,7 @@ export default {
   conversionRate: (state) => state.conversionRate,
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
-  isFetchingTxs: (state) => state.isFetchingTxs,
+  isLoadingTxs: (state) => state.isLoadingTxs,
   pool: (state) => state.pool,
   rateUpdates: (state) => state.rateUpdates,
   rateUpdatesOffset: (state) => state.rateUpdatesOffset,

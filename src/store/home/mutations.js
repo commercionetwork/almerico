@@ -10,8 +10,8 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
-  setFetchingTxs(state, payload) {
-    state.isFetchingTxs = payload;
+  setLoadingTxs(state, payload) {
+    state.isLoadingTxs = payload;
   },
   setConversionRate(state, payload) {
     state.conversionRate = parseFloat(payload);

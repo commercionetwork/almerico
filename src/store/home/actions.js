@@ -16,6 +16,9 @@ export default {
     ];
     await Promise.all(requests);
     commit('setLoading', false);
+    commit('setLoadingTxs', true);
+    await dispatch('fetchTransactions');
+    commit('setLoadingTxs', false);
   },
 
   async fetchConversionRate({ commit, dispatch }) {
@@ -106,19 +109,19 @@ export default {
     const pagination = {
       limit: HOME.TRANSACTIONS_NUMBER,
     };
-    commit('setFetchingTxs', true);
     try {
       const response = await tx.requestTxsList(params, pagination);
       commit('addTransactions', response.data.tx_responses);
     } catch (error) {
       dispatch('handleError', error);
     }
-    commit('setFetchingTxs', false);
   },
 
   async refreshTransactions({ commit, dispatch }) {
     commit('setTransactions', []);
+    commit('setLoadingTxs', true);
     await dispatch('fetchTransactions');
+    commit('setLoadingTxs', false);
   },
 
   handleError({ commit }, error) {

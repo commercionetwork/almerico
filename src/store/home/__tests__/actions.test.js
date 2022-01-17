@@ -39,6 +39,9 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
     expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
+    expect(commit).toHaveBeenCalledWith('setLoadingTxs', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
+    expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
   });
 
   test('if "fetchConversionRate" action commit "setConversionRate" mutation, and dispatch "handleError" if error is caught', async () => {
@@ -203,18 +206,16 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "fetchTransactions" set loading state and commit "addTransactions", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchTransactions" commit "addTransactions", and dispatch "handleError" if error is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.fetchTransactions({ commit, dispatch });
 
-    expect(commit).toHaveBeenCalledWith('setFetchingTxs', true);
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
       mockResponse.data.tx_responses,
     );
-    expect(commit).toHaveBeenCalledWith('setFetchingTxs', false);
 
     mockError = true;
 
@@ -223,14 +224,16 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
   });
 
-  test('if "refreshTransactions" reset txs and dispatch "fetchTransactions"', async () => {
+  test('if "refreshTransactions" reset txs, set loading state and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.refreshTransactions({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setLoadingTxs', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
+    expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
   });
 
   test('if "handleError" set error', () => {
