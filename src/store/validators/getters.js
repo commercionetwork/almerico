@@ -7,6 +7,7 @@ export default {
   error: (state) => state.error,
   filter: (state) => state.filter,
   isLoading: (state) => state.isLoading,
+  isLoadingBlocks: (state) => state.isLoadingBlocks,
   newHeight: (state) => state.newHeight,
   pool: (state) => state.pool,
 };

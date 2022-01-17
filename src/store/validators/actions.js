@@ -45,11 +45,13 @@ export default {
       dispatch('fetchDetailDelegations', id),
       dispatch('fetchPool'),
     ];
-    if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
-      requests.push(dispatch('fetchTrackedBlocks', lastHeight));
-    }
     await Promise.all(requests);
     commit('setLoading', false);
+    if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
+      commit('setLoadingBlocks', true);
+      await dispatch('fetchTrackedBlocks', lastHeight);
+      commit('setLoadingBlocks', false);
+    }
   },
 
   async fetchDetail({ commit, dispatch }, id) {

@@ -10,6 +10,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setLoadingBlocks(state, payload) {
+    state.isLoadingBlocks = payload;
+  },
   setBlocks(state, payload) {
     state.blocks = payload;
   },

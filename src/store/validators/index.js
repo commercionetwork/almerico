@@ -15,6 +15,7 @@ export const initState = () => ({
     query: '',
   },
   isLoading: false,
+  isLoadingBlocks: false,
   newHeight: '',
   pool: null,
 });

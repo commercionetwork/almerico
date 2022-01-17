@@ -35,6 +35,12 @@ describe('store/validators/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
+  test('mutations.setLoadingBlocks', () => {
+    mutations.setLoadingBlocks(state, true);
+
+    expect(state.isLoadingBlocks).toBe(true);
+  });
+
   test('mutations.setBlocks', () => {
     const blocks = [{ id: 1 }];
 

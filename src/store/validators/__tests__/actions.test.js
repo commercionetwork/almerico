@@ -129,8 +129,8 @@ describe('store/validators/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchDetail', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetailDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
-    expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
+    expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
 
     process.env.VUE_APP_BLOCKS_MONITOR = 'true';
 
@@ -139,7 +139,9 @@ describe('store/validators/actions', () => {
       { id: address, lastHeight },
     );
 
+    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
+    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', false);
   });
 
   test('if "fetchDetail" action commit "setDetail", and dispatch "handleError" if error is caught', async () => {

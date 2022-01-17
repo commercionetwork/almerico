@@ -1,6 +1,7 @@
 <template>
   <v-card
     outlined
+    :loading="isLoadingBlocks"
     class="fill-height d-flex flex-column justify-start align-center"
   >
     <v-card-title class="text-overline font-weight-bold">
@@ -8,8 +9,8 @@
         <span v-text="limit" />
       </i18n>
     </v-card-title>
-    <v-card-text v-if="!verifiedBlocks.length" data-test="warning">
-      <v-alert type="warning" v-text="$t('msgs.notAvailable')" />
+    <v-card-text v-if="!verifiedBlocks.length" data-test="info">
+      <v-alert type="info" v-text="$t('msgs.notAvailable')" />
     </v-card-text>
     <v-card-text v-else data-test="content">
       <v-row>
@@ -20,8 +21,9 @@
               :key="index"
               :class="verified.status === 0 ? 'missing' : ''"
               :title="verified.height"
-            /></div
-        ></v-col>
+            />
+          </div>
+        </v-col>
       </v-row>
     </v-card-text>
   </v-card>
@@ -36,6 +38,7 @@ export default {
   name: 'ValidatorsDetailBlocksComponent',
   computed: {
     ...mapGetters('validators', {
+      isLoadingBlocks: 'isLoadingBlocks',
       detail: 'detail',
       blocks: 'blocks',
     }),
