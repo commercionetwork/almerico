@@ -10,7 +10,7 @@ export default {
     return axios({
       method: 'get',
       baseURL: `${APIS.HTTP.MINT}`,
-      url: '/conversion_rate',
+      url: '/params',
     });
   },
   /**

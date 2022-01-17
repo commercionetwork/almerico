@@ -24,7 +24,7 @@ export default {
   async fetchConversionRate({ commit, dispatch }) {
     try {
       const response = await commercio.requestConversionRate();
-      commit('setConversionRate', response.data.rate);
+      commit('setConversionRate', response.data.params.conversion_rate);
     } catch (error) {
       dispatch('handleError', error);
     }

@@ -1,7 +1,6 @@
 import {
   mockBalances,
   mockBlock,
-  mockConversionRate,
   mockErrors,
   mockPagination,
   mockPool,
@@ -52,7 +51,7 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setConversionRate',
-      mockResponse.data.rate,
+      mockResponse.data.params.conversion_rate,
     );
 
     mockError = true;
@@ -292,7 +291,10 @@ jest.mock('../../../apis/http/commercio.js', () => ({
 
         mockResponse = {
           data: {
-            rate: mockConversionRate(),
+            params: {
+              conversion_rate: '0.100000000000000000',
+              freeze_period: '1000000s',
+            },
           },
         };
         resolve(mockResponse);
