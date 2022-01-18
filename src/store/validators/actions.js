@@ -6,11 +6,11 @@ export default {
     commit('reset');
     commit('setLoading', true);
     const requests = [dispatch('fetchPool')];
+    await Promise.all(requests);
+    commit('setLoading', false);
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
       requests.push(dispatch('fetchTrackedBlocks', lastHeight));
     }
-    await Promise.all(requests);
-    commit('setLoading', false);
   },
 
   async fetchPool({ commit }) {

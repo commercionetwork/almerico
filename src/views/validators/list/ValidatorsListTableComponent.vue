@@ -6,6 +6,7 @@
         :headers="headers"
         :hide-default-footer="true"
         :items="items"
+        :loading="isLoadingBlocks"
         :search="filter.query"
         :sort-by.sync="sortBy"
         disable-pagination
@@ -68,6 +69,7 @@ export default {
     }),
     ...mapGetters('validators', {
       blocks: 'blocks',
+      isLoadingBlocks: 'isLoadingBlocks',
       filter: 'filter',
       pool: 'pool',
     }),
