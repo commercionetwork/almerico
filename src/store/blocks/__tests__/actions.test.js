@@ -70,12 +70,11 @@ describe('store/blocks/actions', () => {
     expect(commit).toHaveBeenCalledWith('setCurrentHeight', minHeight);
   });
 
-  test('if "addBlocksItem" commit "addBlock, and dispatch "handleError" if error is caught"', async () => {
+  test('if "addBlocksItem" commit "addBlock, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const height = '100';
 
-    await actions.addBlocksItem({ commit, dispatch }, height);
+    await actions.addBlocksItem({ commit }, height);
 
     expect(commit).toHaveBeenCalledWith('addBlock', {
       ...mockResponse.data,
@@ -84,9 +83,9 @@ describe('store/blocks/actions', () => {
 
     mockError = true;
 
-    await actions.addBlocksItem({ commit, dispatch }, height);
+    await actions.addBlocksItem({ commit }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "addBlocks" commit "setAddingBlocks" and dispatch "fetchBlocks" action', async () => {
@@ -116,28 +115,26 @@ describe('store/blocks/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchBlock" commit "setDetail", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchBlock" commit "setDetail", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const height = '100';
 
-    await actions.fetchBlock({ commit, dispatch }, height);
+    await actions.fetchBlock({ commit }, height);
 
     expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data);
 
     mockError = true;
 
-    await actions.fetchBlock({ commit, dispatch }, height);
+    await actions.fetchBlock({ commit }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchValidatorSets" commit "setValidatorSets", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchValidatorSets" commit "setValidatorSets", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const height = '100';
 
-    await actions.fetchValidatorSets({ commit, dispatch }, height);
+    await actions.fetchValidatorSets({ commit }, height);
 
     expect(commit).toHaveBeenCalledWith(
       'setValidatorSets',
@@ -146,9 +143,9 @@ describe('store/blocks/actions', () => {
 
     mockError = true;
 
-    await actions.fetchValidatorSets({ commit, dispatch }, height);
+    await actions.fetchValidatorSets({ commit }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchTransactions" dispatch "getTransactions"', async () => {
@@ -161,13 +158,12 @@ describe('store/blocks/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('addTransactions', { height });
   });
 
-  test('if "addTransactions" commit "addTransactions" and "setBlockTxsPagination", and dispatch "handleError" if error is caught', async () => {
+  test('if "addTransactions" commit "addTransactions" and "setBlockTxsPagination", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const height = '100';
     const offset = 10;
 
-    await actions.addTransactions({ commit, dispatch }, { height, offset });
+    await actions.addTransactions({ commit }, { height, offset });
 
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
@@ -184,18 +180,9 @@ describe('store/blocks/actions', () => {
 
     mockError = true;
 
-    await actions.addTransactions({ commit, dispatch }, { height, offset });
+    await actions.addTransactions({ commit }, { height, offset });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
-  });
-
-  test('if "handleError" set error', () => {
-    const commit = jest.fn();
-    const error = new Error('message');
-
-    actions.handleError({ commit }, error);
-
-    expect(commit).toHaveBeenCalledWith('setError', error);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 });
 

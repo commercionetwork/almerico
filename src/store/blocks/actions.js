@@ -36,13 +36,13 @@ export default {
     commit('setSearching', false);
   },
 
-  async addBlocksItem({ commit, dispatch }, height) {
+  async addBlocksItem({ commit }, height) {
     try {
       const resBlock = await tendermintRpc.requestBlock(height);
       const resValidatorSets = await tendermintRpc.requestValidatorSets(height);
       commit('addBlock', { ...resBlock.data, ...resValidatorSets.data.result });
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -64,21 +64,21 @@ export default {
     commit('setLoading', false);
   },
 
-  async fetchBlock({ commit, dispatch }, height) {
+  async fetchBlock({ commit }, height) {
     try {
       const response = await tendermintRpc.requestBlock(height);
       commit('setDetail', response.data);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchValidatorSets({ commit, dispatch }, height) {
+  async fetchValidatorSets({ commit }, height) {
     try {
       const response = await tendermintRpc.requestValidatorSets(height);
       commit('setValidatorSets', response.data.result.validators);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -92,7 +92,7 @@ export default {
     }
   },
 
-  async addTransactions({ commit, dispatch }, { height, offset }) {
+  async addTransactions({ commit }, { height, offset }) {
     const parameters = {
       events: `tx.height = ${height}`,
     };
@@ -105,12 +105,8 @@ export default {
       commit('setBlockTxsPagination', response.data.pagination);
       commit('sumBlockTxsOffset', response.data.tx_responses.length);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
-  },
-
-  handleError({ commit }, error) {
-    commit('setError', error);
   },
 };
 
