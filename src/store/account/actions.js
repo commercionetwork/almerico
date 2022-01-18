@@ -16,44 +16,42 @@ export default {
     ];
     await Promise.all(requests);
     commit('setLoading', false);
-    commit('setAddingTxs', true);
     await dispatch('fetchTransactions', { address });
-    commit('setAddingTxs', false);
   },
 
-  async fetchBalances({ commit, dispatch }, address) {
+  async fetchBalances({ commit }, address) {
     try {
       const response = await bank.requestBalancesLegacy(address);
       commit('setBalances', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchCommission({ commit, dispatch }, validator) {
+  async fetchCommission({ commit }, validator) {
     try {
       const response = await distribution.requestCommission(validator);
       commit('setCommission', response.data.commission);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchDelegations({ commit, dispatch }, address) {
+  async fetchDelegations({ commit }, address) {
     try {
       const response = await staking.requestDelegationsLegacy(address);
       commit('setDelegations', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchRewards({ commit, dispatch }, address) {
+  async fetchRewards({ commit }, address) {
     try {
       const response = await distribution.requestRewards(address);
       commit('setRewards', response.data);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -67,7 +65,7 @@ export default {
     }
   },
 
-  async addUnbondings({ commit, dispatch }, { address, offset }) {
+  async addUnbondings({ commit }, { address, offset }) {
     const pagination = {
       offset: offset ? offset : 0,
     };
@@ -77,7 +75,7 @@ export default {
       commit('setUnbondingsPagination', response.data.pagination);
       commit('sumUnbondingsOffset', response.data.unbonding_responses.length);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -90,17 +88,17 @@ export default {
     }
   },
 
-  async fetchMembershipTxs({ commit, dispatch }, address) {
+  async fetchMembershipTxs({ commit }, address) {
     const parameters = { events: `assign_membership.owner='${address}'` };
     try {
       const response = await tx.requestTxsList(parameters);
       commit('setMembershipTxs', response.data.tx_responses);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchTransactions({ commit, dispatch }, { address, offset }) {
+  async fetchTransactions({ commit }, { address, offset }) {
     const parameters = {
       events: `transfer.sender='${address}'`,
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
@@ -109,23 +107,19 @@ export default {
       limit: ACCOUNT.TRANSACTIONS_NUMBER,
       offset: offset ? offset : 0,
     };
+    commit('setAddingTxs', true);
     try {
       const response = await tx.requestTxsList(parameters, pagination);
       commit('addTransactions', response.data.tx_responses);
       commit('setTransactionsPagination', response.data.pagination);
       commit('sumTransactionsOffset', response.data.tx_responses.length);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
-  },
-
-  async addTransactions({ commit, dispatch }, { address, offset }) {
-    commit('setAddingTxs', true);
-    await dispatch('fetchTransactions', { address, offset });
     commit('setAddingTxs', false);
   },
 
-  handleError({ commit }, error) {
-    commit('setError', error);
+  async addTransactions({ dispatch }, { address, offset }) {
+    await dispatch('fetchTransactions', { address, offset });
   },
 };

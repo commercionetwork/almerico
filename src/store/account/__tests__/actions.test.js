@@ -26,7 +26,7 @@ describe('store/account/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initAccount" reset store, set loading state, dispatch "fetchBalances", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", "fetchTransactions" and "fetchUnbondings" actions', async () => {
+  test('if "initAccount" reset store, set loading state, dispatch "fetchBalances", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", "fetchUnbondings" and "fetchTransactions" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -44,17 +44,14 @@ describe('store/account/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchRewards', address);
     expect(dispatch).toHaveBeenCalledWith('fetchUnbondings', address);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
-    expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', { address });
-    expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
   });
 
-  test('if "fetchBalances" action commit "setBalances" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchBalances" action commit "setBalances" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.fetchBalances({ commit, dispatch }, address);
+    await actions.fetchBalances({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith(
       'setBalances',
@@ -63,17 +60,16 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.fetchBalances({ commit, dispatch }, address);
+    await actions.fetchBalances({ commit }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchCommission" action commit "setCommission" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchCommission" action commit "setCommission" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const validator = 'validator';
 
-    await actions.fetchCommission({ commit, dispatch }, validator);
+    await actions.fetchCommission({ commit }, validator);
 
     expect(commit).toHaveBeenCalledWith(
       'setCommission',
@@ -82,17 +78,16 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.fetchCommission({ commit, dispatch }, validator);
+    await actions.fetchCommission({ commit }, validator);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchDelegations" action commit "setDelegations" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchDelegations" action commit "setDelegations" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.fetchDelegations({ commit, dispatch }, address);
+    await actions.fetchDelegations({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith(
       'setDelegations',
@@ -101,25 +96,24 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.fetchDelegations({ commit, dispatch }, address);
+    await actions.fetchDelegations({ commit }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchRewards" action commit "setRewards" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchRewards" action commit "setRewards" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.fetchRewards({ commit, dispatch }, address);
+    await actions.fetchRewards({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith('setRewards', mockResponse.data);
 
     mockError = true;
 
-    await actions.fetchRewards({ commit, dispatch }, address);
+    await actions.fetchRewards({ commit }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchUnbondings" dispatch "addUnbondings" action', async () => {
@@ -132,13 +126,12 @@ describe('store/account/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('addUnbondings', { address });
   });
 
-  test('if "addUnbondings" action commit "addUnbondings", "setUnbondingsPagination" and "sumUnbondingsOffset" mutations, and dispatch "handleError" if error is caught', async () => {
+  test('if "addUnbondings" action commit "addUnbondings", "setUnbondingsPagination" and "sumUnbondingsOffset" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const address = 'address';
     const offset = 10;
 
-    await actions.addUnbondings({ commit, dispatch }, { address, offset });
+    await actions.addUnbondings({ commit }, { address, offset });
 
     expect(commit).toHaveBeenCalledWith(
       'addUnbondings',
@@ -155,17 +148,16 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.addUnbondings({ commit, dispatch }, { address, offset });
+    await actions.addUnbondings({ commit }, { address, offset });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchMembership" action commit "setMembership" mutation, and set membership to null if error is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.fetchMembership({ commit, dispatch }, address);
+    await actions.fetchMembership({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith(
       'setMembership',
@@ -174,17 +166,16 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.fetchMembership({ commit, dispatch }, address);
+    await actions.fetchMembership({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith('setMembership', null);
   });
 
-  test('if "fetchMembershipTxs" action commit "setMembershipTxs" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchMembershipTxs" action commit "setMembershipTxs" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.fetchMembershipTxs({ commit, dispatch }, address);
+    await actions.fetchMembershipTxs({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith(
       'setMembershipTxs',
@@ -193,18 +184,18 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.fetchMembershipTxs({ commit, dispatch }, address);
+    await actions.fetchMembershipTxs({ commit }, address);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchTransactions" commit "addTransactions", "sumTransactionsOffset" and "setTransactionsPagination", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchTransactions" set loading state, commit "addTransactions", "sumTransactionsOffset" and "setTransactionsPagination", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.fetchTransactions({ commit, dispatch }, { address });
+    await actions.fetchTransactions({ commit }, { address });
 
+    expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
       mockResponse.data.tx_responses,
@@ -217,15 +208,16 @@ describe('store/account/actions', () => {
       'setTransactionsPagination',
       mockResponse.data.pagination,
     );
+    expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
 
     mockError = true;
 
-    await actions.fetchTransactions({ commit, dispatch }, { address });
+    await actions.fetchTransactions({ commit }, { address });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "addTransactions" set loading state and dispatch action "fetchTransactions"', async () => {
+  test('if "addTransactions" dispatch action "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -233,21 +225,10 @@ describe('store/account/actions', () => {
 
     await actions.addTransactions({ commit, dispatch }, { address, offset });
 
-    expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       address,
       offset,
     });
-    expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
-  });
-
-  test('if "handleError" set error', () => {
-    const commit = jest.fn();
-    const error = new Error('message');
-
-    actions.handleError({ commit }, error);
-
-    expect(commit).toHaveBeenCalledWith('setError', error);
   });
 });
 
