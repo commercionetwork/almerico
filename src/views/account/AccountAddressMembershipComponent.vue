@@ -30,6 +30,7 @@
 <script>
 import { ACCOUNT, ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
+import { maxBy } from 'lodash';
 
 export default {
   name: 'AccountAddressMembershipComponent',
@@ -53,10 +54,7 @@ export default {
         : this.$t('labels.none');
     },
     lastTransaction() {
-      return this.txs.reduce(
-        (r, o) => (new Date(o.timestamp) > new Date(r.timestamp) ? o : r),
-        null,
-      );
+      return maxBy(this.txs, (o) => o.timestamp);
     },
     txhash() {
       return this.lastTransaction ? this.lastTransaction.txhash : '';
