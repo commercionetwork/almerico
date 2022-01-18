@@ -55,49 +55,44 @@ describe('store/validators/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
   });
 
-  test('if "fetchPool" action commit "setPool", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchPool" action commit "setPool", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchPool({
-      commit,
-      dispatch,
-    });
+    await actions.fetchPool({ commit });
 
     expect(commit).toHaveBeenCalledWith('setPool', mockResponse.data.pool);
 
     mockError = true;
 
-    await actions.fetchPool({
-      commit,
-      dispatch,
-    });
+    await actions.fetchPool({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchTrackedBlocks" dispatch "addBlocksItem"', async () => {
+  test('if "fetchTrackedBlocks" set loading state and dispatch "addBlocksItem"', async () => {
+    const commit = jest.fn();
     const dispatch = jest.fn();
     const lastHeight = '1000';
     let height = parseInt(lastHeight);
     let minHeight = height - VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
 
-    await actions.fetchTrackedBlocks({ dispatch }, lastHeight);
+    await actions.fetchTrackedBlocks({ commit, dispatch }, lastHeight);
 
+    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', true);
     expect(dispatch).toHaveBeenCalledTimes(
       VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
     );
     while (height > minHeight) {
       expect(dispatch).toHaveBeenCalledWith('addBlocksItem', height--);
     }
+    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', false);
   });
 
-  test('if "addBlocksItem" commit "addBlock, and dispatch "handleError" if error is caught"', async () => {
+  test('if "addBlocksItem" commit "addBlock, and set the error if it is caught"', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const height = '100';
 
-    await actions.addBlocksItem({ commit, dispatch }, height);
+    await actions.addBlocksItem({ commit }, height);
 
     expect(commit).toHaveBeenCalledWith('addBlock', {
       ...mockResponse.data,
@@ -106,9 +101,9 @@ describe('store/validators/actions', () => {
 
     mockError = true;
 
-    await actions.addBlocksItem({ commit, dispatch }, height);
+    await actions.addBlocksItem({ commit }, height);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "initValidatorsDetail" reset store, set loading state, dispatch "fetchDetail", "fetchDetailDelegations", "fetchPool" and "fetchTrackedBlocks" actions', async () => {
@@ -139,25 +134,22 @@ describe('store/validators/actions', () => {
       { id: address, lastHeight },
     );
 
-    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
-    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', false);
   });
 
-  test('if "fetchDetail" action commit "setDetail", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchDetail" action commit "setDetail", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const id = 'id';
 
-    await actions.fetchDetail({ commit, dispatch }, id);
+    await actions.fetchDetail({ commit }, id);
 
     expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data.result);
 
     mockError = true;
 
-    await actions.fetchDetail({ commit, dispatch }, id);
+    await actions.fetchDetail({ commit }, id);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchDetailDelegations" dispatch "addDetailDelegations" action', async () => {
@@ -170,13 +162,12 @@ describe('store/validators/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('addDetailDelegations', { id });
   });
 
-  test('if "addDetailDelegations" action commit "addDelegations", "setDelegationsPagination" and "sumDelegationsOffset" mutations, and dispatch "handleError" if error is caught', async () => {
+  test('if "addDetailDelegations" action commit "addDelegations", "setDelegationsPagination" and "sumDelegationsOffset" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const id = 'id';
     const offset = 10;
 
-    await actions.addDetailDelegations({ commit, dispatch }, { id, offset });
+    await actions.addDetailDelegations({ commit }, { id, offset });
 
     expect(commit).toHaveBeenCalledWith(
       'addDelegations',
@@ -193,18 +184,9 @@ describe('store/validators/actions', () => {
 
     mockError = true;
 
-    await actions.addDetailDelegations({ commit, dispatch }, { id, offset });
+    await actions.addDetailDelegations({ commit }, { id, offset });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
-  });
-
-  test('if "handleError" set error', () => {
-    const commit = jest.fn();
-    const error = new Error('message');
-
-    actions.handleError({ commit }, error);
-
-    expect(commit).toHaveBeenCalledWith('setError', error);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "setValidatorsFilter" set filter', () => {

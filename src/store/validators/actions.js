@@ -13,27 +13,29 @@ export default {
     commit('setLoading', false);
   },
 
-  async fetchPool({ commit, dispatch }) {
+  async fetchPool({ commit }) {
     try {
       const response = await staking.requestPool();
       commit('setPool', response.data.pool);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchTrackedBlocks({ dispatch }, lastHeight) {
+  async fetchTrackedBlocks({ commit, dispatch }, lastHeight) {
+    commit('setLoadingBlocks', true);
     const requests = setUpBlocksRequests(dispatch, lastHeight);
     await Promise.all(requests);
+    commit('setLoadingBlocks', false);
   },
 
-  async addBlocksItem({ commit, dispatch }, height) {
+  async addBlocksItem({ commit }, height) {
     try {
       const resBlock = await tendermintRpc.requestBlock(height);
       const resValidatorSets = await tendermintRpc.requestValidatorSets(height);
       commit('addBlock', { ...resBlock.data, ...resValidatorSets.data.result });
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -48,18 +50,16 @@ export default {
     await Promise.all(requests);
     commit('setLoading', false);
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
-      commit('setLoadingBlocks', true);
       await dispatch('fetchTrackedBlocks', lastHeight);
-      commit('setLoadingBlocks', false);
     }
   },
 
-  async fetchDetail({ commit, dispatch }, id) {
+  async fetchDetail({ commit }, id) {
     try {
       const response = await staking.requestValidatorsDetailLegacy(id);
       commit('setDetail', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -73,7 +73,7 @@ export default {
     }
   },
 
-  async addDetailDelegations({ commit, dispatch }, { id, offset }) {
+  async addDetailDelegations({ commit }, { id, offset }) {
     const pagination = {
       offset: offset ? offset : 0,
     };
@@ -86,12 +86,8 @@ export default {
       commit('setDelegationsPagination', response.data.pagination);
       commit('sumDelegationsOffset', response.data.delegation_responses.length);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
-  },
-
-  handleError({ commit }, error) {
-    commit('setError', error);
   },
 
   setValidatorsFilter({ commit }, filter) {
