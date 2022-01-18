@@ -39,24 +39,21 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
     expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
-    expect(commit).toHaveBeenCalledWith('setLoadingTxs', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
-    expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
   });
 
-  test('if "fetchParams" action commit "setParams" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchParams" action commit "setParams" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchParams({ commit, dispatch });
+    await actions.fetchParams({ commit });
 
     expect(commit).toHaveBeenCalledWith('setParams', mockResponse.data.params);
 
     mockError = true;
 
-    await actions.fetchParams({ commit, dispatch });
+    await actions.fetchParams({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchRateUpdates" dispatch "addRateUpdates"', async () => {
@@ -68,12 +65,11 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('addRateUpdates');
   });
 
-  test('if "addRateUpdates" action commit "addRateUpdates", "setRateUpdatesPagination" and "sumRateUpdatesOffset" mutations, and dispatch "handleError" if error is caught', async () => {
+  test('if "addRateUpdates" action commit "addRateUpdates", "setRateUpdatesPagination" and "sumRateUpdatesOffset" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const offset = 10;
 
-    await actions.addRateUpdates({ commit, dispatch }, offset);
+    await actions.addRateUpdates({ commit }, offset);
 
     expect(commit).toHaveBeenCalledWith(
       'addRateUpdates',
@@ -90,16 +86,15 @@ describe('store/home/actions', () => {
 
     mockError = true;
 
-    await actions.addRateUpdates({ commit, dispatch }, offset);
+    await actions.addRateUpdates({ commit }, offset);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchStartingDate" action commit "setStartingDate", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchStartingDate" action commit "setStartingDate", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchStartingDate({ commit, dispatch });
+    await actions.fetchStartingDate({ commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setStartingDate',
@@ -108,19 +103,15 @@ describe('store/home/actions', () => {
 
     mockError = true;
 
-    await actions.fetchStartingDate({ commit, dispatch });
+    await actions.fetchStartingDate({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchAbrTokens" action commit "setAbrTokens", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchAbrTokens" action commit "setAbrTokens", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchAbrTokens({
-      commit,
-      dispatch,
-    });
+    await actions.fetchAbrTokens({ commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setAbrTokens',
@@ -129,22 +120,15 @@ describe('store/home/actions', () => {
 
     mockError = true;
 
-    await actions.fetchAbrTokens({
-      commit,
-      dispatch,
-    });
+    await actions.fetchAbrTokens({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchVbrTokens" action commit "setVbrTokens", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchVbrTokens" action commit "setVbrTokens", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchVbrTokens({
-      commit,
-      dispatch,
-    });
+    await actions.fetchVbrTokens({ commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setVbrTokens',
@@ -153,93 +137,66 @@ describe('store/home/actions', () => {
 
     mockError = true;
 
-    await actions.fetchVbrTokens({
-      commit,
-      dispatch,
-    });
+    await actions.fetchVbrTokens({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchAllTokens" action commit "setSupply", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchAllTokens" action commit "setSupply", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchAllTokens({
-      commit,
-      dispatch,
-    });
+    await actions.fetchAllTokens({ commit });
 
     expect(commit).toHaveBeenCalledWith('setSupply', mockResponse.data.supply);
 
     mockError = true;
 
-    await actions.fetchAllTokens({
-      commit,
-      dispatch,
-    });
+    await actions.fetchAllTokens({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchPool" action commit "setPool", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchPool" action commit "setPool", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchPool({
-      commit,
-      dispatch,
-    });
+    await actions.fetchPool({ commit });
 
     expect(commit).toHaveBeenCalledWith('setPool', mockResponse.data.pool);
 
     mockError = true;
 
-    await actions.fetchPool({
-      commit,
-      dispatch,
-    });
+    await actions.fetchPool({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchTransactions" commit "addTransactions", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchTransactions" set loading state and commit "addTransactions", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchTransactions({ commit, dispatch });
+    await actions.fetchTransactions({ commit });
 
+    expect(commit).toHaveBeenCalledWith('setLoadingTxs', true);
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
       mockResponse.data.tx_responses,
     );
+    expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
 
     mockError = true;
 
-    await actions.fetchTransactions({ commit, dispatch });
+    await actions.fetchTransactions({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "refreshTransactions" reset txs, set loading state and dispatch "fetchTransactions"', async () => {
+  test('if "refreshTransactions" reset txs and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.refreshTransactions({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setLoadingTxs', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
-    expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
-  });
-
-  test('if "handleError" set error', () => {
-    const commit = jest.fn();
-    const error = new Error('message');
-
-    actions.handleError({ commit }, error);
-
-    expect(commit).toHaveBeenCalledWith('setError', error);
   });
 });
 
