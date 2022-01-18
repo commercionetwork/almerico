@@ -16,50 +16,50 @@ export default {
     commit('setLoading', false);
   },
 
-  async fetchInfo({ commit, dispatch }) {
+  async fetchInfo({ commit }) {
     try {
       const response = await gaiaRest.requestNodeInfo();
       commit('setInfo', response.data);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchLatestBlock({ commit, dispatch }) {
+  async fetchLatestBlock({ commit }) {
     try {
       const response = await tendermintRpc.requestBlockLatest();
       commit('setLatestBlock', response.data.block);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchLatestTransactions({ commit, dispatch }, height) {
+  async fetchLatestTransactions({ commit }, height) {
     try {
       const response = await tx.requestTxsList({
         events: `tx.height=${height}`,
       });
       commit('addLatestTransactions', response.data.txs);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchLatestValidatorSets({ commit, dispatch }) {
+  async fetchLatestValidatorSets({ commit }) {
     try {
       const response = await tendermintRpc.requestValidatorSetsLatest();
       commit('setLatestValidatorSets', response.data.result.validators);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchStakingParams({ commit, dispatch }) {
+  async fetchStakingParams({ commit }) {
     try {
       const response = await staking.requestParameters();
       commit('setStakingParams', response.data.params);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -79,7 +79,7 @@ export default {
     }
   },
 
-  async addValidators({ commit, dispatch }, { params, offset }) {
+  async addValidators({ commit }, { params, offset }) {
     const pagination = {
       offset: offset ? offset : 0,
     };
@@ -89,11 +89,7 @@ export default {
       commit('setValidatorsPagination', response.data.pagination);
       commit('sumValidatorsOffset', response.data.validators.length);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
-  },
-
-  handleError({ commit }, error) {
-    commit('setError', error);
   },
 };

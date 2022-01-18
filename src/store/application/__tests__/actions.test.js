@@ -40,26 +40,24 @@ describe('store/application/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchInfo" action commit "setInfo" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchInfo" action commit "setInfo" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchInfo({ commit, dispatch });
+    await actions.fetchInfo({ commit });
 
     expect(commit).toHaveBeenCalledWith('setInfo', mockResponse.data);
 
     mockError = true;
 
-    await actions.fetchInfo({ commit, dispatch });
+    await actions.fetchInfo({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchLatestBlock" action commit "setLatestBlock" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchLatestBlock" action commit "setLatestBlock" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchLatestBlock({ commit, dispatch });
+    await actions.fetchLatestBlock({ commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setLatestBlock',
@@ -68,16 +66,15 @@ describe('store/application/actions', () => {
 
     mockError = true;
 
-    await actions.fetchLatestBlock({ commit, dispatch });
+    await actions.fetchLatestBlock({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchLatestValidatorSets" action commit "setLatestValidatorSets" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchLatestValidatorSets" action commit "setLatestValidatorSets" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchLatestValidatorSets({ commit, dispatch });
+    await actions.fetchLatestValidatorSets({ commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setLatestValidatorSets',
@@ -86,16 +83,15 @@ describe('store/application/actions', () => {
 
     mockError = true;
 
-    await actions.fetchLatestValidatorSets({ commit, dispatch });
+    await actions.fetchLatestValidatorSets({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchStakingParams" action commit "setStakingParams" mutation, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchStakingParams" action commit "setStakingParams" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchStakingParams({ commit, dispatch });
+    await actions.fetchStakingParams({ commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setStakingParams',
@@ -104,9 +100,9 @@ describe('store/application/actions', () => {
 
     mockError = true;
 
-    await actions.fetchStakingParams({ commit, dispatch });
+    await actions.fetchStakingParams({ commit });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchValidators" dispatch "addValidators" action for each validators status', async () => {
@@ -125,13 +121,12 @@ describe('store/application/actions', () => {
     }
   });
 
-  test('if "addValidators" action commit "addValidators", "sumValidatorsOffset" and "setValidatorsPagination" mutations, and dispatch "handleError" if error is caught', async () => {
+  test('if "addValidators" action commit "addValidators", "sumValidatorsOffset" and "setValidatorsPagination" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const params = { status: 'status' };
     const offset = 10;
 
-    await actions.addValidators({ commit, dispatch }, { params, offset });
+    await actions.addValidators({ commit }, { params, offset });
 
     expect(commit).toHaveBeenCalledWith(
       'addValidators',
@@ -148,18 +143,9 @@ describe('store/application/actions', () => {
 
     mockError = true;
 
-    await actions.addValidators({ commit, dispatch }, { params, offset });
+    await actions.addValidators({ commit }, { params, offset });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
-  });
-
-  test('if "handleError" set error', () => {
-    const commit = jest.fn();
-    const error = new Error('message');
-
-    actions.handleError({ commit }, error);
-
-    expect(commit).toHaveBeenCalledWith('setError', error);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 });
 
