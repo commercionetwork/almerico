@@ -17,16 +17,16 @@ export default {
     commit('setLoading', false);
   },
 
-  async fetchAbrTokens({ dispatch, commit }) {
+  async fetchAbrTokens({ commit }) {
     try {
       const response = await commercio.requestAbrTokens();
       commit('setAbrTokens', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchAccounts({ dispatch, commit }) {
+  async fetchAccounts({ commit }) {
     const accounts = SETTINGS.SPREADSHEET_ACCOUNTS
       ? JSON.parse(SETTINGS.SPREADSHEET_ACCOUNTS)
       : [];
@@ -38,47 +38,43 @@ export default {
         commit('addAccount', account);
       }
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchFreezedTokens({ dispatch, commit }) {
+  async fetchFreezedTokens({ commit }) {
     try {
       const response = await auth.requestFreezedTokensLegacy();
       commit('setFreezedTokens', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchPool({ commit, dispatch }) {
+  async fetchPool({ commit }) {
     try {
       const response = await staking.requestPool();
       commit('setPool', response.data.pool);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchSupply({ dispatch, commit }) {
+  async fetchSupply({ commit }) {
     try {
       const response = await bank.requestSupply();
       commit('setSupply', response.data.supply);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
-  async fetchVbrTokens({ dispatch, commit }) {
+  async fetchVbrTokens({ commit }) {
     try {
       const response = await commercio.requestVbrTokens();
       commit('setVbrTokens', response.data.funds);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
-  },
-
-  handleError({ commit }, error) {
-    commit('setError', error);
   },
 };
