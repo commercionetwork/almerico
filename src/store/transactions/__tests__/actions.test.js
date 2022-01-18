@@ -57,14 +57,10 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchTransactions" commit "addTransactions", "setPagination" and "sumOffset", and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchTransactions" commit "addTransactions", "setPagination" and "sumOffset", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
 
-    await actions.fetchTransactions(
-      { commit, dispatch },
-      { query: 'query', offset: 0 },
-    );
+    await actions.fetchTransactions({ commit }, { query: 'query', offset: 0 });
 
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
@@ -81,12 +77,9 @@ describe('store/transactions/actions', () => {
 
     mockError = true;
 
-    await actions.fetchTransactions(
-      { commit, dispatch },
-      { query: 'query', offset: 0 },
-    );
+    await actions.fetchTransactions({ commit }, { query: 'query', offset: 0 });
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "addTransactions" set loading state and dispatch "fetchTransactions"', async () => {
@@ -133,7 +126,7 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchTransactionByHash" action commit "setDetail", dispatch "fetchAncestorTransaction" if response status is equal to 404, and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchTransactionByHash" action commit "setDetail", dispatch "fetchAncestorTransaction" if response status is equal to 404, and set the error if it is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const hash = 'hash';
@@ -157,15 +150,14 @@ describe('store/transactions/actions', () => {
 
     await actions.fetchTransactionByHash({ commit, dispatch }, hash);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchAncestorTransaction" action commit "setDetail",  and dispatch "handleError" if error is caught', async () => {
+  test('if "fetchAncestorTransaction" action commit "setDetail",  and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
     const hash = 'hash';
 
-    await actions.fetchAncestorTransaction({ commit, dispatch }, hash);
+    await actions.fetchAncestorTransaction({ commit }, hash);
 
     const ancestors = JSON.parse(SETTINGS.ANCESTORS);
     for (const ancestor of ancestors) {
@@ -178,18 +170,9 @@ describe('store/transactions/actions', () => {
 
     mockError = true;
 
-    await actions.fetchTransactionByHash({ commit, dispatch }, hash);
+    await actions.fetchTransactionByHash({ commit }, hash);
 
-    expect(dispatch).toHaveBeenCalledWith('handleError', mockErrorResponse);
-  });
-
-  test('if "handleError" set error', () => {
-    const commit = jest.fn();
-    const error = new Error('message');
-
-    actions.handleError({ commit }, error);
-
-    expect(commit).toHaveBeenCalledWith('setError', error);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 });
 

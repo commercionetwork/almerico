@@ -19,7 +19,7 @@ export default {
     commit('setLoading', false);
   },
 
-  async fetchTransactions({ commit, dispatch }, { query, offset }) {
+  async fetchTransactions({ commit }, { query, offset }) {
     const params = {
       events: query,
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
@@ -34,7 +34,7 @@ export default {
       commit('setPagination', response.data.pagination);
       commit('sumOffset', response.data.tx_responses.length);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
 
@@ -71,12 +71,12 @@ export default {
       if (error.response && error.response.status === 404) {
         await dispatch('fetchAncestorTransaction', hash);
       } else {
-        dispatch('handleError', error);
+        commit('setError', error);
       }
     }
   },
 
-  async fetchAncestorTransaction({ dispatch, commit }, hash) {
+  async fetchAncestorTransaction({ commit }, hash) {
     const ancestors =
       SETTINGS.ANCESTORS !== '' ? JSON.parse(SETTINGS.ANCESTORS) : [];
     if (ancestors.length === 0) return;
@@ -92,14 +92,10 @@ export default {
         if (error.response && error.response.status === 404) {
           continue;
         } else {
-          dispatch('handleError', error);
+          commit('setError', error);
         }
       }
     }
-  },
-
-  handleError({ commit }, error) {
-    commit('setError', error);
   },
 };
 
