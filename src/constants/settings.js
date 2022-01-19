@@ -11,7 +11,7 @@ const FIRST_CONVERSION_RATE =
 const ANCESTORS =
   process.env.VUE_APP_ANCESTORS !== undefined
     ? process.env.VUE_APP_ANCESTORS
-    : '';
+    : '[]';
 
 const MINTER_ACCOUNT =
   process.env.VUE_APP_MINTER_ACCOUNT !== undefined
@@ -21,7 +21,7 @@ const MINTER_ACCOUNT =
 const SPREADSHEET_ACCOUNTS =
   process.env.VUE_APP_SPREADSHEET_ACCOUNTS !== undefined
     ? process.env.VUE_APP_SPREADSHEET_ACCOUNTS
-    : '';
+    : '[]';
 
 const LEGACY_VERSIONS = {
   V_038: '0.38',

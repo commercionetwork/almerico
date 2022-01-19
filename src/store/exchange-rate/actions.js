@@ -27,9 +27,7 @@ export default {
   },
 
   async fetchAccounts({ commit }) {
-    const accounts = SETTINGS.SPREADSHEET_ACCOUNTS
-      ? JSON.parse(SETTINGS.SPREADSHEET_ACCOUNTS)
-      : [];
+    const accounts = JSON.parse(SETTINGS.SPREADSHEET_ACCOUNTS);
     if (!accounts.length) return;
     try {
       for (const account of accounts) {

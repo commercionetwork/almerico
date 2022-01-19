@@ -68,18 +68,16 @@ export default {
         version: '',
       });
     } catch (error) {
-      if (error.response && error.response.status === 404) {
-        await dispatch('fetchAncestorTransaction', hash);
-      } else {
+      const ancestors = JSON.parse(SETTINGS.ANCESTORS);
+      if (!ancestors.length) {
         commit('setError', error);
+      } else {
+        await dispatch('fetchAncestorTransaction', { hash, ancestors });
       }
     }
   },
 
-  async fetchAncestorTransaction({ commit }, hash) {
-    const ancestors =
-      SETTINGS.ANCESTORS !== '' ? JSON.parse(SETTINGS.ANCESTORS) : [];
-    if (ancestors.length === 0) return;
+  async fetchAncestorTransaction({ commit }, { hash, ancestors }) {
     for (const ancestor of ancestors) {
       try {
         const response = await _searchTransactionByVersion(hash, ancestor);
