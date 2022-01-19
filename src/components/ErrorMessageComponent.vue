@@ -2,34 +2,51 @@
   <div>
     <AlertComponent kind="info" :message="$t('msgs.dataNotAvailable')">
       <template v-slot:action>
-        <v-btn outlined @click="refresh">
+        <v-btn color="info" outlined @click="refresh">
           <v-icon>mdi-reload</v-icon>
           <span v-text="$t('labels.refresh')" />
         </v-btn>
       </template>
     </AlertComponent>
-    <v-card outlined>
-      <v-card-title v-text="$t('titles.details')" />
-      <v-card-text>
-        <v-list>
-          <v-list-item two-line>
-            <v-list-item-content>
-              <v-list-item-title class="pb-1" v-text="$t('titles.message')" />
-              <v-list-item-subtitle class="pb-1 text-wrap" v-text="message" />
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item two-line>
-            <v-list-item-content>
-              <v-list-item-title class="pb-1" v-text="$t('titles.code')" />
-              <v-list-item-subtitle class="pb-1 text-wrap" v-text="code" />
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-card-text>
-      <v-card-actions>
-        <slot name="actions" />
-      </v-card-actions>
-    </v-card>
+    <v-row justify="center">
+      <v-col>
+        <v-expansion-panels flat poput>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              {{ $t('labels.moreInfo') }}
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <v-list>
+                <v-list-item two-line>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      class="pb-1"
+                      v-text="$t('titles.message')"
+                    />
+                    <v-list-item-subtitle
+                      class="pb-1 text-wrap"
+                      v-text="message"
+                    />
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item two-line>
+                  <v-list-item-content>
+                    <v-list-item-title
+                      class="pb-1"
+                      v-text="$t('titles.code')"
+                    />
+                    <v-list-item-subtitle
+                      class="pb-1 text-wrap"
+                      v-text="code"
+                    />
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

@@ -68,6 +68,7 @@ export const labels = {
   metadataSchemaVersion: 'Metadata schema version',
   minSelfDelegation: 'Min self delegation',
   moniker: 'Moniker',
+  moreInfo: 'More info',
   msgs: 'Msgs',
   msgsOnTxs: 'Msgs/Txs',
   multiTypes: 'Multi types',

@@ -14,7 +14,6 @@ export const titles = {
   dashboard: 'Dashboard',
   delegations: 'Delegations',
   description: 'Description',
-  details: 'Details',
   doSign: 'Do sign',
   exchangeRate: 'Exchange Rate',
   inactiveValidatorsList: 'Inactive validators list',
