@@ -1,4 +1,5 @@
 export const msgs = {
+  accountNotExist: 'Account does not exist',
   bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
   bannerSecondary: 'Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe',
   comingSoon: 'Coming soon',

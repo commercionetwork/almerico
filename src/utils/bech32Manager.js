@@ -8,9 +8,15 @@ export default {
    * @returns {String}
    */
   decode(value, type = 'hex') {
-    // obj = { prefix: 'abcdef', words: [0,1,...,31] }
-    const obj = bech32.decode(value);
-    return Buffer.from(bech32.fromWords(obj.words)).toString(type);
+    let decoded;
+    try {
+      // obj = { prefix: 'abcdef', words: [0,1,...,31] }
+      const obj = bech32.decode(value);
+      decoded = Buffer.from(bech32.fromWords(obj.words)).toString(type);
+    } catch (error) {
+      throw new Error(error);
+    }
+    return decoded;
   },
   /**
    *
@@ -20,7 +26,13 @@ export default {
    * @returns {String}
    */
   encode(value, prefix, type = 'hex') {
-    const words = bech32.toWords(Buffer.from(value, type));
-    return bech32.encode(prefix, words);
+    let encoded;
+    try {
+      const words = bech32.toWords(Buffer.from(value, type));
+      encoded = bech32.encode(prefix, words);
+    } catch (error) {
+      throw new Error(error);
+    }
+    return encoded;
   },
 };
