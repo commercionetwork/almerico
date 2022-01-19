@@ -1,6 +1,13 @@
 <template>
   <div>
-    <AlertComponent kind="error" :message="$t('msgs.errorOccurred')" />
+    <AlertComponent kind="info" :message="$t('msgs.dataNotAvailable')">
+      <template v-slot:action>
+        <v-btn outlined @click="refresh">
+          <v-icon>mdi-reload</v-icon>
+          <span v-text="$t('labels.refresh')" />
+        </v-btn>
+      </template>
+    </AlertComponent>
     <v-card outlined>
       <v-card-title v-text="$t('titles.details')" />
       <v-card-text>
@@ -60,6 +67,11 @@ export default {
       return this.error
         ? errorHandler.process(this.$t, this, this.error)
         : null;
+    },
+  },
+  methods: {
+    refresh() {
+      window.location.reload();
     },
   },
 };

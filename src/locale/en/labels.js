@@ -94,6 +94,7 @@ export const labels = {
   rate: 'Rate',
   rawLog: 'Raw log',
   recipient: 'Recipient',
+  refresh: 'Refresh',
   reset: 'Reset',
   result: 'Result',
   rewards: 'Rewards',

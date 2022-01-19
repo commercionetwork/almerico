@@ -7,7 +7,12 @@
     prominent
     text
   >
-    <span class="text-body-1" v-html="message" />
+    <v-row align="center">
+      <v-col class="grow text-body-1" v-html="message"> </v-col>
+      <v-col class="shrink">
+        <slot name="action" />
+      </v-col>
+    </v-row>
   </v-alert>
 </template>
 
