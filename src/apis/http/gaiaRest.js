@@ -9,7 +9,7 @@ export default {
   requestNodeInfo() {
     return axios({
       method: 'get',
-      baseURL: `${APIS.HTTP.NODE_INFO_GAIA}`,
+      url: `${APIS.HTTP.NODE_INFO_GAIA}`,
     });
   },
 };

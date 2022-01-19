@@ -13,7 +13,7 @@ export default {
     const params = apisHelper.setupParams(parameters, pagination);
     return axios({
       method: 'get',
-      baseURL: `${APIS.HTTP.TXS}`,
+      url: `${APIS.HTTP.TXS}`,
       params,
     });
   },
