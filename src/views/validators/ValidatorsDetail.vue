@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row v-if="isValid">
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <LoadingLinearComponent :height="25" />
     </v-col>
@@ -17,9 +17,15 @@
       <ValidatorsDetailBodyContentComponent :account="account" />
     </v-col>
   </v-row>
+  <v-row v-else data-test="warning">
+    <v-col cols="12">
+      <AlertComponent kind="warning" :message="$t('msgs.validatorNotExist')" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
+import AlertComponent from '@/components/AlertComponent.vue';
 import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
@@ -33,12 +39,17 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ValidatorsDetail',
   components: {
+    AlertComponent,
     ErrorMessageComponent,
     HeaderComponent,
     LoadingLinearComponent,
     ValidatorsDetailBodyContentComponent,
     ValidatorsDetailTopContentComponent,
   },
+  data: () => ({
+    isValid: true,
+    account: '',
+  }),
   computed: {
     ...mapGetters('application', {
       latestBlock: 'latestBlock',
@@ -48,10 +59,6 @@ export default {
       isLoading: 'isLoading',
       newHeight: 'newHeight',
     }),
-    account() {
-      const hex = bech32Manager.decode(this.address);
-      return bech32Manager.encode(hex, CONFIG.PREFIXES.ACCOUNT.ADDRESS);
-    },
     address() {
       return this.$route.params.id;
     },
@@ -61,7 +68,8 @@ export default {
   },
   watch: {
     address(value) {
-      if (value)
+      this.getAccount();
+      if (this.isValid)
         this.initValidatorsDetail({ id: value, lastHeight: this.lastHeight });
     },
     newHeight(value) {
@@ -74,12 +82,26 @@ export default {
       addBlocksItem: 'addBlocksItem',
       initValidatorsDetail: 'initValidatorsDetail',
     }),
+    getAccount() {
+      try {
+        const hex = bech32Manager.decode(this.address);
+        this.account = bech32Manager.encode(
+          hex,
+          CONFIG.PREFIXES.ACCOUNT.ADDRESS,
+        );
+      } catch (error) {
+        this.isValid = false;
+      }
+    },
   },
   created() {
-    this.initValidatorsDetail({
-      id: this.address,
-      lastHeight: this.lastHeight,
-    });
+    this.getAccount();
+    if (this.isValid) {
+      this.initValidatorsDetail({
+        id: this.address,
+        lastHeight: this.lastHeight,
+      });
+    }
   },
 };
 </script>

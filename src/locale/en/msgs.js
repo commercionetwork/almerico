@@ -22,5 +22,6 @@ export const msgs = {
   success: 'Success',
   triggeredAnError: 'Something happened in setting up the request that triggered an error',
   unansweredRequest: 'The request was made but no response was received',
+  validatorNotExist: 'Validator does not exist',
   workInProgress: 'Work in progress',
 };
