@@ -8,8 +8,8 @@ export default {
    */
   requestNodeInfo() {
     return axios({
-      method: 'get',
       url: `${APIS.HTTP.NODE_INFO_GAIA}`,
+      method: 'get',
     });
   },
 };

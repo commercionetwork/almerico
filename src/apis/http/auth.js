@@ -9,9 +9,9 @@ export default {
   requestFreezedTokensLegacy() {
     const address = SETTINGS.MINTER_ACCOUNT;
     return axios({
+      url: `/accounts/${address}`,
       method: 'get',
       baseURL: `${APIS.HTTP.AUTH_LEGACY}`,
-      url: `/accounts/${address}`,
     });
   },
 };

@@ -9,9 +9,9 @@ export default {
    */
   requestRewards(address) {
     return axios({
+      url: `/delegators/${address}/rewards`,
       method: 'get',
       baseURL: `${APIS.HTTP.DISTRIBUTION}`,
-      url: `/delegators/${address}/rewards`,
     });
   },
   /**
@@ -21,9 +21,9 @@ export default {
    */
   requestCommission(address) {
     return axios({
+      url: `/validators/${address}/commission`,
       method: 'get',
       baseURL: `${APIS.HTTP.DISTRIBUTION}`,
-      url: `/validators/${address}/commission`,
     });
   },
 };

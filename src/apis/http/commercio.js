@@ -8,9 +8,9 @@ export default {
    */
   requestParams() {
     return axios({
+      url: '/params',
       method: 'get',
       baseURL: `${APIS.HTTP.MINT}`,
-      url: '/params',
     });
   },
   /**
@@ -19,9 +19,9 @@ export default {
    */
   requestAbrTokens() {
     return axios({
+      url: `/funds`,
       method: 'get',
       baseURL: `${APIS.HTTP.KYC}`,
-      url: `/funds`,
     });
   },
   /**
@@ -30,9 +30,9 @@ export default {
    */
   requestVbrTokens() {
     return axios({
+      url: `/funds`,
       method: 'get',
       baseURL: `${APIS.HTTP.VBR}`,
-      url: `/funds`,
     });
   },
   /**
@@ -41,9 +41,9 @@ export default {
    */
   requestAllTokens() {
     return axios({
+      url: '/total',
       method: 'get',
       baseURL: `${APIS.HTTP.SUPPLY}`,
-      url: '/total',
     });
   },
   /**
@@ -53,9 +53,9 @@ export default {
    */
   requestMembership(address) {
     return axios({
+      url: `/membership/${address}`,
       method: 'get',
       baseURL: `${APIS.HTTP.KYC}`,
-      url: `/membership/${address}`,
     });
   },
 };

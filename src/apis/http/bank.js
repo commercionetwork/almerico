@@ -8,9 +8,9 @@ export default {
    */
   requestSupply() {
     return axios({
+      url: '/supply',
       method: 'get',
       baseURL: `${APIS.HTTP.BANK}`,
-      url: '/supply',
     });
   },
   /**
@@ -20,9 +20,9 @@ export default {
    */
   requestBalances(address) {
     return axios({
+      url: `/balances/${address}`,
       method: 'get',
       baseURL: `${APIS.HTTP.BANK}`,
-      url: `/balances/${address}`,
     });
   },
   /**
@@ -32,9 +32,9 @@ export default {
    */
   requestBalancesLegacy(address) {
     return axios({
+      url: `/balances/${address}`,
       method: 'get',
       baseURL: `${APIS.HTTP.BANK_LEGACY}`,
-      url: `/balances/${address}`,
     });
   },
 };

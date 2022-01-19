@@ -9,9 +9,9 @@ export default {
    */
   requestBlock(height) {
     return axios({
+      url: `/${height}`,
       method: 'get',
       baseURL: `${APIS.HTTP.BLOCKS_RPC}`,
-      url: `/${height}`,
     });
   },
   /**
@@ -20,9 +20,9 @@ export default {
    */
   requestBlockLatest() {
     return axios({
+      url: '/latest',
       method: 'get',
       baseURL: `${APIS.HTTP.BLOCKS_RPC}`,
-      url: '/latest',
     });
   },
   /**
@@ -32,9 +32,9 @@ export default {
    */
   requestValidatorSets(height) {
     return axios({
+      url: `/${height}`,
       method: 'get',
       baseURL: `${APIS.HTTP.VALIDATORSETS_RPC}`,
-      url: `/${height}`,
     });
   },
   /**
@@ -43,9 +43,9 @@ export default {
    */
   requestValidatorSetsLatest() {
     return axios({
+      url: '/latest',
       method: 'get',
       baseURL: `${APIS.HTTP.VALIDATORSETS_RPC}`,
-      url: '/latest',
     });
   },
 };

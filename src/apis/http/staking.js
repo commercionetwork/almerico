@@ -9,9 +9,9 @@ export default {
    */
   requestParameters() {
     return axios({
+      url: '/params',
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
-      url: '/params',
     });
   },
   /**
@@ -20,9 +20,9 @@ export default {
    */
   requestPool() {
     return axios({
+      url: '/pool',
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
-      url: '/pool',
     });
   },
   /**
@@ -34,9 +34,9 @@ export default {
   requestValidatorsList(parameters, pagination) {
     const params = apisHelper.setupParams(parameters, pagination);
     return axios({
+      url: '/validators',
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
-      url: '/validators',
       params,
     });
   },
@@ -47,9 +47,9 @@ export default {
    */
   requestValidatorsDetail(id) {
     return axios({
+      url: `/validators/${id}`,
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
-      url: `/validators/${id}`,
     });
   },
   /**
@@ -59,9 +59,9 @@ export default {
    */
   requestDelegations(address) {
     return axios({
+      url: `/delegations/${address}`,
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
-      url: `/delegations/${address}`,
     });
   },
   /**
@@ -71,9 +71,9 @@ export default {
    */
   requestUnbondings(address) {
     return axios({
+      url: `/delegators/${address}/unbonding_delegations`,
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
-      url: `/delegators/${address}/unbonding_delegations`,
     });
   },
   /**
@@ -83,9 +83,9 @@ export default {
    */
   requestDelegationsLegacy(address) {
     return axios({
+      url: `/delegators/${address}/delegations`,
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-      url: `/delegators/${address}/delegations`,
     });
   },
   /**
@@ -95,9 +95,9 @@ export default {
    */
   requestValidatorsDetailLegacy(id) {
     return axios({
+      url: `/validators/${id}`,
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-      url: `/validators/${id}`,
     });
   },
   /**
@@ -107,9 +107,9 @@ export default {
    */
   requestValidatorsDetailDelegations(id) {
     return axios({
+      url: `/validators/${id}/delegations`,
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
-      url: `/validators/${id}/delegations`,
     });
   },
 };
