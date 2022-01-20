@@ -24,6 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Remove configuration file
 
+## [2.2.21] - 2022-01-13
+
+### Changed
+
+- Update method to fetch dashboard transactions
+- Update dashboard error management
+
 ## [2.2.20] - 2021-10-11
 
 ### Changed
@@ -207,6 +214,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[2.2.21]: https://github.com/commercionetwork/almerico/compare/v2.2.20...v2.2.21
 [2.2.20]: https://github.com/commercionetwork/almerico/compare/v2.2.19...v2.2.20
 [2.2.19]: https://github.com/commercionetwork/almerico/compare/v2.2.18...v2.2.19
 [2.2.18]: https://github.com/commercionetwork/almerico/compare/v2.2.17...v2.2.18
