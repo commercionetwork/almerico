@@ -8,11 +8,6 @@ const FIRST_CONVERSION_RATE =
     ? process.env.VUE_APP_FIRST_CONVERSION_RATE
     : 1;
 
-const ANCESTORS =
-  process.env.VUE_APP_ANCESTORS !== undefined
-    ? process.env.VUE_APP_ANCESTORS
-    : '[]';
-
 const MINTER_ACCOUNT =
   process.env.VUE_APP_MINTER_ACCOUNT !== undefined
     ? process.env.VUE_APP_MINTER_ACCOUNT
@@ -28,7 +23,6 @@ const LEGACY_VERSIONS = {
 };
 
 export const SETTINGS = {
-  ANCESTORS,
   FIRST_CONVERSION_RATE,
   FIRST_HEIGHT,
   LEGACY_VERSIONS,

@@ -68,16 +68,16 @@ export default {
         version: '',
       });
     } catch (error) {
-      const ancestors = JSON.parse(SETTINGS.ANCESTORS);
+      const ancestors = JSON.parse(process.env.VUE_APP_ANCESTORS);
       if (!ancestors.length) {
         commit('setError', error);
       } else {
-        await dispatch('fetchAncestorTransaction', { hash, ancestors });
+        await dispatch('fetchAncestorsTransaction', { hash, ancestors });
       }
     }
   },
 
-  async fetchAncestorTransaction({ commit }, { hash, ancestors }) {
+  async fetchAncestorsTransaction({ commit }, { hash, ancestors }) {
     for (const ancestor of ancestors) {
       try {
         const response = await _searchTransactionByVersion(hash, ancestor);

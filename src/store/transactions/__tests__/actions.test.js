@@ -15,14 +15,19 @@ let mockErrorNotFound = false;
 let mockResponse = null;
 
 describe('store/transactions/actions', () => {
+  const OLD_ENV = process.env;
+
   beforeEach(() => {
     mockError = false;
     mockErrorNotFound = false;
     mockResponse = null;
+    jest.resetModules();
+    process.env = { ...OLD_ENV };
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    process.env = OLD_ENV;
   });
 
   test('if "initTransactionsList" reset store, set loading state and dispatch "fetchTransactions"', async () => {
@@ -126,7 +131,7 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchTransactionByHash" action commit "setDetail", dispatch "fetchAncestorTransaction" if response status is equal to 404, and set the error if it is caught', async () => {
+  test('if "fetchTransactionByHash" action commit "setDetail", dispatch "fetchAncestorsTransaction" if an error occurs and ancestors are set, set the error if it is caught and there is not ancestors', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const hash = 'hash';
@@ -139,27 +144,30 @@ describe('store/transactions/actions', () => {
       version: '',
     });
 
-    mockErrorNotFound = true;
+    mockError = true;
+    const ancestors = JSON.parse(process.env.VUE_APP_ANCESTORS);
 
     await actions.fetchTransactionByHash({ commit, dispatch }, hash);
 
-    expect(dispatch).toHaveBeenLastCalledWith('fetchAncestorTransaction', hash);
+    expect(dispatch).toHaveBeenCalledWith('fetchAncestorsTransaction', {
+      hash,
+      ancestors,
+    });
 
-    mockErrorNotFound = false;
-    mockError = true;
+    process.env.VUE_APP_ANCESTORS = '[]';
 
     await actions.fetchTransactionByHash({ commit, dispatch }, hash);
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchAncestorTransaction" action commit "setDetail",  and set the error if it is caught', async () => {
+  test('if "fetchAncestorsTransaction" action commit "setDetail",  and set the error if it is caught', async () => {
     const commit = jest.fn();
     const hash = 'hash';
+    const ancestors = JSON.parse(process.env.VUE_APP_ANCESTORS);
 
-    await actions.fetchAncestorTransaction({ commit }, hash);
+    await actions.fetchAncestorsTransaction({ commit }, { hash, ancestors });
 
-    const ancestors = JSON.parse(SETTINGS.ANCESTORS);
     for (const ancestor of ancestors) {
       expect(commit).toHaveBeenCalledWith('setDetail', {
         data: mockResponse.data,
@@ -170,7 +178,7 @@ describe('store/transactions/actions', () => {
 
     mockError = true;
 
-    await actions.fetchTransactionByHash({ commit }, hash);
+    await actions.fetchAncestorsTransaction({ commit }, { hash, ancestors });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
