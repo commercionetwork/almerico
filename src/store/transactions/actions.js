@@ -68,6 +68,7 @@ export default {
         version: '',
       });
     } catch (error) {
+      // Use the variable directly and not a constant to be able to write tests
       const ancestors = JSON.parse(process.env.VUE_APP_ANCESTORS);
       if (!ancestors.length) {
         commit('setError', error);
