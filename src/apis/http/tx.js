@@ -12,8 +12,9 @@ export default {
   requestTxsList(parameters, pagination) {
     const params = apisHelper.setupParams(parameters, pagination);
     return axios({
-      url: `${APIS.HTTP.TXS}`,
+      url: '/txs',
       method: 'get',
+      baseURL: `${APIS.HTTP.TXS}`,
       params,
     });
   },
@@ -24,7 +25,7 @@ export default {
    */
   requestTxByHash(hash) {
     return axios({
-      url: `/${hash}`,
+      url: `/txs/${hash}`,
       method: 'get',
       baseURL: `${APIS.HTTP.TXS}`,
     });

@@ -29,14 +29,12 @@ export const APIS = {
     BLOCKS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/blocks`,
     NODE_INFO: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/node_info`,
     VALIDATORSETS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/validatorsets`,
-    TXS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}/txs`,
+    TXS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}`,
     // Commercio
     KYC: `${LCD}/${API_PATHS.COMMERCIO}/commerciokyc`,
     MINT: `${LCD}/${API_PATHS.COMMERCIO}/commerciomint`,
     SUPPLY: `${LCD}/${API_PATHS.COMMERCIO}/supply`,
     VBR: `${LCD}/${API_PATHS.COMMERCIO}/vbr`,
-    // Gaia
-    NODE_INFO_GAIA: `${LCD}/node_info`,
     // RPC
     BLOCKS_RPC: `${LCD}/blocks`,
     VALIDATORSETS_RPC: `${LCD}/validatorsets`,
