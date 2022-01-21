@@ -1,5 +1,5 @@
 import { tx } from '@/apis/http';
-import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
+import { APIS, TRANSACTIONS } from '@/constants';
 
 export default {
   async initTransactionsList({ commit, dispatch }) {
@@ -68,7 +68,7 @@ export default {
         version: '',
       });
     } catch (error) {
-      // Use the variable directly and not a constant to be able to write tests
+      // Use the env variable and not a constant to make the action testable
       const ancestors = JSON.parse(process.env.VUE_APP_ANCESTORS);
       if (!ancestors.length) {
         commit('setError', error);
@@ -79,16 +79,21 @@ export default {
   },
 
   async fetchAncestorsTransaction({ commit }, { hash, ancestors }) {
-    for (const ancestor of ancestors) {
+    for (const [i, ancestor] of ancestors.entries()) {
       try {
-        const response = await _searchTransactionByVersion(hash, ancestor);
+        const response = await tx.requestTxByHashLegacy(hash, ancestor.lcd);
         commit('setDetail', {
           data: response.data,
           ledger: ancestor.lcd_ledger,
           version: ancestor.ver,
         });
+        break;
       } catch (error) {
-        if (error.response && error.response.status === 404) {
+        if (
+          i < ancestors.length - 1 &&
+          error.response &&
+          error.response.status === 404
+        ) {
           continue;
         } else {
           commit('setError', error);
@@ -96,14 +101,4 @@ export default {
       }
     }
   },
-};
-
-const _searchTransactionByVersion = async (hash, ancestor) => {
-  const version = ancestor.ver;
-  switch (version) {
-    case SETTINGS.LEGACY_VERSIONS.V_038:
-      return await tx.requestTxByHashLegacy(hash, ancestor.lcd);
-    default:
-      return await tx.requestTxByHash(hash);
-  }
 };
