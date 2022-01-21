@@ -18,7 +18,7 @@ export const titles = {
   exchangeRate: 'Exchange Rate',
   inactiveValidatorsList: 'Inactive validators list',
   keys: 'Keys',
-  lastBlocks : 'Last {0} blocks',
+  lastBlocks: 'Last {0} blocks',
   latestHeight: 'Latest height',
   myValidators: 'My validators',
   membership: 'Membership',
