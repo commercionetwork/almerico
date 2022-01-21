@@ -1,5 +1,5 @@
 import { tx } from '@/apis/http';
-import { APIS, TRANSACTIONS } from '@/constants';
+import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
 
 export default {
   async initTransactionsList({ commit, dispatch }) {
@@ -81,7 +81,7 @@ export default {
   async fetchAncestorsTransaction({ commit }, { hash, ancestors }) {
     for (const [i, ancestor] of ancestors.entries()) {
       try {
-        const response = await tx.requestTxByHashLegacy(hash, ancestor.lcd);
+        const response = await _requestToAncestor(hash, ancestor);
         commit('setDetail', {
           data: response.data,
           ledger: ancestor.lcd_ledger,
@@ -101,4 +101,14 @@ export default {
       }
     }
   },
+};
+
+const _requestToAncestor = (hash, ancestor) => {
+  const version = ancestor.ver;
+  switch (version) {
+    case SETTINGS.LEGACY_VERSIONS.V_038:
+      return tx.requestTxByHashLegacy(hash, ancestor.lcd);
+    default:
+      return tx.requestTxByHashLegacy(hash, ancestor.lcd);
+  }
 };
