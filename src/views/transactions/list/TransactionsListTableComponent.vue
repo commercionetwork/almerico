@@ -17,7 +17,7 @@
         <template v-slot:top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
-            v-text="$t('titles.allTypesTransactions')"
+            v-text="title"
           />
         </template>
         <template v-slot:[`item.height`]="{ item }">
@@ -42,11 +42,7 @@
         </template>
         <template v-slot:[`item.hash`]="{ item }">
           <router-link
-            class="
-              d-inline-block
-              text-truncate text-decoration-none
-              font-monotype
-            "
+            class="d-inline-block text-truncate text-decoration-none font-monotype"
             style="max-width: 120px"
             v-text="item.hash"
             :to="{
@@ -138,6 +134,11 @@ export default {
       return !this.txType
         ? 'tx.height >= 1'
         : `message.action='${this.txType}'`;
+    },
+    title() {
+      return !this.txType
+        ? this.$t('titles.allTypesTransactions')
+        : `${this.$t('labels.filter')}: ${this.txType}`;
     },
   },
   methods: {
