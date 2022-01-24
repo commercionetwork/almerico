@@ -1,4 +1,5 @@
 const BROWSER_STORAGE_KEYS = {
+  LOCALE: 'almerico-locale',
   THEME: 'almerico-dark-theme',
   VALIDATORS: 'almerico-my-validators',
 };
