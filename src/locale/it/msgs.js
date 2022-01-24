@@ -1,7 +1,7 @@
 export const msgs = {
   accountNotExist: 'Questo account non esiste',
   bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
-  bannerSecondary: 'Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe',
+  bannerSecondary: 'Creare un ID, firmare e scambiare documenti sulla prima Blockchain conforme eIDAS in Europa',
   comingSoon: 'Prossimamente',
   copy: 'Copia',
   dataNotAvailable: 'In questo momento i dati, purtroppo, non sono disponibili. Si prega di aggiornare la pagina.',

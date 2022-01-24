@@ -41,7 +41,7 @@ export const titles = {
   transactionsAtHeight: 'Transazioni ad altezza {0}',
   trend: 'Trend',
   txsBlocks: 'Txs/blocks',
-  txsBySender: 'Txs per mittente',
+  txsBySender: 'Transazioni per mittente',
   unbondingDelegations: 'Unbonding di delegazioni',
   validatorDetail: 'Dettagli validatore',
   validators: 'Validatori',
