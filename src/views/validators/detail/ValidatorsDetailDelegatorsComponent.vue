@@ -20,11 +20,7 @@
         </template>
         <template v-slot:[`item.delegator`]="{ item }">
           <router-link
-            class="
-              d-inline-block
-              text-truncate text-decoration-none
-              font-monotype
-            "
+            class="d-inline-block text-truncate text-decoration-none font-monotype"
             style="max-width: 100px"
             v-text="item.delegator"
             :to="{
@@ -93,7 +89,7 @@ export default {
       });
     },
     caption() {
-      return 'Delegator amounts';
+      return this.$t('titles.delegatorAmounts');
     },
   },
   methods: {

@@ -1,6 +1,8 @@
 <template>
   <v-list nav dense>
     <v-list-item-group>
+      <DrawerLocaleComponent />
+      <v-divider />
       <DrawerItemComponent
         icon="mdi-view-dashboard"
         :title="$t('titles.dashboard')"
@@ -34,6 +36,7 @@
 
 <script>
 import DrawerItemComponent from './DrawerItemComponent';
+import DrawerLocaleComponent from './DrawerLocaleComponent';
 import DrawerThemeComponent from './DrawerThemeComponent';
 
 import { ROUTES } from '@/constants';
@@ -43,6 +46,7 @@ export default {
   components: {
     DrawerItemComponent,
     DrawerThemeComponent,
+    DrawerLocaleComponent,
   },
   data: () => ({
     ROUTES,
