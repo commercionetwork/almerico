@@ -5,12 +5,12 @@
     </v-list-item-icon>
     <v-list-item-title>
       <v-select
-        v-model="lang"
         :items="items"
+        :placeholder="$t('labels.lang')"
+        dense
         item-text="text"
         item-value="value"
-        dense
-        placeholder="Lang"
+        v-model="lang"
         v-on:change="onChangeLocale"
       ></v-select>
     </v-list-item-title>

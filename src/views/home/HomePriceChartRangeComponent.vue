@@ -5,7 +5,7 @@
       small
       class="font-weight-bold"
       :class="range === HOME.RANGE.TODAY ? 'info--text' : 'grey--text'"
-      v-text="HOME.RANGE.TODAY"
+      v-text="$t(`home.${HOME.RANGE.TODAY}`)"
       @click="onChangeRange(HOME.RANGE.TODAY)"
     />
     <v-btn
@@ -13,7 +13,7 @@
       small
       class="font-weight-bold"
       :class="range === HOME.RANGE.WEEK ? 'info--text' : 'grey--text'"
-      v-text="HOME.RANGE.WEEK"
+      v-text="$t(`home.${HOME.RANGE.WEEK}`)"
       @click="onChangeRange(HOME.RANGE.WEEK)"
     />
     <v-btn
@@ -21,7 +21,7 @@
       small
       class="font-weight-bold"
       :class="range === HOME.RANGE.MONTH ? 'info--text' : 'grey--text'"
-      v-text="HOME.RANGE.MONTH"
+      v-text="$t(`home.${HOME.RANGE.MONTH}`)"
       @click="onChangeRange(HOME.RANGE.MONTH)"
     />
   </div>

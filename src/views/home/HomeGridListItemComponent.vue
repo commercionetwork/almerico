@@ -2,7 +2,7 @@
   <v-col cols="12" md="6">
     <v-card outlined>
       <v-card-title v-text="type" />
-      <v-card-subtitle v-text="'Msg type'" />
+      <v-card-subtitle v-text="$t('labels.msgType')" />
       <v-card-text>
         <v-list dense class="text-break">
           <v-list-item>

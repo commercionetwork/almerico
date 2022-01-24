@@ -12,7 +12,7 @@ export const msgs = {
   noMessage: 'Messaggio non disponibile',
   notAvailable: 'Non disponibile',
   notFound: 'Non trovato',
-  placeholderSearchBar: 'Cerca indirizzo, blocco, hash',
+  placeholderSearchBar: 'Cerca indirizzo, blocco, transazione',
   scan: 'Scansiona',
   scanAddress: 'Scansiona indirizzo',
   searchBlocksInfo: 'Cerca {0} blocchi in ordine discendente da un\'altezza (min {1})',

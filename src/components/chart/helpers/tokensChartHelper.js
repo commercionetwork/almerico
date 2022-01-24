@@ -41,7 +41,7 @@ const tokensChartHelper = {
    * @param {ParamBuild} p
    * @returns {Object}
    */
-  getChartData({ abrTokens, params, pool, tokens, vbrTokens }) {
+  getChartData({ abrTokens, params, pool, tokens, vbrTokens, labels }) {
     const data = this.build({
       abrTokens,
       params,
@@ -51,10 +51,10 @@ const tokensChartHelper = {
     });
     return {
       labels: [
-        `Bonded ${data.bonded.percent}`,
-        `Not Bonded ${data.unbonded.percent}`,
-        `Unrelease rewards ${data.unreleasedRewards.percent}`,
-        `Burned ${data.burned.percent}`,
+        `${labels.bonded} ${data.bonded.percent}`,
+        `${labels.notBonded} ${data.unbonded.percent}`,
+        `${labels.unreleaseRewards} ${data.unreleasedRewards.percent}`,
+        `${labels.burned} ${data.burned.percent}`,
       ],
       datasets: [
         {
@@ -96,13 +96,13 @@ const tokensChartHelper = {
       unbonded: new ChartItem(data.unbonded).item,
     };
   },
-  getChartLabel() {
+  getChartLabel(label) {
     const amount = new Intl.NumberFormat(undefined, {
       style: 'decimal',
       maximumFractionDigits: 0,
       minimumFractionDigits: 0,
     }).format(MAX_SUPPLY);
-    return `Total ${amount} COM`;
+    return `${label} ${amount} COM`;
   },
   getChartOptions() {
     return CHART_OPTIONS;

@@ -37,16 +37,23 @@ export default {
       vbrTokens: 'vbrTokens',
     }),
     chartData() {
+      const labels = {
+        bonded: this.$t('labels.bonded'),
+        burned: this.$t('labels.burned'),
+        notBonded: this.$t('labels.notBonded'),
+        unreleaseRewards: this.$t('labels.unreleaseRewards'),
+      };
       return tokensChartHelper.getChartData({
         abrTokens: this.abrTokens,
         params: this.stakingParams,
         pool: this.pool,
         tokens: this.supply,
         vbrTokens: this.vbrTokens,
+        labels,
       });
     },
     chartLabel() {
-      return tokensChartHelper.getChartLabel();
+      return tokensChartHelper.getChartLabel(this.$t('titles.total'));
     },
     chartOptions() {
       return tokensChartHelper.getChartOptions();
