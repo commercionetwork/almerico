@@ -149,4 +149,6 @@ export const labels = {
   votingPower: 'Potere voto',
   website: 'Sito Web',
   yes: 'Si',
+  earnRate: 'Tasso guadagno',
+  distrEpochIdentifier: 'Identificatore epoca di distribuzione',
 };

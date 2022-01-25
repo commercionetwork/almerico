@@ -76,6 +76,11 @@ export const TRANSACTIONS = {
     //   text: '/commercionetwork.commercionetwork.commerciokyc.MsgSetMembership',
     //   value: 'setMembership',
     // },
+    {
+      name: 'MsgSetParams',
+      text: '/commercionetwork.commercionetwork.vbr.MsgSetParams',
+      value: 'setParams',
+    },
     // {
     //   name: 'MsgShareDocument',
     //   text: '/commercionetwork.commercionetwork.documents.MsgShareDocument',
