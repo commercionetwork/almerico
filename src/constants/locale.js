@@ -1,13 +1,16 @@
-export const LOCALE = {
-  DEFAULT: 'en',
-  LANGS: [
-    {
-      text: 'English',
-      value: 'en',
-    },
-    {
-      text: 'Italiano',
-      value: 'it',
-    },
-  ],
-};
+export const LOCALES = [
+  {
+    default: true,
+    value: 'en',
+    text: 'English',
+    label: 'EN',
+    flag: 'gb',
+  },
+  {
+    default: false,
+    value: 'it',
+    text: 'Italiano',
+    label: 'IT',
+    flag: 'it',
+  },
+];
