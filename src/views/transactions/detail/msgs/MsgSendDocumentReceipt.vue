@@ -61,7 +61,7 @@ export default {
   }),
   computed: {
     uuid() {
-      return this.message.uuid || '-';
+      return this.message.UUID || '-';
     },
     senderAddress() {
       return this.message.sender || '-';
@@ -70,10 +70,10 @@ export default {
       return this.message.recipient || '-';
     },
     txHash() {
-      return this.message.tx_hash || '-';
+      return this.message.txHash || '-';
     },
     documentUuid() {
-      return this.message.document_uuid || '-';
+      return this.message.DocumentUUID || '-';
     },
     proof() {
       return this.message.proof || '-';
