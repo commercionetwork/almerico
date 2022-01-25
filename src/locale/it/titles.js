@@ -40,6 +40,7 @@ export const titles = {
   transactions: 'Transazioni',
   transactionsAtHeight: 'Transazioni ad altezza {0}',
   trend: 'Trend',
+  txType: 'Tipo di transazione',
   txsBlocks: 'Txs/blocks',
   txsBySender: 'Transazioni per mittente',
   unbondingDelegations: 'Unbonding di delegazioni',

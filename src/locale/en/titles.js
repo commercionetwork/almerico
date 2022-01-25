@@ -40,6 +40,7 @@ export const titles = {
   transactions: 'Transactions',
   transactionsAtHeight: 'Transactions at {0} height',
   trend: 'Trend',
+  txType: 'Transaction type',
   txsBlocks: 'Txs/blocks',
   txsBySender: 'Transactions by msg sender',
   unbondingDelegations: 'Unbonding delegations',

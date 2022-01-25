@@ -138,7 +138,7 @@ export default {
     title() {
       return !this.txType
         ? this.$t('titles.allTypesTransactions')
-        : `${this.$t('labels.filter')}: ${this.txType}`;
+        : `${this.$t('titles.txType')}: ${this.txType}`;
     },
   },
   methods: {
