@@ -1,6 +1,6 @@
 import { mockBalances, mockErrors, mockFreezed, mockPool } from '@/__mocks__';
 import actions from '../actions.js';
-import { SETTINGS } from '@/constants';
+import { CONFIG } from '@/constants';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
@@ -51,7 +51,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchAccounts({ commit });
 
-    const accounts = JSON.parse(SETTINGS.SPREADSHEET_ACCOUNTS);
+    const accounts = JSON.parse(CONFIG.SPREADSHEET_ACCOUNTS);
     for (const account of accounts) {
       account.balances = mockResponse.data.result;
       expect(commit).toHaveBeenCalledWith('addAccount', account);

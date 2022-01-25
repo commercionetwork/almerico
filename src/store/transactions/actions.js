@@ -1,5 +1,5 @@
 import { tx } from '@/apis/http';
-import { APIS, SETTINGS, TRANSACTIONS } from '@/constants';
+import { APIS, CONFIG, TRANSACTIONS } from '@/constants';
 
 export default {
   async initTransactionsList({ commit, dispatch }) {
@@ -106,7 +106,7 @@ export default {
 const _requestToAncestor = (hash, ancestor) => {
   const version = ancestor.ver;
   switch (version) {
-    case SETTINGS.LEGACY_VERSIONS.V_038:
+    case CONFIG.LEGACY_VERSIONS.V_038:
       return tx.requestTxByHashLegacy(hash, ancestor.lcd);
     default:
       return tx.requestTxByHashLegacy(hash, ancestor.lcd);

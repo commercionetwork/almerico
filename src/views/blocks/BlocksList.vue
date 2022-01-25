@@ -28,7 +28,7 @@ import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
 import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 
-import { SETTINGS } from '@/constants';
+import { CONFIG } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -52,6 +52,9 @@ export default {
       isLoading: 'isLoading',
       newHeight: 'newHeight',
     }),
+    firstHeight() {
+      return parseInt(CONFIG.FIRST_HEIGHT);
+    },
     lastHeight() {
       return this.lastBlock.header.height;
     },
@@ -74,7 +77,7 @@ export default {
       } else if (
         !isNaN(height) &&
         height <= this.lastHeight &&
-        height >= SETTINGS.FIRST_HEIGHT
+        height >= this.firstHeight
       ) {
         this.isSearching = true;
         this.searchBlocks(height);

@@ -1,5 +1,5 @@
 import { bank, commercio, staking, tendermintRpc, tx } from '@/apis/http';
-import { APIS, HOME, SETTINGS } from '@/constants';
+import { APIS, HOME, CONFIG } from '@/constants';
 
 export default {
   async initHome({ commit, dispatch }) {
@@ -56,7 +56,7 @@ export default {
 
   async fetchStartingDate({ commit }) {
     try {
-      const response = await tendermintRpc.requestBlock(SETTINGS.FIRST_HEIGHT);
+      const response = await tendermintRpc.requestBlock(CONFIG.FIRST_HEIGHT);
       commit('setStartingDate', response.data.block.header.time);
     } catch (error) {
       commit('setError', error);

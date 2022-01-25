@@ -1,4 +1,4 @@
-import { APIS, SETTINGS } from '@/constants';
+import { APIS } from '@/constants';
 import {
   mockErrors,
   mockPagination,

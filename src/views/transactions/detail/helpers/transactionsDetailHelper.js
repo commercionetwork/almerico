@@ -1,4 +1,4 @@
-import { SETTINGS } from '@/constants';
+import { CONFIG } from '@/constants';
 import { coinAdapter, txHandler } from '@/utils';
 
 const transactionsDetailHelper = {
@@ -20,7 +20,7 @@ class Converter {
     switch (this.detail.version) {
       case '':
         return _getCurrent({ detail: this.detail, labels: this.labels });
-      case SETTINGS.LEGACY_VERSIONS.V_038:
+      case CONFIG.LEGACY_VERSIONS.V_038:
         return _getV038({ detail: this.detail, labels: this.labels });
       default:
         return null;

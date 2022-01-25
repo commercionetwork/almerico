@@ -6,7 +6,6 @@ import { EXCHANGE_RATE } from './exchange-rate';
 import { HOME } from './home';
 import { LOCALES } from './locale';
 import { ROUTES } from './routes';
-import { SETTINGS } from './settings';
 import { TRANSACTIONS } from './transactions';
 import { VALIDATORS } from './validators';
 
@@ -19,7 +18,6 @@ export {
   HOME,
   LOCALES,
   ROUTES,
-  SETTINGS,
   TRANSACTIONS,
   VALIDATORS,
 };

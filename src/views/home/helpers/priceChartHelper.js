@@ -1,4 +1,4 @@
-import { HOME, SETTINGS } from '@/constants';
+import { HOME, CONFIG } from '@/constants';
 import { dateHandler } from '@/utils';
 
 const TX_TYPE =
@@ -75,7 +75,7 @@ export const _getListings = ({ firstDate, rateUpdates, range }) => {
   const startDate = _getStartingUTCDate(firstDate, range);
   if (!rateUpdates.length) {
     return _buildListingsFromSingleValue(
-      parseFloat(SETTINGS.FIRST_CONVERSION_RATE),
+      parseFloat(CONFIG.FIRST_CONVERSION_RATE),
       startDate,
     );
   }
@@ -138,7 +138,7 @@ const _buildListingsFromValues = (rateUpdates, wantedUpdates, startDate) => {
     listings[0].date = startDate;
   } else {
     listings.push(
-      new Listing(parseFloat(SETTINGS.FIRST_CONVERSION_RATE), startDate),
+      new Listing(parseFloat(CONFIG.FIRST_CONVERSION_RATE), startDate),
     );
   }
   listings.push(..._buildListingsFromUpdates(wantedUpdates));

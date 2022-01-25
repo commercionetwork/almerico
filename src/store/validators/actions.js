@@ -1,5 +1,5 @@
 import { staking, tendermintRpc } from '@/apis/http';
-import { SETTINGS, VALIDATORS } from '@/constants';
+import { CONFIG, VALIDATORS } from '@/constants';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
@@ -100,10 +100,11 @@ const getMinHeight = ({ height, items, firstHeight }) =>
 
 const setUpBlocksRequests = (dispatch, lastHeight) => {
   let height = parseInt(lastHeight);
+  const firstHeight = parseInt(CONFIG.FIRST_HEIGHT);
   const minHeight = getMinHeight({
     height: height,
     items: VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
-    firstHeight: SETTINGS.FIRST_HEIGHT,
+    firstHeight,
   });
   const requests = [];
   while (height > minHeight) {

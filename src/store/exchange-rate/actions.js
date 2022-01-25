@@ -1,5 +1,5 @@
 import { auth, bank, commercio, staking } from '@/apis/http';
-import { SETTINGS } from '@/constants';
+import { CONFIG } from '@/constants';
 
 export default {
   async initExchangeRate({ commit, dispatch }) {
@@ -27,7 +27,7 @@ export default {
   },
 
   async fetchAccounts({ commit }) {
-    const accounts = JSON.parse(SETTINGS.SPREADSHEET_ACCOUNTS);
+    const accounts = JSON.parse(CONFIG.SPREADSHEET_ACCOUNTS);
     if (!accounts.length) return;
     try {
       for (const account of accounts) {
