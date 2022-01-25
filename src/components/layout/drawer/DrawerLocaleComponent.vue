@@ -14,7 +14,11 @@
         return-object
         v-model="locale"
         v-on:change="onChangeLocale"
-      ></v-select>
+      >
+        <template #selection="{ item }">
+          <span class="text-subtitle-2">{{ item.text }}</span>
+        </template>
+      </v-select>
     </v-list-item-title>
   </v-list-item>
 </template>
@@ -28,7 +32,7 @@ export default {
   name: 'DrawerLocaleComponent',
   components: { CountryFlag },
   data: () => ({
-    locale: '',
+    locale: null,
   }),
   computed: {
     defaultLocale() {
