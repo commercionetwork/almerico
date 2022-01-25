@@ -140,7 +140,7 @@ export const labels = {
   validatorAddress: 'Indirizzo validatore',
   validatorTokensDistributed: 'Token validatore distribuiti',
   validatorTokensNotDistributed: 'Token validatore non distribuiti',
-  validators: 'Validatore',
+  validators: 'Validatori',
   value: 'Valore',
   vbrTokensDistributed: 'Token VBR distribuiti',
   vbrTokensNotDistributed: 'Token VBR non distribuiti',
