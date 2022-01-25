@@ -4,7 +4,7 @@ import VueI18n from 'vue-i18n';
 import en from './en/index.js';
 import it from './it/index.js';
 
-const defaultLocale = LOCALES.find((locale) => locale.default === true);
+const defaultLocale = LOCALES.find((locale) => locale.default);
 const availableLocales = LOCALES.map((locale) => locale.value);
 
 Vue.use(VueI18n);

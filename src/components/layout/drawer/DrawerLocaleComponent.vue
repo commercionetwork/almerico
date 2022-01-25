@@ -36,7 +36,7 @@ export default {
   }),
   computed: {
     defaultLocale() {
-      return LOCALES.find((locale) => locale.default === true);
+      return LOCALES.find((locale) => locale.default);
     },
     items() {
       return LOCALES;
