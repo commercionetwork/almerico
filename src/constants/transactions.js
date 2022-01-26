@@ -57,16 +57,6 @@ export const TRANSACTIONS = {
       value: 'sendDocumentReceipt',
     },
     // {
-    //   name: 'MsgSetCCCConversionRate',
-    //   text: '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate',
-    //   value: 'setEtpsConversionRate',
-    // },
-    // {
-    //   name: 'MsgSetCCCFreezePeriod',
-    //   text: '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCFreezePeriod',
-    //   value: 'setEtpsFreezePeriod',
-    // },
-    // {
     //   name: 'MsgSetIdentity',
     //   text: '/commercionetwork.commercionetwork.did.MsgSetIdentity',
     //   value: 'setIdentity',
