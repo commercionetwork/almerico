@@ -15,90 +15,69 @@
         <v-list-item-content>
           <v-list-item-title
             class="text-capitalize font-weight-bold"
-            v-text="$t('titles.keys')"
+            v-text="$t('titles.verificationMethod')"
           />
-          <v-list-item v-for="(pubKey, index) in publicKeys" :key="index">
+          <v-list-item v-for="(method, i) in verificationMethod" :key="i">
             <v-list dense>
               <DetailItemComponent
                 :label="$t('labels.id')"
-                :content="pubKey.id"
+                :content="method.ID"
               />
               <DetailItemComponent
                 :label="$t('labels.type')"
-                :content="pubKey.type"
-              />
-              <DetailLinkComponent
-                :label="$t('labels.controller')"
-                :content="pubKey.controller"
-                :route="{
-                  name: ROUTES.NAME.ACCOUNT,
-                  params: { id: pubKey.controller },
-                }"
-                look="font-monotype"
+                :content="method.Type"
               />
               <DetailItemComponent
-                :label="$t('labels.publicKeyPem')"
-                :content="pubKey.publicKeyPem"
+                :label="$t('labels.controller')"
+                :content="method.Controller"
+              />
+              <DetailItemComponent
+                :label="$t('labels.publicKeyMultibase')"
+                :content="method.publicKeyMultibase"
               />
             </v-list>
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.proof')"
-          />
-          <DetailItemComponent
-            :label="$t('labels.type')"
-            :content="proofType"
-          />
-          <DetailItemComponent
-            :label="$t('labels.created')"
-            :content="proofCreated"
-          />
-          <DetailItemComponent
-            :label="$t('labels.proofPurpose')"
-            :content="proofPurpose"
-          />
-          <DetailLinkComponent
-            :label="$t('labels.controller')"
-            :content="proofController"
-            :route="{
-              name: ROUTES.NAME.ACCOUNT,
-              params: { id: proofController },
-            }"
-          />
-          <DetailItemComponent
-            :label="$t('labels.verificationMethod')"
-            :content="proofVerificationMethod"
-          />
-          <DetailItemComponent
-            :label="$t('labels.signatureValue')"
-            :content="proofSignatureValue"
-          />
-        </v-list-item-content>
-      </v-list-item>
+      <DetailItemComponent
+        :label="$t('labels.authentication')"
+        :content="authentication"
+      />
+      <DetailItemComponent
+        :label="$t('labels.assertionMethod')"
+        :content="assertionMethod"
+      />
+      <DetailItemComponent
+        :label="$t('labels.keyAgreement')"
+        :content="keyAgreement"
+      />
+      <DetailItemComponent
+        :label="$t('labels.capabilityInvocation')"
+        :content="capabilityInvocation"
+      />
+      <DetailItemComponent
+        :label="$t('labels.capabilityDelegation')"
+        :content="capabilityDelegation"
+      />
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title
             class="text-capitalize font-weight-bold"
             v-text="$t('titles.service')"
           />
-          <v-list-item v-for="(service, index) in services" :key="index">
+          <v-list-item v-for="(serv, i) in service" :key="i">
             <v-list dense>
               <DetailItemComponent
                 :label="$t('labels.id')"
-                :content="service.id"
+                :content="serv.ID"
               />
               <DetailItemComponent
                 :label="$t('labels.type')"
-                :content="service.type"
+                :content="serv.type"
               />
               <DetailItemComponent
                 :label="$t('labels.serviceEndpoint')"
-                :content="service.serviceEndpoint"
+                :content="serv.serviceEndpoint"
               />
             </v-list>
           </v-list-item>
@@ -138,42 +117,27 @@ export default {
       return this.message['@context'] || '-';
     },
     id() {
-      return this.message.id || '-';
+      return this.message.ID || '-';
     },
-    proofController() {
-      return this.message.proof && this.message.proof.controller
-        ? this.message.proof.controller
-        : '-';
+    verificationMethod() {
+      return this.message.verificationMethod || [];
     },
-    proofCreated() {
-      return this.message.proof && this.message.proof.created
-        ? new Date(this.message.proof.created).toLocaleString()
-        : '-';
+    authentication() {
+      return this.message.authentication || [];
     },
-    proofPurpose() {
-      return this.message.proof && this.message.proof.proofPurpose
-        ? this.message.proof.proofPurpose
-        : '-';
+    assertionMethod() {
+      return this.message.assertionMethod || [];
     },
-    proofSignatureValue() {
-      return this.message.proof && this.message.proof.signatureValue
-        ? this.message.proof.signatureValue
-        : '-';
+    keyAgreement() {
+      return this.message.keyAgreement || [];
     },
-    proofType() {
-      return this.message.proof && this.message.proof.type
-        ? this.message.proof.type
-        : '-';
+    capabilityInvocation() {
+      return this.message.capabilityInvocation || [];
     },
-    proofVerificationMethod() {
-      return this.message.proof && this.message.proof.verificationMethod
-        ? this.message.proof.verificationMethod
-        : '-';
+    capabilityDelegation() {
+      return this.message.capabilityDelegation || [];
     },
-    publicKeys() {
-      return this.message.publicKey || [];
-    },
-    services() {
+    service() {
       return this.message.service || [];
     },
   },
