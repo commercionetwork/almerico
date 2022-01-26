@@ -50,10 +50,9 @@
             class="text-capitalize font-weight-bold"
             v-text="$t('titles.metadata')"
           />
-          <DetailUrlComponent
+          <DetailItemComponent
             :label="$t('labels.metadataContentUri')"
             :content="metadataContentUri"
-            :link="metadataContentUri"
           />
           <span v-if="metadataSchemaType !== '-'">
             <DetailItemComponent
@@ -62,10 +61,9 @@
             />
           </span>
           <span v-else>
-            <DetailUrlComponent
+            <DetailItemComponent
               :label="$t('labels.metadataSchemaUri')"
               :content="metadataSchemaUri"
-              :link="metadataSchemaUri"
             />
             <DetailItemComponent
               :label="$t('labels.metadataSchemaVersion')"
@@ -74,10 +72,9 @@
           </span>
         </v-list-item-content>
       </v-list-item>
-      <DetailUrlComponent
+      <DetailItemComponent
         :label="$t('labels.contentUri')"
         :content="contentUri"
-        :link="contentUri"
       />
       <v-list-item>
         <v-list-item-content>
@@ -109,10 +106,9 @@
             class="text-capitalize font-weight-bold"
             v-text="$t('titles.doSign')"
           />
-          <DetailUrlComponent
+          <DetailItemComponent
             :label="$t('labels.storageUri')"
             :content="doSignStorageUri"
-            :link="doSignStorageUri"
           />
           <DetailItemComponent
             :label="$t('labels.signerInstance')"
@@ -139,7 +135,6 @@
 <script>
 import DetailItemComponent from '@/components/DetailItemComponent.vue';
 import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import DetailUrlComponent from '@/components/DetailUrlComponent.vue';
 import TxMsgComponent from '@/components/TxMsgComponent.vue';
 
 import { ROUTES } from '@/constants';
@@ -150,7 +145,6 @@ export default {
   components: {
     DetailItemComponent,
     DetailLinkComponent,
-    DetailUrlComponent,
     TxMsgComponent,
   },
   props: {

@@ -15,10 +15,9 @@
             :label="$t('labels.identity')"
             :content="descriptionIdentity"
           />
-          <DetailUrlComponent
+          <DetailItemComponent
             :label="$t('labels.website')"
             :content="descriptionWebsite"
-            :link="descriptionWebsite"
           />
           <DetailItemComponent
             :label="$t('labels.securityContact')"
@@ -85,7 +84,6 @@
 <script>
 import DetailItemComponent from '@/components/DetailItemComponent.vue';
 import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import DetailUrlComponent from '@/components/DetailUrlComponent.vue';
 import TxMsgComponent from '@/components/TxMsgComponent.vue';
 
 import { ROUTES } from '@/constants';
@@ -97,7 +95,6 @@ export default {
   components: {
     DetailItemComponent,
     DetailLinkComponent,
-    DetailUrlComponent,
     TxMsgComponent,
   },
   props: {
