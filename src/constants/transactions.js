@@ -56,11 +56,11 @@ export const TRANSACTIONS = {
       text: '/commercionetwork.commercionetwork.documents.MsgSendDocumentReceipt',
       value: 'sendDocumentReceipt',
     },
-    // {
-    //   name: 'MsgSetIdentity',
-    //   text: '/commercionetwork.commercionetwork.did.MsgSetIdentity',
-    //   value: 'setIdentity',
-    // },
+    {
+      name: 'MsgSetIdentity',
+      text: '/commercionetwork.commercionetwork.did.MsgSetIdentity',
+      value: 'MsgSetIdentity',
+    },
     {
       name: 'MsgSetMembership',
       text: '/commercionetwork.commercionetwork.commerciokyc.MsgSetMembership',

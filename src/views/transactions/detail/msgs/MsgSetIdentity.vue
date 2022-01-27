@@ -14,8 +14,8 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.verificationMethod')"
+            class="text-capitalize"
+            v-text="$t('labels.verificationMethod')"
           />
           <v-list-item v-for="(method, i) in verificationMethod" :key="i">
             <v-list dense>
@@ -62,8 +62,8 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.service')"
+            class="text-capitalize"
+            v-text="$t('labels.service')"
           />
           <v-list-item v-for="(serv, i) in service" :key="i">
             <v-list dense>
@@ -113,32 +113,35 @@ export default {
     ROUTES,
   }),
   computed: {
+    didDocument() {
+      return this.message.didDocument;
+    },
     context() {
-      return this.message['@context'] || '-';
+      return this.didDocument.context || '-';
     },
     id() {
-      return this.message.ID || '-';
+      return this.didDocument.ID || '-';
     },
     verificationMethod() {
-      return this.message.verificationMethod || [];
+      return this.didDocument.verificationMethod || '-';
     },
     authentication() {
-      return this.message.authentication || [];
+      return this.didDocument.authentication || '-';
     },
     assertionMethod() {
-      return this.message.assertionMethod || [];
+      return this.didDocument.assertionMethod || '-';
     },
     keyAgreement() {
-      return this.message.keyAgreement || [];
+      return this.didDocument.keyAgreement || '-';
     },
     capabilityInvocation() {
-      return this.message.capabilityInvocation || [];
+      return this.didDocument.capabilityInvocation || '-';
     },
     capabilityDelegation() {
-      return this.message.capabilityDelegation || [];
+      return this.didDocument.capabilityDelegation || '-';
     },
     service() {
-      return this.message.service || [];
+      return this.didDocument.service || '-';
     },
   },
 };
