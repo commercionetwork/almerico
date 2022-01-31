@@ -140,7 +140,7 @@ import TxMsgComponent from '@/components/TxMsgComponent.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'MsgShareDocument',
+  name: 'TransactionsSharedocSpecificContentComponent',
   description: 'Display a share document transaction message',
   components: {
     DetailItemComponent,
@@ -244,8 +244,7 @@ export default {
   },
   methods: {
     copyToClipboard() {
-      const hash = /[^/]*$/.exec(location.href)[0];
-      const link = `${location.protocol}//${location.host}/transactions/sharedoc/${hash}/uuid/${this.uuid}`;
+      const link = `${location.protocol}//${location.host}${location.pathname}#${this.uuid}`;
       navigator.clipboard.writeText(link).then(() => {
         this.copied = true;
         setTimeout(() => (this.copied = false), 1000);

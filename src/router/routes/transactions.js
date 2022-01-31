@@ -4,6 +4,7 @@ import { loadView } from '../index';
 const Transactions = loadView('transactions/index');
 const TransactionsDetail = loadView('transactions/TransactionsDetail');
 const TransactionsList = loadView('transactions/TransactionsList');
+const TransactionsSharedoc = loadView('transactions/TransactionsSharedoc');
 
 export const transactionsRoutes = {
   path: ROUTES.PATH.TRANSACTIONS,
@@ -27,6 +28,14 @@ export const transactionsRoutes = {
       component: TransactionsList,
       meta: {
         title: ROUTES.TITLE.TRANSACTIONS_LIST,
+      },
+    },
+    {
+      path: ROUTES.PATH.TRANSACTIONS_SHAREDOC,
+      name: ROUTES.NAME.TRANSACTIONS_SHAREDOC,
+      component: TransactionsSharedoc,
+      meta: {
+        title: ROUTES.TITLE.TRANSACTIONS_SHAREDOC,
       },
     },
   ],
