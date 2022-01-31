@@ -61,7 +61,9 @@ const _getV038 = ({ detail, labels }) => {
     gas: _getGas(data.gas_used, data.gas_wanted),
     height: data.height,
     type: txHandler.getType_v038(data.tx.value.msg),
-    msgs: data.tx.value.msg,
+    msgs: data.tx.value.msg.map((msg) =>
+      Object.assign({}, { type: msg.type }, { ...msg.value }),
+    ),
     ledger: detail.ledger,
     version: detail.version,
   };
