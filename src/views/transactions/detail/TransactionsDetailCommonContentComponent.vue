@@ -37,6 +37,7 @@
           :content="tx.gas"
         />
         <DetailLinkComponent
+          v-if="!tx.version"
           :label="$t('labels.height')"
           :content="tx.height"
           :route="{
@@ -44,6 +45,11 @@
             params: { id: tx.height },
           }"
           look="text-decoration-none"
+        />
+        <DetailItemComponent
+          v-else
+          :label="$t('labels.height')"
+          :content="tx.height"
         />
         <v-divider />
         <DetailUrlComponent
