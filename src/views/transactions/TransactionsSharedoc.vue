@@ -12,7 +12,7 @@
       <ErrorMessageComponent :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.transactionDetail')" />
+      <HeaderComponent :title="$t('titles.sharedocDetail')" />
       <TransactionsSharedocContentComponent />
     </v-col>
   </v-row>

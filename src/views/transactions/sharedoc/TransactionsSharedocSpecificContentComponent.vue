@@ -1,15 +1,5 @@
 <template>
-  <TxMsgComponent :message="message" :id="uuid">
-    <v-tooltip top slot="export">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
-          <v-icon small>
-            {{ !copied ? 'mdi-export-variant' : 'mdi-check-all' }}
-          </v-icon>
-        </v-btn>
-      </template>
-      <span v-text="$t('msgs.copy')" />
-    </v-tooltip>
+  <TxMsgComponent :message="message">
     <div slot="body">
       <DetailLinkComponent
         :label="$t('labels.sender')"
@@ -156,7 +146,6 @@ export default {
   },
   data: () => ({
     ROUTES,
-    copied: false,
   }),
   computed: {
     senderAddress() {
@@ -240,15 +229,6 @@ export default {
       return this.message.doSign && this.message.doSign.certificate_profile
         ? this.message.doSign.certificate_profile
         : '-';
-    },
-  },
-  methods: {
-    copyToClipboard() {
-      const link = `${location.protocol}//${location.host}${location.pathname}#${this.uuid}`;
-      navigator.clipboard.writeText(link).then(() => {
-        this.copied = true;
-        setTimeout(() => (this.copied = false), 1000);
-      });
     },
   },
 };

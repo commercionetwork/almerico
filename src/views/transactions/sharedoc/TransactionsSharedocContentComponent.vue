@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <TransactionsSharedocCommonContentComponent :tx="tx" />
+      <TransactionsCommonContentComponent :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
       <TransactionsSharedocSpecificContentComponent :message="message" />
@@ -10,16 +10,16 @@
 </template>
 
 <script>
-import TransactionsSharedocCommonContentComponent from './TransactionsSharedocCommonContentComponent.vue';
+import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
 import TransactionsSharedocSpecificContentComponent from './TransactionsSharedocSpecificContentComponent.vue';
 
-import transactionsDetailHelper from '../detail/helpers/transactionsDetailHelper';
+import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'TransactionsSharedocContentComponent',
   components: {
-    TransactionsSharedocCommonContentComponent,
+    TransactionsCommonContentComponent,
     TransactionsSharedocSpecificContentComponent,
   },
   computed: {

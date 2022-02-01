@@ -34,6 +34,7 @@ export const titles = {
   searchTxs: 'Search txs',
   searchValidator: 'Search validator',
   service: 'Service',
+  sharedocDetail: 'Sharedoc detail',
   toggleTheme: 'Toggle theme',
   total: 'Total',
   transactionDetail: 'Transaction detail',

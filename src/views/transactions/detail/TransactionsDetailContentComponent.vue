@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <TransactionsDetailCommonContentComponent :tx="tx" />
+      <TransactionsCommonContentComponent :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
       <div v-for="(message, index) in tx.msgs" :key="index">
@@ -13,9 +13,9 @@
 
 <script>
 import MsgDefault from './msgs/MsgDefault.vue';
-import TransactionsDetailCommonContentComponent from './TransactionsDetailCommonContentComponent.vue';
+import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
 
-import transactionsDetailHelper from './helpers/transactionsDetailHelper';
+import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
 import { TRANSACTIONS } from '@/constants';
 import { mapGetters } from 'vuex';
 
@@ -29,7 +29,7 @@ export default {
   components: {
     ...components,
     MsgDefault,
-    TransactionsDetailCommonContentComponent,
+    TransactionsCommonContentComponent,
   },
   data: () => ({
     model: {

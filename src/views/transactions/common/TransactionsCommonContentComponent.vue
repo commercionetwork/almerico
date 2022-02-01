@@ -71,7 +71,7 @@ import DetailUrlComponent from '@/components/DetailUrlComponent.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'TransactionsSharedocCommonContentComponent',
+  name: 'TransactionsCommonContentComponent',
   components: {
     DetailItemComponent,
     DetailLinkComponent,

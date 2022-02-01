@@ -1,6 +1,25 @@
 import { CONFIG } from '@/constants';
 import { coinAdapter, txHandler } from '@/utils';
 
+/**
+ *
+ * @typedef {Object} TxDetail
+ * @property {String} hash
+ * @property {String} time
+ * @property {Object} status
+ * @property {String} rawLog
+ * @property {String} fee
+ * @property {String} gas
+ * @property {String} height
+ * @property {String} type
+ * @property {Array.<Object>} msgs
+ * @property {String} ledger
+ * @property {String} version
+ *
+ * @param {Object} detail
+ * @param {Object} detail
+ * @returns {TxDetail}
+ */
 const transactionsDetailHelper = {
   build({ detail, labels }) {
     const converter = new Converter({ detail, labels });
