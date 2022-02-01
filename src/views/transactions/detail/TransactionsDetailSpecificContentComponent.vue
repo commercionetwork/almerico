@@ -4,6 +4,7 @@
 
 <script>
 import MsgDefault from './msgs/MsgDefault.vue';
+
 import { TRANSACTIONS } from '@/constants';
 
 const components = {};
@@ -15,6 +16,7 @@ export default {
   name: 'TransactionsDetailSpecificContentComponent',
   components: {
     ...components,
+    MsgDefault,
   },
   props: {
     message: {
