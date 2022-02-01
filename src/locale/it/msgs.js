@@ -8,6 +8,7 @@ export const msgs = {
   exchangeRateCalc: '1 diviso la % di Supply circolante',
   failed: 'Fallito',
   filterValidatorsInfo: 'Filtra la lista per stato',
+  loading: 'Caricando...',
   noCode: 'Codice non disponibile',
   noMessage: 'Messaggio non disponibile',
   notAvailable: 'Non disponibile',
