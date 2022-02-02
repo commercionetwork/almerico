@@ -55,6 +55,7 @@ describe('store/transactions/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setOffset', 0);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       query,
       offset,
