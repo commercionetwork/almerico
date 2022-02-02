@@ -14,6 +14,7 @@ export default {
 
   async searchTransactions({ commit, dispatch }, { query, offset }) {
     commit('setTransactions', []);
+    commit('setOffset', 0);
     commit('setLoading', true);
     await dispatch('fetchTransactions', { query, offset });
     commit('setLoading', false);
