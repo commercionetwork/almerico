@@ -1,18 +1,23 @@
 <template>
-  <MsgShareDocumentLazy :message="message" />
+  <MsgShareDocumentAsync :message="message" />
 </template>
 
 <script>
-import TxMsgPlaceholderComponent from '@/components/TxMsgPlaceholderComponent';
-import { lazyLoader } from '@/utils';
+import PlaceholderErrorComponent from '@/components/PlaceholderErrorComponent';
+import PlaceholderLoadingComponent from '@/components/PlaceholderLoadingComponent';
+
+const MsgShareDocumentAsync = () => ({
+  component: import('./MsgShareDocument.async.vue'),
+  loading: PlaceholderLoadingComponent,
+  error: PlaceholderErrorComponent,
+  delay: 0,
+  timeout: 5000,
+});
 
 export default {
   name: 'MsgShareDocument',
   components: {
-    MsgShareDocumentLazy: lazyLoader.loadComponent({
-      componentFactory: () => import('./MsgShareDocumentLazy.vue'),
-      loading: TxMsgPlaceholderComponent,
-    }),
+    MsgShareDocumentAsync,
   },
   props: {
     message: {

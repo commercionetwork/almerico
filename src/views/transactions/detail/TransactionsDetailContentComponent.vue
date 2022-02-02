@@ -5,25 +5,37 @@
     </v-col>
     <v-col cols="12" md="6">
       <div v-for="(message, i) in tx.msgs" :key="i">
-        <TransactionsDetailSpecificContentComponent :message="message" />
+        <component v-bind:is="getComponentName(message)" :message="message" />
       </div>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import MsgDefault from './msgs/MsgDefault.vue';
 import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
-import TransactionsDetailSpecificContentComponent from './TransactionsDetailSpecificContentComponent.vue';
 
 import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
+import { TRANSACTIONS } from '@/constants';
 import { mapGetters } from 'vuex';
+
+const components = {};
+TRANSACTIONS.SUPPORTED_TYPES.forEach((component) => {
+  components[component.name] = () => import(`./msgs/${component.name}.vue`);
+});
 
 export default {
   name: 'TransactionsDetailContentComponent',
   components: {
+    ...components,
+    MsgDefault,
     TransactionsCommonContentComponent,
-    TransactionsDetailSpecificContentComponent,
   },
+  data: () => ({
+    model: {
+      components: TRANSACTIONS.SUPPORTED_TYPES,
+    },
+  }),
   computed: {
     ...mapGetters('transactions', {
       detail: 'detail',
@@ -37,6 +49,14 @@ export default {
           multiTypes: this.$t('labels.multiTypes'),
         },
       });
+    },
+  },
+  methods: {
+    getComponentName(message) {
+      const component = this.model.components.find(
+        (component) => component.text === message['@type'],
+      );
+      return component ? component.name : MsgDefault.name;
     },
   },
 };

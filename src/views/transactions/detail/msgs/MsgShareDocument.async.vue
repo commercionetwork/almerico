@@ -140,7 +140,7 @@ import TxMsgComponent from '@/components/TxMsgComponent.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'MsgShareDocumentLazy',
+  name: 'MsgShareDocumentAsync',
   description: 'Display a share document transaction message',
   components: {
     DetailItemComponent,

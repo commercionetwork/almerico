@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'TxMsgPlaceholderComponent',
+  name: 'PlaceholderLoadingComponent',
 };
 </script>
