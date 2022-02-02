@@ -13,6 +13,8 @@
 
 <script>
 import MsgDefault from './msgs/MsgDefault.vue';
+import PlaceholderErrorComponent from '@/components/PlaceholderErrorComponent';
+import PlaceholderLoadingComponent from '@/components/PlaceholderLoadingComponent';
 import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
 
 import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
@@ -21,7 +23,13 @@ import { mapGetters } from 'vuex';
 
 const components = {};
 TRANSACTIONS.SUPPORTED_TYPES.forEach((component) => {
-  components[component.name] = () => import(`./msgs/${component.name}.vue`);
+  components[component.name] = () => ({
+    component: import(`./msgs/${component.name}.vue`),
+    loading: PlaceholderLoadingComponent,
+    error: PlaceholderErrorComponent,
+    delay: 0,
+    timeout: 5000,
+  });
 });
 
 export default {
