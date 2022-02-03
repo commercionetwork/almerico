@@ -9,20 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Implement localization management
-- Add env variable to set starting height
-- App version
+- Add the italian localization
+- Add the feature to save a custom list of validators
+- Add new exchange rate overview
+- Add the route to show the detail of a sharedoc transaction
 
 ### Changed
 
-- Update to new Cosmos REST API
-- Rename the old endpoints to `legacy`
-- Align loading data of all views
-- Improve validators detail layout
+- Update the layout of all views
+- Update to the new Cosmos REST API
+- Improve the page load time
+- Improve transaction search
+- Improve error management
 
 ### Removed
 
 - Remove configuration file
+- Remove old exchange rate overview
+
+### Fixed
+
+- Fix account page that displays transactions from other accounts
 
 ## [2.2.21] - 2022-01-13
 
