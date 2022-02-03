@@ -5,16 +5,17 @@ import Vuex from 'vuex';
 import ExchangeRate from '../index.vue';
 
 Vue.use(Vuetify);
-const localVue = createLocalVue();
-localVue.use(Vuex);
+Vue.use(Vuex);
 
-describe('views/exchange-rate/index', () => {
+const localVue = createLocalVue();
+
+describe('views/exchange-rate/ExchangeRate.vue', () => {
   const actions = {
-    initSpreadsheet: jest.fn(),
+    initExchangeRate: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
-      spreadsheet: {
+      exchangeRate: {
         namespaced: true,
         actions,
       },
@@ -22,15 +23,16 @@ describe('views/exchange-rate/index', () => {
   });
   const mocks = {
     $store: mockStore,
+    $t: (msg) => msg,
   };
   const computed = {
-    abrTokens: () => [],
-    accountsTokens: () => [],
-    allTokens: () => [],
-    freezedTokens: () => [],
-    vbrTokens: () => [],
-    params: () => ({}),
-    pool: () => ({}),
+    abrTokens: () => [{ id: 1 }],
+    accounts: () => [{ id: 1 }],
+    freezedTokens: () => ({ id: 1 }),
+    params: () => ({ id: 1 }),
+    pool: () => ({ id: 1 }),
+    supply: () => [{ id: 1 }],
+    vbrTokens: () => [{ id: 1 }],
   };
 
   test('if loading indicator is displayed', () => {
@@ -49,18 +51,14 @@ describe('views/exchange-rate/index', () => {
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
   });
 
-  test('if error message is displayed', () => {
+  test('if message error is displayed', () => {
+    const error = Error('message');
     const wrapper = shallowMount(ExchangeRate, {
       localVue,
       mocks,
       computed: {
         ...computed,
-        error: () => ({
-          data: {
-            message: 'Error',
-            status: 400,
-          },
-        }),
+        error: () => error,
         isLoading: () => false,
       },
     });
@@ -74,6 +72,13 @@ describe('views/exchange-rate/index', () => {
     const wrapper = shallowMount(ExchangeRate, {
       localVue,
       mocks,
+      data() {
+        return {
+          model: {
+            exchangeRate: 0,
+          },
+        };
+      },
       computed: {
         ...computed,
         error: () => null,

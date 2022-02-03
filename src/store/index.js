@@ -3,39 +3,25 @@ import Vuex from 'vuex';
 
 import account from './account';
 import blocks from './blocks';
-import dashboard from './dashboard';
-import overview from './overview';
-import spreadsheet from './spreadsheet';
-import starting from './starting';
+import exchangeRate from './exchange-rate';
+import home from './home';
+import application from './application';
 import transactions from './transactions';
 import validators from './validators';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    serverReachability: true,
-  },
-  getters: {
-    getServerReachability: (state) => state.serverReachability,
-  },
-  mutations: {
-    /**
-     *
-     * @param {Object} state
-     * @param {Boolean} payload
-     */
-    setServerReachability(state, payload) {
-      state.serverReachability = payload;
-    },
-  },
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {},
   modules: {
     account,
     blocks,
-    dashboard,
-    overview,
-    spreadsheet,
-    starting,
+    exchangeRate,
+    home,
+    application,
     transactions,
     validators,
   },

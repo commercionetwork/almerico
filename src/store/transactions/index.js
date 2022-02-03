@@ -1,36 +1,23 @@
-/**
- *
- * @typedef {Object} TransactionsState
- * @property {Array.<Object>} transactions
- * @property {Boolean} hasNext
- * @property {Boolean} isLoading
- * @property {Number} currentPage
- * @property {Object} details
- * @property {Object} error
- * @property {String} filter
- */
-
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-const initialState = {
-  currentPage: 1,
-  details: null,
+export const initState = () => ({
+  detail: null,
   error: null,
-  filter: '',
-  hasNext: false,
+  isAddingTxs: false,
   isLoading: false,
+  isRefreshing: false,
+  offset: 0,
+  pagination: null,
   transactions: [],
-};
+  txEventHeight: '',
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
-  actions,
+  state: initState(),
   getters,
   mutations,
+  actions,
 };

@@ -2,22 +2,22 @@
   <v-row>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.maxHeaders"
-        :items="model.maxData"
+        :headers="model.maxSupplyTable.headers"
+        :items="model.maxSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.nonCirculatingHeaders"
-        :items="model.nonCirculatingData"
+        :headers="model.nonCirculatingSupplyTable.headers"
+        :items="model.nonCirculatingSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
       <ExchangeRateTableComponent
-        :headers="model.circulatingHeaders"
-        :items="model.circulatingData"
+        :headers="model.circulatingSupplyTable.headers"
+        :items="model.circulatingSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
@@ -27,8 +27,7 @@
 <script>
 import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
 
-import { OVERVIEW } from '@/constants';
-import { arrayHandler } from '@/utils';
+import { EXCHANGE_RATE } from '@/constants';
 
 export default {
   name: 'ExchangeRateBodyComponent',
@@ -40,23 +39,22 @@ export default {
       note: 'The spreadsheet data',
       validator: (model) => {
         const keys = Object.keys(model);
-        return arrayHandler.isArrayContentValid(keys, [
-          'circulatingData',
-          'circulatingHeaders',
-          'nonCirculatingData',
-          'nonCirculatingHeaders',
-          'maxData',
-          'maxHeaders',
-        ]);
+        const values = [
+          'maxSupplyTable',
+          'nonCirculatingSupplyTable',
+          'circulatingSupplyTable',
+          'exchangeRate',
+        ];
+        return keys.every((key) => values.includes(key));
       },
     },
   },
   methods: {
     getRowStyle(item) {
-      switch (item.type) {
-        case OVERVIEW.ROW_STYLE.COMING_SOON:
+      switch (item.style) {
+        case EXCHANGE_RATE.ROW_STYLE.COMING_SOON:
           return 'coming-soon-row';
-        case OVERVIEW.ROW_STYLE.HIGHLIGHTED:
+        case EXCHANGE_RATE.ROW_STYLE.HIGHLIGHTED:
           return 'highlighted-row';
         default:
           return '';

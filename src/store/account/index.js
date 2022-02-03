@@ -1,38 +1,29 @@
-/**
- *
- * @typedef {Object} AccountState
- * @property {Array.<Object>} balances
- * @property {Array.<Object>} delegations
- * @property {Array.<Object>} unbondings
- * @property {Boolean} isLoading
- * @property {Object} buyMembershipTx
- * @property {Object} error
- * @property {Object} membership
- * @property {Object} rewards
- */
-
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-const initialState = {
+export const initState = () => ({
   balances: [],
-  buyMembershipTx: null,
+  commission: null,
   delegations: [],
   error: null,
   isLoading: false,
+  isAddingTxs: false,
   membership: null,
+  membershipTxs: [],
   rewards: null,
+  transactions: [],
+  transactionsOffset: 0,
+  transactionsPagination: [],
   unbondings: [],
-};
+  unbondingsOffset: 0,
+  unbondingsPagination: null,
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
-  actions,
+  state: initState(),
   getters,
   mutations,
+  actions,
 };

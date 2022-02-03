@@ -1,85 +1,64 @@
+import { initState } from './index';
+
 export default {
-  /**
-   *
-   * @param {AccountState} state
-   */
-  startLoading(state) {
-    state.error = null;
-    state.isLoading = true;
+  reset(state) {
+    Object.assign(state, initState());
   },
-  /**
-   *
-   * @param {AccountState} state
-   */
-  stopLoading(state) {
-    state.isLoading = false;
-  },
-  /**
-   *
-   * @param {AccountState} state
-   * @param {Object} error
-   */
   setError(state, error) {
-    state.error = { ...error };
+    state.error = error;
   },
-  /**
-   *
-   * @param {AccountState} state
-   * @param {Array.<Object>} data
-   */
-  setBalances(state, data) {
-    state.balances = data.map((obj) => ({
-      ...obj,
-    }));
+  setLoading(state, payload) {
+    state.isLoading = payload;
   },
-  /**
-   *
-   * @param {AccountState} state
-   * @param {Array.<Object>} data
-   */
-  setDelegations(state, data) {
-    state.delegations = data.map((obj) => ({
-      ...obj,
-    }));
+  setBalances(state, payload) {
+    state.balances = payload;
   },
-  /**
-   *
-   * @param {AccountState} state
-   * @param {Array.<Object>} data
-   */
-  setUnbondings(state, data) {
-    state.unbondings = data.map((obj) => ({
-      ...obj,
-    }));
+  setCommission(state, payload) {
+    state.commission = payload;
   },
-  /**
-   *
-   * @param {AccountState} state
-   * @param {Object} data
-   */
-  setMembership(state, data) {
-    state.membership = {
-      ...data,
-    };
+  setDelegations(state, payload) {
+    state.delegations = payload;
   },
-  /**
-   *
-   * @param {AccountState} state
-   * @param {Object} data
-   */
-  setBuyMembershipTx(state, data) {
-    state.buyMembershipTx = {
-      ...data,
-    };
+  setRewards(state, payload) {
+    state.rewards = payload;
   },
-  /**
-   *
-   * @param {AccountState} state
-   * @param {Object} data
-   */
-  setRewards(state, data) {
-    state.rewards = {
-      ...data,
-    };
+  setUnbondings(state, payload) {
+    state.unbondings = payload;
+  },
+  addUnbondings(state, payload) {
+    state.unbondings.push(...payload);
+  },
+  setUnbondingsOffset(state, payload) {
+    state.unbondingsOffset = payload;
+  },
+  sumUnbondingsOffset(state, payload) {
+    state.unbondingsOffset += payload;
+  },
+  setUnbondingsPagination(state, payload) {
+    state.unbondingsPagination = payload;
+  },
+  setMembership(state, payload) {
+    state.membership = payload;
+  },
+  setMembershipTxs(state, payload) {
+    state.membershipTxs = payload;
+  },
+  setAddingTxs(state, payload) {
+    state.isAddingTxs = payload;
+  },
+  setTransactions(state, payload) {
+    state.transactions = payload;
+  },
+  addTransactions(state, payload) {
+    state.transactions.push(...payload);
+  },
+  setTransactionsOffset(state, payload) {
+    state.transactionsOffset = payload;
+  },
+  sumTransactionsOffset(state, payload) {
+    state.transactionsOffset += payload;
+  },
+  setTransactionsPagination(state, payload) {
+    state.transactionsPagination = payload;
   },
 };

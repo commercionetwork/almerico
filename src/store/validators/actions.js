@@ -1,174 +1,114 @@
-import api from './api';
+import { staking, tendermintRpc } from '@/apis/http';
+import { CONFIG, VALIDATORS } from '@/constants';
 
 export default {
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   */
-  async fetchLatestValidatorSets({ dispatch, commit }) {
-    try {
-      const response = await api.requestLatestValidatorSets();
-      commit('setLatestValidatorsSets', response.data.result.validators);
-    } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} status
-   * @param {Number} page
-   * @param {Number} limit
-   */
-  async fetchValidatorsList({ dispatch, commit }, { status, page, limit }) {
-    try {
-      const response = await api.requestValidatorsList({
-        status,
-        page,
-        limit,
-      });
-      if (response.data.result.length > 0) {
-        commit('addValidators', response.data.result);
-      }
-    } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Function} dispatch
-   * @param {Array.<String>} statuses
-   * @param {Number} page
-   * @param {Number} limit
-   */
-  async initValidators({ commit, dispatch }, { statuses, page, limit }) {
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
-    commit('setValidators', []);
-    let requests = [dispatch('fetchLatestValidatorSets')];
-    for (const status of statuses) {
-      requests.push(
-        dispatch('fetchValidatorsList', {
-          status: status,
-          page: page,
-          limit: limit,
-        }),
-      );
-    }
+  async initValidatorsList({ commit, dispatch }, lastHeight) {
+    commit('reset');
+    commit('setLoading', true);
+    const requests = [dispatch('fetchPool')];
     await Promise.all(requests);
-    commit('stopLoading');
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {ValidatorsState} state
-   * @param {Number} height
-   */
-  async fetchValidatorsetsFromHeight({ dispatch, commit }, height) {
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
-    try {
-      const response = await api.requestValidatorsetsFromHeight(height);
-      commit('setHeightValidatorsSets', response.data.result.validators);
-    } catch (error) {
-      dispatch('handleError', error);
-    } finally {
-      commit('stopLoading');
+    commit('setLoading', false);
+    if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
+      requests.push(dispatch('fetchTrackedBlocks', lastHeight));
     }
   },
-  /**
-   * @param {Function} commit
-   * @param {Object} filter
-   */
+
+  async fetchPool({ commit }) {
+    try {
+      const response = await staking.requestPool();
+      commit('setPool', response.data.pool);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async fetchTrackedBlocks({ commit, dispatch }, lastHeight) {
+    commit('setLoadingBlocks', true);
+    const requests = setUpBlocksRequests(dispatch, lastHeight);
+    await Promise.all(requests);
+    commit('setLoadingBlocks', false);
+  },
+
+  async addBlocksItem({ commit }, height) {
+    try {
+      const resBlock = await tendermintRpc.requestBlock(height);
+      const resValidatorSets = await tendermintRpc.requestValidatorSets(height);
+      commit('addBlock', { ...resBlock.data, ...resValidatorSets.data.result });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async initValidatorsDetail({ commit, dispatch }, { id, lastHeight }) {
+    commit('reset');
+    commit('setLoading', true);
+    const requests = [
+      dispatch('fetchDetail', id),
+      dispatch('fetchDetailDelegations', id),
+      dispatch('fetchPool'),
+    ];
+    await Promise.all(requests);
+    commit('setLoading', false);
+    if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
+      await dispatch('fetchTrackedBlocks', lastHeight);
+    }
+  },
+
+  async fetchDetail({ commit }, id) {
+    try {
+      const response = await staking.requestValidatorsDetailLegacy(id);
+      commit('setDetail', response.data.result);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async fetchDetailDelegations({ dispatch, getters }, id) {
+    await dispatch('addDetailDelegations', { id });
+    while (getters['delegationsTotal'] > getters['delegationsOffset']) {
+      await dispatch('addDetailDelegations', {
+        id,
+        offset: getters['delegationsOffset'],
+      });
+    }
+  },
+
+  async addDetailDelegations({ commit }, { id, offset }) {
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
+    try {
+      const response = await staking.requestValidatorsDetailDelegations(
+        id,
+        pagination,
+      );
+      commit('addDelegations', response.data.delegation_responses);
+      commit('setDelegationsPagination', response.data.pagination);
+      commit('sumDelegationsOffset', response.data.delegation_responses.length);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
   setValidatorsFilter({ commit }, filter) {
     commit('setFilter', filter);
   },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchValidatorDetails({ dispatch, commit }, address) {
-    try {
-      const response = await api.requestValidatorDetails(address);
-      commit('setDetails', response.data.result);
-    } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchValidatorDelegations({ dispatch, commit }, address) {
-    try {
-      const response = await api.requestValidatorDelegations(address);
-      commit('addDetails', { delegations: response.data.result });
-    } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Function} getters
-   */
-  async fetchValidatorPicture({ commit, getters }) {
-    const id = getters.details ? getters.details.description.identity : '';
-    if (id === '') {
-      return;
-    }
-    try {
-      const response = await api.requestValidatorPictures(id);
-      if (response.data.them && response.data.them.length > 0) {
-        for (const item of response.data.them) {
-          if ('primary' in item['pictures']) {
-            commit('addDetails', {
-              picture: item['pictures']['primary']['url'],
-            });
-            break;
-          }
-        }
-      }
-    } catch (error) {
-      commit('addDetails', {
-        picture: '',
-      });
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Function} dispatch
-   * @param {String} id
-   */
-  async getValidatorData({ commit, dispatch }, { address }) {
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
-    commit('resetDetails');
-    await dispatch('fetchValidatorDetails', address);
-    await dispatch('fetchValidatorDelegations', address);
-    dispatch('fetchValidatorPicture');
-    commit('stopLoading');
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
-      commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
-    }
-  },
+};
+
+const getMinHeight = ({ height, items, firstHeight }) =>
+  height - items < firstHeight ? firstHeight : height - items;
+
+const setUpBlocksRequests = (dispatch, lastHeight) => {
+  let height = parseInt(lastHeight);
+  const firstHeight = parseInt(CONFIG.FIRST_HEIGHT);
+  const minHeight = getMinHeight({
+    height: height,
+    items: VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
+    firstHeight,
+  });
+  const requests = [];
+  while (height > minHeight) {
+    requests.push(dispatch('addBlocksItem', height--));
+  }
+  return requests;
 };
