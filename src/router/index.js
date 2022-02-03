@@ -1,4 +1,4 @@
-import { ROUTES } from '@/constants';
+import { CONFIG, ROUTES } from '@/constants';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { accountRoutes } from './routes/account';
@@ -40,8 +40,8 @@ const router = new VueRouter({
         setTimeout(() => {
           resolve({
             selector: to.hash,
-            behavior: 'smooth',
-            offset: { x: 0, y: 60 },
+            behavior: CONFIG.SCROLL.BEHAVIOR,
+            offset: { x: CONFIG.SCROLL.OFFSET_X, y: CONFIG.SCROLL.OFFSET_Y },
           });
         }, 500);
       });

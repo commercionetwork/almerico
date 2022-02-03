@@ -64,6 +64,12 @@ const PREFIXES = {
   },
 };
 
+const SCROLL = {
+  BEHAVIOR: 'smooth',
+  OFFSET_X: 0,
+  OFFSET_Y: 70,
+};
+
 const SPREADSHEET_ACCOUNTS =
   process.env.VUE_APP_SPREADSHEET_ACCOUNTS !== undefined
     ? process.env.VUE_APP_SPREADSHEET_ACCOUNTS
@@ -95,6 +101,7 @@ export const CONFIG = {
   LEGACY_VERSIONS,
   MINTER_ACCOUNT,
   PREFIXES,
+  SCROLL,
   SPREADSHEET_ACCOUNTS,
   STABLE_COIN,
   TOKEN,

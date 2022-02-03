@@ -25,6 +25,7 @@ import LoadingLinearComponent from '@/components/LoadingLinearComponent';
 import TransactionsDetailContentComponent from './detail/TransactionsDetailContentComponent.vue';
 
 import { mapActions, mapGetters } from 'vuex';
+import { CONFIG } from '@/constants';
 
 export default {
   name: 'TransactionsDetail',
@@ -55,6 +56,24 @@ export default {
   },
   created() {
     this.initTransactionsDetail(this.hash);
+  },
+  updated() {
+    this.$nextTick(() => {
+      if (this.$route.hash) {
+        setTimeout(() => {
+          const el = document.querySelector(this.$route.hash);
+          if (el) {
+            const position = el.getBoundingClientRect().top;
+            const offset =
+              position + window.pageYOffset - CONFIG.SCROLL.OFFSET_Y;
+            window.scrollTo({
+              top: offset,
+              behavior: CONFIG.SCROLL.BEHAVIOR,
+            });
+          }
+        }, 500);
+      }
+    });
   },
 };
 </script>
