@@ -43,7 +43,7 @@ after_success:
     --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_MAINNET}"
     --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_MAINNET}"
     .
-  - test $TRAVIS_BRANCH = "version/2.2.21" && docker build -t $DOCKER_IMAGE_V2.2.21
+  - test $TRAVIS_BRANCH = "version/2.2.21" && docker build -t $DOCKER_IMAGE_V2_2_21
     --build-arg LCD_URL=${ALMERICO_LCD_URL_MAINNET}
     --build-arg WS_URL=${ALMERICO_WS_URL_MAINNET}
     --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_MAINNET}"
