@@ -6,18 +6,18 @@ node_js:
 services:
   - docker
 
-before_script:
-  - bash ./scripts/docker_check_vars.sh
+branches:
+  except:
+    - /^wip\/.*/
 
 install:
   - npm install -s --no-audit --no-fund
 
+before_script:
+  - bash ./scripts/docker_check_vars.sh
+
 script:
   - npm run test
-
-branches:
-  except:
-    - /^wip\/.*/
 
 after_success:
   - test $TRAVIS_BRANCH = "master" && docker build -t $DOCKER_IMAGE_ALMERICO_MAINNET
