@@ -23,7 +23,7 @@ const CHAIN = {
       id: 3,
       text: 'Dev-net',
       value: 'https://devnet.commercio.network',
-      lcd: 'https://lcd-demo.commercio.network',
+      lcd: 'https://lcd-devnet.commercio.network',
     },
   ],
 };
