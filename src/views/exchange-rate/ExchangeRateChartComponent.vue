@@ -1,55 +1,59 @@
 <template>
-  <TopBodyCardComponent :title="chartLabel">
+  <TopContentCardComponent :title="chartLabel">
     <template v-slot:content>
-      <v-layout fill-height>
+      <div class="fill-height">
         <ChartComponent
-          id="exchange-rate-chart"
+          id="dashboard-chart"
           type="pie"
           :dataset="chartData"
           :options="chartOptions"
         />
-      </v-layout>
+      </div>
     </template>
-  </TopBodyCardComponent>
+  </TopContentCardComponent>
 </template>
 
 <script>
 import ChartComponent from '@/components/chart/ChartComponent';
-import TopBodyCardComponent from '@/components/TopBodyCardComponent.vue';
+import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
 
-import tokensChartHelper from '@/utils/tokensChartHelper';
+import tokensChartHelper from '@/components/chart/helpers/tokensChartHelper';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ExchangeRateChartComponent',
   components: {
     ChartComponent,
-    TopBodyCardComponent,
+    TopContentCardComponent,
   },
-  data: () => ({
-    allData: null,
-  }),
   computed: {
-    ...mapGetters('spreadsheet', {
+    ...mapGetters('application', {
+      stakingParams: 'stakingParams',
+    }),
+    ...mapGetters('exchangeRate', {
       abrTokens: 'abrTokens',
+      pool: 'pool',
+      supply: 'supply',
       vbrTokens: 'vbrTokens',
     }),
-    ...mapGetters('starting', {
-      params: 'params',
-      pool: 'pool',
-      tokens: 'tokens',
-    }),
     chartData() {
+      const labels = {
+        bonded: this.$t('labels.bonded'),
+        burned: this.$t('labels.burned'),
+        notBonded: this.$t('labels.notBonded'),
+        unreleaseRewards: this.$t('labels.unreleaseRewards'),
+      };
       return tokensChartHelper.getChartData({
         abrTokens: this.abrTokens,
-        params: this.params,
+        params: this.stakingParams,
         pool: this.pool,
-        tokens: this.tokens,
+        tokens: this.supply,
         vbrTokens: this.vbrTokens,
+        labels,
       });
     },
     chartLabel() {
-      return tokensChartHelper.getChartLabel();
+      return tokensChartHelper.getChartLabel(this.$t('titles.total'));
     },
     chartOptions() {
       return tokensChartHelper.getChartOptions();

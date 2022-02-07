@@ -1,78 +1,52 @@
+import { initState } from './index';
+
 export default {
-  /**
-   *
-   * @param {BlocksState} state
-   */
-  startLoading(state) {
-    state.error = null;
-    state.isLoading = true;
+  reset(state) {
+    Object.assign(state, initState());
   },
-  /**
-   *
-   * @param {BlocksState} state
-   */
-  stopLoading(state) {
-    state.isLoading = false;
-  },
-  /**
-   *
-   * @param {BlocksState} state
-   * @param {Object} error
-   */
   setError(state, error) {
-    state.error = { ...error };
+    state.error = error;
   },
-  /**
-   *
-   * @param {BlocksState} state
-   * @param {Number} height
-   */
-  changeHeight(state, height) {
-    state.currentHeight = height;
+  setLoading(state, payload) {
+    state.isLoading = payload;
   },
-  /**
-   *
-   * @param {BlocksState} state
-   * @param {Array.<Object>} data
-   */
-  addBlocks(state, data) {
-    state.blocks.push.apply(state.blocks, data);
+  setBlocks(state, payload) {
+    state.blocks = payload;
   },
-  /**
-   *
-   * @param {BlocksState} state
-   */
-  clearAllBlocks(state) {
-    state.blocks = [];
+  setCurrentHeight(state, payload) {
+    state.currentHeight = payload;
   },
-  /**
-   *
-   * @param {BlocksState} state
-   * @param {Object} data
-   */
-  addSingleBlock(state, data) {
-    state.blocks.unshift(data);
+  setNewHeight(state, payload) {
+    state.newHeight = payload;
   },
-  /**
-   *
-   * @param {BlocksState} state
-   * @param {Object} data
-   */
-  setBlockDetails(state, data) {
-    state.details = null;
-    state.details = {
-      ...data,
-    };
+  setAddingBlocks(state, payload) {
+    state.isAddingBlocks = payload;
   },
-  /**
-   *
-   * @param {BlocksState} state
-   * @param {Object} data
-   */
-  setLatestBlock(state, data) {
-    state.latest = {
-      ...data,
-    };
-    state.blocks.unshift(data);
+  setSearching(state, payload) {
+    state.isSearching = payload;
+  },
+  addBlock(state, payload) {
+    state.blocks.push(payload);
+  },
+  setDetail(state, payload) {
+    state.detail = payload;
+  },
+  setTransactions(state, payload) {
+    state.blockTxs = payload;
+  },
+  addTransactions(state, payload) {
+    state.blockTxs.push(...payload);
+  },
+  setBlockTxsOffset(state, payload) {
+    state.blockTxsOffset = payload;
+  },
+  sumBlockTxsOffset(state, payload) {
+    state.blockTxsOffset += payload;
+  },
+  setBlockTxsPagination(state, payload) {
+    state.blockTxsPagination = payload;
+  },
+  setValidatorSets(state, payload) {
+    state.blockValidatorSets = payload;
   },
 };

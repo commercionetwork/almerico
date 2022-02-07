@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0]
+
+### Added
+
+- Add the italian localization
+- Add the feature to save a custom list of validators
+- Add new exchange rate overview
+- Add the route to show the detail of a sharedoc transaction
+
+### Changed
+
+- Update the layout of all views
+- Update to the new Cosmos REST API
+- Improve the page load time
+- Improve transaction search
+- Improve error management
+
+### Removed
+
+- Remove configuration file
+- Remove old exchange rate overview
+
+### Fixed
+
+- Fix account page that displays transactions from other accounts
+
 ## [2.2.21] - 2022-01-13
 
 ### Changed

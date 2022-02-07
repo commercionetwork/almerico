@@ -1,20 +1,23 @@
 import { ACCOUNT } from './account';
-import { API } from './api';
-import { CHAIN } from './chain';
-import { CUSTOMIZATION, OVERVIEW } from './customization';
-import { RANGE } from './range';
-import { ROUTES } from './route';
-import { STATUS } from './status';
-import { WS } from './websocket';
+import { APIS } from './apis';
+import { BLOCKS } from './blocks';
+import { CONFIG } from './config';
+import { EXCHANGE_RATE } from './exchange-rate';
+import { HOME } from './home';
+import { LOCALES } from './locale';
+import { ROUTES } from './routes';
+import { TRANSACTIONS } from './transactions';
+import { VALIDATORS } from './validators';
 
 export {
   ACCOUNT,
-  API,
-  CHAIN,
-  CUSTOMIZATION,
-  OVERVIEW,
-  RANGE,
+  APIS,
+  BLOCKS,
+  CONFIG,
+  EXCHANGE_RATE,
+  HOME,
+  LOCALES,
   ROUTES,
-  STATUS,
-  WS,
+  TRANSACTIONS,
+  VALIDATORS,
 };

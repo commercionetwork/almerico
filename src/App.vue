@@ -1,86 +1,60 @@
 <template>
-  <v-app
-    id="main"
-    :style="{ background: $vuetify.theme.themes[theme].background }"
-  >
-    <!-- navigation -->
-    <NavBarComponent />
-    <!-- content -->
-    <v-main>
-      <v-layout
-        v-if="isLoading"
-        align-center
-        justify-center
-        column
-        fill-height
-        data-test="loading"
-      >
-        <v-progress-circular
-          :size="100"
-          :width="15"
-          indeterminate
-          color="primary"
-        />
-      </v-layout>
-      <v-container v-else-if="error !== null" data-test="error">
-        <v-row>
-          <v-col cols="12">
-            <v-alert border="left" prominent text type="error">
-              <span class="text-body-1" v-text="JSON.stringify(error)" />
-            </v-alert>
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-container v-else data-test="router-view">
-        <router-view />
-      </v-container>
-    </v-main>
-    <!-- footer -->
-    <FooterComponent />
+  <v-app id="main" :style="style">
+    <v-container v-if="isLoading" fluid fill-height data-test="loading">
+      <LoadingCircularComponent />
+    </v-container>
+    <div v-else>
+      <NavBarComponent />
+      <v-main>
+        <v-container v-if="error" data-test="error">
+          <ErrorMessageComponent :error="error" />
+        </v-container>
+        <v-container v-else data-test="content">
+          <router-view />
+        </v-container>
+      </v-main>
+      <FooterComponent />
+    </div>
   </v-app>
 </template>
 
 <script>
-import FooterComponent from '@/components/layout/FooterComponent';
-import NavBarComponent from '@/components/layout/NavBarComponent';
+import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
+import FooterComponent from '@/components/layout/FooterComponent.vue';
+import LoadingCircularComponent from '@/components/LoadingCircularComponent';
+import NavBarComponent from '@/components/layout/NavBarComponent.vue';
 
 import { mapActions, mapGetters } from 'vuex';
-import { ROUTES } from './constants';
-import { subscribeWebSocket } from '@/ws';
+import ws from '@/apis/ws';
 
 export default {
   name: 'App',
   components: {
+    ErrorMessageComponent,
     FooterComponent,
+    LoadingCircularComponent,
     NavBarComponent,
   },
   computed: {
-    ...mapGetters('starting', {
+    ...mapGetters('application', {
       error: 'error',
       isLoading: 'isLoading',
     }),
-    theme() {
-      return this.$vuetify.theme.dark ? 'dark' : 'light';
-    },
-    serverReachability() {
-      return this.$store.getters.getServerReachability;
-    },
-  },
-  watch: {
-    serverReachability(value) {
-      if (!value) this.$router.push({ name: ROUTES.NAMES.SERVER_UNREACHABLE });
+    style() {
+      const theme = this.$vuetify.theme.dark ? 'dark' : 'light';
+      return { background: this.$vuetify.theme.themes[theme].background };
     },
   },
   methods: {
-    ...mapActions('starting', {
-      init: 'init',
+    ...mapActions('application', {
+      initAppData: 'initAppData',
     }),
   },
-  beforeCreate() {
-    subscribeWebSocket();
-  },
   created() {
-    this.init();
+    this.initAppData();
+  },
+  mounted() {
+    ws.subscribe();
   },
 };
 </script>

@@ -1,10 +1,17 @@
 export default {
   balances: (state) => state.balances,
-  buyMembershipTx: (state) => state.buyMembershipTx,
+  commission: (state) => state.commission,
   delegations: (state) => state.delegations,
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
+  isAddingTxs: (state) => state.isAddingTxs,
   membership: (state) => state.membership,
+  membershipTxs: (state) => state.membershipTxs,
   rewards: (state) => state.rewards,
+  transactions: (state) => state.transactions,
+  transactionsOffset: (state) => state.transactionsOffset,
+  transactionsTotal: (state) => state.transactionsPagination.total,
   unbondings: (state) => state.unbondings,
+  unbondingsOffset: (state) => state.unbondingsOffset,
+  unbondingsTotal: (state) => state.unbondingsPagination.total,
 };

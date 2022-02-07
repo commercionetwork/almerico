@@ -1,8 +1,15 @@
 export default {
+  blockTxs: (state) => state.blockTxs,
+  blockTxsOffest: (state) => state.blockTxsOffest,
+  blockTxsPagination: (state) => state.blockTxsPagination,
+  blockTxsTotal: (state) => state.blockTxsPagination.total,
+  blockValidatorSets: (state) => state.blockValidatorSets,
   blocks: (state) => state.blocks,
   currentHeight: (state) => state.currentHeight,
-  details: (state) => state.details,
+  detail: (state) => state.detail,
   error: (state) => state.error,
+  isAddingBlocks: (state) => state.isAddingBlocks,
   isLoading: (state) => state.isLoading,
-  latest: (state) => state.latest,
+  isSearching: (state) => state.isSearching,
+  newHeight: (state) => state.newHeight,
 };

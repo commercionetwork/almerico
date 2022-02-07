@@ -1,4 +1,4 @@
-import { arrayHandler, numberIntlFormatter } from './index';
+import { orderBy } from 'lodash';
 
 const coinAdapter = {
   /**
@@ -13,18 +13,18 @@ const coinAdapter = {
       : balance.amount;
     const denom = balance.denom;
     if (denom.substring(0, 1) === 'u') {
-      convertedBalance.amount = numberIntlFormatter.toDecimal({
-        amount: amount / 1000000,
+      convertedBalance.amount = new Intl.NumberFormat(undefined, {
+        style: 'decimal',
         maximumFractionDigits: 6,
         minimumFractionDigits: 6,
-      });
+      }).format(amount / 1000000);
       convertedBalance.denom = denom.substring(1, 4);
     } else {
-      convertedBalance.amount = numberIntlFormatter.toDecimal({
-        amount: amount,
+      convertedBalance.amount = new Intl.NumberFormat(undefined, {
+        style: 'decimal',
         maximumFractionDigits: 0,
         minimumFractionDigits: 0,
-      });
+      }).format(amount);
       convertedBalance.denom = denom;
     }
 
@@ -37,10 +37,7 @@ const coinAdapter = {
    */
   convertList(balances) {
     const convertedBalances = [];
-    const orderedBalances = arrayHandler.sortObjectsByNumberPropertyValueDesc(
-      balances,
-      'amount',
-    );
+    const orderedBalances = orderBy(balances, ['amount'], ['desc']);
     for (const balance of orderedBalances) {
       if (!isBalance(balance)) {
         continue;

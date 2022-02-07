@@ -1,36 +1,29 @@
-/**
- *
- * @typedef {Object} ValidatorsState
- * @property {Array.<Object>} heightValidatorsSets
- * @property {Array.<Object>} latestValidatorsSets
- * @property {Array.<Object>} validators
- * @property {Boolean} isLoading
- * @property {Object} details
- * @property {Object} error
- * @property {Object} filter
- */
-
+import { VALIDATORS } from '@/constants';
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-const initialState = {
-  details: null,
+export const initState = () => ({
+  blocks: [],
+  delegations: [],
+  delegationsOffset: 0,
+  delegationsPagination: null,
+  detail: null,
   error: null,
-  filter: null,
-  heightValidatorsSets: [],
+  filter: {
+    status: VALIDATORS.FILTER.ACTIVE,
+    query: '',
+  },
   isLoading: false,
-  latestValidatorsSets: [],
-  validators: [],
-};
+  isLoadingBlocks: false,
+  newHeight: '',
+  pool: null,
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
-  actions,
+  state: initState(),
   getters,
   mutations,
+  actions,
 };
