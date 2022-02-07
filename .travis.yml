@@ -44,7 +44,6 @@ after_success:
     --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_TESTNET_SPREADSHEET_ACCOUNTS}"
     --build-arg WS_URL=${ALMERICO_TESTNET_WS_URL}
     .
-    # to remove
   - test $TRAVIS_BRANCH = "alfa" && docker build -t $DOCKER_IMAGE_ALMERICO_TESTNET_V3
     --build-arg ANCESTORS_LIST="${ALMERICO_TESTNET_ANCESTORS_LIST"
     --build-arg API_VERSION=${ALMERICO_TESTNET_API_VERSION}
@@ -57,7 +56,6 @@ after_success:
     --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_TESTNET_SPREADSHEET_ACCOUNTS}"
     --build-arg WS_URL=${ALMERICO_TESTNET_WS_URL}
     .
-    # end
   - test $TRAVIS_BRANCH = "alfa" && docker build -t $DOCKER_IMAGE_ALMERICO_DEVNET
     --build-arg ANCESTORS_LIST="${ALMERICO_DEVNET_ANCESTORS_LIST}"
     --build-arg API_VERSION=${ALMERICO_DEVNET_API_VERSION}
