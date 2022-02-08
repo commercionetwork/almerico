@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import MsgDefault from './msgs/MsgDefault.vue';
+import MsgDefault from '../common/MsgDefault.vue';
 import PlaceholderErrorComponent from '@/components/PlaceholderErrorComponent';
 import PlaceholderLoadingComponent from '@/components/PlaceholderLoadingComponent';
 import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
@@ -62,7 +62,7 @@ export default {
   methods: {
     getComponentName(message) {
       const component = this.model.components.find(
-        (component) => component.text === message['@type'],
+        (component) => component.text === message['@type']
       );
       return component ? component.name : MsgDefault.name;
     },

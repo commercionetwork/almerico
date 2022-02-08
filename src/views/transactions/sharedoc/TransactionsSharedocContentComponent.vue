@@ -4,12 +4,13 @@
       <TransactionsCommonContentComponent :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
-      <TransactionsSharedocSpecificContentComponent :message="message" />
+      <component v-bind:is="componentName" :message="message" />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import MsgDefault from '../common/MsgDefault.vue';
 import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
 import TransactionsSharedocSpecificContentComponent from './TransactionsSharedocSpecificContentComponent.vue';
 
@@ -19,6 +20,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'TransactionsSharedocContentComponent',
   components: {
+    MsgDefault,
     TransactionsCommonContentComponent,
     TransactionsSharedocSpecificContentComponent,
   },
@@ -26,8 +28,17 @@ export default {
     ...mapGetters('transactions', {
       detail: 'detail',
     }),
+    componentName() {
+      return !this.detail.version
+        ? TransactionsSharedocSpecificContentComponent.name
+        : MsgDefault.name;
+    },
     message() {
-      const msgIndex = this.tx.msgs.findIndex((msg) => msg.UUID === this.uuid);
+      const msgIndex = this.tx.msgs.findIndex((msg) => {
+        if (msg.UUID)
+          delete Object.assign(msg, { ['uuid']: msg['UUID'] })['UUID'];
+        return msg.uuid === this.uuid;
+      });
       return msgIndex > -1 ? this.tx.msgs[msgIndex] : null;
     },
     tx() {
