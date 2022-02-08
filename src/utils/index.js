@@ -1,4 +1,5 @@
 import bech32Manager from './bech32Manager';
+import blocksRequestHandler from './blocksRequestHandler';
 import coinAdapter from './coinAdapter';
 import dateHandler from './dateHandler';
 import proposerHandler from './proposerHandler';
@@ -9,6 +10,7 @@ import txsTableAdapter from './txs/txsTableAdapter';
 
 export {
   bech32Manager,
+  blocksRequestHandler,
   coinAdapter,
   dateHandler,
   proposerHandler,
