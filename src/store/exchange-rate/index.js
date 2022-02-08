@@ -6,7 +6,7 @@ export const initState = () => ({
   abrTokens: [],
   accounts: [],
   error: null,
-  freezedTokens: null,
+  freezedTokens: [],
   isLoading: false,
   pool: null,
   supply: [],

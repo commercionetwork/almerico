@@ -11,7 +11,7 @@ export default {
   getTable({
     abrTokens,
     bondedTokens,
-    // freezedTokens,
+    freezedTokens,
     maxSupply,
     supply,
     vbrTokens,
@@ -22,7 +22,7 @@ export default {
     const amounts = _getAmounts({
       abrTokens,
       bondedTokens,
-      // freezedTokens,
+      freezedTokens,
       maxSupply,
       supply,
       vbrTokens,
@@ -105,7 +105,7 @@ const _getRows = (amounts, translator) => {
 const _getAmounts = ({
   abrTokens,
   bondedTokens,
-  // freezedTokens,
+  freezedTokens,
   maxSupply,
   supply,
   vbrTokens,
@@ -115,7 +115,7 @@ const _getAmounts = ({
   const abrAmount = getTokensByDenom(abrTokens, denom);
   const burnedAmount = maxSupply - getTokensByDenom(supply, denom);
   const bondedAmount = parseFloat(bondedTokens) / 1000000;
-  const freezedAmount = 0; //TODO: to implement when API will be ready
+  const freezedAmount = getTokensByDenom(freezedTokens, denom);
   const total =
     vbrAmount + abrAmount + burnedAmount + bondedAmount + freezedAmount;
   return {

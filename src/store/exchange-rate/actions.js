@@ -1,4 +1,4 @@
-import { auth, bank, commercio, staking } from '@/apis/http';
+import { bank, commercio, staking } from '@/apis/http';
 import { CONFIG } from '@/constants';
 
 export default {
@@ -42,7 +42,7 @@ export default {
 
   async fetchFreezedTokens({ commit }) {
     try {
-      const response = await auth.requestFreezedTokensLegacy();
+      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
       commit('setFreezedTokens', response.data.result);
     } catch (error) {
       commit('setError', error);

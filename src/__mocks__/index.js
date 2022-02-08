@@ -3,7 +3,6 @@ import { mockBlock, mockBlocks } from './blocks';
 import { mockCommission } from './commission';
 import { mockDelegation, mockDelegations } from './delegations';
 import { mockErrors } from './errors';
-import { mockFreezed } from './freezed';
 import { mockMembership } from './membership';
 import { mockNodeInfo } from './node_info';
 import { mockPagination } from './pagination';
@@ -31,7 +30,6 @@ export {
   mockDelegation,
   mockDelegations,
   mockErrors,
-  mockFreezed,
   mockMembership,
   mockNodeInfo,
   mockPagination,
