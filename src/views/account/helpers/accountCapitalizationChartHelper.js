@@ -79,7 +79,7 @@ const accountCapitalizationChartHelper = {
    */
   getChartLabel(capitalization, label) {
     const total = _formatTokens(capitalization.total);
-    return total ? `${label} ${total} M` : '-';
+    return total ? `${label} ${total}` : '-';
   },
   /**
    *
