@@ -1,5 +1,5 @@
 import { tendermintRpc, tx } from '@/apis/http';
-import { BLOCKS } from '@/constants';
+import { BLOCKS, CONFIG } from '@/constants';
 
 export default {
   async initBlocksList({ commit, dispatch }, lastHeight) {
@@ -11,7 +11,11 @@ export default {
   },
 
   async fetchBlocks({ commit, dispatch }, height) {
-    const min = _getMinHeight(height, BLOCKS.TABLE_ITEMS);
+    const min = _getMinHeight({
+      height,
+      firstHeight: CONFIG.FIRST_HEIGHT,
+      items: BLOCKS.TABLE_ITEMS,
+    });
     const requests = _setUpBlocksRequests({
       max: height,
       min,
@@ -25,7 +29,11 @@ export default {
     commit('setBlocks', []);
     commit('setCurrentHeight', '');
     commit('setSearching', true);
-    const min = _getMinHeight(height, BLOCKS.SEARCH_ITEMS);
+    const min = _getMinHeight({
+      height,
+      firstHeight: CONFIG.FIRST_HEIGHT,
+      items: BLOCKS.SEARCH_ITEMS,
+    });
     const requests = _setUpBlocksRequests({
       max: height,
       min,
@@ -110,9 +118,12 @@ export default {
   },
 };
 
-const _getMinHeight = (height, items) => {
+const _getMinHeight = ({ height, firstHeight, items }) => {
   const maxHeight = parseInt(height);
-  return maxHeight - items > 0 ? maxHeight - items : 0;
+  const minimumHeight = parseInt(firstHeight);
+  return maxHeight - items >= minimumHeight
+    ? maxHeight - items
+    : minimumHeight - 1;
 };
 
 const _setUpBlocksRequests = ({ max, min, dispatch }) => {
