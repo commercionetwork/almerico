@@ -1,4 +1,4 @@
-import { mockBalances, mockErrors, mockFreezed, mockPool } from '@/__mocks__';
+import { mockBalances, mockErrors, mockPool } from '@/__mocks__';
 import actions from '../actions.js';
 import { CONFIG } from '@/constants';
 
@@ -121,26 +121,6 @@ describe('store/exchange-rate/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/auth.js', () => ({
-  requestFreezedTokensLegacy: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            height: '0',
-            result: mockBalances(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-}));
-
 jest.mock('../../../apis/http/bank.js', () => ({
   requestBalancesLegacy: () => {
     return new Promise((resolve, reject) => {
@@ -152,7 +132,7 @@ jest.mock('../../../apis/http/bank.js', () => ({
         mockResponse = {
           data: {
             height: '0',
-            result: mockFreezed(),
+            result: mockBalances(),
           },
         };
         resolve(mockResponse);

@@ -62,7 +62,7 @@ describe('store/exchange-rate/mutations', () => {
   });
 
   test('mutations.setFreezedTokens', () => {
-    const payload = { id: 1 };
+    const payload = [{ id: 1 }];
 
     mutations.setFreezedTokens(state, payload);
 
