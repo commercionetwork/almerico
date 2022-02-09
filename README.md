@@ -1,7 +1,7 @@
 # Almerico
 
 ![GitHub release](https://img.shields.io/github/release/commercionetwork/almerico?color=brightgreen&style=for-the-badge)
-![GitHub branch checks state](https://img.shields.io/github/checks-status/commercionetwork/almerico/master?color=orange&style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/commercionetwork/almerico?color=orange&style=for-the-badge)
 ![GitHub top language](https://img.shields.io/github/languages/top/commercionetwork/almerico?color=yellow&style=for-the-badge)
 ![GitHub license](https://img.shields.io/github/license/commercionetwork/almerico?color=blue&style=for-the-badge)
 
