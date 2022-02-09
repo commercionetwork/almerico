@@ -41,7 +41,7 @@ export default {
         bonded: this.$t('labels.bonded'),
         burned: this.$t('labels.burned'),
         notBonded: this.$t('labels.notBonded'),
-        unreleaseRewards: this.$t('labels.unreleaseRewards'),
+        unreleasedRewards: this.$t('labels.unreleasedRewards'),
       };
       return tokensChartHelper.getChartData({
         abrTokens: this.abrTokens,
