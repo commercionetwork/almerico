@@ -1,5 +1,6 @@
 import { staking, tendermintRpc } from '@/apis/http';
 import { CONFIG, VALIDATORS } from '@/constants';
+import { blocksRequestHelper } from '@/utils';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
@@ -22,9 +23,21 @@ export default {
     }
   },
 
-  async fetchTrackedBlocks({ commit, dispatch }, lastHeight) {
+  async fetchTrackedBlocks({ commit, dispatch }, height) {
     commit('setLoadingBlocks', true);
-    const requests = setUpBlocksRequests(dispatch, lastHeight);
+    const max = parseInt(height);
+    const min = parseInt(CONFIG.FIRST_HEIGHT);
+    const minimumHeight = blocksRequestHelper.getMinimumHeight({
+      max,
+      min,
+      items: VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
+    });
+    const requests = blocksRequestHelper.setupRequests({
+      dispatch,
+      action: 'addBlocksItem',
+      height: max,
+      minimumHeight,
+    });
     await Promise.all(requests);
     commit('setLoadingBlocks', false);
   },
@@ -80,7 +93,7 @@ export default {
     try {
       const response = await staking.requestValidatorsDetailDelegations(
         id,
-        pagination,
+        pagination
       );
       commit('addDelegations', response.data.delegation_responses);
       commit('setDelegationsPagination', response.data.pagination);
@@ -93,22 +106,4 @@ export default {
   setValidatorsFilter({ commit }, filter) {
     commit('setFilter', filter);
   },
-};
-
-const getMinHeight = ({ height, items, firstHeight }) =>
-  height - items < firstHeight ? firstHeight : height - items;
-
-const setUpBlocksRequests = (dispatch, lastHeight) => {
-  let height = parseInt(lastHeight);
-  const firstHeight = parseInt(CONFIG.FIRST_HEIGHT);
-  const minHeight = getMinHeight({
-    height: height,
-    items: VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
-    firstHeight,
-  });
-  const requests = [];
-  while (height > minHeight) {
-    requests.push(dispatch('addBlocksItem', height--));
-  }
-  return requests;
 };

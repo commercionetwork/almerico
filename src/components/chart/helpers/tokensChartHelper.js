@@ -4,12 +4,14 @@ const BACKGROUND_COLOR = [
   'rgba(47, 157, 119, 1)',
   'rgba(238, 51, 0, 1)',
   'rgba(255, 102, 0, 1)',
+  'rgba(0, 82, 204,1)',
   'rgba(0, 0, 0, 1)',
 ];
 const BORDER_COLOR = [
   'rgba(98, 208, 170, 1)',
   'rgba(255, 115, 77, 1)',
   'rgba(255, 163, 102, 1)',
+  'rgba(51, 133, 255,1)',
   'rgba(51, 51, 51, 1)',
 ];
 const CHART_OPTIONS = {
@@ -33,6 +35,7 @@ const tokensChartHelper = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Array.<Object>} abrTokens
+   * @property {Array.<Object>} freezedTokens
    * @property {Object} params
    * @property {Object} pool
    * @property {Array.<Object>} tokens
@@ -41,9 +44,18 @@ const tokensChartHelper = {
    * @param {ParamBuild} p
    * @returns {Object}
    */
-  getChartData({ abrTokens, params, pool, tokens, vbrTokens, labels }) {
+  getChartData({
+    abrTokens,
+    freezedTokens,
+    params,
+    pool,
+    tokens,
+    vbrTokens,
+    labels,
+  }) {
     const data = this.build({
       abrTokens,
+      freezedTokens,
       params,
       pool,
       tokens,
@@ -53,7 +65,8 @@ const tokensChartHelper = {
       labels: [
         `${labels.bonded} ${data.bonded.percent}`,
         `${labels.notBonded} ${data.unbonded.percent}`,
-        `${labels.unreleaseRewards} ${data.unreleasedRewards.percent}`,
+        `${labels.unreleasedRewards} ${data.unreleasedRewards.percent}`,
+        `${labels.freezed} ${data.freezed.percent}`,
         `${labels.burned} ${data.burned.percent}`,
       ],
       datasets: [
@@ -62,6 +75,7 @@ const tokensChartHelper = {
             data.bonded.decimal,
             data.unbonded.decimal,
             data.unreleasedRewards.decimal,
+            data.freezed.decimal,
             data.burned.decimal,
           ],
           backgroundColor: BACKGROUND_COLOR,
@@ -73,6 +87,7 @@ const tokensChartHelper = {
   /**
    * @typedef {Object} ParamBuild
    * @property {Array.<Object>} abrTokens
+   * @property {Array.<Object>} freezedTokens
    * @property {Object} params
    * @property {Object} pool
    * @property {Array.<Object>} tokens
@@ -81,9 +96,10 @@ const tokensChartHelper = {
    * @param {ParamBuild} p
    * @returns {Object}
    */
-  build({ abrTokens, params, pool, tokens, vbrTokens }) {
+  build({ abrTokens, freezedTokens, params, pool, tokens, vbrTokens }) {
     const data = _getDecimal({
       abrTokens,
+      freezedTokens,
       params,
       pool,
       tokens,
@@ -92,6 +108,7 @@ const tokensChartHelper = {
     return {
       bonded: new ChartItem(data.bonded).item,
       burned: new ChartItem(data.burned).item,
+      freezed: new ChartItem(data.freezed).item,
       unreleasedRewards: new ChartItem(data.unreleasedRewards).item,
       unbonded: new ChartItem(data.unbonded).item,
     };
@@ -114,6 +131,7 @@ export default tokensChartHelper;
 /**
  * @typedef {Object} ParamGetDecimal
  * @property {Array.<Object>} abrTokens
+ * @property {Array.<Object>} freezedTokens
  * @property {Object} params
  * @property {Object} pool
  * @property {Array.<Object>} tokens
@@ -122,16 +140,24 @@ export default tokensChartHelper;
  * @param {ParamGetDecimal} p
  * @returns {Object}
  */
-const _getDecimal = ({ abrTokens, params, pool, tokens, vbrTokens }) => {
+const _getDecimal = ({
+  abrTokens,
+  freezedTokens,
+  params,
+  pool,
+  tokens,
+  vbrTokens,
+}) => {
   const denom = params.bond_denom;
   const all = _getTokensByDenom({ tokens: tokens, denom: denom });
   const burned = MAX_SUPPLY - all;
   const bonded = parseFloat(pool.bonded_tokens) / UNIT_CONVERTER;
   const abrs = _getTokensByDenom({ tokens: abrTokens, denom: denom });
+  const freezed = _getTokensByDenom({ tokens: freezedTokens, denom: denom });
   const vbrs = _getTokensByDenom({ tokens: vbrTokens, denom: denom });
   const unreleasedRewards = abrs + vbrs;
-  const unbonded = MAX_SUPPLY - bonded - burned - unreleasedRewards;
-  return { bonded, burned, unbonded, unreleasedRewards };
+  const unbonded = MAX_SUPPLY - bonded - freezed - burned - unreleasedRewards;
+  return { bonded, burned, freezed, unbonded, unreleasedRewards };
 };
 
 /**

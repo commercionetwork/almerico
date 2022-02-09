@@ -8,6 +8,7 @@ export default {
     const requests = [
       dispatch('fetchAbrTokens'),
       dispatch('fetchAllTokens'),
+      dispatch('fetchFreezedTokens'),
       dispatch('fetchParams'),
       dispatch('fetchPool'),
       dispatch('fetchRateUpdates'),
@@ -76,6 +77,15 @@ export default {
     try {
       const response = await commercio.requestVbrTokens();
       commit('setVbrTokens', response.data.funds);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async fetchFreezedTokens({ commit }) {
+    try {
+      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
+      commit('setFreezedTokens', response.data.result);
     } catch (error) {
       commit('setError', error);
     }

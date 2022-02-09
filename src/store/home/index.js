@@ -7,6 +7,7 @@ export const initState = () => ({
   error: null,
   isLoading: false,
   isLoadingTxs: false,
+  freezedTokens: [],
   params: null,
   pool: null,
   rateUpdates: [],

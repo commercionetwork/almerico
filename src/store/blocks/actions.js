@@ -1,5 +1,6 @@
 import { tendermintRpc, tx } from '@/apis/http';
 import { BLOCKS, CONFIG } from '@/constants';
+import { blocksRequestHelper } from '@/utils';
 
 export default {
   async initBlocksList({ commit, dispatch }, lastHeight) {
@@ -11,36 +12,42 @@ export default {
   },
 
   async fetchBlocks({ commit, dispatch }, height) {
-    const min = _getMinHeight({
-      height,
-      firstHeight: CONFIG.FIRST_HEIGHT,
+    const max = typeof height === 'number' ? height : parseInt(height);
+    const min = parseInt(CONFIG.FIRST_HEIGHT);
+    const minimumHeight = blocksRequestHelper.getMinimumHeight({
+      max,
+      min,
       items: BLOCKS.TABLE_ITEMS,
     });
-    const requests = _setUpBlocksRequests({
-      max: height,
-      min,
+    const requests = blocksRequestHelper.setupRequests({
       dispatch,
+      action: 'addBlocksItem',
+      height: max,
+      minimumHeight,
     });
     await Promise.all(requests);
-    commit('setCurrentHeight', min);
+    commit('setCurrentHeight', minimumHeight);
   },
 
   async searchBlocks({ commit, dispatch }, height) {
     commit('setBlocks', []);
     commit('setCurrentHeight', '');
     commit('setSearching', true);
-    const min = _getMinHeight({
-      height,
-      firstHeight: CONFIG.FIRST_HEIGHT,
+    const max = typeof height === 'number' ? height : parseInt(height);
+    const min = parseInt(CONFIG.FIRST_HEIGHT);
+    const minimumHeight = blocksRequestHelper.getMinimumHeight({
+      max,
+      min,
       items: BLOCKS.SEARCH_ITEMS,
     });
-    const requests = _setUpBlocksRequests({
-      max: height,
-      min,
+    const requests = blocksRequestHelper.setupRequests({
       dispatch,
+      action: 'addBlocksItem',
+      height: max,
+      minimumHeight,
     });
     await Promise.all(requests);
-    commit('setCurrentHeight', min);
+    commit('setCurrentHeight', minimumHeight);
     commit('setSearching', false);
   },
 
@@ -116,20 +123,4 @@ export default {
       commit('setError', error);
     }
   },
-};
-
-const _getMinHeight = ({ height, firstHeight, items }) => {
-  const maxHeight = parseInt(height);
-  const minimumHeight = parseInt(firstHeight);
-  return maxHeight - items >= minimumHeight
-    ? maxHeight - items
-    : minimumHeight - 1;
-};
-
-const _setUpBlocksRequests = ({ max, min, dispatch }) => {
-  const requests = [];
-  while (max > min) {
-    requests.push(dispatch('addBlocksItem', max--));
-  }
-  return requests;
 };
