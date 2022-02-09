@@ -21,7 +21,7 @@
         <template v-slot:[`item.delegator`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
-            style="max-width: 100px"
+            style="max-width: 8.5rem"
             v-text="item.delegator"
             :to="{
               name: ROUTES.NAME.ACCOUNT,
