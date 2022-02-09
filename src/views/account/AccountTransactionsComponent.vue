@@ -34,12 +34,8 @@
         </template>
         <template v-slot:[`item.hash`]="{ item }">
           <router-link
-            class="
-              d-inline-block
-              text-truncate text-decoration-none
-              font-monotype
-            "
-            style="max-width: 120px"
+            class="d-inline-block text-truncate text-decoration-none font-monotype"
+            style="max-width: 8.5rem"
             v-text="item.hash"
             :to="{
               name: ROUTES.NAME.TRANSACTIONS_DETAIL,

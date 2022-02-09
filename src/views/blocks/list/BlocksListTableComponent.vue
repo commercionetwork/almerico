@@ -35,19 +35,15 @@
         <template v-slot:[`item.hash`]="{ item }">
           <span
             class="d-inline-block text-truncate text-overline"
-            style="max-width: 120px"
+            style="max-width: 9.5rem"
           >
             {{ item.hash }}
           </span>
         </template>
         <template v-slot:[`item.moniker`]="{ item }">
           <router-link
-            class="
-              d-inline-block
-              text-truncate text-decoration-none
-              font-weight-bold
-            "
-            style="max-width: 120px"
+            class="d-inline-block text-truncate text-decoration-none font-weight-bold"
+            style="max-width: 9.5rem"
             v-text="item.moniker"
             :to="{
               name: ROUTES.NAME.VALIDATORS_DETAIL,
