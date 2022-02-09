@@ -32,6 +32,7 @@ export default {
     }),
     ...mapGetters('home', {
       abrTokens: 'abrTokens',
+      freezedTokens: 'freezedTokens',
       pool: 'pool',
       supply: 'supply',
       vbrTokens: 'vbrTokens',
@@ -40,11 +41,13 @@ export default {
       const labels = {
         bonded: this.$t('labels.bonded'),
         burned: this.$t('labels.burned'),
+        freezed: this.$t('labels.freezed'),
         notBonded: this.$t('labels.notBonded'),
         unreleasedRewards: this.$t('labels.unreleasedRewards'),
       };
       return tokensChartHelper.getChartData({
         abrTokens: this.abrTokens,
+        freezedTokens: this.freezedTokens,
         params: this.stakingParams,
         pool: this.pool,
         tokens: this.supply,
