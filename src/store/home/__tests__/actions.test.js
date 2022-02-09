@@ -23,7 +23,7 @@ describe('store/home/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchParams", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
+  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchFreezedTokens", "fetchParams", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -33,6 +33,7 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
+    expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchParams');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).toHaveBeenCalledWith('fetchRateUpdates');
@@ -73,15 +74,15 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'addRateUpdates',
-      mockResponse.data.tx_responses,
+      mockResponse.data.tx_responses
     );
     expect(commit).toHaveBeenCalledWith(
       'setRateUpdatesPagination',
-      mockResponse.data.pagination,
+      mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith(
       'sumRateUpdatesOffset',
-      mockResponse.data.tx_responses.length,
+      mockResponse.data.tx_responses.length
     );
 
     mockError = true;
@@ -98,7 +99,7 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setStartingDate',
-      mockResponse.data.block.header.time,
+      mockResponse.data.block.header.time
     );
 
     mockError = true;
@@ -115,7 +116,7 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setAbrTokens',
-      mockResponse.data.result,
+      mockResponse.data.result
     );
 
     mockError = true;
@@ -132,12 +133,26 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setVbrTokens',
-      mockResponse.data.funds,
+      mockResponse.data.funds
     );
 
     mockError = true;
 
     await actions.fetchVbrTokens({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "fetchFreezedTokens" commit "setFreezedTokens", and set the error if it is caught', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchFreezedTokens({ commit });
+
+    commit('setFreezedTokens', mockResponse.data.result);
+
+    mockError = true;
+
+    await actions.fetchFreezedTokens({ commit });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
@@ -178,7 +193,7 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoadingTxs', true);
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
-      mockResponse.data.tx_responses,
+      mockResponse.data.tx_responses
     );
     expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
 
@@ -201,6 +216,23 @@ describe('store/home/actions', () => {
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({
+  requestBalancesLegacy: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            height: '0',
+            result: mockBalances(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
   requestSupply: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
