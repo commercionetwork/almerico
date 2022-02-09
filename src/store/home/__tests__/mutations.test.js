@@ -116,6 +116,14 @@ describe('store/home/mutations', () => {
     expect(state.vbrTokens).toStrictEqual(vbrTokens);
   });
 
+  test('mutations.setFreezedTokens', () => {
+    const payload = [{ id: 1 }];
+
+    mutations.setFreezedTokens(state, payload);
+
+    expect(state.freezedTokens).toStrictEqual(payload);
+  });
+
   test('mutations.setParams', () => {
     const params = { id: 1 };
 

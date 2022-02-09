@@ -37,6 +37,9 @@ export default {
   setVbrTokens(state, payload) {
     state.vbrTokens = payload;
   },
+  setFreezedTokens(state, payload) {
+    state.freezedTokens = payload;
+  },
   setParams(state, payload) {
     state.params = payload;
   },
