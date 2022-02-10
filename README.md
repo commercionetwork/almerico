@@ -36,7 +36,7 @@ you have to:
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
     VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
     VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
-    VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{},{}.{}])
+    VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:1"},{"name":"liquidityPool","address":"did:com:1"},{"name":"validator","address":"did:com:1"}])
     VUE_APP_WS=VALUE (e.g., ws://rpc.com/websocket)
     ```
 
@@ -64,7 +64,7 @@ VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)
 VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
 VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
-VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:"},{"name":"liquidityPool","address":"did:com:"},{"name":"validator","address":"did:com:"}])
+VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:1"},{"name":"liquidityPool","address":"did:com:1"},{"name":"validator","address":"did:com:1"}])
 VUE_APP_WS=VALUE (e.g., wss://rpc.com/websocket)
 ```
 
