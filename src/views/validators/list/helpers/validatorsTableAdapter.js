@@ -51,8 +51,13 @@ const _sortValidators = (validators) => {
     (validator) => parseInt(validator.tokens),
     ['desc']
   );
-  return bondedSorted.concat(unbondedSorted);
+  return _rank(bondedSorted.concat(unbondedSorted));
 };
+
+const _rank = (validators) =>
+  validators.map((validator, i) =>
+    Object.assign({}, { ...validator }, { rank: ++i })
+  );
 
 const _getTableRows = ({
   sortedValidators,
@@ -64,8 +69,8 @@ const _getTableRows = ({
   filter,
 }) => {
   let cumulativeCount = 0;
-  const rows = sortedValidators.map((validator, i) => {
-    const rank = ++i;
+  const rows = sortedValidators.map((validator) => {
+    const rank = validator.rank;
     const active = validator.status === VALIDATORS.STATUS.BONDED ? true : false;
     const moniker = validator.description.moniker;
     const operator = validator.operator_address;
