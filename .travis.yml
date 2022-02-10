@@ -15,8 +15,6 @@ install:
 
 before_script:
   - bash ./scripts/docker_check_vars.sh
-  - echo "Print Dockers tag"
-  - echo $DOCKER_IMAGE_ALMERICO_MAINNET_V3
 
 script:
   - npm run test
