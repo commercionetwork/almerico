@@ -1,4 +1,4 @@
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
-echo $(docker images)
+echo "Publishing release $DOCKER_IMAGE_ALMERICO_DEVNET from $TRAVIS_BRANCH branch"
 docker tag $DOCKER_IMAGE_ALMERICO_DEVNET $DOCKER_IMAGE_ALMERICO_DEVNET
 docker push $DOCKER_IMAGE_ALMERICO_DEVNET
