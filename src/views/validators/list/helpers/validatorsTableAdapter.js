@@ -16,11 +16,7 @@ const validatorsTableAdapter = {
    * @returns {Array.<ValidatorsTableRow>}
    */
   build({ validators, accountPrefix, blocks, coin, pool, bookmarks, filter }) {
-    const sortedValidators = orderBy(
-      validators,
-      (validator) => parseInt(validator.tokens),
-      ['desc'],
-    );
+    const sortedValidators = _sortValidators(validators);
     return _getTableRows({
       sortedValidators,
       accountPrefix,
@@ -35,6 +31,34 @@ const validatorsTableAdapter = {
 
 export default validatorsTableAdapter;
 
+const _sortValidators = (validators) => {
+  const bondedValidators = [];
+  const unbondedValidators = [];
+  for (const validator of validators) {
+    if (validator.status === VALIDATORS.STATUS.BONDED) {
+      bondedValidators.push(validator);
+    } else {
+      unbondedValidators.push(validator);
+    }
+  }
+  const bondedSorted = orderBy(
+    bondedValidators,
+    (validator) => parseInt(validator.tokens),
+    ['desc']
+  );
+  const unbondedSorted = orderBy(
+    unbondedValidators,
+    (validator) => parseInt(validator.tokens),
+    ['desc']
+  );
+  return _rank(bondedSorted.concat(unbondedSorted));
+};
+
+const _rank = (validators) =>
+  validators.map((validator, i) =>
+    Object.assign({}, { ...validator }, { rank: ++i })
+  );
+
 const _getTableRows = ({
   sortedValidators,
   accountPrefix,
@@ -45,8 +69,8 @@ const _getTableRows = ({
   filter,
 }) => {
   let cumulativeCount = 0;
-  const rows = sortedValidators.map((validator, i) => {
-    const rank = ++i;
+  const rows = sortedValidators.map((validator) => {
+    const rank = validator.rank;
     const active = validator.status === VALIDATORS.STATUS.BONDED ? true : false;
     const moniker = validator.description.moniker;
     const operator = validator.operator_address;
@@ -54,14 +78,14 @@ const _getTableRows = ({
       bookmarks.findIndex((address) => address === operator) > -1;
     const account = _getAccountAddress(
       validator.operator_address,
-      accountPrefix,
+      accountPrefix
     );
     const tokens = coinAdapter.format({
       amount: parseInt(validator.tokens),
       denom: coin,
     });
     const commission = _getPercentage(
-      parseFloat(validator.commission.commission_rates.rate),
+      parseFloat(validator.commission.commission_rates.rate)
     );
     const row = new ValidatorsTableRow({
       rank,
