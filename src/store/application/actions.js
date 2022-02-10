@@ -92,4 +92,11 @@ export default {
       commit('setError', error);
     }
   },
+
+  async refreshValidators({ commit, dispatch }) {
+    commit('setLoading', true);
+    commit('setValidators', []);
+    await dispatch('fetchValidators');
+    commit('setLoading', false);
+  },
 };

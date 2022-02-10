@@ -61,7 +61,7 @@ describe('store/application/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setLatestBlock',
-      mockResponse.data.block,
+      mockResponse.data.block
     );
 
     mockError = true;
@@ -78,7 +78,7 @@ describe('store/application/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setLatestValidatorSets',
-      mockResponse.data.result.validators,
+      mockResponse.data.result.validators
     );
 
     mockError = true;
@@ -95,7 +95,7 @@ describe('store/application/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setStakingParams',
-      mockResponse.data.params,
+      mockResponse.data.params
     );
 
     mockError = true;
@@ -130,15 +130,15 @@ describe('store/application/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'addValidators',
-      mockResponse.data.validators,
+      mockResponse.data.validators
     );
     expect(commit).toHaveBeenCalledWith(
       'setValidatorsPagination',
-      mockResponse.data.pagination,
+      mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith(
       'sumValidatorsOffset',
-      mockResponse.data.validators.length,
+      mockResponse.data.validators.length
     );
 
     mockError = true;
@@ -146,6 +146,18 @@ describe('store/application/actions', () => {
     await actions.addValidators({ commit }, { params, offset });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "refreshValidators" set loading state, reset validators and dispatch "fetchValidators" action', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.refreshValidators({ commit, dispatch });
+
+    expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(commit).toHaveBeenCalledWith('setValidators', []);
+    expect(dispatch).toHaveBeenCalledWith('fetchValidators');
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 });
 

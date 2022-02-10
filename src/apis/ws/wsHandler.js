@@ -47,9 +47,9 @@ const _handleNewBlockEvent = (data) => {
 const _handleNewValidatorSetsEvent = (data) => {
   store.commit(
     'application/setLatestValidatorSets',
-    data.result.data.value.validator_updates,
+    data.result.data.value.validator_updates
   );
-  store.dispatch('application/fetchValidators');
+  store.dispatch('application/refreshValidators');
 };
 
 const _handleNewTxEvent = (data) => {
