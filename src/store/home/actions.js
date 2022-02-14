@@ -10,8 +10,8 @@ export default {
       dispatch('fetchAllTokens'),
       dispatch('fetchFreezedTokens'),
       dispatch('fetchParams'),
+      dispatch('fetchParamsUpdates'),
       dispatch('fetchPool'),
-      dispatch('fetchRateUpdates'),
       dispatch('fetchStartingDate'),
       dispatch('fetchVbrTokens'),
     ];
@@ -29,27 +29,27 @@ export default {
     }
   },
 
-  async fetchRateUpdates({ dispatch, getters }) {
-    await dispatch('addRateUpdates');
-    while (getters['rateUpdatesTotal'] > getters['rateUpdatesOffset']) {
-      await dispatch('addRateUpdates', {
-        offset: getters['rateUpdatesOffset'],
+  async fetchParamsUpdates({ dispatch, getters }) {
+    await dispatch('addParamsUpdates');
+    while (getters['paramsUpdatesTotal'] > getters['paramsUpdatesOffset']) {
+      await dispatch('addParamsUpdates', {
+        offset: getters['paramsUpdatesOffset'],
       });
     }
   },
 
-  async addRateUpdates({ commit }, offset) {
+  async addParamsUpdates({ commit }, offset) {
     const parameters = {
-      events: "message.action='setEtpsConversionRate'",
+      events: "message.action='setParams'",
     };
     const pagination = {
       offset: offset ? offset : 0,
     };
     try {
       const response = await tx.requestTxsList(parameters, pagination);
-      commit('addRateUpdates', response.data.tx_responses);
-      commit('setRateUpdatesPagination', response.data.pagination);
-      commit('sumRateUpdatesOffset', response.data.tx_responses.length);
+      commit('addParamsUpdates', response.data.tx_responses);
+      commit('setParamsUpdatesPagination', response.data.pagination);
+      commit('sumParamsUpdatesOffset', response.data.tx_responses.length);
     } catch (error) {
       commit('setError', error);
     }

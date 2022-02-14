@@ -9,14 +9,24 @@ describe('store/home/mutations', () => {
   });
 
   test('mutations.reset', () => {
+    state.abrTokens = [{ id: 1 }];
     state.error = new Error('error');
+    state.freezedTokens = [{ id: 1 }];
     state.isLoading = true;
-    state.rateUpdates = [{ id: 1 }];
-    state.rateUpdatesOffset = 10;
-    state.rateUpdatesPagination = {
+    state.isLoadingTxs = true;
+    state.params = { id: 1 };
+    state.paramsUpdates = [{ id: 1 }];
+    state.paramsUpdatesOffset = 10;
+    state.paramsUpdatesPagination = {
       next_key: 'string',
       total: 'string',
     };
+    state.pool = { id: 1 };
+    state.startingDate = 'startingDate';
+    state.supply = [{ id: 1 }];
+    state.transactions = [{ id: 1 }];
+    state.txEventHeight = 'txEventHeight';
+    state.vbrTokens = [{ id: 1 }];
 
     const expected = initState();
 
@@ -45,51 +55,51 @@ describe('store/home/mutations', () => {
     expect(state.isLoadingTxs).toBe(true);
   });
 
-  test('mutations.setRateUpdates', () => {
+  test('mutations.setParamsUpdates', () => {
     const txs = [{ id: 1 }];
 
-    mutations.setRateUpdates(state, txs);
+    mutations.setParamsUpdates(state, txs);
 
-    expect(state.rateUpdates).toStrictEqual(txs);
+    expect(state.paramsUpdates).toStrictEqual(txs);
   });
 
-  test('mutations.addRateUpdates', () => {
-    state.rateUpdates = [{ id: 1 }];
+  test('mutations.addParamsUpdates', () => {
+    state.paramsUpdates = [{ id: 1 }];
     const payload = [{ id: 2 }];
     const expected = [{ id: 1 }, { id: 2 }];
 
-    mutations.addRateUpdates(state, payload);
+    mutations.addParamsUpdates(state, payload);
 
-    expect(state.rateUpdates).toStrictEqual(expected);
+    expect(state.paramsUpdates).toStrictEqual(expected);
   });
 
-  test('mutations.setRateUpdatesOffset', () => {
+  test('mutations.setParamsUpdatesOffset', () => {
     const payload = 10;
-    mutations.setRateUpdatesOffset(state, payload);
+    mutations.setParamsUpdatesOffset(state, payload);
 
-    expect(state.rateUpdatesOffset).toBe(payload);
+    expect(state.paramsUpdatesOffset).toBe(payload);
   });
 
-  test('mutations.sumRateUpdatesOffset', () => {
+  test('mutations.sumParamsUpdatesOffset', () => {
     const payload = 10;
-    mutations.sumRateUpdatesOffset(state, payload);
+    mutations.sumParamsUpdatesOffset(state, payload);
 
-    expect(state.rateUpdatesOffset).toBe(payload);
+    expect(state.paramsUpdatesOffset).toBe(payload);
 
-    mutations.sumRateUpdatesOffset(state, payload);
+    mutations.sumParamsUpdatesOffset(state, payload);
 
-    expect(state.rateUpdatesOffset).toBe(payload + payload);
+    expect(state.paramsUpdatesOffset).toBe(payload + payload);
   });
 
-  test('mutations.setRateUpdatesPagination', () => {
+  test('mutations.setParamsUpdatesPagination', () => {
     const pagination = {
       next_key: 'string',
       total: 'string',
     };
 
-    mutations.setRateUpdatesPagination(state, pagination);
+    mutations.setParamsUpdatesPagination(state, pagination);
 
-    expect(state.rateUpdatesPagination).toStrictEqual(pagination);
+    expect(state.paramsUpdatesPagination).toStrictEqual(pagination);
   });
 
   test('mutations.setStartingDate', () => {

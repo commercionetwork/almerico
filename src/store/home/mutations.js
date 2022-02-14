@@ -13,20 +13,20 @@ export default {
   setLoadingTxs(state, payload) {
     state.isLoadingTxs = payload;
   },
-  setRateUpdates(state, payload) {
-    state.rateUpdates = payload;
+  setParamsUpdates(state, payload) {
+    state.paramsUpdates = payload;
   },
-  addRateUpdates(state, payload) {
-    state.rateUpdates.push(...payload);
+  addParamsUpdates(state, payload) {
+    state.paramsUpdates.push(...payload);
   },
-  setRateUpdatesOffset(state, payload) {
-    state.rateUpdatesOffset = payload;
+  setParamsUpdatesOffset(state, payload) {
+    state.paramsUpdatesOffset = payload;
   },
-  sumRateUpdatesOffset(state, payload) {
-    state.rateUpdatesOffset += payload;
+  sumParamsUpdatesOffset(state, payload) {
+    state.paramsUpdatesOffset += payload;
   },
-  setRateUpdatesPagination(state, payload) {
-    state.rateUpdatesPagination = payload;
+  setParamsUpdatesPagination(state, payload) {
+    state.paramsUpdatesPagination = payload;
   },
   setStartingDate(state, payload) {
     state.startingDate = payload;

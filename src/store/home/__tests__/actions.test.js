@@ -23,7 +23,7 @@ describe('store/home/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchFreezedTokens", "fetchParams", "fetchPool", "fetchRateUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
+  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchFreezedTokens", "fetchParams", "fetchPool", "fetchParamsUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -35,8 +35,8 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchParams');
+    expect(dispatch).toHaveBeenCalledWith('fetchParamsUpdates');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
-    expect(dispatch).toHaveBeenCalledWith('fetchRateUpdates');
     expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
     expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
@@ -57,37 +57,37 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchRateUpdates" dispatch "addRateUpdates"', async () => {
+  test('if "fetchParamsUpdates" dispatch "addParamsUpdates"', async () => {
     const dispatch = jest.fn();
     const getters = jest.fn();
 
-    await actions.fetchRateUpdates({ dispatch, getters });
+    await actions.fetchParamsUpdates({ dispatch, getters });
 
-    expect(dispatch).toHaveBeenCalledWith('addRateUpdates');
+    expect(dispatch).toHaveBeenCalledWith('addParamsUpdates');
   });
 
-  test('if "addRateUpdates" action commit "addRateUpdates", "setRateUpdatesPagination" and "sumRateUpdatesOffset" mutations, and set the error if it is caught', async () => {
+  test('if "addParamsUpdates" action commit "addParamsUpdates", "setParamsUpdatesPagination" and "sumParamsUpdatesOffset" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
     const offset = 10;
 
-    await actions.addRateUpdates({ commit }, offset);
+    await actions.addParamsUpdates({ commit }, offset);
 
     expect(commit).toHaveBeenCalledWith(
-      'addRateUpdates',
+      'addParamsUpdates',
       mockResponse.data.tx_responses
     );
     expect(commit).toHaveBeenCalledWith(
-      'setRateUpdatesPagination',
+      'setParamsUpdatesPagination',
       mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith(
-      'sumRateUpdatesOffset',
+      'sumParamsUpdatesOffset',
       mockResponse.data.tx_responses.length
     );
 
     mockError = true;
 
-    await actions.addRateUpdates({ commit }, offset);
+    await actions.addParamsUpdates({ commit }, offset);
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
