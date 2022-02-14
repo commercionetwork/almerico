@@ -2,7 +2,7 @@
   <TopContentCardComponent :title="$t('titles.trend')">
     <template v-slot:content>
       <div
-        class="pb-3 fill-height flex-column d-flex justify-center align-center"
+        class="py-3 fill-height flex-column d-flex justify-center align-center"
       >
         <ChartComponent
           id="dashboard-price-chart"

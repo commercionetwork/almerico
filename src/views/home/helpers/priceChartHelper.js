@@ -23,12 +23,10 @@ const CHART_OPTIONS = {
       display: false,
     },
     tooltip: {
-      callbacks: {
-        label: function (tooltipItem) {
-          const index = tooltipItem.dataIndex;
-          return `${tooltipItem.dataset.data[index]}`;
-        },
-      },
+      displayColors: false,
+      yAlign: 'center',
+      titleAlign: 'center',
+      bodyAlign: 'center',
     },
   },
 };
