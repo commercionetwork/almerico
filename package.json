@@ -11,7 +11,7 @@
     "test": "vue-cli-service test:unit --setupTestFrameworkScriptFile=./tests/setup.js"
   },
   "dependencies": {
-    "axios": "^0.25.0",
+    "axios": "^0.26.0",
     "bech32": "^2.0.0",
     "chart.js": "^3.5.1",
     "core-js": "^3.6.5",
