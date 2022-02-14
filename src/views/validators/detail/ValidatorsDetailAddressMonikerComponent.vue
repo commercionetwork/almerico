@@ -6,11 +6,7 @@
         <v-icon small left :color="isActive ? 'info' : 'warning'">
           mdi-hubspot
         </v-icon>
-        <span
-          class="text-caption"
-          :class="isActive ? 'info--text' : 'warning--text'"
-          v-text="isActive ? $t('labels.active') : $t('labels.inactive')"
-        />
+        <span class="text-caption" :class="statusClass" v-text="statusText" />
       </div>
     </div>
     <div>
@@ -47,6 +43,14 @@ export default {
     },
     moniker() {
       return this.detail.description.moniker;
+    },
+    statusClass() {
+      return this.isActive ? 'info--text' : 'warning--text';
+    },
+    statusText() {
+      return this.isActive
+        ? this.$t('labels.active')
+        : this.$t('labels.inactive');
     },
   },
   methods: {
