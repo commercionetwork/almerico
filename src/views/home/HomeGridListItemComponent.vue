@@ -28,11 +28,7 @@
                   class="pr-1 text-capitalize font-weight-bold"
                   v-text="$t('labels.status')"
                 />
-                <span
-                  class="pl-1"
-                  :class="transaction.code ? 'error--text' : 'info--text'"
-                  v-text="status"
-                />
+                <span class="pl-1" :class="statusClass" v-text="statusText" />
               </div>
             </v-list-item-content>
           </v-list-item>
@@ -77,21 +73,24 @@ export default {
     hash() {
       return this.transaction.txhash;
     },
-    status() {
-      return this.transaction.code
-        ? this.$t('msgs.failed')
-        : this.$t('msgs.success');
+    statusClass() {
+      return !this.transaction.code ? 'info--text' : 'error--text';
+    },
+    statusText() {
+      return !this.transaction.code
+        ? this.$t('msgs.success')
+        : this.$t('msgs.failed');
     },
     time() {
       return dateHandler.getFormattedDifference(
         new Date(this.transaction.timestamp),
-        new Date(),
+        new Date()
       );
     },
     type() {
       return txHandler.getType_current(
         this.transaction.tx.body.messages,
-        this.$t('labels.multiTypes'),
+        this.$t('labels.multiTypes')
       );
     },
     txLink() {

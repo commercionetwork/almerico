@@ -3,24 +3,24 @@
     <v-btn
       text
       small
-      class="font-weight-bold"
-      :class="range === HOME.RANGE.TODAY ? 'info--text' : 'grey--text'"
+      class="font-weight-bold grey--text"
+      :class="{ 'info--text': range === HOME.RANGE.TODAY }"
       v-text="$t(`home.${HOME.RANGE.TODAY}`)"
       @click="onChangeRange(HOME.RANGE.TODAY)"
     />
     <v-btn
       text
       small
-      class="font-weight-bold"
-      :class="range === HOME.RANGE.WEEK ? 'info--text' : 'grey--text'"
+      class="font-weight-bold grey--text"
+      :class="{ 'info--text': range === HOME.RANGE.WEEK }"
       v-text="$t(`home.${HOME.RANGE.WEEK}`)"
       @click="onChangeRange(HOME.RANGE.WEEK)"
     />
     <v-btn
       text
       small
-      class="font-weight-bold"
-      :class="range === HOME.RANGE.MONTH ? 'info--text' : 'grey--text'"
+      class="font-weight-bold grey--text"
+      :class="{ 'info--text': range === HOME.RANGE.MONTH }"
       v-text="$t(`home.${HOME.RANGE.MONTH}`)"
       @click="onChangeRange(HOME.RANGE.MONTH)"
     />
