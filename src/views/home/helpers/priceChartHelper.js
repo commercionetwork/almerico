@@ -1,8 +1,7 @@
 import { HOME, CONFIG } from '@/constants';
 import { dateHandler } from '@/utils';
 
-const TX_TYPE =
-  '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate';
+const TX_TYPE = '/commercionetwork.commercionetwork.commerciomint.MsgSetParams';
 
 const BACKGROUND_COLOR = 'rgba(179, 224, 255, 0.5)';
 const BORDER_COLOR = 'rgba(77, 184, 255, 1)';
@@ -39,14 +38,14 @@ const priceChartHelper = {
    *
    * @typedef {Object} GetChartDataParams
    * @property {String} startingDate
-   * @property {Array.<Object>} rateUpdates
+   * @property {Array.<Object>} paramsUpdates
    * @property {String} range
    *
    * @param {GetChartDataParams} params
    * @returns {Object}
    */
-  getChartData({ firstDate, rateUpdates, range }) {
-    const listings = _getListings({ firstDate, rateUpdates, range });
+  getChartData({ firstDate, paramsUpdates, range }) {
+    const listings = _getListings({ firstDate, paramsUpdates, range });
     return {
       labels: listings.labels,
       datasets: [
@@ -71,27 +70,26 @@ const priceChartHelper = {
 
 export default priceChartHelper;
 
-export const _getListings = ({ firstDate, rateUpdates, range }) => {
-  const startDate = _getStartingUTCDate(firstDate, range);
-  if (!rateUpdates.length) {
-    return _buildListingsFromSingleValue(
-      parseFloat(CONFIG.FIRST_CONVERSION_RATE),
-      startDate,
-    );
-  }
-  const wantedUpdates = _getWantedUpdates(startDate, rateUpdates);
-  if (!wantedUpdates.length) {
-    const lastUpdate = rateUpdates[rateUpdates.length - 1];
-    return _buildListingsFromSingleValue(_getRateFromTx(lastUpdate), startDate);
-  }
-  return _buildListingsFromValues(rateUpdates, wantedUpdates, startDate);
+const _getRateFromTx = (tx) => {
+  const msgs = tx.tx.body.messages;
+  const index = msgs.findIndex((msg) => msg['@type'] === TX_TYPE);
+  return parseFloat(msgs[index]['params']['conversion_rate']);
 };
 
-export const _getStartingUTCDate = (firstDate, range) => {
-  const rangeDate = _getStartingDateFromRange(range);
-  return dateHandler.checkIsBefore(rangeDate, firstDate)
-    ? firstDate
-    : rangeDate;
+export const _getListings = ({ firstDate, paramsUpdates, range }) => {
+  const startDate = _getStartingUTCDate(firstDate, range);
+  if (!paramsUpdates.length) {
+    return _buildListingsFromSingleValue(
+      parseFloat(CONFIG.FIRST_CONVERSION_RATE),
+      startDate
+    );
+  }
+  const wantedUpdates = _getWantedUpdates(startDate, paramsUpdates);
+  if (!wantedUpdates.length) {
+    const lastUpdate = paramsUpdates[paramsUpdates.length - 1];
+    return _buildListingsFromSingleValue(_getRateFromTx(lastUpdate), startDate);
+  }
+  return _buildListingsFromValues(paramsUpdates, wantedUpdates, startDate);
 };
 
 const _getStartingDateFromRange = (range) => {
@@ -107,11 +105,11 @@ const _getStartingDateFromRange = (range) => {
   }
 };
 
-export const _buildListingsFromSingleValue = (rate, startDate) => {
-  const startListing = new Listing(rate, startDate);
-  const endDate = dateHandler.getUtcDate();
-  const endListing = new Listing(rate, endDate);
-  return _setupChartData([startListing, endListing]);
+export const _getStartingUTCDate = (firstDate, range) => {
+  const rangeDate = _getStartingDateFromRange(range);
+  return dateHandler.checkIsBefore(rangeDate, firstDate)
+    ? firstDate
+    : rangeDate;
 };
 
 const _setupChartData = (listings) => ({
@@ -119,26 +117,27 @@ const _setupChartData = (listings) => ({
   data: listings.map((listing) => listing.pricing.price),
 });
 
-const _getRateFromTx = (tx) => {
-  const msgs = tx.tx.body.messages;
-  const index = msgs.findIndex((msg) => msg['@type'] === TX_TYPE);
-  return parseFloat(msgs[index].rate);
+export const _buildListingsFromSingleValue = (rate, startDate) => {
+  const startListing = new Listing(rate, startDate);
+  const endDate = dateHandler.getUtcDate();
+  const endListing = new Listing(rate, endDate);
+  return _setupChartData([startListing, endListing]);
 };
 
-const _getWantedUpdates = (startDate, rateUpdates) =>
-  rateUpdates.filter((rate) => rate.timestamp >= startDate);
+const _getWantedUpdates = (startDate, paramsUpdates) =>
+  paramsUpdates.filter((update) => update.timestamp >= startDate);
 
-const _buildListingsFromValues = (rateUpdates, wantedUpdates, startDate) => {
-  const hasAllUpdates = wantedUpdates.length === rateUpdates.length;
+const _buildListingsFromValues = (paramsUpdates, wantedUpdates, startDate) => {
+  const hasAllUpdates = wantedUpdates.length === paramsUpdates.length;
   const listings = [];
   if (!hasAllUpdates) {
     const firstDiscardedIndex =
-      rateUpdates.findIndex((rate) => rate.timestamp >= startDate) - 1;
-    listings.push(_getListingFromUpdate(rateUpdates[firstDiscardedIndex]));
+      paramsUpdates.findIndex((update) => update.timestamp >= startDate) - 1;
+    listings.push(_getListingFromUpdate(paramsUpdates[firstDiscardedIndex]));
     listings[0].date = startDate;
   } else {
     listings.push(
-      new Listing(parseFloat(CONFIG.FIRST_CONVERSION_RATE), startDate),
+      new Listing(parseFloat(CONFIG.FIRST_CONVERSION_RATE), startDate)
     );
   }
   listings.push(..._buildListingsFromUpdates(wantedUpdates));
@@ -146,11 +145,11 @@ const _buildListingsFromValues = (rateUpdates, wantedUpdates, startDate) => {
     !dateHandler.checkIsSame(
       dateHandler.getUtcDate(),
       listings[listings.length - 1].date,
-      'day',
+      'day'
     )
   ) {
     listings.push(
-      new Listing(listings[listings.length - 1].rate, dateHandler.getUtcDate()),
+      new Listing(listings[listings.length - 1].rate, dateHandler.getUtcDate())
     );
   }
   return _setupChartData(listings);

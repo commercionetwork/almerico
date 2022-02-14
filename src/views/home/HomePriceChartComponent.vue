@@ -37,13 +37,13 @@ export default {
   }),
   computed: {
     ...mapGetters('home', {
-      rateUpdates: 'rateUpdates',
+      paramsUpdates: 'paramsUpdates',
       startingDate: 'startingDate',
     }),
     chartData() {
       return priceChartHelper.getChartData({
         firstDate: this.startingDate,
-        rateUpdates: this.rateUpdates,
+        paramsUpdates: this.paramsUpdates,
         range: this.range,
       });
     },

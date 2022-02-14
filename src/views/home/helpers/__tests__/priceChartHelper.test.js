@@ -15,7 +15,7 @@ describe('views/home/helpers/priceChartHelper', () => {
 
     const chartData = priceChartHelper.getChartData({
       firstDate: mockDate,
-      rateUpdates: mockParamsUpdates(),
+      paramsUpdates: mockParamsUpdates(),
       range,
     });
 
@@ -40,7 +40,7 @@ describe('views/home/helpers/priceChartHelper', () => {
 
     const listings = _getListings({
       firstDate: mockDate,
-      rateUpdates: mockParamsUpdates(),
+      paramsUpdates: mockParamsUpdates(),
       range,
     });
 
