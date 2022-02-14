@@ -7,8 +7,8 @@ import { mockMembership } from './membership';
 import { mockNodeInfo } from './node_info';
 import { mockPagination } from './pagination';
 import { mockParams } from './params';
+import { mockParamsUpdate, mockParamsUpdates } from './params_updates';
 import { mockPool } from './pool';
-import { mockRateUpdate, mockRateUpdates } from './rate_updates';
 import { mockRewards } from './rewards';
 import { mockStakingParams } from './staking_params';
 import {
@@ -34,9 +34,9 @@ export {
   mockNodeInfo,
   mockPagination,
   mockParams,
+  mockParamsUpdate,
+  mockParamsUpdates,
   mockPool,
-  mockRateUpdate,
-  mockRateUpdates,
   mockRewards,
   mockStakingParams,
   mockTransaction,
