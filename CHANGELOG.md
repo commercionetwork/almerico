@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fix account page that displays transactions from other accounts
+- Fix account page that displays transactions not related to the account
 
 ## [2.2.21] - 2022-01-13
 
