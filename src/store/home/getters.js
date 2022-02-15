@@ -3,6 +3,7 @@ export default {
   error: (state) => state.error,
   freezedTokens: (state) => state.freezedTokens,
   isLoading: (state) => state.isLoading,
+  isLoadingParams: (state) => state.isLoadingParams,
   isLoadingTxs: (state) => state.isLoadingTxs,
   conversionRate: (state) =>
     state.params ? parseFloat(state.params.conversion_rate) : 1,

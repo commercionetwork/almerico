@@ -13,6 +13,7 @@ describe('store/home/mutations', () => {
     state.error = new Error('error');
     state.freezedTokens = [{ id: 1 }];
     state.isLoading = true;
+    state.isLoadingParams = true;
     state.isLoadingTxs = true;
     state.params = { id: 1 };
     state.paramsUpdates = [{ id: 1 }];
@@ -47,6 +48,12 @@ describe('store/home/mutations', () => {
     mutations.setLoading(state, true);
 
     expect(state.isLoading).toBe(true);
+  });
+
+  test('mutations.setLoadingParams', () => {
+    mutations.setLoadingParams(state, true);
+
+    expect(state.isLoadingParams).toBe(true);
   });
 
   test('mutations.setLoadingTxs', () => {

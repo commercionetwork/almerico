@@ -55,6 +55,14 @@ export default {
     }
   },
 
+  async refreshParams({ commit, dispatch }) {
+    commit('setLoadingParams', true);
+    commit('setParamsUpdates', []);
+    const requests = [dispatch('fetchParams'), dispatch('fetchParamsUpdates')];
+    await Promise.all(requests);
+    commit('setLoadingParams', false);
+  },
+
   async fetchStartingDate({ commit }) {
     try {
       const response = await tendermintRpc.requestBlock(CONFIG.FIRST_HEIGHT);

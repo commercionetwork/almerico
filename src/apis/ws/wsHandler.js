@@ -56,4 +56,11 @@ const _handleNewTxEvent = (data) => {
   const height = data.result.data.value.TxResult.height;
   store.commit('home/setTxEventHeight', height);
   store.commit('transactions/setTxEventHeight', height);
+  if (
+    data['result']['events']['message.action'].indexOf(
+      APIS.WS.EVENTS.TX_SET_PARAMS
+    ) > -1
+  ) {
+    store.dispatch('home/refreshParams');
+  }
 };

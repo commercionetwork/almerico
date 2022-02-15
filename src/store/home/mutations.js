@@ -10,6 +10,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setLoadingParams(state, payload) {
+    state.isLoadingParams = payload;
+  },
   setLoadingTxs(state, payload) {
     state.isLoadingTxs = payload;
   },

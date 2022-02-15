@@ -7,6 +7,7 @@ export const initState = () => ({
   error: null,
   freezedTokens: [],
   isLoading: false,
+  isLoadingParams: false,
   isLoadingTxs: false,
   params: null,
   paramsUpdates: [],
