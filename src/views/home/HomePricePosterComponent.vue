@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.price')">
+  <TopContentCardComponent :loading="isLoading" :title="$t('titles.price')">
     <template v-slot:content>
       <div
         class="fill-height d-flex flex-row justify-space-between align-center"
@@ -42,8 +42,8 @@ export default {
   }),
   computed: {
     ...mapGetters('home', {
+      isLoading: 'isLoadingParams',
       rate: 'conversionRate',
-      isLoading: 'isLoading',
     }),
     ...mapGetters('application', {
       params: 'stakingParams',

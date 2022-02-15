@@ -1,8 +1,8 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.trend')">
+  <TopContentCardComponent :loading="isLoading" :title="$t('titles.trend')">
     <template v-slot:content>
       <div
-        class="pb-3 fill-height flex-column d-flex justify-center align-center"
+        class="py-3 fill-height flex-column d-flex justify-center align-center"
       >
         <ChartComponent
           id="dashboard-price-chart"
@@ -37,13 +37,14 @@ export default {
   }),
   computed: {
     ...mapGetters('home', {
-      rateUpdates: 'rateUpdates',
+      isLoading: 'isLoadingParams',
+      paramsUpdates: 'paramsUpdates',
       startingDate: 'startingDate',
     }),
     chartData() {
       return priceChartHelper.getChartData({
         firstDate: this.startingDate,
-        rateUpdates: this.rateUpdates,
+        paramsUpdates: this.paramsUpdates,
         range: this.range,
       });
     },

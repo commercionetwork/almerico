@@ -1,7 +1,8 @@
 <template>
   <v-card
-    outlined
+    :loading="loading"
     class="d-flex flex-column justify-space-between align-center"
+    outlined
   >
     <v-card-title
       class="text-truncate text-overline font-weight-bold"
@@ -17,6 +18,11 @@
 export default {
   name: 'TopContentCardComponent',
   props: {
+    loading: {
+      type: Boolean,
+      default: false,
+      note: 'Loading state',
+    },
     title: {
       type: String,
       default: '&nbsp;',

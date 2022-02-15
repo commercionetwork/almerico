@@ -54,6 +54,7 @@ export const APIS = {
     EVENTS: {
       NEW_BLOCK: 'NewBlock',
       TX: 'Tx',
+      TX_SET_PARAMS: 'setParams',
       VALIDATOR_SET_UPDATES: 'ValidatorSetUpdates',
     },
     URL: WS,

@@ -1,6 +1,6 @@
 import { HOME } from '@/constants';
 import { dateHandler } from '@/utils';
-import { mockRateUpdates } from '@/__mocks__';
+import { mockParamsUpdates } from '@/__mocks__';
 import priceChartHelper, {
   _getListings,
   _getStartingUTCDate,
@@ -15,7 +15,7 @@ describe('views/home/helpers/priceChartHelper', () => {
 
     const chartData = priceChartHelper.getChartData({
       firstDate: mockDate,
-      rateUpdates: mockRateUpdates(),
+      paramsUpdates: mockParamsUpdates(),
       range,
     });
 
@@ -31,7 +31,7 @@ describe('views/home/helpers/priceChartHelper', () => {
     expect(Object.keys(chartData)).toStrictEqual(expectedKeys);
     expect(chartData.datasets.length).toBe(1);
     expect(Object.keys(chartData.datasets[0])).toStrictEqual(
-      expectedDatasetKeys,
+      expectedDatasetKeys
     );
   });
 
@@ -40,7 +40,7 @@ describe('views/home/helpers/priceChartHelper', () => {
 
     const listings = _getListings({
       firstDate: mockDate,
-      rateUpdates: mockRateUpdates(),
+      paramsUpdates: mockParamsUpdates(),
       range,
     });
 

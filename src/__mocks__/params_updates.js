@@ -1,16 +1,18 @@
 import { dateHandler } from '@/utils';
 
-const mockRateUpdate = (
+const mockParamsUpdate = (
   rate = '1.000000000000000000',
-  tms = '2000-01-01T00:00:00.000Z',
+  period = '1000000s',
+  tms = '2000-01-01T00:00:00.000Z'
 ) => {
   const item = {
-    height: '1825',
-    txhash: '372999F3B77662743BF1DC7DC3A54015D567CE193A038B2FBC2C6E02303E0D4F',
+    height: '346',
+    txhash: '5009E9DDF1ABA3E8C9697C295FAA57D5D4BF019AD4DEEE4C987E38F02E4E82FD',
     codespace: '',
     code: 0,
-    data: '0A2D0A1573657445747073436F6E76657273696F6E5261746512140A12393530303030303030303030303030303030',
-    raw_log: `[{"events":[{"type":"message","attributes":[{"key":"action","value":"setEtpsConversionRate"}]},{"type":"new_conversion_rate","attributes":[{"key":"rate","value":${rate}}]}]}]`,
+    data: '0A0B0A09736574506172616D73',
+    raw_log:
+      '[{"events":[{"type":"message","attributes":[{"key":"action","value":"setParams"}]},{"type":"new_freeze_period","attributes":[{"key":"new_params","value":"conversion_rate:\\"950000000000000000\\" freeze_period:\\u003cseconds:1181970 \\u003e "}]}]}]',
     logs: [
       {
         msg_index: 0,
@@ -21,16 +23,17 @@ const mockRateUpdate = (
             attributes: [
               {
                 key: 'action',
-                value: 'setEtpsConversionRate',
+                value: 'setParams',
               },
             ],
           },
           {
-            type: 'new_conversion_rate',
+            type: 'new_freeze_period',
             attributes: [
               {
-                key: 'rate',
-                value: rate,
+                key: 'new_params',
+                value:
+                  'conversion_rate:"950000000000000000" freeze_period:<seconds:1181970 > ',
               },
             ],
           },
@@ -39,16 +42,19 @@ const mockRateUpdate = (
     ],
     info: '',
     gas_wanted: '200000',
-    gas_used: '55080',
+    gas_used: '60590',
     tx: {
       '@type': '/cosmos.tx.v1beta1.Tx',
       body: {
         messages: [
           {
             '@type':
-              '/commercionetwork.commercionetwork.commerciomint.MsgSetCCCConversionRate',
+              '/commercionetwork.commercionetwork.commerciomint.MsgSetParams',
             signer: 'did:com:1zg4jreq2g57s4efrl7wnh2swtrz3jt9nfaumcm',
-            rate: rate,
+            params: {
+              conversion_rate: rate,
+              freeze_period: period,
+            },
           },
         ],
         memo: '',
@@ -68,7 +74,7 @@ const mockRateUpdate = (
                 mode: 'SIGN_MODE_DIRECT',
               },
             },
-            sequence: '2',
+            sequence: '1',
           },
         ],
         fee: {
@@ -84,7 +90,7 @@ const mockRateUpdate = (
         },
       },
       signatures: [
-        'oaCXIKZuu2FOMFRlQRVHuSQJlPF71D8vEImmggCR4uVlSq+Vl5gHauMOJ3ThVe+RhmTVgh2k2q1Ch/H7ry2Yzg==',
+        'had324WOH7IfXyK90qs/tMzbE+M89iV+RkCLIG0w9CYUPERrK/EAtfCJJKqvz0GjwcPpFoQ/YDv27LXb3p3I9Q==',
       ],
     },
     timestamp: tms,
@@ -92,21 +98,28 @@ const mockRateUpdate = (
   return item;
 };
 
-const mockRateUpdates = (
+const mockParamsUpdates = (
   { updates, year, month, day } = {
     updates: 1,
     year: 2021,
     month: 1,
     day: 1,
-  },
+  }
 ) => {
   let counter = day;
   const items = new Array(updates).fill(null).map(() => {
-    const rate = Math.random().toFixed(18);
+    const rate = Math.random().toFixed(18).toString();
+    const period = _getRandomInt(1, 100).toString();
     const tms = dateHandler.getUtcDate(`${year}/${month}/${counter++}`);
-    return mockRateUpdate(rate, tms);
+    return mockParamsUpdate(rate, period, tms);
   });
   return items;
 };
 
-export { mockRateUpdate, mockRateUpdates };
+export { mockParamsUpdate, mockParamsUpdates };
+
+function _getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}

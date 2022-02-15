@@ -1,26 +1,40 @@
 <template>
   <TxMsgComponent :message="message">
     <div slot="body">
-      <v-list-item v-for="(prop, index) in props" :key="index">
-        <DetailItemComponent
-          :label="formatKeyProp(prop[0])"
-          :content="prop[1]"
-          :isLoop="true"
-        />
-      </v-list-item>
+      <DetailLinkComponent
+        :label="$t('labels.signer')"
+        :content="signer"
+        :route="{
+          name: ROUTES.NAME.ACCOUNT,
+          params: { id: signer },
+        }"
+        look="font-monotype"
+      />
+      <DetailItemComponent
+        :label="$t('labels.conversionRate')"
+        :content="conversionRate"
+      />
+      <DetailItemComponent
+        :label="$t('labels.freezePeriod')"
+        :content="freezePeriod"
+      />
     </div>
   </TxMsgComponent>
 </template>
 
 <script>
 import DetailItemComponent from '@/components/DetailItemComponent.vue';
+import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
 import TxMsgComponent from '@/components/TxMsgComponent.vue';
+
+import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSetParams',
   description: 'Display a set params transaction message',
   components: {
     DetailItemComponent,
+    DetailLinkComponent,
     TxMsgComponent,
   },
   props: {
@@ -30,19 +44,18 @@ export default {
       note: 'Object representing a send message',
     },
   },
+  data: () => ({
+    ROUTES,
+  }),
   computed: {
-    props() {
-      const value = this.message;
-      return Object.keys(value)
-        .filter((key) => key !== '@type')
-        .map((key) => {
-          return [key, value[key]];
-        });
+    conversionRate() {
+      return this.message.params.conversion_rate;
     },
-  },
-  methods: {
-    formatKeyProp(str) {
-      return str.replace(/_/g, ' ');
+    freezePeriod() {
+      return this.message.params.freeze_period;
+    },
+    signer() {
+      return this.message.signer;
     },
   },
 };

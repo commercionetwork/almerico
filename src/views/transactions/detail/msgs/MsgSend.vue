@@ -19,7 +19,7 @@
         }"
         look="font-monotype"
       />
-      <v-list-item v-for="(amount, index) in amounts" :key="index">
+      <v-list-item v-for="(amount, i) in amounts" :key="i">
         <DetailItemComponent
           :label="$t('labels.amount')"
           :content="amount"
@@ -69,7 +69,7 @@ export default {
         coinAdapter.format({
           amount: amount.amount,
           denom: amount.denom,
-        }),
+        })
       );
     },
   },
