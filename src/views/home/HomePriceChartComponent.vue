@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.trend')">
+  <TopContentCardComponent :loading="isLoading" :title="$t('titles.trend')">
     <template v-slot:content>
       <div
         class="py-3 fill-height flex-column d-flex justify-center align-center"
@@ -37,6 +37,7 @@ export default {
   }),
   computed: {
     ...mapGetters('home', {
+      isLoading: 'isLoadingParams',
       paramsUpdates: 'paramsUpdates',
       startingDate: 'startingDate',
     }),
