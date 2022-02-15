@@ -68,7 +68,7 @@ export const TRANSACTIONS = {
     },
     {
       name: 'MsgSetParams',
-      text: '/commercionetwork.commercionetwork.vbr.MsgSetParams',
+      text: '/commercionetwork.commercionetwork.commerciomint.MsgSetParams',
       value: 'setParams',
     },
     {

@@ -29,6 +29,7 @@ export const labels = {
   contentUri: 'URI contenuto',
   context: 'Contesto',
   controller: 'Controller',
+  conversionRate: 'Tasso di conversione',
   created: 'Creato',
   cumulative: 'Cumulativo',
   date: 'Data',
