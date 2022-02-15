@@ -12,6 +12,7 @@ export default {
   paramsUpdatesPagination: (state) => state.paramsUpdatesPagination,
   paramsUpdatesTotal: (state) => state.paramsUpdatesPagination.total,
   pool: (state) => state.pool,
+  setParamsEventHeight: (state) => state.setParamsEventHeight,
   startingDate: (state) => state.startingDate,
   supply: (state) => state.supply,
   transactions: (state) => state.transactions,

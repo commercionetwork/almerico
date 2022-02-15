@@ -14,6 +14,7 @@ export const initState = () => ({
   paramsUpdatesOffset: 0,
   paramsUpdatesPagination: null,
   pool: null,
+  setParamsEventHeight: '',
   startingDate: '',
   supply: [],
   transactions: [],

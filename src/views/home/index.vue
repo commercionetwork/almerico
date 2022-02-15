@@ -51,17 +51,22 @@ export default {
     ...mapGetters('home', {
       error: 'error',
       isLoading: 'isLoading',
+      setParamsEventHeight: 'setParamsEventHeight',
       txEventHeight: 'txEventHeight',
     }),
   },
   watch: {
-    txEventHeight(value) {
-      if (value) this.refreshTransactions();
+    setParamsEventHeight() {
+      this.refreshParams();
+    },
+    txEventHeight() {
+      this.refreshTransactions();
     },
   },
   methods: {
     ...mapActions('home', {
       initHome: 'initHome',
+      refreshParams: 'refreshParams',
       refreshTransactions: 'refreshTransactions',
     }),
   },

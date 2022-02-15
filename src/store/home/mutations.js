@@ -46,6 +46,9 @@ export default {
   setParams(state, payload) {
     state.params = payload;
   },
+  setSetParamsEventHeight(state, payload) {
+    state.setParamsEventHeight = payload;
+  },
   setPool(state, payload) {
     state.pool = payload;
   },

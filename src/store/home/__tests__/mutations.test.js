@@ -23,6 +23,7 @@ describe('store/home/mutations', () => {
       total: 'string',
     };
     state.pool = { id: 1 };
+    state.setParamsEventHeight = 'setParamsEventHeight';
     state.startingDate = 'startingDate';
     state.supply = [{ id: 1 }];
     state.transactions = [{ id: 1 }];
@@ -193,5 +194,12 @@ describe('store/home/mutations', () => {
     mutations.setTxEventHeight(state, payload);
 
     expect(state.txEventHeight).toBe(payload);
+  });
+
+  test('mutations.setSetParamsEventHeight', () => {
+    const payload = '1';
+    mutations.setSetParamsEventHeight(state, payload);
+
+    expect(state.setParamsEventHeight).toBe(payload);
   });
 });
