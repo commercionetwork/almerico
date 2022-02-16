@@ -11,10 +11,10 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider />
-        <v-list-item v-for="(prop, index) in props" :key="index">
+        <v-list-item v-for="(value, key, index) in message" :key="index">
           <DetailItemComponent
-            :label="formatKeyProp(prop[0])"
-            :content="prop[1]"
+            :label="formatKey(key)"
+            :content="value"
             :isLoop="true"
           />
         </v-list-item>
@@ -36,16 +36,8 @@ export default {
       note: 'Object representing a message',
     },
   },
-  computed: {
-    props() {
-      const value = this.message;
-      return Object.keys(value).map((key) => {
-        return [key, value[key]];
-      });
-    },
-  },
   methods: {
-    formatKeyProp(str) {
+    formatKey(str) {
       return str.replace(/_/g, ' ');
     },
   },
