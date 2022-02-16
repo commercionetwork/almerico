@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { CONFIG } from '@/constants';
+
 export default {
   name: 'FooterComponent',
   data: () => ({
@@ -45,7 +47,7 @@ export default {
     },
     copy() {
       const year = new Date().getFullYear();
-      return `&copy;&nbsp;${year}&nbsp;Commerc.io&nbsp;srl`;
+      return `&copy;&nbsp;${year} ${CONFIG.COPYRIGHT}`;
     },
     theme() {
       return this.$vuetify.theme.dark ? 'dark' : 'light';

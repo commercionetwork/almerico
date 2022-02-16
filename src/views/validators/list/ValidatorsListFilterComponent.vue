@@ -16,7 +16,7 @@
             mdi-information-outline
           </v-icon>
         </template>
-        <span v-html="$t('msgs.filterValidatorsInfo')" />
+        <span v-text="$t('msgs.filterValidatorsInfo')" />
       </v-tooltip>
     </template>
   </v-select>

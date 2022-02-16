@@ -28,6 +28,8 @@ const CHAIN = {
   ],
 };
 
+const COPYRIGHT = 'Commerc.io srl';
+
 const FIRST_CONVERSION_RATE =
   process.env.VUE_APP_FIRST_CONVERSION_RATE !== undefined
     ? process.env.VUE_APP_FIRST_CONVERSION_RATE
@@ -96,6 +98,7 @@ const TOKEN = {
 export const CONFIG = {
   BROWSER_STORAGE_KEYS,
   CHAIN,
+  COPYRIGHT,
   FIRST_CONVERSION_RATE,
   FIRST_HEIGHT,
   LEGACY_VERSIONS,
