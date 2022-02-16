@@ -17,8 +17,8 @@
         <v-col cols="12" md="10" offset-md="1">
           <div class="grid">
             <div
-              v-for="(verified, i) in verifiedBlocks"
-              :key="i"
+              v-for="(verified, index) in verifiedBlocks"
+              :key="index"
               :class="{ missing: !verified.status }"
               :title="verified.height"
             />

@@ -11,7 +11,7 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider />
-        <v-list-item v-for="(value, key, index) in message" :key="index">
+        <v-list-item v-for="(value, key) in message" :key="key">
           <DetailItemComponent
             :label="formatKey(key)"
             :content="value"

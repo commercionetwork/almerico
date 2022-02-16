@@ -4,7 +4,7 @@
       <TransactionsCommonContentComponent :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
-      <div v-for="(message, i) in tx.msgs" :key="i">
+      <div v-for="(message, index) in tx.msgs" :key="index">
         <component v-bind:is="getComponentName(message)" :message="message" />
       </div>
     </v-col>

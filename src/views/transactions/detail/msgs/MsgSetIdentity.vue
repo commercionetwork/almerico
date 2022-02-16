@@ -17,7 +17,10 @@
             class="text-capitalize"
             v-text="$t('labels.verificationMethod')"
           />
-          <v-list-item v-for="(method, i) in verificationMethod" :key="i">
+          <v-list-item
+            v-for="(method, index) in verificationMethod"
+            :key="index"
+          >
             <v-list dense>
               <DetailItemComponent
                 :label="$t('labels.id')"
@@ -65,7 +68,7 @@
             class="text-capitalize"
             v-text="$t('labels.service')"
           />
-          <v-list-item v-for="(serv, i) in service" :key="i">
+          <v-list-item v-for="(serv, index) in service" :key="index">
             <v-list dense>
               <DetailItemComponent
                 :label="$t('labels.id')"
