@@ -6,7 +6,12 @@
           <template v-slot:icon>
             <v-img :src="logoSrc" alt="Commercio logo" />
           </template>
-          <span class="text-body-2" v-html="message" />
+          <span class="text-body-2">
+            <span class="font-weight-bold">
+              {{ $t('msgs.bannerPrimary') }} &trade;.
+            </span>
+            <span>{{ $t('msgs.bannerSecondary') }}.</span>
+          </span>
           <template v-slot:actions>
             <v-btn
               color="indigo accent-3"
@@ -28,11 +33,6 @@ export default {
   computed: {
     logoSrc() {
       return require('@/assets/img/logo-green.png');
-    },
-    message() {
-      return `<strong>${this.$t(
-        'msgs.bannerPrimary',
-      )} &trade;</strong>. ${this.$t('msgs.bannerSecondary')}.`;
     },
   },
 };

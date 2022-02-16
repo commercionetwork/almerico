@@ -19,7 +19,7 @@
                     mdi-information-outline
                   </v-icon>
                 </template>
-                <span v-html="$t('msgs.searchValidatorsInfo')" />
+                <span v-text="$t('msgs.searchValidatorsInfo')" />
               </v-tooltip>
             </template>
           </v-text-field>

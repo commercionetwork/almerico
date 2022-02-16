@@ -19,7 +19,7 @@
         }"
         look="font-monotype"
       />
-      <v-list-item v-for="(amount, i) in amounts" :key="i">
+      <v-list-item v-for="(amount, index) in amounts" :key="index">
         <DetailItemComponent
           :label="$t('labels.amount')"
           :content="amount"

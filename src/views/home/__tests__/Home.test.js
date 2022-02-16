@@ -26,6 +26,7 @@ describe('views/home/index.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
+    setParamsEventHeight: () => 'setParamsEventHeight',
     txEventHeight: () => 'txEventHeight',
   };
 
