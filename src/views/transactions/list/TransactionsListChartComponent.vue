@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="chartLabel">
+  <TopContentCardComponent :loading="isRefreshing" :title="chartLabel">
     <template v-slot:content>
       <div class="fill-height">
         <ChartComponent
@@ -28,6 +28,7 @@ export default {
   },
   computed: {
     ...mapGetters('transactions', {
+      isRefreshing: 'isRefreshing',
       transactions: 'transactions',
     }),
     chartData() {
@@ -39,7 +40,7 @@ export default {
     chartLabel() {
       return transactionsChartHelper.getChartLabel(
         this.transactions,
-        this.$t('titles.msgsTxs'),
+        this.$t('titles.msgsTxs')
       );
     },
     chartOptions() {
