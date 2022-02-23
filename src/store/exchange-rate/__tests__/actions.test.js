@@ -37,7 +37,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchAbrTokens({ commit });
 
-    commit('setAbrTokens', mockResponse.data.result);
+    commit('setAbrTokens', mockResponse.data.funds);
 
     mockError = true;
 
@@ -167,8 +167,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockBalances(),
+            funds: mockBalances(),
           },
         };
         resolve(mockResponse);

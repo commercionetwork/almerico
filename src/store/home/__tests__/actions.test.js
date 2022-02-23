@@ -116,7 +116,7 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setAbrTokens',
-      mockResponse.data.result
+      mockResponse.data.funds
     );
 
     mockError = true;
@@ -261,8 +261,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockBalances(),
+            funds: mockBalances(),
           },
         };
         resolve(mockResponse);
