@@ -53,7 +53,7 @@ export default {
    */
   requestMembership(address) {
     return axios({
-      url: `/membership/${address}`,
+      url: `/${address}/membership`,
       method: 'get',
       baseURL: `${APIS.HTTP.KYC}`,
     });
