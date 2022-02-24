@@ -55,7 +55,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setBalances',
-      mockResponse.data.result,
+      mockResponse.data.result
     );
 
     mockError = true;
@@ -73,7 +73,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setCommission',
-      mockResponse.data.commission,
+      mockResponse.data.commission
     );
 
     mockError = true;
@@ -91,7 +91,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setDelegations',
-      mockResponse.data.result,
+      mockResponse.data.result
     );
 
     mockError = true;
@@ -135,15 +135,15 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'addUnbondings',
-      mockResponse.data.unbonding_responses,
+      mockResponse.data.unbonding_responses
     );
     expect(commit).toHaveBeenCalledWith(
       'setUnbondingsPagination',
-      mockResponse.data.pagination,
+      mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith(
       'sumUnbondingsOffset',
-      mockResponse.data.unbonding_responses.length,
+      mockResponse.data.unbonding_responses.length
     );
 
     mockError = true;
@@ -161,7 +161,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setMembership',
-      mockResponse.data.result,
+      mockResponse.data.membership
     );
 
     mockError = true;
@@ -179,7 +179,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setMembershipTxs',
-      mockResponse.data.tx_responses,
+      mockResponse.data.tx_responses
     );
 
     mockError = true;
@@ -198,15 +198,15 @@ describe('store/account/actions', () => {
     expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
-      mockResponse.data.tx_responses,
+      mockResponse.data.tx_responses
     );
     expect(commit).toHaveBeenCalledWith(
       'sumTransactionsOffset',
-      mockResponse.data.tx_responses.length,
+      mockResponse.data.tx_responses.length
     );
     expect(commit).toHaveBeenCalledWith(
       'setTransactionsPagination',
-      mockResponse.data.pagination,
+      mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
 
@@ -262,8 +262,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockMembership(),
+            membership: mockMembership(),
           },
         };
         resolve(mockResponse);

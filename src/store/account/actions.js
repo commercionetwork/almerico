@@ -82,7 +82,7 @@ export default {
   async fetchMembership({ commit }, address) {
     try {
       const response = await commercio.requestMembership(address);
-      commit('setMembership', response.data.result);
+      commit('setMembership', response.data.membership);
     } catch (error) {
       commit('setMembership', null);
     }
