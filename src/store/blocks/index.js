@@ -1,34 +1,26 @@
-/**
- *
- * @typedef {Object} BlocksState
- * @property {Array.<Object>} blocks
- * @property {Boolean} isLoading
- * @property {Number} currentHeight
- * @property {Object} details
- * @property {Object} error
- * @property {Object} latest
- */
-
 import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-const initialState = {
+export const initState = () => ({
+  blockTxs: [],
+  blockTxsOffset: 0,
+  blockTxsPagination: null,
+  blockValidatorSets: [],
   blocks: [],
   currentHeight: 1,
-  details: null,
+  detail: null,
   error: null,
+  isAddingBlocks: false,
   isLoading: false,
-  latest: null,
-};
+  isSearching: false,
+  newHeight: 0,
+});
 
 export default {
   namespaced: true,
-  initialState,
-  state: {
-    ...initialState,
-  },
-  actions,
+  state: initState(),
   getters,
   mutations,
+  actions,
 };

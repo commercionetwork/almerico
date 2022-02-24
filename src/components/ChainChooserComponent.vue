@@ -1,12 +1,12 @@
 <template>
   <v-form>
     <v-select
+      :items="CONFIG.CHAIN.LIST"
+      @change="changeChain"
       flat
-      v-model="selectedItem"
-      :items="CHAIN.LIST"
       item-text="text"
       item-value="value"
-      v-on:change="changeChain"
+      v-model="selectedItem"
     >
       <template v-slot:selection="data">
         <span
@@ -15,27 +15,32 @@
         />
       </template>
       <template v-slot:item="data">
-        <span class="text-subtitle-1 font-weight-bold" v-text="data.item.text" />
+        <span
+          class="text-subtitle-1 font-weight-bold"
+          v-text="data.item.text"
+        />
       </template>
     </v-select>
   </v-form>
 </template>
 
 <script>
-import { CHAIN } from '@/constants';
+import { CONFIG } from '@/constants';
 
 export default {
   name: 'ChainChooserComponent',
   data: () => ({
-    CHAIN,
+    CONFIG,
     selectedItem: null,
   }),
   computed: {
     currentItem() {
-      const chainIndex = CHAIN.LIST.findIndex(
+      const chainIndex = CONFIG.CHAIN.LIST.findIndex(
         (item) => item.lcd === process.env.VUE_APP_LCD,
       );
-      return chainIndex > -1 ? CHAIN.LIST[chainIndex] : CHAIN.DEFAULT;
+      return chainIndex > -1
+        ? CONFIG.CHAIN.LIST[chainIndex]
+        : CONFIG.CHAIN.LIST[CONFIG.CHAIN.DEFAULT_INDEX];
     },
   },
   methods: {

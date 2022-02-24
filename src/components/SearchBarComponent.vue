@@ -2,7 +2,7 @@
   <v-form @submit.prevent="onSubmit">
     <v-text-field
       v-model="query"
-      placeholder="Search Address, Block Height, TxHash"
+      :placeholder="$t('msgs.placeholderSearchBar')"
       append-icon="mdi-magnify"
       @click:append="onSubmit"
     />
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { ROUTES } from '@/constants';
+import { CONFIG, ROUTES } from '@/constants';
 import { regExpBuilder } from '@/utils';
 
 export default {
@@ -21,23 +21,23 @@ export default {
   methods: {
     onSubmit() {
       const validatorRegEx = regExpBuilder.getAddressRegExp(
-        this.$config.generic.prefixes.validator.operator.address,
+        CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS,
       );
       const accountRegEx = regExpBuilder.getAddressRegExp(
-        this.$config.generic.prefixes.account.address,
+        CONFIG.PREFIXES.ACCOUNT.ADDRESS,
       );
       const hashRegEx = regExpBuilder.getHashRegExp();
       const heightRegEx = regExpBuilder.getHeightRegExp();
 
       let routeName = null;
       if (validatorRegEx.test(this.query)) {
-        routeName = ROUTES.NAMES.VALIDATORS_DETAILS;
+        routeName = ROUTES.NAME.VALIDATORS_DETAIL;
       } else if (accountRegEx.test(this.query)) {
-        routeName = ROUTES.NAMES.VALIDATORS_ACCOUNT;
+        routeName = ROUTES.NAME.ACCOUNT;
       } else if (hashRegEx.test(this.query)) {
-        routeName = ROUTES.NAMES.TRANSACTIONS_DETAILS;
+        routeName = ROUTES.NAME.TRANSACTIONS_DETAIL;
       } else if (heightRegEx.test(this.query)) {
-        routeName = ROUTES.NAMES.BLOCKS_DETAILS;
+        routeName = ROUTES.NAME.BLOCKS_DETAIL;
       }
 
       if (routeName) {

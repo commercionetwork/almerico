@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2022.02.23
+
+### Added
+
+- Add the italian localization
+- Add the feature to save a custom list of validators
+- Add new exchange rate overview
+- Add the route to show the detail of a sharedoc transaction
+
+### Changed
+
+- Update the layout of all views
+- Update to the new Cosmos REST API
+- Improve the page load time
+- Improve transaction search
+- Improve error management
+
+### Removed
+
+- Remove configuration file
+- Remove old exchange rate overview
+
+### Fixed
+
+- Fix account page that displays transactions not related to the account
+
 ## [2.2.21] - 2022-01-13
 
 ### Changed
@@ -195,6 +221,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[3.0.0]: https://github.com/commercionetwork/almerico/compare/v2.2.21...v3.0.0
 [2.2.21]: https://github.com/commercionetwork/almerico/compare/v2.2.20...v2.2.21
 [2.2.20]: https://github.com/commercionetwork/almerico/compare/v2.2.19...v2.2.20
 [2.2.19]: https://github.com/commercionetwork/almerico/compare/v2.2.18...v2.2.19

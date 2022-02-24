@@ -1,106 +1,49 @@
+import { initState } from './index';
+
 export default {
-  /**
-   *
-   * @param {ValidatorsState} state
-   */
-  startLoading(state) {
-    state.error = null;
-    state.isLoading = true;
+  reset(state) {
+    Object.assign(state, initState());
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   */
-  stopLoading(state) {
-    state.isLoading = false;
-  },
-  /**
-   *
-   * @param {ValidatorsState} state
-   * @param {Object} error
-   */
   setError(state, error) {
-    state.error = { ...error };
+    state.error = error;
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   * @param {Object} data
-   */
-  setFilter(state, data) {
-    state.filter = {
-      ...data,
-    };
+  setLoading(state, payload) {
+    state.isLoading = payload;
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   * @param {Array.<Object>} data
-   */
-  setValidators(state, data) {
-    state.validators = data.map((obj) => ({
-      ...obj,
-    }));
+  setLoadingBlocks(state, payload) {
+    state.isLoadingBlocks = payload;
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   * @param {Array.<Object>} data
-   */
-  addValidators(state, data) {
-    state.validators.push.apply(state.validators, data);
+  setBlocks(state, payload) {
+    state.blocks = payload;
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   * @param {Array.<Object>} data
-   */
-  setHeightValidatorsSets(state, data) {
-    state.heightValidatorsSets = data.map((obj) => ({
-      ...obj,
-    }));
+  addBlock(state, payload) {
+    state.blocks.push(payload);
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   * @param {Array.<Object>} data
-   */
-  setLatestValidatorsSets(state, data) {
-    state.latestValidatorsSets = [];
-    state.latestValidatorsSets = data.map((obj) => ({
-      ...obj,
-    }));
+  setNewHeight(state, payload) {
+    state.newHeight = payload;
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   * @param {Object} data
-   */
-  setDetails(state, data) {
-    state.details = null;
-    state.details = {
-      ...data,
-    };
+  setFilter(state, payload) {
+    state.filter = payload;
   },
-  /**
-   * Add details to validator details
-   *
-   * @param {ValidatorsState} state
-   * @param {Object} data
-   */
-  addDetails(state, data) {
-    state.details = {
-      ...state.details,
-      ...data,
-    };
+  setPool(state, payload) {
+    state.pool = payload;
   },
-  /**
-   *
-   * @param {ValidatorsState} state
-   */
-  resetDetails(state) {
-    for (let key in state.details) {
-      delete state.details[key];
-    }
+  setDetail(state, payload) {
+    state.detail = payload;
+  },
+  setDelegations(state, payload) {
+    state.delegations = payload;
+  },
+  addDelegations(state, payload) {
+    state.delegations.push(...payload);
+  },
+  setDelegationsOffset(state, payload) {
+    state.delegationsOffset = payload;
+  },
+  sumDelegationsOffset(state, payload) {
+    state.delegationsOffset += payload;
+  },
+  setDelegationsPagination(state, payload) {
+    state.delegationsPagination = payload;
   },
 };

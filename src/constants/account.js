@@ -1,24 +1,48 @@
+const COMMERCIO_COLOR = {
+  BLACK: {
+    NAME: 'black',
+    HEX: '#000000',
+  },
+  BRONZE: {
+    NAME: 'bronze',
+    HEX: '#6A3805',
+  },
+  GOLD: {
+    NAME: 'gold',
+    HEX: '#AF9500',
+  },
+  GREEN: {
+    NAME: 'green',
+    HEX: '#38BA8C',
+  },
+  SILVER: {
+    NAME: 'silver',
+    HEX: '#B4B4B4',
+  },
+};
+
 export const ACCOUNT = {
+  TRANSACTIONS_NUMBER: 10,
   MEMBERSHIPS: [
     {
-      name: 'green',
-      color: '#38BA8C',
+      name: COMMERCIO_COLOR.GREEN.NAME,
+      color: COMMERCIO_COLOR.GREEN.HEX,
     },
     {
-      name: 'bronze',
-      color: '#6A3805',
+      name: COMMERCIO_COLOR.BRONZE.NAME,
+      color: COMMERCIO_COLOR.BRONZE.HEX,
     },
     {
-      name: 'silver',
-      color: '#B4B4B4',
+      name: COMMERCIO_COLOR.SILVER.NAME,
+      color: COMMERCIO_COLOR.SILVER.HEX,
     },
     {
-      name: 'gold',
-      color: '#AF9500',
+      name: COMMERCIO_COLOR.GOLD.NAME,
+      color: COMMERCIO_COLOR.GOLD.HEX,
     },
     {
-      name: 'black',
-      color: '#000000',
+      name: COMMERCIO_COLOR.BLACK.NAME,
+      color: COMMERCIO_COLOR.BLACK.HEX,
     },
   ],
 };

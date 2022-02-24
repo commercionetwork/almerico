@@ -6,52 +6,82 @@ node_js:
 services:
   - docker
 
+branches:
+  except:
+    - /^wip\/.*/
+
 install:
   - npm install -s --no-audit --no-fund
+
+before_script:
+  - bash ./scripts/docker_check_vars.sh
 
 script:
   - npm run test
 
 after_success:
-  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_TESTNET
-    --build-arg LCD_URL=${ALMERICO_LCD_URL_TESTNET}
-    --build-arg WS_URL=${ALMERICO_WS_URL_TESTNET}
-    --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_TESTNET}"
-    --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_TESTNET}"
-    --build-arg OVERVIEW_ACCOUNTS="${ALMERICO_OVERVIEW_ACCOUNTS_TESTNET}"
-    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_SPREADSHEET_ACCOUNTS_TESTNET}"
-    --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_TESTNET}"
-    --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_TESTNET}"
+  - test $TRAVIS_BRANCH = "master" && docker build -t $DOCKER_IMAGE_ALMERICO_MAINNET
+    --build-arg ANCESTORS_LIST="${ALMERICO_MAINNET_ANCESTORS_LIST}"
+    --build-arg API_VERSION=${ALMERICO_MAINNET_API_VERSION}
+    --build-arg BLOCKS_MONITOR="${ALMERICO_MAINNET_BLOCKS_MONITOR}"
+    --build-arg FIRST_CONVERSION_RATE=${ALMERICO_MAINNET_FIRST_CONVERSION_RATE}
+    --build-arg FIRST_HEIGHT=${ALMERICO_MAINNET_FIRST_HEIGHT}
+    --build-arg LCD_URL=${ALMERICO_MAINNET_LCD_URL}
+    --build-arg MAIN_TITLE="${ALMERICO_MAINNET_MAIN_TITLE}"
+    --build-arg MINTER_ACCOUNT="${ALMERICO_MAINNET_MINTER_ACCOUNT}"
+    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_MAINNET_SPREADSHEET_ACCOUNTS}"
+    --build-arg WS_URL=${ALMERICO_MAINNET_WS_URL}
     .
-  # - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_DEVNET
-  #   --build-arg LCD_URL=${ALMERICO_LCD_URL_DEVNET}
-  #   --build-arg WS_URL=${ALMERICO_WS_URL_DEVNET}
-  #   --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_DEVNET}"
-  #   --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_DEVNET}"
-  #   --build-arg OVERVIEW_ACCOUNTS="${ALMERICO_OVERVIEW_ACCOUNTS_DEVNET}"
-  #   --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_SPREADSHEET_ACCOUNTS_DEVNET}"
-  #   --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_DEVNET}"
-  #   --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_DEVNET}"
-  #   .
-  - test $TRAVIS_BRANCH = "master" && docker build -t $DOCKER_IMAGE_MAINNET
-    --build-arg LCD_URL=${ALMERICO_LCD_URL_MAINNET}
-    --build-arg WS_URL=${ALMERICO_WS_URL_MAINNET}
-    --build-arg ANCESTORS_LIST="${ALMERICO_ANCESTORS_LIST_MAINNET}"
-    --build-arg MINTER_ACCOUNT="${ALMERICO_MINTER_ACCOUNT_MAINNET}"
-    --build-arg OVERVIEW_ACCOUNTS="${ALMERICO_OVERVIEW_ACCOUNTS_MAINNET}"
-    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_SPREADSHEET_ACCOUNTS_MAINNET}"
-    --build-arg MAIN_TITLE="${ALMERICO_MAIN_TITLE_MAINNET}"
-    --build-arg BLOCKS_MONITOR="${ALMERICO_BLOCKS_MONITOR_MAINNET}"
+  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_ALMERICO_MAINNET_V3
+    --build-arg ANCESTORS_LIST="${ALMERICO_MAINNET_ANCESTORS_LIST}"
+    --build-arg API_VERSION=${ALMERICO_MAINNET_API_VERSION}
+    --build-arg BLOCKS_MONITOR="${ALMERICO_MAINNET_BLOCKS_MONITOR}"
+    --build-arg FIRST_CONVERSION_RATE=${ALMERICO_MAINNET_FIRST_CONVERSION_RATE}
+    --build-arg FIRST_HEIGHT=${ALMERICO_MAINNET_FIRST_HEIGHT}
+    --build-arg LCD_URL=${ALMERICO_MAINNET_LCD_URL}
+    --build-arg MAIN_TITLE="${ALMERICO_MAINNET_MAIN_TITLE}"
+    --build-arg MINTER_ACCOUNT="${ALMERICO_MAINNET_MINTER_ACCOUNT}"
+    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_MAINNET_SPREADSHEET_ACCOUNTS}"
+    --build-arg WS_URL=${ALMERICO_MAINNET_WS_URL}
+    .
+  - test $TRAVIS_BRANCH = "development" && docker build -t $DOCKER_IMAGE_ALMERICO_TESTNET
+    --build-arg ANCESTORS_LIST="${ALMERICO_TESTNET_ANCESTORS_LIST}"
+    --build-arg API_VERSION=${ALMERICO_TESTNET_API_VERSION}
+    --build-arg BLOCKS_MONITOR="${ALMERICO_TESTNET_BLOCKS_MONITOR}"
+    --build-arg FIRST_CONVERSION_RATE=${ALMERICO_TESTNET_FIRST_CONVERSION_RATE}
+    --build-arg FIRST_HEIGHT=${ALMERICO_TESTNET_FIRST_HEIGHT}
+    --build-arg LCD_URL=${ALMERICO_TESTNET_LCD_URL}
+    --build-arg MAIN_TITLE="${ALMERICO_TESTNET_MAIN_TITLE}"
+    --build-arg MINTER_ACCOUNT="${ALMERICO_TESTNET_MINTER_ACCOUNT}"
+    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_TESTNET_SPREADSHEET_ACCOUNTS}"
+    --build-arg WS_URL=${ALMERICO_TESTNET_WS_URL}
+    .
+  - test $TRAVIS_BRANCH = "alfa" && docker build -t $DOCKER_IMAGE_ALMERICO_DEVNET
+    --build-arg ANCESTORS_LIST="${ALMERICO_DEVNET_ANCESTORS_LIST}"
+    --build-arg API_VERSION=${ALMERICO_DEVNET_API_VERSION}
+    --build-arg BLOCKS_MONITOR="${ALMERICO_DEVNET_BLOCKS_MONITOR}"
+    --build-arg FIRST_CONVERSION_RATE=${ALMERICO_DEVNET_FIRST_CONVERSION_RATE}
+    --build-arg FIRST_HEIGHT=${ALMERICO_DEVNET_FIRST_HEIGHT}
+    --build-arg LCD_URL=${ALMERICO_DEVNET_LCD_URL}
+    --build-arg MAIN_TITLE="${ALMERICO_DEVNET_MAIN_TITLE}"
+    --build-arg MINTER_ACCOUNT="${ALMERICO_DEVNET_MINTER_ACCOUNT}"
+    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_DEVNET_SPREADSHEET_ACCOUNTS}"
+    --build-arg WS_URL=${ALMERICO_DEVNET_WS_URL}
     .
 
 deploy:
   - provider: script
     skip_cleanup: true
-    script: bash docker_push_dev.sh
+    script: bash ./scripts/docker_push_latest.sh
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: bash ./scripts/docker_push_dev.sh
     on:
       branch: development
   - provider: script
     skip_cleanup: true
-    script: bash docker_push_latest.sh
+    script: bash ./scripts/docker_push_alfa.sh
     on:
-      branch: master
+      branch: alfa

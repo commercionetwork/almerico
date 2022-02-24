@@ -1,83 +1,40 @@
+import { initState } from './index';
+
 export default {
-  /**
-   *
-   * @param {TransactionsState} state
-   */
-  startLoading(state) {
-    state.error = null;
-    state.isLoading = true;
+  reset(state) {
+    Object.assign(state, initState());
   },
-  /**
-   *
-   * @param {TransactionsState} state
-   */
-  stopLoading(state) {
-    state.isLoading = false;
-  },
-  /**
-   *
-   * @param {TransactionsState} state
-   * @param {Object} error
-   */
   setError(state, error) {
-    state.error = { ...error };
+    state.error = error;
   },
-  /**
-   *
-   * @param {TransactionsState} state
-   * @param {String} filter
-   */
-  setFilter(state, filter) {
-    state.filter = filter;
+  setRefreshing(state, payload) {
+    state.isRefreshing = payload;
   },
-  /**
-   *
-   * @param {TransactionsState} state
-   * @param {Number} page
-   */
-  changePage(state, page) {
-    state.currentPage = page;
+  setLoading(state, payload) {
+    state.isLoading = payload;
   },
-  /**
-   *
-   * @param {TransactionsState} state
-   * @param {Number} page
-   */
-  setHasNext(state, page) {
-    state.hasNext = page > 1;
+  setAddingTxs(state, payload) {
+    state.isAddingTxs = payload;
   },
-  /**
-   *
-   * @param {TransactionsState} state
-   * @param {Array.<Object>} data
-   */
-  addTransactions(state, data) {
-    state.transactions.push.apply(state.transactions, data);
+  setTransactions(state, payload) {
+    state.transactions = payload;
   },
-  /**
-   *
-   * @param {TransactionsState} state
-   */
-  clearAllTransactions(state) {
-    state.transactions = [];
+  addTransactions(state, payload) {
+    state.transactions.push(...payload);
   },
-  /**
-   * Add single transaction to the beginning of the stored transactions
-   *
-   * @param {TransactionsState} state
-   * @param {Object} data
-   */
-  addSingleTransaction(state, data) {
-    state.transactions.unshift(data);
+  setPagination(state, payload) {
+    state.pagination = payload;
   },
-  /**
-   *
-   * @param {TransactionsState} state
-   * @param {Object} data
-   */
-  setTransactionDetails(state, data) {
-    state.details = {
-      ...data,
-    };
+  setOffset(state, payload) {
+    state.offset = payload;
+  },
+  sumOffset(state, payload) {
+    state.offset += payload;
+  },
+  setTxEventHeight(state, payload) {
+    state.txEventHeight = payload;
+  },
+  setDetail(state, payload) {
+    state.detail = payload;
   },
 };

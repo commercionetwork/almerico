@@ -1,139 +1,125 @@
-import api from './api';
+import { bank, commercio, distribution, staking, tx } from '@/apis/http';
+import { ACCOUNT, APIS } from '@/constants';
 
 export default {
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async getAccount({ dispatch, commit }, address) {
-    commit('startLoading');
-    commit('setServerReachability', true, {
-      root: true,
-    });
-    await Promise.all([
-      dispatch('fetchMembership', address),
-      dispatch('fetchBuyMembershipTx', address),
+  async initAccount({ commit, dispatch }, { address, validator }) {
+    commit('reset');
+    commit('setLoading', true);
+    const requests = [
       dispatch('fetchBalances', address),
+      dispatch('fetchCommission', validator),
       dispatch('fetchDelegations', address),
-      dispatch('fetchUnbondings', address),
+      dispatch('fetchMembership', address),
+      dispatch('fetchMembershipTxs', address),
       dispatch('fetchRewards', address),
-    ]);
-    commit('stopLoading');
+      dispatch('fetchUnbondings', address),
+    ];
+    await Promise.all(requests);
+    commit('setLoading', false);
+    await dispatch('fetchTransactions', { address });
   },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchBalances({ dispatch, commit }, address) {
+
+  async fetchBalances({ commit }, address) {
     try {
-      const response = await api.requestBalances(address);
+      const response = await bank.requestBalancesLegacy(address);
       commit('setBalances', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchDelegations({ dispatch, commit }, address) {
+
+  async fetchCommission({ commit }, validator) {
     try {
-      const response = await api.requestDelegations(address);
+      const response = await distribution.requestCommission(validator);
+      commit('setCommission', response.data.commission);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async fetchDelegations({ commit }, address) {
+    try {
+      const response = await staking.requestDelegationsLegacy(address);
       commit('setDelegations', response.data.result);
     } catch (error) {
-      dispatch('handleError', error);
+      commit('setError', error);
     }
   },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  //TODO: add  dispatch param
+
+  async fetchRewards({ commit }, address) {
+    try {
+      const response = await distribution.requestRewards(address);
+      commit('setRewards', response.data);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async fetchUnbondings({ dispatch, getters }, address) {
+    await dispatch('addUnbondings', { address });
+    while (getters['unbondingsTotal'] > getters['unbondingsOffset']) {
+      await dispatch('addUnbondings', {
+        address,
+        offset: getters['unbondingsOffset'],
+      });
+    }
+  },
+
+  async addUnbondings({ commit }, { address, offset }) {
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
+    try {
+      const response = await staking.requestUnbondings(address, pagination);
+      commit('addUnbondings', response.data.unbonding_responses);
+      commit('setUnbondingsPagination', response.data.pagination);
+      commit('sumUnbondingsOffset', response.data.unbonding_responses.length);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
   async fetchMembership({ commit }, address) {
     try {
-      const response = await api.requestMembership(address);
+      const response = await commercio.requestMembership(address);
       commit('setMembership', response.data.result);
     } catch (error) {
       commit('setMembership', null);
-      //TODO: Enable when resolved CORS type error in devnet
-      // if (error.response && error.response.status === 404) {
-      //   commit('setMembership', null);
-      // } else {
-      //   dispatch('handleError', error);
-      // }
     }
   },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchBuyMembershipTx({ dispatch, commit }, address) {
-    const query = `assign_membership.owner=${address}`;
+
+  async fetchMembershipTxs({ commit }, address) {
+    const parameters = { events: `assign_membership.owner='${address}'` };
     try {
-      let response = await api.requestSearchTransactions({
-        query: query,
-        page: 1,
-        limit: 1,
-      });
-      const pageTotal = response.data.page_total;
-      if (parseInt(pageTotal) < 1) {
-        commit('setBuyMembershipTx', null);
-        return;
-      }
-      response = await api.requestSearchTransactions({
-        query: query,
-        page: pageTotal,
-        limit: 1,
-      });
-      commit('setBuyMembershipTx', response.data.txs[0]);
+      const response = await tx.requestTxsList(parameters);
+      commit('setMembershipTxs', response.data.tx_responses);
     } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchRewards({ dispatch, commit }, address) {
-    try {
-      const response = await api.requestRewards(address);
-      commit('setRewards', response.data.result);
-    } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} dispatch
-   * @param {Function} commit
-   * @param {String} address
-   */
-  async fetchUnbondings({ dispatch, commit }, address) {
-    try {
-      const response = await api.requestUnbondings(address);
-      commit('setUnbondings', response.data.result);
-    } catch (error) {
-      dispatch('handleError', error);
-    }
-  },
-  /**
-   * @param {Function} commit
-   * @param {Object} error
-   */
-  handleError({ commit }, error) {
-    if (error.response) {
-      commit('setError', error.response);
-    } else if (error.request) {
       commit('setError', error);
-    } else {
-      commit('setServerReachability', false, {
-        root: true,
-      });
     }
+  },
+
+  async fetchTransactions({ commit }, { address, offset }) {
+    const parameters = {
+      events: `transfer.sender='${address}'`,
+      order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
+    };
+    const pagination = {
+      limit: ACCOUNT.TRANSACTIONS_NUMBER,
+      offset: offset ? offset : 0,
+    };
+    commit('setAddingTxs', true);
+    try {
+      const response = await tx.requestTxsList(parameters, pagination);
+      commit('addTransactions', response.data.tx_responses);
+      commit('setTransactionsPagination', response.data.pagination);
+      commit('sumTransactionsOffset', response.data.tx_responses.length);
+    } catch (error) {
+      commit('setError', error);
+    }
+    commit('setAddingTxs', false);
+  },
+
+  async addTransactions({ dispatch }, { address, offset }) {
+    await dispatch('fetchTransactions', { address, offset });
   },
 };

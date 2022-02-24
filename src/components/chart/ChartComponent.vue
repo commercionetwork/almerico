@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import chartBuilder from './chartBuilder';
+import chartBuilder from './helpers/chartBuilder';
 
 const allowedTypes = [
   'bar',
