@@ -75,7 +75,7 @@ export default {
   async fetchAbrTokens({ commit }) {
     try {
       const response = await commercio.requestAbrTokens();
-      commit('setAbrTokens', response.data.result);
+      commit('setAbrTokens', response.data.funds);
     } catch (error) {
       commit('setError', error);
     }
