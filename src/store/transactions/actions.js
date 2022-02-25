@@ -47,6 +47,7 @@ export default {
 
   async refreshTransactions({ commit, dispatch }) {
     commit('setTransactions', []);
+    commit('setOffset', 0);
     commit('setRefreshing', true);
     await dispatch('fetchTransactions', { query: 'tx.height >= 1', offset: 0 });
     commit('setRefreshing', false);
