@@ -104,7 +104,7 @@ describe('store/transactions/actions', () => {
     expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
   });
 
-  test('if "refreshTransactions" reset txs, set loading state and dispatch "fetchTransactions"', async () => {
+  test('if "refreshTransactions" reset txs and offset, set loading state and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
