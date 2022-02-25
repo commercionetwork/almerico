@@ -26,6 +26,12 @@
           </div>
         </template>
         <template v-slot:[`item.moniker`]="{ item }">
+          <v-btn icon @click="handleBookmark(item.operator, item.bookmark)">
+            <v-icon v-if="item.bookmark" color="amber darken-2">
+              mdi-star
+            </v-icon>
+            <v-icon v-else color="amber darken-2">mdi-star-outline</v-icon>
+          </v-btn>
           <router-link
             class="text-decoration-none font-weight-bold"
             v-text="item.moniker"
@@ -34,12 +40,6 @@
               params: { id: item.operator },
             }"
           />
-          <v-btn icon @click="handleBookmark(item.operator, item.bookmark)">
-            <v-icon v-if="item.bookmark" color="amber darken-2">
-              mdi-star
-            </v-icon>
-            <v-icon v-else color="amber darken-2">mdi-star-outline</v-icon>
-          </v-btn>
         </template>
         <template v-slot:[`item.tokens`]="{ item }">
           <span class="text-uppercase" v-text="item.tokens" />
