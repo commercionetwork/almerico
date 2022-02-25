@@ -70,15 +70,15 @@ describe('store/transactions/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
-      mockResponse.data.tx_responses,
+      mockResponse.data.tx_responses
     );
     expect(commit).toHaveBeenCalledWith(
       'setPagination',
-      mockResponse.data.pagination,
+      mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith(
       'sumOffset',
-      mockResponse.data.tx_responses.length,
+      mockResponse.data.tx_responses.length
     );
 
     mockError = true;
@@ -111,6 +111,7 @@ describe('store/transactions/actions', () => {
     await actions.refreshTransactions({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setOffset', 0);
     expect(commit).toHaveBeenCalledWith('setRefreshing', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       query: 'tx.height >= 1',
