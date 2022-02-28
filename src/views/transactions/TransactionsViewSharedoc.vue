@@ -13,7 +13,7 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.sharedocDetail')" />
-      <TransactionsSharedocContentComponent />
+      <TransactionsViewSharedocContent />
     </v-col>
   </v-row>
 </template>
@@ -22,17 +22,17 @@
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import TransactionsSharedocContentComponent from './sharedoc/TransactionsSharedocContentComponent.vue';
+import TransactionsViewSharedocContent from './sharedoc/TransactionsViewSharedocContent.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'TransactionsSharedoc',
+  name: 'TransactionsViewSharedoc',
   components: {
     TheErrorMessage,
     TheHeaderContent,
     BaseLoadingLinear,
-    TransactionsSharedocContentComponent,
+    TransactionsViewSharedocContent,
   },
   computed: {
     ...mapGetters('transactions', {

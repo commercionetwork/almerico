@@ -13,8 +13,8 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.transactions')" />
-      <TransactionsListTopContentComponent v-on:search-txs="onSearchTxs" />
-      <TransactionsListTableComponent :txType="txType" />
+      <TransactionsViewListContentTop v-on:search-txs="onSearchTxs" />
+      <TransactionsViewListTable :txType="txType" />
     </v-col>
   </v-row>
 </template>
@@ -23,19 +23,19 @@
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import TransactionsListTableComponent from './list/TransactionsListTableComponent.vue';
-import TransactionsListTopContentComponent from './list/TransactionsListTopContentComponent.vue';
+import TransactionsViewListTable from './list/TransactionsViewListTable.vue';
+import TransactionsViewListContentTop from './list/TransactionsViewListContentTop.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'TransactionsList',
+  name: 'TransactionsViewList',
   components: {
     TheErrorMessage,
     TheHeaderContent,
     BaseLoadingLinear,
-    TransactionsListTableComponent,
-    TransactionsListTopContentComponent,
+    TransactionsViewListTable,
+    TransactionsViewListContentTop,
   },
   data: () => ({
     txType: '',

@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <TransactionsCommonContentComponent :tx="tx" />
+      <TheTransactionsCommonContent :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
       <div v-for="(message, index) in tx.msgs" :key="index">
@@ -15,7 +15,7 @@
 import MsgDefault from '../common/MsgDefault.vue';
 import BasePlaceholderComponentError from '@/components/BasePlaceholderComponentError';
 import BasePlaceholderComponentLoading from '@/components/BasePlaceholderComponentLoading';
-import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
+import TheTransactionsCommonContent from '../common/TheTransactionsCommonContent.vue';
 
 import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
 import { TRANSACTIONS } from '@/constants';
@@ -33,11 +33,11 @@ TRANSACTIONS.SUPPORTED_TYPES.forEach((component) => {
 });
 
 export default {
-  name: 'TransactionsDetailContentComponent',
+  name: 'TransactionsViewDetailContent',
   components: {
     ...components,
     MsgDefault,
-    TransactionsCommonContentComponent,
+    TheTransactionsCommonContent,
   },
   data: () => ({
     model: {

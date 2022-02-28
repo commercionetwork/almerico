@@ -121,7 +121,7 @@ import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'TransactionsSharedocSpecificContentComponent',
+  name: 'TransactionsViewSharedocMessage',
   description: 'Display a share document transaction message',
   components: {
     BaseDetailItem,

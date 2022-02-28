@@ -1,13 +1,13 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import TransactionsListTableComponent from '../TransactionsListTableComponent.vue';
+import TransactionsViewListTable from '../TransactionsViewListTable.vue';
 
 Vue.use(Vuetify);
 
 const localVue = createLocalVue();
 
-describe('views/transactions/list/TransactionsListTableComponent.vue', () => {
+describe('views/transactions/list/TransactionsViewListTable.vue', () => {
   const mocks = {
     $t: (msg) => msg,
   };
@@ -17,7 +17,7 @@ describe('views/transactions/list/TransactionsListTableComponent.vue', () => {
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(TransactionsListTableComponent, {
+    const wrapper = shallowMount(TransactionsViewListTable, {
       localVue,
       mocks,
       computed: {
@@ -34,7 +34,7 @@ describe('views/transactions/list/TransactionsListTableComponent.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(TransactionsListTableComponent, {
+    const wrapper = shallowMount(TransactionsViewListTable, {
       localVue,
       mocks,
       computed: {
@@ -51,7 +51,7 @@ describe('views/transactions/list/TransactionsListTableComponent.vue', () => {
   });
 
   test('if scrolling indicator is displayed', () => {
-    const wrapper = shallowMount(TransactionsListTableComponent, {
+    const wrapper = shallowMount(TransactionsViewListTable, {
       localVue,
       mocks,
       computed: {

@@ -13,7 +13,7 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.transactionDetail')" />
-      <TransactionsDetailContentComponent />
+      <TransactionsViewDetailContent />
     </v-col>
   </v-row>
 </template>
@@ -22,18 +22,18 @@
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import TransactionsDetailContentComponent from './detail/TransactionsDetailContentComponent.vue';
+import TransactionsViewDetailContent from './detail/TransactionsViewDetailContent.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 import { CONFIG } from '@/constants';
 
 export default {
-  name: 'TransactionsDetail',
+  name: 'TransactionsViewDetail',
   components: {
     TheErrorMessage,
     TheHeaderContent,
     BaseLoadingLinear,
-    TransactionsDetailContentComponent,
+    TransactionsViewDetailContent,
   },
   computed: {
     ...mapGetters('transactions', {

@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <TransactionsCommonContentComponent :tx="tx" />
+      <TheTransactionsCommonContent :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
       <component v-bind:is="componentName" :message="message" />
@@ -11,18 +11,18 @@
 
 <script>
 import MsgDefault from '../common/MsgDefault.vue';
-import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
-import TransactionsSharedocSpecificContentComponent from './TransactionsSharedocSpecificContentComponent.vue';
+import TheTransactionsCommonContent from '../common/TheTransactionsCommonContent.vue';
+import TransactionsViewSharedocMessage from './TransactionsViewSharedocMessage.vue';
 
 import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'TransactionsSharedocContentComponent',
+  name: 'TransactionsViewSharedocContent',
   components: {
     MsgDefault,
-    TransactionsCommonContentComponent,
-    TransactionsSharedocSpecificContentComponent,
+    TheTransactionsCommonContent,
+    TransactionsViewSharedocMessage,
   },
   computed: {
     ...mapGetters('transactions', {
@@ -30,7 +30,7 @@ export default {
     }),
     componentName() {
       return !this.detail.version
-        ? TransactionsSharedocSpecificContentComponent.name
+        ? TransactionsViewSharedocMessage.name
         : MsgDefault.name;
     },
     message() {

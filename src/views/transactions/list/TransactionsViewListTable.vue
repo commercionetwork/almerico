@@ -86,7 +86,7 @@ import { mapActions, mapGetters } from 'vuex';
 import transactionsTableAdapter from './helpers/transactionsTableAdapter';
 
 export default {
-  name: 'TransactionsListTableComponent',
+  name: 'TransactionsViewListTable',
   components: {
     BaseLoadingLinear,
   },

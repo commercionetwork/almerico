@@ -68,7 +68,7 @@ import BaseDetailUrl from '@/components/BaseDetailUrl.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'TransactionsCommonContentComponent',
+  name: 'TheTransactionsCommonContent',
   components: {
     BaseDetailItem,
     BaseDetailLink,

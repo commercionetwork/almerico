@@ -21,7 +21,7 @@ import transactionsChartHelper from './helpers/transactionsChartHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'TransactionsListChartComponent',
+  name: 'TransactionsViewListChart',
   components: {
     BaseChart,
     BaseTopContentCard,

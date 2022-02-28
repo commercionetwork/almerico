@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'Transactions',
+  name: 'TransactionsRouter',
 };
 </script>

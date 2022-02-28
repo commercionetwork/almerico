@@ -2,16 +2,16 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import TransactionsList from '../TransactionsList.vue';
+import TransactionsViewDetail from '../TransactionsViewDetail.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/transactions/TransactionsList.vue', () => {
+describe('views/transactions/TransactionsViewDetail.vue', () => {
   const actions = {
-    initTransactionsList: jest.fn(),
+    initTransactionsDetail: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
@@ -26,11 +26,11 @@ describe('views/transactions/TransactionsList.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
-    txEventHeight: () => '1',
+    hash: () => 'hash',
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(TransactionsList, {
+    const wrapper = shallowMount(TransactionsViewDetail, {
       localVue,
       mocks,
       computed: {
@@ -47,7 +47,7 @@ describe('views/transactions/TransactionsList.vue', () => {
 
   test('if message error is displayed', () => {
     const error = Error('message');
-    const wrapper = shallowMount(TransactionsList, {
+    const wrapper = shallowMount(TransactionsViewDetail, {
       localVue,
       mocks,
       computed: {
@@ -63,7 +63,7 @@ describe('views/transactions/TransactionsList.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(TransactionsList, {
+    const wrapper = shallowMount(TransactionsViewDetail, {
       localVue,
       mocks,
       computed: {

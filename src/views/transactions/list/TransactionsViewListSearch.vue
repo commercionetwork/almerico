@@ -54,7 +54,7 @@ import { TRANSACTIONS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'TransactionsListSearchComponent',
+  name: 'TransactionsViewListSearch',
   components: { BaseTopContentCard },
   data: () => ({
     nameLimit: 60,
