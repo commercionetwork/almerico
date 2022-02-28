@@ -30,9 +30,9 @@ import ws from '@/apis/ws';
 export default {
   name: 'App',
   components: {
+    BaseLoadingCircular,
     TheErrorMessage,
     TheFooter,
-    BaseLoadingCircular,
     TheNavBar,
   },
   computed: {
@@ -45,16 +45,16 @@ export default {
       return { background: this.$vuetify.theme.themes[theme].background };
     },
   },
-  methods: {
-    ...mapActions('application', {
-      initAppData: 'initAppData',
-    }),
-  },
   created() {
     this.initAppData();
   },
   mounted() {
     ws.subscribe();
+  },
+  methods: {
+    ...mapActions('application', {
+      initAppData: 'initAppData',
+    }),
   },
 };
 </script>
