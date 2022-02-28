@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <LatestHeightComponent />
+      <TheLatestHeight />
     </v-col>
     <v-col cols="12" md="4">
       <BlocksListChartComponent />
@@ -15,14 +15,14 @@
 <script>
 import BlocksListChartComponent from './BlocksListChartComponent.vue';
 import BlocksListSearchComponent from './BlocksListSearchComponent.vue';
-import LatestHeightComponent from '@/components/LatestHeightComponent';
+import TheLatestHeight from '@/components/TheLatestHeight';
 
 export default {
   name: 'BlocksListTopContentComponent',
   components: {
     BlocksListChartComponent,
     BlocksListSearchComponent,
-    LatestHeightComponent,
+    TheLatestHeight,
   },
 };
 </script>

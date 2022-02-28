@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'AlertComponent',
+  name: 'TheAlertNotice',
   props: {
     dismissible: {
       type: Boolean,

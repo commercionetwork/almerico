@@ -9,15 +9,15 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent
+      <TheHeaderContent
         :title="$t('titles.dashboard')"
         :hasOptionalContent="true"
       >
-        <ChainChooserComponent />
-      </HeaderComponent>
+        <TheChainChooser />
+      </TheHeaderContent>
       <HomeTopContentComponent />
       <HomeBannerComponent />
       <HomeGridListComponent />
@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import ChainChooserComponent from '@/components/ChainChooserComponent';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheChainChooser from '@/components/TheChainChooser';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import HomeBannerComponent from './HomeBannerComponent';
 import HomeGridListComponent from './HomeGridListComponent';
 import HomeTopContentComponent from './HomeTopContentComponent';
@@ -39,9 +39,9 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'Home',
   components: {
-    ChainChooserComponent,
-    ErrorMessageComponent,
-    HeaderComponent,
+    TheChainChooser,
+    TheErrorMessage,
+    TheHeaderContent,
     HomeBannerComponent,
     HomeGridListComponent,
     HomeTopContentComponent,

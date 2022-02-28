@@ -4,25 +4,25 @@
       <BaseLoadingCircular />
     </v-container>
     <div v-else>
-      <NavBarComponent />
+      <TheNavBar />
       <v-main>
         <v-container v-if="error" data-test="error">
-          <ErrorMessageComponent :error="error" />
+          <TheErrorMessage :error="error" />
         </v-container>
         <v-container v-else data-test="content">
           <router-view />
         </v-container>
       </v-main>
-      <FooterComponent />
+      <TheFooter />
     </div>
   </v-app>
 </template>
 
 <script>
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import FooterComponent from '@/components/layout/FooterComponent.vue';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheFooter from '@/components/layout/TheFooter.vue';
 import BaseLoadingCircular from '@/components/BaseLoadingCircular';
-import NavBarComponent from '@/components/layout/NavBarComponent.vue';
+import TheNavBar from '@/components/layout/TheNavBar.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 import ws from '@/apis/ws';
@@ -30,10 +30,10 @@ import ws from '@/apis/ws';
 export default {
   name: 'App',
   components: {
-    ErrorMessageComponent,
-    FooterComponent,
+    TheErrorMessage,
+    TheFooter,
     BaseLoadingCircular,
-    NavBarComponent,
+    TheNavBar,
   },
   computed: {
     ...mapGetters('application', {

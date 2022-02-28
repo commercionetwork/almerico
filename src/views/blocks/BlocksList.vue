@@ -9,10 +9,10 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.blocks')" />
+      <TheHeaderContent :title="$t('titles.blocks')" />
       <BlocksListTopContentComponent
         v-on:searching-blocks="onSearchingBlocks"
       />
@@ -24,8 +24,8 @@
 <script>
 import BlocksListTableComponent from './list/BlocksListTableComponent.vue';
 import BlocksListTopContentComponent from './list/BlocksListTopContentComponent.vue';
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { CONFIG } from '@/constants';
@@ -36,8 +36,8 @@ export default {
   components: {
     BlocksListTableComponent,
     BlocksListTopContentComponent,
-    ErrorMessageComponent,
-    HeaderComponent,
+    TheErrorMessage,
+    TheHeaderContent,
     BaseLoadingLinear,
   },
   data: () => ({

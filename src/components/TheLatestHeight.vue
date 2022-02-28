@@ -42,7 +42,7 @@ import { mapGetters } from 'vuex';
 import { proposerHandler } from '@/utils';
 
 export default {
-  name: 'LatestHeightComponent',
+  name: 'TheLatestHeight',
   components: { BaseTopContentCard },
   computed: {
     ...mapGetters('application', {

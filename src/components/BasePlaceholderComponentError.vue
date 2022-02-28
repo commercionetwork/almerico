@@ -1,13 +1,13 @@
 <template>
-  <AlertComponent kind="info" :message="$t('msgs.dataNotAvailable')" />
+  <TheAlertNotice kind="info" :message="$t('msgs.dataNotAvailable')" />
 </template>
 
 <script>
-import AlertComponent from '@/components/AlertComponent.vue';
+import TheAlertNotice from '@/components/TheAlertNotice.vue';
 
 export default {
   name: 'BasePlaceholderComponentError',
-  components: { AlertComponent },
+  components: { TheAlertNotice },
 };
 1;
 </script>

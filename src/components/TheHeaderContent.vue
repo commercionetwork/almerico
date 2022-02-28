@@ -4,7 +4,7 @@
       <h1 class="text-h4 text-uppercase primary--text" v-text="title" />
     </v-col>
     <v-col cols="12" :sm="hasOptionalContent ? 5 : 7">
-      <SearchBarComponent />
+      <TheSearchBar />
     </v-col>
     <v-col v-if="hasOptionalContent" cols="12" sm="2">
       <slot />
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import SearchBarComponent from '@/components/SearchBarComponent';
+import TheSearchBar from '@/components/TheSearchBar';
 
 export default {
-  name: 'HeaderComponent',
+  name: 'TheHeaderContent',
   components: {
-    SearchBarComponent,
+    TheSearchBar,
   },
   props: {
     title: {

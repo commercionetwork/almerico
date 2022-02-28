@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="6" xl="3">
-      <LatestHeightComponent />
+      <TheLatestHeight />
     </v-col>
     <v-col cols="12" md="6" xl="3">
       <HomePricePosterComponent />
@@ -19,7 +19,7 @@
 import HomePriceChartComponent from './HomePriceChartComponent.vue';
 import HomePricePosterComponent from './HomePricePosterComponent.vue';
 import HomeTokensChartComponent from './HomeTokensChartComponent.vue';
-import LatestHeightComponent from '@/components/LatestHeightComponent';
+import TheLatestHeight from '@/components/TheLatestHeight';
 
 export default {
   name: 'HomeTopContentComponent',
@@ -27,7 +27,7 @@ export default {
     HomePriceChartComponent,
     HomePricePosterComponent,
     HomeTokensChartComponent,
-    LatestHeightComponent,
+    TheLatestHeight,
   },
 };
 </script>

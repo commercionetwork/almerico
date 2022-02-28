@@ -11,13 +11,13 @@
 import { CONFIG } from '@/constants';
 
 export default {
-  name: 'DrawerThemeComponent',
+  name: 'TheDrawerTheme',
   methods: {
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem(
         CONFIG.BROWSER_STORAGE_KEYS.THEME,
-        this.$vuetify.theme.dark.toString(),
+        this.$vuetify.theme.dark.toString()
       );
     },
   },

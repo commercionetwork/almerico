@@ -1,13 +1,13 @@
 <template>
   <div>
-    <AlertComponent kind="info" :message="$t('msgs.dataNotAvailable')">
+    <TheAlertNotice kind="info" :message="$t('msgs.dataNotAvailable')">
       <template v-slot:action>
         <v-btn color="info" outlined @click="refresh">
           <v-icon>mdi-reload</v-icon>
           <span v-text="$t('labels.refresh')" />
         </v-btn>
       </template>
-    </AlertComponent>
+    </TheAlertNotice>
     <v-row justify="center">
       <v-col>
         <v-expansion-panels flat poput>
@@ -51,14 +51,14 @@
 </template>
 
 <script>
-import AlertComponent from '@/components/AlertComponent.vue';
+import TheAlertNotice from '@/components/TheAlertNotice.vue';
 
 import errorHandler from './helpers/errorHandler';
 
 export default {
-  name: 'ErrorMessageComponent',
+  name: 'TheErrorMessage',
   components: {
-    AlertComponent,
+    TheAlertNotice,
   },
   props: {
     error: {

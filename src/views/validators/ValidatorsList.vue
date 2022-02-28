@@ -9,10 +9,10 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.validators')" />
+      <TheHeaderContent :title="$t('titles.validators')" />
       <ValidatorsListTopContentComponent />
       <ValidatorsListTableComponent />
     </v-col>
@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import ValidatorsListTableComponent from './list/ValidatorsListTableComponent.vue';
 import ValidatorsListTopContentComponent from './list/ValidatorsListTopContentComponent.vue';
@@ -32,8 +32,8 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ValidatorsList',
   components: {
-    ErrorMessageComponent,
-    HeaderComponent,
+    TheErrorMessage,
+    TheHeaderContent,
     BaseLoadingLinear,
     ValidatorsListTableComponent,
     ValidatorsListTopContentComponent,

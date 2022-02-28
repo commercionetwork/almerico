@@ -9,18 +9,18 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.transactionDetail')" />
+      <TheHeaderContent :title="$t('titles.transactionDetail')" />
       <TransactionsDetailContentComponent />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TransactionsDetailContentComponent from './detail/TransactionsDetailContentComponent.vue';
 
@@ -30,8 +30,8 @@ import { CONFIG } from '@/constants';
 export default {
   name: 'TransactionsDetail',
   components: {
-    ErrorMessageComponent,
-    HeaderComponent,
+    TheErrorMessage,
+    TheHeaderContent,
     BaseLoadingLinear,
     TransactionsDetailContentComponent,
   },

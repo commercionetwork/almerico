@@ -37,7 +37,7 @@
 import { CONFIG } from '@/constants';
 
 export default {
-  name: 'FooterComponent',
+  name: 'TheFooter',
   data: () => ({
     fab: false,
   }),

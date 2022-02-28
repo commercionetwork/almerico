@@ -29,7 +29,7 @@ import CountryFlag from 'vue-country-flag';
 import { CONFIG, LOCALES } from '@/constants';
 
 export default {
-  name: 'DrawerLocaleComponent',
+  name: 'TheDrawerLocale',
   components: { CountryFlag },
   data: () => ({
     locale: null,
@@ -47,7 +47,7 @@ export default {
       this.$i18n.locale = this.locale.value;
       localStorage.setItem(
         CONFIG.BROWSER_STORAGE_KEYS.LOCALE,
-        JSON.stringify(this.locale),
+        JSON.stringify(this.locale)
       );
     },
   },

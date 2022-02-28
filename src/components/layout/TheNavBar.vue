@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-navigation-drawer app disable-resize-watcher fixed v-model="drawer">
-      <DrawerComponent />
+      <TheDrawer />
     </v-navigation-drawer>
     <v-app-bar app color="primary" dark flat>
       <v-row class="d-flex align-center">
@@ -36,15 +36,15 @@
 </template>
 
 <script>
-import DrawerComponent from './drawer/DrawerComponent';
+import TheDrawer from './drawer/TheDrawer';
 
 import { ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'NavBarComponent',
+  name: 'TheNavBar',
   components: {
-    DrawerComponent,
+    TheDrawer,
   },
   data: () => ({
     ROUTES,

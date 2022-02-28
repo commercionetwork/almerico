@@ -9,10 +9,10 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.accountDetail')" />
+      <TheHeaderContent :title="$t('titles.accountDetail')" />
       <AccountTopComponent />
       <AccountMiddleComponent />
       <AccountBottomComponent />
@@ -20,7 +20,7 @@
   </v-row>
   <v-row v-else data-test="warning">
     <v-col cols="12">
-      <AlertComponent kind="warning" :message="$t('msgs.accountNotExist')" />
+      <TheAlertNotice kind="warning" :message="$t('msgs.accountNotExist')" />
     </v-col>
   </v-row>
 </template>
@@ -29,9 +29,9 @@
 import AccountBottomComponent from './AccountBottomComponent.vue';
 import AccountMiddleComponent from './AccountMiddleComponent.vue';
 import AccountTopComponent from './AccountTopComponent.vue';
-import AlertComponent from '@/components/AlertComponent.vue';
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheAlertNotice from '@/components/TheAlertNotice.vue';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { CONFIG } from '@/constants';
@@ -44,9 +44,9 @@ export default {
     AccountBottomComponent,
     AccountMiddleComponent,
     AccountTopComponent,
-    AlertComponent,
-    ErrorMessageComponent,
-    HeaderComponent,
+    TheAlertNotice,
+    TheErrorMessage,
+    TheHeaderContent,
     BaseLoadingLinear,
   },
   data: () => ({

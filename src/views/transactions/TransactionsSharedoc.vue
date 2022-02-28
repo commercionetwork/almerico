@@ -9,18 +9,18 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.sharedocDetail')" />
+      <TheHeaderContent :title="$t('titles.sharedocDetail')" />
       <TransactionsSharedocContentComponent />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TransactionsSharedocContentComponent from './sharedoc/TransactionsSharedocContentComponent.vue';
 
@@ -29,8 +29,8 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'TransactionsSharedoc',
   components: {
-    ErrorMessageComponent,
-    HeaderComponent,
+    TheErrorMessage,
+    TheHeaderContent,
     BaseLoadingLinear,
     TransactionsSharedocContentComponent,
   },

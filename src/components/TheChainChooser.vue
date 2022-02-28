@@ -28,7 +28,7 @@
 import { CONFIG } from '@/constants';
 
 export default {
-  name: 'ChainChooserComponent',
+  name: 'TheChainChooser',
   data: () => ({
     CONFIG,
     selectedItem: null,
@@ -36,7 +36,7 @@ export default {
   computed: {
     currentItem() {
       const chainIndex = CONFIG.CHAIN.LIST.findIndex(
-        (item) => item.lcd === process.env.VUE_APP_LCD,
+        (item) => item.lcd === process.env.VUE_APP_LCD
       );
       return chainIndex > -1
         ? CONFIG.CHAIN.LIST[chainIndex]

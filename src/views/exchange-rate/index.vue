@@ -9,19 +9,19 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.exchangeRate')" />
+      <TheHeaderContent :title="$t('titles.exchangeRate')" />
       <ExchangeRateOverviewComponent />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import ExchangeRateOverviewComponent from './ExchangeRateOverviewComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
@@ -29,9 +29,9 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ExchangeRate',
   components: {
-    ErrorMessageComponent,
+    TheErrorMessage,
     ExchangeRateOverviewComponent,
-    HeaderComponent,
+    TheHeaderContent,
     BaseLoadingLinear,
   },
   computed: {

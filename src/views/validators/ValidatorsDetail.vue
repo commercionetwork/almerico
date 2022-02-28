@@ -9,25 +9,25 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <ErrorMessageComponent :error="error" />
+      <TheErrorMessage :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <HeaderComponent :title="$t('titles.validatorDetail')" />
+      <TheHeaderContent :title="$t('titles.validatorDetail')" />
       <ValidatorsDetailTopContentComponent :account="account" />
       <ValidatorsDetailBodyContentComponent :account="account" />
     </v-col>
   </v-row>
   <v-row v-else data-test="warning">
     <v-col cols="12">
-      <AlertComponent kind="warning" :message="$t('msgs.validatorNotExist')" />
+      <TheAlertNotice kind="warning" :message="$t('msgs.validatorNotExist')" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import AlertComponent from '@/components/AlertComponent.vue';
-import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
-import HeaderComponent from '@/components/HeaderComponent';
+import TheAlertNotice from '@/components/TheAlertNotice.vue';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import ValidatorsDetailBodyContentComponent from './detail/ValidatorsDetailBodyContentComponent.vue';
 import ValidatorsDetailTopContentComponent from './detail/ValidatorsDetailTopContentComponent.vue';
@@ -39,9 +39,9 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ValidatorsDetail',
   components: {
-    AlertComponent,
-    ErrorMessageComponent,
-    HeaderComponent,
+    TheAlertNotice,
+    TheErrorMessage,
+    TheHeaderContent,
     BaseLoadingLinear,
     ValidatorsDetailBodyContentComponent,
     ValidatorsDetailTopContentComponent,
