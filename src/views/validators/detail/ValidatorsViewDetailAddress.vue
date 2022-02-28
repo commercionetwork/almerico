@@ -5,7 +5,7 @@
   >
     <ValidatorsViewDetailAddressMoniker
       :detail="detail"
-      :isBookmark="isBookmark"
+      :is-bookmark="isBookmark"
       v-on:handleBookmark="onHandleBookmark"
     />
     <v-divider class="mx-3" />
@@ -45,15 +45,18 @@
 </template>
 
 <script>
-import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import ValidatorsViewDetailAddressMoniker from './ValidatorsViewDetailAddressMoniker.vue';
+
+import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import { ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetailAddress',
   components: { ValidatorsViewDetailAddressMoniker },
-  props: ['account'],
+  props: {
+    account: String,
+  },
   data: () => ({
     copied: false,
     bookmarks: [],
@@ -76,6 +79,9 @@ export default {
       };
     },
   },
+  created() {
+    this.bookmarks = validatorsStorageHandler.get();
+  },
   methods: {
     copyToClipboard() {
       navigator.clipboard.writeText(this.detail.operator_address).then(() => {
@@ -91,9 +97,6 @@ export default {
       }
       this.bookmarks = validatorsStorageHandler.get();
     },
-  },
-  created() {
-    this.bookmarks = validatorsStorageHandler.get();
   },
 };
 </script>

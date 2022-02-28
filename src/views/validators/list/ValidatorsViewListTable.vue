@@ -117,6 +117,9 @@ export default {
       return headers;
     },
   },
+  created() {
+    this.bookmarks = validatorsStorageHandler.get();
+  },
   methods: {
     filterValidators(_value, search, item) {
       if (typeof search.trim() !== 'string') {
@@ -140,9 +143,6 @@ export default {
       }
       this.bookmarks = validatorsStorageHandler.get();
     },
-  },
-  created() {
-    this.bookmarks = validatorsStorageHandler.get();
   },
 };
 </script>

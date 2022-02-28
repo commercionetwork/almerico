@@ -25,10 +25,10 @@
 </template>
 
 <script>
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import ValidatorsViewDetailContentBody from './detail/ValidatorsViewDetailContentBody.vue';
 import ValidatorsViewDetailContentTop from './detail/ValidatorsViewDetailContentTop.vue';
 
@@ -39,10 +39,10 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ValidatorsViewDetail',
   components: {
+    BaseLoadingLinear,
     TheAlertNotice,
     TheErrorMessage,
     TheHeaderContent,
-    BaseLoadingLinear,
     ValidatorsViewDetailContentBody,
     ValidatorsViewDetailContentTop,
   },
@@ -77,6 +77,15 @@ export default {
         this.addBlocksItem(value);
     },
   },
+  created() {
+    this.getAccount();
+    if (this.isValid) {
+      this.initValidatorsDetail({
+        id: this.address,
+        lastHeight: this.lastHeight,
+      });
+    }
+  },
   methods: {
     ...mapActions('validators', {
       addBlocksItem: 'addBlocksItem',
@@ -93,15 +102,6 @@ export default {
         this.isValid = false;
       }
     },
-  },
-  created() {
-    this.getAccount();
-    if (this.isValid) {
-      this.initValidatorsDetail({
-        id: this.address,
-        lastHeight: this.lastHeight,
-      });
-    }
   },
 };
 </script>

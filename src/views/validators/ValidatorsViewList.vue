@@ -20,11 +20,11 @@
 </template>
 
 <script>
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import ValidatorsViewListTable from './list/ValidatorsViewListTable.vue';
 import ValidatorsViewListContentTop from './list/ValidatorsViewListContentTop.vue';
+import ValidatorsViewListTable from './list/ValidatorsViewListTable.vue';
 
 import { VALIDATORS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
@@ -32,11 +32,11 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'ValidatorsViewList',
   components: {
+    BaseLoadingLinear,
     TheErrorMessage,
     TheHeaderContent,
-    BaseLoadingLinear,
-    ValidatorsViewListTable,
     ValidatorsViewListContentTop,
+    ValidatorsViewListTable,
   },
   computed: {
     ...mapGetters('application', {
@@ -57,14 +57,14 @@ export default {
         this.addBlocksItem(value);
     },
   },
+  created() {
+    this.initValidatorsList(this.lastHeight);
+  },
   methods: {
     ...mapActions('validators', {
       addBlocksItem: 'addBlocksItem',
       initValidatorsList: 'initValidatorsList',
     }),
-  },
-  created() {
-    this.initValidatorsList(this.lastHeight);
   },
 };
 </script>
