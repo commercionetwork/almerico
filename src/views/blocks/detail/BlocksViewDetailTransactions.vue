@@ -43,7 +43,7 @@
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'BlocksDetailTxsComponent',
+  name: 'BlocksViewDetailTransactions',
   props: {
     items: {
       type: Array,

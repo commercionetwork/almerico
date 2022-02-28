@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'Blocks',
+  name: 'BlocksRouter',
 };
 </script>

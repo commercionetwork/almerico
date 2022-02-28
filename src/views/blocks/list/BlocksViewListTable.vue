@@ -76,7 +76,7 @@ import { CONFIG, ROUTES } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'BlocksListTableComponent',
+  name: 'BlocksViewListTable',
   components: {
     BaseLoadingLinear,
   },

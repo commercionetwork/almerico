@@ -13,13 +13,13 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.blockDetail')" />
-      <BlocksDetailContentComponent />
+      <BlocksViewDetailContent />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import BlocksDetailContentComponent from './detail/BlocksDetailContentComponent.vue';
+import BlocksViewDetailContent from './detail/BlocksViewDetailContent.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
@@ -27,9 +27,9 @@ import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'BlocksDetail',
+  name: 'BlocksViewDetail',
   components: {
-    BlocksDetailContentComponent,
+    BlocksViewDetailContent,
     TheErrorMessage,
     TheHeaderContent,
     BaseLoadingLinear,

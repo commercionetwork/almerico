@@ -59,7 +59,7 @@ import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 import { BLOCKS, CONFIG } from '@/constants';
 
 export default {
-  name: 'BlocksListSearchComponent',
+  name: 'BlocksViewListSearch',
   components: {
     BaseTopContentCard,
   },

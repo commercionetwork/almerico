@@ -2,16 +2,16 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import BlocksList from '../BlocksList.vue';
+import BlocksViewDetail from '../BlocksViewDetail.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/blocks/BlocksList.vue', () => {
+describe('views/blocks/BlocksViewDetail.vue', () => {
   const actions = {
-    initBlocksList: jest.fn(),
+    initBlocksDetail: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
@@ -26,12 +26,11 @@ describe('views/blocks/BlocksList.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
-    lastHeight: () => '1',
-    newHeight: () => '1',
+    height: () => '100',
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(BlocksList, {
+    const wrapper = shallowMount(BlocksViewDetail, {
       localVue,
       mocks,
       computed: {
@@ -48,7 +47,7 @@ describe('views/blocks/BlocksList.vue', () => {
 
   test('if message error is displayed', () => {
     const error = Error('message');
-    const wrapper = shallowMount(BlocksList, {
+    const wrapper = shallowMount(BlocksViewDetail, {
       localVue,
       mocks,
       computed: {
@@ -64,7 +63,7 @@ describe('views/blocks/BlocksList.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(BlocksList, {
+    const wrapper = shallowMount(BlocksViewDetail, {
       localVue,
       mocks,
       computed: {

@@ -43,7 +43,7 @@ import BaseDetailLink from '@/components/BaseDetailLink.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'BlocksDetailHeightComponent',
+  name: 'BlocksViewDetailHeight',
   components: {
     BaseDetailItem,
     BaseDetailLink,

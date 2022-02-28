@@ -4,24 +4,24 @@
       <TheLatestHeight />
     </v-col>
     <v-col cols="12" md="4">
-      <BlocksListChartComponent />
+      <BlocksViewListChart />
     </v-col>
     <v-col cols="12" md="4">
-      <BlocksListSearchComponent />
+      <BlocksViewListSearch />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import BlocksListChartComponent from './BlocksListChartComponent.vue';
-import BlocksListSearchComponent from './BlocksListSearchComponent.vue';
+import BlocksViewListChart from './BlocksViewListChart.vue';
+import BlocksViewListSearch from './BlocksViewListSearch.vue';
 import TheLatestHeight from '@/components/TheLatestHeight';
 
 export default {
-  name: 'BlocksListTopContentComponent',
+  name: 'BlocksViewListContentTop',
   components: {
-    BlocksListChartComponent,
-    BlocksListSearchComponent,
+    BlocksViewListChart,
+    BlocksViewListSearch,
     TheLatestHeight,
   },
 };

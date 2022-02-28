@@ -1,10 +1,10 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <BlocksDetailHeightComponent :detail="detail" :proposer="proposer" />
+      <BlocksViewDetailHeight :detail="detail" :proposer="proposer" />
     </v-col>
     <v-col cols="12" md="6">
-      <BlocksDetailTxsComponent
+      <BlocksViewDetailTransactions
         :items="items"
         :height="detail.block.header.height"
       />
@@ -13,18 +13,18 @@
 </template>
 
 <script>
-import BlocksDetailHeightComponent from './BlocksDetailHeightComponent.vue';
-import BlocksDetailTxsComponent from './BlocksDetailTxsComponent.vue';
+import BlocksViewDetailHeight from './BlocksViewDetailHeight.vue';
+import BlocksViewDetailTransactions from './BlocksViewDetailTransactions.vue';
 
 import { CONFIG } from '@/constants';
 import { mapGetters } from 'vuex';
 import { proposerHandler, txsTableAdapter } from '@/utils';
 
 export default {
-  name: 'BlocksDetailContentComponent',
+  name: 'BlocksViewDetailContent',
   components: {
-    BlocksDetailHeightComponent,
-    BlocksDetailTxsComponent,
+    BlocksViewDetailHeight,
+    BlocksViewDetailTransactions,
   },
   computed: {
     ...mapGetters('application', {

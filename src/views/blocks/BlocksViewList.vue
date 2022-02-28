@@ -13,17 +13,15 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.blocks')" />
-      <BlocksListTopContentComponent
-        v-on:searching-blocks="onSearchingBlocks"
-      />
-      <BlocksListTableComponent />
+      <BlocksViewListContentTop v-on:searching-blocks="onSearchingBlocks" />
+      <BlocksViewListTable />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import BlocksListTableComponent from './list/BlocksListTableComponent.vue';
-import BlocksListTopContentComponent from './list/BlocksListTopContentComponent.vue';
+import BlocksViewListTable from './list/BlocksViewListTable.vue';
+import BlocksViewListContentTop from './list/BlocksViewListContentTop.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
@@ -32,10 +30,10 @@ import { CONFIG } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'BlocksList',
+  name: 'BlocksViewList',
   components: {
-    BlocksListTableComponent,
-    BlocksListTopContentComponent,
+    BlocksViewListTable,
+    BlocksViewListContentTop,
     TheErrorMessage,
     TheHeaderContent,
     BaseLoadingLinear,

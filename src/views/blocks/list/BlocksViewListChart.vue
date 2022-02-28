@@ -21,7 +21,7 @@ import { mapGetters } from 'vuex';
 import blocksChartHelper from './helpers/blocksChartHelper';
 
 export default {
-  name: 'BlocksListChartComponent',
+  name: 'BlocksViewListChart',
   components: {
     BaseChart,
     BaseTopContentCard,
