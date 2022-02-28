@@ -13,7 +13,7 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.transactions')" />
-      <TransactionsViewListContentTop v-on:search-txs="onSearchTxs" />
+      <TransactionsViewListContentTop @search-txs="onSearchTxs" />
       <TransactionsViewListTable :tx-type="txType" />
     </v-col>
   </v-row>

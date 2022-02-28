@@ -10,16 +10,16 @@
         :items="items"
         disable-pagination
       >
-        <template v-slot:top>
+        <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
             v-text="$t('labels.delegatedTokens')"
           />
         </template>
-        <template v-slot:[`item.caption`]="{ item }">
+        <template #[`item.caption`]="{ item }">
           <span class="text-capitalize" v-text="item.caption" />
         </template>
-        <template v-slot:[`item.amount`]="{ item }">
+        <template #[`item.amount`]="{ item }">
           <span
             class="text-uppercase font-weight-bold"
             v-text="formatTokens(item.amount)"

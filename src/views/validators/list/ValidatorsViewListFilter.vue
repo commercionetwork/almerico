@@ -9,9 +9,9 @@
     v-model="select"
     @change="filtering"
   >
-    <template v-slot:prepend>
+    <template #prepend>
       <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-icon color="info" dark v-bind="attrs" v-on="on">
             mdi-information-outline
           </v-icon>

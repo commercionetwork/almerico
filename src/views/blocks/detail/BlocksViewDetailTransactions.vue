@@ -8,21 +8,21 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
       >
-        <template v-slot:top>
+        <template #top>
           <div class="py-2 text-center text-overline font-weight-bold">
             <i18n tag="span" path="titles.transactionsAtHeight">
               <span v-text="height" />
             </i18n>
           </div>
         </template>
-        <template v-slot:[`item.result`]="{ item }">
+        <template #[`item.result`]="{ item }">
           <span
             class="font-weight-bold"
             :class="item.result ? 'info--text' : 'error--text'"
             v-text="item.result ? $t('labels.success') : $t('labels.failed')"
           />
         </template>
-        <template v-slot:[`item.hash`]="{ item }">
+        <template #[`item.hash`]="{ item }">
           <div class="word-overflow">
             <router-link
               class="text-decoration-none text-monotype"

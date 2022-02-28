@@ -1,5 +1,5 @@
 <template>
-  <v-list-item v-on:click="toggleTheme">
+  <v-list-item @click="toggleTheme">
     <v-list-item-icon>
       <v-icon aria-hidden="false"> mdi-theme-light-dark </v-icon>
     </v-list-item-icon>

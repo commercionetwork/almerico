@@ -9,13 +9,13 @@
         :sort-desc.sync="sortDesc"
         disable-pagination
       >
-        <template v-slot:top>
+        <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
             v-text="$t('titles.txsBySender')"
           />
         </template>
-        <template v-slot:[`item.height`]="{ item }">
+        <template #[`item.height`]="{ item }">
           <router-link
             class="text-decoration-none"
             v-text="item.height"
@@ -25,14 +25,14 @@
             }"
           />
         </template>
-        <template v-slot:[`item.result`]="{ item }">
+        <template #[`item.result`]="{ item }">
           <span
             class="font-weight-bold"
             :class="item.result ? 'info--text' : 'error--text'"
             v-text="item.result ? $t('labels.success') : $t('labels.failed')"
           />
         </template>
-        <template v-slot:[`item.hash`]="{ item }">
+        <template #[`item.hash`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
             style="max-width: 8.5rem"

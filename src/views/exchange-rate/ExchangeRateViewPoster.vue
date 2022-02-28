@@ -1,6 +1,6 @@
 <template>
   <BaseTopContentCard :title="$t('titles.cccExchangeRate')">
-    <template v-slot:content>
+    <template #content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-center"
       >

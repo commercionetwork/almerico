@@ -13,7 +13,7 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.blocks')" />
-      <BlocksViewListContentTop v-on:searching-blocks="onSearchingBlocks" />
+      <BlocksViewListContentTop @searching-blocks="onSearchingBlocks" />
       <BlocksViewListTable />
     </v-col>
   </v-row>

@@ -13,7 +13,7 @@
         item-value="value"
         return-object
         v-model="locale"
-        v-on:change="onChangeLocale"
+        @change="onChangeLocale"
       >
         <template #selection="{ item }">
           <span class="text-subtitle-2">{{ item.text }}</span>

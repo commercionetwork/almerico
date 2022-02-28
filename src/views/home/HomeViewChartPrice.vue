@@ -1,6 +1,6 @@
 <template>
   <BaseTopContentCard :loading="isLoading" :title="$t('titles.trend')">
-    <template v-slot:content>
+    <template #content>
       <div
         class="py-3 fill-height flex-column d-flex justify-center align-center"
       >
@@ -10,7 +10,7 @@
           :dataset="chartData"
           :options="chartOptions"
         />
-        <HomeViewChartPriceRange v-on:range-changed="chartRangeChange" />
+        <HomeViewChartPriceRange @range-changed="chartRangeChange" />
       </div>
     </template>
   </BaseTopContentCard>

@@ -11,13 +11,13 @@
         :sort-by.sync="sortBy"
         disable-pagination
       >
-        <template v-slot:top>
+        <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
             v-text="caption"
           />
         </template>
-        <template v-slot:[`item.rank`]="{ item }">
+        <template #[`item.rank`]="{ item }">
           <div
             class="py-1 px-3 rounded-circle d-inline-block"
             :class="item.active ? 'primary' : 'error'"
@@ -25,7 +25,7 @@
             <span class="font-weight-bold white--text" v-text="item.rank" />
           </div>
         </template>
-        <template v-slot:[`item.moniker`]="{ item }">
+        <template #[`item.moniker`]="{ item }">
           <v-btn icon @click="handleBookmark(item.operator, item.bookmark)">
             <v-icon v-if="item.bookmark" color="amber darken-2">
               mdi-star
@@ -41,7 +41,7 @@
             }"
           />
         </template>
-        <template v-slot:[`item.tokens`]="{ item }">
+        <template #[`item.tokens`]="{ item }">
           <span class="text-uppercase" v-text="item.tokens" />
         </template>
       </v-data-table>

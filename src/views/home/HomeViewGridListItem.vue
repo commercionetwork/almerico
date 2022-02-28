@@ -13,7 +13,7 @@
                   v-text="$t('labels.time')"
                 />
                 <v-tooltip top>
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <span v-bind="attrs" v-on="on" class="pl-1" v-text="time" />
                   </template>
                   <span v-text="date" />

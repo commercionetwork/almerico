@@ -12,13 +12,13 @@
         :sort-desc.sync="sortDesc"
         :footer-props="{ itemsPerPageOptions: [2] }"
       >
-        <template v-slot:top>
+        <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
             v-text="caption"
           />
         </template>
-        <template v-slot:[`item.delegator`]="{ item }">
+        <template #[`item.delegator`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
             style="max-width: 8.5rem"
@@ -29,13 +29,13 @@
             }"
           />
         </template>
-        <template v-slot:[`item.amount`]="{ item }">
+        <template #[`item.amount`]="{ item }">
           <span
             class="text-uppercase font-weight-bold"
             v-text="formatTokens(item.amount)"
           />
         </template>
-        <template v-slot:[`item.share`]="{ item }">
+        <template #[`item.share`]="{ item }">
           <span class="font-weight-bold" v-text="formatPercent(item.share)" />
         </template>
       </v-data-table>

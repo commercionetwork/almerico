@@ -1,6 +1,6 @@
 <template>
   <BaseTopContentCard :title="$t('titles.searchValidator')">
-    <template v-slot:content>
+    <template #content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-content-space-around"
       >
@@ -12,9 +12,9 @@
             @input="search"
             @blur="search"
           >
-            <template v-slot:prepend>
+            <template #prepend>
               <v-tooltip bottom>
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-icon color="info" dark v-bind="attrs" v-on="on">
                     mdi-information-outline
                   </v-icon>
@@ -25,7 +25,7 @@
           </v-text-field>
         </div>
         <div class="px-3">
-          <ValidatorsViewListFilter v-on:filter="onFilter" />
+          <ValidatorsViewListFilter @filter="onFilter" />
         </div>
       </div>
     </template>

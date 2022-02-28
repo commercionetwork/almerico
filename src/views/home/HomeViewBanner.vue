@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-card outlined>
         <v-banner two-line>
-          <template v-slot:icon>
+          <template #icon>
             <v-img :src="logoSrc" alt="Commercio logo" />
           </template>
           <span class="text-body-2">
@@ -12,7 +12,7 @@
             </span>
             <span>{{ $t('msgs.bannerSecondary') }}.</span>
           </span>
-          <template v-slot:actions>
+          <template #actions>
             <v-btn
               color="indigo accent-3"
               href="https://commercio.network/"

@@ -8,13 +8,13 @@
       item-value="value"
       v-model="selectedItem"
     >
-      <template v-slot:selection="data">
+      <template #selection="data">
         <span
           class="text-h6 text-uppercase primary--text font-weight-bold"
           v-text="data.item.text"
         />
       </template>
-      <template v-slot:item="data">
+      <template #item="data">
         <span
           class="text-subtitle-1 font-weight-bold"
           v-text="data.item.text"

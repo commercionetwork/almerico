@@ -10,7 +10,7 @@
         <div>
           <span class="text-capitalize" v-text="$t('labels.address')" />
           <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
                 <v-icon small>
                   {{ !copied ? 'mdi-content-copy' : 'mdi-check-all' }}
@@ -20,7 +20,7 @@
             <span v-text="$t('msgs.copy')" />
           </v-tooltip>
           <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="openDialog">
                 <v-icon small>mdi-qrcode</v-icon>
               </v-btn>

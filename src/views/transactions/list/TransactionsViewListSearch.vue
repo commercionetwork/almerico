@@ -1,6 +1,6 @@
 <template>
   <BaseTopContentCard :title="$t('titles.searchTxs')">
-    <template v-slot:content>
+    <template #content>
       <div class="fill-height">
         <v-form>
           <v-row>

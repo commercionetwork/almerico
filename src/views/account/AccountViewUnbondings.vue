@@ -11,16 +11,16 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
       >
-        <template v-slot:top>
+        <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
             v-text="$t('titles.unbondingDelegations')"
           />
         </template>
-        <template v-slot:[`item.date`]="{ item }">
+        <template #[`item.date`]="{ item }">
           <span class="font-weight-bold" v-text="formatDate(item.date)" />
         </template>
-        <template v-slot:[`item.moniker`]="{ item }">
+        <template #[`item.moniker`]="{ item }">
           <router-link
             class="text-decoration-none"
             v-text="item.moniker"
@@ -30,7 +30,7 @@
             }"
           />
         </template>
-        <template v-slot:[`item.height`]="{ item }">
+        <template #[`item.height`]="{ item }">
           <router-link
             class="text-decoration-none"
             v-text="item.height"
@@ -40,7 +40,7 @@
             }"
           />
         </template>
-        <template v-slot:[`item.balance`]="{ item }">
+        <template #[`item.balance`]="{ item }">
           <span
             class="text-uppercase font-weight-bold"
             v-text="formatTokens(item.balance)"

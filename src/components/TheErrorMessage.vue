@@ -1,7 +1,7 @@
 <template>
   <div>
     <TheAlertNotice kind="info" :message="$t('msgs.dataNotAvailable')">
-      <template v-slot:action>
+      <template #action>
         <v-btn color="info" outlined @click="refresh">
           <v-icon>mdi-reload</v-icon>
           <span v-text="$t('labels.refresh')" />

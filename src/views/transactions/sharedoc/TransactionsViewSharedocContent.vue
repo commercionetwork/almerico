@@ -4,7 +4,7 @@
       <TheTransactionsCommonContent :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
-      <component v-bind:is="componentName" :message="message" />
+      <component :is="componentName" :message="message" />
     </v-col>
   </v-row>
 </template>

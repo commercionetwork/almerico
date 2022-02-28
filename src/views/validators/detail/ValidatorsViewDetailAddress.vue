@@ -6,7 +6,7 @@
     <ValidatorsViewDetailAddressMoniker
       :detail="detail"
       :is-bookmark="isBookmark"
-      v-on:handleBookmark="onHandleBookmark"
+      @handleBookmark="onHandleBookmark"
     />
     <v-divider class="mx-3" />
     <v-card-text>
@@ -17,7 +17,7 @@
             v-text="$t('labels.operator')"
           />
           <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
                 <v-icon small>
                   {{ !copied ? 'mdi-content-copy' : 'mdi-check-all' }}

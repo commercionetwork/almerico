@@ -1,6 +1,6 @@
 <template>
   <BaseTopContentCard :loading="isLoading" :title="$t('titles.price')">
-    <template v-slot:content>
+    <template #content>
       <div
         class="fill-height d-flex flex-row justify-space-between align-center"
       >

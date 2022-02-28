@@ -11,13 +11,13 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
       >
-        <template v-slot:top>
+        <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
             v-text="$t('titles.delegations')"
           />
         </template>
-        <template v-slot:[`item.moniker`]="{ item }">
+        <template #[`item.moniker`]="{ item }">
           <router-link
             class="text-decoration-none"
             v-text="item.moniker"
@@ -27,7 +27,7 @@
             }"
           />
         </template>
-        <template v-slot:[`item.amount`]="{ item }">
+        <template #[`item.amount`]="{ item }">
           <span
             class="text-uppercase font-weight-bold"
             v-text="formatTokens(item.amount)"

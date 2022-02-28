@@ -14,7 +14,7 @@
         :sort-desc.sync="sortDesc"
         disable-pagination
       >
-        <template v-slot:top>
+        <template #top>
           <div class="py-2 text-center text-overline font-weight-bold">
             <i18n tag="span" path="titles.blocksFromTo">
               <span v-text="firstHeight" />
@@ -22,7 +22,7 @@
             </i18n>
           </div>
         </template>
-        <template v-slot:[`item.height`]="{ item }">
+        <template #[`item.height`]="{ item }">
           <router-link
             class="text-decoration-none"
             v-text="item.height"
@@ -32,7 +32,7 @@
             }"
           />
         </template>
-        <template v-slot:[`item.hash`]="{ item }">
+        <template #[`item.hash`]="{ item }">
           <span
             class="d-inline-block text-truncate text-overline"
             style="max-width: 9.5rem"
@@ -40,7 +40,7 @@
             {{ item.hash }}
           </span>
         </template>
-        <template v-slot:[`item.moniker`]="{ item }">
+        <template #[`item.moniker`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-weight-bold"
             style="max-width: 9.5rem"

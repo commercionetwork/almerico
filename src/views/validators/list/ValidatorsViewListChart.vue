@@ -1,6 +1,6 @@
 <template>
   <BaseTopContentCard :title="chartLabel">
-    <template v-slot:content>
+    <template #content>
       <div class="fill-height">
         <BaseChart
           id="validators-chart"

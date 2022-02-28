@@ -12,16 +12,16 @@
         :sort-desc.sync="sortDesc"
         :footer-props="{ itemsPerPageOptions: [2] }"
       >
-        <template v-slot:top>
+        <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
             v-text="$t('titles.allTokensBalance')"
           />
         </template>
-        <template v-slot:[`item.denom`]="{ item }">
+        <template #[`item.denom`]="{ item }">
           <span class="text-uppercase font-weight-bold" v-text="item.denom" />
         </template>
-        <template v-slot:[`item.amount`]="{ item }">
+        <template #[`item.amount`]="{ item }">
           <span class="font-weight-bold" v-text="item.amount" />
         </template>
       </v-data-table>
