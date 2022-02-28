@@ -7,9 +7,9 @@
 </template>
 
 <script>
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import ExchangeRateViewContentBody from './ExchangeRateViewContentBody.vue';
 import ExchangeRateViewContentTop from './ExchangeRateViewContentTop.vue';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import overviewHelper from './helpers/overviewHelper';
 import { mapGetters } from 'vuex';
@@ -17,9 +17,9 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ExchangeRateViewOverview',
   components: {
+    BaseLoadingLinear,
     ExchangeRateViewContentBody,
     ExchangeRateViewContentTop,
-    BaseLoadingLinear,
   },
   data: () => ({
     isBuilding: false,

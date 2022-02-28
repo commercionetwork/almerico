@@ -19,20 +19,20 @@
 </template>
 
 <script>
-import TheErrorMessage from '@/components/TheErrorMessage.vue';
-import ExchangeRateViewOverview from './ExchangeRateViewOverview.vue';
-import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
+import ExchangeRateViewOverview from './ExchangeRateViewOverview.vue';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'ExchangeRateView',
   components: {
-    TheErrorMessage,
-    ExchangeRateViewOverview,
-    TheHeaderContent,
     BaseLoadingLinear,
+    ExchangeRateViewOverview,
+    TheErrorMessage,
+    TheHeaderContent,
   },
   computed: {
     ...mapGetters('exchangeRate', {
@@ -40,13 +40,13 @@ export default {
       isLoading: 'isLoading',
     }),
   },
+  created() {
+    this.initExchangeRate();
+  },
   methods: {
     ...mapActions('exchangeRate', {
       initExchangeRate: 'initExchangeRate',
     }),
-  },
-  created() {
-    this.initExchangeRate();
   },
 };
 </script>
