@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'ExchangeRateTableComponent',
+  name: 'ExchangeRateViewTable',
   props: {
     headers: {
       type: Array,

@@ -13,24 +13,24 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.exchangeRate')" />
-      <ExchangeRateOverviewComponent />
+      <ExchangeRateViewOverview />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
-import ExchangeRateOverviewComponent from './ExchangeRateOverviewComponent.vue';
+import ExchangeRateViewOverview from './ExchangeRateViewOverview.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'ExchangeRate',
+  name: 'ExchangeRateView',
   components: {
     TheErrorMessage,
-    ExchangeRateOverviewComponent,
+    ExchangeRateViewOverview,
     TheHeaderContent,
     BaseLoadingLinear,
   },

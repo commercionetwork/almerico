@@ -18,7 +18,7 @@
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 export default {
-  name: 'ExchangeRatePosterComponent',
+  name: 'ExchangeRateViewPoster',
   components: { BaseTopContentCard },
   props: ['rate'],
 };

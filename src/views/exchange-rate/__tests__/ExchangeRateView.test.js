@@ -2,14 +2,14 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import ExchangeRate from '../index.vue';
+import ExchangeRateView from '../ExchangeRateView.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/exchange-rate/ExchangeRate.vue', () => {
+describe('views/exchange-rate/ExchangeRateView.vue', () => {
   const actions = {
     initExchangeRate: jest.fn(),
   };
@@ -36,7 +36,7 @@ describe('views/exchange-rate/ExchangeRate.vue', () => {
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(ExchangeRate, {
+    const wrapper = shallowMount(ExchangeRateView, {
       localVue,
       mocks,
       computed: {
@@ -53,7 +53,7 @@ describe('views/exchange-rate/ExchangeRate.vue', () => {
 
   test('if message error is displayed', () => {
     const error = Error('message');
-    const wrapper = shallowMount(ExchangeRate, {
+    const wrapper = shallowMount(ExchangeRateView, {
       localVue,
       mocks,
       computed: {
@@ -69,7 +69,7 @@ describe('views/exchange-rate/ExchangeRate.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(ExchangeRate, {
+    const wrapper = shallowMount(ExchangeRateView, {
       localVue,
       mocks,
       data() {

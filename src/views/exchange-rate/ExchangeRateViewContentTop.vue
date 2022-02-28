@@ -4,24 +4,24 @@
       <TheLatestHeight />
     </v-col>
     <v-col cols="12" md="4">
-      <ExchangeRateChartComponent />
+      <ExchangeRateViewChart />
     </v-col>
     <v-col cols="12" md="4">
-      <ExchangeRatePosterComponent :rate="rate" />
+      <ExchangeRateViewPoster :rate="rate" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ExchangeRateChartComponent from './ExchangeRateChartComponent.vue';
-import ExchangeRatePosterComponent from './ExchangeRatePosterComponent.vue';
+import ExchangeRateViewChart from './ExchangeRateViewChart.vue';
+import ExchangeRateViewPoster from './ExchangeRateViewPoster.vue';
 import TheLatestHeight from '@/components/TheLatestHeight';
 
 export default {
-  name: 'ExchangeRateTopContentComponent',
+  name: 'ExchangeRateViewContentTop',
   components: {
-    ExchangeRateChartComponent,
-    ExchangeRatePosterComponent,
+    ExchangeRateViewChart,
+    ExchangeRateViewPoster,
     TheLatestHeight,
   },
   props: {

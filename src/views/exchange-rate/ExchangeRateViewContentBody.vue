@@ -1,21 +1,21 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <ExchangeRateTableComponent
+      <ExchangeRateViewTable
         :headers="model.maxSupplyTable.headers"
         :items="model.maxSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
-      <ExchangeRateTableComponent
+      <ExchangeRateViewTable
         :headers="model.nonCirculatingSupplyTable.headers"
         :items="model.nonCirculatingSupplyTable.rows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
-      <ExchangeRateTableComponent
+      <ExchangeRateViewTable
         :headers="model.circulatingSupplyTable.headers"
         :items="model.circulatingSupplyTable.rows"
         :getRowStyle="getRowStyle"
@@ -25,13 +25,13 @@
 </template>
 
 <script>
-import ExchangeRateTableComponent from './ExchangeRateTableComponent.vue';
+import ExchangeRateViewTable from './ExchangeRateViewTable.vue';
 
 import { EXCHANGE_RATE } from '@/constants';
 
 export default {
-  name: 'ExchangeRateBodyComponent',
-  components: { ExchangeRateTableComponent },
+  name: 'ExchangeRateViewContentBody',
+  components: { ExchangeRateViewTable },
   props: {
     model: {
       type: Object,

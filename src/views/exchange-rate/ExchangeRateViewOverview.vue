@@ -1,24 +1,24 @@
 <template>
   <BaseLoadingLinear v-if="isBuilding" />
   <div v-else>
-    <ExchangeRateTopContentComponent :rate="model.exchangeRate" />
-    <ExchangeRateBodyComponent :model="model" />
+    <ExchangeRateViewContentTop :rate="model.exchangeRate" />
+    <ExchangeRateViewContentBody :model="model" />
   </div>
 </template>
 
 <script>
-import ExchangeRateBodyComponent from './ExchangeRateBodyComponent.vue';
-import ExchangeRateTopContentComponent from './ExchangeRateTopContentComponent.vue';
+import ExchangeRateViewContentBody from './ExchangeRateViewContentBody.vue';
+import ExchangeRateViewContentTop from './ExchangeRateViewContentTop.vue';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import overviewHelper from './helpers/overviewHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ExchangeRateOverviewComponent',
+  name: 'ExchangeRateViewOverview',
   components: {
-    ExchangeRateBodyComponent,
-    ExchangeRateTopContentComponent,
+    ExchangeRateViewContentBody,
+    ExchangeRateViewContentTop,
     BaseLoadingLinear,
   },
   data: () => ({
