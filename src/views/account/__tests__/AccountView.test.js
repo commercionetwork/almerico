@@ -2,14 +2,14 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import Account from '../index.vue';
+import AccountView from '../AccountView.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/account/Account.vue', () => {
+describe('views/account/AccountView.vue', () => {
   const actions = {
     initAccount: jest.fn(),
   };
@@ -30,7 +30,7 @@ describe('views/account/Account.vue', () => {
   };
 
   test('if loading indicator is displayed', async () => {
-    const wrapper = shallowMount(Account, {
+    const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
       computed: {
@@ -49,7 +49,7 @@ describe('views/account/Account.vue', () => {
 
   test('if message error is displayed', async () => {
     const error = Error('message');
-    const wrapper = shallowMount(Account, {
+    const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
       computed: {
@@ -67,7 +67,7 @@ describe('views/account/Account.vue', () => {
   });
 
   test('if content is displayed', async () => {
-    const wrapper = shallowMount(Account, {
+    const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
       computed: {
@@ -85,7 +85,7 @@ describe('views/account/Account.vue', () => {
   });
 
   test('if warning message is displayed', async () => {
-    const wrapper = shallowMount(Account, {
+    const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
       computed: {

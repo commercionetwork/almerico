@@ -33,7 +33,7 @@ import { mapGetters } from 'vuex';
 import { maxBy } from 'lodash';
 
 export default {
-  name: 'AccountAddressMembershipComponent',
+  name: 'AccountViewAddressMembership',
   data: () => ({
     ROUTES,
   }),
@@ -44,7 +44,7 @@ export default {
     }),
     membershipColor() {
       const index = ACCOUNT.MEMBERSHIPS.findIndex(
-        (membership) => membership.name === this.membershipText,
+        (membership) => membership.name === this.membershipText
       );
       return index > -1 ? ACCOUNT.MEMBERSHIPS[index]['color'] : '#b3d9ff';
     },

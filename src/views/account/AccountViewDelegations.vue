@@ -14,11 +14,8 @@
         <template v-slot:top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
-            v-text="$t('titles.unbondingDelegations')"
+            v-text="$t('titles.delegations')"
           />
-        </template>
-        <template v-slot:[`item.date`]="{ item }">
-          <span class="font-weight-bold" v-text="formatDate(item.date)" />
         </template>
         <template v-slot:[`item.moniker`]="{ item }">
           <router-link
@@ -30,20 +27,10 @@
             }"
           />
         </template>
-        <template v-slot:[`item.height`]="{ item }">
-          <router-link
-            class="text-decoration-none"
-            v-text="item.height"
-            :to="{
-              name: ROUTES.NAME.BLOCKS_DETAIL,
-              params: { id: item.height },
-            }"
-          />
-        </template>
-        <template v-slot:[`item.balance`]="{ item }">
+        <template v-slot:[`item.amount`]="{ item }">
           <span
             class="text-uppercase font-weight-bold"
-            v-text="formatTokens(item.balance)"
+            v-text="formatTokens(item.amount)"
           />
         </template>
       </v-data-table>
@@ -52,17 +39,17 @@
 </template>
 
 <script>
-import accountUnbondingsHelper from './helpers/accountUnbondingsHelper';
+import accountDelegationsHelper from './helpers/accountDelegationsHelper';
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'AccountUnbondingsComponent',
+  name: 'AccountViewDelegations',
   props: {
-    unbondings: {
+    delegations: {
       type: Array,
       required: true,
-      note: 'The unbondings to display',
+      note: 'The delegations to display',
     },
     params: {
       type: Object,
@@ -77,29 +64,24 @@ export default {
   },
   data: () => ({
     ROUTES,
-    sortBy: 'date',
+    sortBy: 'amount',
     sortDesc: true,
   }),
   computed: {
     headers() {
       return [
-        { text: this.$t('labels.completionDate'), value: 'date' },
         { text: this.$t('labels.validator'), value: 'moniker' },
-        { text: this.$t('labels.height'), value: 'height' },
-        { text: this.$t('labels.balance'), value: 'balance' },
+        { text: this.$t('labels.amount'), value: 'amount' },
       ];
     },
     items() {
-      return accountUnbondingsHelper.build({
-        unbondings: this.unbondings,
+      return accountDelegationsHelper.build({
+        delegations: this.delegations,
         validators: this.validators,
       });
     },
   },
   methods: {
-    formatDate(value) {
-      return new Date(value).toLocaleDateString();
-    },
     formatTokens(value) {
       const denom = this.params.bond_denom ? this.params.bond_denom : '';
       return coinAdapter.format({ amount: value, denom });

@@ -13,9 +13,9 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.accountDetail')" />
-      <AccountTopComponent />
-      <AccountMiddleComponent />
-      <AccountBottomComponent />
+      <AccountViewContentTop />
+      <AccountViewContentMiddle />
+      <AccountViewContentBottom />
     </v-col>
   </v-row>
   <v-row v-else data-test="warning">
@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import AccountBottomComponent from './AccountBottomComponent.vue';
-import AccountMiddleComponent from './AccountMiddleComponent.vue';
-import AccountTopComponent from './AccountTopComponent.vue';
+import AccountViewContentBottom from './AccountViewContentBottom.vue';
+import AccountViewContentMiddle from './AccountViewContentMiddle.vue';
+import AccountViewContentTop from './AccountViewContentTop.vue';
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
@@ -39,11 +39,11 @@ import { bech32Manager } from '@/utils';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'Account',
+  name: 'AccountView',
   components: {
-    AccountBottomComponent,
-    AccountMiddleComponent,
-    AccountTopComponent,
+    AccountViewContentBottom,
+    AccountViewContentMiddle,
+    AccountViewContentTop,
     TheAlertNotice,
     TheErrorMessage,
     TheHeaderContent,

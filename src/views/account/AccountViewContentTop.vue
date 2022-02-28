@@ -1,31 +1,31 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <AccountAddressComponent />
+      <AccountViewAddress />
     </v-col>
     <v-col cols="12" md="4">
-      <AccountPerformanceChartComponent :assets="capital.assets" />
+      <AccountViewChartPerformance :assets="capital.assets" />
     </v-col>
     <v-col cols="12" md="4">
-      <AccountBankComponent :balances="balances" />
+      <AccountViewBank :balances="balances" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import AccountAddressComponent from './AccountAddressComponent.vue';
-import AccountBankComponent from './AccountBankComponent.vue';
-import AccountPerformanceChartComponent from './AccountPerformanceChartComponent.vue';
+import AccountViewAddress from './AccountViewAddress.vue';
+import AccountViewBank from './AccountViewBank.vue';
+import AccountViewChartPerformance from './AccountViewChartPerformance.vue';
 
 import accountBalanceHelper from './helpers/accountBalanceHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'AccountTopComponent',
+  name: 'AccountViewContentTop',
   components: {
-    AccountAddressComponent,
-    AccountBankComponent,
-    AccountPerformanceChartComponent,
+    AccountViewAddress,
+    AccountViewBank,
+    AccountViewChartPerformance,
   },
   computed: {
     ...mapGetters('application', {

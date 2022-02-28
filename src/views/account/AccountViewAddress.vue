@@ -3,7 +3,7 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <AccountAddressMembershipComponent />
+    <AccountViewAddressMembership />
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="pl-md-2 text-center text-md-left">
@@ -27,7 +27,7 @@
             </template>
             <span v-text="$t('msgs.scan')" />
           </v-tooltip>
-          <AccountQRCodeComponent v-model="dialog" :address="address" />
+          <AccountViewModalQRCode v-model="dialog" :address="address" />
         </div>
         <div
           class="text-break font-weight-bold font-monotype"
@@ -39,14 +39,14 @@
 </template>
 
 <script>
-import AccountAddressMembershipComponent from './AccountAddressMembershipComponent.vue';
-import AccountQRCodeComponent from './AccountQRCodeComponent.vue';
+import AccountViewAddressMembership from './AccountViewAddressMembership.vue';
+import AccountViewModalQRCode from './AccountViewModalQRCode.vue';
 
 export default {
-  name: 'AccountAddressComponent',
+  name: 'AccountViewAddress',
   components: {
-    AccountAddressMembershipComponent,
-    AccountQRCodeComponent,
+    AccountViewAddressMembership,
+    AccountViewModalQRCode,
   },
   data: () => ({
     copied: false,

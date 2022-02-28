@@ -1,25 +1,25 @@
 <template>
   <v-row class="mt-1">
     <v-col cols="12" md="6">
-      <AccountCapitalizationChartComponent
+      <AccountViewChartCapitalization
         :capitalization="capital.capitalization"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountCapitalizationComponent
+      <AccountViewCapitalization
         :capitalization="capital.capitalization"
         :params="params"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountDelegationsComponent
+      <AccountViewDelegations
         :delegations="delegations"
         :params="params"
         :validators="validators"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountUnbondingsComponent
+      <AccountViewUnbondings
         :unbondings="unbondings"
         :params="params"
         :validators="validators"
@@ -29,21 +29,21 @@
 </template>
 
 <script>
-import AccountCapitalizationChartComponent from './AccountCapitalizationChartComponent.vue';
-import AccountCapitalizationComponent from './AccountCapitalizationComponent.vue';
-import AccountDelegationsComponent from './AccountDelegationsComponent.vue';
-import AccountUnbondingsComponent from './AccountUnbondingsComponent.vue';
+import AccountViewChartCapitalization from './AccountViewChartCapitalization.vue';
+import AccountViewCapitalization from './AccountViewCapitalization.vue';
+import AccountViewDelegations from './AccountViewDelegations.vue';
+import AccountViewUnbondings from './AccountViewUnbondings.vue';
 
 import accountBalanceHelper from './helpers/accountBalanceHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'AccountMiddleComponent',
+  name: 'AccountViewContentMiddle',
   components: {
-    AccountCapitalizationChartComponent,
-    AccountCapitalizationComponent,
-    AccountDelegationsComponent,
-    AccountUnbondingsComponent,
+    AccountViewChartCapitalization,
+    AccountViewCapitalization,
+    AccountViewDelegations,
+    AccountViewUnbondings,
   },
   computed: {
     ...mapGetters('application', {
