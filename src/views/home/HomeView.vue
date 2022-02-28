@@ -26,26 +26,26 @@
 </template>
 
 <script>
-import TheErrorMessage from '@/components/TheErrorMessage.vue';
-import TheChainChooser from '@/components/TheChainChooser';
-import TheHeaderContent from '@/components/TheHeaderContent';
-import HomeViewBanner from './HomeViewBanner';
-import HomeViewGridList from './HomeViewGridList';
-import HomeViewContentTop from './HomeViewContentTop';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
+import HomeViewBanner from './HomeViewBanner';
+import HomeViewContentTop from './HomeViewContentTop';
+import HomeViewGridList from './HomeViewGridList';
+import TheChainChooser from '@/components/TheChainChooser';
+import TheErrorMessage from '@/components/TheErrorMessage.vue';
+import TheHeaderContent from '@/components/TheHeaderContent';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'HomeView',
   components: {
+    BaseLoadingLinear,
+    HomeViewBanner,
+    HomeViewContentTop,
+    HomeViewGridList,
     TheChainChooser,
     TheErrorMessage,
     TheHeaderContent,
-    HomeViewBanner,
-    HomeViewGridList,
-    HomeViewContentTop,
-    BaseLoadingLinear,
   },
   computed: {
     ...mapGetters('home', {
@@ -63,15 +63,15 @@ export default {
       this.refreshTransactions();
     },
   },
+  created() {
+    this.initHome();
+  },
   methods: {
     ...mapActions('home', {
       initHome: 'initHome',
       refreshParams: 'refreshParams',
       refreshTransactions: 'refreshTransactions',
     }),
-  },
-  created() {
-    this.initHome();
   },
 };
 </script>

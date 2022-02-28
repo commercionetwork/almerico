@@ -17,16 +17,16 @@
 
 <script>
 import HomeViewChartPrice from './HomeViewChartPrice.vue';
-import HomeViewPosterPrice from './HomeViewPosterPrice.vue';
 import HomeViewChartTokens from './HomeViewChartTokens.vue';
+import HomeViewPosterPrice from './HomeViewPosterPrice.vue';
 import TheLatestHeight from '@/components/TheLatestHeight';
 
 export default {
   name: 'HomeViewContentTop',
   components: {
     HomeViewChartPrice,
-    HomeViewPosterPrice,
     HomeViewChartTokens,
+    HomeViewPosterPrice,
     TheLatestHeight,
   },
 };

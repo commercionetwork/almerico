@@ -14,16 +14,16 @@
 </template>
 
 <script>
-import HomeViewGridListItem from './HomeViewGridListItem';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
+import HomeViewGridListItem from './HomeViewGridListItem';
 
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'HomeViewGridList',
   components: {
-    HomeViewGridListItem,
     BaseLoadingLinear,
+    HomeViewGridListItem,
   },
   computed: {
     ...mapGetters('home', {
