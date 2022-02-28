@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'HomeBannerComponent',
+  name: 'HomeViewBanner',
   computed: {
     logoSrc() {
       return require('@/assets/img/logo-green.png');

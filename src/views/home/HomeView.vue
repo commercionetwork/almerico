@@ -18,9 +18,9 @@
       >
         <TheChainChooser />
       </TheHeaderContent>
-      <HomeTopContentComponent />
-      <HomeBannerComponent />
-      <HomeGridListComponent />
+      <HomeViewContentTop />
+      <HomeViewBanner />
+      <HomeViewGridList />
     </v-col>
   </v-row>
 </template>
@@ -29,22 +29,22 @@
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheChainChooser from '@/components/TheChainChooser';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import HomeBannerComponent from './HomeBannerComponent';
-import HomeGridListComponent from './HomeGridListComponent';
-import HomeTopContentComponent from './HomeTopContentComponent';
+import HomeViewBanner from './HomeViewBanner';
+import HomeViewGridList from './HomeViewGridList';
+import HomeViewContentTop from './HomeViewContentTop';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'Home',
+  name: 'HomeView',
   components: {
     TheChainChooser,
     TheErrorMessage,
     TheHeaderContent,
-    HomeBannerComponent,
-    HomeGridListComponent,
-    HomeTopContentComponent,
+    HomeViewBanner,
+    HomeViewGridList,
+    HomeViewContentTop,
     BaseLoadingLinear,
   },
   computed: {

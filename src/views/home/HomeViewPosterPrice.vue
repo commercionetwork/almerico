@@ -35,7 +35,7 @@ import { mapGetters } from 'vuex';
 import { CONFIG } from '@/constants';
 
 export default {
-  name: 'HomePricePosterComponent',
+  name: 'HomeViewPosterPrice',
   components: { BaseTopContentCard },
   data: () => ({
     CONFIG,

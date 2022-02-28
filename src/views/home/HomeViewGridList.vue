@@ -5,7 +5,7 @@
     </v-col>
   </v-row>
   <v-row v-else data-test="content">
-    <HomeGridListItemComponent
+    <HomeViewGridListItem
       v-for="(transaction, index) in transactions"
       :key="index"
       :transaction="transaction"
@@ -14,15 +14,15 @@
 </template>
 
 <script>
-import HomeGridListItemComponent from './HomeGridListItemComponent';
+import HomeViewGridListItem from './HomeViewGridListItem';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'HomeGridListComponent',
+  name: 'HomeViewGridList',
   components: {
-    HomeGridListItemComponent,
+    HomeViewGridListItem,
     BaseLoadingLinear,
   },
   computed: {

@@ -21,7 +21,7 @@ import tokensChartHelper from '@/components/chart/helpers/tokensChartHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'HomeTokensChartComponent',
+  name: 'HomeViewChartTokens',
   components: {
     BaseChart,
     BaseTopContentCard,

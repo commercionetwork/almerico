@@ -2,14 +2,14 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import Home from '../index.vue';
+import HomeView from '../HomeView.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/home/index.vue', () => {
+describe('views/home/HomeView.vue', () => {
   const actions = {
     initHome: jest.fn(),
   };
@@ -31,7 +31,7 @@ describe('views/home/index.vue', () => {
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(Home, {
+    const wrapper = shallowMount(HomeView, {
       localVue,
       mocks,
       computed: {
@@ -48,7 +48,7 @@ describe('views/home/index.vue', () => {
 
   test('if message error is displayed', () => {
     const error = Error('message');
-    const wrapper = shallowMount(Home, {
+    const wrapper = shallowMount(HomeView, {
       localVue,
       mocks,
       computed: {
@@ -64,7 +64,7 @@ describe('views/home/index.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(Home, {
+    const wrapper = shallowMount(HomeView, {
       localVue,
       mocks,
       computed: {

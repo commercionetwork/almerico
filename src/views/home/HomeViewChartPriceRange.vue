@@ -31,7 +31,7 @@
 import { HOME } from '@/constants';
 
 export default {
-  name: 'HomePriceChartRangeComponent',
+  name: 'HomeViewChartPriceRange',
   data: () => ({
     HOME,
     range: HOME.RANGE.MONTH,

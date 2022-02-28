@@ -10,7 +10,7 @@
           :dataset="chartData"
           :options="chartOptions"
         />
-        <HomePriceChartRangeComponent v-on:range-changed="chartRangeChange" />
+        <HomeViewChartPriceRange v-on:range-changed="chartRangeChange" />
       </div>
     </template>
   </BaseTopContentCard>
@@ -18,7 +18,7 @@
 
 <script>
 import BaseChart from '@/components/chart/BaseChart';
-import HomePriceChartRangeComponent from './HomePriceChartRangeComponent';
+import HomeViewChartPriceRange from './HomeViewChartPriceRange';
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { HOME } from '@/constants';
@@ -26,10 +26,10 @@ import { mapGetters } from 'vuex';
 import priceChartHelper from './helpers/priceChartHelper';
 
 export default {
-  name: 'HomePriceChartComponent',
+  name: 'HomeViewChartPrice',
   components: {
     BaseChart,
-    HomePriceChartRangeComponent,
+    HomeViewChartPriceRange,
     BaseTopContentCard,
   },
   data: () => ({

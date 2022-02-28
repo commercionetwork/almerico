@@ -58,7 +58,7 @@ import { ROUTES } from '@/constants';
 import { dateHandler, txHandler } from '@/utils';
 
 export default {
-  name: 'HomeGridListItemComponent',
+  name: 'HomeViewGridListItem',
   props: {
     transaction: {
       type: Object,

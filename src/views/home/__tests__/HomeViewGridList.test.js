@@ -2,20 +2,20 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import HomeGridListComponent from '../HomeGridListComponent.vue';
+import HomeViewGridList from '../HomeViewGridList.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/home/HomeGridListComponent.vue', () => {
+describe('views/home/HomeViewGridList.vue', () => {
   const computed = {
     transactions: () => [],
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(HomeGridListComponent, {
+    const wrapper = shallowMount(HomeViewGridList, {
       localVue,
       computed: {
         ...computed,
@@ -28,7 +28,7 @@ describe('views/home/HomeGridListComponent.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(HomeGridListComponent, {
+    const wrapper = shallowMount(HomeViewGridList, {
       localVue,
       computed: {
         ...computed,
