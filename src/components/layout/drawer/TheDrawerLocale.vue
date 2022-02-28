@@ -42,6 +42,12 @@ export default {
       return LOCALES;
     },
   },
+  created() {
+    this.locale = localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE)
+      ? JSON.parse(localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE))
+      : this.defaultLocale;
+    this.$i18n.locale = this.locale.value;
+  },
   methods: {
     onChangeLocale() {
       this.$i18n.locale = this.locale.value;
@@ -50,12 +56,6 @@ export default {
         JSON.stringify(this.locale)
       );
     },
-  },
-  created() {
-    this.locale = localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE)
-      ? JSON.parse(localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE))
-      : this.defaultLocale;
-    this.$i18n.locale = this.locale.value;
   },
 };
 </script>

@@ -15,7 +15,7 @@
           <BaseDetailItem
             :label="formatKey(key)"
             :content="value"
-            :isLoop="true"
+            :is-loop="true"
           />
         </v-list-item>
       </v-list>

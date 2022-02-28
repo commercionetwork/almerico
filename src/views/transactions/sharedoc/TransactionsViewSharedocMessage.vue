@@ -23,7 +23,7 @@
             <BaseDetailLink
               :label="$t('labels.address')"
               :content="recipientAddress"
-              :isLoop="true"
+              :is-loop="true"
               :route="{
                 name: ROUTES.NAME.ACCOUNT,
                 params: { id: recipientAddress },

@@ -14,7 +14,7 @@
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent
         :title="$t('titles.dashboard')"
-        :hasOptionalContent="true"
+        :has-optional-content="true"
       >
         <TheChainChooser />
       </TheHeaderContent>

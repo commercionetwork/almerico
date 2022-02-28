@@ -23,7 +23,7 @@
         <BaseDetailItem
           :label="$t('labels.amount')"
           :content="amount"
-          :isLoop="true"
+          :is-loop="true"
           look="text-uppercase"
         />
       </v-list-item>
