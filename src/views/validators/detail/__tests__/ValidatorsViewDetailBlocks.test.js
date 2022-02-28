@@ -1,13 +1,13 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import ValidatorsDetailBlocksComponent from '../ValidatorsDetailBlocksComponent.vue';
+import ValidatorsViewDetailBlocks from '../ValidatorsViewDetailBlocks.vue';
 
 Vue.use(Vuetify);
 
 const localVue = createLocalVue();
 
-describe('views/validators/detail/ValidatorsDetailBlocksComponent.vue', () => {
+describe('views/validators/detail/ValidatorsViewDetailBlocks.vue', () => {
   const mocks = {
     $t: (msg) => msg,
   };
@@ -18,7 +18,7 @@ describe('views/validators/detail/ValidatorsDetailBlocksComponent.vue', () => {
   };
 
   test('if info message is displayed', () => {
-    const wrapper = shallowMount(ValidatorsDetailBlocksComponent, {
+    const wrapper = shallowMount(ValidatorsViewDetailBlocks, {
       localVue,
       mocks,
       stubs: ['i18n'],
@@ -33,7 +33,7 @@ describe('views/validators/detail/ValidatorsDetailBlocksComponent.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(ValidatorsDetailBlocksComponent, {
+    const wrapper = shallowMount(ValidatorsViewDetailBlocks, {
       localVue,
       mocks,
       stubs: ['i18n'],

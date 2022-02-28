@@ -25,7 +25,7 @@
           </v-text-field>
         </div>
         <div class="px-3">
-          <ValidatorsListFilterComponent v-on:filter="onFilter" />
+          <ValidatorsViewListFilter v-on:filter="onFilter" />
         </div>
       </div>
     </template>
@@ -34,14 +34,14 @@
 
 <script>
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-import ValidatorsListFilterComponent from './ValidatorsListFilterComponent.vue';
+import ValidatorsViewListFilter from './ValidatorsViewListFilter.vue';
 import { VALIDATORS } from '@/constants';
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'ValidatorsListSearchComponent',
+  name: 'ValidatorsViewListSearch',
   components: {
-    ValidatorsListFilterComponent,
+    ValidatorsViewListFilter,
     BaseTopContentCard,
   },
   data: () => ({

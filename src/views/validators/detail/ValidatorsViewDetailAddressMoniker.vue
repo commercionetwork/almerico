@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'ValidatorsDetailAddressMonikerComponent',
+  name: 'ValidatorsViewDetailAddressMoniker',
   props: {
     detail: {
       type: Object,

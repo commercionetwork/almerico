@@ -26,7 +26,7 @@
 import { VALIDATORS } from '@/constants';
 
 export default {
-  name: 'ValidatorsListFilterComponent',
+  name: 'ValidatorsViewListFilter',
   data: () => ({
     select: null,
   }),

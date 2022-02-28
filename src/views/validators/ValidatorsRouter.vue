@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'Validators',
+  name: 'ValidatorsRouter',
 };
 </script>

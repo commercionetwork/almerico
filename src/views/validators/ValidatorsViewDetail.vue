@@ -13,8 +13,8 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.validatorDetail')" />
-      <ValidatorsDetailTopContentComponent :account="account" />
-      <ValidatorsDetailBodyContentComponent :account="account" />
+      <ValidatorsViewDetailContentTop :account="account" />
+      <ValidatorsViewDetailContentBody :account="account" />
     </v-col>
   </v-row>
   <v-row v-else data-test="warning">
@@ -29,22 +29,22 @@ import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import ValidatorsDetailBodyContentComponent from './detail/ValidatorsDetailBodyContentComponent.vue';
-import ValidatorsDetailTopContentComponent from './detail/ValidatorsDetailTopContentComponent.vue';
+import ValidatorsViewDetailContentBody from './detail/ValidatorsViewDetailContentBody.vue';
+import ValidatorsViewDetailContentTop from './detail/ValidatorsViewDetailContentTop.vue';
 
 import { CONFIG, VALIDATORS } from '@/constants';
 import { bech32Manager } from '@/utils';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsDetail',
+  name: 'ValidatorsViewDetail',
   components: {
     TheAlertNotice,
     TheErrorMessage,
     TheHeaderContent,
     BaseLoadingLinear,
-    ValidatorsDetailBodyContentComponent,
-    ValidatorsDetailTopContentComponent,
+    ValidatorsViewDetailContentBody,
+    ValidatorsViewDetailContentTop,
   },
   data: () => ({
     isValid: true,

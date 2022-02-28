@@ -50,7 +50,7 @@ import { mapGetters } from 'vuex';
 import validatorsDetailDelegatorsHelper from './helpers/validatorsDetailDelegatorsHelper';
 
 export default {
-  name: 'ValidatorsDetailDelegatorsComponent',
+  name: 'ValidatorsViewDetailDelegators',
   props: {
     account: {
       type: String,

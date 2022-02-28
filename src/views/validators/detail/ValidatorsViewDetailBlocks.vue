@@ -35,7 +35,7 @@ import { VALIDATORS } from '@/constants';
 import validatorAttendanceCalculator from '../helpers/validatorAttendanceCalculator';
 
 export default {
-  name: 'ValidatorsDetailBlocksComponent',
+  name: 'ValidatorsViewDetailBlocks',
   computed: {
     ...mapGetters('validators', {
       isLoadingBlocks: 'isLoadingBlocks',

@@ -56,7 +56,7 @@ import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsListTableComponent',
+  name: 'ValidatorsViewListTable',
   data: () => ({
     ROUTES,
     sortBy: 'rank',

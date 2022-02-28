@@ -21,7 +21,7 @@ import validatorsChartHelper from './helpers/validatorsChartHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsListChartComponent',
+  name: 'ValidatorsViewListChart',
   components: {
     BaseChart,
     BaseTopContentCard,

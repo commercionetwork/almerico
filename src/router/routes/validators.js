@@ -1,22 +1,22 @@
 import { ROUTES } from '@/constants';
 import { loadView } from '../index';
 
-const Validators = loadView('validators/index');
-const ValidatorsDetail = loadView('validators/ValidatorsDetail');
-const ValidatorsList = loadView('validators/ValidatorsList');
+const ValidatorsRouter = loadView('validators/ValidatorsRouter');
+const ValidatorsViewDetail = loadView('validators/ValidatorsViewDetail');
+const ValidatorsViewList = loadView('validators/ValidatorsViewList');
 
 export const validatorsRoutes = {
   path: ROUTES.PATH.VALIDATORS,
-  component: Validators,
+  component: ValidatorsRouter,
   meta: {
     title: ROUTES.TITLE.VALIDATORS,
   },
   children: [
-    { path: '', name: ROUTES.NAME.VALIDATORS, component: ValidatorsList },
+    { path: '', name: ROUTES.NAME.VALIDATORS, component: ValidatorsViewList },
     {
       path: ROUTES.PATH.VALIDATORS_DETAIL,
       name: ROUTES.NAME.VALIDATORS_DETAIL,
-      component: ValidatorsDetail,
+      component: ValidatorsViewDetail,
       meta: {
         title: ROUTES.TITLE.VALIDATORS_DETAIL,
       },
@@ -24,7 +24,7 @@ export const validatorsRoutes = {
     {
       path: ROUTES.PATH.VALIDATORS_LIST,
       name: ROUTES.NAME.VALIDATORS_LIST,
-      component: ValidatorsList,
+      component: ValidatorsViewList,
       meta: {
         title: ROUTES.TITLE.VALIDATORS_LIST,
       },

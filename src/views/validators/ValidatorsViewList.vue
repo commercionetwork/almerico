@@ -13,8 +13,8 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.validators')" />
-      <ValidatorsListTopContentComponent />
-      <ValidatorsListTableComponent />
+      <ValidatorsViewListContentTop />
+      <ValidatorsViewListTable />
     </v-col>
   </v-row>
 </template>
@@ -23,20 +23,20 @@
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import ValidatorsListTableComponent from './list/ValidatorsListTableComponent.vue';
-import ValidatorsListTopContentComponent from './list/ValidatorsListTopContentComponent.vue';
+import ValidatorsViewListTable from './list/ValidatorsViewListTable.vue';
+import ValidatorsViewListContentTop from './list/ValidatorsViewListContentTop.vue';
 
 import { VALIDATORS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsList',
+  name: 'ValidatorsViewList',
   components: {
     TheErrorMessage,
     TheHeaderContent,
     BaseLoadingLinear,
-    ValidatorsListTableComponent,
-    ValidatorsListTopContentComponent,
+    ValidatorsViewListTable,
+    ValidatorsViewListContentTop,
   },
   computed: {
     ...mapGetters('application', {

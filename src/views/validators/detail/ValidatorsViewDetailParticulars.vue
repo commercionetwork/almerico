@@ -51,7 +51,7 @@ import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsDetailSpecComponent',
+  name: 'ValidatorsViewDetailParticulars',
   components: { BaseDetailItem },
   computed: {
     ...mapGetters('application', {

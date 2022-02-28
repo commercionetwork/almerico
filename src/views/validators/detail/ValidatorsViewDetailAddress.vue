@@ -3,7 +3,7 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <ValidatorsDetailAddressMonikerComponent
+    <ValidatorsViewDetailAddressMoniker
       :detail="detail"
       :isBookmark="isBookmark"
       v-on:handleBookmark="onHandleBookmark"
@@ -46,13 +46,13 @@
 
 <script>
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
-import ValidatorsDetailAddressMonikerComponent from './ValidatorsDetailAddressMonikerComponent.vue';
+import ValidatorsViewDetailAddressMoniker from './ValidatorsViewDetailAddressMoniker.vue';
 import { ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsDetailAddressComponent',
-  components: { ValidatorsDetailAddressMonikerComponent },
+  name: 'ValidatorsViewDetailAddress',
+  components: { ValidatorsViewDetailAddressMoniker },
   props: ['account'],
   data: () => ({
     copied: false,
@@ -65,7 +65,7 @@ export default {
     isBookmark() {
       return (
         this.bookmarks.findIndex(
-          (address) => address === this.detail.operator_address,
+          (address) => address === this.detail.operator_address
         ) > -1
       );
     },

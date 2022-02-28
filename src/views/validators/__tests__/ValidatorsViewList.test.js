@@ -2,14 +2,14 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import ValidatorsList from '../ValidatorsList.vue';
+import ValidatorsViewList from '../ValidatorsViewList.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/validators/ValidatorsList.vue', () => {
+describe('views/validators/ValidatorsViewList.vue', () => {
   const actions = {
     initValidatorsList: jest.fn(),
   };
@@ -31,7 +31,7 @@ describe('views/validators/ValidatorsList.vue', () => {
   };
 
   test('if loading indicator is displayed', () => {
-    const wrapper = shallowMount(ValidatorsList, {
+    const wrapper = shallowMount(ValidatorsViewList, {
       localVue,
       mocks,
       computed: {
@@ -48,7 +48,7 @@ describe('views/validators/ValidatorsList.vue', () => {
 
   test('if message error is displayed', () => {
     const error = Error('message');
-    const wrapper = shallowMount(ValidatorsList, {
+    const wrapper = shallowMount(ValidatorsViewList, {
       localVue,
       mocks,
       computed: {
@@ -64,7 +64,7 @@ describe('views/validators/ValidatorsList.vue', () => {
   });
 
   test('if content is displayed', () => {
-    const wrapper = shallowMount(ValidatorsList, {
+    const wrapper = shallowMount(ValidatorsViewList, {
       localVue,
       mocks,
       computed: {
