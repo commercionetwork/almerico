@@ -15,14 +15,14 @@
         },
       }"
     >
-      <LoadingLinearComponent v-if="isAdding" />
+      <BaseLoadingLinear v-if="isAdding" />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import AccountTransactionsComponent from './AccountTransactionsComponent.vue';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
 import { txsTableAdapter } from '@/utils';
@@ -31,7 +31,7 @@ export default {
   name: 'AccountBottomComponent',
   components: {
     AccountTransactionsComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   computed: {
     ...mapGetters('account', {

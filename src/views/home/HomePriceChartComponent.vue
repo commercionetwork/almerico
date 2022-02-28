@@ -1,10 +1,10 @@
 <template>
-  <TopContentCardComponent :loading="isLoading" :title="$t('titles.trend')">
+  <BaseTopContentCard :loading="isLoading" :title="$t('titles.trend')">
     <template v-slot:content>
       <div
         class="py-3 fill-height flex-column d-flex justify-center align-center"
       >
-        <ChartComponent
+        <BaseChart
           id="dashboard-price-chart"
           type="line"
           :dataset="chartData"
@@ -13,13 +13,13 @@
         <HomePriceChartRangeComponent v-on:range-changed="chartRangeChange" />
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import ChartComponent from '@/components/chart/ChartComponent';
+import BaseChart from '@/components/chart/BaseChart';
 import HomePriceChartRangeComponent from './HomePriceChartRangeComponent';
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { HOME } from '@/constants';
 import { mapGetters } from 'vuex';
@@ -28,9 +28,9 @@ import priceChartHelper from './helpers/priceChartHelper';
 export default {
   name: 'HomePriceChartComponent',
   components: {
-    ChartComponent,
+    BaseChart,
     HomePriceChartRangeComponent,
-    TopContentCardComponent,
+    BaseTopContentCard,
   },
   data: () => ({
     range: HOME.RANGE.MONTH,

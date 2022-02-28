@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="isSearching" data-test="loading">
     <v-col cols="12" class="pa-5">
-      <LoadingLinearComponent />
+      <BaseLoadingLinear />
     </v-col>
   </v-row>
   <v-row v-else data-test="content">
@@ -63,13 +63,13 @@
         },
       }"
     >
-      <LoadingLinearComponent v-if="isAdding" data-test="scrolling" />
+      <BaseLoadingLinear v-if="isAdding" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import blocksTableAdapter from './helpers/blocksTableAdapter';
 import { CONFIG, ROUTES } from '@/constants';
@@ -78,7 +78,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'BlocksListTableComponent',
   components: {
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   data: () => ({
     ROUTES,

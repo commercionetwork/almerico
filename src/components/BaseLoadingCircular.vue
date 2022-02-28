@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'LoadingCircularComponent',
+  name: 'BaseLoadingCircular',
   props: {
     color: {
       type: String,

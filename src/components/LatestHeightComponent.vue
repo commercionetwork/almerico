@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.latestHeight')">
+  <BaseTopContentCard :title="$t('titles.latestHeight')">
     <template v-slot:content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-center"
@@ -31,11 +31,11 @@
         </div>
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
@@ -43,7 +43,7 @@ import { proposerHandler } from '@/utils';
 
 export default {
   name: 'LatestHeightComponent',
-  components: { TopContentCardComponent },
+  components: { BaseTopContentCard },
   computed: {
     ...mapGetters('application', {
       block: 'latestBlock',
@@ -64,16 +64,16 @@ export default {
     },
     bondedOnTotalValidators() {
       const bonded = this.validators.filter(
-        (validator) => validator.status === VALIDATORS.STATUS.BONDED,
+        (validator) => validator.status === VALIDATORS.STATUS.BONDED
       ).length;
       return `${this.validators.length} (${this.$t(
-        'labels.bonded',
+        'labels.bonded'
       )} ${bonded})`;
     },
     msgsOnTxs() {
       const msgs = this.txs.reduce(
         (acc, item) => acc + item.body.messages.length,
-        0,
+        0
       );
       return `${msgs}/${this.txs.length}`;
     },

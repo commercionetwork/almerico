@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="isRefreshing" data-test="loading">
     <v-col cols="12" class="pa-5">
-      <LoadingLinearComponent />
+      <BaseLoadingLinear />
     </v-col>
   </v-row>
   <v-row v-else data-test="content">
@@ -73,13 +73,13 @@
         },
       }"
     >
-      <LoadingLinearComponent v-if="isAdding" data-test="scrolling" />
+      <BaseLoadingLinear v-if="isAdding" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { ROUTES } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
@@ -88,7 +88,7 @@ import transactionsTableAdapter from './helpers/transactionsTableAdapter';
 export default {
   name: 'TransactionsListTableComponent',
   components: {
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   props: {
     txType: {

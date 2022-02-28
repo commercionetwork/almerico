@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <LoadingLinearComponent :height="25" />
+      <BaseLoadingLinear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -26,7 +26,7 @@ import BlocksListTableComponent from './list/BlocksListTableComponent.vue';
 import BlocksListTopContentComponent from './list/BlocksListTopContentComponent.vue';
 import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { CONFIG } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
@@ -38,7 +38,7 @@ export default {
     BlocksListTopContentComponent,
     ErrorMessageComponent,
     HeaderComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   data: () => ({
     isSearching: false,

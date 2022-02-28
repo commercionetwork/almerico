@@ -8,7 +8,7 @@
       v-text="chartLabel"
     />
     <v-card-text>
-      <ChartComponent
+      <BaseChart
         id="account-details-performance-chart"
         height="175"
         type="pie"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ChartComponent from '@/components/chart/ChartComponent';
+import BaseChart from '@/components/chart/BaseChart';
 
 import accountPerformanceChartHelper from './helpers/accountPerformanceChartHelper';
 
@@ -33,7 +33,7 @@ export default {
       note: 'The balance amounts to display',
     },
   },
-  components: { ChartComponent },
+  components: { BaseChart },
   computed: {
     chartData() {
       return accountPerformanceChartHelper.getChartData(this.assets, {
@@ -43,7 +43,7 @@ export default {
     },
     chartLabel() {
       return accountPerformanceChartHelper.getChartLabel(
-        this.$t('labels.tokensPerformance'),
+        this.$t('labels.tokensPerformance')
       );
     },
     chartOptions() {

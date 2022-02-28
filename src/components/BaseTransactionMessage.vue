@@ -27,7 +27,7 @@
 import { regExpBuilder } from '@/utils';
 
 export default {
-  name: 'TxMsgComponent',
+  name: 'BaseTransactionMessage',
   description: 'Container for a transaction message',
   props: {
     message: {
@@ -44,13 +44,13 @@ export default {
   computed: {
     subtitle() {
       const firstSegments = this.message['@type'].match(
-        regExpBuilder.getMessageSourceRegExp(),
+        regExpBuilder.getMessageSourceRegExp()
       )[0];
       return firstSegments.substring(1);
     },
     title() {
       const lastSegment = this.message['@type'].match(
-        regExpBuilder.getMessageTypeRegExp(),
+        regExpBuilder.getMessageTypeRegExp()
       )[0];
       return lastSegment.substring(1);
     },

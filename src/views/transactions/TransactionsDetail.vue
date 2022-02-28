@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <LoadingLinearComponent :height="25" />
+      <BaseLoadingLinear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -21,7 +21,7 @@
 <script>
 import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TransactionsDetailContentComponent from './detail/TransactionsDetailContentComponent.vue';
 
 import { mapActions, mapGetters } from 'vuex';
@@ -32,7 +32,7 @@ export default {
   components: {
     ErrorMessageComponent,
     HeaderComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
     TransactionsDetailContentComponent,
   },
   computed: {

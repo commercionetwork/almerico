@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.searchTxs')">
+  <BaseTopContentCard :title="$t('titles.searchTxs')">
     <template v-slot:content>
       <div class="fill-height">
         <v-form>
@@ -44,18 +44,18 @@
         </v-form>
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { TRANSACTIONS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'TransactionsListSearchComponent',
-  components: { TopContentCardComponent },
+  components: { BaseTopContentCard },
   data: () => ({
     nameLimit: 60,
     selectedType: '',

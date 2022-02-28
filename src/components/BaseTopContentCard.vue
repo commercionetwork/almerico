@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'TopContentCardComponent',
+  name: 'BaseTopContentCard',
   props: {
     loading: {
       type: Boolean,

@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'LoadingLinearComponent',
+  name: 'BaseLoadingLinear',
   props: {
     bufferValue: {
       type: String,

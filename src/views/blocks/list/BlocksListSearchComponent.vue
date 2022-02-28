@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.searchBlocks')">
+  <BaseTopContentCard :title="$t('titles.searchBlocks')">
     <template v-slot:content>
       <div class="fill-height">
         <v-form>
@@ -50,18 +50,18 @@
         </v-form>
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { BLOCKS, CONFIG } from '@/constants';
 
 export default {
   name: 'BlocksListSearchComponent',
   components: {
-    TopContentCardComponent,
+    BaseTopContentCard,
   },
   data: () => ({
     BLOCKS,

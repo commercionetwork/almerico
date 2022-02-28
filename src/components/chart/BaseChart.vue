@@ -17,7 +17,7 @@ const allowedTypes = [
 ];
 
 export default {
-  name: 'ChartComponent',
+  name: 'BaseChart',
   props: {
     id: {
       type: String,

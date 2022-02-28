@@ -1,5 +1,5 @@
 <template>
-  <LoadingLinearComponent v-if="isBuilding" />
+  <BaseLoadingLinear v-if="isBuilding" />
   <div v-else>
     <ExchangeRateTopContentComponent :rate="model.exchangeRate" />
     <ExchangeRateBodyComponent :model="model" />
@@ -9,7 +9,7 @@
 <script>
 import ExchangeRateBodyComponent from './ExchangeRateBodyComponent.vue';
 import ExchangeRateTopContentComponent from './ExchangeRateTopContentComponent.vue';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import overviewHelper from './helpers/overviewHelper';
 import { mapGetters } from 'vuex';
@@ -19,7 +19,7 @@ export default {
   components: {
     ExchangeRateBodyComponent,
     ExchangeRateTopContentComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   data: () => ({
     isBuilding: false,

@@ -8,7 +8,7 @@
       v-text="chartLabel"
     />
     <v-card-text>
-      <ChartComponent
+      <BaseChart
         id="account-details-capitalization-chart"
         type="bar"
         height="300"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ChartComponent from '@/components/chart/ChartComponent';
+import BaseChart from '@/components/chart/BaseChart';
 
 import accountCapitalizationChartHelper from './helpers/accountCapitalizationChartHelper';
 
@@ -33,7 +33,7 @@ export default {
       note: 'The balance amounts to display',
     },
   },
-  components: { ChartComponent },
+  components: { BaseChart },
   computed: {
     chartData() {
       return accountCapitalizationChartHelper.getChartData(
@@ -44,13 +44,13 @@ export default {
           delegations: this.$t('labels.delegations'),
           unbondings: this.$t('labels.unbondings'),
           rewards: this.$t('labels.rewards'),
-        },
+        }
       );
     },
     chartLabel() {
       return accountCapitalizationChartHelper.getChartLabel(
         this.capitalization,
-        this.$t('labels.comTotal'),
+        this.$t('labels.comTotal')
       );
     },
     chartOptions() {

@@ -7,19 +7,16 @@
       <v-row>
         <v-col cols="12" md="6">
           <v-list dense>
-            <DetailItemComponent
-              :label="$t('labels.tokens')"
-              :content="tokens"
-            />
-            <DetailItemComponent
+            <BaseDetailItem :label="$t('labels.tokens')" :content="tokens" />
+            <BaseDetailItem
               :label="$t('labels.votingPower')"
               :content="votingPower"
             />
-            <DetailItemComponent
+            <BaseDetailItem
               :label="$t('labels.commission')"
               :content="commission"
             />
-            <DetailItemComponent
+            <BaseDetailItem
               :label="$t('labels.updateTime')"
               :content="updateTime"
             />
@@ -27,19 +24,16 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-list dense>
-            <DetailItemComponent
-              :label="$t('labels.website')"
-              :content="website"
-            />
-            <DetailItemComponent
+            <BaseDetailItem :label="$t('labels.website')" :content="website" />
+            <BaseDetailItem
               :label="$t('labels.securityContact')"
               :content="securityContact"
             />
-            <DetailItemComponent
+            <BaseDetailItem
               :label="$t('labels.identity')"
               :content="identity"
             />
-            <DetailItemComponent
+            <BaseDetailItem
               :label="$t('labels.udetails')"
               :content="particulars"
             />
@@ -51,14 +45,14 @@
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent';
+import BaseDetailItem from '@/components/BaseDetailItem';
 
 import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsDetailSpecComponent',
-  components: { DetailItemComponent },
+  components: { BaseDetailItem },
   computed: {
     ...mapGetters('application', {
       params: 'stakingParams',

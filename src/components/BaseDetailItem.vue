@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'DetailItemComponent',
+  name: 'BaseDetailItem',
   props: {
     label: {
       type: String,

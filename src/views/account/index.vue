@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="isValid">
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <LoadingLinearComponent :height="25" />
+      <BaseLoadingLinear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -32,7 +32,7 @@ import AccountTopComponent from './AccountTopComponent.vue';
 import AlertComponent from '@/components/AlertComponent.vue';
 import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { CONFIG } from '@/constants';
 import { bech32Manager } from '@/utils';
@@ -47,7 +47,7 @@ export default {
     AlertComponent,
     ErrorMessageComponent,
     HeaderComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   data: () => ({
     isValid: true,
@@ -78,7 +78,7 @@ export default {
         const hex = bech32Manager.decode(this.address);
         this.validator = bech32Manager.encode(
           hex,
-          CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS,
+          CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS
         );
       } catch (error) {
         this.isValid = false;

@@ -1,7 +1,7 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.recipient')"
         :content="recipient"
         :route="{
@@ -10,7 +10,7 @@
         }"
         look="font-monotype"
       />
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.sender')"
         :content="sender"
         :route="{
@@ -20,12 +20,12 @@
         look="font-monotype"
       />
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -33,8 +33,8 @@ export default {
   name: 'MsgInviteUser',
   description: 'Display a invite user transaction message',
   components: {
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {

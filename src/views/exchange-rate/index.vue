@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <LoadingLinearComponent :height="25" />
+      <BaseLoadingLinear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -22,7 +22,7 @@
 import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import ExchangeRateOverviewComponent from './ExchangeRateOverviewComponent.vue';
 import HeaderComponent from '@/components/HeaderComponent';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -32,7 +32,7 @@ export default {
     ErrorMessageComponent,
     ExchangeRateOverviewComponent,
     HeaderComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   computed: {
     ...mapGetters('exchangeRate', {

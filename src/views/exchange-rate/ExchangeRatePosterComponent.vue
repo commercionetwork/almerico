@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.cccExchangeRate')">
+  <BaseTopContentCard :title="$t('titles.cccExchangeRate')">
     <template v-slot:content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-center"
@@ -11,15 +11,15 @@
         />
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 export default {
   name: 'ExchangeRatePosterComponent',
-  components: { TopContentCardComponent },
+  components: { BaseTopContentCard },
   props: ['rate'],
 };
 </script>

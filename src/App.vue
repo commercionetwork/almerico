@@ -1,7 +1,7 @@
 <template>
   <v-app id="main" :style="style">
     <v-container v-if="isLoading" fluid fill-height data-test="loading">
-      <LoadingCircularComponent />
+      <BaseLoadingCircular />
     </v-container>
     <div v-else>
       <NavBarComponent />
@@ -21,7 +21,7 @@
 <script>
 import ErrorMessageComponent from '@/components/ErrorMessageComponent.vue';
 import FooterComponent from '@/components/layout/FooterComponent.vue';
-import LoadingCircularComponent from '@/components/LoadingCircularComponent';
+import BaseLoadingCircular from '@/components/BaseLoadingCircular';
 import NavBarComponent from '@/components/layout/NavBarComponent.vue';
 
 import { mapActions, mapGetters } from 'vuex';
@@ -32,7 +32,7 @@ export default {
   components: {
     ErrorMessageComponent,
     FooterComponent,
-    LoadingCircularComponent,
+    BaseLoadingCircular,
     NavBarComponent,
   },
   computed: {

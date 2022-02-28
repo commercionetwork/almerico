@@ -1,7 +1,7 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.fromAddress')"
         :content="fromAddress"
         :route="{
@@ -10,7 +10,7 @@
         }"
         look="font-monotype"
       />
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.toAddress')"
         :content="toAddress"
         :route="{
@@ -20,7 +20,7 @@
         look="font-monotype"
       />
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <DetailItemComponent
+        <BaseDetailItem
           :label="$t('labels.amount')"
           :content="amount"
           :isLoop="true"
@@ -28,13 +28,13 @@
         />
       </v-list-item>
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
@@ -43,9 +43,9 @@ export default {
   name: 'MsgSend',
   description: 'Display a send transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {

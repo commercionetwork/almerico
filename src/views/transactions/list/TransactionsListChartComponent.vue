@@ -1,8 +1,8 @@
 <template>
-  <TopContentCardComponent :loading="isRefreshing" :title="chartLabel">
+  <BaseTopContentCard :loading="isRefreshing" :title="chartLabel">
     <template v-slot:content>
       <div class="fill-height">
-        <ChartComponent
+        <BaseChart
           id="transactions-chart"
           type="pie"
           :dataset="chartData"
@@ -10,12 +10,12 @@
         />
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import ChartComponent from '@/components/chart/ChartComponent';
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseChart from '@/components/chart/BaseChart';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import transactionsChartHelper from './helpers/transactionsChartHelper';
 import { mapGetters } from 'vuex';
@@ -23,8 +23,8 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'TransactionsListChartComponent',
   components: {
-    ChartComponent,
-    TopContentCardComponent,
+    BaseChart,
+    BaseTopContentCard,
   },
   computed: {
     ...mapGetters('transactions', {

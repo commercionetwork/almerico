@@ -1,8 +1,8 @@
 <template>
-  <TopContentCardComponent :title="chartLabel">
+  <BaseTopContentCard :title="chartLabel">
     <template v-slot:content>
       <div class="fill-height">
-        <ChartComponent
+        <BaseChart
           id="dashboard-chart"
           type="pie"
           :dataset="chartData"
@@ -10,12 +10,12 @@
         />
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import ChartComponent from '@/components/chart/ChartComponent';
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseChart from '@/components/chart/BaseChart';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import tokensChartHelper from '@/components/chart/helpers/tokensChartHelper';
 import { mapGetters } from 'vuex';
@@ -23,8 +23,8 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ExchangeRateChartComponent',
   components: {
-    ChartComponent,
-    TopContentCardComponent,
+    BaseChart,
+    BaseTopContentCard,
   },
   computed: {
     ...mapGetters('application', {

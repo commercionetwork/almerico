@@ -13,8 +13,8 @@
 
 <script>
 import MsgDefault from '../common/MsgDefault.vue';
-import PlaceholderErrorComponent from '@/components/PlaceholderErrorComponent';
-import PlaceholderLoadingComponent from '@/components/PlaceholderLoadingComponent';
+import BasePlaceholderComponentError from '@/components/BasePlaceholderComponentError';
+import BasePlaceholderComponentLoading from '@/components/BasePlaceholderComponentLoading';
 import TransactionsCommonContentComponent from '../common/TransactionsCommonContentComponent.vue';
 
 import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
@@ -25,8 +25,8 @@ const components = {};
 TRANSACTIONS.SUPPORTED_TYPES.forEach((component) => {
   components[component.name] = () => ({
     component: import(`./msgs/${component.name}.vue`),
-    loading: PlaceholderLoadingComponent,
-    error: PlaceholderErrorComponent,
+    loading: BasePlaceholderComponentLoading,
+    error: BasePlaceholderComponentError,
     delay: 0,
     timeout: 5000,
   });

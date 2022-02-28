@@ -6,7 +6,7 @@
 import AlertComponent from '@/components/AlertComponent.vue';
 
 export default {
-  name: 'PlaceholderErrorComponent',
+  name: 'BasePlaceholderComponentError',
   components: { AlertComponent },
 };
 1;

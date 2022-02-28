@@ -1,8 +1,8 @@
 <template>
-  <TopContentCardComponent :title="chartLabel">
+  <BaseTopContentCard :title="chartLabel">
     <template v-slot:content>
       <div class="fill-height">
-        <ChartComponent
+        <BaseChart
           id="blocks-chart"
           type="pie"
           :dataset="chartData"
@@ -10,12 +10,12 @@
         />
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import ChartComponent from '@/components/chart/ChartComponent';
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseChart from '@/components/chart/BaseChart';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { mapGetters } from 'vuex';
 import blocksChartHelper from './helpers/blocksChartHelper';
@@ -23,8 +23,8 @@ import blocksChartHelper from './helpers/blocksChartHelper';
 export default {
   name: 'BlocksListChartComponent',
   components: {
-    ChartComponent,
-    TopContentCardComponent,
+    BaseChart,
+    BaseTopContentCard,
   },
   computed: {
     ...mapGetters('blocks', {
@@ -39,7 +39,7 @@ export default {
     chartLabel() {
       return blocksChartHelper.getChartLabel(
         this.blocks,
-        this.$t('titles.txsBlocks'),
+        this.$t('titles.txsBlocks')
       );
     },
     chartOptions() {

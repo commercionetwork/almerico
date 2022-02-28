@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="isLoadingTxs" data-test="loading">
     <v-col cols="12" class="pa-5">
-      <LoadingLinearComponent />
+      <BaseLoadingLinear />
     </v-col>
   </v-row>
   <v-row v-else data-test="content">
@@ -15,7 +15,7 @@
 
 <script>
 import HomeGridListItemComponent from './HomeGridListItemComponent';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapGetters } from 'vuex';
 
@@ -23,7 +23,7 @@ export default {
   name: 'HomeGridListComponent',
   components: {
     HomeGridListItemComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   computed: {
     ...mapGetters('home', {

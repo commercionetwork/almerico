@@ -15,28 +15,25 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider />
-        <DetailItemComponent :label="$t('labels.time')" :content="tx.time" />
-        <DetailItemComponent
+        <BaseDetailItem :label="$t('labels.time')" :content="tx.time" />
+        <BaseDetailItem
           :label="$t('labels.status')"
           :content="tx.status.label"
           :look="tx.status.code === 1 ? 'info--text' : 'error--text'"
         />
-        <DetailItemComponent
+        <BaseDetailItem
           v-if="!tx.status.code"
           :label="$t('labels.rawLog')"
           :content="tx.rawLog"
           look="font-italic"
         />
-        <DetailItemComponent
+        <BaseDetailItem
           :label="$t('labels.fee')"
           :content="tx.fee"
           look="text-uppercase"
         />
-        <DetailItemComponent
-          :label="$t('labels.gasUsedWanted')"
-          :content="tx.gas"
-        />
-        <DetailLinkComponent
+        <BaseDetailItem :label="$t('labels.gasUsedWanted')" :content="tx.gas" />
+        <BaseDetailLink
           v-if="!tx.version"
           :label="$t('labels.height')"
           :content="tx.height"
@@ -46,13 +43,13 @@
           }"
           look="text-decoration-none"
         />
-        <DetailItemComponent
+        <BaseDetailItem
           v-else
           :label="$t('labels.height')"
           :content="tx.height"
         />
         <v-divider />
-        <DetailUrlComponent
+        <BaseDetailUrl
           :label="$t('labels.officialNode')"
           :content="rawJsonLink"
           :link="rawJsonLink"
@@ -64,18 +61,18 @@
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import DetailUrlComponent from '@/components/DetailUrlComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseDetailUrl from '@/components/BaseDetailUrl.vue';
 
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'TransactionsCommonContentComponent',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    DetailUrlComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseDetailUrl,
   },
   props: {
     tx: {

@@ -2,28 +2,14 @@
   <v-list-item-content v-if="isLoop">
     <v-list-item-title class="py-1" v-text="label" />
     <v-list-item-subtitle>
-      <a
-        v-if="link"
-        :class="look"
-        :href="link"
-        target="_blank"
-        v-text="content"
-      />
-      <span v-else v-text="'-'" />
+      <router-link :class="look" :to="route" v-text="content" />
     </v-list-item-subtitle>
   </v-list-item-content>
   <v-list-item v-else>
     <v-list-item-content>
       <v-list-item-title class="py-1" v-text="label" />
       <v-list-item-subtitle>
-        <a
-          v-if="link"
-          :class="look"
-          :href="link"
-          target="_blank"
-          v-text="content"
-        />
-        <span v-else v-text="'-'" />
+        <router-link :class="look" :to="route" v-text="content" />
       </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
@@ -31,22 +17,22 @@
 
 <script>
 export default {
-  name: 'DetailUrlComponent',
+  name: 'BaseDetailLink',
   props: {
     label: {
       type: String,
       required: true,
       note: 'The link label',
     },
-    link: {
-      type: String,
-      required: true,
-      note: 'The link value',
-    },
     content: {
       type: String,
       required: true,
       note: 'The item value',
+    },
+    route: {
+      type: Object,
+      required: true,
+      note: 'The route value',
     },
     isLoop: {
       type: Boolean,

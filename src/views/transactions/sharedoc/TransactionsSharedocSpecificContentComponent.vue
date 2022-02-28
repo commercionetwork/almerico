@@ -1,7 +1,7 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.sender')"
         :content="senderAddress"
         :route="{
@@ -20,7 +20,7 @@
             v-for="(recipientAddress, index) in recipients"
             :key="index"
           >
-            <DetailLinkComponent
+            <BaseDetailLink
               :label="$t('labels.address')"
               :content="recipientAddress"
               :isLoop="true"
@@ -33,60 +33,57 @@
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
-      <DetailItemComponent :label="$t('labels.uuid')" :content="uuid" />
+      <BaseDetailItem :label="$t('labels.uuid')" :content="uuid" />
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title
             class="text-capitalize font-weight-bold"
             v-text="$t('titles.metadata')"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.metadataContentUri')"
             :content="metadataContentUri"
           />
           <span v-if="metadataSchemaType !== '-'">
-            <DetailItemComponent
+            <BaseDetailItem
               :label="$t('labels.metadataSchemaType')"
               :content="metadataSchemaType"
             />
           </span>
           <span v-else>
-            <DetailItemComponent
+            <BaseDetailItem
               :label="$t('labels.metadataSchemaUri')"
               :content="metadataSchemaUri"
             />
-            <DetailItemComponent
+            <BaseDetailItem
               :label="$t('labels.metadataSchemaVersion')"
               :content="metadataSchemaVersion"
             />
           </span>
         </v-list-item-content>
       </v-list-item>
-      <DetailItemComponent
-        :label="$t('labels.contentUri')"
-        :content="contentUri"
-      />
+      <BaseDetailItem :label="$t('labels.contentUri')" :content="contentUri" />
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title
             class="text-capitalize font-weight-bold"
             v-text="$t('titles.checksum')"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.value')"
             :content="checksumValue"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.algorithm')"
             :content="checksumAlgorithm"
           />
         </v-list-item-content>
       </v-list-item>
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.encryptionDataKeys')"
         :content="encryptionDataKeys"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.encryptionDataEncryptedData')"
         :content="encryptionDataEncryptedData"
       />
@@ -96,36 +93,30 @@
             class="text-capitalize font-weight-bold"
             v-text="$t('titles.doSign')"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.storageUri')"
             :content="doSignStorageUri"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.signerInstance')"
             :content="doSignSigner"
           />
-          <DetailItemComponent
-            :label="$t('labels.sdnData')"
-            :content="doSignSdn"
-          />
-          <DetailItemComponent
-            :label="$t('labels.vcrId')"
-            :content="doSignVcr"
-          />
-          <DetailItemComponent
+          <BaseDetailItem :label="$t('labels.sdnData')" :content="doSignSdn" />
+          <BaseDetailItem :label="$t('labels.vcrId')" :content="doSignVcr" />
+          <BaseDetailItem
             :label="$t('labels.certificateProfile')"
             :content="doSignCertificate"
           />
         </v-list-item-content>
       </v-list-item>
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -133,9 +124,9 @@ export default {
   name: 'TransactionsSharedocSpecificContentComponent',
   description: 'Display a share document transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {

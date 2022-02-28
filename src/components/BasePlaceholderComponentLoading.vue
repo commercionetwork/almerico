@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'PlaceholderLoadingComponent',
+  name: 'BasePlaceholderComponentLoading',
 };
 </script>

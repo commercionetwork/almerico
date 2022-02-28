@@ -15,14 +15,14 @@
           </v-list-item-content>
         </v-list-item>
         <v-divider />
-        <DetailItemComponent :label="$t('labels.time')" :content="time" />
-        <DetailItemComponent
+        <BaseDetailItem :label="$t('labels.time')" :content="time" />
+        <BaseDetailItem
           :label="$t('labels.hash')"
           :content="hash"
           look="font-monotype"
         />
-        <DetailItemComponent :label="$t('labels.txsAmount')" :content="txs" />
-        <DetailLinkComponent
+        <BaseDetailItem :label="$t('labels.txsAmount')" :content="txs" />
+        <BaseDetailLink
           :label="$t('labels.proposer')"
           :content="proposer.description.moniker"
           :route="{
@@ -37,16 +37,16 @@
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
 
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'BlocksDetailHeightComponent',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
+    BaseDetailItem,
+    BaseDetailLink,
   },
   props: {
     detail: {

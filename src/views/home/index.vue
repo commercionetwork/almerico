@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <LoadingLinearComponent :height="25" />
+      <BaseLoadingLinear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -32,7 +32,7 @@ import HeaderComponent from '@/components/HeaderComponent';
 import HomeBannerComponent from './HomeBannerComponent';
 import HomeGridListComponent from './HomeGridListComponent';
 import HomeTopContentComponent from './HomeTopContentComponent';
-import LoadingLinearComponent from '@/components/LoadingLinearComponent';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -45,7 +45,7 @@ export default {
     HomeBannerComponent,
     HomeGridListComponent,
     HomeTopContentComponent,
-    LoadingLinearComponent,
+    BaseLoadingLinear,
   },
   computed: {
     ...mapGetters('home', {

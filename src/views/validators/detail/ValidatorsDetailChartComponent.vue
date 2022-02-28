@@ -8,7 +8,7 @@
       v-text="chartLabel"
     />
     <v-card-text>
-      <ChartComponent
+      <BaseChart
         id="validator-details-chart"
         height="175"
         type="pie"
@@ -20,13 +20,13 @@
 </template>
 
 <script>
-import ChartComponent from '@/components/chart/ChartComponent';
+import BaseChart from '@/components/chart/BaseChart';
 
 import validatorsDetailChartHelper from './helpers/validatorsDetailChartHelper';
 
 export default {
   name: 'ValidatorsDetailChartComponent',
-  components: { ChartComponent },
+  components: { BaseChart },
   props: {
     delegations: {
       type: Object,
@@ -44,7 +44,7 @@ export default {
     chartLabel() {
       return validatorsDetailChartHelper.getChartLabel(
         this.delegations,
-        this.$t('labels.delegated'),
+        this.$t('labels.delegated')
       );
     },
     chartOptions() {

@@ -1,7 +1,7 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.signer')"
         :content="signer"
         :route="{
@@ -10,22 +10,22 @@
         }"
         look="font-monotype"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.conversionRate')"
         :content="conversionRate"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.freezePeriod')"
         :content="freezePeriod"
       />
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -33,9 +33,9 @@ export default {
   name: 'MsgSetParams',
   description: 'Display a set params transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {

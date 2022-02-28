@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :title="$t('titles.searchValidator')">
+  <BaseTopContentCard :title="$t('titles.searchValidator')">
     <template v-slot:content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-content-space-around"
@@ -29,11 +29,11 @@
         </div>
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 import ValidatorsListFilterComponent from './ValidatorsListFilterComponent.vue';
 import { VALIDATORS } from '@/constants';
 import { mapActions } from 'vuex';
@@ -42,7 +42,7 @@ export default {
   name: 'ValidatorsListSearchComponent',
   components: {
     ValidatorsListFilterComponent,
-    TopContentCardComponent,
+    BaseTopContentCard,
   },
   data: () => ({
     status: VALIDATORS.FILTER.ACTIVE,

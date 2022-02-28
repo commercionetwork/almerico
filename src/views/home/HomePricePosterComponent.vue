@@ -1,5 +1,5 @@
 <template>
-  <TopContentCardComponent :loading="isLoading" :title="$t('titles.price')">
+  <BaseTopContentCard :loading="isLoading" :title="$t('titles.price')">
     <template v-slot:content>
       <div
         class="fill-height d-flex flex-row justify-space-between align-center"
@@ -25,18 +25,18 @@
         </div>
       </div>
     </template>
-  </TopContentCardComponent>
+  </BaseTopContentCard>
 </template>
 
 <script>
-import TopContentCardComponent from '@/components/TopContentCardComponent.vue';
+import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { mapGetters } from 'vuex';
 import { CONFIG } from '@/constants';
 
 export default {
   name: 'HomePricePosterComponent',
-  components: { TopContentCardComponent },
+  components: { BaseTopContentCard },
   data: () => ({
     CONFIG,
   }),
