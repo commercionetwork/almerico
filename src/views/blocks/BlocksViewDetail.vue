@@ -29,10 +29,10 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'BlocksViewDetail',
   components: {
+    BaseLoadingLinear,
     BlocksViewDetailContent,
     TheErrorMessage,
     TheHeaderContent,
-    BaseLoadingLinear,
   },
   computed: {
     ...mapGetters('blocks', {
@@ -48,13 +48,13 @@ export default {
       if (value) this.initBlocksDetail(value);
     },
   },
+  created() {
+    this.initBlocksDetail(this.height);
+  },
   methods: {
     ...mapActions('blocks', {
       initBlocksDetail: 'initBlocksDetail',
     }),
-  },
-  created() {
-    this.initBlocksDetail(this.height);
   },
 };
 </script>

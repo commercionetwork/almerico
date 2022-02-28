@@ -32,11 +32,11 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'BlocksViewList',
   components: {
-    BlocksViewListTable,
+    BaseLoadingLinear,
     BlocksViewListContentTop,
+    BlocksViewListTable,
     TheErrorMessage,
     TheHeaderContent,
-    BaseLoadingLinear,
   },
   data: () => ({
     isSearching: false,
@@ -62,6 +62,9 @@ export default {
       if (value && !this.isSearching) this.addBlocksItem(value);
     },
   },
+  created() {
+    this.initBlocksList(this.lastHeight);
+  },
   methods: {
     ...mapActions('blocks', {
       addBlocksItem: 'addBlocksItem',
@@ -83,9 +86,6 @@ export default {
         return;
       }
     },
-  },
-  created() {
-    this.initBlocksList(this.lastHeight);
   },
 };
 </script>

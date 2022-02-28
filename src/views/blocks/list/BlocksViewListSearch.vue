@@ -60,9 +60,7 @@ import { BLOCKS, CONFIG } from '@/constants';
 
 export default {
   name: 'BlocksViewListSearch',
-  components: {
-    BaseTopContentCard,
-  },
+  components: { BaseTopContentCard },
   data: () => ({
     BLOCKS,
     CONFIG,

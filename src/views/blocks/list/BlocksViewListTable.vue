@@ -77,9 +77,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'BlocksViewListTable',
-  components: {
-    BaseLoadingLinear,
-  },
+  components: { BaseLoadingLinear },
   data: () => ({
     ROUTES,
     sortBy: 'height',
