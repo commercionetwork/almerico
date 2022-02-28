@@ -10,7 +10,7 @@
 import TheAlertNotice from '@/components/TheAlertNotice';
 
 export default {
-  name: 'NotFound',
+  name: 'IssueNotFoundView',
   description: '404 page',
   components: {
     TheAlertNotice,
