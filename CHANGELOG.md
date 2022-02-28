@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.4]
 
+### Changed
+
+- Update the code to follow the convention of Vue.js
+
 ## [3.0.3] - 2022.02.25
 
 ### Changed
