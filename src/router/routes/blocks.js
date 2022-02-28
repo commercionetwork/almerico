@@ -1,28 +1,28 @@
 import { ROUTES } from '@/constants';
 import { loadView } from '../index';
 
-const Blocks = loadView('blocks/index');
-const BlocksDetail = loadView('blocks/BlocksDetail');
-const BlocksList = loadView('blocks/BlocksList');
+const BlocksRouter = loadView('blocks/BlocksRouter');
+const BlocksViewDetail = loadView('blocks/BlocksViewDetail');
+const BlocksViewList = loadView('blocks/BlocksViewList');
 
 export const blocksRoutes = {
   path: ROUTES.PATH.BLOCKS,
-  component: Blocks,
+  component: BlocksRouter,
   meta: {
     title: ROUTES.TITLE.BLOCKS,
   },
   children: [
-    { path: '', name: ROUTES.NAME.BLOCKS, component: BlocksList },
+    { path: '', name: ROUTES.NAME.BLOCKS, component: BlocksViewList },
     {
       path: ROUTES.PATH.BLOCKS_DETAIL,
       name: ROUTES.NAME.BLOCKS_DETAIL,
-      component: BlocksDetail,
+      component: BlocksViewDetail,
       meta: { title: ROUTES.TITLE.BLOCKS_DETAIL },
     },
     {
       path: ROUTES.PATH.BLOCKS_LIST,
       name: ROUTES.NAME.BLOCKS_LIST,
-      component: BlocksList,
+      component: BlocksViewList,
       meta: { title: ROUTES.TITLE.BLOCKS_LIST },
     },
   ],

@@ -1,12 +1,12 @@
 import { ROUTES } from '@/constants';
 import { loadView } from '../index';
 
-const Account = loadView('account/index');
+const AccountView = loadView('account/AccountView');
 
 export const accountRoutes = {
   path: ROUTES.PATH.ACCOUNT,
   name: ROUTES.NAME.ACCOUNT,
-  component: Account,
+  component: AccountView,
   meta: {
     title: ROUTES.TITLE.ACCOUNT,
   },

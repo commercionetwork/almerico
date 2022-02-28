@@ -1,5 +1,5 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
@@ -7,29 +7,29 @@
             class="text-capitalize font-weight-bold"
             v-text="$t('titles.description')"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.moniker')"
             :content="descriptionMoniker"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.identity')"
             :content="descriptionIdentity"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.website')"
             :content="descriptionWebsite"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.securityContact')"
             :content="descriptionSecurityContact"
           />
-          <DetailItemComponent
+          <BaseDetailItem
             :label="$t('labels.details')"
             :content="descriptionDetails"
           />
         </v-list-item-content>
       </v-list-item>
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.address')"
         :content="address"
         :route="{
@@ -38,22 +38,19 @@
         }"
         look="font-monotype"
       />
-      <DetailItemComponent
-        :label="$t('labels.rate')"
-        :content="commissionRate"
-      />
-      <DetailItemComponent
+      <BaseDetailItem :label="$t('labels.rate')" :content="commissionRate" />
+      <BaseDetailItem
         :label="$t('labels.minSelfDelegation')"
         :content="minSelfDelegation"
       />
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -61,9 +58,9 @@ export default {
   name: 'MsgEditValidator',
   description: 'Display an edit validator transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {

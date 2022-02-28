@@ -12,10 +12,10 @@
         </v-list-item>
         <v-divider />
         <v-list-item v-for="(value, key) in message" :key="key">
-          <DetailItemComponent
+          <BaseDetailItem
             :label="formatKey(key)"
             :content="value"
-            :isLoop="true"
+            :is-loop="true"
           />
         </v-list-item>
       </v-list>
@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
 
 export default {
   name: 'MsgDefault',
-  components: { DetailItemComponent },
+  components: { BaseDetailItem },
   props: {
     message: {
       type: Object,
