@@ -26,6 +26,7 @@ import accountPerformanceChartHelper from './helpers/accountPerformanceChartHelp
 
 export default {
   name: 'AccountViewChartPerformance',
+  components: { BaseChart },
   props: {
     assets: {
       type: Object,
@@ -33,7 +34,6 @@ export default {
       note: 'The balance amounts to display',
     },
   },
-  components: { BaseChart },
   computed: {
     chartData() {
       return accountPerformanceChartHelper.getChartData(this.assets, {

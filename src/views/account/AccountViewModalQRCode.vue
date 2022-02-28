@@ -25,9 +25,7 @@ import QrcodeVue from 'qrcode.vue';
 
 export default {
   name: 'AccountViewModalQRCode',
-  components: {
-    QrcodeVue,
-  },
+  components: { QrcodeVue },
   props: {
     value: Boolean,
     address: {

@@ -26,6 +26,7 @@ import accountCapitalizationChartHelper from './helpers/accountCapitalizationCha
 
 export default {
   name: 'AccountViewChartCapitalization',
+  components: { BaseChart },
   props: {
     capitalization: {
       type: Object,
@@ -33,7 +34,6 @@ export default {
       note: 'The balance amounts to display',
     },
   },
-  components: { BaseChart },
   computed: {
     chartData() {
       return accountCapitalizationChartHelper.getChartData(

@@ -44,10 +44,10 @@ export default {
     AccountViewContentBottom,
     AccountViewContentMiddle,
     AccountViewContentTop,
+    BaseLoadingLinear,
     TheAlertNotice,
     TheErrorMessage,
     TheHeaderContent,
-    BaseLoadingLinear,
   },
   data: () => ({
     isValid: true,
@@ -69,6 +69,12 @@ export default {
         this.initAccount({ address: value, validator: this.validator });
     },
   },
+  created() {
+    this.getValidator();
+    if (this.isValid) {
+      this.initAccount({ address: this.address, validator: this.validator });
+    }
+  },
   methods: {
     ...mapActions('account', {
       initAccount: 'initAccount',
@@ -84,12 +90,6 @@ export default {
         this.isValid = false;
       }
     },
-  },
-  created() {
-    this.getValidator();
-    if (this.isValid) {
-      this.initAccount({ address: this.address, validator: this.validator });
-    }
   },
 };
 </script>
