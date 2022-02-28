@@ -19,9 +19,9 @@
 </template>
 
 <script>
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TransactionsViewDetailContent from './detail/TransactionsViewDetailContent.vue';
 
 import { mapActions, mapGetters } from 'vuex';
@@ -30,9 +30,9 @@ import { CONFIG } from '@/constants';
 export default {
   name: 'TransactionsViewDetail',
   components: {
+    BaseLoadingLinear,
     TheErrorMessage,
     TheHeaderContent,
-    BaseLoadingLinear,
     TransactionsViewDetailContent,
   },
   computed: {
@@ -48,11 +48,6 @@ export default {
     hash(value) {
       if (value) this.initTransactionsDetail(value);
     },
-  },
-  methods: {
-    ...mapActions('transactions', {
-      initTransactionsDetail: 'initTransactionsDetail',
-    }),
   },
   created() {
     this.initTransactionsDetail(this.hash);
@@ -74,6 +69,11 @@ export default {
         }, 500);
       }
     });
+  },
+  methods: {
+    ...mapActions('transactions', {
+      initTransactionsDetail: 'initTransactionsDetail',
+    }),
   },
 };
 </script>

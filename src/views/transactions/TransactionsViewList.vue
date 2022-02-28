@@ -14,28 +14,28 @@
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.transactions')" />
       <TransactionsViewListContentTop v-on:search-txs="onSearchTxs" />
-      <TransactionsViewListTable :txType="txType" />
+      <TransactionsViewListTable :tx-type="txType" />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import TransactionsViewListTable from './list/TransactionsViewListTable.vue';
 import TransactionsViewListContentTop from './list/TransactionsViewListContentTop.vue';
+import TransactionsViewListTable from './list/TransactionsViewListTable.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'TransactionsViewList',
   components: {
+    BaseLoadingLinear,
     TheErrorMessage,
     TheHeaderContent,
-    BaseLoadingLinear,
-    TransactionsViewListTable,
     TransactionsViewListContentTop,
+    TransactionsViewListTable,
   },
   data: () => ({
     txType: '',
@@ -52,6 +52,9 @@ export default {
       if (value && !this.txType) this.refreshTransactions();
     },
   },
+  created() {
+    this.initTransactionsList();
+  },
   methods: {
     ...mapActions('transactions', {
       initTransactionsList: 'initTransactionsList',
@@ -67,9 +70,6 @@ export default {
       const query = `message.action='${txType}'`;
       this.searchTransactions({ query, offset: 0 });
     },
-  },
-  created() {
-    this.initTransactionsList();
   },
 };
 </script>

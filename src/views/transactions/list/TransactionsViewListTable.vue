@@ -87,9 +87,7 @@ import transactionsTableAdapter from './helpers/transactionsTableAdapter';
 
 export default {
   name: 'TransactionsViewListTable',
-  components: {
-    BaseLoadingLinear,
-  },
+  components: { BaseLoadingLinear },
   props: {
     txType: {
       type: String,
