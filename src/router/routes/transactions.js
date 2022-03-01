@@ -1,23 +1,29 @@
 import { ROUTES } from '@/constants';
 import { loadView } from '../index';
 
-const Transactions = loadView('transactions/index');
-const TransactionsDetail = loadView('transactions/TransactionsDetail');
-const TransactionsList = loadView('transactions/TransactionsList');
-const TransactionsSharedoc = loadView('transactions/TransactionsSharedoc');
+const TransactionsRouter = loadView('transactions/TransactionsRouter');
+const TransactionsViewDetail = loadView('transactions/TransactionsViewDetail');
+const TransactionsViewList = loadView('transactions/TransactionsViewList');
+const TransactionsViewSharedoc = loadView(
+  'transactions/TransactionsViewSharedoc'
+);
 
 export const transactionsRoutes = {
   path: ROUTES.PATH.TRANSACTIONS,
-  component: Transactions,
+  component: TransactionsRouter,
   meta: {
     title: ROUTES.TITLE.TRANSACTIONS,
   },
   children: [
-    { path: '', name: ROUTES.NAME.TRANSACTIONS, component: TransactionsList },
+    {
+      path: '',
+      name: ROUTES.NAME.TRANSACTIONS,
+      component: TransactionsViewList,
+    },
     {
       path: ROUTES.PATH.TRANSACTIONS_DETAIL,
       name: ROUTES.NAME.TRANSACTIONS_DETAIL,
-      component: TransactionsDetail,
+      component: TransactionsViewDetail,
       meta: {
         title: ROUTES.TITLE.TRANSACTIONS_DETAIL,
       },
@@ -25,7 +31,7 @@ export const transactionsRoutes = {
     {
       path: ROUTES.PATH.TRANSACTIONS_LIST,
       name: ROUTES.NAME.TRANSACTIONS_LIST,
-      component: TransactionsList,
+      component: TransactionsViewList,
       meta: {
         title: ROUTES.TITLE.TRANSACTIONS_LIST,
       },
@@ -33,7 +39,7 @@ export const transactionsRoutes = {
     {
       path: ROUTES.PATH.TRANSACTIONS_SHAREDOC,
       name: ROUTES.NAME.TRANSACTIONS_SHAREDOC,
-      component: TransactionsSharedoc,
+      component: TransactionsViewSharedoc,
       meta: {
         title: ROUTES.TITLE.TRANSACTIONS_SHAREDOC,
       },

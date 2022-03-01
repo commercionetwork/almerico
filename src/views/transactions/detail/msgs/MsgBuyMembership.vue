@@ -1,11 +1,11 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.membershipType')"
         :content="membershipType"
       />
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.buyer')"
         :content="buyerAddress"
         :route="{
@@ -14,7 +14,7 @@
         }"
         look="font-monotype"
       />
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.tsp')"
         :content="tspAddress"
         :route="{
@@ -24,13 +24,13 @@
         look="font-monotype"
       />
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -38,9 +38,9 @@ export default {
   name: 'MsgBuyMembership',
   description: 'Display a buy membership transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {

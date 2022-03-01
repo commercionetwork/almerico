@@ -1,8 +1,8 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailItemComponent :label="$t('labels.uuid')" :content="uuid" />
-      <DetailLinkComponent
+      <BaseDetailItem :label="$t('labels.uuid')" :content="uuid" />
+      <BaseDetailLink
         :label="$t('labels.sender')"
         :content="senderAddress"
         :route="{
@@ -11,7 +11,7 @@
         }"
         look="font-monotype"
       />
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.recipient')"
         :content="recipientAddress"
         :route="{
@@ -20,24 +20,24 @@
         }"
         look="font-monotype"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.txHash')"
         :content="txHash"
         look="font-monotype"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.documentUUID')"
         :content="documentUuid"
       />
-      <DetailItemComponent :label="$t('labels.proof')" :content="proof" />
+      <BaseDetailItem :label="$t('labels.proof')" :content="proof" />
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -45,9 +45,9 @@ export default {
   name: 'MsgSendDocumentReceipt',
   description: 'Display a send document transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {
