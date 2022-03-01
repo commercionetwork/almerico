@@ -1,8 +1,8 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailItemComponent :label="$t('labels.context')" :content="context" />
-      <DetailLinkComponent
+      <BaseDetailItem :label="$t('labels.context')" :content="context" />
+      <BaseDetailLink
         :label="$t('labels.did')"
         :content="id"
         :route="{
@@ -22,19 +22,16 @@
             :key="index"
           >
             <v-list dense>
-              <DetailItemComponent
-                :label="$t('labels.id')"
-                :content="method.ID"
-              />
-              <DetailItemComponent
+              <BaseDetailItem :label="$t('labels.id')" :content="method.ID" />
+              <BaseDetailItem
                 :label="$t('labels.type')"
                 :content="method.Type"
               />
-              <DetailItemComponent
+              <BaseDetailItem
                 :label="$t('labels.controller')"
                 :content="method.Controller"
               />
-              <DetailItemComponent
+              <BaseDetailItem
                 :label="$t('labels.publicKeyMultibase')"
                 :content="method.publicKeyMultibase"
               />
@@ -42,23 +39,23 @@
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.authentication')"
         :content="authentication"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.assertionMethod')"
         :content="assertionMethod"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.keyAgreement')"
         :content="keyAgreement"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.capabilityInvocation')"
         :content="capabilityInvocation"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.capabilityDelegation')"
         :content="capabilityDelegation"
       />
@@ -70,15 +67,9 @@
           />
           <v-list-item v-for="(serv, index) in service" :key="index">
             <v-list dense>
-              <DetailItemComponent
-                :label="$t('labels.id')"
-                :content="serv.ID"
-              />
-              <DetailItemComponent
-                :label="$t('labels.type')"
-                :content="serv.type"
-              />
-              <DetailItemComponent
+              <BaseDetailItem :label="$t('labels.id')" :content="serv.ID" />
+              <BaseDetailItem :label="$t('labels.type')" :content="serv.type" />
+              <BaseDetailItem
                 :label="$t('labels.serviceEndpoint')"
                 :content="serv.serviceEndpoint"
               />
@@ -87,13 +78,13 @@
         </v-list-item-content>
       </v-list-item>
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -101,9 +92,9 @@ export default {
   name: 'MsgSetIdentity',
   description: 'Display a set identity transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {

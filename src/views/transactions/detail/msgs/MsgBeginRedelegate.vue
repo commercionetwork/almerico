@@ -1,7 +1,7 @@
 <template>
-  <TxMsgComponent :message="message">
+  <BaseTransactionMessage :message="message">
     <div slot="body">
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.delegatorAddress')"
         :content="delegatorAddress"
         :route="{
@@ -10,7 +10,7 @@
         }"
         look="font-monotype"
       />
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.destinationValidatorAddress')"
         :content="validatorDstAddress"
         :route="{
@@ -19,7 +19,7 @@
         }"
         look="font-monotype"
       />
-      <DetailLinkComponent
+      <BaseDetailLink
         :label="$t('labels.sourceValidatorAddress')"
         :content="validatorSrcAddress"
         :route="{
@@ -28,19 +28,19 @@
         }"
         look="font-monotype"
       />
-      <DetailItemComponent
+      <BaseDetailItem
         :label="$t('labels.amount')"
         :content="amount"
         class="text-uppercase"
       />
     </div>
-  </TxMsgComponent>
+  </BaseTransactionMessage>
 </template>
 
 <script>
-import DetailItemComponent from '@/components/DetailItemComponent.vue';
-import DetailLinkComponent from '@/components/DetailLinkComponent.vue';
-import TxMsgComponent from '@/components/TxMsgComponent.vue';
+import BaseDetailItem from '@/components/BaseDetailItem.vue';
+import BaseDetailLink from '@/components/BaseDetailLink.vue';
+import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
@@ -49,9 +49,9 @@ export default {
   name: 'MsgBeginRedelegate',
   description: 'Display a begin redelegate transaction message',
   components: {
-    DetailItemComponent,
-    DetailLinkComponent,
-    TxMsgComponent,
+    BaseDetailItem,
+    BaseDetailLink,
+    BaseTransactionMessage,
   },
   props: {
     message: {
