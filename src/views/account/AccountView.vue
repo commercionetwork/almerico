@@ -29,10 +29,10 @@
 import AccountViewContentBottom from './AccountViewContentBottom.vue';
 import AccountViewContentMiddle from './AccountViewContentMiddle.vue';
 import AccountViewContentTop from './AccountViewContentTop.vue';
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { CONFIG } from '@/constants';
 import { bech32Manager } from '@/utils';

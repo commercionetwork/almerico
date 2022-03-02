@@ -34,6 +34,7 @@ export default {
       note: 'The validator status',
     },
   },
+  emits: [`handle-bookmark`],
   computed: {
     bookmarkIcon() {
       return this.isBookmark ? 'mdi-star' : 'mdi-star-outline';
@@ -55,7 +56,7 @@ export default {
   },
   methods: {
     handleBookmark(address) {
-      this.$emit('handleBookmark', address);
+      this.$emit('handle-bookmark', address);
     },
   },
 };
