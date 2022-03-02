@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `emits` option to components
 
+### Changed
+
+- Filter account delegations box to show only amounts over 0
+
 ## [3.0.4] - 2022.03.01
 
 ### Changed
