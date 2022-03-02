@@ -34,6 +34,7 @@ export default {
       note: 'The account address',
     },
   },
+  emits: [`input`],
   computed: {
     show: {
       get() {
