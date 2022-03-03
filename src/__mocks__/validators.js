@@ -1,11 +1,15 @@
 import { VALIDATORS } from '@/constants';
 
-const mockValidator = (status = VALIDATORS.STATUS.BONDED) => {
+const mockValidator = ({
+  operator_address = 'did:com:valoper1yq5z4236gmcuus2t940spppwzz8uggpjhgac6w',
+  key = 'mpuhE1332he7cY7mIelHAk0RJwnmJ2HvHgQ/eeze/TU=',
+  status = VALIDATORS.STATUS.BONDED,
+} = {}) => {
   const item = {
-    operator_address: 'did:com:valoper18h03de6awcjk4u9gaz8s5l0xxl8ulxjcgpfzx7',
+    operator_address,
     consensus_pubkey: {
       '@type': '/cosmos.crypto.ed25519.PubKey',
-      key: 'ET6Pifwl3+X/XCHaThqJLGG7MSX9ybXZNPLvxgIehCg=',
+      key,
     },
     jailed: false,
     status,

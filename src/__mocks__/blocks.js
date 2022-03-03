@@ -1,6 +1,9 @@
 import { mockValidatorSets } from '@/__mocks__';
 
-const mockBlock = (height = '1') => {
+const mockBlock = ({
+  height = 1,
+  validator_address = 'BB5A584A6713CA2C8B0A199410ABE09C6F5A18F0',
+} = {}) => {
   const item = {
     block_id: {
       hash: '0005F2E50A083A0BF9323E4171AC247037ADCF625AC67D695FD591737B341067',
@@ -13,7 +16,7 @@ const mockBlock = (height = '1') => {
       header: {
         version: { block: '11' },
         chain_id: 'localnet',
-        height,
+        height: height + '',
         time: '2021-11-15T09:50:09.446815491Z',
         last_block_id: {
           hash: '6B9C8AB5BD9DD5A4A5F92E40BF5A5F3680C9E83CB99AC5E4E2AA99DC1EB3E4CC',
@@ -43,7 +46,7 @@ const mockBlock = (height = '1') => {
       data: { txs: [] },
       evidence: { evidence: [] },
       last_commit: {
-        height: '9881',
+        height: height - 1 + '',
         round: 0,
         block_id: {
           hash: '6B9C8AB5BD9DD5A4A5F92E40BF5A5F3680C9E83CB99AC5E4E2AA99DC1EB3E4CC',
@@ -55,10 +58,10 @@ const mockBlock = (height = '1') => {
         signatures: [
           {
             block_id_flag: 2,
-            validator_address: 'BB5A584A6713CA2C8B0A199410ABE09C6F5A18F0',
-            timestamp: '2021-11-15T09:50:09.446815491Z',
+            validator_address: '3E4FC2A7AFC75B3D0B73B1127B0C6D0D4E57E72C',
+            timestamp: '2022-03-02T14:35:44.011932404Z',
             signature:
-              'tm4DK7KEpvgtu7NotDNxmal1ed4eE06/pTnIGqfZVtixNNdLTqArCm70conv6pksGA3FRLiMyViHjUJ24h2nAQ==',
+              'NTh13pLxqYuK+gpFDIAQ3acdJy6v1EoU39kD18TbcZU6qyhqiNtjCMRHBg4Lw+SvNUi382SoxAeoskfivhX7Cw==',
           },
         ],
       },
@@ -71,7 +74,10 @@ const mockBlocks = (blocks = 10) => {
   let counter = 0;
   const list = new Array(blocks).fill(null).map(() => {
     counter++;
-    return { ...mockBlock(`${counter}`), ...mockValidatorSets(`${counter}`) };
+    return {
+      ...mockBlock({ height: `${counter}` }),
+      ...mockValidatorSets(`${counter}`),
+    };
   });
   return list;
 };
