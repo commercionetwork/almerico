@@ -1,7 +1,10 @@
-const mockUnbonding = () => {
+const mockUnbonding = ({
+  delegator_address = 'did:com:1t5fz439f49zv39pmh73c2lvuhwfzqj0ze3kzj2',
+  validator_address = 'did:com:valoper1yq5z4236gmcuus2t940spppwzz8uggpjhgac6w',
+} = {}) => {
   const item = {
-    delegator_address: 'did:com:1t5fz439f49zv39pmh73c2lvuhwfzqj0ze3kzj2',
-    validator_address: 'did:com:valoper18h03de6awcjk4u9gaz8s5l0xxl8ulxjcgpfzx7',
+    delegator_address,
+    validator_address,
     entries: [
       {
         creation_height: '45897',
