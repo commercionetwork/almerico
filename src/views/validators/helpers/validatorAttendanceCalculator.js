@@ -16,7 +16,13 @@ const validatorAttendanceCalculator = {
       return [];
     }
     const trackedBlocks = _restrictBlocks(blocks, limit);
-    return _checkBlocks(validator, trackedBlocks);
+    let definedBlocks;
+    try {
+      definedBlocks = _checkBlocks(validator, trackedBlocks);
+    } catch (error) {
+      definedBlocks = [];
+    }
+    return definedBlocks;
   },
   /**
    * @typedef {Object} GetDefinedBlocksParam
@@ -32,7 +38,13 @@ const validatorAttendanceCalculator = {
       return [];
     }
     const trackedBlocks = _restrictBlocks(blocks, limit);
-    return _checkDetailBlocks(validator, trackedBlocks);
+    let definedBlocks;
+    try {
+      definedBlocks = _checkDetailBlocks(validator, trackedBlocks);
+    } catch (error) {
+      definedBlocks = [];
+    }
+    return definedBlocks;
   },
   /**
    *
@@ -63,6 +75,7 @@ const _restrictBlocks = (blocks, limit) => {
 const _checkBlocks = (validator, blocks) => {
   return blocks.map((it) => {
     const address = _decodeAddress(validator, it.validators);
+    if (!address) throw new Exception('Address not found', 404);
     const index = it.block.last_commit.signatures.findIndex(
       (signature) =>
         signature.validator_address.toUpperCase() === address.toUpperCase()
@@ -82,6 +95,7 @@ const _decodeAddress = (validator, validators) => {
 const _checkDetailBlocks = (validator, blocks) => {
   return blocks.map((it) => {
     const address = _decodeDetailAddress(validator, it.validators);
+    if (!address) throw new Exception('Address not found', 404);
     const index = it.block.last_commit.signatures.findIndex(
       (signature) =>
         signature.validator_address.toUpperCase() === address.toUpperCase()
@@ -110,6 +124,11 @@ class VerifiedData {
       status: this.index > -1 ? 1 : 0,
     };
   }
+}
+
+function Exception(message, code) {
+  this.message = message;
+  this.code = code;
 }
 
 const _calculatePercentage = (amount, limit) =>
