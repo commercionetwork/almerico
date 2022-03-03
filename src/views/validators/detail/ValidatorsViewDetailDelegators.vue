@@ -7,10 +7,9 @@
       <v-data-table
         :headers="headers"
         :items="items"
-        :items-per-page="2"
+        :items-per-page="5"
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
-        :footer-props="{ itemsPerPageOptions: [2] }"
       >
         <template #top>
           <div

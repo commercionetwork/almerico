@@ -10,10 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `emits` option to components
+- Add `item per page` to `delegator amounts` table of validator detail view 
 
 ### Changed
 
 - Filter account delegations box to show only amounts over 0
+- Update Block's monitor layout
 
 ## [3.0.4] - 2022.03.01
 
