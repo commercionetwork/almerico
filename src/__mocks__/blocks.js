@@ -2,7 +2,7 @@ import { mockValidatorSets } from '@/__mocks__';
 
 const mockBlock = ({
   height = 1,
-  validator_address = 'BB5A584A6713CA2C8B0A199410ABE09C6F5A18F0',
+  validator_address = '3E4FC2A7AFC75B3D0B73B1127B0C6D0D4E57E72C',
 } = {}) => {
   const item = {
     block_id: {
@@ -58,7 +58,7 @@ const mockBlock = ({
         signatures: [
           {
             block_id_flag: 2,
-            validator_address: '3E4FC2A7AFC75B3D0B73B1127B0C6D0D4E57E72C',
+            validator_address,
             timestamp: '2022-03-02T14:35:44.011932404Z',
             signature:
               'NTh13pLxqYuK+gpFDIAQ3acdJy6v1EoU39kD18TbcZU6qyhqiNtjCMRHBg4Lw+SvNUi382SoxAeoskfivhX7Cw==',
