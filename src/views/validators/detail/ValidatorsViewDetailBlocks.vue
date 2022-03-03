@@ -19,8 +19,10 @@
             <div
               v-for="verified in verifiedBlocks"
               :key="verified.height"
-              class="grid__item-attended"
-              :class="{ 'grid__item-lost': !verified.status }"
+              class="grid__item"
+              :class="
+                !verified.status ? 'grid__item-lost' : 'grid__item-attended'
+              "
               :title="verified.height"
             />
           </div>
@@ -65,14 +67,19 @@ export default {
   grid-gap: 2px;
 }
 
-.grid__item-attended {
-  border: 2px solid rgb(76, 175, 80);
+.grid__item {
   border-radius: 2px;
+  border-style: solid;
+  border-width: 2px;
+}
+
+.grid__item-attended {
   background-color: rgba(76, 175, 80, 0.4);
+  border-color: rgb(76, 175, 80);
 }
 
 .grid__item-lost {
-  border: 2px solid rgb(255, 82, 82);
   background-color: rgba(255, 82, 82, 0.4);
+  border-color: rgb(255, 82, 82);
 }
 </style>
