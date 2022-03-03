@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Filter account delegations box to show only amounts over 0
 - Update Block's monitor layout
 
+### Fixed
+
+- Fix [List of validators doesn't show the percentage of validated blocks](https://github.com/commercionetwork/almerico/issues/104)
+
 ## [3.0.4] - 2022.03.01
 
 ### Changed
@@ -262,6 +266,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[3.0.5]: https://github.com/commercionetwork/almerico/compare/v3.0.4...v3.0.5
 [3.0.4]: https://github.com/commercionetwork/almerico/compare/v3.0.3...v3.0.4
 [3.0.3]: https://github.com/commercionetwork/almerico/compare/v3.0.2...v3.0.3
 [3.0.2]: https://github.com/commercionetwork/almerico/compare/v3.0.1...v3.0.2
