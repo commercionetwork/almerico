@@ -6,7 +6,6 @@ const validatorAttendanceCalculator = {
    * @typedef {Object} GetDefinedBlocksParam
    * @property {Array.<Object>} blocks
    * @property {Object} validator
-   * @property {Array.<Object>} validatorSets
    * @property {Number} limit
    *
    * @param {GetDefinedBlocksParam} p
@@ -17,13 +16,18 @@ const validatorAttendanceCalculator = {
       return [];
     }
     const trackedBlocks = _restrictBlocks(blocks, limit);
-    return _checkBlocks(validator, trackedBlocks);
+    let definedBlocks;
+    try {
+      definedBlocks = _checkBlocks(validator, trackedBlocks);
+    } catch (error) {
+      definedBlocks = [];
+    }
+    return definedBlocks;
   },
   /**
    * @typedef {Object} GetDefinedBlocksParam
    * @property {Array.<Object>} blocks
    * @property {Object} validator
-   * @property {Array.<Object>} validatorSets
    * @property {Number} limit
    *
    * @param {GetDefinedBlocksParam} p
@@ -34,7 +38,13 @@ const validatorAttendanceCalculator = {
       return [];
     }
     const trackedBlocks = _restrictBlocks(blocks, limit);
-    return _checkDetailBlocks(validator, trackedBlocks);
+    let definedBlocks;
+    try {
+      definedBlocks = _checkDetailBlocks(validator, trackedBlocks);
+    } catch (error) {
+      definedBlocks = [];
+    }
+    return definedBlocks;
   },
   /**
    *
@@ -65,9 +75,10 @@ const _restrictBlocks = (blocks, limit) => {
 const _checkBlocks = (validator, blocks) => {
   return blocks.map((it) => {
     const address = _decodeAddress(validator, it.validators);
+    if (!address) throw new Exception('Address not found', 404);
     const index = it.block.last_commit.signatures.findIndex(
       (signature) =>
-        signature.validator_address.toUpperCase() === address.toUpperCase(),
+        signature.validator_address.toUpperCase() === address.toUpperCase()
     );
     const data = new VerifiedData({ block: it.block, index });
     return data.result;
@@ -76,7 +87,7 @@ const _checkBlocks = (validator, blocks) => {
 
 const _decodeAddress = (validator, validators) => {
   const index = validators.findIndex(
-    (val) => val.pub_key.value === validator.consensus_pubkey.key,
+    (val) => val.pub_key.value === validator.consensus_pubkey.key
   );
   return index > -1 ? bech32Manager.decode(validators[index].address) : null;
 };
@@ -84,9 +95,10 @@ const _decodeAddress = (validator, validators) => {
 const _checkDetailBlocks = (validator, blocks) => {
   return blocks.map((it) => {
     const address = _decodeDetailAddress(validator, it.validators);
+    if (!address) throw new Exception('Address not found', 404);
     const index = it.block.last_commit.signatures.findIndex(
       (signature) =>
-        signature.validator_address.toUpperCase() === address.toUpperCase(),
+        signature.validator_address.toUpperCase() === address.toUpperCase()
     );
     const data = new VerifiedData({ block: it.block, index });
     return data.result;
@@ -95,7 +107,7 @@ const _checkDetailBlocks = (validator, blocks) => {
 
 const _decodeDetailAddress = (validator, validators) => {
   const index = validators.findIndex(
-    (val) => val.pub_key.value === validator.consensus_pubkey.value,
+    (val) => val.pub_key.value === validator.consensus_pubkey.value
   );
   return index > -1 ? bech32Manager.decode(validators[index].address) : null;
 };
@@ -112,6 +124,11 @@ class VerifiedData {
       status: this.index > -1 ? 1 : 0,
     };
   }
+}
+
+function Exception(message, code) {
+  this.message = message;
+  this.code = code;
 }
 
 const _calculatePercentage = (amount, limit) =>

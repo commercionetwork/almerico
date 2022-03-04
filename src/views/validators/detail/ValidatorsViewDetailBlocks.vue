@@ -17,9 +17,12 @@
         <v-col cols="12" md="10" offset-md="1">
           <div class="grid">
             <div
-              v-for="(verified, index) in verifiedBlocks"
-              :key="index"
-              :class="{ missing: !verified.status }"
+              v-for="verified in verifiedBlocks"
+              :key="verified.height"
+              class="grid__item"
+              :class="
+                !verified.status ? 'grid__item-lost' : 'grid__item-attended'
+              "
               :title="verified.height"
             />
           </div>
@@ -59,31 +62,24 @@ export default {
 <style lang="css" scoped>
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(1rem, 1fr));
-  grid-auto-rows: 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(1.5rem, 1fr));
+  grid-auto-rows: minmax(1.5rem, 1fr);
+  grid-gap: 2px;
 }
 
-.grid::before {
-  content: '';
-  width: 0;
-  padding-bottom: 100%;
-  grid-row: 1 / 1;
-  grid-column: 1 / 1;
+.grid__item {
+  border-radius: 2px;
+  border-style: solid;
+  border-width: 2px;
 }
 
-.grid > *:first-child {
-  grid-row: 1 / 1;
-  grid-column: 1 / 1;
+.grid__item-attended {
+  background-color: rgba(76, 175, 80, 0.4);
+  border-color: rgb(76, 175, 80);
 }
 
-/* Just to make the grid visible */
-
-.grid > * {
-  background-color: #4caf50;
-  border: 1px white solid;
-}
-
-.missing {
-  background-color: #ff5252;
+.grid__item-lost {
+  background-color: rgba(255, 82, 82, 0.4);
+  border-color: rgb(255, 82, 82);
 }
 </style>

@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.5] - 2022.03.04
+
+### Added
+
+- Add `emits` option to components
+- Add `item per page` to `delegator amounts` table of validator detail view 
+
+### Changed
+
+- Filter account delegations box to show only amounts over 0
+- Update Block's monitor layout
+
+### Fixed
+
+- Fix [List of validators doesn't show the percentage of validated blocks](https://github.com/commercionetwork/almerico/issues/104)
+
 ## [3.0.4] - 2022.03.01
 
 ### Changed
@@ -250,6 +266,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[3.0.5]: https://github.com/commercionetwork/almerico/compare/v3.0.4...v3.0.5
 [3.0.4]: https://github.com/commercionetwork/almerico/compare/v3.0.3...v3.0.4
 [3.0.3]: https://github.com/commercionetwork/almerico/compare/v3.0.2...v3.0.3
 [3.0.2]: https://github.com/commercionetwork/almerico/compare/v3.0.1...v3.0.2

@@ -6,7 +6,7 @@
     <ValidatorsViewDetailAddressMoniker
       :detail="detail"
       :is-bookmark="isBookmark"
-      @handleBookmark="onHandleBookmark"
+      @handle-bookmark="onHandleBookmark"
     />
     <v-divider class="mx-3" />
     <v-card-text>
