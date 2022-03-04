@@ -1,12 +1,16 @@
-const mockValidatorSets = (height = '1') => {
+const mockValidatorSets = ({
+  height = 1,
+  address = 'did:com:valcons18e8u9fa0cadn6zmnkyf8krrdp4890eev8yxcpg',
+  value = 'mpuhE1332he7cY7mIelHAk0RJwnmJ2HvHgQ/eeze/TU=',
+} = {}) => {
   const item = {
-    block_height: height,
+    block_height: height + '',
     validators: [
       {
-        address: 'did:com:valcons1hdd9sjn8z09zezc2rx2pp2lqn3h45x8sjaktwe',
+        address,
         pub_key: {
           type: 'tendermint/PubKeyEd25519',
-          value: 'ET6Pifwl3+X/XCHaThqJLGG7MSX9ybXZNPLvxgIehCg=',
+          value,
         },
         proposer_priority: '0',
         voting_power: '100',
