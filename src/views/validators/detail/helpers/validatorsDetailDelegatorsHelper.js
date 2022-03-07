@@ -26,7 +26,7 @@ const validatorsDetailDelegatorsHelper = {
       }
     }
 
-    return aggregated;
+    return aggregated.filter((it) => it.amount > 0);
   },
 };
 
