@@ -18,7 +18,7 @@
       >
         <v-icon dark>mdi-arrow-up-bold</v-icon>
       </v-btn>
-      <v-row class="my-0 py-0 py-sm-2 overline">
+      <v-row class="my-0 py-0 py-sm-2 overline rm__text-transform">
         <v-col cols="12" sm="2" class="my-0 py-0">
           <span
             class="d-flex justify-center justify-sm-start"
@@ -64,3 +64,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.rm__text-transform {
+  text-transform: none !important;
+}
+</style>

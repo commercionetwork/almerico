@@ -28,7 +28,7 @@ const CHAIN = {
   ],
 };
 
-const COPYRIGHT = 'Commerc.io srl';
+const COPYRIGHT = 'Commercio.network SpA';
 
 const FIRST_CONVERSION_RATE =
   process.env.VUE_APP_FIRST_CONVERSION_RATE !== undefined
