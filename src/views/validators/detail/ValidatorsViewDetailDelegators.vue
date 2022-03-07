@@ -7,7 +7,7 @@
       <v-data-table
         :headers="headers"
         :items="items"
-        :items-per-page="5"
+        :items-per-page="2"
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
       >
