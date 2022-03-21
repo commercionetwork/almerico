@@ -80,7 +80,7 @@ describe('store/validators/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setLoadingBlocks', true);
     expect(dispatch).toHaveBeenCalledTimes(
-      VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT,
+      VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT
     );
     while (height > minHeight) {
       expect(dispatch).toHaveBeenCalledWith('addBlocksItem', height--);
@@ -116,7 +116,7 @@ describe('store/validators/actions', () => {
 
     await actions.initValidatorsDetail(
       { commit, dispatch },
-      { id: address, lastHeight },
+      { id: address, lastHeight }
     );
 
     expect(commit).toHaveBeenCalledWith('reset');
@@ -131,7 +131,7 @@ describe('store/validators/actions', () => {
 
     await actions.initValidatorsDetail(
       { commit, dispatch },
-      { id: address, lastHeight },
+      { id: address, lastHeight }
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
@@ -171,15 +171,15 @@ describe('store/validators/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'addDelegations',
-      mockResponse.data.delegation_responses,
+      mockResponse.data.delegation_responses
     );
     expect(commit).toHaveBeenCalledWith(
       'setDelegationsPagination',
-      mockResponse.data.pagination,
+      mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith(
       'sumDelegationsOffset',
-      mockResponse.data.delegation_responses.length,
+      mockResponse.data.delegation_responses.length
     );
 
     mockError = true;
@@ -187,6 +187,18 @@ describe('store/validators/actions', () => {
     await actions.addDetailDelegations({ commit }, { id, offset });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "updateBlocksMonitor" action det loading state and dispatch "addBlocksItem"', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const height = 'height';
+
+    await actions.updateBlocksMonitor({ commit, dispatch }, height);
+
+    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', true);
+    expect(dispatch).toHaveBeenCalledWith('addBlocksItem', height);
+    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', false);
   });
 
   test('if "setValidatorsFilter" set filter', () => {
