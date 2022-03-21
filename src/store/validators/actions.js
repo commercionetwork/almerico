@@ -103,6 +103,12 @@ export default {
     }
   },
 
+  async updateBlocksMonitor({ commit, dispatch }, height) {
+    commit('setLoadingBlocks', true);
+    await dispatch('addBlocksItem', height);
+    commit('setLoadingBlocks', false);
+  },
+
   setValidatorsFilter({ commit }, filter) {
     commit('setFilter', filter);
   },

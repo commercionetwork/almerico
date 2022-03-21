@@ -74,7 +74,7 @@ export default {
     },
     newHeight(value) {
       if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY && value)
-        this.addBlocksItem(value);
+        this.updateBlocksMonitor(value);
     },
   },
   created() {
@@ -88,8 +88,8 @@ export default {
   },
   methods: {
     ...mapActions('validators', {
-      addBlocksItem: 'addBlocksItem',
       initValidatorsDetail: 'initValidatorsDetail',
+      updateBlocksMonitor: 'updateBlocksMonitor',
     }),
     getAccount() {
       try {
