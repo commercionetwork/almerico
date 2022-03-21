@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.7] - 2022.03.21
+
 ## [3.0.6] - 2022.03.07
 
 ### Changed
@@ -274,6 +276,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[3.0.7]: https://github.com/commercionetwork/almerico/compare/v3.0.6...v3.0.7
 [3.0.6]: https://github.com/commercionetwork/almerico/compare/v3.0.5...v3.0.6
 [3.0.5]: https://github.com/commercionetwork/almerico/compare/v3.0.4...v3.0.5
 [3.0.4]: https://github.com/commercionetwork/almerico/compare/v3.0.3...v3.0.4
