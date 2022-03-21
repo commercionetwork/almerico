@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.7] - 2022.03.21
 
+### Added
+
+- Add style change during data update to block monitor
+
 ## [3.0.6] - 2022.03.07
 
 ### Changed
