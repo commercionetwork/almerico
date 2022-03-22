@@ -5,13 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.7] - 2022.03.21
+## [3.0.8] - 2022-03-22
+
+### Changed
+
+- Update style of block monitor
+
+## [3.0.7] - 2022-03-21
 
 ### Added
 
 - Add style change during data update to block monitor
 
-## [3.0.6] - 2022.03.07
+## [3.0.6] - 2022-03-07
 
 ### Changed
 
@@ -19,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#110](https://github.com/commercionetwork/almerico/issues/110)
   Filter validator delegator amounts box to show only amounts over 0
 
-## [3.0.5] - 2022.03.04
+## [3.0.5] - 2022-03-04
 
 ### Added
 
@@ -35,13 +41,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix [List of validators doesn't show the percentage of validated blocks](https://github.com/commercionetwork/almerico/issues/104)
 
-## [3.0.4] - 2022.03.01
+## [3.0.4] - 2022-03-01
 
 ### Changed
 
 - Update the code to follow the naming convention of Vue.js
 
-## [3.0.3] - 2022.02.25
+## [3.0.3] - 2022-02-25
 
 ### Changed
 
@@ -52,19 +58,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix missing reset offset on refreshing transactions dashboard
 
-## [3.0.2] - 2022.02.24
+## [3.0.2] - 2022-02-24
 
 ### Fixed
 
 - Fix fetch membership
 
-## [3.0.1] - 2022.02.24
+## [3.0.1] - 2022-02-24
 
 ### Removed
 
 - Remove from Travis configuration the build of image tagged `mainnet-v3`  
 
-## [3.0.0] - 2022.02.23
+## [3.0.0] - 2022-02-23
 
 ### Added
 
@@ -280,6 +286,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[3.0.8]: https://github.com/commercionetwork/almerico/compare/v3.0.7...v3.0.8
 [3.0.7]: https://github.com/commercionetwork/almerico/compare/v3.0.6...v3.0.7
 [3.0.6]: https://github.com/commercionetwork/almerico/compare/v3.0.5...v3.0.6
 [3.0.5]: https://github.com/commercionetwork/almerico/compare/v3.0.4...v3.0.5
