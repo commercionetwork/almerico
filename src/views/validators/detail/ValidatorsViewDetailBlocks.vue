@@ -15,13 +15,15 @@
     <v-card-text v-else data-test="content">
       <v-row>
         <v-col cols="12" md="10" offset-md="1">
-          <span
-            v-for="(verified, i) in verifiedBlocks"
-            :key="verified.height"
-            class="box"
-            :class="getItemStyle(verified, i)"
-            :title="verified.height"
-          />
+          <ul class="monitor">
+            <li
+              v-for="(verified, index) in verifiedBlocks"
+              :key="index"
+              class="box"
+              :class="getItemStyle(verified, index)"
+              :title="verified.height"
+            />
+          </ul>
         </v-col>
       </v-row>
     </v-card-text>
@@ -29,10 +31,10 @@
 </template>
 
 <script>
-import '@/assets/css/block-monitor.css';
-import { mapGetters } from 'vuex';
-import { VALIDATORS } from '@/constants';
+import '@/assets/style/block-monitor.scss';
 import validatorAttendanceCalculator from '../helpers/validatorAttendanceCalculator';
+import { VALIDATORS } from '@/constants';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetailBlocks',

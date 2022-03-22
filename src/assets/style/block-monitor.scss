@@ -1,8 +1,16 @@
+.monitor {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
 .box {
   display: inline-block;
-  margin: 0 2px;
-  width: 1.4rem;
-  height: 1.4rem;
+  margin: 1px;
+  width: 1.45rem;
+  height: 1.45rem;
   border-radius: 2px;
   border-style: solid;
   border-width: 2px;
