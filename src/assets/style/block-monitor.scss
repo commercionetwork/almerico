@@ -37,9 +37,7 @@
 }
 
 .box-rotation {
-  animation-name: 'box-rotation';
-  animation-duration: 500ms;
-  animation-timing-function: ease-out;
+  animation: box-rotation 500ms ease-out forwards;
 }
 
 @keyframes box-rotation {
