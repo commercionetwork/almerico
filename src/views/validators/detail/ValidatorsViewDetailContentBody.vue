@@ -35,9 +35,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('validators', {
-      delegations: 'delegations',
-    }),
+    ...mapGetters('validators', ['delegations']),
     processedDelegations() {
       return validatorsDetailDelegationsHelper.build(
         this.delegations,

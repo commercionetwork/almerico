@@ -44,9 +44,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('application', {
-      params: 'stakingParams',
-    }),
+    ...mapGetters('application', ['stakingParams']),
     headers() {
       return [
         { text: this.$t('labels.caption'), value: 'caption' },
@@ -64,7 +62,7 @@ export default {
     formatTokens(value) {
       return coinAdapter.format({
         amount: value,
-        denom: this.params.bond_denom,
+        denom: this.stakingParams.bond_denom,
       });
     },
   },

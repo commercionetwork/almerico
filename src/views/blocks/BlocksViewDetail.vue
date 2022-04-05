@@ -35,10 +35,7 @@ export default {
     TheHeaderContent,
   },
   computed: {
-    ...mapGetters('blocks', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
+    ...mapGetters('blocks', ['error', 'isLoading']),
     height() {
       return this.$route.params.id;
     },
@@ -52,9 +49,7 @@ export default {
     this.initBlocksDetail(this.height);
   },
   methods: {
-    ...mapActions('blocks', {
-      initBlocksDetail: 'initBlocksDetail',
-    }),
+    ...mapActions('blocks', ['initBlocksDetail']),
   },
 };
 </script>

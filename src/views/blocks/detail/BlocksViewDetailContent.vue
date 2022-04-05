@@ -27,17 +27,11 @@ export default {
     BlocksViewDetailTransactions,
   },
   computed: {
-    ...mapGetters('application', {
-      validators: 'validators',
-    }),
-    ...mapGetters('blocks', {
-      detail: 'detail',
-      transactions: 'blockTxs',
-      validatorSets: 'blockValidatorSets',
-    }),
+    ...mapGetters('application', ['validators']),
+    ...mapGetters('blocks', ['blockTxs', 'blockValidatorSets', 'detail']),
     items() {
       return txsTableAdapter.build({
-        txs: this.transactions,
+        txs: this.blockTxs,
         labels: {
           multiTypes: this.$t('labels.multiTypes'),
           multiValues: this.$t('labels.multiValues'),
@@ -48,7 +42,7 @@ export default {
       return proposerHandler.getFromHexAddress({
         address: this.detail.block.header.proposer_address,
         prefix: CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS,
-        validatorSets: this.validatorSets,
+        validatorSets: this.blockValidatorSets,
         validators: this.validators,
       });
     },

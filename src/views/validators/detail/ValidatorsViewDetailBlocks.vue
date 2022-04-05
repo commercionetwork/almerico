@@ -44,11 +44,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', {
-      isLoadingBlocks: 'isLoadingBlocks',
-      detail: 'detail',
-      blocks: 'blocks',
-    }),
+    ...mapGetters('validators', ['isLoadingBlocks', 'blocks', 'detail']),
     isFirstloading() {
       return this.isLoadingBlocks && !this.blocks.length;
     },

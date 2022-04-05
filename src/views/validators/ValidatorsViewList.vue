@@ -39,14 +39,8 @@ export default {
     ValidatorsViewListTable,
   },
   computed: {
-    ...mapGetters('application', {
-      latestBlock: 'latestBlock',
-    }),
-    ...mapGetters('validators', {
-      error: 'error',
-      isLoading: 'isLoading',
-      newHeight: 'newHeight',
-    }),
+    ...mapGetters('application', ['latestBlock']),
+    ...mapGetters('validators', ['error', 'isLoading', 'newHeight']),
     lastHeight() {
       return this.latestBlock.header.height;
     },
@@ -61,10 +55,7 @@ export default {
     this.initValidatorsList(this.lastHeight);
   },
   methods: {
-    ...mapActions('validators', {
-      addBlocksItem: 'addBlocksItem',
-      initValidatorsList: 'initValidatorsList',
-    }),
+    ...mapActions('validators', ['addBlocksItem', 'initValidatorsList']),
   },
 };
 </script>

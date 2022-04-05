@@ -65,9 +65,7 @@ export default {
     bookmarks: [],
   }),
   computed: {
-    ...mapGetters('validators', {
-      detail: 'detail',
-    }),
+    ...mapGetters('validators', ['detail']),
     isBookmark() {
       return (
         this.bookmarks.findIndex(

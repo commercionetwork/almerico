@@ -35,10 +35,7 @@ export default {
     TransactionsViewSharedocContent,
   },
   computed: {
-    ...mapGetters('transactions', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
+    ...mapGetters('transactions', ['error', 'isLoading']),
     hash() {
       return this.$route.params.hash;
     },
@@ -52,9 +49,7 @@ export default {
     this.initTransactionsDetail(this.hash);
   },
   methods: {
-    ...mapActions('transactions', {
-      initTransactionsDetail: 'initTransactionsDetail',
-    }),
+    ...mapActions('transactions', ['initTransactionsDetail']),
   },
 };
 </script>

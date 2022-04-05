@@ -40,10 +40,7 @@ export default {
     mdiCardAccountDetails,
   }),
   computed: {
-    ...mapGetters('account', {
-      membership: 'membership',
-      txs: 'membershipTxs',
-    }),
+    ...mapGetters('account', ['membership', 'membershipTxs']),
     membershipColor() {
       const index = ACCOUNT.MEMBERSHIPS.findIndex(
         (membership) => membership.name === this.membershipText
@@ -56,7 +53,7 @@ export default {
         : this.$t('labels.none');
     },
     lastTransaction() {
-      return maxBy(this.txs, (o) => o.timestamp);
+      return maxBy(this.membershipTxs, (o) => o.timestamp);
     },
     txhash() {
       return this.lastTransaction ? this.lastTransaction.txhash : '';

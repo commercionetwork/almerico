@@ -53,9 +53,7 @@ export default {
     query: '',
   }),
   methods: {
-    ...mapActions('validators', {
-      setValidatorsFilter: 'setValidatorsFilter',
-    }),
+    ...mapActions('validators', ['setValidatorsFilter']),
     onFilter(filter) {
       this.status = filter;
       this.search();

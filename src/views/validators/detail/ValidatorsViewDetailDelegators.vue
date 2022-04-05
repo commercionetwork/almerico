@@ -43,10 +43,10 @@
 </template>
 
 <script>
+import validatorsDetailDelegatorsHelper from './helpers/validatorsDetailDelegatorsHelper';
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
-import validatorsDetailDelegatorsHelper from './helpers/validatorsDetailDelegatorsHelper';
 
 export default {
   name: 'ValidatorsViewDetailDelegators',
@@ -63,15 +63,10 @@ export default {
     sortDesc: true,
   }),
   computed: {
-    ...mapGetters('application', {
-      params: 'stakingParams',
-    }),
-    ...mapGetters('validators', {
-      delegations: 'delegations',
-      detail: 'detail',
-    }),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('validators', ['delegations', 'detail']),
     bondDenom() {
-      return this.params.bond_denom ? this.params.bond_denom : '';
+      return this.stakingParams.bond_denom ? this.stakingParams.bond_denom : '';
     },
     headers() {
       return [

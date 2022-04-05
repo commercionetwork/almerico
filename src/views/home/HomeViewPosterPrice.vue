@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :loading="isLoading" :title="$t('titles.price')">
+  <BaseTopContentCard :loading="isLoadingParams" :title="$t('titles.price')">
     <template #content>
       <div
         class="fill-height d-flex flex-row justify-space-between align-center"
@@ -41,19 +41,14 @@ export default {
     CONFIG,
   }),
   computed: {
-    ...mapGetters('home', {
-      isLoading: 'isLoadingParams',
-      rate: 'conversionRate',
-    }),
-    ...mapGetters('application', {
-      params: 'stakingParams',
-    }),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('home', ['isLoadingParams', 'conversionRate']),
     tokenDenom() {
-      return this.params.bond_denom.substring(1, 4);
+      return this.stakingParams.bond_denom.substring(1, 4);
     },
     tokenValue() {
-      return !isNaN(this.rate) && this.rate > 0
-        ? (1 / this.rate).toFixed(2)
+      return !isNaN(this.conversionRate) && this.conversionRate > 0
+        ? (1 / this.conversionRate).toFixed(2)
         : '-';
     },
   },

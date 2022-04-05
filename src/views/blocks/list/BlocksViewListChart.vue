@@ -27,9 +27,7 @@ export default {
     BaseTopContentCard,
   },
   computed: {
-    ...mapGetters('blocks', {
-      blocks: 'blocks',
-    }),
+    ...mapGetters('blocks', ['blocks']),
     chartData() {
       return blocksChartHelper.getChartData(this.blocks, {
         blocks: this.$t('labels.blocks'),
