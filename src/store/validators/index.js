@@ -9,6 +9,7 @@ export const initState = () => ({
   delegationsOffset: 0,
   delegationsPagination: null,
   detail: null,
+  detailLogo: '',
   error: null,
   filter: {
     status: VALIDATORS.FILTER.ACTIVE,

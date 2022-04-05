@@ -31,6 +31,9 @@ export default {
   setDetail(state, payload) {
     state.detail = payload;
   },
+  setDetailLogo(state, payload) {
+    state.detailLogo = payload;
+  },
   setDelegations(state, payload) {
     state.delegations = payload;
   },

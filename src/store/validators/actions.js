@@ -1,4 +1,4 @@
-import { staking, tendermintRpc } from '@/apis/http';
+import { keybase, staking, tendermintRpc } from '@/apis/http';
 import { CONFIG, VALIDATORS } from '@/constants';
 import { blocksRequestHelper } from '@/utils';
 
@@ -67,12 +67,34 @@ export default {
     }
   },
 
-  async fetchDetail({ commit }, id) {
+  async fetchDetail({ commit, dispatch }, id) {
     try {
       const response = await staking.requestValidatorsDetailLegacy(id);
       commit('setDetail', response.data.result);
+      const identity = response.data.result.description
+        ? response.data.result.description.identity
+        : '';
+      if (identity) await dispatch('fetchDetailLogo', identity);
     } catch (error) {
       commit('setError', error);
+    }
+  },
+
+  async fetchDetailLogo({ commit }, identity) {
+    try {
+      const response = await keybase.requestValidatorLogo(identity);
+      if (!response.data.them || !response.data.them.length) {
+        commit('setDetailLogo', '');
+        return;
+      }
+      for (const item of response.data.them) {
+        if ('primary' in item['pictures']) {
+          commit('setDetailLogo', item['pictures']['primary']['url']);
+          break;
+        }
+      }
+    } catch (error) {
+      commit('setDetailLogo', '');
     }
   },
 

@@ -4,6 +4,7 @@ export default {
   delegationsOffset: (state) => state.delegationsOffset,
   delegationsTotal: (state) => state.delegationsPagination.total,
   detail: (state) => state.detail,
+  detailLogo: (state) => state.detailLogo,
   error: (state) => state.error,
   filter: (state) => state.filter,
   isLoading: (state) => state.isLoading,
