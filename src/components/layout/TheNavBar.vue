@@ -8,7 +8,7 @@
         <v-col cols="2" md="4" class="d-flex justify-start">
           <v-app-bar-nav-icon @click.stop="drawer = !drawer">
             <slot>
-              <v-icon class="text-h4">mdi-menu</v-icon>
+              <v-icon class="text-h4">{{ mdiMenu }}</v-icon>
             </slot>
           </v-app-bar-nav-icon>
         </v-col>
@@ -40,6 +40,7 @@ import TheDrawer from './drawer/TheDrawer';
 
 import { ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
+import { mdiLanConnect, mdiLanDisconnect, mdiMenu } from '@mdi/js';
 
 export default {
   name: 'TheNavBar',
@@ -48,6 +49,7 @@ export default {
   },
   data: () => ({
     ROUTES,
+    mdiMenu,
     drawer: false,
   }),
   computed: {
@@ -58,7 +60,7 @@ export default {
       return require('@/assets/img/logo-white.png');
     },
     connectionIcon() {
-      return this.info ? 'mdi-lan-connect' : 'mdi-lan-disconnect';
+      return this.info ? mdiLanConnect : mdiLanDisconnect;
     },
     chainNetwork() {
       return this.info && this.info.node_info && this.info.node_info.network

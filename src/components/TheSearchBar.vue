@@ -1,9 +1,9 @@
 <template>
   <v-form @submit.prevent="onSubmit">
     <v-text-field
-      v-model="query"
+      :append-icon="mdiMagnify"
       :placeholder="$t('msgs.placeholderSearchBar')"
-      append-icon="mdi-magnify"
+      v-model="query"
       @click:append="onSubmit"
     />
   </v-form>
@@ -11,11 +11,13 @@
 
 <script>
 import { CONFIG, ROUTES } from '@/constants';
+import { mdiMagnify } from '@mdi/js';
 import { regExpBuilder } from '@/utils';
 
 export default {
   name: 'TheSearchBar',
   data: () => ({
+    mdiMagnify,
     query: '',
   }),
   methods: {

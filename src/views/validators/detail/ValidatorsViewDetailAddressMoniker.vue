@@ -4,7 +4,7 @@
       <div class="text-h5 text-capitalize font-weight-bold" v-text="moniker" />
       <div>
         <v-icon small left :color="isActive ? 'info' : 'warning'">
-          mdi-hubspot
+          {{ mdiHubspot }}
         </v-icon>
         <span class="text-caption" :class="statusClass" v-text="statusText" />
       </div>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { mdiHubspot, mdiStar, mdiStarOutline } from '@mdi/js';
+
 export default {
   name: 'ValidatorsViewDetailAddressMoniker',
   props: {
@@ -35,9 +37,14 @@ export default {
     },
   },
   emits: [`handle-bookmark`],
+  data() {
+    return {
+      mdiHubspot,
+    };
+  },
   computed: {
     bookmarkIcon() {
-      return this.isBookmark ? 'mdi-star' : 'mdi-star-outline';
+      return this.isBookmark ? mdiStar : mdiStarOutline;
     },
     isActive() {
       return this.detail.status === 3;

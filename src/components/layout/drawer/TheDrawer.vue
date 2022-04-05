@@ -4,27 +4,27 @@
       <TheDrawerLocale />
       <v-divider />
       <TheDrawerItem
-        icon="mdi-view-dashboard"
+        :icon="mdiViewDashboard"
         :title="$t('titles.dashboard')"
         :to="{ name: ROUTES.NAME.HOME }"
       />
       <TheDrawerItem
-        icon="mdi-account-multiple"
+        :icon="mdiAccountMultiple"
         :title="$t('titles.validators')"
         :to="{ name: ROUTES.NAME.VALIDATORS }"
       />
       <TheDrawerItem
-        icon="mdi-swap-horizontal-bold"
+        :icon="mdiSwapHorizontalBold"
         :title="$t('titles.transactions')"
         :to="{ name: ROUTES.NAME.TRANSACTIONS }"
       />
       <TheDrawerItem
-        icon="mdi-shape"
+        :icon="mdiShape"
         :title="$t('titles.blocks')"
         :to="{ name: ROUTES.NAME.BLOCKS }"
       />
       <TheDrawerItem
-        icon="mdi-table-eye"
+        :icon="mdiTableEye"
         :title="$t('titles.exchangeRate')"
         :to="{ name: ROUTES.NAME.EXCHANGE_RATE }"
       />
@@ -40,6 +40,13 @@ import TheDrawerLocale from './TheDrawerLocale';
 import TheDrawerTheme from './TheDrawerTheme';
 
 import { ROUTES } from '@/constants';
+import {
+  mdiAccountMultiple,
+  mdiShape,
+  mdiSwapHorizontalBold,
+  mdiTableEye,
+  mdiViewDashboard,
+} from '@mdi/js';
 
 export default {
   name: 'TheDrawer',
@@ -50,6 +57,11 @@ export default {
   },
   data: () => ({
     ROUTES,
+    mdiAccountMultiple,
+    mdiShape,
+    mdiSwapHorizontalBold,
+    mdiTableEye,
+    mdiViewDashboard,
   }),
 };
 </script>

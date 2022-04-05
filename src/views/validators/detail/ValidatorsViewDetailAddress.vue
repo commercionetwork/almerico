@@ -20,7 +20,7 @@
             <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
                 <v-icon small>
-                  {{ !copied ? 'mdi-content-copy' : 'mdi-check-all' }}
+                  {{ !copied ? mdiContentCopy : mdiCheckAll }}
                 </v-icon>
               </v-btn>
             </template>
@@ -50,6 +50,7 @@ import ValidatorsViewDetailAddressMoniker from './ValidatorsViewDetailAddressMon
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import { ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
+import { mdiCheckAll, mdiContentCopy } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewDetailAddress',
@@ -58,6 +59,8 @@ export default {
     account: String,
   },
   data: () => ({
+    mdiCheckAll,
+    mdiContentCopy,
     copied: false,
     bookmarks: [],
   }),

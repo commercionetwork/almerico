@@ -10,13 +10,13 @@
                 :label="$t('labels.type')"
                 :loading="isLoading"
                 :placeholder="$t('msgs.startTypingToFilterTypes')"
+                :prepend-inner-icon="mdiMagnify"
                 dense
                 hide-no-data
                 hide-selected
                 item-text="name"
                 item-value="value"
                 outlined
-                prepend-inner-icon="mdi-magnify"
                 v-model="selectedType"
               />
             </v-col>
@@ -52,11 +52,13 @@ import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { TRANSACTIONS } from '@/constants';
 import { mapGetters } from 'vuex';
+import { mdiMagnify } from '@mdi/js';
 
 export default {
   name: 'TransactionsViewListSearch',
   components: { BaseTopContentCard },
   data: () => ({
+    mdiMagnify,
     nameLimit: 60,
     selectedType: '',
   }),

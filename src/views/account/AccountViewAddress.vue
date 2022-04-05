@@ -13,7 +13,7 @@
             <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
                 <v-icon small>
-                  {{ !copied ? 'mdi-content-copy' : 'mdi-check-all' }}
+                  {{ !copied ? mdiContentCopy : mdiCheckAll }}
                 </v-icon>
               </v-btn>
             </template>
@@ -22,7 +22,7 @@
           <v-tooltip top>
             <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="openDialog">
-                <v-icon small>mdi-qrcode</v-icon>
+                <v-icon small>{{ mdiQrcode }}</v-icon>
               </v-btn>
             </template>
             <span v-text="$t('msgs.scan')" />
@@ -42,6 +42,8 @@
 import AccountViewAddressMembership from './AccountViewAddressMembership.vue';
 import AccountViewModalQRCode from './AccountViewModalQRCode.vue';
 
+import { mdiCheckAll, mdiContentCopy, mdiQrcode } from '@mdi/js';
+
 export default {
   name: 'AccountViewAddress',
   components: {
@@ -49,6 +51,9 @@ export default {
     AccountViewModalQRCode,
   },
   data: () => ({
+    mdiCheckAll,
+    mdiContentCopy,
+    mdiQrcode,
     copied: false,
     dialog: false,
   }),

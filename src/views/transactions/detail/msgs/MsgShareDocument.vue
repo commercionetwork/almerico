@@ -4,7 +4,7 @@
       <template #activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
           <v-icon small>
-            {{ !copied ? 'mdi-export-variant' : 'mdi-check-all' }}
+            {{ !copied ? mdiExportVariant : mdiCheckAll }}
           </v-icon>
         </v-btn>
       </template>
@@ -129,6 +129,7 @@ import BaseDetailLink from '@/components/BaseDetailLink.vue';
 import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
+import { mdiCheckAll, mdiExportVariant } from '@mdi/js';
 
 export default {
   name: 'MsgShareDocument',
@@ -147,6 +148,8 @@ export default {
   },
   data: () => ({
     ROUTES,
+    mdiCheckAll,
+    mdiExportVariant,
     copied: false,
   }),
   computed: {
