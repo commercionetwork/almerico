@@ -28,16 +28,14 @@ export default {
     AccountViewChartPerformance,
   },
   computed: {
-    ...mapGetters('application', {
-      params: 'stakingParams',
-    }),
-    ...mapGetters('account', {
-      balances: 'balances',
-      commission: 'commission',
-      delegations: 'delegations',
-      rewards: 'rewards',
-      unbondings: 'unbondings',
-    }),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('account', [
+      'balances',
+      'commission',
+      'delegations',
+      'rewards',
+      'unbondings',
+    ]),
     capital() {
       return accountBalanceHelper.build({
         balances: this.balances,
@@ -45,7 +43,7 @@ export default {
         delegations: this.delegations,
         rewards: this.rewards,
         unbondings: this.unbondings,
-        bondDenom: this.params.bond_denom,
+        bondDenom: this.stakingParams.bond_denom,
       });
     },
   },

@@ -67,18 +67,15 @@ export default {
     bookmarks: [],
   }),
   computed: {
-    ...mapGetters('application', {
-      params: 'stakingParams',
-      validators: 'validators',
-    }),
-    ...mapGetters('validators', {
-      blocks: 'blocks',
-      isLoadingBlocks: 'isLoadingBlocks',
-      filter: 'filter',
-      pool: 'pool',
-    }),
+    ...mapGetters('application', ['stakingParams', 'validators']),
+    ...mapGetters('validators', [
+      'blocks',
+      'isLoadingBlocks',
+      'filter',
+      'pool',
+    ]),
     bondDenom() {
-      return this.params.bond_denom ? this.params.bond_denom : '';
+      return this.stakingParams.bond_denom ? this.stakingParams.bond_denom : '';
     },
     caption() {
       switch (this.filter.status) {

@@ -53,9 +53,7 @@ export default {
     drawer: false,
   }),
   computed: {
-    ...mapGetters('application', {
-      info: 'info',
-    }),
+    ...mapGetters('application', ['info']),
     logoSrc() {
       return require('@/assets/img/logo-white.png');
     },

@@ -54,10 +54,7 @@ export default {
     validator: '',
   }),
   computed: {
-    ...mapGetters('account', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
+    ...mapGetters('account', ['error', 'isLoading']),
     address() {
       return this.$route.params.id;
     },
@@ -76,9 +73,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('account', {
-      initAccount: 'initAccount',
-    }),
+    ...mapActions('account', ['initAccount']),
     getValidator() {
       try {
         const hex = bech32Manager.decode(this.address);

@@ -35,18 +35,13 @@ export default {
     TheHeaderContent,
   },
   computed: {
-    ...mapGetters('exchangeRate', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
+    ...mapGetters('exchangeRate', ['error', 'isLoading']),
   },
   created() {
     this.initExchangeRate();
   },
   methods: {
-    ...mapActions('exchangeRate', {
-      initExchangeRate: 'initExchangeRate',
-    }),
+    ...mapActions('exchangeRate', ['initExchangeRate']),
   },
 };
 </script>

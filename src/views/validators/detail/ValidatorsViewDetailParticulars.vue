@@ -54,13 +54,8 @@ export default {
   name: 'ValidatorsViewDetailParticulars',
   components: { BaseDetailItem },
   computed: {
-    ...mapGetters('application', {
-      params: 'stakingParams',
-    }),
-    ...mapGetters('validators', {
-      detail: 'detail',
-      pool: 'pool',
-    }),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('validators', ['detail', 'pool']),
     commission() {
       return this.detail.commission.commission_rates.rate
         ? new Intl.NumberFormat(undefined, {
@@ -82,7 +77,7 @@ export default {
     tokens() {
       return coinAdapter.format({
         amount: parseFloat(this.detail.tokens),
-        denom: this.params.bond_denom,
+        denom: this.stakingParams.bond_denom,
       });
     },
     updateTime() {

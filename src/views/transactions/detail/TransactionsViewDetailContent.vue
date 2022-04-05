@@ -45,9 +45,7 @@ export default {
     },
   }),
   computed: {
-    ...mapGetters('transactions', {
-      detail: 'detail',
-    }),
+    ...mapGetters('transactions', ['detail']),
     tx() {
       return transactionsDetailHelper.build({
         detail: this.detail,

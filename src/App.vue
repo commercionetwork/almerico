@@ -36,10 +36,7 @@ export default {
     TheNavBar,
   },
   computed: {
-    ...mapGetters('application', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
+    ...mapGetters('application', ['error', 'isLoading']),
     style() {
       const theme = this.$vuetify.theme.dark ? 'dark' : 'light';
       return { background: this.$vuetify.theme.themes[theme].background };
@@ -52,9 +49,7 @@ export default {
     ws.subscribe();
   },
   methods: {
-    ...mapActions('application', {
-      initAppData: 'initAppData',
-    }),
+    ...mapActions('application', ['initAppData']),
   },
 };
 </script>

@@ -25,9 +25,7 @@ export default {
     TransactionsViewSharedocMessage,
   },
   computed: {
-    ...mapGetters('transactions', {
-      detail: 'detail',
-    }),
+    ...mapGetters('transactions', ['detail']),
     componentName() {
       return !this.detail.version
         ? TransactionsViewSharedocMessage.name

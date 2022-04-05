@@ -51,14 +51,8 @@ export default {
     account: '',
   }),
   computed: {
-    ...mapGetters('application', {
-      latestBlock: 'latestBlock',
-    }),
-    ...mapGetters('validators', {
-      error: 'error',
-      isLoading: 'isLoading',
-      newHeight: 'newHeight',
-    }),
+    ...mapGetters('application', ['latestBlock']),
+    ...mapGetters('validators', ['error', 'isLoading', 'newHeight']),
     address() {
       return this.$route.params.id;
     },
@@ -87,10 +81,10 @@ export default {
     }
   },
   methods: {
-    ...mapActions('validators', {
-      initValidatorsDetail: 'initValidatorsDetail',
-      updateBlocksMonitor: 'updateBlocksMonitor',
-    }),
+    ...mapActions('validators', [
+      'initValidatorsDetail',
+      'updateBlocksMonitor',
+    ]),
     getAccount() {
       try {
         const hex = bech32Manager.decode(this.address);
