@@ -20,7 +20,7 @@
     <div>
       <v-card color="white" flat class="pa-1">
         <v-icon size="50" :color="membershipColor">
-          mdi-card-account-details
+          {{ mdiCardAccountDetails }}
         </v-icon>
       </v-card>
     </div>
@@ -31,11 +31,13 @@
 import { ACCOUNT, ROUTES } from '@/constants';
 import { mapGetters } from 'vuex';
 import { maxBy } from 'lodash';
+import { mdiCardAccountDetails } from '@mdi/js';
 
 export default {
   name: 'AccountViewAddressMembership',
   data: () => ({
     ROUTES,
+    mdiCardAccountDetails,
   }),
   computed: {
     ...mapGetters('account', {

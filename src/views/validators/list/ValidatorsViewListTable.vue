@@ -28,9 +28,9 @@
         <template #[`item.moniker`]="{ item }">
           <v-btn icon @click="handleBookmark(item.operator, item.bookmark)">
             <v-icon v-if="item.bookmark" color="amber darken-2">
-              mdi-star
+              {{ mdiStar }}
             </v-icon>
-            <v-icon v-else color="amber darken-2">mdi-star-outline</v-icon>
+            <v-icon v-else color="amber darken-2">{{ mdiStarOutline }}</v-icon>
           </v-btn>
           <router-link
             class="text-decoration-none font-weight-bold"
@@ -52,13 +52,17 @@
 <script>
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import validatorsTableAdapter from './helpers/validatorsTableAdapter';
+
 import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
+import { mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListTable',
   data: () => ({
     ROUTES,
+    mdiStar,
+    mdiStarOutline,
     sortBy: 'rank',
     bookmarks: [],
   }),

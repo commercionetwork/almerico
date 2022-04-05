@@ -6,8 +6,8 @@
       >
         <div class="px-3">
           <v-text-field
+            :append-icon="mdiMagnify"
             :label="$t('labels.searchNameAddressAccount')"
-            append-icon="mdi-magnify"
             v-model="query"
             @input="search"
             @blur="search"
@@ -16,7 +16,7 @@
               <v-tooltip bottom>
                 <template #activator="{ on, attrs }">
                   <v-icon color="info" dark v-bind="attrs" v-on="on">
-                    mdi-information-outline
+                    {{ mdiInformationOutline }}
                   </v-icon>
                 </template>
                 <span v-text="$t('msgs.searchValidatorsInfo')" />
@@ -35,8 +35,10 @@
 <script>
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 import ValidatorsViewListFilter from './ValidatorsViewListFilter.vue';
+
 import { VALIDATORS } from '@/constants';
 import { mapActions } from 'vuex';
+import { mdiInformationOutline, mdiMagnify } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListSearch',
@@ -45,6 +47,8 @@ export default {
     BaseTopContentCard,
   },
   data: () => ({
+    mdiInformationOutline,
+    mdiMagnify,
     status: VALIDATORS.FILTER.ACTIVE,
     query: '',
   }),
