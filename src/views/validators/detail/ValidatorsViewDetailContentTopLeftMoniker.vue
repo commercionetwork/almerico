@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-row justify-start align-center">
     <span>
-      <v-btn icon @click="handleBookmark(detail.operator_address)">
+      <v-btn icon @click="handleBookmark(operatorAddress)">
         <v-icon color="amber darken-2" left size="30">
           {{ bookmarkIcon }}
         </v-icon>
@@ -12,16 +12,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewDetailContentTopLeftMoniker',
   props: {
-    detail: {
-      type: Object,
-      required: true,
-      note: 'The validator data',
-    },
     isBookmark: {
       type: Boolean,
       default: false,
@@ -30,11 +26,15 @@ export default {
   },
   emits: [`handle-bookmark`],
   computed: {
+    ...mapGetters('validators', ['detail']),
     bookmarkIcon() {
       return this.isBookmark ? mdiStar : mdiStarOutline;
     },
     moniker() {
-      return this.detail.description.moniker || '';
+      return this.detail ? this.detail.description.moniker : '';
+    },
+    operatorAddress() {
+      return this.detail ? this.detail.operator_address : '';
     },
   },
   methods: {

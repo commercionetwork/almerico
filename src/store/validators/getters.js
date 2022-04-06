@@ -1,4 +1,5 @@
 export default {
+  account: (state) => state.account,
   blocks: (state) => state.blocks,
   delegations: (state) => state.delegations,
   delegationsOffset: (state) => state.delegationsOffset,

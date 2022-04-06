@@ -17,7 +17,7 @@
           <span v-text="$t('msgs.copy')" />
         </v-tooltip>
       </div>
-      <div class="pl-1 font-monotype" v-text="detail.operator_address" />
+      <div class="pl-1 font-monotype" v-text="operatorAddress" />
     </div>
     <div class="px-1 py-3">
       <div
@@ -35,28 +35,21 @@
 
 <script>
 import { ROUTES } from '@/constants';
+import { mapGetters } from 'vuex';
 import { mdiCheckAll, mdiContentCopy } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewDetailContentTopLeftAddress',
-  props: {
-    account: {
-      type: String,
-      required: true,
-      note: 'The account address',
-    },
-    detail: {
-      type: Object,
-      required: true,
-      note: 'The validator data',
-    },
-  },
   data: () => ({
     mdiCheckAll,
     mdiContentCopy,
     copied: false,
   }),
   computed: {
+    ...mapGetters('validators', ['account', 'detail']),
+    operatorAddress() {
+      return this.detail ? this.detail.operator_address : '';
+    },
     toAccount() {
       return {
         name: ROUTES.NAME.ACCOUNT,
@@ -66,7 +59,7 @@ export default {
   },
   methods: {
     copyToClipboard() {
-      navigator.clipboard.writeText(this.detail.operator_address).then(() => {
+      navigator.clipboard.writeText(this.operatorAddress).then(() => {
         this.copied = true;
         setTimeout(() => (this.copied = false), 1000);
       });

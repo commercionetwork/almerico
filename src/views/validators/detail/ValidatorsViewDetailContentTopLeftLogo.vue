@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column justify-center align-end align-content-center">
-    <div v-if="logo">
-      <v-img class="pa-1" :src="logo" max-height="40" max-width="40">
+    <div v-if="detailLogo">
+      <v-img class="pa-1" :src="detailLogo" max-height="40" max-width="40">
         <template v-slot:placeholder>
           <v-row class="fill-height ma-0" align="center" justify="center">
             <v-progress-circular
@@ -22,30 +22,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { mdiHubspot } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewDetailContentTopLeftLogo',
-  props: {
-    detail: {
-      type: Object,
-      required: true,
-      note: 'The validator data',
-    },
-    logo: {
-      type: String,
-      default: '',
-      note: 'The validator logo',
-    },
-  },
   data() {
     return {
       mdiHubspot,
     };
   },
   computed: {
+    ...mapGetters('validators', ['detail', 'detailLogo']),
     isActive() {
-      return this.detail.status === 3;
+      return this.detail ? this.detail.status === 3 : false;
     },
     statusClass() {
       return this.isActive ? 'info--text' : 'warning--text';

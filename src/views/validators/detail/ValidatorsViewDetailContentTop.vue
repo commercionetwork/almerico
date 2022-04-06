@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" :md="isBlocksMonitor ? 4 : 6">
-      <ValidatorsViewDetailContentTopLeft :account="account" />
+      <ValidatorsViewDetailContentTopLeft />
     </v-col>
     <v-col cols="12" :md="isBlocksMonitor ? 4 : 6">
       <ValidatorsViewDetailContentTopCenter />
@@ -25,13 +25,6 @@ export default {
     ValidatorsViewDetailContentTopRight,
     ValidatorsViewDetailContentTopLeft,
     ValidatorsViewDetailContentTopCenter,
-  },
-  props: {
-    account: {
-      type: String,
-      required: true,
-      note: 'The account address',
-    },
   },
   computed: {
     isBlocksMonitor() {

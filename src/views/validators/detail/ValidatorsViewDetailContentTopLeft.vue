@@ -7,24 +7,17 @@
       <v-row class="d-flex align-center">
         <v-col cols="10">
           <ValidatorsViewDetailContentTopLeftMoniker
-            :detail="detail"
             :is-bookmark="isBookmark"
             @handle-bookmark="onHandleBookmark"
         /></v-col>
         <v-col cols="2">
-          <ValidatorsViewDetailContentTopLeftLogo
-            :detail="detail"
-            :logo="detailLogo"
-          />
+          <ValidatorsViewDetailContentTopLeftLogo />
         </v-col>
       </v-row>
     </v-card-text>
     <v-divider class="mx-3" />
     <v-card-text>
-      <ValidatorsViewDetailContentTopLeftAddress
-        :account="account"
-        :detail="detail"
-      />
+      <ValidatorsViewDetailContentTopLeftAddress />
     </v-card-text>
   </v-card>
 </template>
@@ -44,24 +37,17 @@ export default {
     ValidatorsViewDetailContentTopLeftLogo,
     ValidatorsViewDetailContentTopLeftMoniker,
   },
-  props: {
-    account: {
-      type: String,
-      required: true,
-      note: 'The account address',
-    },
-  },
   data: () => ({
     bookmarks: [],
   }),
   computed: {
     ...mapGetters('validators', ['detail', 'detailLogo']),
     isBookmark() {
-      return (
-        this.bookmarks.findIndex(
-          (address) => address === this.detail.operator_address
-        ) > -1
-      );
+      return this.detail
+        ? this.bookmarks.findIndex(
+            (address) => address === this.detail.operator_address
+          ) > -1
+        : false;
     },
   },
   created() {

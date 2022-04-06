@@ -1,6 +1,6 @@
 import { keybase, staking, tendermintRpc } from '@/apis/http';
 import { CONFIG, VALIDATORS } from '@/constants';
-import { blocksRequestHelper } from '@/utils';
+import { bech32Manager, blocksRequestHelper } from '@/utils';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
@@ -59,6 +59,7 @@ export default {
       dispatch('fetchDetail', id),
       dispatch('fetchDetailDelegations', id),
       dispatch('fetchPool'),
+      dispatch('setAccount', id),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
@@ -95,6 +96,19 @@ export default {
       }
     } catch (error) {
       commit('setDetailLogo', '');
+    }
+  },
+
+  setAccount({ commit }, address) {
+    try {
+      const hex = bech32Manager.decode(address);
+      const account = bech32Manager.encode(
+        hex,
+        CONFIG.PREFIXES.ACCOUNT.ADDRESS
+      );
+      commit('setAccount', account);
+    } catch (error) {
+      commit('setError', error);
     }
   },
 

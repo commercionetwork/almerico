@@ -31,8 +31,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { coinAdapter } from '@/utils';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetailContentBottomLeft',

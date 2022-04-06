@@ -52,11 +52,13 @@ export default {
       return VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
     },
     verifiedBlocks() {
-      return validatorAttendanceCalculator.getDetailDefinedBlocks({
-        blocks: this.blocks,
-        validator: this.detail,
-        limit: this.limit,
-      });
+      return this.detail
+        ? validatorAttendanceCalculator.getDetailDefinedBlocks({
+            blocks: this.blocks,
+            validator: this.detail,
+            limit: this.limit,
+          })
+        : [];
     },
   },
   watch: {

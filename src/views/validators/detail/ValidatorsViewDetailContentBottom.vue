@@ -11,7 +11,7 @@
       />
     </v-col>
     <v-col cols="12" md="4">
-      <ValidatorsViewDetailContentBottomRight :account="account" />
+      <ValidatorsViewDetailContentBottomRight />
     </v-col>
   </v-row>
 </template>
@@ -31,15 +31,8 @@ export default {
     ValidatorsViewDetailContentBottomLeft,
     ValidatorsViewDetailContentBottomRight,
   },
-  props: {
-    account: {
-      type: String,
-      required: true,
-      note: 'The account address',
-    },
-  },
   computed: {
-    ...mapGetters('validators', ['delegations']),
+    ...mapGetters('validators', ['account', 'delegations']),
     processedDelegations() {
       return validatorsDetailDelegationsHelper.build(
         this.delegations,

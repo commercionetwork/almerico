@@ -50,13 +50,6 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetailContentBottomRight',
-  props: {
-    account: {
-      type: String,
-      required: true,
-      note: 'The account address',
-    },
-  },
   data: () => ({
     ROUTES,
     sortBy: 'share',
@@ -64,7 +57,7 @@ export default {
   }),
   computed: {
     ...mapGetters('application', ['stakingParams']),
-    ...mapGetters('validators', ['delegations', 'detail']),
+    ...mapGetters('validators', ['account', 'delegations', 'detail']),
     bondDenom() {
       return this.stakingParams.bond_denom ? this.stakingParams.bond_denom : '';
     },
@@ -76,11 +69,13 @@ export default {
       ];
     },
     items() {
-      return validatorsDetailDelegatorsHelper.build({
-        account: this.account,
-        detail: this.detail,
-        delegations: this.delegations,
-      });
+      return this.detail
+        ? validatorsDetailDelegatorsHelper.build({
+            account: this.account,
+            detail: this.detail,
+            delegations: this.delegations,
+          })
+        : [];
     },
     caption() {
       return this.$t('titles.delegatorAmounts');
