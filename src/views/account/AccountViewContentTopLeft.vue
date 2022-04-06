@@ -3,7 +3,7 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <AccountViewAddressMembership />
+    <AccountViewContentTopLeftMembership />
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="pl-md-2 text-center text-md-left">
@@ -39,15 +39,15 @@
 </template>
 
 <script>
-import AccountViewAddressMembership from './AccountViewAddressMembership.vue';
+import AccountViewContentTopLeftMembership from './AccountViewContentTopLeftMembership.vue';
 import AccountViewModalQRCode from './AccountViewModalQRCode.vue';
 
 import { mdiCheckAll, mdiContentCopy, mdiQrcode } from '@mdi/js';
 
 export default {
-  name: 'AccountViewAddress',
+  name: 'AccountViewContentTopLeft',
   components: {
-    AccountViewAddressMembership,
+    AccountViewContentTopLeftMembership,
     AccountViewModalQRCode,
   },
   data: () => ({

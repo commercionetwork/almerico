@@ -57,7 +57,7 @@ import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'AccountViewUnbondings',
+  name: 'AccountViewContentMiddleBottomRight',
   props: {
     unbondings: {
       type: Array,

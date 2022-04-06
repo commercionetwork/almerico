@@ -1,21 +1,21 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <AccountViewAddress />
+      <AccountViewContentTopLeft />
     </v-col>
     <v-col cols="12" md="4">
-      <AccountViewChartPerformance :assets="capital.assets" />
+      <AccountViewContentTopCenter :assets="capital.assets" />
     </v-col>
     <v-col cols="12" md="4">
-      <AccountViewBank :balances="balances" />
+      <AccountViewContentTopRight :balances="balances" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import AccountViewAddress from './AccountViewAddress.vue';
-import AccountViewBank from './AccountViewBank.vue';
-import AccountViewChartPerformance from './AccountViewChartPerformance.vue';
+import AccountViewContentTopLeft from './AccountViewContentTopLeft.vue';
+import AccountViewContentTopRight from './AccountViewContentTopRight.vue';
+import AccountViewContentTopCenter from './AccountViewContentTopCenter.vue';
 
 import accountBalanceHelper from './helpers/accountBalanceHelper';
 import { mapGetters } from 'vuex';
@@ -23,9 +23,9 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'AccountViewContentTop',
   components: {
-    AccountViewAddress,
-    AccountViewBank,
-    AccountViewChartPerformance,
+    AccountViewContentTopLeft,
+    AccountViewContentTopRight,
+    AccountViewContentTopCenter,
   },
   computed: {
     ...mapGetters('application', ['stakingParams']),

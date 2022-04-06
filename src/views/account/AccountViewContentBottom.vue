@@ -2,7 +2,7 @@
   <v-row class="mt-1">
     <v-col cols="12">
       <v-card outlined>
-        <AccountViewTransactions :items="items" />
+        <AccountViewContentBottomTransactions :items="items" />
       </v-card>
     </v-col>
     <v-col
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import AccountViewTransactions from './AccountViewTransactions.vue';
+import AccountViewContentBottomTransactions from './AccountViewContentBottomTransactions.vue';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
@@ -30,7 +30,7 @@ import { txsTableAdapter } from '@/utils';
 export default {
   name: 'AccountViewContentBottom',
   components: {
-    AccountViewTransactions,
+    AccountViewContentBottomTransactions,
     BaseLoadingLinear,
   },
   computed: {

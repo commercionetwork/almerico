@@ -21,11 +21,11 @@ export default {
     await dispatch('fetchTransactions', { address });
   },
 
-  setValidator({ commit }, address) {
+  async setValidator({ commit }, address) {
     let validator = '';
     try {
-      const hex = bech32Manager.decode(address);
-      validator = bech32Manager.encode(
+      const hex = await bech32Manager.decode(address);
+      validator = await bech32Manager.encode(
         hex,
         CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS
       );

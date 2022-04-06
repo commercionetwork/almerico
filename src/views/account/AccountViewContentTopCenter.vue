@@ -25,7 +25,7 @@ import BaseChart from '@/components/chart/BaseChart';
 import accountPerformanceChartHelper from './helpers/accountPerformanceChartHelper';
 
 export default {
-  name: 'AccountViewChartPerformance',
+  name: 'AccountViewContentTopCenter',
   components: { BaseChart },
   props: {
     assets: {

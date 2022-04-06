@@ -25,7 +25,7 @@ import BaseChart from '@/components/chart/BaseChart';
 import accountCapitalizationChartHelper from './helpers/accountCapitalizationChartHelper';
 
 export default {
-  name: 'AccountViewChartCapitalization',
+  name: 'AccountViewContentMiddleTopLeft',
   components: { BaseChart },
   props: {
     capitalization: {

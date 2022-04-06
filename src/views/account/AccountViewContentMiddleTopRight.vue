@@ -6,26 +6,18 @@
     <v-card-text>
       <v-data-table
         :headers="headers"
-        :items-per-page="5"
         :items="items"
-        :sort-by.sync="sortBy"
-        :sort-desc.sync="sortDesc"
+        :hide-default-footer="true"
+        disable-pagination
       >
         <template #top>
           <div
             class="py-2 text-center text-overline font-weight-bold"
-            v-text="$t('titles.delegations')"
+            v-text="$t('titles.comCapitalization')"
           />
         </template>
-        <template #[`item.moniker`]="{ item }">
-          <router-link
-            class="text-decoration-none"
-            v-text="item.moniker"
-            :to="{
-              name: ROUTES.NAME.VALIDATORS_DETAIL,
-              params: { id: item.operator },
-            }"
-          />
+        <template #[`item.caption`]="{ item }">
+          <span class="text-capitalize" v-text="item.caption" />
         </template>
         <template #[`item.amount`]="{ item }">
           <span
@@ -39,52 +31,40 @@
 </template>
 
 <script>
-import accountDelegationsHelper from './helpers/accountDelegationsHelper';
-import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'AccountViewDelegations',
+  name: 'AccountViewContentMiddleTopRight',
   props: {
-    delegations: {
-      type: Array,
+    capitalization: {
+      type: Object,
       required: true,
-      note: 'The delegations to display',
+      note: 'The amounts to display',
     },
     params: {
       type: Object,
       required: true,
       note: 'The application parameters',
     },
-    validators: {
-      type: Array,
-      required: true,
-      note: 'The validators list',
-    },
   },
-  data: () => ({
-    ROUTES,
-    sortBy: 'amount',
-    sortDesc: true,
-  }),
   computed: {
     headers() {
       return [
-        { text: this.$t('labels.validator'), value: 'moniker' },
+        { text: this.$t('labels.caption'), value: 'caption' },
         { text: this.$t('labels.amount'), value: 'amount' },
       ];
     },
     items() {
-      return accountDelegationsHelper.build({
-        delegations: this.delegations,
-        validators: this.validators,
-      });
+      return Object.keys(this.capitalization).map((key) => ({
+        caption: key,
+        amount: this.capitalization[key],
+      }));
     },
   },
   methods: {
     formatTokens(value) {
       const denom = this.params.bond_denom ? this.params.bond_denom : '';
-      return coinAdapter.format({ amount: value, denom });
+      return value > 0 ? coinAdapter.format({ amount: value, denom }) : '-';
     },
   },
 };
