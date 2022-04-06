@@ -25,16 +25,18 @@ describe('views/account/AccountView.vue', () => {
     $store: mockStore,
     $t: (msg) => msg,
   };
-  const computed = {
-    address: () => 'address',
+  const props = {
+    id: 'id',
   };
 
   test('if loading indicator is displayed', async () => {
     const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -52,8 +54,10 @@ describe('views/account/AccountView.vue', () => {
     const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -70,8 +74,10 @@ describe('views/account/AccountView.vue', () => {
     const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => false,
       },
@@ -88,8 +94,10 @@ describe('views/account/AccountView.vue', () => {
     const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => false,
       },
