@@ -3,11 +3,22 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <ValidatorsViewDetailAddressMoniker
-      :detail="detail"
-      :is-bookmark="isBookmark"
-      @handle-bookmark="onHandleBookmark"
-    />
+    <v-card-text class="d-flex flex-row justify-space-between align-center">
+      <v-row class="d-flex align-center">
+        <v-col cols="10">
+          <ValidatorsViewDetailAddressMoniker
+            :detail="detail"
+            :is-bookmark="isBookmark"
+            @handle-bookmark="onHandleBookmark"
+        /></v-col>
+        <v-col cols="2">
+          <ValidatorsViewDetailAddressLogo
+            :detail="detail"
+            :logo="detailLogo"
+          />
+        </v-col>
+      </v-row>
+    </v-card-text>
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="px-1">
@@ -45,6 +56,7 @@
 </template>
 
 <script>
+import ValidatorsViewDetailAddressLogo from './ValidatorsViewDetailAddressLogo.vue';
 import ValidatorsViewDetailAddressMoniker from './ValidatorsViewDetailAddressMoniker.vue';
 
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
@@ -54,7 +66,10 @@ import { mdiCheckAll, mdiContentCopy } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewDetailAddress',
-  components: { ValidatorsViewDetailAddressMoniker },
+  components: {
+    ValidatorsViewDetailAddressLogo,
+    ValidatorsViewDetailAddressMoniker,
+  },
   props: {
     account: String,
   },
@@ -65,7 +80,7 @@ export default {
     bookmarks: [],
   }),
   computed: {
-    ...mapGetters('validators', ['detail']),
+    ...mapGetters('validators', ['detail', 'detailLogo']),
     isBookmark() {
       return (
         this.bookmarks.findIndex(
