@@ -125,6 +125,7 @@ describe('store/validators/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchDetail', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetailDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
+    expect(dispatch).toHaveBeenCalledWith('setAccount', address);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
     expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
 
@@ -178,6 +179,21 @@ describe('store/validators/actions', () => {
     await actions.fetchDetailLogo({ commit }, identity);
 
     expect(commit).toHaveBeenCalledWith('setDetailLogo', '');
+  });
+
+  test('if "setAccount" commit "setAccount", and set the error if it is caught', () => {
+    const commit = jest.fn();
+    const address = 'address';
+
+    actions.setAccount({ commit }, address);
+
+    expect(commit).toHaveBeenCalledWith('setAccount', mockResponse);
+
+    mockError = true;
+
+    actions.setAccount({ commit }, address);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchDetailDelegations" dispatch "addDetailDelegations" action', async () => {
@@ -340,5 +356,22 @@ jest.mock('../../../apis/http/tendermintRpc.js', () => ({
         resolve(mockResponseValidatorSets);
       }, 1);
     });
+  },
+}));
+
+jest.mock('../../../utils/bech32Manager.js', () => ({
+  decode: () => {
+    if (mockError) {
+      throw mockErrorResponse;
+    }
+    mockResponse = 'decoded_address';
+    return mockResponse;
+  },
+  encode: () => {
+    if (mockError) {
+      throw mockErrorResponse;
+    }
+    mockResponse = 'encoded_address';
+    return mockResponse;
   },
 }));
