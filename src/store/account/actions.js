@@ -6,10 +6,9 @@ export default {
   async initAccount({ commit, dispatch }, address) {
     commit('reset');
     commit('setLoading', true);
-    const validator = await dispatch('setValidator', address);
     const requests = [
       dispatch('fetchBalances', address),
-      dispatch('fetchCommission', validator),
+      dispatch('fetchCommission', address),
       dispatch('fetchDelegations', address),
       dispatch('fetchMembership', address),
       dispatch('fetchMembershipTxs', address),
@@ -21,20 +20,6 @@ export default {
     await dispatch('fetchTransactions', { address });
   },
 
-  async setValidator({ commit }, address) {
-    let validator = '';
-    try {
-      const hex = await bech32Manager.decode(address);
-      validator = await bech32Manager.encode(
-        hex,
-        CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS
-      );
-    } catch (error) {
-      commit('setError', error);
-    }
-    return validator;
-  },
-
   async fetchBalances({ commit }, address) {
     try {
       const response = await bank.requestBalancesLegacy(address);
@@ -44,8 +29,13 @@ export default {
     }
   },
 
-  async fetchCommission({ commit }, validator) {
+  async fetchCommission({ commit }, address) {
     try {
+      const hex = await bech32Manager.decode(address);
+      const validator = await bech32Manager.encode(
+        hex,
+        CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS
+      );
       const response = await distribution.requestCommission(validator);
       commit('setCommission', response.data.commission);
     } catch (error) {

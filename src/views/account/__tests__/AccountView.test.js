@@ -41,12 +41,10 @@ describe('views/account/AccountView.vue', () => {
         isLoading: () => true,
       },
     });
-    await wrapper.setData({ isValid: true });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
   });
 
   test('if message error is displayed', async () => {
@@ -62,12 +60,10 @@ describe('views/account/AccountView.vue', () => {
         isLoading: () => false,
       },
     });
-    await wrapper.setData({ isValid: true });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
   });
 
   test('if content is displayed', async () => {
@@ -82,31 +78,9 @@ describe('views/account/AccountView.vue', () => {
         isLoading: () => false,
       },
     });
-    await wrapper.setData({ isValid: true });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
-  });
-
-  test('if warning message is displayed', async () => {
-    const wrapper = shallowMount(AccountView, {
-      localVue,
-      mocks,
-      propsData: {
-        ...props,
-      },
-      computed: {
-        error: () => null,
-        isLoading: () => false,
-      },
-    });
-    await wrapper.setData({ isValid: false });
-
-    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(true);
   });
 });
