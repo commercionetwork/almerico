@@ -14,7 +14,7 @@
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.validatorDetail')" />
       <ValidatorsViewDetailContentTop :account="account" />
-      <ValidatorsViewDetailContentBody :account="account" />
+      <ValidatorsViewDetailContentBottom :account="account" />
     </v-col>
   </v-row>
   <v-row v-else data-test="warning">
@@ -29,7 +29,7 @@ import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import ValidatorsViewDetailContentBody from './detail/ValidatorsViewDetailContentBody.vue';
+import ValidatorsViewDetailContentBottom from './detail/ValidatorsViewDetailContentBottom.vue';
 import ValidatorsViewDetailContentTop from './detail/ValidatorsViewDetailContentTop.vue';
 
 import { CONFIG, VALIDATORS } from '@/constants';
@@ -43,7 +43,7 @@ export default {
     TheAlertNotice,
     TheErrorMessage,
     TheHeaderContent,
-    ValidatorsViewDetailContentBody,
+    ValidatorsViewDetailContentBottom,
     ValidatorsViewDetailContentTop,
   },
   data: () => ({

@@ -15,7 +15,7 @@
 import { mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
-  name: 'ValidatorsViewDetailAddressMoniker',
+  name: 'ValidatorsViewDetailContentTopLeftMoniker',
   props: {
     detail: {
       type: Object,

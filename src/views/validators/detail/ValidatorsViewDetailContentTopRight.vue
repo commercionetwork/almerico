@@ -37,7 +37,7 @@ import { VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsViewDetailBlocks',
+  name: 'ValidatorsViewDetailContentTopRight',
   data() {
     return {
       isMonitorUpdating: false,

@@ -25,7 +25,7 @@
 import { mdiHubspot } from '@mdi/js';
 
 export default {
-  name: 'ValidatorsViewDetailAddressLogo',
+  name: 'ValidatorsViewDetailContentTopLeftLogo',
   props: {
     detail: {
       type: Object,

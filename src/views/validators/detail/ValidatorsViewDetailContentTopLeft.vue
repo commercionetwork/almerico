@@ -6,13 +6,13 @@
     <v-card-text class="d-flex flex-row justify-space-between align-center">
       <v-row class="d-flex align-center">
         <v-col cols="10">
-          <ValidatorsViewDetailAddressMoniker
+          <ValidatorsViewDetailContentTopLeftMoniker
             :detail="detail"
             :is-bookmark="isBookmark"
             @handle-bookmark="onHandleBookmark"
         /></v-col>
         <v-col cols="2">
-          <ValidatorsViewDetailAddressLogo
+          <ValidatorsViewDetailContentTopLeftLogo
             :detail="detail"
             :logo="detailLogo"
           />
@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import ValidatorsViewDetailAddressLogo from './ValidatorsViewDetailAddressLogo.vue';
-import ValidatorsViewDetailAddressMoniker from './ValidatorsViewDetailAddressMoniker.vue';
+import ValidatorsViewDetailContentTopLeftLogo from './ValidatorsViewDetailContentTopLeftLogo.vue';
+import ValidatorsViewDetailContentTopLeftMoniker from './ValidatorsViewDetailContentTopLeftMoniker.vue';
 
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import { ROUTES } from '@/constants';
@@ -65,10 +65,10 @@ import { mapGetters } from 'vuex';
 import { mdiCheckAll, mdiContentCopy } from '@mdi/js';
 
 export default {
-  name: 'ValidatorsViewDetailAddress',
+  name: 'ValidatorsViewDetailContentTopLeft',
   components: {
-    ValidatorsViewDetailAddressLogo,
-    ValidatorsViewDetailAddressMoniker,
+    ValidatorsViewDetailContentTopLeftLogo,
+    ValidatorsViewDetailContentTopLeftMoniker,
   },
   props: {
     account: String,
