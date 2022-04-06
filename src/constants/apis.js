@@ -16,6 +16,9 @@ const API_PATHS = {
 
 const WS = process.env.VUE_APP_WS !== undefined ? process.env.VUE_APP_WS : '';
 
+const KEYBASE_API = `https://keybase.io/_/api`;
+const KEYBASE_VERSION = '1.0';
+
 export const APIS = {
   HTTP: {
     LCD: LCD,
@@ -44,6 +47,8 @@ export const APIS = {
     DISTRIBUTION_LEGACY: `${LCD}/distribution`,
     STAKING_LEGACY: `${LCD}/staking`,
     TXS_LEGACY: `${LCD}/txs`,
+    // Keybase
+    KEYBASE: `${KEYBASE_API}/${KEYBASE_VERSION}`,
   },
   SORTING_ORDERS: {
     ORDER_BY_ASC: 'ORDER_BY_ASC',

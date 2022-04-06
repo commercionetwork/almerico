@@ -2,7 +2,7 @@ import { APIS } from '@/constants';
 import axios from 'axios';
 import apisHelper from '../helpers/apisHelper';
 
-export default {
+const staking = {
   /**
    *
    * @returns {AxiosPromise}
@@ -113,3 +113,5 @@ export default {
     });
   },
 };
+
+export default staking;

@@ -8,7 +8,7 @@
         <v-col cols="2" md="4" class="d-flex justify-start">
           <v-app-bar-nav-icon @click.stop="drawer = !drawer">
             <slot>
-              <v-icon class="text-h4">{{ mdiMenu }}</v-icon>
+              <v-icon size="40">{{ mdiMenu }}</v-icon>
             </slot>
           </v-app-bar-nav-icon>
         </v-col>

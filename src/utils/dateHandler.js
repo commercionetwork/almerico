@@ -7,7 +7,7 @@ dayjs.extend(duration);
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
-export default {
+const dateHandler = {
   checkIsBefore(d1, d2) {
     return dayjs(d1).isBefore(dayjs(d2));
   },
@@ -30,3 +30,5 @@ export default {
     return dayjs(date).utc().format();
   },
 };
+
+export default dateHandler;

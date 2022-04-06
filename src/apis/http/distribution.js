@@ -1,7 +1,7 @@
 import { APIS } from '@/constants';
 import axios from 'axios';
 
-export default {
+const distribution = {
   /**
    *
    * @param {String} address
@@ -27,3 +27,5 @@ export default {
     });
   },
 };
+
+export default distribution;

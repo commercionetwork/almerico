@@ -37,7 +37,7 @@ import { VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsViewDetailBlocks',
+  name: 'ValidatorsViewDetailContentTopRight',
   data() {
     return {
       isMonitorUpdating: false,
@@ -52,11 +52,13 @@ export default {
       return VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
     },
     verifiedBlocks() {
-      return validatorAttendanceCalculator.getDetailDefinedBlocks({
-        blocks: this.blocks,
-        validator: this.detail,
-        limit: this.limit,
-      });
+      return this.detail
+        ? validatorAttendanceCalculator.getDetailDefinedBlocks({
+            blocks: this.blocks,
+            validator: this.detail,
+            limit: this.limit,
+          })
+        : [];
     },
   },
   watch: {

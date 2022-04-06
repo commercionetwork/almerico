@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="isValid">
+  <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <BaseLoadingLinear :height="25" />
     </v-col>
@@ -13,89 +13,64 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.validatorDetail')" />
-      <ValidatorsViewDetailContentTop :account="account" />
-      <ValidatorsViewDetailContentBody :account="account" />
-    </v-col>
-  </v-row>
-  <v-row v-else data-test="warning">
-    <v-col cols="12">
-      <TheAlertNotice kind="warning" :message="$t('msgs.validatorNotExist')" />
+      <ValidatorsViewDetailContentTop />
+      <ValidatorsViewDetailContentBottom />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import ValidatorsViewDetailContentBody from './detail/ValidatorsViewDetailContentBody.vue';
+import ValidatorsViewDetailContentBottom from './detail/ValidatorsViewDetailContentBottom.vue';
 import ValidatorsViewDetailContentTop from './detail/ValidatorsViewDetailContentTop.vue';
 
-import { CONFIG, VALIDATORS } from '@/constants';
-import { bech32Manager } from '@/utils';
+import { VALIDATORS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetail',
   components: {
     BaseLoadingLinear,
-    TheAlertNotice,
     TheErrorMessage,
     TheHeaderContent,
-    ValidatorsViewDetailContentBody,
+    ValidatorsViewDetailContentBottom,
     ValidatorsViewDetailContentTop,
   },
-  data: () => ({
-    isValid: true,
-    account: '',
-  }),
+  props: {
+    id: {
+      type: String,
+      note: "The validator id from route's parameter",
+    },
+  },
   computed: {
     ...mapGetters('application', ['latestBlock']),
     ...mapGetters('validators', ['error', 'isLoading', 'newHeight']),
-    address() {
-      return this.$route.params.id;
-    },
     lastHeight() {
       return this.latestBlock.header.height;
     },
   },
   watch: {
-    address(value) {
-      this.getAccount();
-      if (this.isValid)
-        this.initValidatorsDetail({ id: value, lastHeight: this.lastHeight });
+    id(value) {
+      this.initValidatorsDetail({ id: value, lastHeight: this.lastHeight });
     },
     newHeight(value) {
       if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY && value)
         this.updateBlocksMonitor(value);
     },
   },
-  created() {
-    this.getAccount();
-    if (this.isValid) {
-      this.initValidatorsDetail({
-        id: this.address,
-        lastHeight: this.lastHeight,
-      });
-    }
+  mounted() {
+    this.initValidatorsDetail({
+      id: this.id,
+      lastHeight: this.lastHeight,
+    });
   },
   methods: {
     ...mapActions('validators', [
       'initValidatorsDetail',
       'updateBlocksMonitor',
     ]),
-    getAccount() {
-      try {
-        const hex = bech32Manager.decode(this.address);
-        this.account = bech32Manager.encode(
-          hex,
-          CONFIG.PREFIXES.ACCOUNT.ADDRESS
-        );
-      } catch (error) {
-        this.isValid = false;
-      }
-    },
   },
 };
 </script>

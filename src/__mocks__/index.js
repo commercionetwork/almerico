@@ -18,7 +18,7 @@ import {
   mockTransactionsLegacy,
 } from './transactions';
 import { mockUnbondings } from './unbondings';
-import { mockValidator, mockValidators } from './validators';
+import { mockValidator, mockValidatorLogo, mockValidators } from './validators';
 import { mockValidatorSets } from './validator_sets';
 
 export {
@@ -45,6 +45,7 @@ export {
   mockTransactionsLegacy,
   mockUnbondings,
   mockValidator,
+  mockValidatorLogo,
   mockValidatorSets,
   mockValidators,
 };
