@@ -1,4 +1,4 @@
-export default {
+const regExpBuilder = {
   // Return a regular expression to test a blockchain address
   getAddressRegExp(prefix) {
     return new RegExp(prefix + '[a-z0-9]{39}$', 'igm');
@@ -24,3 +24,5 @@ export default {
     return new RegExp(/^\/[a-z0-9]{1,}\.[a-z0-9]{1,}\.[a-z0-9]{1,}/, 'igm');
   },
 };
+
+export default regExpBuilder;

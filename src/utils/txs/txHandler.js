@@ -1,6 +1,6 @@
 import { regExpBuilder } from '@/utils';
 
-export default {
+const txHandler = {
   /**
    *
    * @param {Array.<Object>} msgs
@@ -29,3 +29,5 @@ const _getType = (type) => {
   const lastSegment = type.match(regExpBuilder.getMessageTypeRegExp())[0];
   return lastSegment.substring(1);
 };
+
+export default txHandler;
