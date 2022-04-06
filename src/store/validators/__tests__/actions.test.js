@@ -181,17 +181,17 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('setDetailLogo', '');
   });
 
-  test('if "setAccount" commit "setAccount", and set the error if it is caught', () => {
+  test('if "setAccount" commit "setAccount", and set the error if it is caught', async () => {
     const commit = jest.fn();
     const address = 'address';
 
-    actions.setAccount({ commit }, address);
+    await actions.setAccount({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith('setAccount', mockResponse);
 
     mockError = true;
 
-    actions.setAccount({ commit }, address);
+    await actions.setAccount({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
@@ -361,17 +361,27 @@ jest.mock('../../../apis/http/tendermintRpc.js', () => ({
 
 jest.mock('../../../utils/bech32Manager.js', () => ({
   decode: () => {
-    if (mockError) {
-      throw mockErrorResponse;
-    }
-    mockResponse = 'decoded_address';
-    return mockResponse;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = 'decoded_address';
+        resolve(mockResponse);
+      }, 1);
+    });
   },
   encode: () => {
-    if (mockError) {
-      throw mockErrorResponse;
-    }
-    mockResponse = 'encoded_address';
-    return mockResponse;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = 'encoded_address';
+        resolve(mockResponse);
+      }, 1);
+    });
   },
 }));

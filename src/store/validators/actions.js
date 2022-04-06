@@ -99,10 +99,10 @@ export default {
     }
   },
 
-  setAccount({ commit }, address) {
+  async setAccount({ commit }, address) {
     try {
-      const hex = bech32Manager.decode(address);
-      const account = bech32Manager.encode(
+      const hex = await bech32Manager.decode(address);
+      const account = await bech32Manager.encode(
         hex,
         CONFIG.PREFIXES.ACCOUNT.ADDRESS
       );
