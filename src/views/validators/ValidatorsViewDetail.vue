@@ -46,6 +46,12 @@ export default {
     ValidatorsViewDetailContentBottom,
     ValidatorsViewDetailContentTop,
   },
+  props: {
+    id: {
+      type: String,
+      note: "The validator id passed by router's parameter",
+    },
+  },
   data: () => ({
     isValid: true,
     account: '',
@@ -53,16 +59,13 @@ export default {
   computed: {
     ...mapGetters('application', ['latestBlock']),
     ...mapGetters('validators', ['error', 'isLoading', 'newHeight']),
-    address() {
-      return this.$route.params.id;
-    },
     lastHeight() {
       return this.latestBlock.header.height;
     },
   },
   watch: {
-    address(value) {
-      this.getAccount();
+    id(value) {
+      this.getAccount(value);
       if (this.isValid)
         this.initValidatorsDetail({ id: value, lastHeight: this.lastHeight });
     },
@@ -72,10 +75,10 @@ export default {
     },
   },
   created() {
-    this.getAccount();
+    this.getAccount(this.id);
     if (this.isValid) {
       this.initValidatorsDetail({
-        id: this.address,
+        id: this.id,
         lastHeight: this.lastHeight,
       });
     }
@@ -85,9 +88,9 @@ export default {
       'initValidatorsDetail',
       'updateBlocksMonitor',
     ]),
-    getAccount() {
+    getAccount(address) {
       try {
-        const hex = bech32Manager.decode(this.address);
+        const hex = bech32Manager.decode(address);
         this.account = bech32Manager.encode(
           hex,
           CONFIG.PREFIXES.ACCOUNT.ADDRESS
