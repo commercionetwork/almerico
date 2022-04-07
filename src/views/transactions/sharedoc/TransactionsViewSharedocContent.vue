@@ -34,11 +34,13 @@ export default {
     },
     message() {
       const msgIndex = this.tx.msgs.findIndex((msg) => {
-        if (msg.UUID)
-          delete Object.assign(msg, { ['uuid']: msg['UUID'] })['UUID'];
-        return msg.uuid === this.uuid;
+        if (msg.uuid) {
+          // Rename the 'uuid' key when a messge comes from the v2 chain, https://stackoverflow.com/a/50101979/11862643
+          delete Object.assign(msg, { ['UUID']: msg['uuid'] })['uuid'];
+        }
+        return msg.UUID === this.uuid;
       });
-      return msgIndex > -1 ? this.tx.msgs[msgIndex] : null;
+      return msgIndex > -1 ? this.tx.msgs[msgIndex] : {};
     },
     tx() {
       return transactionsDetailHelper.build({
