@@ -24,6 +24,11 @@
         :to="{ name: ROUTES.NAME.BLOCKS }"
       />
       <BaseDrawerMenuItem
+        :icon="mdiVoteOutline"
+        :title="$t('titles.governance')"
+        :to="{ name: ROUTES.NAME.PROPOSALS }"
+      />
+      <BaseDrawerMenuItem
         :icon="mdiTableEye"
         :title="$t('titles.exchangeRate')"
         :to="{ name: ROUTES.NAME.EXCHANGE_RATE }"
@@ -46,6 +51,7 @@ import {
   mdiSwapHorizontalBold,
   mdiTableEye,
   mdiViewDashboard,
+  mdiVoteOutline,
 } from '@mdi/js';
 
 export default {

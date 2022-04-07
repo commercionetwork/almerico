@@ -17,6 +17,7 @@ export const titles = {
   description: 'Description',
   doSign: 'Do sign',
   exchangeRate: 'Exchange Rate',
+  governance: 'Governance',
   inactiveValidatorsList: 'Inactive validators list',
   keys: 'Keys',
   lastBlocks: 'Last {0} blocks',
