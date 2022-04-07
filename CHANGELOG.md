@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add validator logo on detail view
+- Add animation to the change of route
 
 ### Changed
 
