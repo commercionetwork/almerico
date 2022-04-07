@@ -50,6 +50,7 @@ export default {
     AccountViewContentTopLeftMembership,
     AccountViewModalQRCode,
   },
+  inject: ['address'],
   data: () => ({
     mdiCheckAll,
     mdiContentCopy,
@@ -57,11 +58,6 @@ export default {
     copied: false,
     dialog: false,
   }),
-  computed: {
-    address() {
-      return this.$route.params.id;
-    },
-  },
   methods: {
     copyToClipboard() {
       navigator.clipboard.writeText(this.address).then(() => {

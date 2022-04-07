@@ -37,28 +37,27 @@ export default {
     ValidatorsViewDetailContentTopLeftLogo,
     ValidatorsViewDetailContentTopLeftMoniker,
   },
+  inject: ['address'],
   data: () => ({
     bookmarks: [],
   }),
   computed: {
-    ...mapGetters('validators', ['detail', 'detailLogo']),
+    ...mapGetters('validators', ['detailLogo']),
     isBookmark() {
-      return this.detail
-        ? this.bookmarks.findIndex(
-            (address) => address === this.detail.operator_address
-          ) > -1
-        : false;
+      return (
+        this.bookmarks.findIndex((address) => address === this.address) > -1
+      );
     },
   },
   created() {
     this.bookmarks = validatorsStorageHandler.get();
   },
   methods: {
-    onHandleBookmark(address) {
+    onHandleBookmark() {
       if (this.isBookmark) {
-        validatorsStorageHandler.remove(address);
+        validatorsStorageHandler.remove(this.address);
       } else {
-        validatorsStorageHandler.set(address);
+        validatorsStorageHandler.set(this.address);
       }
       this.bookmarks = validatorsStorageHandler.get();
     },

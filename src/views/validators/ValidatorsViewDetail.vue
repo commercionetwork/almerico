@@ -38,6 +38,11 @@ export default {
     ValidatorsViewDetailContentBottom,
     ValidatorsViewDetailContentTop,
   },
+  provide() {
+    return {
+      address: this.id,
+    };
+  },
   props: {
     id: {
       type: String,

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-row justify-start align-center">
     <span>
-      <v-btn icon @click="handleBookmark(operatorAddress)">
+      <v-btn icon @click="handleBookmark">
         <v-icon color="amber darken-2" left size="30">
           {{ bookmarkIcon }}
         </v-icon>
@@ -33,13 +33,10 @@ export default {
     moniker() {
       return this.detail ? this.detail.description.moniker : '';
     },
-    operatorAddress() {
-      return this.detail ? this.detail.operator_address : '';
-    },
   },
   methods: {
-    handleBookmark(address) {
-      this.$emit('handle-bookmark', address);
+    handleBookmark() {
+      this.$emit('handle-bookmark');
     },
   },
 };
