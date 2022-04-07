@@ -35,7 +35,7 @@ import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsViewDetailContentBottomLeft',
+  name: 'ValidatorsViewDetailDelegatedTokens',
   props: {
     delegations: {
       type: Object,

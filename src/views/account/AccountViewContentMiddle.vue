@@ -19,7 +19,7 @@
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountViewUnbondings
+      <AccountViewUnbondingDelegations
         :unbondings="unbondings"
         :params="stakingParams"
         :validators="validators"
@@ -32,7 +32,7 @@
 import AccountViewChartCapitalization from './AccountViewChartCapitalization.vue';
 import AccountViewCapitalization from './AccountViewCapitalization.vue';
 import AccountViewDelegations from './AccountViewDelegations.vue';
-import AccountViewUnbondings from './AccountViewUnbondings.vue';
+import AccountViewUnbondingDelegations from './AccountViewUnbondingDelegations.vue';
 
 import accountBalanceHelper from './helpers/accountBalanceHelper';
 import { mapGetters } from 'vuex';
@@ -43,7 +43,7 @@ export default {
     AccountViewChartCapitalization,
     AccountViewCapitalization,
     AccountViewDelegations,
-    AccountViewUnbondings,
+    AccountViewUnbondingDelegations,
   },
   computed: {
     ...mapGetters('application', ['stakingParams', 'validators']),

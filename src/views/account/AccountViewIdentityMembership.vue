@@ -34,7 +34,7 @@ import { maxBy } from 'lodash';
 import { mdiCardAccountDetails } from '@mdi/js';
 
 export default {
-  name: 'AccountViewAddressMembership',
+  name: 'AccountViewIdentityMembership',
   data: () => ({
     ROUTES,
     mdiCardAccountDetails,
@@ -42,9 +42,11 @@ export default {
   computed: {
     ...mapGetters('account', ['membership', 'membershipTxs']),
     membershipColor() {
-      const index = ACCOUNT.MEMBERSHIPS.findIndex(
-        (membership) => membership.name === this.membershipText
-      );
+      const index = this.membership
+        ? ACCOUNT.MEMBERSHIPS.findIndex(
+            (membership) => membership.name === this.membershipText
+          )
+        : -1;
       return index > -1 ? ACCOUNT.MEMBERSHIPS[index]['color'] : '#b3d9ff';
     },
     membershipText() {
@@ -53,7 +55,9 @@ export default {
         : this.$t('labels.none');
     },
     lastTransaction() {
-      return maxBy(this.membershipTxs, (o) => o.timestamp);
+      return this.membershipTxs.length > 0
+        ? maxBy(this.membershipTxs, (o) => o.timestamp)
+        : null;
     },
     txhash() {
       return this.lastTransaction ? this.lastTransaction.txhash : '';

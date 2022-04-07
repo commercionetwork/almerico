@@ -12,6 +12,7 @@ import {
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
+const mockAddress = 'did:com:';
 let mockError = false;
 let mockResponse = null;
 let mockResponseValidatorSets = null;
@@ -122,10 +123,10 @@ describe('store/validators/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('setAccount', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetail', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetailDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
-    expect(dispatch).toHaveBeenCalledWith('setAccount', address);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
     expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
 
@@ -137,6 +138,21 @@ describe('store/validators/actions', () => {
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
+  });
+
+  test('if "setAccount" commit "setAccount", and set the error if it is caught', () => {
+    const commit = jest.fn();
+    const address = 'address';
+
+    actions.setAccount({ commit }, address);
+
+    expect(commit).toHaveBeenCalledWith('setAccount', mockAddress);
+
+    mockError = true;
+
+    actions.setAccount({ commit }, address);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchDetail" action commit "setDetail" and dispatch "fetchDetailLogo", and set the error if it is caught', async () => {
@@ -179,21 +195,6 @@ describe('store/validators/actions', () => {
     await actions.fetchDetailLogo({ commit }, identity);
 
     expect(commit).toHaveBeenCalledWith('setDetailLogo', '');
-  });
-
-  test('if "setAccount" commit "setAccount", and set the error if it is caught', () => {
-    const commit = jest.fn();
-    const address = 'address';
-
-    actions.setAccount({ commit }, address);
-
-    expect(commit).toHaveBeenCalledWith('setAccount', mockResponse);
-
-    mockError = true;
-
-    actions.setAccount({ commit }, address);
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchDetailDelegations" dispatch "addDetailDelegations" action', async () => {
@@ -364,14 +365,14 @@ jest.mock('../../../utils/bech32Manager.js', () => ({
     if (mockError) {
       throw mockErrorResponse;
     }
-    mockResponse = 'decoded_address';
-    return mockResponse;
+
+    return mockAddress;
   },
   encode: () => {
     if (mockError) {
       throw mockErrorResponse;
     }
-    mockResponse = 'encoded_address';
-    return mockResponse;
+
+    return mockAddress;
   },
 }));

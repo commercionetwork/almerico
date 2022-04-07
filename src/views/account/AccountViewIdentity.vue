@@ -3,7 +3,7 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <AccountViewAddressMembership />
+    <AccountViewIdentityMembership />
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="pl-md-2 text-center text-md-left">
@@ -39,17 +39,18 @@
 </template>
 
 <script>
-import AccountViewAddressMembership from './AccountViewAddressMembership.vue';
+import AccountViewIdentityMembership from './AccountViewIdentityMembership.vue';
 import AccountViewModalQRCode from './AccountViewModalQRCode.vue';
 
 import { mdiCheckAll, mdiContentCopy, mdiQrcode } from '@mdi/js';
 
 export default {
-  name: 'AccountViewAddress',
+  name: 'AccountViewIdentity',
   components: {
-    AccountViewAddressMembership,
+    AccountViewIdentityMembership,
     AccountViewModalQRCode,
   },
+  inject: ['address'],
   data: () => ({
     mdiCheckAll,
     mdiContentCopy,
@@ -57,11 +58,6 @@ export default {
     copied: false,
     dialog: false,
   }),
-  computed: {
-    address() {
-      return this.$route.params.id;
-    },
-  },
   methods: {
     copyToClipboard() {
       navigator.clipboard.writeText(this.address).then(() => {

@@ -27,13 +27,9 @@ import { mdiClose } from '@mdi/js';
 export default {
   name: 'AccountViewModalQRCode',
   components: { QrcodeVue },
+  inject: ['address'],
   props: {
     value: Boolean,
-    address: {
-      type: String,
-      default: '',
-      note: 'The account address',
-    },
   },
   emits: [`input`],
   data() {

@@ -1,13 +1,14 @@
 import { bank, commercio, distribution, staking, tx } from '@/apis/http';
-import { ACCOUNT, APIS } from '@/constants';
+import { ACCOUNT, APIS, CONFIG } from '@/constants';
+import { bech32Manager } from '@/utils';
 
 export default {
-  async initAccount({ commit, dispatch }, { address, validator }) {
+  async initAccount({ commit, dispatch }, address) {
     commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchBalances', address),
-      dispatch('fetchCommission', validator),
+      dispatch('fetchCommission', address),
       dispatch('fetchDelegations', address),
       dispatch('fetchMembership', address),
       dispatch('fetchMembershipTxs', address),
@@ -28,8 +29,13 @@ export default {
     }
   },
 
-  async fetchCommission({ commit }, validator) {
+  async fetchCommission({ commit }, address) {
     try {
+      const hex = bech32Manager.decode(address);
+      const validator = bech32Manager.encode(
+        hex,
+        CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS
+      );
       const response = await distribution.requestCommission(validator);
       commit('setCommission', response.data.commission);
     } catch (error) {

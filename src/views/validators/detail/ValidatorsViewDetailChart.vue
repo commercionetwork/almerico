@@ -25,7 +25,7 @@ import BaseChart from '@/components/chart/BaseChart';
 import validatorsDetailChartHelper from './helpers/validatorsDetailChartHelper';
 
 export default {
-  name: 'ValidatorsViewDetailContentBottomCenter',
+  name: 'ValidatorsViewDetailChart',
   components: { BaseChart },
   props: {
     delegations: {
