@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replace icons installation
 - Align style of actions and getters imports
+- Rename components
+- Update routes to use props
 
 ## [3.0.11] - 2022-03-29
 
