@@ -55,16 +55,29 @@ export default {
   async initValidatorsDetail({ commit, dispatch }, { id, lastHeight }) {
     commit('reset');
     commit('setLoading', true);
+    dispatch('setAccount', id);
     const requests = [
       dispatch('fetchDetail', id),
       dispatch('fetchDetailDelegations', id),
       dispatch('fetchPool'),
-      dispatch('setAccount', id),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
       await dispatch('fetchTrackedBlocks', lastHeight);
+    }
+  },
+
+  setAccount({ commit }, address) {
+    try {
+      const hex = bech32Manager.decode(address);
+      const account = bech32Manager.encode(
+        hex,
+        CONFIG.PREFIXES.ACCOUNT.ADDRESS
+      );
+      commit('setAccount', account);
+    } catch (error) {
+      commit('setError', error);
     }
   },
 
@@ -96,19 +109,6 @@ export default {
       }
     } catch (error) {
       commit('setDetailLogo', '');
-    }
-  },
-
-  async setAccount({ commit }, address) {
-    try {
-      const hex = await bech32Manager.decode(address);
-      const account = await bech32Manager.encode(
-        hex,
-        CONFIG.PREFIXES.ACCOUNT.ADDRESS
-      );
-      commit('setAccount', account);
-    } catch (error) {
-      commit('setError', error);
     }
   },
 

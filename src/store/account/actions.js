@@ -31,8 +31,8 @@ export default {
 
   async fetchCommission({ commit }, address) {
     try {
-      const hex = await bech32Manager.decode(address);
-      const validator = await bech32Manager.encode(
+      const hex = bech32Manager.decode(address);
+      const validator = bech32Manager.encode(
         hex,
         CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS
       );

@@ -13,7 +13,7 @@ import {
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
-const mockValidator = 'validator';
+const mockAddress = 'did:com:';
 let mockError = false;
 let mockResponse = null;
 
@@ -363,25 +363,17 @@ jest.mock('../../../apis/http/tx.js', () => ({
 
 jest.mock('../../../utils/bech32Manager.js', () => ({
   decode: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
+    if (mockError) {
+      return mockErrorResponse;
+    }
 
-        resolve(mockValidator);
-      }, 1);
-    });
+    return mockAddress;
   },
   encode: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
+    if (mockError) {
+      return mockErrorResponse;
+    }
 
-        resolve(mockValidator);
-      }, 1);
-    });
+    return mockAddress;
   },
 }));
