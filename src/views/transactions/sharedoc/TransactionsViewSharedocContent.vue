@@ -33,9 +33,13 @@ export default {
         : MsgDefault.name;
     },
     message() {
-      const msgIndex = this.tx.msgs.findIndex(
-        (msg) => msg.UUID === this.uuid || msg.uuid === this.uuid
-      );
+      const msgIndex = this.tx.msgs.findIndex((msg) => {
+        if (msg.uuid) {
+          // Rename the 'uuid' key when a messge comes from the v2 chain, https://stackoverflow.com/a/50101979/11862643
+          delete Object.assign(msg, { ['UUID']: msg['uuid'] })['uuid'];
+        }
+        return msg.UUID === this.uuid;
+      });
       return msgIndex > -1 ? this.tx.msgs[msgIndex] : {};
     },
     tx() {
