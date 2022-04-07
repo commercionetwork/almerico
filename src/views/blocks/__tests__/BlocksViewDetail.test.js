@@ -25,16 +25,18 @@ describe('views/blocks/BlocksViewDetail.vue', () => {
     $store: mockStore,
     $t: (msg) => msg,
   };
-  const computed = {
-    height: () => '100',
+  const props = {
+    id: 'id',
   };
 
   test('if loading indicator is displayed', () => {
     const wrapper = shallowMount(BlocksViewDetail, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -50,8 +52,10 @@ describe('views/blocks/BlocksViewDetail.vue', () => {
     const wrapper = shallowMount(BlocksViewDetail, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -66,8 +70,10 @@ describe('views/blocks/BlocksViewDetail.vue', () => {
     const wrapper = shallowMount(BlocksViewDetail, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => false,
       },

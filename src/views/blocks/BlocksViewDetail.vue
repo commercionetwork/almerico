@@ -34,19 +34,22 @@ export default {
     TheErrorMessage,
     TheHeaderContent,
   },
-  computed: {
-    ...mapGetters('blocks', ['error', 'isLoading']),
-    height() {
-      return this.$route.params.id;
+  props: {
+    id: {
+      type: String,
+      note: "The block's id from route's parameter",
     },
   },
+  computed: {
+    ...mapGetters('blocks', ['error', 'isLoading']),
+  },
   watch: {
-    height(value) {
+    id(value) {
       if (value) this.initBlocksDetail(value);
     },
   },
   created() {
-    this.initBlocksDetail(this.height);
+    this.initBlocksDetail(this.id);
   },
   methods: {
     ...mapActions('blocks', ['initBlocksDetail']),
