@@ -33,12 +33,10 @@ export default {
         : MsgDefault.name;
     },
     message() {
-      const msgIndex = this.tx.msgs.findIndex((msg) => {
-        if (msg.UUID)
-          delete Object.assign(msg, { ['uuid']: msg['UUID'] })['UUID'];
-        return msg.uuid === this.uuid;
-      });
-      return msgIndex > -1 ? this.tx.msgs[msgIndex] : null;
+      const msgIndex = this.tx.msgs.findIndex(
+        (msg) => msg.UUID === this.uuid || msg.uuid === this.uuid
+      );
+      return msgIndex > -1 ? this.tx.msgs[msgIndex] : {};
     },
     tx() {
       return transactionsDetailHelper.build({
