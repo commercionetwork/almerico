@@ -10,7 +10,9 @@
           <TheErrorMessage :error="error" />
         </v-container>
         <v-container v-else data-test="content">
-          <router-view />
+          <transition name="route">
+            <router-view />
+          </transition>
         </v-container>
       </v-main>
       <TheFooter />
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+import '@/assets/style/app.scss';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheFooter from '@/components/layout/TheFooter.vue';
 import BaseLoadingCircular from '@/components/BaseLoadingCircular';
