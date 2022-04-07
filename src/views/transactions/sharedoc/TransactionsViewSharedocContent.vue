@@ -24,6 +24,7 @@ export default {
     TheTransactionsCommonContent,
     TransactionsViewSharedocMessage,
   },
+  inject: ['uuid'],
   computed: {
     ...mapGetters('transactions', ['detail']),
     componentName() {
@@ -48,9 +49,6 @@ export default {
           multiTypes: this.$t('labels.multiTypes'),
         },
       });
-    },
-    uuid() {
-      return this.$route.params.uuid;
     },
   },
 };

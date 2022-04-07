@@ -34,11 +34,23 @@ export default {
     TheHeaderContent,
     TransactionsViewSharedocContent,
   },
+  provide() {
+    return {
+      uuid: this.uuid,
+    };
+  },
+  props: {
+    hash: {
+      type: String,
+      note: "The transaction hash from route's parameter",
+    },
+    uuid: {
+      type: String,
+      note: "The sharedoc uuid from route's parameter",
+    },
+  },
   computed: {
     ...mapGetters('transactions', ['error', 'isLoading']),
-    hash() {
-      return this.$route.params.hash;
-    },
   },
   watch: {
     hash(value) {
