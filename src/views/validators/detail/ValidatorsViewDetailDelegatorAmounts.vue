@@ -49,7 +49,7 @@ import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsViewDetailContentBottomRight',
+  name: 'ValidatorsViewDetailDelegatorAmounts',
   data: () => ({
     ROUTES,
     sortBy: 'share',

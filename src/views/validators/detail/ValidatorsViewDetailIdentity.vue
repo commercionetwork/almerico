@@ -6,36 +6,36 @@
     <v-card-text class="d-flex flex-row justify-space-between align-center">
       <v-row class="d-flex align-center">
         <v-col cols="10">
-          <ValidatorsViewDetailContentTopLeftMoniker
+          <ValidatorsViewDetailIdentityMoniker
             :is-bookmark="isBookmark"
             @handle-bookmark="onHandleBookmark"
         /></v-col>
         <v-col cols="2">
-          <ValidatorsViewDetailContentTopLeftLogo />
+          <ValidatorsViewDetailIdentityLogo />
         </v-col>
       </v-row>
     </v-card-text>
     <v-divider class="mx-3" />
     <v-card-text>
-      <ValidatorsViewDetailContentTopLeftAddress />
+      <ValidatorsViewDetailIdentityAddress />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import ValidatorsViewDetailContentTopLeftAddress from './ValidatorsViewDetailContentTopLeftAddress.vue';
-import ValidatorsViewDetailContentTopLeftLogo from './ValidatorsViewDetailContentTopLeftLogo.vue';
-import ValidatorsViewDetailContentTopLeftMoniker from './ValidatorsViewDetailContentTopLeftMoniker.vue';
+import ValidatorsViewDetailIdentityAddress from './ValidatorsViewDetailIdentityAddress.vue';
+import ValidatorsViewDetailIdentityLogo from './ValidatorsViewDetailIdentityLogo.vue';
+import ValidatorsViewDetailIdentityMoniker from './ValidatorsViewDetailIdentityMoniker.vue';
 
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsViewDetailContentTopLeft',
+  name: 'ValidatorsViewDetailIdentity',
   components: {
-    ValidatorsViewDetailContentTopLeftAddress,
-    ValidatorsViewDetailContentTopLeftLogo,
-    ValidatorsViewDetailContentTopLeftMoniker,
+    ValidatorsViewDetailIdentityAddress,
+    ValidatorsViewDetailIdentityLogo,
+    ValidatorsViewDetailIdentityMoniker,
   },
   inject: ['address'],
   data: () => ({

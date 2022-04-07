@@ -26,7 +26,7 @@ import { mapGetters } from 'vuex';
 import { mdiHubspot } from '@mdi/js';
 
 export default {
-  name: 'ValidatorsViewDetailContentTopLeftLogo',
+  name: 'ValidatorsViewDetailIdentityLogo',
   data() {
     return {
       mdiHubspot,

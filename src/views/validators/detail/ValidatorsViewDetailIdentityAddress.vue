@@ -39,7 +39,7 @@ import { mapGetters } from 'vuex';
 import { mdiCheckAll, mdiContentCopy } from '@mdi/js';
 
 export default {
-  name: 'ValidatorsViewDetailContentTopLeftAddress',
+  name: 'ValidatorsViewDetailIdentityAddress',
   inject: ['address'],
   data: () => ({
     mdiCheckAll,

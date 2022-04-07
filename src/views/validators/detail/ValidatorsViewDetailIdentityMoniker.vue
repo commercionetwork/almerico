@@ -16,7 +16,7 @@ import { mapGetters } from 'vuex';
 import { mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
-  name: 'ValidatorsViewDetailContentTopLeftMoniker',
+  name: 'ValidatorsViewDetailIdentityMoniker',
   props: {
     isBookmark: {
       type: Boolean,
