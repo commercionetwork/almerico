@@ -52,7 +52,7 @@
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'AccountViewContentBottomTransactions',
+  name: 'AccountViewTransactions',
   props: {
     items: {
       type: Array,

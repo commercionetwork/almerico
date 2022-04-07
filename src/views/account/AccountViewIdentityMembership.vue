@@ -34,7 +34,7 @@ import { maxBy } from 'lodash';
 import { mdiCardAccountDetails } from '@mdi/js';
 
 export default {
-  name: 'AccountViewContentTopLeftMembership',
+  name: 'AccountViewIdentityMembership',
   data: () => ({
     ROUTES,
     mdiCardAccountDetails,
