@@ -19,6 +19,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename components
 - Update routes to use props
 
+### Fixed
+
+- Fix the missing UUID in the Sharedoc detail
+
 ## [3.0.11] - 2022-03-29
 
 ### Changed
