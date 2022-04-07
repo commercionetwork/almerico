@@ -1,15 +1,15 @@
-import { APIS, PROPOSALS } from '@/constants';
+import { APIS } from '@/constants';
 import axios from 'axios';
+import apisHelper from '../helpers/apisHelper';
 
 const governance = {
-  requestProposalsList(status = PROPOSALS.STATUS.UNSPECIFIED) {
+  requestProposalsList(parameters, pagination) {
+    const params = apisHelper.setupParams(parameters, pagination);
     return axios({
       url: `/proposals`,
       method: 'get',
       baseURL: `${APIS.HTTP.GOVERNANCE}`,
-      params: {
-        proposal_status: status,
-      },
+      params,
     });
   },
   requestProposal(id) {
@@ -26,7 +26,7 @@ const governance = {
       baseURL: `${APIS.HTTP.GOVERNANCE}`,
     });
   },
-  requestAccountVotes({ id, address }) {
+  requestAccountVotes(address, id) {
     return axios({
       url: `/proposals/${id}/votes/${address}`,
       method: 'get',
