@@ -29,7 +29,7 @@ export const ROUTES = {
     EXCHANGE_RATE: '/exchange-rate',
     PROPOSALS: '/proposals',
     PROPOSALS_LIST: 'list',
-    PROPOSALS_DETAIL: 'detail:id',
+    PROPOSALS_DETAIL: 'detail/:id',
     TRANSACTIONS: '/transactions',
     TRANSACTIONS_LIST: 'list',
     TRANSACTIONS_DETAIL: 'detail/:id',

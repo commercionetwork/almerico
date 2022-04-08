@@ -29,6 +29,7 @@ export const titles = {
   myValidators: 'My validators',
   price: 'Price',
   proof: 'Proof',
+  proposalDetail: 'Proposal detail',
   qrCode: 'QR Code',
   recipients: 'Recipients',
   searchBlocks: 'Search blocks',

@@ -29,6 +29,7 @@ export const titles = {
   myValidators: 'Miei validatori',
   price: 'Prezzo',
   proof: 'Prova',
+  proposalDetail: 'Dettagli proposta',
   qrCode: 'QR Code',
   recipients: 'Destinatari',
   searchBlocks: 'Cerca blocchi',
