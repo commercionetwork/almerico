@@ -15,13 +15,13 @@ const regExpBuilder = {
   getUrlRegExp() {
     return new RegExp(/^(ftp|http|https|www):\/\/[^ "]+$/, 'igm');
   },
-  // Return a regular expression to match the last segment of a string after latest dot
-  getMessageTypeRegExp() {
-    return new RegExp(/\.[a-z0-9]{1,}$/, 'igm');
-  },
   // Return a regular expression to match the first 3 segments, separated by a dot, of a string beginning with a '/'
-  getMessageSourceRegExp() {
+  getSourceRegExp() {
     return new RegExp(/^\/[a-z0-9]{1,}\.[a-z0-9]{1,}\.[a-z0-9]{1,}/, 'igm');
+  },
+  // Return a regular expression to match the last segment of a string after latest dot
+  getTypeRegExp() {
+    return new RegExp(/\.[a-z0-9]{1,}$/, 'igm');
   },
 };
 

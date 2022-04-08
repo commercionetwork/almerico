@@ -26,7 +26,7 @@ const txHandler = {
 };
 
 const _getType = (type) => {
-  const lastSegment = type.match(regExpBuilder.getMessageTypeRegExp())[0];
+  const lastSegment = type.match(regExpBuilder.getTypeRegExp())[0];
   return lastSegment.substring(1);
 };
 

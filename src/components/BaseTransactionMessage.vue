@@ -44,13 +44,13 @@ export default {
   computed: {
     subtitle() {
       const firstSegments = this.message['@type'].match(
-        regExpBuilder.getMessageSourceRegExp()
+        regExpBuilder.getSourceRegExp()
       )[0];
       return firstSegments.substring(1);
     },
     title() {
       const lastSegment = this.message['@type'].match(
-        regExpBuilder.getMessageTypeRegExp()
+        regExpBuilder.getTypeRegExp()
       )[0];
       return lastSegment.substring(1);
     },
