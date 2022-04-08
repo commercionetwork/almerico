@@ -46,7 +46,7 @@ export default {
   async fetchProposalTally({ commit }, id) {
     try {
       const response = governance.requestTally(id);
-      commit('setDetail', { tally: response.data });
+      commit('setDetail', { tally: response.data.tally });
     } catch (error) {
       commit('setError', error);
     }
@@ -54,7 +54,7 @@ export default {
   async fetchProposalVotes({ commit }, id) {
     try {
       const response = governance.requestVotes(id);
-      commit('setDetail', { votes: response.data });
+      commit('setDetail', { votes: response.data.votes });
     } catch (error) {
       commit('setError', error);
     }

@@ -43,4 +43,27 @@ const mockProposals = (proposals = 5) => {
   return list;
 };
 
-export { mockProposal, mockProposals };
+const mockTally = () => {
+  const item = {
+    yes: '500115990000',
+    abstain: '0',
+    no: '0',
+    no_with_veto: '0',
+  };
+  return item;
+};
+
+const mockVote = (id = 1) => {
+  const item = {
+    id,
+  };
+  return item;
+};
+
+const mockVotes = (votes = 10) => {
+  let counter = 1;
+  const list = new Array(votes).fill(null).map(() => mockVote(counter++));
+  return list;
+};
+
+export { mockProposal, mockProposals, mockTally, mockVotes };
