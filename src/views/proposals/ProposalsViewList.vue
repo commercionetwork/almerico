@@ -13,12 +13,16 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.governance')" />
+      <ProposalsViewListContentTop />
+      <ProposalsViewListContentBottom />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
+import ProposalsViewListContentBottom from './list/ProposalsViewListContentBottom.vue';
+import ProposalsViewListContentTop from './list/ProposalsViewListContentTop.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 
@@ -28,6 +32,8 @@ export default {
   name: 'ProposalsViewList',
   components: {
     BaseLoadingLinear,
+    ProposalsViewListContentBottom,
+    ProposalsViewListContentTop,
     TheErrorMessage,
     TheHeaderContent,
   },
