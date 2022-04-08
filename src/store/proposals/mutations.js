@@ -10,25 +10,13 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
-  setProposals(state, payload) {
+  setList(state, payload) {
     state.list = payload;
   },
-  addProposals(state, payload) {
-    state.list.push(...payload);
-  },
-  setAdding(state, payload) {
-    state.isAdding = payload;
-  },
-  setPagination(state, payload) {
-    state.pagination = payload;
-  },
-  setOffset(state, payload) {
-    state.offset = payload;
-  },
-  sumOffset(state, payload) {
-    state.offset += payload;
-  },
   setDetail(state, payload) {
-    state.detail = payload;
+    const detail = state.detail
+      ? Object.assign(state.detail, payload)
+      : Object.assign({}, payload);
+    state.detail = detail;
   },
 };

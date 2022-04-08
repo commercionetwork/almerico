@@ -1,10 +1,9 @@
 import { APIS } from '@/constants';
 import axios from 'axios';
-import apisHelper from '../helpers/apisHelper';
 
 const governance = {
-  requestList(parameters, pagination) {
-    const params = apisHelper.setupParams(parameters, pagination);
+  requestList(status) {
+    const params = { proposalStatus: status };
     return axios({
       url: `/proposals`,
       method: 'get',
@@ -13,6 +12,13 @@ const governance = {
     });
   },
   requestDetail(id) {
+    return axios({
+      url: `/proposals/${id}`,
+      method: 'get',
+      baseURL: `${APIS.HTTP.GOVERNANCE}`,
+    });
+  },
+  requestTally(id) {
     return axios({
       url: `/proposals/${id}/tally`,
       method: 'get',
