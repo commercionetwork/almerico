@@ -29,14 +29,14 @@ describe('store/proposals/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith(
       'fetchProposals',
-      PROPOSALS.STATUS.UNSPECIFIED
+      PROPOSALS.STATUS.UNSPECIFIED.ID
     );
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
   test('if "fetchProposals" save proposals, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const status = PROPOSALS.STATUS.UNSPECIFIED;
+    const status = PROPOSALS.STATUS.UNSPECIFIED.ID;
 
     await actions.fetchProposals({ commit }, status);
 
@@ -52,7 +52,7 @@ describe('store/proposals/actions', () => {
   test('if "searchProposals" reset stored proposals and get proposals', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const status = PROPOSALS.STATUS.UNSPECIFIED;
+    const status = PROPOSALS.STATUS.UNSPECIFIED.ID;
 
     await actions.searchProposals({ commit, dispatch }, status);
 

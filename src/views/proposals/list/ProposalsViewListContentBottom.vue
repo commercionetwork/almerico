@@ -1,10 +1,6 @@
 <template>
   <v-card class="mt-3" color="transparent" flat>
-    <v-card-title
-      class="d-flex justify-center"
-      v-text="$t('titles.proposalsList')"
-    />
-    <v-row v-c>
+    <v-row>
       <v-col cols="12" md="6" lg="4" v-for="item in orderedList" :key="item.id">
         <ProposalsViewListItem :item="item" />
       </v-col>

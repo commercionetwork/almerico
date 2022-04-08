@@ -5,7 +5,9 @@ export default {
   async initProposalsList({ commit, dispatch }) {
     commit('reset');
     commit('setLoading', true);
-    const requests = [dispatch('fetchProposals', PROPOSALS.STATUS.UNSPECIFIED)];
+    const requests = [
+      dispatch('fetchProposals', PROPOSALS.STATUS.UNSPECIFIED.ID),
+    ];
     await Promise.all(requests);
     commit('setLoading', false);
   },

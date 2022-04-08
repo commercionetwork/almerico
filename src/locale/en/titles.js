@@ -30,7 +30,6 @@ export const titles = {
   price: 'Price',
   proof: 'Proof',
   proposalDetail: 'Proposal detail',
-  proposalsList: 'Proposals list',
   qrCode: 'QR Code',
   recipients: 'Recipients',
   searchBlocks: 'Search blocks',
