@@ -40,10 +40,7 @@ describe('store/proposals/actions', () => {
 
     await actions.fetchProposals({ commit }, status);
 
-    expect(commit).toHaveBeenCalledWith(
-      'setProposals',
-      mockResponse.data.proposals
-    );
+    expect(commit).toHaveBeenCalledWith('setList', mockResponse.data.proposals);
 
     mockError = true;
 
@@ -59,7 +56,7 @@ describe('store/proposals/actions', () => {
 
     await actions.searchProposals({ commit, dispatch }, status);
 
-    expect(commit).toHaveBeenCalledWith('setProposals', []);
+    expect(commit).toHaveBeenCalledWith('setList', []);
     expect(dispatch).toHaveBeenCalledWith('fetchProposals', status);
   });
 

@@ -12,13 +12,13 @@ export default {
   async fetchProposals({ commit }, status) {
     try {
       const response = await governance.requestList(status);
-      commit('setProposals', response.data.proposals);
+      commit('setList', response.data.proposals);
     } catch (error) {
       commit('setError', error);
     }
   },
   async searchProposals({ commit, dispatch }, status) {
-    commit('setProposals', []);
+    commit('setList', []);
     commit('setLoading', true);
     await dispatch('fetchProposals', status);
     commit('setLoading', false);
