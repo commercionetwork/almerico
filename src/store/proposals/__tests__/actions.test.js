@@ -62,6 +62,70 @@ describe('store/proposals/actions', () => {
     expect(commit).toHaveBeenCalledWith('setProposals', []);
     expect(dispatch).toHaveBeenCalledWith('fetchProposals', status);
   });
+
+  test('if "initProposalsDetail" reset store, set loading state then get proposal detail, tally and votes', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const id = 'id';
+
+    await actions.initProposalsDetail({ commit, dispatch }, id);
+
+    expect(commit).toHaveBeenCalledWith('reset');
+    expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchProposalDetail', id);
+    expect(dispatch).toHaveBeenCalledWith('fetchProposalTally', id);
+    expect(dispatch).toHaveBeenCalledWith('fetchProposalVotes', id);
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
+
+  test('if "fetchProposalDetail" save detail, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const id = 'id';
+
+    await actions.fetchProposalDetail({ commit }, id);
+
+    expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data);
+
+    mockError = true;
+
+    await actions.fetchProposalDetail({ commit }, id);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "fetchProposalTally" save proposal tally, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const id = 'id';
+
+    await actions.fetchProposalTally({ commit }, id);
+
+    expect(commit).toHaveBeenCalledWith('setDetail', {
+      tally: mockResponse.data.tally,
+    });
+
+    mockError = true;
+
+    await actions.fetchProposalTally({ commit }, id);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "fetchProposalVotes" save proposal votes, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const id = 'id';
+
+    await actions.fetchProposalVotes({ commit }, id);
+
+    expect(commit).toHaveBeenCalledWith('setDetail', {
+      votes: mockResponse.data.votes,
+    });
+
+    mockError = true;
+
+    await actions.fetchProposalVotes({ commit }, id);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
 });
 
 jest.mock('../../../apis/http/governance.js', () => ({
