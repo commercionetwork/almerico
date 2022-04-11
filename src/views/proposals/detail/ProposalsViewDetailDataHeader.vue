@@ -2,22 +2,23 @@
   <v-list-item>
     <v-list-item-content>
       <v-list-item-title class="pb-1 font-weight-bold">
-        <div class="d-flex flex-row justify-space-between align-center">
-          <div>
-            <span>#</span>
-            <span v-text="id" />
-            <span>&nbsp;-&nbsp;</span>
-            <span v-text="title" />
-          </div>
-          <v-chip class="white--text font-weight-bold" :color="statusColor">
-            {{ statusText }}
-          </v-chip>
-        </div>
+        <v-row>
+          <v-col cols="12" md="9" xl="10">
+            <div class="text-wrap text-h6 font-weight-bold">
+              <span>#</span>
+              <span v-text="id" />
+              <span>&nbsp;-&nbsp;</span>
+              <span v-text="title" />
+            </div>
+            <div class="text-subtitle-1 font-italic" v-text="type" />
+          </v-col>
+          <v-col cols="12" md="3" xl="2" class="d-flex justify-md-end">
+            <v-chip class="white--text font-weight-bold" :color="statusColor">
+              {{ statusText }}
+            </v-chip>
+          </v-col>
+        </v-row>
       </v-list-item-title>
-      <v-list-item-subtitle
-        class="pb-1 text-capitalize font-italic"
-        v-text="type"
-      />
     </v-list-item-content>
   </v-list-item>
 </template>
