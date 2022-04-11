@@ -1,5 +1,5 @@
 <template>
-  <v-card shaped>
+  <v-card outlined shaped>
     <v-toolbar flat>
       <v-toolbar-title>
         <span v-text="proposalId" />
