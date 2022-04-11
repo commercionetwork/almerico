@@ -41,7 +41,7 @@ export default {
       required: true,
     },
     options: {
-      type: Object,
+      type: [Object],
       default: () => ({}),
     },
   },

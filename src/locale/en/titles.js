@@ -37,6 +37,7 @@ export const titles = {
   searchValidator: 'Search validator',
   service: 'Service',
   sharedocDetail: 'Sharedoc detail',
+  tally: 'Tally',
   toggleTheme: 'Toggle theme',
   total: 'Total',
   transactionDetail: 'Transaction detail',
