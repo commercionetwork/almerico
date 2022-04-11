@@ -31,6 +31,7 @@ export const titles = {
   price: 'Prezzo',
   proof: 'Prova',
   proposalDetail: 'Dettagli proposta',
+  proposalsStatus: 'Stato proposte',
   qrCode: 'QR Code',
   recipients: 'Destinatari',
   searchBlocks: 'Cerca blocchi',
