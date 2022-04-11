@@ -37,8 +37,8 @@
         </div>
       </div>
       <div class="pa-2 text-h6 text-truncate" v-text="item.content.title" />
-      <v-card height="64" outlined>
-        <v-card-text class="font-italic" v-text="item.content.description" />
+      <v-card height="80" outlined>
+        <v-card-text v-text="item.content.description" />
       </v-card>
     </v-card-text>
   </v-card>
