@@ -7,6 +7,7 @@ export const msgs = {
   dataNotAvailable: 'In questo momento i dati, purtroppo, non sono disponibili. Si prega di aggiornare la pagina.',
   exchangeRateCalc: '1 diviso la % di Supply circolante',
   failed: 'Fallito',
+  filterByStatus: 'Filtra per stato',
   filterValidatorsInfo: 'Filtra la lista per stato',
   loading: 'Caricando...',
   noCode: 'Codice non disponibile',

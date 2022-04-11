@@ -7,11 +7,13 @@
             <v-col cols="10" offset="1">
               <v-autocomplete
                 :items="items"
-                :placeholder="$t('msgs.startTypingToFilterStatus')"
-                :prepend-inner-icon="mdiMagnify"
+                :placeholder="$t('msgs.filterByStatus')"
+                :prepend-inner-icon="mdiFilterOutline"
                 dense
                 hide-no-data
                 hide-selected
+                item-text="text"
+                item-value="value"
                 outlined
                 v-model="selectedStatus"
               />
@@ -47,24 +49,20 @@
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { PROPOSALS } from '@/constants';
-import { mdiMagnify } from '@mdi/js';
+import { mdiFilterOutline } from '@mdi/js';
 
 export default {
   name: 'ProposalsViewListSearch',
   components: { BaseTopContentCard },
   data: () => ({
-    mdiMagnify,
+    mdiFilterOutline,
     nameLimit: 60,
     selectedStatus: '',
   }),
   computed: {
     items() {
-      const statuses = Object.values(PROPOSALS.STATUS);
-      return statuses
-        .filter(
-          (status) => status['CODE'] !== PROPOSALS.STATUS.UNSPECIFIED.CODE
-        )
-        .map((status) => status['CODE']);
+      const keys = Object.keys(PROPOSALS.TEXTS);
+      return keys.map((k) => ({ text: PROPOSALS.TEXTS[k], value: k }));
     },
   },
   methods: {
