@@ -2,44 +2,44 @@
   <v-card outlined>
     <v-toolbar flat>
       <v-toolbar-title>
-        <span v-text="title" />
-        <v-tooltip top>
-          <template #activator="{ on, attrs }">
-            <v-btn :to="toDetail" icon v-bind="attrs" v-on="on">
-              <v-icon size="20">{{ mdiOpenInNew }}</v-icon>
-            </v-btn>
-          </template>
-          <span v-text="$t('labels.detail')" />
-        </v-tooltip>
+        <span v-text="proposalId" />
       </v-toolbar-title>
+      <v-spacer />
+      <v-tooltip top>
+        <template #activator="{ on, attrs }">
+          <v-btn :to="toDetail" icon v-bind="attrs" v-on="on">
+            <v-icon size="20">{{ mdiOpenInNew }}</v-icon>
+          </v-btn>
+        </template>
+        <span v-text="$t('labels.detail')" />
+      </v-tooltip>
       <template v-slot:extension>
-        <v-avatar :color="statusColor" size="36">
-          <v-icon color="white" size="24">
-            {{ PROPOSALS.ICONS[type] }}
-          </v-icon>
-        </v-avatar>
-        <span class="pl-1 text-caption" v-text="type" />
-        <v-spacer />
-        <v-chip class="ma-2 white--text font-weight-bold" :color="statusColor">
+        <v-chip class="white--text font-weight-bold" :color="statusColor">
           {{ statusText }}
         </v-chip>
+        <v-spacer />
+        <span class="pl-1 text-caption" v-text="type" />
+        <v-icon right size="24">
+          {{ PROPOSALS.ICONS[type] }}
+        </v-icon>
       </template>
     </v-toolbar>
     <v-divider />
     <v-card-text>
-      <div class="d-flex justify-space-between align-center">
-        <div>
+      <div class="text-caption d-flex justify-space-between align-center">
+        <div class="text-center">
           <div class="font-weight-bold" v-text="$t('labels.votingStartTime')" />
           <div v-text="votingStartTime" />
         </div>
-        <div>
+        <div class="text-center">
           <div class="font-weight-bold" v-text="$t('labels.votingEndTime')" />
           <div v-text="votingEndTime" />
         </div>
       </div>
-
-      <div class="pt-1 font-weight-bold" v-text="$t('labels.description')" />
-      <div v-text="item.content.description" />
+      <div class="pa-2 text-h6 text-truncate" v-text="item.content.title" />
+      <v-card height="64" outlined>
+        <v-card-text class="font-italic" v-text="item.content.description" />
+      </v-card>
     </v-card-text>
   </v-card>
 </template>
@@ -62,6 +62,9 @@ export default {
     return { PROPOSALS, mdiOpenInNew };
   },
   computed: {
+    proposalId() {
+      return `#${this.item.proposal_id}`;
+    },
     statusColor() {
       return PROPOSALS.COLORS[this.item.status];
     },
