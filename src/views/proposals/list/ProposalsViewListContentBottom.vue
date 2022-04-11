@@ -12,15 +12,25 @@
 import ProposalsViewListItem from './ProposalsViewListItem.vue';
 
 import { mapGetters } from 'vuex';
-import { orderBy } from 'lodash';
+import { filter, orderBy } from 'lodash';
 
 export default {
   name: 'ProposalsViewListContentBottom',
   components: { ProposalsViewListItem },
+  props: {
+    filter: {
+      type: String,
+      default: '',
+      note: 'The status of the proposal to filter the list',
+    },
+  },
   computed: {
     ...mapGetters('proposals', ['list']),
     orderedList() {
-      return orderBy(this.list, ['proposal_id'], ['desc']);
+      const items = !this.filter
+        ? this.list
+        : filter(this.list, { status: this.filter });
+      return orderBy(items, ['proposal_id'], ['desc']);
     },
   },
 };

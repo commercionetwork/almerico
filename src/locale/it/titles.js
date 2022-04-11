@@ -17,6 +17,7 @@ export const titles = {
   description: 'Descrizione',
   doSign: 'Firma',
   exchangeRate: 'Tasso di cambio',
+  filterProposals: 'Filtra proposte',
   governance: 'Governo',
   inactiveValidatorsList: 'Lista validatori inattivi',
   keys: 'Chiavi',

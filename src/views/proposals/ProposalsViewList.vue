@@ -13,8 +13,8 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.governance')" />
-      <ProposalsViewListContentTop />
-      <ProposalsViewListContentBottom />
+      <ProposalsViewListContentTop @filter-proposals="onFilterProposals" />
+      <ProposalsViewListContentBottom :filter="filter" />
     </v-col>
   </v-row>
 </template>
@@ -37,6 +37,11 @@ export default {
     TheErrorMessage,
     TheHeaderContent,
   },
+  data() {
+    return {
+      filter: '',
+    };
+  },
   computed: {
     ...mapGetters('proposals', ['error', 'isLoading']),
   },
@@ -45,6 +50,9 @@ export default {
   },
   methods: {
     ...mapActions('proposals', ['initProposalsList', 'searchProposals']),
+    onFilterProposals(filter) {
+      this.filter = filter;
+    },
   },
 };
 </script>
