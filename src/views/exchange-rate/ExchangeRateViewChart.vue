@@ -3,7 +3,7 @@
     <template #content>
       <div class="fill-height">
         <BaseChart
-          id="exchange-rate-chart"
+          id="exchange-rate-token-chart"
           type="pie"
           :dataset="chartData"
           :options="chartOptions"

@@ -3,7 +3,7 @@
     <template #content>
       <div class="fill-height">
         <BaseChart
-          id="transactions-chart"
+          id="transactions-list-chart"
           type="pie"
           :dataset="chartData"
           :options="chartOptions"

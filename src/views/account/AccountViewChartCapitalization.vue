@@ -9,11 +9,11 @@
     />
     <v-card-text>
       <BaseChart
-        id="account-details-capitalization-chart"
-        type="bar"
-        height="300"
+        :id="CHARTS.ID.ACCOUNT_DETAIL_CAPITALIZATION"
         :dataset="chartData"
         :options="chartOptions"
+        height="300"
+        type="bar"
       />
     </v-card-text>
   </v-card>
@@ -23,6 +23,7 @@
 import BaseChart from '@/components/chart/BaseChart';
 
 import accountCapitalizationChartHelper from './helpers/accountCapitalizationChartHelper';
+import { CHARTS } from '@/constants';
 
 export default {
   name: 'AccountViewChartCapitalization',
@@ -33,6 +34,11 @@ export default {
       required: true,
       note: 'The balance amounts to display',
     },
+  },
+  data() {
+    return {
+      CHARTS,
+    };
   },
   computed: {
     chartData() {

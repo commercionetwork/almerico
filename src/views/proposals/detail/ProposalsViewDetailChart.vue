@@ -5,7 +5,7 @@
         v-if="chartData && chartOptions"
         :dataset="chartData"
         :options="chartOptions"
-        id="proposal-chart"
+        id="proposal-detail-chart"
         type="pie"
         height="300"
         width="300"

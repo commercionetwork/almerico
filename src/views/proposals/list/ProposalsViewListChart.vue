@@ -4,7 +4,7 @@
       <div class="fill-height">
         <BaseChart
           v-if="chartData && chartOptions"
-          id="proposals-chart"
+          id="proposals-list-chart"
           type="pie"
           :dataset="chartData"
           :options="chartOptions"

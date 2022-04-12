@@ -3,7 +3,7 @@
     <template #content>
       <div class="fill-height">
         <BaseChart
-          id="validators-chart"
+          id="validators-list-chart"
           type="pie"
           :dataset="chartData"
           :options="chartOptions"

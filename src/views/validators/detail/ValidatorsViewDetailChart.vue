@@ -9,7 +9,7 @@
     />
     <v-card-text>
       <BaseChart
-        id="validator-details-chart"
+        id="validators-detail-chart"
         height="175"
         type="pie"
         :dataset="chartData"
