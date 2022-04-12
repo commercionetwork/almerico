@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add new governace module
 - Add validator logo on detail view
 - Add animation to the change of route
+- Add new transaction components:
+  - MsgExecuteContract;
+  - MsgInstantiateContract;
+  - MsgStoreCode;
+  - MsgSubmitProposal;
+  - MsgVote.
 
 ### Changed
 
