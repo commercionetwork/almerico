@@ -19,12 +19,15 @@ const proposalsChartHelper = {
   getChartData(data) {
     if (!data) return null;
     const counts = _getCounts(data);
-    console.log(counts);
+    const labels = counts.map(
+      (count) =>
+        `${PROPOSALS.TEXTS[Object.keys(count)[0]]} - ${Object.values(count)[0]}`
+    );
     return {
-      labels: Object.values(PROPOSALS.TEXTS),
+      labels,
       datasets: [
         {
-          data: [],
+          data: counts.map((count) => Object.values(count)[0]),
           backgroundColor: BACKGROUND_COLOR,
           borderColor: BORDER_COLOR,
         },
@@ -54,11 +57,14 @@ const proposalsChartHelper = {
 export default proposalsChartHelper;
 
 const _getCounts = (data) => {
-  const counts = [];
-  const statuses = Object.keys(PROPOSALS.TEXTS);
-  statuses.forEach((status) => {
-    const count = data.filter((it) => it.status === status).length;
-    counts.push({ [status]: count });
+  const occurrences = data.reduce((acc, cur) => {
+    acc[cur.status] = (acc[cur.status] || 0) + 1;
+    return acc;
+  }, {});
+  const counts = Object.keys(PROPOSALS.TEXTS).map((status) => {
+    return occurrences[status]
+      ? { [status]: occurrences[status] }
+      : { [status]: 0 };
   });
   return counts;
 };
