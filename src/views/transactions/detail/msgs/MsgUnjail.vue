@@ -39,7 +39,7 @@ export default {
   }),
   computed: {
     address() {
-      return this.message.address || '-';
+      return this.message.validator_addr || '-';
     },
   },
 };
