@@ -41,11 +41,7 @@ export default {
     txType: '',
   }),
   computed: {
-    ...mapGetters('transactions', {
-      error: 'error',
-      isLoading: 'isLoading',
-      txEventHeight: 'txEventHeight',
-    }),
+    ...mapGetters('transactions', ['error', 'isLoading', 'txEventHeight']),
   },
   watch: {
     txEventHeight(value) {
@@ -56,11 +52,11 @@ export default {
     this.initTransactionsList();
   },
   methods: {
-    ...mapActions('transactions', {
-      initTransactionsList: 'initTransactionsList',
-      refreshTransactions: 'refreshTransactions',
-      searchTransactions: 'searchTransactions',
-    }),
+    ...mapActions('transactions', [
+      'initTransactionsList',
+      'refreshTransactions',
+      'searchTransactions',
+    ]),
     onSearchTxs(txType) {
       this.txType = txType;
       if (!txType) {

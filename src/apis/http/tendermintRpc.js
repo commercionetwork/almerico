@@ -1,7 +1,7 @@
 import { APIS } from '@/constants';
 import axios from 'axios';
 
-export default {
+const tendermintRpc = {
   /**
    *
    * @param {Number} height
@@ -49,3 +49,5 @@ export default {
     });
   },
 };
+
+export default tendermintRpc;

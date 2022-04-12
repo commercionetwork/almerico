@@ -1,6 +1,6 @@
 <template>
   <v-select
-    append-icon="mdi-filter-outline"
+    :append-icon="mdiFilterOutline"
     :label="$t('labels.filter')"
     :items="items"
     item-text="label"
@@ -13,7 +13,7 @@
       <v-tooltip bottom>
         <template #activator="{ on, attrs }">
           <v-icon color="info" dark v-bind="attrs" v-on="on">
-            mdi-information-outline
+            {{ mdiInformationOutline }}
           </v-icon>
         </template>
         <span v-text="$t('msgs.filterValidatorsInfo')" />
@@ -24,11 +24,14 @@
 
 <script>
 import { VALIDATORS } from '@/constants';
+import { mdiFilterOutline, mdiInformationOutline } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListFilter',
   emits: [`filter`],
   data: () => ({
+    mdiFilterOutline,
+    mdiInformationOutline,
     select: null,
   }),
   computed: {

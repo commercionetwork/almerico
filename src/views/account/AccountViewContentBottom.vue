@@ -15,7 +15,7 @@
         },
       }"
     >
-      <BaseLoadingLinear v-if="isAdding" />
+      <BaseLoadingLinear v-if="isAddingTxs" />
     </v-col>
   </v-row>
 </template>
@@ -33,16 +33,14 @@ export default {
     AccountViewTransactions,
     BaseLoadingLinear,
   },
+  inject: ['address'],
   computed: {
-    ...mapGetters('account', {
-      isAdding: 'isAddingTxs',
-      offset: 'transactionsOffset',
-      total: 'transactionsTotal',
-      transactions: 'transactions',
-    }),
-    address() {
-      return this.$route.params.id;
-    },
+    ...mapGetters('account', [
+      'isAddingTxs',
+      'transactions',
+      'transactionsOffset',
+      'transactionsTotal',
+    ]),
     items() {
       return txsTableAdapter.build({
         txs: this.transactions,
@@ -54,14 +52,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions('account', {
-      addTransactions: 'addTransactions',
-    }),
+    ...mapActions('account', ['addTransactions']),
     onIntersect(_entries, _observer, isIntersecting) {
-      if (isIntersecting && this.total > this.offset) {
+      if (isIntersecting && this.transactionsTotal > this.transactionsOffset) {
         this.addTransactions({
           address: this.address,
-          offset: this.offset,
+          offset: this.transactionsOffset,
         });
       }
     },

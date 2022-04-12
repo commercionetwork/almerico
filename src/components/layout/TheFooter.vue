@@ -16,7 +16,7 @@
         v-scroll="onScroll"
         v-show="fab"
       >
-        <v-icon dark>mdi-arrow-up-bold</v-icon>
+        <v-icon dark>{{ mdiArrowUpBold }}</v-icon>
       </v-btn>
       <v-row class="my-0 py-0 py-sm-2 overline rm__text-transform">
         <v-col cols="12" sm="2" class="my-0 py-0">
@@ -35,10 +35,12 @@
 
 <script>
 import { CONFIG } from '@/constants';
+import { mdiArrowUpBold } from '@mdi/js';
 
 export default {
   name: 'TheFooter',
   data: () => ({
+    mdiArrowUpBold,
     fab: false,
   }),
   computed: {

@@ -73,7 +73,7 @@
         },
       }"
     >
-      <BaseLoadingLinear v-if="isAdding" data-test="scrolling" />
+      <BaseLoadingLinear v-if="isAddingTxs" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
@@ -101,13 +101,13 @@ export default {
     sortDesc: true,
   }),
   computed: {
-    ...mapGetters('transactions', {
-      isAdding: 'isAddingTxs',
-      isRefreshing: 'isRefreshing',
-      offset: 'offset',
-      total: 'total',
-      transactions: 'transactions',
-    }),
+    ...mapGetters('transactions', [
+      'isAddingTxs',
+      'isRefreshing',
+      'offset',
+      'total',
+      'transactions',
+    ]),
     headers() {
       return [
         { text: this.$t('labels.height'), value: 'height' },
@@ -140,9 +140,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('transactions', {
-      addTransactions: 'addTransactions',
-    }),
+    ...mapActions('transactions', ['addTransactions']),
     onIntersect(_entries, _observer, isIntersecting) {
       if (isIntersecting && this.total > this.offset) {
         this.addTransactions({ query: this.query, offset: this.offset });

@@ -13,6 +13,7 @@ import {
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
+const mockAddress = 'did:com:';
 let mockError = false;
 let mockResponse = null;
 
@@ -26,18 +27,17 @@ describe('store/account/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initAccount" reset store, set loading state, dispatch "fetchBalances", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", "fetchUnbondings" and "fetchTransactions" actions', async () => {
+  test('if "initAccount" reset store, set loading state, dispatch "fetchBalances", "fetchCommission", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", "fetchUnbondings" and "fetchTransactions" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
-    const validator = 'validator';
 
-    await actions.initAccount({ commit, dispatch }, { address, validator });
+    await actions.initAccount({ commit, dispatch }, address);
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
-    expect(dispatch).toHaveBeenCalledWith('fetchCommission', validator);
+    expect(dispatch).toHaveBeenCalledWith('fetchCommission', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembershipTxs', address);
@@ -67,9 +67,9 @@ describe('store/account/actions', () => {
 
   test('if "fetchCommission" action commit "setCommission" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const validator = 'validator';
+    const address = 'address';
 
-    await actions.fetchCommission({ commit }, validator);
+    await actions.fetchCommission({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith(
       'setCommission',
@@ -78,7 +78,7 @@ describe('store/account/actions', () => {
 
     mockError = true;
 
-    await actions.fetchCommission({ commit }, validator);
+    await actions.fetchCommission({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
@@ -358,5 +358,22 @@ jest.mock('../../../apis/http/tx.js', () => ({
         resolve(mockResponse);
       }, 1);
     });
+  },
+}));
+
+jest.mock('../../../utils/bech32Manager.js', () => ({
+  decode: () => {
+    if (mockError) {
+      return mockErrorResponse;
+    }
+
+    return mockAddress;
+  },
+  encode: () => {
+    if (mockError) {
+      return mockErrorResponse;
+    }
+
+    return mockAddress;
   },
 }));

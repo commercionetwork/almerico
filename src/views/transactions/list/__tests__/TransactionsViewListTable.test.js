@@ -22,7 +22,7 @@ describe('views/transactions/list/TransactionsViewListTable.vue', () => {
       mocks,
       computed: {
         ...computed,
-        isAdding: () => false,
+        isAddingTxs: () => false,
         isRefreshing: () => true,
         transactions: () => [],
       },
@@ -39,7 +39,7 @@ describe('views/transactions/list/TransactionsViewListTable.vue', () => {
       mocks,
       computed: {
         ...computed,
-        isAdding: () => false,
+        isAddingTxs: () => false,
         isRefreshing: () => false,
         transactions: () => [],
       },
@@ -56,7 +56,7 @@ describe('views/transactions/list/TransactionsViewListTable.vue', () => {
       mocks,
       computed: {
         ...computed,
-        isAdding: () => true,
+        isAddingTxs: () => true,
         isRefreshing: () => false,
         transactions: () => [],
       },

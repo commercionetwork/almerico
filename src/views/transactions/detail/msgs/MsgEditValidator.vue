@@ -24,7 +24,7 @@
             :content="descriptionSecurityContact"
           />
           <BaseDetailItem
-            :label="$t('labels.details')"
+            :label="$t('labels.detail')"
             :content="descriptionDetails"
           />
         </v-list-item-content>

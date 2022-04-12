@@ -1,4 +1,4 @@
-export default {
+const blocksRequestHelper = {
   /**
    *
    * @param {Number} max
@@ -25,3 +25,5 @@ export default {
     return requests;
   },
 };
+
+export default blocksRequestHelper;

@@ -42,19 +42,13 @@ export default {
     isSearching: false,
   }),
   computed: {
-    ...mapGetters('application', {
-      lastBlock: 'latestBlock',
-    }),
-    ...mapGetters('blocks', {
-      error: 'error',
-      isLoading: 'isLoading',
-      newHeight: 'newHeight',
-    }),
+    ...mapGetters('application', ['latestBlock']),
+    ...mapGetters('blocks', ['error', 'isLoading', 'newHeight']),
     firstHeight() {
       return parseInt(CONFIG.FIRST_HEIGHT);
     },
     lastHeight() {
-      return this.lastBlock.header.height;
+      return this.latestBlock.header.height;
     },
   },
   watch: {
@@ -66,11 +60,11 @@ export default {
     this.initBlocksList(this.lastHeight);
   },
   methods: {
-    ...mapActions('blocks', {
-      addBlocksItem: 'addBlocksItem',
-      initBlocksList: 'initBlocksList',
-      searchBlocks: 'searchBlocks',
-    }),
+    ...mapActions('blocks', [
+      'addBlocksItem',
+      'initBlocksList',
+      'searchBlocks',
+    ]),
     onSearchingBlocks(height) {
       if (!height) {
         this.isSearching = false;

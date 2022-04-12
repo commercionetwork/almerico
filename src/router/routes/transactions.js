@@ -24,6 +24,7 @@ export const transactionsRoutes = {
       path: ROUTES.PATH.TRANSACTIONS_DETAIL,
       name: ROUTES.NAME.TRANSACTIONS_DETAIL,
       component: TransactionsViewDetail,
+      props: true,
       meta: {
         title: ROUTES.TITLE.TRANSACTIONS_DETAIL,
       },
@@ -40,6 +41,7 @@ export const transactionsRoutes = {
       path: ROUTES.PATH.TRANSACTIONS_SHAREDOC,
       name: ROUTES.NAME.TRANSACTIONS_SHAREDOC,
       component: TransactionsViewSharedoc,
+      props: true,
       meta: {
         title: ROUTES.TITLE.TRANSACTIONS_SHAREDOC,
       },

@@ -3,7 +3,7 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <AccountViewAddressMembership />
+    <AccountViewIdentityMembership />
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="pl-md-2 text-center text-md-left">
@@ -13,7 +13,7 @@
             <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="copyToClipboard">
                 <v-icon small>
-                  {{ !copied ? 'mdi-content-copy' : 'mdi-check-all' }}
+                  {{ !copied ? mdiContentCopy : mdiCheckAll }}
                 </v-icon>
               </v-btn>
             </template>
@@ -22,7 +22,7 @@
           <v-tooltip top>
             <template #activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" @click="openDialog">
-                <v-icon small>mdi-qrcode</v-icon>
+                <v-icon small>{{ mdiQrcode }}</v-icon>
               </v-btn>
             </template>
             <span v-text="$t('msgs.scan')" />
@@ -39,24 +39,25 @@
 </template>
 
 <script>
-import AccountViewAddressMembership from './AccountViewAddressMembership.vue';
+import AccountViewIdentityMembership from './AccountViewIdentityMembership.vue';
 import AccountViewModalQRCode from './AccountViewModalQRCode.vue';
 
+import { mdiCheckAll, mdiContentCopy, mdiQrcode } from '@mdi/js';
+
 export default {
-  name: 'AccountViewAddress',
+  name: 'AccountViewIdentity',
   components: {
-    AccountViewAddressMembership,
+    AccountViewIdentityMembership,
     AccountViewModalQRCode,
   },
+  inject: ['address'],
   data: () => ({
+    mdiCheckAll,
+    mdiContentCopy,
+    mdiQrcode,
     copied: false,
     dialog: false,
   }),
-  computed: {
-    address() {
-      return this.$route.params.id;
-    },
-  },
   methods: {
     copyToClipboard() {
       navigator.clipboard.writeText(this.address).then(() => {

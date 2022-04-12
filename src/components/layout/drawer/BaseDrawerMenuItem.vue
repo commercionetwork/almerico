@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'TheDrawerItem',
+  name: 'BaseDrawerMenuItem',
   props: {
     icon: {
       type: String,

@@ -2,7 +2,7 @@ import { APIS } from '@/constants';
 import axios from 'axios';
 import apisHelper from '../helpers/apisHelper';
 
-export default {
+const tx = {
   /**
    *
    * @param {Object} parameters
@@ -44,3 +44,5 @@ export default {
     });
   },
 };
+
+export default tx;
