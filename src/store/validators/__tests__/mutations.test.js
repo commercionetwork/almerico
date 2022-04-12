@@ -91,6 +91,22 @@ describe('store/validators/mutations', () => {
     expect(state.detail).toStrictEqual(detail);
   });
 
+  test('mutations.setDetailLogo', () => {
+    const logo = 'https://url.com';
+
+    mutations.setDetailLogo(state, logo);
+
+    expect(state.detailLogo).toStrictEqual(logo);
+  });
+
+  test('mutations.setAccount', () => {
+    const account = 'did:com:';
+
+    mutations.setAccount(state, account);
+
+    expect(state.account).toBe(account);
+  });
+
   test('mutations.setDelegations', () => {
     const delegations = [{ id: 1 }];
 

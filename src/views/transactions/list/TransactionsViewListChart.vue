@@ -27,10 +27,7 @@ export default {
     BaseTopContentCard,
   },
   computed: {
-    ...mapGetters('transactions', {
-      isRefreshing: 'isRefreshing',
-      transactions: 'transactions',
-    }),
+    ...mapGetters('transactions', ['isRefreshing', 'transactions']),
     chartData() {
       return transactionsChartHelper.getChartData(this.transactions, {
         msgs: this.$t('labels.msgs'),

@@ -1,6 +1,6 @@
 import { bech32Manager } from './index';
 
-export default {
+const proposerHandler = {
   /**
    *
    * @param {String} address
@@ -12,11 +12,11 @@ export default {
   getFromHexAddress({ address, prefix, validatorSets, validators }) {
     const consensusAddress = bech32Manager.encode(address, prefix);
     const proposer = validatorSets.find(
-      (validator) => validator.address === consensusAddress,
+      (validator) => validator.address === consensusAddress
     );
     if (!proposer) return null;
     return validators.find(
-      (validator) => validator.consensus_pubkey.key === proposer.pub_key.value,
+      (validator) => validator.consensus_pubkey.key === proposer.pub_key.value
     );
   },
   /**
@@ -39,6 +39,8 @@ export default {
   },
 };
 
+export default proposerHandler;
+
 const _getConsensusAddress = (address, prefix) => {
   const hexAddress = _getHexAddressFromBase64(address);
   return bech32Manager.encode(hexAddress, prefix);
@@ -52,7 +54,7 @@ const _getHexAddressFromBase64 = (address) => {
 const _toHexString = (byteArray) => {
   const hex = byteArray.reduce(
     (output, elem) => output + ('0' + elem.toString(16)).slice(-2),
-    '',
+    ''
   );
   return hex.toUpperCase();
 };

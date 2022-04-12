@@ -63,7 +63,7 @@
         },
       }"
     >
-      <BaseLoadingLinear v-if="isAdding" data-test="scrolling" />
+      <BaseLoadingLinear v-if="isAddingBlocks" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
@@ -84,15 +84,13 @@ export default {
     sortDesc: true,
   }),
   computed: {
-    ...mapGetters('application', {
-      validators: 'validators',
-    }),
-    ...mapGetters('blocks', {
-      isAdding: 'isAddingBlocks',
-      isSearching: 'isSearching',
-      blocks: 'blocks',
-      currentHeight: 'currentHeight',
-    }),
+    ...mapGetters('application', ['validators']),
+    ...mapGetters('blocks', [
+      'isAddingBlocks',
+      'isSearching',
+      'blocks',
+      'currentHeight',
+    ]),
     firstHeight() {
       return this.items.length > 0
         ? this.items[this.items.length - 1].height
@@ -119,11 +117,9 @@ export default {
     },
   },
   methods: {
-    ...mapActions('blocks', {
-      addBlocks: 'addBlocks',
-    }),
+    ...mapActions('blocks', ['addBlocks']),
     onIntersect(_entries, _observer, isIntersecting) {
-      if (isIntersecting && !this.isAdding) {
+      if (isIntersecting && !this.isAddingBlocks) {
         this.addBlocks(this.currentHeight);
       }
     },

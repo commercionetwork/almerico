@@ -27,9 +27,7 @@ export default {
     BaseTopContentCard,
   },
   computed: {
-    ...mapGetters('application', {
-      validators: 'validators',
-    }),
+    ...mapGetters('application', ['validators']),
     chartData() {
       return validatorsChartHelper.getChartData(this.validators, {
         bonded: this.$t('labels.bonded'),

@@ -1,6 +1,6 @@
-import { staking, tendermintRpc } from '@/apis/http';
+import { keybase, staking, tendermintRpc } from '@/apis/http';
 import { CONFIG, VALIDATORS } from '@/constants';
-import { blocksRequestHelper } from '@/utils';
+import { bech32Manager, blocksRequestHelper } from '@/utils';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
@@ -55,6 +55,7 @@ export default {
   async initValidatorsDetail({ commit, dispatch }, { id, lastHeight }) {
     commit('reset');
     commit('setLoading', true);
+    dispatch('setAccount', id);
     const requests = [
       dispatch('fetchDetail', id),
       dispatch('fetchDetailDelegations', id),
@@ -67,12 +68,47 @@ export default {
     }
   },
 
-  async fetchDetail({ commit }, id) {
+  setAccount({ commit }, address) {
+    try {
+      const hex = bech32Manager.decode(address);
+      const account = bech32Manager.encode(
+        hex,
+        CONFIG.PREFIXES.ACCOUNT.ADDRESS
+      );
+      commit('setAccount', account);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async fetchDetail({ commit, dispatch }, id) {
     try {
       const response = await staking.requestValidatorsDetailLegacy(id);
       commit('setDetail', response.data.result);
+      const identity = response.data.result.description
+        ? response.data.result.description.identity
+        : '';
+      if (identity) await dispatch('fetchDetailLogo', identity);
     } catch (error) {
       commit('setError', error);
+    }
+  },
+
+  async fetchDetailLogo({ commit }, identity) {
+    try {
+      const response = await keybase.requestValidatorLogo(identity);
+      if (!response.data.them || !response.data.them.length) {
+        commit('setDetailLogo', '');
+        return;
+      }
+      for (const item of response.data.them) {
+        if ('primary' in item['pictures']) {
+          commit('setDetailLogo', item['pictures']['primary']['url']);
+          break;
+        }
+      }
+    } catch (error) {
+      commit('setDetailLogo', '');
     }
   },
 

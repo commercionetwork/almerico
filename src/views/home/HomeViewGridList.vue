@@ -26,10 +26,7 @@ export default {
     HomeViewGridListItem,
   },
   computed: {
-    ...mapGetters('home', {
-      isLoadingTxs: 'isLoadingTxs',
-      transactions: 'transactions',
-    }),
+    ...mapGetters('home', ['isLoadingTxs', 'transactions']),
   },
 };
 </script>

@@ -41,7 +41,7 @@ export default {
       required: true,
     },
     options: {
-      type: Object,
+      type: [Object],
       default: () => ({}),
     },
   },
@@ -55,7 +55,12 @@ export default {
   },
   watch: {
     dataset(value) {
-      if (value) chartBuilder.update(this.chart, value);
+      if (value)
+        chartBuilder.update(this.chart, { data: value, options: this.options });
+    },
+    options(value) {
+      if (value)
+        chartBuilder.update(this.chart, { data: this.dataset, options: value });
     },
   },
   methods: {

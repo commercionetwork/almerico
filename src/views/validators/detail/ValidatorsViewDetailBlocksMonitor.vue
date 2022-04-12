@@ -37,18 +37,14 @@ import { VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsViewDetailBlocks',
+  name: 'ValidatorsViewDetailBlocksMonitor',
   data() {
     return {
       isMonitorUpdating: false,
     };
   },
   computed: {
-    ...mapGetters('validators', {
-      isLoadingBlocks: 'isLoadingBlocks',
-      detail: 'detail',
-      blocks: 'blocks',
-    }),
+    ...mapGetters('validators', ['isLoadingBlocks', 'blocks', 'detail']),
     isFirstloading() {
       return this.isLoadingBlocks && !this.blocks.length;
     },
@@ -56,11 +52,13 @@ export default {
       return VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
     },
     verifiedBlocks() {
-      return validatorAttendanceCalculator.getDetailDefinedBlocks({
-        blocks: this.blocks,
-        validator: this.detail,
-        limit: this.limit,
-      });
+      return this.detail
+        ? validatorAttendanceCalculator.getDetailDefinedBlocks({
+            blocks: this.blocks,
+            validator: this.detail,
+            limit: this.limit,
+          })
+        : [];
     },
   },
   watch: {

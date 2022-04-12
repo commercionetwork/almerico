@@ -31,17 +31,15 @@ export default {
     },
   }),
   computed: {
-    ...mapGetters('application', {
-      params: 'stakingParams',
-    }),
-    ...mapGetters('exchangeRate', {
-      abrTokens: 'abrTokens',
-      accounts: 'accounts',
-      freezedTokens: 'freezedTokens',
-      pool: 'pool',
-      supply: 'supply',
-      vbrTokens: 'vbrTokens',
-    }),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('exchangeRate', [
+      'abrTokens',
+      'accounts',
+      'freezedTokens',
+      'pool',
+      'supply',
+      'vbrTokens',
+    ]),
   },
   created() {
     this.isBuilding = true;
@@ -53,7 +51,7 @@ export default {
         pool: this.pool,
         supply: this.supply,
         vbrTokens: this.vbrTokens,
-        denom: this.params.bond_denom,
+        denom: this.stakingParams.bond_denom,
         translator: this.$t,
         ctx: this,
       })

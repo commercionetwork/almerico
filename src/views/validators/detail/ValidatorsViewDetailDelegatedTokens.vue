@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import { coinAdapter } from '@/utils';
+import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ValidatorsViewDetailDelegations',
+  name: 'ValidatorsViewDetailDelegatedTokens',
   props: {
     delegations: {
       type: Object,
@@ -44,9 +44,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('application', {
-      params: 'stakingParams',
-    }),
+    ...mapGetters('application', ['stakingParams']),
     headers() {
       return [
         { text: this.$t('labels.caption'), value: 'caption' },
@@ -64,7 +62,7 @@ export default {
     formatTokens(value) {
       return coinAdapter.format({
         amount: value,
-        denom: this.params.bond_denom,
+        denom: this.stakingParams.bond_denom,
       });
     },
   },

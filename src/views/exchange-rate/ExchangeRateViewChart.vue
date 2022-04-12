@@ -27,16 +27,14 @@ export default {
     BaseTopContentCard,
   },
   computed: {
-    ...mapGetters('application', {
-      stakingParams: 'stakingParams',
-    }),
-    ...mapGetters('exchangeRate', {
-      abrTokens: 'abrTokens',
-      freezedTokens: 'freezedTokens',
-      pool: 'pool',
-      supply: 'supply',
-      vbrTokens: 'vbrTokens',
-    }),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('exchangeRate', [
+      'abrTokens',
+      'freezedTokens',
+      'pool',
+      'supply',
+      'vbrTokens',
+    ]),
     chartData() {
       const labels = {
         bonded: this.$t('labels.bonded'),

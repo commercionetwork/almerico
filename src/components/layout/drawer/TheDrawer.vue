@@ -3,28 +3,33 @@
     <v-list-item-group>
       <TheDrawerLocale />
       <v-divider />
-      <TheDrawerItem
-        icon="mdi-view-dashboard"
+      <BaseDrawerMenuItem
+        :icon="mdiViewDashboard"
         :title="$t('titles.dashboard')"
         :to="{ name: ROUTES.NAME.HOME }"
       />
-      <TheDrawerItem
-        icon="mdi-account-multiple"
+      <BaseDrawerMenuItem
+        :icon="mdiAccountMultiple"
         :title="$t('titles.validators')"
         :to="{ name: ROUTES.NAME.VALIDATORS }"
       />
-      <TheDrawerItem
-        icon="mdi-swap-horizontal-bold"
+      <BaseDrawerMenuItem
+        :icon="mdiSwapHorizontalBold"
         :title="$t('titles.transactions')"
         :to="{ name: ROUTES.NAME.TRANSACTIONS }"
       />
-      <TheDrawerItem
-        icon="mdi-shape"
+      <BaseDrawerMenuItem
+        :icon="mdiShape"
         :title="$t('titles.blocks')"
         :to="{ name: ROUTES.NAME.BLOCKS }"
       />
-      <TheDrawerItem
-        icon="mdi-table-eye"
+      <BaseDrawerMenuItem
+        :icon="mdiVote"
+        :title="$t('titles.governance')"
+        :to="{ name: ROUTES.NAME.PROPOSALS }"
+      />
+      <BaseDrawerMenuItem
+        :icon="mdiTableEye"
         :title="$t('titles.exchangeRate')"
         :to="{ name: ROUTES.NAME.EXCHANGE_RATE }"
       />
@@ -35,21 +40,35 @@
 </template>
 
 <script>
-import TheDrawerItem from './TheDrawerItem';
+import BaseDrawerMenuItem from './BaseDrawerMenuItem';
 import TheDrawerLocale from './TheDrawerLocale';
 import TheDrawerTheme from './TheDrawerTheme';
 
 import { ROUTES } from '@/constants';
+import {
+  mdiAccountMultiple,
+  mdiShape,
+  mdiSwapHorizontalBold,
+  mdiTableEye,
+  mdiViewDashboard,
+  mdiVote,
+} from '@mdi/js';
 
 export default {
   name: 'TheDrawer',
   components: {
-    TheDrawerItem,
+    BaseDrawerMenuItem,
     TheDrawerTheme,
     TheDrawerLocale,
   },
   data: () => ({
     ROUTES,
+    mdiAccountMultiple,
+    mdiShape,
+    mdiSwapHorizontalBold,
+    mdiTableEye,
+    mdiViewDashboard,
+    mdiVote,
   }),
 };
 </script>

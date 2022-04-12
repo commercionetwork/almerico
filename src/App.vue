@@ -10,7 +10,9 @@
           <TheErrorMessage :error="error" />
         </v-container>
         <v-container v-else data-test="content">
-          <router-view />
+          <transition name="route">
+            <router-view />
+          </transition>
         </v-container>
       </v-main>
       <TheFooter />
@@ -19,6 +21,7 @@
 </template>
 
 <script>
+import '@/assets/style/app.scss';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheFooter from '@/components/layout/TheFooter.vue';
 import BaseLoadingCircular from '@/components/BaseLoadingCircular';
@@ -36,10 +39,7 @@ export default {
     TheNavBar,
   },
   computed: {
-    ...mapGetters('application', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
+    ...mapGetters('application', ['error', 'isLoading']),
     style() {
       const theme = this.$vuetify.theme.dark ? 'dark' : 'light';
       return { background: this.$vuetify.theme.themes[theme].background };
@@ -52,9 +52,7 @@ export default {
     ws.subscribe();
   },
   methods: {
-    ...mapActions('application', {
-      initAppData: 'initAppData',
-    }),
+    ...mapActions('application', ['initAppData']),
   },
 };
 </script>

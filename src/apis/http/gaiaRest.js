@@ -1,7 +1,7 @@
 import { APIS } from '@/constants';
 import axios from 'axios';
 
-export default {
+const gaiaRest = {
   /**
    *
    * @returns {AxiosPromise}
@@ -14,3 +14,5 @@ export default {
     });
   },
 };
+
+export default gaiaRest;

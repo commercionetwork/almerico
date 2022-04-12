@@ -6,8 +6,8 @@
           <v-row>
             <v-col cols="10" offset="1">
               <v-text-field
+                :append-icon="mdiMagnify"
                 :label="$t('labels.searchHeight')"
-                append-icon="mdi-magnify"
                 v-model="model.height"
                 @keydown.enter.prevent="search"
               >
@@ -15,7 +15,7 @@
                   <v-tooltip bottom>
                     <template #activator="{ on, attrs }">
                       <v-icon color="info" dark v-bind="attrs" v-on="on">
-                        mdi-information-outline
+                        {{ mdiInformationOutline }}
                       </v-icon>
                     </template>
                     <i18n tag="span" path="msgs.searchBlocksInfo">
@@ -57,6 +57,7 @@
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { BLOCKS, CONFIG } from '@/constants';
+import { mdiInformationOutline, mdiMagnify } from '@mdi/js';
 
 export default {
   name: 'BlocksViewListSearch',
@@ -64,6 +65,8 @@ export default {
   data: () => ({
     BLOCKS,
     CONFIG,
+    mdiInformationOutline,
+    mdiMagnify,
     model: { height: '' },
   }),
   methods: {

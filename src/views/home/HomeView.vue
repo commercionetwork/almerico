@@ -48,12 +48,12 @@ export default {
     TheHeaderContent,
   },
   computed: {
-    ...mapGetters('home', {
-      error: 'error',
-      isLoading: 'isLoading',
-      setParamsEventHeight: 'setParamsEventHeight',
-      txEventHeight: 'txEventHeight',
-    }),
+    ...mapGetters('home', [
+      'error',
+      'isLoading',
+      'setParamsEventHeight',
+      'txEventHeight',
+    ]),
   },
   watch: {
     setParamsEventHeight() {
@@ -67,11 +67,7 @@ export default {
     this.initHome();
   },
   methods: {
-    ...mapActions('home', {
-      initHome: 'initHome',
-      refreshParams: 'refreshParams',
-      refreshTransactions: 'refreshTransactions',
-    }),
+    ...mapActions('home', ['initHome', 'refreshParams', 'refreshTransactions']),
   },
 };
 </script>

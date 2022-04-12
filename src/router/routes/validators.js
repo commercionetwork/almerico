@@ -17,6 +17,7 @@ export const validatorsRoutes = {
       path: ROUTES.PATH.VALIDATORS_DETAIL,
       name: ROUTES.NAME.VALIDATORS_DETAIL,
       component: ValidatorsViewDetail,
+      props: true,
       meta: {
         title: ROUTES.TITLE.VALIDATORS_DETAIL,
       },

@@ -17,6 +17,7 @@ export const blocksRoutes = {
       path: ROUTES.PATH.BLOCKS_DETAIL,
       name: ROUTES.NAME.BLOCKS_DETAIL,
       component: BlocksViewDetail,
+      props: true,
       meta: { title: ROUTES.TITLE.BLOCKS_DETAIL },
     },
     {

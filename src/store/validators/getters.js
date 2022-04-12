@@ -1,9 +1,11 @@
 export default {
+  account: (state) => state.account,
   blocks: (state) => state.blocks,
   delegations: (state) => state.delegations,
   delegationsOffset: (state) => state.delegationsOffset,
   delegationsTotal: (state) => state.delegationsPagination.total,
   detail: (state) => state.detail,
+  detailLogo: (state) => state.detailLogo,
   error: (state) => state.error,
   filter: (state) => state.filter,
   isLoading: (state) => state.isLoading,
