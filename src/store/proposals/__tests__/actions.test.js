@@ -49,17 +49,6 @@ describe('store/proposals/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "searchProposals" reset stored proposals and get proposals', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const status = PROPOSALS.STATUS.UNSPECIFIED.ID;
-
-    await actions.searchProposals({ commit, dispatch }, status);
-
-    expect(commit).toHaveBeenCalledWith('setList', []);
-    expect(dispatch).toHaveBeenCalledWith('fetchProposals', status);
-  });
-
   test('if "initProposalsDetail" reset store, set loading state then get proposal detail, tally and votes', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();

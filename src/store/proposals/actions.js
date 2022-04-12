@@ -19,12 +19,6 @@ export default {
       commit('setError', error);
     }
   },
-  async searchProposals({ commit, dispatch }, status) {
-    commit('setList', []);
-    commit('setLoading', true);
-    await dispatch('fetchProposals', status);
-    commit('setLoading', false);
-  },
 
   async initProposalsDetail({ commit, dispatch }, id) {
     commit('reset');
