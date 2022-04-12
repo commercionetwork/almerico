@@ -76,6 +76,7 @@ import { coinAdapter } from '@/utils';
 
 export default {
   name: 'MsgSubmitProposal',
+  description: 'Display a submit proposal transaction message',
   components: {
     BaseDetailItem,
     BaseDetailLink,
