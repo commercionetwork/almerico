@@ -16,10 +16,10 @@ const proposalChartHelper = {
     return data
       ? {
           labels: [
-            `${labels.yes}`,
-            `${labels.abstain}`,
-            `${labels.no}`,
-            `${labels.noWithVeto}`,
+            `${labels.yes}: ${data.yes}`,
+            `${labels.abstain}: ${data.abstain}`,
+            `${labels.no}: ${data.no}`,
+            `${labels.noWithVeto}: ${data.no_with_veto}`,
           ],
           datasets: [
             {

@@ -21,7 +21,7 @@ const proposalsChartHelper = {
     const counts = _getCounts(data);
     const labels = counts.map(
       (count) =>
-        `${PROPOSALS.TEXTS[Object.keys(count)[0]]} - ${Object.values(count)[0]}`
+        `${PROPOSALS.TEXTS[Object.keys(count)[0]]}: ${Object.values(count)[0]}`
     );
     return {
       labels,
