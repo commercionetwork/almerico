@@ -37,6 +37,16 @@ export const TRANSACTIONS = {
       value: 'edit_validator',
     },
     {
+      name: 'MsgExecuteContract',
+      text: '/cosmwasm.wasm.v1.MsgExecuteContract',
+      value: 'execute',
+    },
+    {
+      name: 'MsgInstantiateContract',
+      text: '/cosmwasm.wasm.v1.MsgInstantiateContract',
+      value: 'instantiate',
+    },
+    {
       name: 'MsgInviteUser',
       text: '/commercionetwork.commercionetwork.commerciokyc.MsgInviteUser',
       value: 'inviteUser',
@@ -77,6 +87,16 @@ export const TRANSACTIONS = {
       value: 'shareDocument',
     },
     {
+      name: 'MsgStoreCode',
+      text: '/cosmwasm.wasm.v1.MsgStoreCode',
+      value: 'store-code',
+    },
+    {
+      name: 'MsgSubmitProposal',
+      text: '/cosmos.gov.v1beta1.MsgSubmitProposal',
+      value: 'submit_proposal',
+    },
+    {
       name: 'MsgUndelegate',
       text: '/cosmos.staking.v1beta1.MsgUndelegate',
       value: 'begin_unbonding',
@@ -85,6 +105,11 @@ export const TRANSACTIONS = {
       name: 'MsgUnjail',
       text: '/cosmos.slashing.v1beta1.MsgUnjail',
       value: 'unjail',
+    },
+    {
+      name: 'MsgVote',
+      text: '/cosmos.gov.v1beta1.MsgVote',
+      value: 'vote',
     },
     {
       name: 'MsgWithdrawDelegatorReward',

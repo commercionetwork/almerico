@@ -2,10 +2,11 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import account from './account';
+import application from './application';
 import blocks from './blocks';
 import exchangeRate from './exchange-rate';
 import home from './home';
-import application from './application';
+import proposals from './proposals';
 import transactions from './transactions';
 import validators from './validators';
 
@@ -18,10 +19,11 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     account,
+    application,
     blocks,
     exchangeRate,
     home,
-    application,
+    proposals,
     transactions,
     validators,
   },

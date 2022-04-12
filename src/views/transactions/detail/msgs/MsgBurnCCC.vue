@@ -43,9 +43,11 @@ export default {
       note: 'Object representing a burnCCC message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     signerAddress() {
       return this.message.signer;

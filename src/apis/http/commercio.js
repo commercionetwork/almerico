@@ -1,7 +1,7 @@
 import { APIS } from '@/constants';
 import axios from 'axios';
 
-export default {
+const commercio = {
   /**
    *
    * @returns {AxiosPromise}
@@ -59,3 +59,5 @@ export default {
     });
   },
 };
+
+export default commercio;

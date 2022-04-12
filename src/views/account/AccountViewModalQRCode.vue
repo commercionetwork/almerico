@@ -6,7 +6,7 @@
         <v-spacer />
         <v-toolbar-items>
           <v-btn icon color="grey" dark @click="show = false">
-            <v-icon>mdi-close</v-icon>
+            <v-icon>{{ mdiClose }}</v-icon>
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -22,19 +22,19 @@
 
 <script>
 import QrcodeVue from 'qrcode.vue';
+import { mdiClose } from '@mdi/js';
 
 export default {
   name: 'AccountViewModalQRCode',
   components: { QrcodeVue },
+  inject: ['address'],
   props: {
     value: Boolean,
-    address: {
-      type: String,
-      default: '',
-      note: 'The account address',
-    },
   },
   emits: [`input`],
+  data() {
+    return { mdiClose };
+  },
   computed: {
     show: {
       get() {

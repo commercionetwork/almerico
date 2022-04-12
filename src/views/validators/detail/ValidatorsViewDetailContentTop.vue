@@ -1,37 +1,30 @@
 <template>
   <v-row>
     <v-col cols="12" :md="isBlocksMonitor ? 4 : 6">
-      <ValidatorsViewDetailAddress :account="account" />
+      <ValidatorsViewDetailIdentity />
     </v-col>
     <v-col cols="12" :md="isBlocksMonitor ? 4 : 6">
-      <ValidatorsViewDetailParticulars />
+      <ValidatorsViewDetailAttributes />
     </v-col>
     <v-col v-if="isBlocksMonitor" cols="12" md="4">
-      <ValidatorsViewDetailBlocks />
+      <ValidatorsViewDetailBlocksMonitor />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import ValidatorsViewDetailBlocks from './ValidatorsViewDetailBlocks.vue';
-import ValidatorsViewDetailAddress from './ValidatorsViewDetailAddress.vue';
-import ValidatorsViewDetailParticulars from './ValidatorsViewDetailParticulars.vue';
+import ValidatorsViewDetailBlocksMonitor from './ValidatorsViewDetailBlocksMonitor.vue';
+import ValidatorsViewDetailIdentity from './ValidatorsViewDetailIdentity.vue';
+import ValidatorsViewDetailAttributes from './ValidatorsViewDetailAttributes.vue';
 
 import { VALIDATORS } from '@/constants';
 
 export default {
   name: 'ValidatorsViewDetailContentTop',
   components: {
-    ValidatorsViewDetailBlocks,
-    ValidatorsViewDetailAddress,
-    ValidatorsViewDetailParticulars,
-  },
-  props: {
-    account: {
-      type: String,
-      required: true,
-      note: 'The account address',
-    },
+    ValidatorsViewDetailBlocksMonitor,
+    ValidatorsViewDetailIdentity,
+    ValidatorsViewDetailAttributes,
   },
   computed: {
     isBlocksMonitor() {

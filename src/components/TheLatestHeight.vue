@@ -45,12 +45,12 @@ export default {
   name: 'TheLatestHeight',
   components: { BaseTopContentCard },
   computed: {
-    ...mapGetters('application', {
-      block: 'latestBlock',
-      txs: 'latestTransactions',
-      validators: 'validators',
-      validatorSets: 'latestValidatorSets',
-    }),
+    ...mapGetters('application', [
+      'latestBlock',
+      'latestTransactions',
+      'latestValidatorSets',
+      'validators',
+    ]),
     blockLink() {
       return this.blockHeight
         ? {
@@ -60,7 +60,7 @@ export default {
         : {};
     },
     blockHeight() {
-      return this.block.header.height;
+      return this.latestBlock.header.height;
     },
     bondedOnTotalValidators() {
       const bonded = this.validators.filter(
@@ -71,17 +71,17 @@ export default {
       )} ${bonded})`;
     },
     msgsOnTxs() {
-      const msgs = this.txs.reduce(
+      const msgs = this.latestTransactions.reduce(
         (acc, item) => acc + item.body.messages.length,
         0
       );
-      return `${msgs}/${this.txs.length}`;
+      return `${msgs}/${this.latestTransactions.length}`;
     },
     proposer() {
       return proposerHandler.getFromHexAddress({
-        address: this.block.header.proposer_address,
+        address: this.latestBlock.header.proposer_address,
         prefix: CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS,
-        validatorSets: this.validatorSets,
+        validatorSets: this.latestValidatorSets,
         validators: this.validators,
       });
     },
@@ -97,7 +97,7 @@ export default {
       return this.proposer ? this.proposer.description.moniker : '-';
     },
     time() {
-      return new Date(this.block.header.time).toLocaleString();
+      return new Date(this.latestBlock.header.time).toLocaleString();
     },
   },
 };

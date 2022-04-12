@@ -25,26 +25,26 @@ describe('views/account/AccountView.vue', () => {
     $store: mockStore,
     $t: (msg) => msg,
   };
-  const computed = {
-    address: () => 'address',
+  const props = {
+    id: 'id',
   };
 
   test('if loading indicator is displayed', async () => {
     const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => true,
       },
     });
-    await wrapper.setData({ isValid: true });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
   });
 
   test('if message error is displayed', async () => {
@@ -52,53 +52,35 @@ describe('views/account/AccountView.vue', () => {
     const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => error,
         isLoading: () => false,
       },
     });
-    await wrapper.setData({ isValid: true });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
   });
 
   test('if content is displayed', async () => {
     const wrapper = shallowMount(AccountView, {
       localVue,
       mocks,
+      propsData: {
+        ...props,
+      },
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => false,
       },
     });
-    await wrapper.setData({ isValid: true });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(false);
-  });
-
-  test('if warning message is displayed', async () => {
-    const wrapper = shallowMount(AccountView, {
-      localVue,
-      mocks,
-      computed: {
-        ...computed,
-        error: () => null,
-        isLoading: () => false,
-      },
-    });
-    await wrapper.setData({ isValid: false });
-
-    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
-    expect(wrapper.find('[data-test="warning"]').exists()).toBe(true);
   });
 });

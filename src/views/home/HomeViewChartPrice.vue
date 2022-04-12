@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :loading="isLoading" :title="$t('titles.trend')">
+  <BaseTopContentCard :loading="isLoadingParams" :title="$t('titles.trend')">
     <template #content>
       <div
         class="py-3 fill-height flex-column d-flex justify-center align-center"
@@ -36,11 +36,7 @@ export default {
     range: HOME.RANGE.MONTH,
   }),
   computed: {
-    ...mapGetters('home', {
-      isLoading: 'isLoadingParams',
-      paramsUpdates: 'paramsUpdates',
-      startingDate: 'startingDate',
-    }),
+    ...mapGetters('home', ['isLoadingParams', 'paramsUpdates', 'startingDate']),
     chartData() {
       return priceChartHelper.getChartData({
         firstDate: this.startingDate,

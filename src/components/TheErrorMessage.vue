@@ -3,7 +3,7 @@
     <TheAlertNotice kind="info" :message="$t('msgs.dataNotAvailable')">
       <template #action>
         <v-btn color="info" outlined @click="refresh">
-          <v-icon>mdi-reload</v-icon>
+          <v-icon>{{ mdiReload }}</v-icon>
           <span v-text="$t('labels.refresh')" />
         </v-btn>
       </template>
@@ -54,6 +54,7 @@
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
 
 import errorHandler from './helpers/errorHandler';
+import { mdiReload } from '@mdi/js';
 
 export default {
   name: 'TheErrorMessage',
@@ -66,6 +67,9 @@ export default {
       required: true,
       note: 'The error to display',
     },
+  },
+  data() {
+    return { mdiReload };
   },
   computed: {
     message() {

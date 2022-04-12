@@ -1,6 +1,6 @@
 import { bech32 } from 'bech32';
 
-export default {
+const bech32Manager = {
   /**
    *
    * @param {String} value
@@ -36,3 +36,5 @@ export default {
     return encoded;
   },
 };
+
+export default bech32Manager;

@@ -35,22 +35,22 @@ export default {
     TheHeaderContent,
     TransactionsViewDetailContent,
   },
-  computed: {
-    ...mapGetters('transactions', {
-      error: 'error',
-      isLoading: 'isLoading',
-    }),
-    hash() {
-      return this.$route.params.id;
+  props: {
+    id: {
+      type: String,
+      note: "The transaction's id from route's parameter",
     },
   },
+  computed: {
+    ...mapGetters('transactions', ['error', 'isLoading']),
+  },
   watch: {
-    hash(value) {
+    id(value) {
       if (value) this.initTransactionsDetail(value);
     },
   },
   created() {
-    this.initTransactionsDetail(this.hash);
+    this.initTransactionsDetail(this.id);
   },
   updated() {
     this.$nextTick(() => {
@@ -71,9 +71,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions('transactions', {
-      initTransactionsDetail: 'initTransactionsDetail',
-    }),
+    ...mapActions('transactions', ['initTransactionsDetail']),
   },
 };
 </script>

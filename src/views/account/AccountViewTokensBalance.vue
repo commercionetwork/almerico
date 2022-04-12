@@ -33,7 +33,7 @@
 import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'AccountViewBank',
+  name: 'AccountViewTokensBalance',
   props: {
     balances: {
       type: Array,
