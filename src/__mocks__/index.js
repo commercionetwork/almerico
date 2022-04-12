@@ -9,6 +9,7 @@ import { mockPagination } from './pagination';
 import { mockParams } from './params';
 import { mockParamsUpdate, mockParamsUpdates } from './params_updates';
 import { mockPool } from './pool';
+import { mockProposal, mockProposals, mockTally, mockVotes } from './proposals';
 import { mockRewards } from './rewards';
 import { mockStakingParams } from './staking_params';
 import {
@@ -37,8 +38,11 @@ export {
   mockParamsUpdate,
   mockParamsUpdates,
   mockPool,
+  mockProposal,
+  mockProposals,
   mockRewards,
   mockStakingParams,
+  mockTally,
   mockTransaction,
   mockTransactionLegacy,
   mockTransactions,
@@ -48,4 +52,5 @@ export {
   mockValidatorLogo,
   mockValidatorSets,
   mockValidators,
+  mockVotes,
 };

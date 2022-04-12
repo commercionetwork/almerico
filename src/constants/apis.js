@@ -27,6 +27,7 @@ export const APIS = {
     AUTH: `${LCD}/${API_PATHS.COSMOS}/auth/${API_VERSION}`,
     BANK: `${LCD}/${API_PATHS.COSMOS}/bank/${API_VERSION}`,
     DISTRIBUTION: `${LCD}/${API_PATHS.COSMOS}/distribution/${API_VERSION}`,
+    GOVERNANCE: `${LCD}/${API_PATHS.COSMOS}/gov/${API_VERSION}`,
     STAKING: `${LCD}/${API_PATHS.COSMOS}/staking/${API_VERSION}`,
     // Service
     BLOCKS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/blocks`,
@@ -45,6 +46,7 @@ export const APIS = {
     AUTH_LEGACY: `${LCD}/auth`,
     BANK_LEGACY: `${LCD}/bank`,
     DISTRIBUTION_LEGACY: `${LCD}/distribution`,
+    GOVERNANCE_LEGACY: `${LCD}/gov`,
     STAKING_LEGACY: `${LCD}/staking`,
     TXS_LEGACY: `${LCD}/txs`,
     // Keybase

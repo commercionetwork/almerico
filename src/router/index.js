@@ -6,6 +6,7 @@ import { blocksRoutes } from './routes/blocks';
 import { exchangeRateRoutes } from './routes/exchangeRate';
 import { homeRoutes } from './routes/home';
 import { issuesRoute } from './routes/issues';
+import { proposalsRoutes } from './routes/proposals';
 import { transactionsRoutes } from './routes/transactions';
 import { validatorsRoutes } from './routes/validators';
 
@@ -25,9 +26,10 @@ routes.push(
   blocksRoutes,
   exchangeRateRoutes,
   homeRoutes,
+  proposalsRoutes,
   transactionsRoutes,
   validatorsRoutes,
-  ...issuesRoute,
+  ...issuesRoute
 );
 
 const router = new VueRouter({

@@ -7,6 +7,7 @@ export const msgs = {
   dataNotAvailable: 'At this point in time the data, unfortunately, is not available. Please refresh the page.',
   exchangeRateCalc: '1 divided the % of Circulating Supply',
   failed: 'Failed',
+  filterByStatus: 'Filter by status',
   filterValidatorsInfo: 'Filter list by status',
   loading: 'Loading...',
   noCode: 'No code available',
