@@ -49,7 +49,7 @@ export default {
     this.initProposalsList();
   },
   methods: {
-    ...mapActions('proposals', ['initProposalsList', 'searchProposals']),
+    ...mapActions('proposals', ['initProposalsList']),
     onFilterProposals(filter) {
       this.filter = filter;
     },
