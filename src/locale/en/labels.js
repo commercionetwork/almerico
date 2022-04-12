@@ -33,6 +33,7 @@ export const labels = {
   content: 'Content',
   contentUri: 'Content URI',
   context: 'Context',
+  contract: 'Contract',
   controller: 'Controller',
   conversionRate: 'Conversion rate',
   created: 'Created',

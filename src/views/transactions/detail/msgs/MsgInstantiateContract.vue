@@ -38,7 +38,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a burnCCC message',
+      note: 'Object representing an instantiate contract message',
     },
   },
   data() {

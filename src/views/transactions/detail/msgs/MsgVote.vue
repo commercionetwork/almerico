@@ -35,7 +35,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a burnCCC message',
+      note: 'Object representing a vote message',
     },
   },
   data() {

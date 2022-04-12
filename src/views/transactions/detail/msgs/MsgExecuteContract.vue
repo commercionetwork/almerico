@@ -10,14 +10,9 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
-        :label="$t('labels.instantiatePermission')"
-        :content="instantiatePermission"
-      />
-      <BaseDetailItem
-        :label="$t('labels.wasmByteCode')"
-        :content="wasmByteCode"
-      />
+      <BaseDetailItem :label="$t('labels.contract')" :content="contract" />
+      <BaseDetailItem :label="$t('labels.msg')" :content="msg" />
+      <BaseDetailItem :label="$t('labels.funds')" :content="funds" />
     </div>
   </BaseTransactionMessage>
 </template>
@@ -30,8 +25,8 @@ import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'MsgStoreCode',
-  description: 'Display a store code transaction message',
+  name: 'MsgExecuteContract',
+  description: 'Display an execute contract transaction message',
   components: {
     BaseDetailItem,
     BaseDetailLink,
@@ -41,7 +36,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a store code message',
+      note: 'Object representing an execute contract message',
     },
   },
   data() {
@@ -50,16 +45,17 @@ export default {
     };
   },
   computed: {
-    instantiatePermission() {
-      return this.message.instantiate_permission
-        ? this.message.instantiate_permission
-        : '-';
-    },
     senderAddress() {
       return this.message.sender;
     },
-    wasmByteCode() {
-      return this.message.wasm_byte_code;
+    contract() {
+      return this.message.contract;
+    },
+    msg() {
+      return this.message.msg;
+    },
+    funds() {
+      return this.message.funds;
     },
   },
 };
