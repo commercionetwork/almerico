@@ -1,21 +1,17 @@
 <template>
   <BaseTransactionMessage :message="message">
     <div slot="body">
+      <BaseDetailItem :label="$t('labels.id')" :content="proposalId" />
       <BaseDetailLink
-        :label="$t('labels.signer')"
-        :content="signerAddress"
+        :label="$t('labels.voter')"
+        :content="voterAddress"
         :route="{
           name: ROUTES.NAME.ACCOUNT,
-          params: { id: signerAddress },
+          params: { id: voterAddress },
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
-        :label="$t('labels.amount')"
-        :content="amount"
-        class="text-uppercase"
-      />
-      <BaseDetailItem :label="$t('labels.id')" :content="id" />
+      <BaseDetailItem :label="$t('labels.vote')" :content="vote" />
     </div>
   </BaseTransactionMessage>
 </template>
@@ -26,11 +22,10 @@ import BaseDetailLink from '@/components/BaseDetailLink.vue';
 import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
-import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'MsgBurnCCC',
-  description: 'Display a burnCCC transaction message',
+  name: 'MsgVote',
+  description: 'Display a vote transaction message',
   components: {
     BaseDetailItem,
     BaseDetailLink,
@@ -40,7 +35,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a burnCCC message',
+      note: 'Object representing a vote message',
     },
   },
   data() {
@@ -49,17 +44,14 @@ export default {
     };
   },
   computed: {
-    signerAddress() {
-      return this.message.signer;
+    proposalId() {
+      return this.message.proposal_id;
     },
-    amount() {
-      return coinAdapter.format({
-        amount: this.message.amount.amount,
-        denom: this.message.amount.denom,
-      });
+    vote() {
+      return this.message.option;
     },
-    id() {
-      return this.message.ID;
+    voterAddress() {
+      return this.message.voter;
     },
   },
 };

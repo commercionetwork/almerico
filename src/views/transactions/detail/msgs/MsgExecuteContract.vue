@@ -2,20 +2,17 @@
   <BaseTransactionMessage :message="message">
     <div slot="body">
       <BaseDetailLink
-        :label="$t('labels.signer')"
-        :content="signerAddress"
+        :label="$t('labels.sender')"
+        :content="senderAddress"
         :route="{
           name: ROUTES.NAME.ACCOUNT,
-          params: { id: signerAddress },
+          params: { id: senderAddress },
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
-        :label="$t('labels.amount')"
-        :content="amount"
-        class="text-uppercase"
-      />
-      <BaseDetailItem :label="$t('labels.id')" :content="id" />
+      <BaseDetailItem :label="$t('labels.contract')" :content="contract" />
+      <BaseDetailItem :label="$t('labels.msg')" :content="msg" />
+      <BaseDetailItem :label="$t('labels.funds')" :content="funds" />
     </div>
   </BaseTransactionMessage>
 </template>
@@ -26,11 +23,10 @@ import BaseDetailLink from '@/components/BaseDetailLink.vue';
 import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
-import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'MsgBurnCCC',
-  description: 'Display a burnCCC transaction message',
+  name: 'MsgExecuteContract',
+  description: 'Display an execute contract transaction message',
   components: {
     BaseDetailItem,
     BaseDetailLink,
@@ -40,7 +36,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a burnCCC message',
+      note: 'Object representing an execute contract message',
     },
   },
   data() {
@@ -49,17 +45,17 @@ export default {
     };
   },
   computed: {
-    signerAddress() {
-      return this.message.signer;
+    senderAddress() {
+      return this.message.sender;
     },
-    amount() {
-      return coinAdapter.format({
-        amount: this.message.amount.amount,
-        denom: this.message.amount.denom,
-      });
+    contract() {
+      return this.message.contract;
     },
-    id() {
-      return this.message.ID;
+    msg() {
+      return this.message.msg;
+    },
+    funds() {
+      return this.message.funds;
     },
   },
 };

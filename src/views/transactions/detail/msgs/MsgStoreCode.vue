@@ -2,20 +2,22 @@
   <BaseTransactionMessage :message="message">
     <div slot="body">
       <BaseDetailLink
-        :label="$t('labels.signer')"
-        :content="signerAddress"
+        :label="$t('labels.sender')"
+        :content="senderAddress"
         :route="{
           name: ROUTES.NAME.ACCOUNT,
-          params: { id: signerAddress },
+          params: { id: senderAddress },
         }"
         look="font-monotype"
       />
       <BaseDetailItem
-        :label="$t('labels.amount')"
-        :content="amount"
-        class="text-uppercase"
+        :label="$t('labels.instantiatePermission')"
+        :content="instantiatePermission"
       />
-      <BaseDetailItem :label="$t('labels.id')" :content="id" />
+      <BaseDetailItem
+        :label="$t('labels.wasmByteCode')"
+        :content="wasmByteCode"
+      />
     </div>
   </BaseTransactionMessage>
 </template>
@@ -26,11 +28,10 @@ import BaseDetailLink from '@/components/BaseDetailLink.vue';
 import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 
 import { ROUTES } from '@/constants';
-import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'MsgBurnCCC',
-  description: 'Display a burnCCC transaction message',
+  name: 'MsgStoreCode',
+  description: 'Display a store code transaction message',
   components: {
     BaseDetailItem,
     BaseDetailLink,
@@ -40,7 +41,7 @@ export default {
     message: {
       type: Object,
       required: true,
-      note: 'Object representing a burnCCC message',
+      note: 'Object representing a store code message',
     },
   },
   data() {
@@ -49,17 +50,16 @@ export default {
     };
   },
   computed: {
-    signerAddress() {
-      return this.message.signer;
+    instantiatePermission() {
+      return this.message.instantiate_permission
+        ? this.message.instantiate_permission
+        : '-';
     },
-    amount() {
-      return coinAdapter.format({
-        amount: this.message.amount.amount,
-        denom: this.message.amount.denom,
-      });
+    senderAddress() {
+      return this.message.sender;
     },
-    id() {
-      return this.message.ID;
+    wasmByteCode() {
+      return this.message.wasm_byte_code;
     },
   },
 };
