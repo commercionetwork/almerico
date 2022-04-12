@@ -172,4 +172,6 @@ export const labels = {
   votingStartTime: 'Ora inizio voto',
   website: 'Sito Web',
   yes: 'Si',
+  instantiatePermission: 'Instanziare autorizzazione',
+  wasmByteCode: 'Wasm bytecode',
 };

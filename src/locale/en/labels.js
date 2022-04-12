@@ -67,6 +67,7 @@ export const labels = {
   id: 'id',
   identity: 'Identity',
   inactive: 'Inactive',
+  instantiatePermission: 'Instantiate permission',
   keyAgreement: 'Key agreement',
   lang: 'Lang',
   liquidityPoolTokensDistributed: 'Liquidity pool tokens distributed',
@@ -170,6 +171,7 @@ export const labels = {
   votingEndTime: 'Voting end time',
   votingPower: 'Voting power',
   votingStartTime: 'Voting start time',
+  wasmByteCode: 'Wasm bytecode',
   website: 'Website',
   yes: 'Yes',
 };
