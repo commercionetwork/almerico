@@ -2,7 +2,7 @@
   <v-card outlined>
     <v-card-text>
       <BaseChart
-        v-if="chartData"
+        v-if="chartData && chartOptions"
         :dataset="chartData"
         :options="chartOptions"
         id="proposal-chart"
@@ -37,11 +37,8 @@ export default {
     chartOptions() {
       return proposalChartHelper.getChartOptions({
         title: this.$t('titles.tally'),
-        darkTheme: this.darkTheme,
+        darkTheme: this.$vuetify.theme.dark,
       });
-    },
-    darkTheme() {
-      return this.$vuetify.theme.dark;
     },
   },
 };

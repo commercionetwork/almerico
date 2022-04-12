@@ -27,9 +27,11 @@ const chartBuilder = {
    *
    * @param {Chart} chart
    * @param {ChartData} data
+   * @param {Object} options
    */
-  update(chart, data) {
+  update(chart, { data, options }) {
     chart.data = data;
+    chart.options = options;
     chart.update();
   },
 };
