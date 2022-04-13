@@ -45,9 +45,11 @@ export default {
       default: () => ({}),
     },
   },
-  data: () => ({
-    chart: null,
-  }),
+  data() {
+    return {
+      chart: null,
+    };
+  },
   computed: {
     el() {
       return document.getElementById(this.id);

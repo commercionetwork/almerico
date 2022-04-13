@@ -12,8 +12,8 @@
         :id="CHARTS.ID.ACCOUNT_DETAIL_CAPITALIZATION"
         :dataset="chartData"
         :options="chartOptions"
+        :type="CHARTS.TYPE.BAR"
         height="300"
-        type="bar"
       />
     </v-card-text>
   </v-card>

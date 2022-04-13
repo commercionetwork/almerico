@@ -9,11 +9,11 @@
     />
     <v-card-text>
       <BaseChart
-        id="validators-detail-chart"
-        height="175"
-        type="pie"
+        :id="CHARTS.ID.VALIDATOR_DETAIL"
         :dataset="chartData"
         :options="chartOptions"
+        :type="CHARTS.TYPE.PIE"
+        height="175"
       />
     </v-card-text>
   </v-card>
@@ -23,6 +23,7 @@
 import BaseChart from '@/components/chart/BaseChart';
 
 import validatorsDetailChartHelper from './helpers/validatorsDetailChartHelper';
+import { CHARTS } from '@/constants';
 
 export default {
   name: 'ValidatorsViewDetailChart',
@@ -33,6 +34,11 @@ export default {
       required: true,
       note: 'The data to draw chart',
     },
+  },
+  data() {
+    return {
+      CHARTS,
+    };
   },
   computed: {
     chartData() {

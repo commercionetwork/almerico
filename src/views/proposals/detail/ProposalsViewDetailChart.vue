@@ -3,10 +3,10 @@
     <v-card-text>
       <BaseChart
         v-if="chartData && chartOptions"
+        :id="CHARTS.ID.PROPOSAL_DETAIL"
         :dataset="chartData"
         :options="chartOptions"
-        id="proposal-detail-chart"
-        type="pie"
+        :type="CHARTS.TYPE.PIE"
         height="300"
         width="300"
       />
@@ -18,11 +18,17 @@
 import BaseChart from '@/components/chart/BaseChart';
 
 import proposalChartHelper from './helpers/proposalChartHelper';
+import { CHARTS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ProposalsViewDetailChart',
   components: { BaseChart },
+  data() {
+    return {
+      CHARTS,
+    };
+  },
   computed: {
     ...mapGetters('proposals', ['tally']),
     chartData() {

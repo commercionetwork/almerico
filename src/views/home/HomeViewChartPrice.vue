@@ -5,10 +5,10 @@
         class="py-3 fill-height flex-column d-flex justify-center align-center"
       >
         <BaseChart
-          id="dashboard-price-chart"
-          type="line"
+          :id="CHARTS.ID.DASHBOARD_PRICE"
           :dataset="chartData"
           :options="chartOptions"
+          :type="CHARTS.TYPE.LINE"
         />
         <HomeViewChartPriceRange @range-changed="chartRangeChange" />
       </div>
@@ -21,9 +21,9 @@ import BaseChart from '@/components/chart/BaseChart';
 import HomeViewChartPriceRange from './HomeViewChartPriceRange';
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
-import { HOME } from '@/constants';
-import { mapGetters } from 'vuex';
 import priceChartHelper from './helpers/priceChartHelper';
+import { CHARTS, HOME } from '@/constants';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'HomeViewChartPrice',
@@ -32,9 +32,12 @@ export default {
     HomeViewChartPriceRange,
     BaseTopContentCard,
   },
-  data: () => ({
-    range: HOME.RANGE.MONTH,
-  }),
+  data() {
+    return {
+      CHARTS,
+      range: HOME.RANGE.MONTH,
+    };
+  },
   computed: {
     ...mapGetters('home', ['isLoadingParams', 'paramsUpdates', 'startingDate']),
     chartData() {

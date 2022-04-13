@@ -12,8 +12,8 @@
         :id="CHARTS.ID.ACCOUNT_DETAIL_PERFORMANCE"
         :dataset="chartData"
         :options="chartOptions"
+        :type="CHARTS.TYPE.PIE"
         height="175"
-        type="pie"
       />
     </v-card-text>
   </v-card>
