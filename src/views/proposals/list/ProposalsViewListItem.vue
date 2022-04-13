@@ -44,16 +44,6 @@
           <div v-text="votingEndTime" />
         </v-col>
       </v-row>
-      <!-- <div class="text-caption d-flex justify-space-between align-center">
-        <div class="text-center">
-          <div class="font-weight-bold" v-text="$t('labels.votingStartTime')" />
-          <div v-text="votingStartTime" />
-        </div>
-        <div class="text-center">
-          <div class="font-weight-bold" v-text="$t('labels.votingEndTime')" />
-          <div v-text="votingEndTime" />
-        </div>
-      </div> -->
       <div class="pa-2 text-h6 text-truncate" v-text="item.content.title" />
       <v-card height="80" outlined>
         <v-card-text v-text="item.content.description" />
