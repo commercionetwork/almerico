@@ -36,10 +36,18 @@
             <v-img
               v-if="item.logo"
               :src="item.logo"
-              max-height="20"
-              max-width="20"
-            />
-            <v-icon v-else color="grey lighten-1" size="20">
+              max-height="30"
+              max-width="30"
+            >
+              <template v-slot:placeholder>
+                <v-progress-circular
+                  :width="2"
+                  indeterminate
+                  color="grey lighten-1"
+                ></v-progress-circular>
+              </template>
+            </v-img>
+            <v-icon v-else color="grey lighten-1" size="30">
               {{ mdiCog }}
             </v-icon>
           </v-avatar>
