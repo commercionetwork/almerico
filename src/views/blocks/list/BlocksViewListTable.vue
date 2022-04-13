@@ -35,7 +35,7 @@
         <template #[`item.hash`]="{ item }">
           <span
             class="d-inline-block text-truncate text-overline"
-            style="max-width: 15rem"
+            style="max-width: 10rem"
           >
             {{ item.hash }}
           </span>
@@ -43,7 +43,7 @@
         <template #[`item.moniker`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-weight-bold"
-            style="max-width: 18rem"
+            style="max-width: 10rem"
             v-text="item.moniker"
             :to="{
               name: ROUTES.NAME.VALIDATORS_DETAIL,

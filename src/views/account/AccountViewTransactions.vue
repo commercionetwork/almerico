@@ -38,7 +38,7 @@
         <template #[`item.hash`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
-            style="max-width: 15rem"
+            style="max-width: 10rem"
             v-text="item.hash"
             :to="{
               name: ROUTES.NAME.TRANSACTIONS_DETAIL,
