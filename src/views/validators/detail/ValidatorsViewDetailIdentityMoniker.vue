@@ -9,9 +9,9 @@
     </v-col>
     <v-col cols="10" xl="11" class="d-flex flex-column">
       <div class="text-h5 text-capitalize font-weight-bold" v-text="moniker" />
-      <div class="d-flex flex-row justify-start align-center">
-        <v-icon left size="18" :color="isActive ? 'info' : 'warning'">
-          {{ mdiHubspot }}
+      <div class="d-flex flex-row">
+        <v-icon left size="18" :color="isActive ? 'success' : 'error'">
+          {{ isActive ? mdiAccountNetwork : mdiCloseNetwork }}
         </v-icon>
         <span class="text-caption" :class="statusClass" v-text="statusText" />
       </div>
@@ -21,7 +21,12 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { mdiHubspot, mdiStar, mdiStarOutline } from '@mdi/js';
+import {
+  mdiAccountNetwork,
+  mdiCloseNetwork,
+  mdiStar,
+  mdiStarOutline,
+} from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewDetailIdentityMoniker',
@@ -35,7 +40,8 @@ export default {
   emits: [`handle-bookmark`],
   data() {
     return {
-      mdiHubspot,
+      mdiAccountNetwork,
+      mdiCloseNetwork,
     };
   },
   computed: {
@@ -50,7 +56,7 @@ export default {
       return this.detail ? this.detail.status === 3 : false;
     },
     statusClass() {
-      return this.isActive ? 'info--text' : 'warning--text';
+      return this.isActive ? 'success--text' : 'error--text';
     },
     statusText() {
       return this.isActive
