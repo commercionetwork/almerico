@@ -17,8 +17,8 @@ const mockValidator = ({
     delegator_shares: '100000000.000000000000000000',
     description: {
       moniker: 'mynode',
-      identity: '2305a60760b68d702afd6ae423185419',
-      website: '',
+      identity: '05a60760b68d702a',
+      website: 'http://site.eu',
       security_contact: '',
       details: '',
     },
