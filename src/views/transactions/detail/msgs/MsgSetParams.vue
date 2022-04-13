@@ -44,9 +44,11 @@ export default {
       note: 'Object representing a send message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     conversionRate() {
       return this.message.params.conversion_rate;

@@ -60,11 +60,13 @@ export default {
       note: 'The items to display',
     },
   },
-  data: () => ({
-    ROUTES,
-    sortBy: 'height',
-    sortDesc: true,
-  }),
+  data() {
+    return {
+      ROUTES,
+      sortBy: 'height',
+      sortDesc: true,
+    };
+  },
   computed: {
     headers() {
       return [

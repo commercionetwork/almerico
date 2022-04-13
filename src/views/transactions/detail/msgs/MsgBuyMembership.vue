@@ -49,9 +49,11 @@ export default {
       note: 'Object representing a buy membership message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     membershipType() {
       return this.message.membership_type;

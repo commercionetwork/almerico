@@ -62,13 +62,15 @@ import { mdiInformationOutline, mdiMagnify } from '@mdi/js';
 export default {
   name: 'BlocksViewListSearch',
   components: { BaseTopContentCard },
-  data: () => ({
-    BLOCKS,
-    CONFIG,
-    mdiInformationOutline,
-    mdiMagnify,
-    model: { height: '' },
-  }),
+  data() {
+    return {
+      BLOCKS,
+      CONFIG,
+      mdiInformationOutline,
+      mdiMagnify,
+      model: { height: '' },
+    };
+  },
   methods: {
     search(isSearching) {
       if (!isSearching) this.model.height = '';

@@ -34,9 +34,11 @@ export default {
       note: 'Object representing an unjail message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     address() {
       return this.message.validator_addr || '-';

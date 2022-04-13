@@ -43,9 +43,11 @@ export default {
       note: 'Object representing a invite user message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     recipient() {
       return this.message.recipient;

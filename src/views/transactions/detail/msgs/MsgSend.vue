@@ -54,9 +54,11 @@ export default {
       note: 'Object representing a send message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     fromAddress() {
       return this.message.from_address;

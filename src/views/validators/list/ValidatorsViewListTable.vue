@@ -59,13 +59,15 @@ import { mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListTable',
-  data: () => ({
-    ROUTES,
-    mdiStar,
-    mdiStarOutline,
-    sortBy: 'rank',
-    bookmarks: [],
-  }),
+  data() {
+    return {
+      ROUTES,
+      mdiStar,
+      mdiStarOutline,
+      sortBy: 'rank',
+      bookmarks: [],
+    };
+  },
   computed: {
     ...mapGetters('application', ['stakingParams', 'validators']),
     ...mapGetters('validators', [

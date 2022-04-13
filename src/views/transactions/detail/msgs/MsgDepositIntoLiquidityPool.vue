@@ -45,9 +45,11 @@ export default {
       note: 'Object representing a deposit message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     depositorAddress() {
       return this.message.depositor;

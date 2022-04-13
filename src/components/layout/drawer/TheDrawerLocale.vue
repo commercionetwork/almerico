@@ -31,9 +31,11 @@ import { CONFIG, LOCALES } from '@/constants';
 export default {
   name: 'TheDrawerLocale',
   components: { CountryFlag },
-  data: () => ({
-    locale: null,
-  }),
+  data() {
+    return {
+      locale: null,
+    };
+  },
   computed: {
     defaultLocale() {
       return LOCALES.find((locale) => locale.default);

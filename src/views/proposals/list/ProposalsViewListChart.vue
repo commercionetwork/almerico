@@ -4,10 +4,10 @@
       <div class="fill-height">
         <BaseChart
           v-if="chartData && chartOptions"
-          id="proposals-chart"
-          type="pie"
+          :id="CHARTS.ID.PROPOSALS_LIST"
           :dataset="chartData"
           :options="chartOptions"
+          :type="CHARTS.TYPE.PIE"
         />
       </div>
     </template>
@@ -19,6 +19,7 @@ import BaseChart from '@/components/chart/BaseChart';
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import proposalsChartHelper from './helpers/proposalsChartHelper';
+import { CHARTS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -26,6 +27,11 @@ export default {
   components: {
     BaseChart,
     BaseTopContentCard,
+  },
+  data() {
+    return {
+      CHARTS,
+    };
   },
   computed: {
     ...mapGetters('proposals', ['list']),

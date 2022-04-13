@@ -78,11 +78,13 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'BlocksViewListTable',
   components: { BaseLoadingLinear },
-  data: () => ({
-    ROUTES,
-    sortBy: 'height',
-    sortDesc: true,
-  }),
+  data() {
+    return {
+      ROUTES,
+      sortBy: 'height',
+      sortDesc: true,
+    };
+  },
   computed: {
     ...mapGetters('application', ['validators']),
     ...mapGetters('blocks', [

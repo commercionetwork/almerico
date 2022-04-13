@@ -28,11 +28,20 @@ const chartBuilder = {
    * @param {Chart} chart
    * @param {ChartData} data
    * @param {Object} options
+   * @returns {void}
    */
   update(chart, { data, options }) {
     chart.data = data;
     chart.options = options;
     chart.update();
+  },
+  /**
+   *
+   * @param {Chart} chart
+   * @returns {void}
+   */
+  destroy(chart) {
+    chart.destroy();
   },
 };
 
