@@ -42,6 +42,7 @@ describe('views/validators/list/helpers', () => {
       'rank',
       'active',
       'moniker',
+      'logo',
       'operator',
       'account',
       'tokens',
