@@ -32,6 +32,17 @@
             </v-icon>
             <v-icon v-else color="amber darken-2">{{ mdiStarOutline }}</v-icon>
           </v-btn>
+          <v-avatar>
+            <v-img
+              v-if="item.logo"
+              :src="item.logo"
+              max-height="20"
+              max-width="20"
+            />
+            <v-icon v-else color="grey lighten-1" size="20">
+              {{ mdiCog }}
+            </v-icon>
+          </v-avatar>
           <router-link
             class="text-decoration-none font-weight-bold"
             v-text="item.moniker"
@@ -55,13 +66,14 @@ import validatorsTableAdapter from './helpers/validatorsTableAdapter';
 
 import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
-import { mdiStar, mdiStarOutline } from '@mdi/js';
+import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListTable',
   data() {
     return {
       ROUTES,
+      mdiCog,
       mdiStar,
       mdiStarOutline,
       sortBy: 'rank',

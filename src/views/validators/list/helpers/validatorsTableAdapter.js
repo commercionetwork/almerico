@@ -72,6 +72,7 @@ const _getTableRows = ({
   const rows = sortedValidators.map((validator) => {
     const rank = validator.rank;
     const active = validator.status === VALIDATORS.STATUS.BONDED ? true : false;
+    const logo = validator.logo ? validator.logo : '';
     const moniker = validator.description.moniker;
     const operator = validator.operator_address;
     const bookmark =
@@ -91,6 +92,7 @@ const _getTableRows = ({
       rank,
       active,
       moniker,
+      logo,
       operator,
       account,
       tokens,
@@ -150,6 +152,7 @@ class ValidatorsTableRow {
     rank,
     active,
     moniker,
+    logo,
     operator,
     account,
     tokens,
@@ -162,6 +165,7 @@ class ValidatorsTableRow {
     this.rank = rank;
     this.active = active;
     this.moniker = moniker;
+    this.logo = logo;
     this.operator = operator;
     this.account = account;
     this.tokens = tokens;

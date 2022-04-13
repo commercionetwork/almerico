@@ -1,12 +1,6 @@
 <template>
   <v-avatar>
-    <v-img
-      v-if="detailLogo"
-      class="pa-1"
-      :src="detailLogo"
-      max-height="40"
-      max-width="40"
-    >
+    <v-img v-if="detailLogo" :src="detailLogo" max-height="40" max-width="40">
       <template v-slot:placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
           <v-progress-circular
