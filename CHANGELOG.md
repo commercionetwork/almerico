@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.3] - 2022-04-
 
+### Added
+
+- Add validator logo on list view
+
+### Changed
+
+- Update validator logo on detail view
+
 ## [3.1.2] - 2022-04-13
 
 ### Fixed

@@ -20,7 +20,7 @@
         <template #[`item.delegator`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
-            style="max-width: 8.5rem"
+            style="max-width: 9rem"
             v-text="item.delegator"
             :to="{
               name: ROUTES.NAME.ACCOUNT,
@@ -66,8 +66,8 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.delegator'), value: 'delegator' },
-        { text: this.$t('labels.amount'), value: 'amount' },
-        { text: this.$t('labels.share'), value: 'share' },
+        { text: this.$t('labels.amount'), value: 'amount', width: '40%' },
+        { text: this.$t('labels.share'), value: 'share', width: '18%' },
       ];
     },
     items() {

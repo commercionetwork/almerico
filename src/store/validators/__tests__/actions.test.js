@@ -35,7 +35,7 @@ describe('store/validators/actions', () => {
     process.env = OLD_ENV;
   });
 
-  test('if "initValidatorsList" reset store, set loading state, dispatch "fetchPool" and "fetchTrackedBlocks" actions', async () => {
+  test('if "initValidatorsList" reset store, set loading state, dispatch "fetchPool", "fetchValidatorsLogo", and "fetchTrackedBlocks" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const lastHeight = '1000';
@@ -47,6 +47,7 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
+    expect(dispatch).toHaveBeenCalledWith('fetchValidatorsLogo');
     expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
 

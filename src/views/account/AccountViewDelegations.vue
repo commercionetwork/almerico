@@ -73,7 +73,7 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.validator'), value: 'moniker' },
-        { text: this.$t('labels.amount'), value: 'amount' },
+        { text: this.$t('labels.amount'), value: 'amount', width: '50%' },
       ];
     },
     items() {

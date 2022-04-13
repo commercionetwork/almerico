@@ -41,12 +41,14 @@ export const getCommonHeaders = (translator) => {
       value: 'quantity',
       sortable: false,
       align: 'end',
+      width: '20%',
     }),
     new Header({
       text: $t('labels.percentage'),
       value: 'percentage',
       sortable: false,
       align: 'end',
+      width: '20%',
     }),
   ];
 };
@@ -66,11 +68,12 @@ export class Table {
 }
 
 export class Header {
-  constructor({ text, value, sortable, align }) {
+  constructor({ text, value, sortable, align, width }) {
     this.text = text;
     this.value = value;
     this.sortable = sortable;
     this.align = align;
+    this.width = width;
   }
 }
 

@@ -86,9 +86,9 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.completionDate'), value: 'date' },
-        { text: this.$t('labels.validator'), value: 'moniker' },
-        { text: this.$t('labels.height'), value: 'height' },
-        { text: this.$t('labels.balance'), value: 'balance' },
+        { text: this.$t('labels.validator'), value: 'moniker', width: '30%' },
+        { text: this.$t('labels.height'), value: 'height', width: '15%' },
+        { text: this.$t('labels.balance'), value: 'balance', width: '30%' },
       ];
     },
     items() {
