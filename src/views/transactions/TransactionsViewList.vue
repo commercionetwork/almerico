@@ -37,9 +37,11 @@ export default {
     TransactionsViewListContentTop,
     TransactionsViewListTable,
   },
-  data: () => ({
-    txType: '',
-  }),
+  data() {
+    return {
+      txType: '',
+    };
+  },
   computed: {
     ...mapGetters('transactions', ['error', 'isLoading', 'txEventHeight']),
   },

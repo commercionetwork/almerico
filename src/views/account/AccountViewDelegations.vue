@@ -62,11 +62,13 @@ export default {
       note: 'The validators list',
     },
   },
-  data: () => ({
-    ROUTES,
-    sortBy: 'amount',
-    sortDesc: true,
-  }),
+  data() {
+    return {
+      ROUTES,
+      sortBy: 'amount',
+      sortDesc: true,
+    };
+  },
   computed: {
     headers() {
       return [

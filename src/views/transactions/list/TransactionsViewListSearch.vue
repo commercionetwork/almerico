@@ -57,11 +57,13 @@ import { mdiMagnify } from '@mdi/js';
 export default {
   name: 'TransactionsViewListSearch',
   components: { BaseTopContentCard },
-  data: () => ({
-    mdiMagnify,
-    nameLimit: 60,
-    selectedType: '',
-  }),
+  data() {
+    return {
+      mdiMagnify,
+      nameLimit: 60,
+      selectedType: '',
+    };
+  },
   computed: {
     ...mapGetters('transactions', ['isLoading', 'isAddingTxs']),
     isLoadingTxs() {

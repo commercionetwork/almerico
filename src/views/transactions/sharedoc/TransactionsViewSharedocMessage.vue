@@ -135,9 +135,11 @@ export default {
       note: 'Object representing a share document message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     senderAddress() {
       return this.message.sender || '-';

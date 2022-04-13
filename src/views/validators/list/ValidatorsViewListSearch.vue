@@ -46,12 +46,14 @@ export default {
     ValidatorsViewListFilter,
     BaseTopContentCard,
   },
-  data: () => ({
-    mdiInformationOutline,
-    mdiMagnify,
-    status: VALIDATORS.FILTER.ACTIVE,
-    query: '',
-  }),
+  data() {
+    return {
+      mdiInformationOutline,
+      mdiMagnify,
+      status: VALIDATORS.FILTER.ACTIVE,
+      query: '',
+    };
+  },
   methods: {
     ...mapActions('validators', ['setValidatorsFilter']),
     onFilter(filter) {

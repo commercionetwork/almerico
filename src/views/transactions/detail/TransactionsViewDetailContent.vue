@@ -39,11 +39,13 @@ export default {
     MsgDefault,
     TheTransactionsCommonContent,
   },
-  data: () => ({
-    model: {
-      components: TRANSACTIONS.SUPPORTED_TYPES,
-    },
-  }),
+  data() {
+    return {
+      model: {
+        components: TRANSACTIONS.SUPPORTED_TYPES,
+      },
+    };
+  },
   computed: {
     ...mapGetters('transactions', ['detail']),
     tx() {

@@ -43,9 +43,11 @@ export default {
       note: 'Object representing a withdraw delegator reward message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     delegatorAddress() {
       return this.message.delegator_address || '-';

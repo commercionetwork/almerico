@@ -49,9 +49,11 @@ export default {
       note: 'Object representing a set membership message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     governmentAddress() {
       return this.message.government;

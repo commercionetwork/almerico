@@ -103,9 +103,11 @@ export default {
       note: 'Object representing a set identity message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     didDocument() {
       return this.message.didDocument;

@@ -95,11 +95,13 @@ export default {
       note: 'The tx type to search',
     },
   },
-  data: () => ({
-    ROUTES,
-    sortBy: 'height',
-    sortDesc: true,
-  }),
+  data() {
+    return {
+      ROUTES,
+      sortBy: 'height',
+      sortDesc: true,
+    };
+  },
   computed: {
     ...mapGetters('transactions', [
       'isAddingTxs',

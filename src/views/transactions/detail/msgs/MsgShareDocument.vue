@@ -146,12 +146,14 @@ export default {
       note: 'Object representing a share document message',
     },
   },
-  data: () => ({
-    ROUTES,
-    mdiCheckAll,
-    mdiExportVariant,
-    copied: false,
-  }),
+  data() {
+    return {
+      ROUTES,
+      mdiCheckAll,
+      mdiExportVariant,
+      copied: false,
+    };
+  },
   computed: {
     senderAddress() {
       return this.message.sender || '-';
