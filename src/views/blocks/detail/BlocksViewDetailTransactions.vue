@@ -56,11 +56,13 @@ export default {
       note: 'The transactions height',
     },
   },
-  data: () => ({
-    ROUTES,
-    sortBy: 'result',
-    sortDesc: true,
-  }),
+  data() {
+    return {
+      ROUTES,
+      sortBy: 'result',
+      sortDesc: true,
+    };
+  },
   computed: {
     headers() {
       return [

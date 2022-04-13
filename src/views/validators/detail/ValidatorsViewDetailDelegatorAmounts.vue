@@ -50,11 +50,13 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetailDelegatorAmounts',
-  data: () => ({
-    ROUTES,
-    sortBy: 'share',
-    sortDesc: true,
-  }),
+  data() {
+    return {
+      ROUTES,
+      sortBy: 'share',
+      sortDesc: true,
+    };
+  },
   computed: {
     ...mapGetters('application', ['stakingParams']),
     ...mapGetters('validators', ['account', 'delegations', 'detail']),

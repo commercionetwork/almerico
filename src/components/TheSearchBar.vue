@@ -16,10 +16,12 @@ import { regExpBuilder } from '@/utils';
 
 export default {
   name: 'TheSearchBar',
-  data: () => ({
-    mdiMagnify,
-    query: '',
-  }),
+  data() {
+    return {
+      mdiMagnify,
+      query: '',
+    };
+  },
   methods: {
     onSubmit() {
       const validatorRegEx = regExpBuilder.getAddressRegExp(

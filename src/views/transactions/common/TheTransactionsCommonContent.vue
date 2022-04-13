@@ -81,9 +81,11 @@ export default {
       note: 'The transaction to display',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     rawJsonLink() {
       return `${this.tx.ledger}/txs/${this.tx.hash}`;

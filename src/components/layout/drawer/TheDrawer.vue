@@ -61,14 +61,16 @@ export default {
     TheDrawerTheme,
     TheDrawerLocale,
   },
-  data: () => ({
-    ROUTES,
-    mdiAccountMultiple,
-    mdiShape,
-    mdiSwapHorizontalBold,
-    mdiTableEye,
-    mdiViewDashboard,
-    mdiVote,
-  }),
+  data() {
+    return {
+      ROUTES,
+      mdiAccountMultiple,
+      mdiShape,
+      mdiSwapHorizontalBold,
+      mdiTableEye,
+      mdiViewDashboard,
+      mdiVote,
+    };
+  },
 };
 </script>

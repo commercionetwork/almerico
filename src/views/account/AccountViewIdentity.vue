@@ -51,13 +51,15 @@ export default {
     AccountViewModalQRCode,
   },
   inject: ['address'],
-  data: () => ({
-    mdiCheckAll,
-    mdiContentCopy,
-    mdiQrcode,
-    copied: false,
-    dialog: false,
-  }),
+  data() {
+    return {
+      mdiCheckAll,
+      mdiContentCopy,
+      mdiQrcode,
+      copied: false,
+      dialog: false,
+    };
+  },
   methods: {
     copyToClipboard() {
       navigator.clipboard.writeText(this.address).then(() => {

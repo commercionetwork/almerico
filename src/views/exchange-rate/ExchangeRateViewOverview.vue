@@ -21,15 +21,17 @@ export default {
     ExchangeRateViewContentBody,
     ExchangeRateViewContentTop,
   },
-  data: () => ({
-    isBuilding: false,
-    model: {
-      maxSupplyRows: [],
-      nonCirculatingSupplyRows: [],
-      circulatingSupplyRows: [],
-      exchangeRate: 0,
-    },
-  }),
+  data() {
+    return {
+      isBuilding: false,
+      model: {
+        maxSupplyRows: [],
+        nonCirculatingSupplyRows: [],
+        circulatingSupplyRows: [],
+        exchangeRate: 0,
+      },
+    };
+  },
   computed: {
     ...mapGetters('application', ['stakingParams']),
     ...mapGetters('exchangeRate', [

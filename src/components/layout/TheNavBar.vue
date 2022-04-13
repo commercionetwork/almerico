@@ -47,11 +47,13 @@ export default {
   components: {
     TheDrawer,
   },
-  data: () => ({
-    ROUTES,
-    mdiMenu,
-    drawer: false,
-  }),
+  data() {
+    return {
+      ROUTES,
+      mdiMenu,
+      drawer: false,
+    };
+  },
   computed: {
     ...mapGetters('application', ['info']),
     logoSrc() {

@@ -37,9 +37,11 @@ import { CONFIG } from '@/constants';
 export default {
   name: 'HomeViewPosterPrice',
   components: { BaseTopContentCard },
-  data: () => ({
-    CONFIG,
-  }),
+  data() {
+    return {
+      CONFIG,
+    };
+  },
   computed: {
     ...mapGetters('application', ['stakingParams']),
     ...mapGetters('home', ['isLoadingParams', 'conversionRate']),

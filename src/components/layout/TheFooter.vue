@@ -39,10 +39,12 @@ import { mdiArrowUpBold } from '@mdi/js';
 
 export default {
   name: 'TheFooter',
-  data: () => ({
-    mdiArrowUpBold,
-    fab: false,
-  }),
+  data() {
+    return {
+      mdiArrowUpBold,
+      fab: false,
+    };
+  },
   computed: {
     appVersion() {
       return `v${process.env.APP_VERSION}`;

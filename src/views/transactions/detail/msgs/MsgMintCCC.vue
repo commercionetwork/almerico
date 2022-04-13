@@ -46,9 +46,11 @@ export default {
       note: 'Object representing a mintCCC message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     depositorAddress() {
       return this.message.depositor;

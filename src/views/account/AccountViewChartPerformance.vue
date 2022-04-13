@@ -9,11 +9,11 @@
     />
     <v-card-text>
       <BaseChart
-        id="account-details-performance-chart"
-        height="175"
-        type="pie"
+        :id="CHARTS.ID.ACCOUNT_DETAIL_PERFORMANCE"
         :dataset="chartData"
         :options="chartOptions"
+        :type="CHARTS.TYPE.PIE"
+        height="175"
       />
     </v-card-text>
   </v-card>
@@ -23,6 +23,7 @@
 import BaseChart from '@/components/chart/BaseChart';
 
 import accountPerformanceChartHelper from './helpers/accountPerformanceChartHelper';
+import { CHARTS } from '@/constants';
 
 export default {
   name: 'AccountViewChartPerformance',
@@ -33,6 +34,11 @@ export default {
       required: true,
       note: 'The balance amounts to display',
     },
+  },
+  data() {
+    return {
+      CHARTS,
+    };
   },
   computed: {
     chartData() {

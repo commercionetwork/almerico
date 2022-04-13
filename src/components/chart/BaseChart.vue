@@ -45,9 +45,11 @@ export default {
       default: () => ({}),
     },
   },
-  data: () => ({
-    chart: null,
-  }),
+  data() {
+    return {
+      chart: null,
+    };
+  },
   computed: {
     el() {
       return document.getElementById(this.id);
@@ -63,6 +65,12 @@ export default {
         chartBuilder.update(this.chart, { data: this.dataset, options: value });
     },
   },
+  mounted() {
+    this.render();
+  },
+  beforeDestroy() {
+    chartBuilder.destroy(this.chart);
+  },
   methods: {
     render() {
       this.chart = chartBuilder.build({
@@ -72,9 +80,6 @@ export default {
         options: this.options,
       });
     },
-  },
-  mounted() {
-    this.render();
   },
 };
 </script>
