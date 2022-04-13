@@ -124,17 +124,30 @@ export default {
     },
     headers() {
       let headers = [
-        { text: this.$t('labels.rank'), value: 'rank', width: '5%' },
+        { text: this.$t('labels.rank'), value: 'rank' },
         { text: this.$t('labels.validator'), value: 'moniker', width: '35%' },
         { text: this.$t('labels.tokens'), value: 'tokens', width: '20%' },
-        { text: this.$t('labels.commission'), value: 'commission' },
-        { text: this.$t('labels.votingPower'), value: 'votingPower' },
-        { text: this.$t('labels.cumulative'), value: 'cumulative' },
+        {
+          text: this.$t('labels.commission'),
+          value: 'commission',
+          width: '10%',
+        },
+        {
+          text: this.$t('labels.votingPower'),
+          value: 'votingPower',
+          width: '10%',
+        },
+        {
+          text: this.$t('labels.cumulative'),
+          value: 'cumulative',
+          width: '10%',
+        },
       ];
       if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
         headers.push({
           text: this.$t('labels.blocksPercentage'),
           value: 'attendance',
+          width: '10%',
         });
       }
       return headers;

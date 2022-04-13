@@ -35,7 +35,7 @@
         <template #[`item.hash`]="{ item }">
           <span
             class="d-inline-block text-truncate text-overline"
-            style="max-width: 9.5rem"
+            style="max-width: 15rem"
           >
             {{ item.hash }}
           </span>
@@ -43,7 +43,7 @@
         <template #[`item.moniker`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-weight-bold"
-            style="max-width: 9.5rem"
+            style="max-width: 18rem"
             v-text="item.moniker"
             :to="{
               name: ROUTES.NAME.VALIDATORS_DETAIL,
@@ -104,10 +104,10 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.height'), value: 'height' },
-        { text: this.$t('labels.hash'), value: 'hash' },
-        { text: this.$t('labels.validator'), value: 'moniker' },
-        { text: this.$t('labels.txs'), value: 'txs' },
-        { text: this.$t('labels.date'), value: 'date' },
+        { text: this.$t('labels.hash'), value: 'hash', width: '25%' },
+        { text: this.$t('labels.validator'), value: 'moniker', width: '30%' },
+        { text: this.$t('labels.txs'), value: 'txs', width: '10%' },
+        { text: this.$t('labels.date'), value: 'date', width: '25%' },
       ];
     },
     items() {

@@ -43,7 +43,7 @@
         <template #[`item.hash`]="{ item }">
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
-            style="max-width: 8.5rem"
+            style="max-width: 15rem"
             v-text="item.hash"
             :to="{
               name: ROUTES.NAME.TRANSACTIONS_DETAIL,
@@ -113,12 +113,12 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.height'), value: 'height' },
-        { text: this.$t('labels.type'), value: 'type' },
-        { text: this.$t('labels.result'), value: 'result' },
-        { text: this.$t('labels.fee'), value: 'fee' },
-        { text: this.$t('labels.hash'), value: 'hash' },
-        { text: this.$t('labels.date'), value: 'date' },
-        { text: this.$t('labels.time'), value: 'time' },
+        { text: this.$t('labels.type'), value: 'type', width: '22%' },
+        { text: this.$t('labels.result'), value: 'result', width: '10%' },
+        { text: this.$t('labels.fee'), value: 'fee', width: '10%' },
+        { text: this.$t('labels.hash'), value: 'hash', width: '23%' },
+        { text: this.$t('labels.date'), value: 'date', width: '15%' },
+        { text: this.$t('labels.time'), value: 'time', width: '10%' },
       ];
     },
     items() {
