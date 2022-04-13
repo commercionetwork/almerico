@@ -14,19 +14,37 @@
         <span v-text="$t('labels.detail')" />
       </v-tooltip>
       <template v-slot:extension>
-        <v-chip class="white--text font-weight-bold" :color="statusColor">
-          {{ statusText }}
-        </v-chip>
-        <v-spacer />
-        <span class="pl-1 text-caption" v-text="type" />
-        <v-icon right size="24">
-          {{ PROPOSALS.ICONS[type] }}
-        </v-icon>
+        <v-row class="d-flex align-center align-content-center">
+          <v-col cols="4">
+            <v-chip
+              class="text-caption white--text font-weight-bold"
+              :color="statusColor"
+            >
+              {{ statusText }}
+            </v-chip>
+          </v-col>
+          <v-col cols="8" class="d-flex justify-end">
+            <span class="text-caption" v-text="type" />
+            <v-icon right size="24">
+              {{ PROPOSALS.ICONS[type] }}
+            </v-icon>
+          </v-col>
+        </v-row>
       </template>
     </v-toolbar>
     <v-divider />
     <v-card-text>
-      <div class="text-caption d-flex justify-space-between align-center">
+      <v-row>
+        <v-col cols="12" sm="6" class="d-flex flex-column align-sm-center">
+          <div class="font-weight-bold" v-text="$t('labels.votingStartTime')" />
+          <div v-text="votingStartTime" />
+        </v-col>
+        <v-col cols="12" sm="6" class="d-flex flex-column align-sm-center">
+          <div class="font-weight-bold" v-text="$t('labels.votingEndTime')" />
+          <div v-text="votingEndTime" />
+        </v-col>
+      </v-row>
+      <!-- <div class="text-caption d-flex justify-space-between align-center">
         <div class="text-center">
           <div class="font-weight-bold" v-text="$t('labels.votingStartTime')" />
           <div v-text="votingStartTime" />
@@ -35,7 +53,7 @@
           <div class="font-weight-bold" v-text="$t('labels.votingEndTime')" />
           <div v-text="votingEndTime" />
         </div>
-      </div>
+      </div> -->
       <div class="pa-2 text-h6 text-truncate" v-text="item.content.title" />
       <v-card height="80" outlined>
         <v-card-text v-text="item.content.description" />
