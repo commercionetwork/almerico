@@ -75,11 +75,13 @@ export default {
       note: 'The validators list',
     },
   },
-  data: () => ({
-    ROUTES,
-    sortBy: 'date',
-    sortDesc: true,
-  }),
+  data() {
+    return {
+      ROUTES,
+      sortBy: 'date',
+      sortDesc: true,
+    };
+  },
   computed: {
     headers() {
       return [

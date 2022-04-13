@@ -60,9 +60,11 @@ export default {
       note: 'The block proposer',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     hash() {
       return this.detail.block_id.hash;

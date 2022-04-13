@@ -38,9 +38,11 @@ export default {
     TheErrorMessage,
     TheHeaderContent,
   },
-  data: () => ({
-    isSearching: false,
-  }),
+  data() {
+    return {
+      isSearching: false,
+    };
+  },
   computed: {
     ...mapGetters('application', ['latestBlock']),
     ...mapGetters('blocks', ['error', 'isLoading', 'newHeight']),

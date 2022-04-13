@@ -33,10 +33,12 @@ import { HOME } from '@/constants';
 export default {
   name: 'HomeViewChartPriceRange',
   emits: [`range-changed`],
-  data: () => ({
-    HOME,
-    range: HOME.RANGE.MONTH,
-  }),
+  data() {
+    return {
+      HOME,
+      range: HOME.RANGE.MONTH,
+    };
+  },
   methods: {
     onChangeRange(range) {
       this.range = range;

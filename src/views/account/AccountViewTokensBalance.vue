@@ -41,10 +41,12 @@ export default {
       note: 'The amounts to display',
     },
   },
-  data: () => ({
-    sortBy: 'denom',
-    sortDesc: false,
-  }),
+  data() {
+    return {
+      sortBy: 'denom',
+      sortDesc: false,
+    };
+  },
   computed: {
     headers() {
       return [

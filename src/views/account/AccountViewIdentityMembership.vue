@@ -35,10 +35,12 @@ import { mdiCardAccountDetails } from '@mdi/js';
 
 export default {
   name: 'AccountViewIdentityMembership',
-  data: () => ({
-    ROUTES,
-    mdiCardAccountDetails,
-  }),
+  data() {
+    return {
+      ROUTES,
+      mdiCardAccountDetails,
+    };
+  },
   computed: {
     ...mapGetters('account', ['membership', 'membershipTxs']),
     membershipColor() {

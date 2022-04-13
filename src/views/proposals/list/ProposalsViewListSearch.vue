@@ -54,11 +54,13 @@ import { mdiFilterOutline } from '@mdi/js';
 export default {
   name: 'ProposalsViewListSearch',
   components: { BaseTopContentCard },
-  data: () => ({
-    mdiFilterOutline,
-    nameLimit: 60,
-    selectedStatus: '',
-  }),
+  data() {
+    return {
+      mdiFilterOutline,
+      nameLimit: 60,
+      selectedStatus: '',
+    };
+  },
   computed: {
     items() {
       const keys = Object.keys(PROPOSALS.TEXTS);

@@ -41,11 +41,13 @@ import { mdiCheckAll, mdiContentCopy } from '@mdi/js';
 export default {
   name: 'ValidatorsViewDetailIdentityAddress',
   inject: ['address'],
-  data: () => ({
-    mdiCheckAll,
-    mdiContentCopy,
-    copied: false,
-  }),
+  data() {
+    return {
+      mdiCheckAll,
+      mdiContentCopy,
+      copied: false,
+    };
+  },
   computed: {
     ...mapGetters('validators', ['account']),
     toAccount() {

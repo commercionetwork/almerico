@@ -56,9 +56,11 @@ export default {
       note: 'Object representing a send document message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     uuid() {
       return this.message.UUID || '-';

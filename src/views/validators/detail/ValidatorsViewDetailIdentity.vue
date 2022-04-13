@@ -38,9 +38,11 @@ export default {
     ValidatorsViewDetailIdentityMoniker,
   },
   inject: ['address'],
-  data: () => ({
-    bookmarks: [],
-  }),
+  data() {
+    return {
+      bookmarks: [],
+    };
+  },
   computed: {
     ...mapGetters('validators', ['detailLogo']),
     isBookmark() {

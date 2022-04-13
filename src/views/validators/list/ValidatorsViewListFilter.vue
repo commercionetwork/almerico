@@ -29,11 +29,13 @@ import { mdiFilterOutline, mdiInformationOutline } from '@mdi/js';
 export default {
   name: 'ValidatorsViewListFilter',
   emits: [`filter`],
-  data: () => ({
-    mdiFilterOutline,
-    mdiInformationOutline,
-    select: null,
-  }),
+  data() {
+    return {
+      mdiFilterOutline,
+      mdiInformationOutline,
+      select: null,
+    };
+  },
   computed: {
     items() {
       return [

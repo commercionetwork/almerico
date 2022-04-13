@@ -29,10 +29,12 @@ import { CONFIG } from '@/constants';
 
 export default {
   name: 'TheChainChooser',
-  data: () => ({
-    CONFIG,
-    selectedItem: null,
-  }),
+  data() {
+    return {
+      CONFIG,
+      selectedItem: null,
+    };
+  },
   computed: {
     currentItem() {
       const chainIndex = CONFIG.CHAIN.LIST.findIndex(

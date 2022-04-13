@@ -69,9 +69,11 @@ export default {
       note: 'Object representing an edit validator message',
     },
   },
-  data: () => ({
-    ROUTES,
-  }),
+  data() {
+    return {
+      ROUTES,
+    };
+  },
   computed: {
     descriptionMoniker() {
       return this.message.description.moniker;
