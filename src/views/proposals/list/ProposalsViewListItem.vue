@@ -4,32 +4,22 @@
       <v-toolbar-title>
         <span v-text="proposalId" />
       </v-toolbar-title>
+      {{ '&nbsp;-&nbsp;' }}
+      <router-link :to="toDetail" :title="$t('labels.detail')">
+        <v-icon size="20">{{ mdiOpenInNew }}</v-icon>
+      </router-link>
       <v-spacer />
-      <v-tooltip top>
-        <template #activator="{ on, attrs }">
-          <v-btn :to="toDetail" icon v-bind="attrs" v-on="on">
-            <v-icon size="20">{{ mdiOpenInNew }}</v-icon>
-          </v-btn>
-        </template>
-        <span v-text="$t('labels.detail')" />
-      </v-tooltip>
+      <v-chip
+        class="ml-1 ml-md-3 text-caption white--text font-weight-bold"
+        :color="statusColor"
+      >
+        {{ statusText }}
+      </v-chip>
       <template v-slot:extension>
-        <v-row class="d-flex align-center align-content-center">
-          <v-col cols="4">
-            <v-chip
-              class="text-caption white--text font-weight-bold"
-              :color="statusColor"
-            >
-              {{ statusText }}
-            </v-chip>
-          </v-col>
-          <v-col cols="8" class="d-flex justify-end">
-            <span class="text-caption" v-text="type" />
-            <v-icon right size="24">
-              {{ PROPOSALS.ICONS[type] }}
-            </v-icon>
-          </v-col>
-        </v-row>
+        <v-icon left size="24">
+          {{ PROPOSALS.ICONS[type] }}
+        </v-icon>
+        <span class="text-caption text-truncate" v-text="type" />
       </template>
     </v-toolbar>
     <v-divider />
@@ -45,9 +35,12 @@
         </v-col>
       </v-row>
       <div class="pa-2 text-h6 text-truncate" v-text="item.content.title" />
-      <v-card height="80" outlined>
-        <v-card-text v-text="item.content.description" />
-      </v-card>
+      <div description-card__container>
+        <div
+          class="mx-2 px-2 py-1 text-body-2 description-card__content"
+          v-text="item.content.description"
+        />
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -103,3 +96,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.description-card__container {
+  height: 4.5rem;
+  max-height: 4.5rem;
+  overflow: hidden;
+}
+
+.description-card__content {
+  display: block;
+  border: 1px solid;
+  height: 4.5rem;
+  max-height: 4.5rem;
+  overflow-y: scroll;
+}
+</style>
