@@ -1,16 +1,16 @@
 import { keybase, staking, tendermintRpc } from '@/apis/http';
 import { CONFIG, VALIDATORS } from '@/constants';
-import { bech32Manager, blocksRequestHelper } from '@/utils';
+import { bech32Manager, blocksRequestHelper, regExpBuilder } from '@/utils';
 
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
     commit('reset');
     commit('setLoading', true);
-    const requests = [dispatch('fetchPool')];
+    const requests = [dispatch('fetchPool'), dispatch('fetchValidatorsLogo')];
     await Promise.all(requests);
     commit('setLoading', false);
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
-      requests.push(dispatch('fetchTrackedBlocks', lastHeight));
+      dispatch('fetchTrackedBlocks', lastHeight);
     }
   },
 
@@ -18,6 +18,16 @@ export default {
     try {
       const response = await staking.requestPool();
       commit('setPool', response.data.pool);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async fetchValidatorsLogo({ commit, rootState }) {
+    try {
+      const validators = rootState.application.validators;
+      const validatorsWithLogo = await _setValidatorsLogo(validators);
+      commit('application/setValidators', validatorsWithLogo, { root: true });
     } catch (error) {
       commit('setError', error);
     }
@@ -64,7 +74,7 @@ export default {
     await Promise.all(requests);
     commit('setLoading', false);
     if (process.env.VUE_APP_BLOCKS_MONITOR === 'true') {
-      await dispatch('fetchTrackedBlocks', lastHeight);
+      dispatch('fetchTrackedBlocks', lastHeight);
     }
   },
 
@@ -148,4 +158,33 @@ export default {
   setValidatorsFilter({ commit }, filter) {
     commit('setFilter', filter);
   },
+};
+
+const _setValidatorsLogo = async (validators) => {
+  return Promise.all(
+    validators.map(async (validator) => {
+      const identity = validator.description.identity;
+      const validatorIdentityRegExp =
+        regExpBuilder.getValidatorIdentityRegExp();
+      if (!identity || !validatorIdentityRegExp.test(identity)) {
+        return validator;
+      }
+      let response;
+      try {
+        response = await keybase.requestValidatorLogo(identity);
+      } catch (error) {
+        throw new Error(error);
+      }
+      if (!response.data.them || !response.data.them.length) {
+        return validator;
+      }
+      for (const item of response.data.them) {
+        if ('primary' in item['pictures']) {
+          validator['logo'] = item['pictures']['primary']['url'];
+          break;
+        }
+      }
+      return validator;
+    })
+  );
 };

@@ -42,7 +42,7 @@ export default {
     },
     chartOptions() {
       return proposalChartHelper.getChartOptions({
-        title: this.$t('titles.tally'),
+        title: this.$t('titles.statisticsVotes'),
         darkTheme: this.$vuetify.theme.dark,
       });
     },

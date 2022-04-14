@@ -51,7 +51,7 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.name'), value: 'denom' },
-        { text: this.$t('labels.amount'), value: 'amount' },
+        { text: this.$t('labels.amount'), value: 'amount', width: '60%' },
       ];
     },
     items() {

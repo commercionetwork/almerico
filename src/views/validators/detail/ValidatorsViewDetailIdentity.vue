@@ -5,12 +5,18 @@
   >
     <v-card-text class="d-flex flex-row justify-space-between align-center">
       <v-row class="d-flex align-center">
-        <v-col cols="10">
+        <v-col cols="12" sm="10" order="2" order-sm="1">
           <ValidatorsViewDetailIdentityMoniker
             :is-bookmark="isBookmark"
             @handle-bookmark="onHandleBookmark"
         /></v-col>
-        <v-col cols="2">
+        <v-col
+          cols="12"
+          sm="2"
+          order="1"
+          order-sm="2"
+          class="d-flex justify-center justify-sm-end"
+        >
           <ValidatorsViewDetailIdentityLogo />
         </v-col>
       </v-row>

@@ -39,7 +39,7 @@ export const titles = {
   searchValidator: 'Cerca validatore',
   service: 'Service',
   sharedocDetail: 'Dettagli Sharedoc',
-  tally: 'Computo',
+  statisticsVotes: 'Statistiche voti',
   toggleTheme: 'Cambia tema',
   total: 'Totale',
   transactionDetail: 'Dettagli transazione',

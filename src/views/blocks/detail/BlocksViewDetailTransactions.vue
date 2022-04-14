@@ -67,8 +67,8 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.result'), value: 'result' },
-        { text: this.$t('labels.type'), value: 'type' },
-        { text: this.$t('labels.hash'), value: 'hash' },
+        { text: this.$t('labels.type'), value: 'type', widht: '35%' },
+        { text: this.$t('labels.hash'), value: 'hash', widht: '40%' },
       ];
     },
   },
@@ -80,6 +80,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 12.5rem;
+  max-width: 10rem;
 }
 </style>

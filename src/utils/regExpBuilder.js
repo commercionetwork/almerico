@@ -23,6 +23,10 @@ const regExpBuilder = {
   getTypeRegExp() {
     return new RegExp(/\.[a-z0-9]{1,}$/, 'igm');
   },
+  // Return a regular expression to test a validator identity
+  getValidatorIdentityRegExp() {
+    return new RegExp(/^[0-9a-fA-F]{16}$/, 'igm');
+  },
 };
 
 export default regExpBuilder;
