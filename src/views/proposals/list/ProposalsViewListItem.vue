@@ -4,42 +4,43 @@
       <v-toolbar-title>
         <span v-text="proposalId" />
       </v-toolbar-title>
+      {{ '&nbsp;-&nbsp;' }}
+      <router-link :to="toDetail" :title="$t('labels.detail')">
+        <v-icon size="20">{{ mdiOpenInNew }}</v-icon>
+      </router-link>
       <v-spacer />
-      <v-tooltip top>
-        <template #activator="{ on, attrs }">
-          <v-btn :to="toDetail" icon v-bind="attrs" v-on="on">
-            <v-icon size="20">{{ mdiOpenInNew }}</v-icon>
-          </v-btn>
-        </template>
-        <span v-text="$t('labels.detail')" />
-      </v-tooltip>
+      <v-chip
+        class="ml-1 ml-md-3 text-caption white--text font-weight-bold"
+        :color="statusColor"
+      >
+        {{ statusText }}
+      </v-chip>
       <template v-slot:extension>
-        <v-chip class="white--text font-weight-bold" :color="statusColor">
-          {{ statusText }}
-        </v-chip>
-        <v-spacer />
-        <span class="pl-1 text-caption" v-text="type" />
-        <v-icon right size="24">
+        <v-icon left size="24">
           {{ PROPOSALS.ICONS[type] }}
         </v-icon>
+        <span class="text-caption text-truncate" v-text="type" />
       </template>
     </v-toolbar>
     <v-divider />
     <v-card-text>
-      <div class="text-caption d-flex justify-space-between align-center">
-        <div class="text-center">
+      <v-row>
+        <v-col cols="12" sm="6" class="d-flex flex-column align-sm-center">
           <div class="font-weight-bold" v-text="$t('labels.votingStartTime')" />
           <div v-text="votingStartTime" />
-        </div>
-        <div class="text-center">
+        </v-col>
+        <v-col cols="12" sm="6" class="d-flex flex-column align-sm-center">
           <div class="font-weight-bold" v-text="$t('labels.votingEndTime')" />
           <div v-text="votingEndTime" />
-        </div>
-      </div>
+        </v-col>
+      </v-row>
       <div class="pa-2 text-h6 text-truncate" v-text="item.content.title" />
-      <v-card height="80" outlined>
-        <v-card-text v-text="item.content.description" />
-      </v-card>
+      <div description-card__container>
+        <div
+          class="mx-2 px-2 py-1 text-body-2 description-card__content"
+          v-text="item.content.description"
+        />
+      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -95,3 +96,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.description-card__container {
+  height: 4.5rem;
+  max-height: 4.5rem;
+  overflow: hidden;
+}
+
+.description-card__content {
+  display: block;
+  border: 1px solid;
+  height: 4.5rem;
+  max-height: 4.5rem;
+  overflow-y: scroll;
+}
+</style>
