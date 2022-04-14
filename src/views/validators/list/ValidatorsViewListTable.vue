@@ -32,6 +32,25 @@
             </v-icon>
             <v-icon v-else color="amber darken-2">{{ mdiStarOutline }}</v-icon>
           </v-btn>
+          <v-avatar>
+            <v-img
+              v-if="item.logo"
+              :src="item.logo"
+              max-height="30"
+              max-width="30"
+            >
+              <template v-slot:placeholder>
+                <v-progress-circular
+                  :width="2"
+                  indeterminate
+                  color="grey lighten-1"
+                ></v-progress-circular>
+              </template>
+            </v-img>
+            <v-icon v-else color="grey lighten-1" size="30">
+              {{ mdiCog }}
+            </v-icon>
+          </v-avatar>
           <router-link
             class="text-decoration-none font-weight-bold"
             v-text="item.moniker"
@@ -55,13 +74,14 @@ import validatorsTableAdapter from './helpers/validatorsTableAdapter';
 
 import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
-import { mdiStar, mdiStarOutline } from '@mdi/js';
+import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListTable',
   data() {
     return {
       ROUTES,
+      mdiCog,
       mdiStar,
       mdiStarOutline,
       sortBy: 'rank',
@@ -105,16 +125,29 @@ export default {
     headers() {
       let headers = [
         { text: this.$t('labels.rank'), value: 'rank' },
-        { text: this.$t('labels.validator'), value: 'moniker' },
-        { text: this.$t('labels.tokens'), value: 'tokens' },
-        { text: this.$t('labels.commission'), value: 'commission' },
-        { text: this.$t('labels.votingPower'), value: 'votingPower' },
-        { text: this.$t('labels.cumulative'), value: 'cumulative' },
+        { text: this.$t('labels.validator'), value: 'moniker', width: '35%' },
+        { text: this.$t('labels.tokens'), value: 'tokens', width: '20%' },
+        {
+          text: this.$t('labels.commission'),
+          value: 'commission',
+          width: '10%',
+        },
+        {
+          text: this.$t('labels.votingPower'),
+          value: 'votingPower',
+          width: '10%',
+        },
+        {
+          text: this.$t('labels.cumulative'),
+          value: 'cumulative',
+          width: '10%',
+        },
       ];
       if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
         headers.push({
           text: this.$t('labels.blocksPercentage'),
           value: 'attendance',
+          width: '10%',
         });
       }
       return headers;

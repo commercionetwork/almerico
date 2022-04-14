@@ -51,7 +51,7 @@ export default {
     headers() {
       return [
         { text: this.$t('labels.caption'), value: 'caption' },
-        { text: this.$t('labels.amount'), value: 'amount' },
+        { text: this.$t('labels.amount'), value: 'amount', widht: '60%' },
       ];
     },
     items() {
