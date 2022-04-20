@@ -100,15 +100,15 @@ export default {
         : '-';
     },
     address() {
-      return this.message.address || '-';
+      return this.message.validator_address || '-';
     },
     commissionRate() {
-      return this.message.commission && this.message.commission.rate
+      return this.message.commission_rate
         ? new Intl.NumberFormat(undefined, {
             style: 'percent',
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,
-          }).format(this.message.commission.rate)
+          }).format(this.message.commission_rate)
         : '-';
     },
     minSelfDelegation() {
