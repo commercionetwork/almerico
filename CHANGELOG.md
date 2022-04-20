@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix `MsgEditValidator` transaction component
 
+### Changed
+
+- Improve `MsgCreateValidator` transaction component
+
 ## [3.1.3] - 2022-04-14
 
 ### Added
