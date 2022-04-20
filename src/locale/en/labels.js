@@ -72,6 +72,7 @@ export const labels = {
   identity: 'Identity',
   inactive: 'Inactive',
   instantiatePermission: 'Instantiate permission',
+  key: 'Key',
   keyAgreement: 'Key agreement',
   label: 'Label',
   lang: 'Lang',
