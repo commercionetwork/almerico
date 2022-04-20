@@ -76,7 +76,16 @@
         :content="amount"
         class="text-uppercase"
       />
-      <BaseDetailItem :label="$t('labels.publicKey')" :content="pubkey" />
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title
+            class="text-capitalize font-weight-bold"
+            v-text="$t('labels.publicKey')"
+          />
+          <BaseDetailItem :label="$t('labels.type')" :content="pubkeyType" />
+          <BaseDetailItem :label="$t('labels.key')" :content="pubkeyKey" />
+        </v-list-item-content>
+      </v-list-item>
     </div>
   </BaseTransactionMessage>
 </template>
@@ -182,8 +191,15 @@ export default {
         denom: this.message.value.denom,
       });
     },
-    pubkey() {
-      return this.message.pubkey ? this.message.pubkey : '-';
+    pubkeyType() {
+      return this.message.pubkey && this.message.pubkey['@type']
+        ? this.message.pubkey['@type']
+        : '-';
+    },
+    pubkeyKey() {
+      return this.message.pubkey && this.message.pubkey.key
+        ? this.message.pubkey.key
+        : '-';
     },
   },
 };
