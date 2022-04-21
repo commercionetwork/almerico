@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view />
+    <transition name="route">
+      <router-view />
+    </transition>
   </div>
 </template>
 
