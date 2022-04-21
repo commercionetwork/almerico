@@ -1,4 +1,4 @@
-FROM node:lts
+FROM node:16
 
 # Read the set variables
 ARG ANCESTORS_LIST
