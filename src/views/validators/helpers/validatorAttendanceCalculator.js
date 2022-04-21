@@ -18,7 +18,11 @@ const validatorAttendanceCalculator = {
     const trackedBlocks = _restrictBlocks(blocks, limit);
     let definedBlocks;
     try {
-      definedBlocks = _checkBlocks(validator, trackedBlocks);
+      definedBlocks = _allocateBlocks({
+        blocks: trackedBlocks,
+        validator: validator,
+        isList: true,
+      });
     } catch (error) {
       definedBlocks = [];
     }
@@ -40,7 +44,11 @@ const validatorAttendanceCalculator = {
     const trackedBlocks = _restrictBlocks(blocks, limit);
     let definedBlocks;
     try {
-      definedBlocks = _checkDetailBlocks(validator, trackedBlocks);
+      definedBlocks = _allocateBlocks({
+        blocks: trackedBlocks,
+        validator: validator,
+        isList: false,
+      });
     } catch (error) {
       definedBlocks = [];
     }
@@ -48,11 +56,11 @@ const validatorAttendanceCalculator = {
   },
   /**
    *
-   * @param {Array.<Object>} definedBlocks
+   * @param {Array.<Object>} allocatedBlocks
    * @returns {Number}
    */
-  getAttendanceCount(definedBlocks) {
-    return definedBlocks.filter((it) => it.status > 0).length;
+  getAttendanceCount(allocatedBlocks) {
+    return allocatedBlocks.filter((it) => it.status > 0).length;
   },
   /**
    *
@@ -72,45 +80,34 @@ const _restrictBlocks = (blocks, limit) => {
   return take(sortedBlocks, limit);
 };
 
-const _checkBlocks = (validator, blocks) => {
+const _allocateBlocks = ({ blocks, validator, isList }) => {
   return blocks.map((it) => {
-    const address = _decodeAddress(validator, it.validators);
-    if (!address) throw new Exception('Address not found', 404);
+    const validators = it.validators;
+    const hexAddress = _getHexAddress({ validator, validators, isList });
+    if (!hexAddress) throw new Exception('Address not found', 404);
     const index = it.block.last_commit.signatures.findIndex(
       (signature) =>
-        signature.validator_address.toUpperCase() === address.toUpperCase()
+        signature.validator_address.toUpperCase() === hexAddress.toUpperCase()
     );
     const data = new VerifiedData({ block: it.block, index });
     return data.result;
   });
 };
 
-const _decodeAddress = (validator, validators) => {
+const _getHexAddress = ({ validator, validators, isList }) => {
+  const key = isList ? 'key' : 'value';
   const index = validators.findIndex(
-    (val) => val.pub_key.value === validator.consensus_pubkey.key
+    (val) => val.pub_key.value === validator.consensus_pubkey[key]
   );
   return index > -1 ? bech32Manager.decode(validators[index].address) : null;
 };
 
-const _checkDetailBlocks = (validator, blocks) => {
-  return blocks.map((it) => {
-    const address = _decodeDetailAddress(validator, it.validators);
-    if (!address) throw new Exception('Address not found', 404);
-    const index = it.block.last_commit.signatures.findIndex(
-      (signature) =>
-        signature.validator_address.toUpperCase() === address.toUpperCase()
-    );
-    const data = new VerifiedData({ block: it.block, index });
-    return data.result;
-  });
-};
-
-const _decodeDetailAddress = (validator, validators) => {
-  const index = validators.findIndex(
-    (val) => val.pub_key.value === validator.consensus_pubkey.value
-  );
-  return index > -1 ? bech32Manager.decode(validators[index].address) : null;
-};
+const _calculatePercentage = (amount, limit) =>
+  new Intl.NumberFormat(undefined, {
+    style: 'percent',
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(amount / limit);
 
 class VerifiedData {
   constructor({ block, index }) {
@@ -130,10 +127,3 @@ function Exception(message, code) {
   this.message = message;
   this.code = code;
 }
-
-const _calculatePercentage = (amount, limit) =>
-  new Intl.NumberFormat(undefined, {
-    style: 'percent',
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  }).format(amount / limit);
