@@ -70,9 +70,9 @@
 
 <script>
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
-import validatorsTableAdapter from './helpers/validatorsTableAdapter';
+import validatorsListHelper from './helpers/validatorsListHelper';
 
-import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
+import { ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
 import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
 
@@ -86,6 +86,7 @@ export default {
       mdiStarOutline,
       sortBy: 'rank',
       bookmarks: [],
+      items: [],
     };
   },
   computed: {
@@ -110,17 +111,6 @@ export default {
         default:
           return this.$t('titles.validatorsList');
       }
-    },
-    items() {
-      return validatorsTableAdapter.build({
-        validators: this.validators,
-        accountPrefix: CONFIG.PREFIXES.ACCOUNT.ADDRESS,
-        blocks: this.blocks,
-        coin: this.bondDenom,
-        pool: this.pool,
-        bookmarks: this.bookmarks,
-        filter: this.filter,
-      });
     },
     headers() {
       let headers = [
@@ -155,6 +145,12 @@ export default {
   },
   created() {
     this.bookmarks = validatorsStorageHandler.get();
+    this.items = validatorsListHelper.build({
+      validators: this.validators,
+      bookmarks: this.bookmarks,
+      params: this.stakingParams,
+      filter: this.filter,
+    });
   },
   methods: {
     filterValidators(_value, search, item) {
