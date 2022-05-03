@@ -61,7 +61,10 @@
           />
         </template>
         <template #[`item.tokens`]="{ item }">
-          <span class="text-uppercase" v-text="item.tokens" />
+          <span class="text-uppercase" v-text="formatTokens(item.tokens)" />
+        </template>
+        <template #[`item.commission`]="{ item }">
+          <span v-text="getPercentage(item.commission)" />
         </template>
       </v-data-table>
     </v-col>
@@ -72,6 +75,7 @@
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import validatorsListHelper from './helpers/validatorsListHelper';
 
+import { coinAdapter } from '@/utils';
 import { ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
 import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
@@ -97,9 +101,6 @@ export default {
       'filter',
       'pool',
     ]),
-    bondDenom() {
-      return this.stakingParams.bond_denom ? this.stakingParams.bond_denom : '';
-    },
     caption() {
       switch (this.filter.status) {
         case VALIDATORS.FILTER.ACTIVE:
@@ -113,44 +114,16 @@ export default {
       }
     },
     headers() {
-      let headers = [
-        { text: this.$t('labels.rank'), value: 'rank' },
-        { text: this.$t('labels.validator'), value: 'moniker', width: '35%' },
-        { text: this.$t('labels.tokens'), value: 'tokens', width: '20%' },
-        {
-          text: this.$t('labels.commission'),
-          value: 'commission',
-          width: '10%',
-        },
-        {
-          text: this.$t('labels.votingPower'),
-          value: 'votingPower',
-          width: '10%',
-        },
-        {
-          text: this.$t('labels.cumulative'),
-          value: 'cumulative',
-          width: '10%',
-        },
-      ];
-      if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
-        headers.push({
-          text: this.$t('labels.blocksPercentage'),
-          value: 'attendance',
-          width: '10%',
-        });
-      }
-      return headers;
+      return validatorsListHelper.getHeaders(this.$t, this);
+    },
+  },
+  watch: {
+    filter() {
+      this.setValidators();
     },
   },
   created() {
-    this.bookmarks = validatorsStorageHandler.get();
-    this.items = validatorsListHelper.build({
-      validators: this.validators,
-      bookmarks: this.bookmarks,
-      params: this.stakingParams,
-      filter: this.filter,
-    });
+    this.setValidators();
   },
   methods: {
     filterValidators(_value, search, item) {
@@ -167,13 +140,34 @@ export default {
       }
       return found;
     },
+    setValidators() {
+      this.bookmarks = validatorsStorageHandler.get();
+      this.items = validatorsListHelper.getItems({
+        validators: this.validators,
+        bookmarks: this.bookmarks,
+        filter: this.filter,
+      });
+    },
     handleBookmark(address, status) {
       if (status) {
         validatorsStorageHandler.remove(address);
       } else {
         validatorsStorageHandler.set(address);
       }
-      this.bookmarks = validatorsStorageHandler.get();
+      this.setValidators();
+    },
+    formatTokens(tokens) {
+      return coinAdapter.format({
+        amount: parseInt(tokens),
+        denom: this.stakingParams.bond_denom,
+      });
+    },
+    getPercentage(amount) {
+      return new Intl.NumberFormat(undefined, {
+        style: 'percent',
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }).format(amount);
     },
   },
 };

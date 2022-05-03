@@ -3,13 +3,40 @@ import { orderBy } from 'lodash';
 import Validator from './validatorSchema';
 
 const validatorsListHelper = {
-  build({ validators, bookmarks, params, filter }) {
+  getHeaders(translator, context) {
+    const $t = translator.bind(context);
+    let headers = [
+      { text: $t('labels.rank'), value: 'rank' },
+      { text: $t('labels.validator'), value: 'moniker', width: '35%' },
+      { text: $t('labels.tokens'), value: 'tokens', width: '20%' },
+      {
+        text: $t('labels.commission'),
+        value: 'commission',
+        width: '10%',
+      },
+      {
+        text: $t('labels.votingPower'),
+        value: 'votingPower',
+        width: '10%',
+      },
+      {
+        text: $t('labels.cumulative'),
+        value: 'cumulative',
+        width: '10%',
+      },
+    ];
+    if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
+      headers.push({
+        text: $t('labels.blocksPercentage'),
+        value: 'attendance',
+        width: '10%',
+      });
+    }
+    return headers;
+  },
+  getItems({ validators, bookmarks, filter }) {
     const sortedValidators = _sortValidators(validators);
-    const processedValidators = _processValidators(
-      sortedValidators,
-      bookmarks,
-      params
-    );
+    const processedValidators = _processValidators(sortedValidators, bookmarks);
     return _filterValidators(processedValidators, filter.status);
   },
 };
@@ -39,11 +66,10 @@ const _sortValidators = (validators) => {
   return bondedSorted.concat(unbondedSorted);
 };
 
-const _processValidators = (validators, bookmarks, params) => {
-  const coin = params.bond_denom || '';
+const _processValidators = (validators, bookmarks) => {
   let rank = 1;
   return validators.map((it) => {
-    const validator = new Validator(rank, it, bookmarks, coin);
+    const validator = new Validator(rank, it, bookmarks);
     ++rank;
     return validator.item;
   });
