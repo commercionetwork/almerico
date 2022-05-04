@@ -61,10 +61,19 @@
           />
         </template>
         <template #[`item.tokens`]="{ item }">
-          <span class="text-uppercase" v-text="formatTokens(item.tokens)" />
+          <span class="text-uppercase" v-text="formatAsTokens(item.tokens)" />
         </template>
         <template #[`item.commission`]="{ item }">
-          <span v-text="getPercentage(item.commission)" />
+          <span v-text="formatAsPercentage(item.commission)" />
+        </template>
+        <template #[`item.votingPower`]="{ item }">
+          <span v-text="formatAsPercentage(item.votingPower)" />
+        </template>
+        <template #[`item.cumulative`]="{ item }">
+          <span v-text="formatAsPercentage(item.cumulative)" />
+        </template>
+        <template #[`item.attendance`]="{ item }">
+          <span v-text="formatAsPercentage(item.attendance)" />
         </template>
       </v-data-table>
     </v-col>
@@ -73,10 +82,10 @@
 
 <script>
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
-import validatorsListHelper from './helpers/validatorsListHelper';
+import validatorsTableHelper from './helpers/validatorsTableHelper';
 
-import { coinAdapter } from '@/utils';
 import { ROUTES, VALIDATORS } from '@/constants';
+import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
 
@@ -90,7 +99,6 @@ export default {
       mdiStarOutline,
       sortBy: 'rank',
       bookmarks: [],
-      items: [],
     };
   },
   computed: {
@@ -114,16 +122,21 @@ export default {
       }
     },
     headers() {
-      return validatorsListHelper.getHeaders(this.$t, this);
+      return validatorsTableHelper.getHeaders(this.$t, this);
     },
-  },
-  watch: {
-    filter() {
-      this.setValidators();
+    items() {
+      return validatorsTableHelper.getItems({
+        validators: this.validators,
+        pool: this.pool,
+        bookmarks: this.bookmarks,
+        filter: this.filter,
+        blocks: this.blocks,
+        isLoading: this.isLoadingBlocks,
+      });
     },
   },
   created() {
-    this.setValidators();
+    this.bookmarks = validatorsStorageHandler.get();
   },
   methods: {
     filterValidators(_value, search, item) {
@@ -140,12 +153,18 @@ export default {
       }
       return found;
     },
-    setValidators() {
-      this.bookmarks = validatorsStorageHandler.get();
-      this.items = validatorsListHelper.getItems({
-        validators: this.validators,
-        bookmarks: this.bookmarks,
-        filter: this.filter,
+    formatAsPercentage(amount) {
+      if (!amount) return '-';
+      return new Intl.NumberFormat(undefined, {
+        style: 'percent',
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }).format(amount);
+    },
+    formatAsTokens(tokens) {
+      return coinAdapter.format({
+        amount: parseInt(tokens),
+        denom: this.stakingParams.bond_denom,
       });
     },
     handleBookmark(address, status) {
@@ -154,20 +173,7 @@ export default {
       } else {
         validatorsStorageHandler.set(address);
       }
-      this.setValidators();
-    },
-    formatTokens(tokens) {
-      return coinAdapter.format({
-        amount: parseInt(tokens),
-        denom: this.stakingParams.bond_denom,
-      });
-    },
-    getPercentage(amount) {
-      return new Intl.NumberFormat(undefined, {
-        style: 'percent',
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2,
-      }).format(amount);
+      this.bookmarks = validatorsStorageHandler.get();
     },
   },
 };

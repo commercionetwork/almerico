@@ -1,7 +1,7 @@
 import { VALIDATORS } from '@/constants';
-import { mockPool, mockValidators } from '@/__mocks__';
+import { mockBlocks, mockPool, mockValidators } from '@/__mocks__';
 import validatorsChartHelper from '../validatorsChartHelper';
-import validatorsTableAdapter from '../validatorsTableAdapter';
+import validatorsTableHelper from '../validatorsTableHelper';
 
 describe('views/validators/list/helpers', () => {
   test('if "validatorsChartHelper.getChartData" method return expected object', () => {
@@ -19,38 +19,36 @@ describe('views/validators/list/helpers', () => {
     expect(data.datasets[0]).toHaveProperty('borderColor');
   });
 
-  test('if "validatorsTableAdapter.build" method return an array of wanted validators', () => {
+  test('if "validatorsTableHelper.getItems" method return an array of wanted validators', () => {
     const items = 5;
     const validators = mockValidators(items);
-    const blocks = [];
-    const coin = 'uccc';
     const pool = mockPool();
-    const accountPrefix = 'did:com:';
     const bookmarks = ['address'];
+    const blocks = mockBlocks();
+    const isLoading = false;
     const filter = { status: VALIDATORS.FILTER.ACTIVE, query: '' };
-    const validatorsRows = validatorsTableAdapter.build({
+    const validatorsRows = validatorsTableHelper.getItems({
       validators,
-      accountPrefix,
-      blocks,
-      coin,
       pool,
       bookmarks,
+      blocks,
+      isLoading,
       filter,
     });
 
     const expectedKeys = [
-      'rank',
       'active',
-      'moniker',
+      'rank',
+      'bookmark',
       'logo',
+      'moniker',
       'operator',
-      'account',
       'tokens',
       'commission',
+      'account',
       'votingPower',
       'cumulative',
       'attendance',
-      'bookmark',
     ];
 
     expect(validatorsRows.length).toBe(items);

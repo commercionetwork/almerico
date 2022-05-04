@@ -1,8 +1,8 @@
 import { VALIDATORS } from '@/constants';
 import { orderBy } from 'lodash';
-import Validator from './validatorSchema';
+import validatorBuilder from './validatorBuilder';
 
-const validatorsListHelper = {
+const validatorsTableHelper = {
   getHeaders(translator, context) {
     const $t = translator.bind(context);
     let headers = [
@@ -34,14 +34,20 @@ const validatorsListHelper = {
     }
     return headers;
   },
-  getItems({ validators, bookmarks, filter }) {
+  getItems({ validators, pool, bookmarks, blocks, isLoading, filter }) {
     const sortedValidators = _sortValidators(validators);
-    const processedValidators = _processValidators(sortedValidators, bookmarks);
+    const processedValidators = _processValidators({
+      validators: sortedValidators,
+      pool,
+      bookmarks,
+      blocks,
+      isLoading,
+    });
     return _filterValidators(processedValidators, filter.status);
   },
 };
 
-export default validatorsListHelper;
+export default validatorsTableHelper;
 
 const _sortValidators = (validators) => {
   const bondedValidators = [];
@@ -66,12 +72,28 @@ const _sortValidators = (validators) => {
   return bondedSorted.concat(unbondedSorted);
 };
 
-const _processValidators = (validators, bookmarks) => {
+const _processValidators = ({
+  validators,
+  pool,
+  bookmarks,
+  blocks,
+  isLoading,
+}) => {
   let rank = 1;
+  let cumulative = 0;
   return validators.map((it) => {
-    const validator = new Validator(rank, it, bookmarks);
+    const validator = validatorBuilder.build({
+      rank,
+      cumulative,
+      data: it,
+      pool,
+      bookmarks,
+      blocks,
+      isLoading,
+    });
     ++rank;
-    return validator.item;
+    cumulative = validator.cumulative;
+    return validator;
   });
 };
 
