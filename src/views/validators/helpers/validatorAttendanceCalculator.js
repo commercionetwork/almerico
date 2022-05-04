@@ -62,15 +62,6 @@ const validatorAttendanceCalculator = {
   getAttendanceCount(allocatedBlocks) {
     return allocatedBlocks.filter((it) => it.status > 0).length;
   },
-  /**
-   *
-   * @param {Number} count
-   * @param {Number} limit
-   * @returns {String}
-   */
-  getAttendancePercentage(count, limit) {
-    return _calculatePercentage(count, limit);
-  },
 };
 
 export default validatorAttendanceCalculator;
@@ -83,14 +74,19 @@ const _restrictBlocks = (blocks, limit) => {
 const _allocateBlocks = ({ blocks, validator, isList }) => {
   return blocks.map((it) => {
     const validators = it.validators;
-    const hexAddress = _getHexAddress({ validator, validators, isList });
-    if (!hexAddress) throw new Exception('Address not found', 404);
-    const index = it.block.last_commit.signatures.findIndex(
-      (signature) =>
-        signature.validator_address.toUpperCase() === hexAddress.toUpperCase()
-    );
-    const data = new VerifiedData({ block: it.block, index });
-    return data.result;
+    const block = {};
+    try {
+      const hexAddress = _getHexAddress({ validator, validators, isList });
+      const index = it.block.last_commit.signatures.findIndex(
+        (signature) =>
+          signature.validator_address.toUpperCase() === hexAddress.toUpperCase()
+      );
+      block.height = it.block.header.height;
+      block.status = index > -1 ? 1 : 0;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+    return block;
   });
 };
 
@@ -99,31 +95,8 @@ const _getHexAddress = ({ validator, validators, isList }) => {
   const index = validators.findIndex(
     (val) => val.pub_key.value === validator.consensus_pubkey[key]
   );
-  return index > -1 ? bech32Manager.decode(validators[index].address) : null;
+  if (index < 0) {
+    throw new Error('Address not found');
+  }
+  return bech32Manager.decode(validators[index].address);
 };
-
-const _calculatePercentage = (amount, limit) =>
-  new Intl.NumberFormat(undefined, {
-    style: 'percent',
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 2,
-  }).format(amount / limit);
-
-class VerifiedData {
-  constructor({ block, index }) {
-    this.block = block;
-    this.index = index;
-  }
-
-  get result() {
-    return {
-      height: this.block.header.height,
-      status: this.index > -1 ? 1 : 0,
-    };
-  }
-}
-
-function Exception(message, code) {
-  this.message = message;
-  this.code = code;
-}
