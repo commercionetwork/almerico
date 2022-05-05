@@ -8,9 +8,6 @@
         <v-list-item-title class="text-capitalize" v-text="$t('labels.plan')" />
         <v-list dense>
           <v-list-item>
-            <BaseDetailItem :label="$t('labels.name')" :content="planName" />
-          </v-list-item>
-          <v-list-item>
             <BaseDetailItem :label="$t('labels.time')" :content="planTime" />
           </v-list-item>
           <v-list-item>
@@ -18,6 +15,9 @@
               :label="$t('labels.height')"
               :content="planHeight"
             />
+          </v-list-item>
+          <v-list-item>
+            <BaseDetailItem :label="$t('labels.name')" :content="planName" />
           </v-list-item>
           <v-list-item>
             <BaseDetailItem :label="$t('labels.info')" :content="planInfo" />

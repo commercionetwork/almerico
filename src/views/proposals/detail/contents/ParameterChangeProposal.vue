@@ -11,13 +11,13 @@
         />
         <v-list dense v-for="(change, index) in changes" :key="index">
           <v-list-item>
+            <BaseDetailItem :label="$t('labels.key')" :content="change.key" />
+          </v-list-item>
+          <v-list-item>
             <BaseDetailItem
               :label="$t('labels.subspace')"
               :content="change.subspace"
             />
-          </v-list-item>
-          <v-list-item>
-            <BaseDetailItem :label="$t('labels.key')" :content="change.key" />
           </v-list-item>
           <v-list-item>
             <BaseDetailItem
