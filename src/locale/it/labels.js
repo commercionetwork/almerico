@@ -145,6 +145,7 @@ export const labels = {
   storageUri: 'URI archivio',
   submitTime: 'Orario presentazione',
   subscriber: 'Sottoscrittore',
+  subspace: 'Sottospazio',
   subtotal: 'Subtotale',
   success: 'Successo',
   time: 'Orario',

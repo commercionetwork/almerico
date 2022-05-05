@@ -145,6 +145,7 @@ export const labels = {
   storageUri: 'Storage uri',
   submitTime: 'Submit time',
   subscriber: 'Subscriber',
+  subspace: 'Subspace',
   subtotal: 'Subtotal',
   success: 'Success',
   time: 'Time',
