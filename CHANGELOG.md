@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.5] - 2022-04
 
+### Added
+
+- Add support for many types of proposals
+
 ### Changed
 
-- Update ...
+- Update proposals chart
 
 ## [3.1.4] - 2022-04-20
 

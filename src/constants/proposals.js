@@ -32,19 +32,31 @@ const TEXTS = {
 };
 
 const TYPES = {
-  CANCEL_SOFTWARE_UPGRADE: 'CancelSoftwareUpgradeProposal',
-  COMMUNITY_POOL_SPEND: 'CommunityPoolSpendProposal',
-  PARAMETER_CHANGE: 'ParameterChangeProposal',
-  SOFTWARE_UPGRADE: 'SoftwareUpgradeProposal',
-  TEXT: 'TextProposal',
+  CANCEL_SOFTWARE_UPGRADE: {
+    id: 'CancelSoftwareUpgradeProposal',
+    value: '/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal',
+  },
+  COMMUNITY_POOL_SPEND: {
+    id: 'CommunityPoolSpendProposal',
+    value: '/cosmos.distribution.v1beta1.CommunityPoolSpendProposal',
+  },
+  PARAMETER_CHANGE: {
+    id: 'ParameterChangeProposal',
+    value: '/cosmos.params.v1beta1.ParameterChangeProposal',
+  },
+  SOFTWARE_UPGRADE: {
+    id: 'SoftwareUpgradeProposal',
+    value: '/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal',
+  },
+  TEXT: { id: 'TextProposal', value: '/cosmos.gov.v1beta1.TextProposal' },
 };
 
 const ICONS = {
-  [TYPES.CANCEL_SOFTWARE_UPGRADE]: mdiCogOffOutline,
-  [TYPES.COMMUNITY_POOL_SPEND]: mdiCurrencyUsd,
-  [TYPES.PARAMETER_CHANGE]: mdiTune,
-  [TYPES.SOFTWARE_UPGRADE]: mdiCogOutline,
-  [TYPES.TEXT]: mdiTextBoxOutline,
+  [TYPES.CANCEL_SOFTWARE_UPGRADE['id']]: mdiCogOffOutline,
+  [TYPES.COMMUNITY_POOL_SPEND['id']]: mdiCurrencyUsd,
+  [TYPES.PARAMETER_CHANGE['id']]: mdiTune,
+  [TYPES.SOFTWARE_UPGRADE['id']]: mdiCogOutline,
+  [TYPES.TEXT['id']]: mdiTextBoxOutline,
 };
 
 export const PROPOSALS = {
