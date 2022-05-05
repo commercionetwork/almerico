@@ -13,7 +13,10 @@
             <div class="text-subtitle-1 font-italic" v-text="type" />
           </v-col>
           <v-col cols="12" md="3" xl="2" class="d-flex justify-md-end">
-            <v-chip class="white--text font-weight-bold" :color="statusColor">
+            <v-chip
+              class="text-caption white--text font-weight-bold"
+              :color="statusColor"
+            >
               {{ statusText }}
             </v-chip>
           </v-col>
