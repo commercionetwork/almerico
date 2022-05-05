@@ -39,6 +39,29 @@ const TYPES = {
   TEXT: 'TextProposal',
 };
 
+const SUPPORTED_TYPES = [
+  {
+    name: TYPES.CANCEL_SOFTWARE_UPGRADE,
+    text: '/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal',
+  },
+  {
+    name: TYPES.COMMUNITY_POOL_SPEND,
+    text: '/cosmos.distribution.v1beta1.CommunityPoolSpendProposal',
+  },
+  {
+    name: TYPES.PARAMETER_CHANGE,
+    text: '/cosmos.params.v1beta1.ParameterChangeProposal',
+  },
+  {
+    name: TYPES.SOFTWARE_UPGRADE,
+    text: '/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal',
+  },
+  {
+    name: TYPES.TEXT,
+    text: '/cosmos.gov.v1beta1.TextProposal',
+  },
+];
+
 const ICONS = {
   [TYPES.CANCEL_SOFTWARE_UPGRADE]: mdiCogOffOutline,
   [TYPES.COMMUNITY_POOL_SPEND]: mdiCurrencyUsd,
@@ -51,6 +74,7 @@ export const PROPOSALS = {
   COLORS,
   ICONS,
   STATUS,
+  SUPPORTED_TYPES,
   TEXTS,
   TYPES,
 };

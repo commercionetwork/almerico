@@ -61,7 +61,19 @@
           />
         </template>
         <template #[`item.tokens`]="{ item }">
-          <span class="text-uppercase" v-text="item.tokens" />
+          <span class="text-uppercase" v-text="formatAsTokens(item.tokens)" />
+        </template>
+        <template #[`item.commission`]="{ item }">
+          <span v-text="formatAsPercentage(item.commission)" />
+        </template>
+        <template #[`item.votingPower`]="{ item }">
+          <span v-text="formatAsPercentage(item.votingPower)" />
+        </template>
+        <template #[`item.cumulative`]="{ item }">
+          <span v-text="formatAsPercentage(item.cumulative)" />
+        </template>
+        <template #[`item.attendance`]="{ item }">
+          <span v-text="formatAsPercentage(item.attendance)" />
         </template>
       </v-data-table>
     </v-col>
@@ -70,9 +82,10 @@
 
 <script>
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
-import validatorsTableAdapter from './helpers/validatorsTableAdapter';
+import validatorsTableHelper from './helpers/validatorsTableHelper';
 
-import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
+import { ROUTES, VALIDATORS } from '@/constants';
+import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
 
@@ -96,9 +109,6 @@ export default {
       'filter',
       'pool',
     ]),
-    bondDenom() {
-      return this.stakingParams.bond_denom ? this.stakingParams.bond_denom : '';
-    },
     caption() {
       switch (this.filter.status) {
         case VALIDATORS.FILTER.ACTIVE:
@@ -111,46 +121,18 @@ export default {
           return this.$t('titles.validatorsList');
       }
     },
+    headers() {
+      return validatorsTableHelper.getHeaders(this.$t, this);
+    },
     items() {
-      return validatorsTableAdapter.build({
+      return validatorsTableHelper.getItems({
         validators: this.validators,
-        accountPrefix: CONFIG.PREFIXES.ACCOUNT.ADDRESS,
-        blocks: this.blocks,
-        coin: this.bondDenom,
         pool: this.pool,
         bookmarks: this.bookmarks,
         filter: this.filter,
+        blocks: this.blocks,
+        isLoading: this.isLoadingBlocks,
       });
-    },
-    headers() {
-      let headers = [
-        { text: this.$t('labels.rank'), value: 'rank' },
-        { text: this.$t('labels.validator'), value: 'moniker', width: '35%' },
-        { text: this.$t('labels.tokens'), value: 'tokens', width: '20%' },
-        {
-          text: this.$t('labels.commission'),
-          value: 'commission',
-          width: '10%',
-        },
-        {
-          text: this.$t('labels.votingPower'),
-          value: 'votingPower',
-          width: '10%',
-        },
-        {
-          text: this.$t('labels.cumulative'),
-          value: 'cumulative',
-          width: '10%',
-        },
-      ];
-      if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
-        headers.push({
-          text: this.$t('labels.blocksPercentage'),
-          value: 'attendance',
-          width: '10%',
-        });
-      }
-      return headers;
     },
   },
   created() {
@@ -170,6 +152,20 @@ export default {
         }
       }
       return found;
+    },
+    formatAsPercentage(amount) {
+      if (!amount) return '-';
+      return new Intl.NumberFormat(undefined, {
+        style: 'percent',
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+      }).format(amount);
+    },
+    formatAsTokens(tokens) {
+      return coinAdapter.format({
+        amount: parseInt(tokens),
+        denom: this.stakingParams.bond_denom,
+      });
     },
     handleBookmark(address, status) {
       if (status) {

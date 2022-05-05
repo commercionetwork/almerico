@@ -13,23 +13,28 @@ const BORDER_COLOR = [
 
 const proposalChartHelper = {
   getChartData({ data, labels }) {
-    return data
-      ? {
-          labels: [
-            `${labels.yes}: ${data.yes}`,
-            `${labels.abstain}: ${data.abstain}`,
-            `${labels.no}: ${data.no}`,
-            `${labels.noWithVeto}: ${data.no_with_veto}`,
+    if (!data) return null;
+    const processed = _processData(data);
+    return {
+      labels: [
+        `${labels.yes}: ${_formatPercent(processed.yes)}`,
+        `${labels.abstain}: ${_formatPercent(processed.abstain)}`,
+        `${labels.no}: ${_formatPercent(processed.no)}`,
+        `${labels.noWithVeto}: ${_formatPercent(processed.no_with_veto)}`,
+      ],
+      datasets: [
+        {
+          data: [
+            processed.yes,
+            processed.abstain,
+            processed.no,
+            processed.no_with_veto,
           ],
-          datasets: [
-            {
-              data: [data.yes, data.abstain, data.no, data.no_with_veto],
-              backgroundColor: BACKGROUND_COLOR,
-              borderColor: BORDER_COLOR,
-            },
-          ],
-        }
-      : null;
+          backgroundColor: BACKGROUND_COLOR,
+          borderColor: BORDER_COLOR,
+        },
+      ],
+    };
   },
   getChartOptions({ title, darkTheme }) {
     return {
@@ -65,3 +70,39 @@ const proposalChartHelper = {
 };
 
 export default proposalChartHelper;
+
+const _processData = (data) => {
+  const item = _convertToNumber(data);
+  const total = _calcTotal(item);
+  return _calcPercent(item, total);
+};
+
+const _convertToNumber = (data) => {
+  const item = { ...data };
+  for (const k in item) {
+    item[k] *= 1;
+  }
+  return item;
+};
+
+const _calcTotal = (data) => {
+  let tot = 0;
+  for (const k in data) {
+    tot += data[k];
+  }
+  return tot;
+};
+
+const _calcPercent = (data, total) => {
+  for (const k in data) {
+    data[k] = data[k] / total;
+  }
+  return data;
+};
+
+const _formatPercent = (amount) =>
+  new Intl.NumberFormat(undefined, {
+    style: 'percent',
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  }).format(amount);

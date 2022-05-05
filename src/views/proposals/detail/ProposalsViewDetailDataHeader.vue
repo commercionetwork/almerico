@@ -3,7 +3,7 @@
     <v-list-item-content>
       <v-list-item-title class="pb-1 font-weight-bold">
         <v-row>
-          <v-col cols="12" md="9" xl="10">
+          <v-col cols="12" md="8" xl="10">
             <div class="text-wrap text-h6 font-weight-bold">
               <span>#</span>
               <span v-text="id" />
@@ -12,8 +12,11 @@
             </div>
             <div class="text-subtitle-1 font-italic" v-text="type" />
           </v-col>
-          <v-col cols="12" md="3" xl="2" class="d-flex justify-md-end">
-            <v-chip class="white--text font-weight-bold" :color="statusColor">
+          <v-col cols="12" md="4" xl="2" class="d-flex justify-md-end">
+            <v-chip
+              class="text-caption white--text font-weight-bold"
+              :color="statusColor"
+            >
               {{ statusText }}
             </v-chip>
           </v-col>

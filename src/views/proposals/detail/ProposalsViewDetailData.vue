@@ -4,20 +4,23 @@
       <v-list>
         <ProposalsViewDetailDataHeader />
         <v-divider />
-        <ProposalsViewDetailDataBody />
+        <ProposalsViewDetailDataCommon />
+        <ProposalsViewDetailDataContent />
       </v-list>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import ProposalsViewDetailDataBody from './ProposalsViewDetailDataBody.vue';
+import ProposalsViewDetailDataCommon from './ProposalsViewDetailDataCommon.vue';
+import ProposalsViewDetailDataContent from './ProposalsViewDetailDataContent.vue';
 import ProposalsViewDetailDataHeader from './ProposalsViewDetailDataHeader.vue';
 
 export default {
   name: 'ProposalsViewDetailData',
   components: {
-    ProposalsViewDetailDataBody,
+    ProposalsViewDetailDataCommon,
+    ProposalsViewDetailDataContent,
     ProposalsViewDetailDataHeader,
   },
 };

@@ -19,4 +19,7 @@ export default {
       : Object.assign({}, payload);
     state.detail = detail;
   },
+  setPool(state, payload) {
+    state.pool = payload;
+  },
 };

@@ -1,21 +1,6 @@
 <template>
   <div>
     <BaseDetailItem :label="$t('labels.description')" :content="description" />
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title
-          class="text-capitalize"
-          v-text="$t('labels.changes')"
-        />
-        <v-list-item v-for="(change, index) in changes" :key="index">
-          <v-list dense>
-            <v-list-item v-for="(value, key) in change" :key="key">
-              <BaseDetailItem :label="key" :content="value" :is-loop="true" />
-            </v-list-item>
-          </v-list>
-        </v-list-item>
-      </v-list-item-content>
-    </v-list-item>
     <BaseDetailItem :label="$t('labels.submitTime')" :content="submitTime" />
     <BaseDetailItem
       :label="$t('labels.depositEndTime')"
@@ -47,7 +32,7 @@ import { coinAdapter, dateHandler } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ProposalsViewDetailDataBody',
+  name: 'ProposalsViewDetailDataCommon',
   components: { BaseDetailItem },
   computed: {
     ...mapGetters('proposals', ['proposal']),
