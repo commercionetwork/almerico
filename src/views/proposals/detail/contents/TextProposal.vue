@@ -1,5 +1,5 @@
 <template>
-  <v-list dense>
+  <v-list>
     <BaseDetailItem :label="$t('labels.type')" :content="type" />
     <BaseDetailItem :label="$t('labels.title')" :content="title" />
     <BaseDetailItem :label="$t('labels.description')" :content="description" />

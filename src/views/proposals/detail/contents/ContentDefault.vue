@@ -1,5 +1,5 @@
 <template>
-  <v-list dense>
+  <v-list>
     <v-list-item v-for="(value, key) in content" :key="key">
       <BaseDetailItem :label="key" :content="value" :is-loop="true" />
     </v-list-item>

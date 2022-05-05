@@ -1,5 +1,5 @@
 <template>
-  <v-list dense>
+  <v-list>
     <BaseDetailItem :label="$t('labels.type')" :content="type" />
     <BaseDetailItem :label="$t('labels.title')" :content="title" />
     <BaseDetailItem :label="$t('labels.description')" :content="description" />
@@ -9,7 +9,7 @@
           class="text-capitalize"
           v-text="$t('labels.changes')"
         />
-        <v-list dense v-for="(change, index) in changes" :key="index">
+        <v-list v-for="(change, index) in changes" :key="index">
           <v-list-item>
             <BaseDetailItem :label="$t('labels.key')" :content="change.key" />
           </v-list-item>
