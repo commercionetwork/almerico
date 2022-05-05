@@ -32,37 +32,49 @@ const TEXTS = {
 };
 
 const TYPES = {
-  CANCEL_SOFTWARE_UPGRADE: {
-    id: 'CancelSoftwareUpgradeProposal',
-    value: '/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal',
-  },
-  COMMUNITY_POOL_SPEND: {
-    id: 'CommunityPoolSpendProposal',
-    value: '/cosmos.distribution.v1beta1.CommunityPoolSpendProposal',
-  },
-  PARAMETER_CHANGE: {
-    id: 'ParameterChangeProposal',
-    value: '/cosmos.params.v1beta1.ParameterChangeProposal',
-  },
-  SOFTWARE_UPGRADE: {
-    id: 'SoftwareUpgradeProposal',
-    value: '/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal',
-  },
-  TEXT: { id: 'TextProposal', value: '/cosmos.gov.v1beta1.TextProposal' },
+  CANCEL_SOFTWARE_UPGRADE: 'CancelSoftwareUpgradeProposal',
+  COMMUNITY_POOL_SPEND: 'CommunityPoolSpendProposal',
+  PARAMETER_CHANGE: 'ParameterChangeProposal',
+  SOFTWARE_UPGRADE: 'SoftwareUpgradeProposal',
+  TEXT: 'TextProposal',
 };
 
+const SUPPORTED_TYPES = [
+  {
+    name: TYPES.CANCEL_SOFTWARE_UPGRADE,
+    text: '/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal',
+  },
+  {
+    name: TYPES.COMMUNITY_POOL_SPEND,
+    text: '/cosmos.distribution.v1beta1.CommunityPoolSpendProposal',
+  },
+  {
+    name: TYPES.PARAMETER_CHANGE,
+    text: '/cosmos.params.v1beta1.ParameterChangeProposal',
+  },
+  {
+    name: TYPES.SOFTWARE_UPGRADE,
+    text: '/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal',
+  },
+  {
+    name: TYPES.TEXT,
+    text: '/cosmos.gov.v1beta1.TextProposal',
+  },
+];
+
 const ICONS = {
-  [TYPES.CANCEL_SOFTWARE_UPGRADE['id']]: mdiCogOffOutline,
-  [TYPES.COMMUNITY_POOL_SPEND['id']]: mdiCurrencyUsd,
-  [TYPES.PARAMETER_CHANGE['id']]: mdiTune,
-  [TYPES.SOFTWARE_UPGRADE['id']]: mdiCogOutline,
-  [TYPES.TEXT['id']]: mdiTextBoxOutline,
+  [TYPES.CANCEL_SOFTWARE_UPGRADE]: mdiCogOffOutline,
+  [TYPES.COMMUNITY_POOL_SPEND]: mdiCurrencyUsd,
+  [TYPES.PARAMETER_CHANGE]: mdiTune,
+  [TYPES.SOFTWARE_UPGRADE]: mdiCogOutline,
+  [TYPES.TEXT]: mdiTextBoxOutline,
 };
 
 export const PROPOSALS = {
   COLORS,
   ICONS,
   STATUS,
+  SUPPORTED_TYPES,
   TEXTS,
   TYPES,
 };

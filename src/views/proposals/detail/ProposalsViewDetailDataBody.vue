@@ -1,21 +1,6 @@
 <template>
   <div>
     <BaseDetailItem :label="$t('labels.description')" :content="description" />
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title
-          class="text-capitalize"
-          v-text="$t('labels.changes')"
-        />
-        <v-list-item v-for="(change, index) in changes" :key="index">
-          <v-list dense>
-            <v-list-item v-for="(value, key) in change" :key="key">
-              <BaseDetailItem :label="key" :content="value" :is-loop="true" />
-            </v-list-item>
-          </v-list>
-        </v-list-item>
-      </v-list-item-content>
-    </v-list-item>
     <BaseDetailItem :label="$t('labels.submitTime')" :content="submitTime" />
     <BaseDetailItem
       :label="$t('labels.depositEndTime')"
@@ -37,18 +22,51 @@
       :label="$t('labels.votingEndTime')"
       :content="votingEndTime"
     />
+    <v-list-item>
+      <v-list-item-content>
+        <v-list-item-title
+          class="text-capitalize"
+          v-text="$t('labels.content')"
+        />
+        <v-list-item>
+          <component :is="getComponentName(proposal.content)" />
+        </v-list-item>
+      </v-list-item-content>
+    </v-list-item>
   </div>
 </template>
 
 <script>
 import BaseDetailItem from '@/components/BaseDetailItem';
+import BasePlaceholderComponentError from '@/components/BasePlaceholderComponentError';
+import BasePlaceholderComponentLoading from '@/components/BasePlaceholderComponentLoading';
 
 import { coinAdapter, dateHandler } from '@/utils';
+import { PROPOSALS } from '@/constants';
 import { mapGetters } from 'vuex';
+
+const components = {};
+PROPOSALS.SUPPORTED_TYPES.forEach((component) => {
+  components[component.name] = () => ({
+    component: import(`./contents/${component.name}.vue`),
+    loading: BasePlaceholderComponentLoading,
+    error: BasePlaceholderComponentError,
+    delay: 0,
+    timeout: 5000,
+  });
+});
 
 export default {
   name: 'ProposalsViewDetailDataBody',
-  components: { BaseDetailItem },
+  components: {
+    ...components,
+    BaseDetailItem,
+  },
+  data() {
+    return {
+      model: { components: PROPOSALS.SUPPORTED_TYPES },
+    };
+  },
   computed: {
     ...mapGetters('proposals', ['proposal']),
     description() {
@@ -86,6 +104,14 @@ export default {
       return this.proposal
         ? dateHandler.getUtcDate(this.proposal.voting_start_time)
         : '-';
+    },
+  },
+  methods: {
+    getComponentName(content) {
+      const component = this.model.components.find(
+        (component) => component.text === content['@type']
+      );
+      return component.name;
     },
   },
 };
