@@ -44,6 +44,7 @@ export const labels = {
   delegations: 'Delegations',
   delegator: 'Delegator',
   delegatorAddress: 'Delegator address',
+  denom: 'Denom',
   deposit: 'Deposit',
   depositEndTime: 'Deposit end time',
   depositor: 'Depositor',
