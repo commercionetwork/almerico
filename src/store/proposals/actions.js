@@ -1,4 +1,4 @@
-import { governance } from '@/apis/http';
+import { governance, staking } from '@/apis/http';
 import { PROPOSALS } from '@/constants';
 
 export default {
@@ -24,12 +24,21 @@ export default {
     commit('reset');
     commit('setLoading', true);
     const requests = [
+      dispatch('fetchPool'),
       dispatch('fetchProposalDetail', id),
       dispatch('fetchProposalTally', id),
       dispatch('fetchProposalVotes', id),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
+  },
+  async fetchPool({ commit }) {
+    try {
+      const response = await staking.requestPool();
+      commit('setPool', response.data.pool);
+    } catch (error) {
+      commit('setError', error);
+    }
   },
   async fetchProposalDetail({ commit }, id) {
     try {

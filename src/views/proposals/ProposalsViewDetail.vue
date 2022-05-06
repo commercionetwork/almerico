@@ -53,7 +53,7 @@ export default {
       if (value) this.initProposalsDetail(value);
     },
   },
-  mounted() {
+  created() {
     this.initProposalsDetail(this.id);
   },
   methods: {

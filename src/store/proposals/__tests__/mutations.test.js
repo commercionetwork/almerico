@@ -13,6 +13,7 @@ describe('store/proposals/mutations', () => {
     state.isLoading = true;
     state.list = [{ id: 1 }];
     state.detail = { id: 1 };
+    state.pool = { id: 1 };
 
     const expected = initState();
 
@@ -58,5 +59,13 @@ describe('store/proposals/mutations', () => {
     mutations.setDetail(state, votes);
 
     expect(state.detail).toStrictEqual(expectedDetail);
+  });
+
+  test('mutations.setPool', () => {
+    const payload = { id: 1 };
+
+    mutations.setPool(state, payload);
+
+    expect(state.pool).toStrictEqual(payload);
   });
 });

@@ -1,21 +1,6 @@
 <template>
   <div>
     <BaseDetailItem :label="$t('labels.description')" :content="description" />
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title
-          class="text-capitalize"
-          v-text="$t('labels.changes')"
-        />
-        <v-list-item v-for="(change, index) in changes" :key="index">
-          <v-list dense>
-            <v-list-item v-for="(value, key) in change" :key="key">
-              <BaseDetailItem :label="key" :content="value" :is-loop="true" />
-            </v-list-item>
-          </v-list>
-        </v-list-item>
-      </v-list-item-content>
-    </v-list-item>
     <BaseDetailItem :label="$t('labels.submitTime')" :content="submitTime" />
     <BaseDetailItem
       :label="$t('labels.depositEndTime')"
@@ -43,11 +28,11 @@
 <script>
 import BaseDetailItem from '@/components/BaseDetailItem';
 
-import { coinAdapter, dateHandler } from '@/utils';
+import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ProposalsViewDetailDataBody',
+  name: 'ProposalsViewDetailDataCommon',
   components: { BaseDetailItem },
   computed: {
     ...mapGetters('proposals', ['proposal']),
@@ -59,12 +44,12 @@ export default {
     },
     submitTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.submit_time)
+        ? new Date(this.proposal.submit_time).toLocaleString()
         : '-';
     },
     depositEndTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.deposit_end_time)
+        ? new Date(this.proposal.deposit_end_time).toLocaleString()
         : -'';
     },
     deposits() {
@@ -79,12 +64,12 @@ export default {
     },
     votingEndTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.voting_end_time)
+        ? new Date(this.proposal.voting_end_time).toLocaleString()
         : '-';
     },
     votingStartTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.voting_start_time)
+        ? new Date(this.proposal.voting_start_time).toLocaleString()
         : '-';
     },
   },
