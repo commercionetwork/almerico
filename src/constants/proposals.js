@@ -70,9 +70,18 @@ const ICONS = {
   [TYPES.TEXT]: mdiTextBoxOutline,
 };
 
+const LABELS = {
+  [TYPES.CANCEL_SOFTWARE_UPGRADE]: 'Cancel Software Upgrade Proposal',
+  [TYPES.COMMUNITY_POOL_SPEND]: 'Community Pool Spend Proposal',
+  [TYPES.PARAMETER_CHANGE]: 'Parameter Change Proposal',
+  [TYPES.SOFTWARE_UPGRADE]: 'Software Upgrade Proposal',
+  [TYPES.TEXT]: 'Text Proposal',
+};
+
 export const PROPOSALS = {
   COLORS,
   ICONS,
+  LABELS,
   STATUS,
   SUPPORTED_TYPES,
   TEXTS,

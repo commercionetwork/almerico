@@ -19,7 +19,10 @@
         <v-icon left size="24">
           {{ PROPOSALS.ICONS[type] }}
         </v-icon>
-        <span class="text-caption text-truncate" v-text="type" />
+        <span
+          class="text-caption text-truncate"
+          v-text="PROPOSALS.LABELS[type]"
+        />
       </template>
     </v-toolbar>
     <v-divider />
@@ -47,7 +50,7 @@
 
 <script>
 import { PROPOSALS, ROUTES } from '@/constants';
-import { dateHandler, regExpBuilder } from '@/utils';
+import { regExpBuilder } from '@/utils';
 import { mdiOpenInNew } from '@mdi/js';
 
 export default {
@@ -88,10 +91,10 @@ export default {
       return lastSegment.substring(1);
     },
     votingEndTime() {
-      return dateHandler.getUtcDate(this.item.voting_end_time);
+      return new Date(this.item.voting_end_time).toLocaleString();
     },
     votingStartTime() {
-      return dateHandler.getUtcDate(this.item.voting_start_time);
+      return new Date(this.item.voting_start_time).toLocaleString();
     },
   },
 };

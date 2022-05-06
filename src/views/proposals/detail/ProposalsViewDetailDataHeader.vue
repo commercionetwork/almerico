@@ -10,7 +10,10 @@
               <span>&nbsp;-&nbsp;</span>
               <span v-text="title" />
             </div>
-            <div class="text-subtitle-1 font-italic" v-text="type" />
+            <div
+              class="text-subtitle-1 font-italic"
+              v-text="PROPOSALS.LABELS[type]"
+            />
           </v-col>
           <v-col cols="12" md="4" xl="2" class="d-flex justify-md-end">
             <v-chip
@@ -33,6 +36,9 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'ProposalsViewDetailDataHeader',
+  data() {
+    return { PROPOSALS };
+  },
   computed: {
     ...mapGetters('proposals', ['proposal']),
     id() {

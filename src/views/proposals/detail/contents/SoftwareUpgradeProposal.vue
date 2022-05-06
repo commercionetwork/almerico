@@ -61,7 +61,9 @@ export default {
       return this.content.plan.name ? this.content.plan.name : `-`;
     },
     planTime() {
-      return this.content.plan.time ? this.content.plan.time : `-`;
+      return this.content.plan.time
+        ? new Date(this.content.plan.time).toLocaleString()
+        : `-`;
     },
     planHeight() {
       return this.content.plan.height ? this.content.plan.height : `-`;

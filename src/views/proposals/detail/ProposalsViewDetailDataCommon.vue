@@ -28,7 +28,7 @@
 <script>
 import BaseDetailItem from '@/components/BaseDetailItem';
 
-import { coinAdapter, dateHandler } from '@/utils';
+import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -44,12 +44,12 @@ export default {
     },
     submitTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.submit_time)
+        ? new Date(this.proposal.submit_time).toLocaleString()
         : '-';
     },
     depositEndTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.deposit_end_time)
+        ? new Date(this.proposal.deposit_end_time).toLocaleString()
         : -'';
     },
     deposits() {
@@ -64,12 +64,12 @@ export default {
     },
     votingEndTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.voting_end_time)
+        ? new Date(this.proposal.voting_end_time).toLocaleString()
         : '-';
     },
     votingStartTime() {
       return this.proposal
-        ? dateHandler.getUtcDate(this.proposal.voting_start_time)
+        ? new Date(this.proposal.voting_start_time).toLocaleString()
         : '-';
     },
   },
