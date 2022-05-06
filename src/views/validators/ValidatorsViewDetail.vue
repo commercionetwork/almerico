@@ -65,7 +65,7 @@ export default {
         this.updateBlocksMonitor(value);
     },
   },
-  mounted() {
+  created() {
     this.initValidatorsDetail({
       id: this.id,
       lastHeight: this.lastHeight,

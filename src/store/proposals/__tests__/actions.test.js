@@ -1,13 +1,14 @@
+import { PROPOSALS } from '@/constants';
 import {
   mockErrors,
   mockPagination,
+  mockPool,
   mockProposal,
   mockProposals,
   mockTally,
   mockVotes,
 } from '@/__mocks__';
 import actions from '../actions.js';
-import { PROPOSALS } from '@/constants';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
@@ -58,10 +59,25 @@ describe('store/proposals/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).toHaveBeenCalledWith('fetchProposalDetail', id);
     expect(dispatch).toHaveBeenCalledWith('fetchProposalTally', id);
     expect(dispatch).toHaveBeenCalledWith('fetchProposalVotes', id);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
+
+  test('if "fetchPool" commit "setPool", and set the error if it is caught', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchPool({ commit });
+
+    commit('setPool', mockResponse.data.pool);
+
+    mockError = true;
+
+    await actions.fetchPool({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchProposalDetail" save detail, and set the error if it is caught', async () => {
@@ -171,6 +187,25 @@ jest.mock('../../../apis/http/governance.js', () => ({
           data: {
             votes: mockVotes(),
             pagination: mockPagination(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
+
+jest.mock('../../../apis/http/staking.js', () => ({
+  requestPool: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            pool: mockPool(),
           },
         };
         resolve(mockResponse);

@@ -7,6 +7,7 @@ export const initState = () => ({
   isLoading: false,
   list: [],
   detail: null,
+  pool: null,
 });
 
 export default {

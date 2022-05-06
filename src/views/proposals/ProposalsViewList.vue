@@ -45,7 +45,7 @@ export default {
   computed: {
     ...mapGetters('proposals', ['error', 'isLoading']),
   },
-  mounted() {
+  created() {
     this.initProposalsList();
   },
   methods: {
