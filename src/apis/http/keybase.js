@@ -7,7 +7,7 @@ const keybase = {
    * @param {String} id
    * @returns {AxiosPromise}
    */
-  requestValidatorLogo(id) {
+  requestValidatorLogo(id, signal) {
     const params = {
       key_suffix: id,
       fields: 'pictures',
@@ -17,6 +17,7 @@ const keybase = {
       method: 'get',
       baseURL: `${APIS.HTTP.KEYBASE}`,
       params,
+      signal,
     });
   },
 };

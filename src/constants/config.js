@@ -95,6 +95,9 @@ const TOKEN = {
   STAKEABLE: true,
 };
 
+// ms
+const REST_LEAD_TIME = 5 * 1000;
+
 export const CONFIG = {
   BROWSER_STORAGE_KEYS,
   CHAIN,
@@ -104,6 +107,7 @@ export const CONFIG = {
   LEGACY_VERSIONS,
   MINTER_ACCOUNT,
   PREFIXES,
+  REST_LEAD_TIME,
   SCROLL,
   SPREADSHEET_ACCOUNTS,
   STABLE_COIN,

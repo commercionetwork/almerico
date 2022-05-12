@@ -2,6 +2,9 @@ import { keybase, staking, tendermintRpc } from '@/apis/http';
 import { CONFIG, VALIDATORS } from '@/constants';
 import { bech32Manager, blocksRequestHelper, regExpBuilder } from '@/utils';
 
+const controller = new AbortController();
+const signal = controller.signal;
+
 export default {
   async initValidatorsList({ commit, dispatch }, lastHeight) {
     commit('reset');
@@ -106,9 +109,13 @@ export default {
 
   async fetchDetailLogo({ commit }, identity) {
     try {
-      const response = await keybase.requestValidatorLogo(identity);
+      const response = await Promise.race([
+        keybase.requestValidatorLogo(identity, signal),
+        _wait(),
+      ]);
       if (!response.data.them || !response.data.them.length) {
         commit('setDetailLogo', '');
+        controller.abort();
         return;
       }
       for (const item of response.data.them) {
@@ -160,6 +167,11 @@ export default {
   },
 };
 
+const _wait = () =>
+  new Promise((resolve) =>
+    setTimeout(() => resolve(504), CONFIG.REST_LEAD_TIME)
+  );
+
 const _setValidatorsLogo = async (validators) => {
   return Promise.all(
     validators.map(async (validator) => {
@@ -171,20 +183,28 @@ const _setValidatorsLogo = async (validators) => {
       }
       let response;
       try {
-        response = await keybase.requestValidatorLogo(identity);
+        response = await Promise.race([
+          keybase.requestValidatorLogo(identity, signal),
+          _wait(),
+        ]);
+        if (
+          !response.data ||
+          !response.data.them ||
+          !response.data.them.length
+        ) {
+          controller.abort();
+          return validator;
+        }
+        for (const item of response.data.them) {
+          if ('primary' in item['pictures']) {
+            validator['logo'] = item['pictures']['primary']['url'];
+            break;
+          }
+        }
+        return validator;
       } catch (error) {
         throw new Error(error);
       }
-      if (!response.data.them || !response.data.them.length) {
-        return validator;
-      }
-      for (const item of response.data.them) {
-        if ('primary' in item['pictures']) {
-          validator['logo'] = item['pictures']['primary']['url'];
-          break;
-        }
-      }
-      return validator;
     })
   );
 };
