@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.6] - 2022-05-12
+
+### Added
+
+- Add max lead time to fetch validator/s logo
+
 ## [3.1.5] - 2022-05-06
 
 ### Added
@@ -371,6 +377,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[3.1.6]: https://github.com/commercionetwork/almerico/compare/v3.1.5...v3.1.6
 [3.1.5]: https://github.com/commercionetwork/almerico/compare/v3.1.4...v3.1.5
 [3.1.4]: https://github.com/commercionetwork/almerico/compare/v3.1.3...v3.1.4
 [3.1.3]: https://github.com/commercionetwork/almerico/compare/v3.1.2...v3.1.3
