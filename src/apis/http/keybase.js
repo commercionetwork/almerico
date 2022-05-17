@@ -5,6 +5,7 @@ const keybase = {
   /**
    *
    * @param {String} id
+   * @param {Object} signal
    * @returns {AxiosPromise}
    */
   requestValidatorLogo(id, signal) {
