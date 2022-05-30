@@ -1,6 +1,11 @@
-import { mockBalances, mockErrors, mockPool } from '@/__mocks__';
-import actions from '../actions.js';
 import { CONFIG } from '@/constants';
+import {
+  mockBalances,
+  mockErrors,
+  mockPagination,
+  mockPool,
+} from '@/__mocks__';
+import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
@@ -53,7 +58,7 @@ describe('store/exchange-rate/actions', () => {
 
     const accounts = JSON.parse(CONFIG.SPREADSHEET_ACCOUNTS);
     for (const account of accounts) {
-      account.balances = mockResponse.data.result;
+      account.balances = mockResponse.data.balances;
       expect(commit).toHaveBeenCalledWith('addAccount', account);
     }
 
@@ -69,7 +74,7 @@ describe('store/exchange-rate/actions', () => {
 
     await actions.fetchFreezedTokens({ commit });
 
-    commit('setFreezedTokens', mockResponse.data.result);
+    commit('setFreezedTokens', mockResponse.data.balances);
 
     mockError = true;
 
@@ -122,7 +127,7 @@ describe('store/exchange-rate/actions', () => {
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({
-  requestBalancesLegacy: () => {
+  requestBalances: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -131,8 +136,8 @@ jest.mock('../../../apis/http/bank.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockBalances(),
+            balances: mockBalances(),
+            pagination: mockPagination(),
           },
         };
         resolve(mockResponse);

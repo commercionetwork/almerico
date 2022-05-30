@@ -22,8 +22,8 @@ export default {
 
   async fetchBalances({ commit }, address) {
     try {
-      const response = await bank.requestBalancesLegacy(address);
-      commit('setBalances', response.data.result);
+      const response = await bank.requestBalances(address);
+      commit('setBalances', response.data.balances);
     } catch (error) {
       commit('setError', error);
     }

@@ -55,7 +55,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setBalances',
-      mockResponse.data.result
+      mockResponse.data.balances
     );
 
     mockError = true;
@@ -233,7 +233,7 @@ describe('store/account/actions', () => {
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({
-  requestBalancesLegacy: () => {
+  requestBalances: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -242,8 +242,8 @@ jest.mock('../../../apis/http/bank.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockBalances(),
+            balances: mockBalances(),
+            pagination: mockPagination(),
           },
         };
         resolve(mockResponse);

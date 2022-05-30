@@ -92,8 +92,8 @@ export default {
 
   async fetchFreezedTokens({ commit }) {
     try {
-      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
-      commit('setFreezedTokens', response.data.result);
+      const response = await bank.requestBalances(CONFIG.MINTER_ACCOUNT);
+      commit('setFreezedTokens', response.data.balances);
     } catch (error) {
       commit('setError', error);
     }
