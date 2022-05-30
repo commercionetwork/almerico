@@ -148,7 +148,7 @@ describe('store/home/actions', () => {
 
     await actions.fetchFreezedTokens({ commit });
 
-    commit('setFreezedTokens', mockResponse.data.result);
+    commit('setFreezedTokens', mockResponse.data.balances);
 
     mockError = true;
 
@@ -216,7 +216,7 @@ describe('store/home/actions', () => {
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({
-  requestBalancesLegacy: () => {
+  requestBalances: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -225,8 +225,8 @@ jest.mock('../../../apis/http/bank.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockBalances(),
+            balances: mockBalances(),
+            pagination: mockPagination(),
           },
         };
         resolve(mockResponse);

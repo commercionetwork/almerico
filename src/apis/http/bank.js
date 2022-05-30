@@ -25,18 +25,6 @@ const bank = {
       baseURL: `${APIS.HTTP.BANK}`,
     });
   },
-  /**
-   *
-   * @param {String} address
-   * @returns {AxiosPromise}
-   */
-  requestBalancesLegacy(address) {
-    return axios({
-      url: `/balances/${address}`,
-      method: 'get',
-      baseURL: `${APIS.HTTP.BANK_LEGACY}`,
-    });
-  },
 };
 
 export default bank;

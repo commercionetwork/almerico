@@ -96,11 +96,9 @@ export default {
 
   async fetchDetail({ commit, dispatch }, id) {
     try {
-      const response = await staking.requestValidatorsDetailLegacy(id);
-      commit('setDetail', response.data.result);
-      const identity = response.data.result.description
-        ? response.data.result.description.identity
-        : '';
+      const response = await staking.requestValidatorsDetail(id);
+      commit('setDetail', response.data.validator);
+      const identity = response.data.validator.description.identity || '';
       if (identity) await dispatch('fetchDetailLogo', identity);
     } catch (error) {
       commit('setError', error);

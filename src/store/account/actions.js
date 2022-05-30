@@ -22,8 +22,8 @@ export default {
 
   async fetchBalances({ commit }, address) {
     try {
-      const response = await bank.requestBalancesLegacy(address);
-      commit('setBalances', response.data.result);
+      const response = await bank.requestBalances(address);
+      commit('setBalances', response.data.balances);
     } catch (error) {
       commit('setError', error);
     }
@@ -45,8 +45,8 @@ export default {
 
   async fetchDelegations({ commit }, address) {
     try {
-      const response = await staking.requestDelegationsLegacy(address);
-      commit('setDelegations', response.data.result);
+      const response = await staking.requestDelegations(address);
+      commit('setDelegations', response.data.delegation_responses);
     } catch (error) {
       commit('setError', error);
     }

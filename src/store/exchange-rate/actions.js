@@ -31,8 +31,8 @@ export default {
     if (!accounts.length) return;
     try {
       for (const account of accounts) {
-        const response = await bank.requestBalancesLegacy(account.address);
-        account.balances = response.data.result;
+        const response = await bank.requestBalances(account.address);
+        account.balances = response.data.balances;
         commit('addAccount', account);
       }
     } catch (error) {
@@ -42,8 +42,8 @@ export default {
 
   async fetchFreezedTokens({ commit }) {
     try {
-      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
-      commit('setFreezedTokens', response.data.result);
+      const response = await bank.requestBalances(CONFIG.MINTER_ACCOUNT);
+      commit('setFreezedTokens', response.data.balances);
     } catch (error) {
       commit('setError', error);
     }

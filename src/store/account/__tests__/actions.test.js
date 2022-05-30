@@ -55,7 +55,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setBalances',
-      mockResponse.data.result
+      mockResponse.data.balances
     );
 
     mockError = true;
@@ -91,7 +91,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setDelegations',
-      mockResponse.data.result
+      mockResponse.data.delegation_responses
     );
 
     mockError = true;
@@ -233,7 +233,7 @@ describe('store/account/actions', () => {
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({
-  requestBalancesLegacy: () => {
+  requestBalances: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -242,8 +242,8 @@ jest.mock('../../../apis/http/bank.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockBalances(),
+            balances: mockBalances(),
+            pagination: mockPagination(),
           },
         };
         resolve(mockResponse);
@@ -305,7 +305,7 @@ jest.mock('../../../apis/http/distribution.js', () => ({
 }));
 
 jest.mock('../../../apis/http/staking.js', () => ({
-  requestDelegationsLegacy: () => {
+  requestDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -314,8 +314,8 @@ jest.mock('../../../apis/http/staking.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockDelegations(),
+            delegation_responses: mockDelegations(),
+            pagination: mockPagination(),
           },
         };
         resolve(mockResponse);
