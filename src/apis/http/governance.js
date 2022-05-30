@@ -32,13 +32,6 @@ const governance = {
       baseURL: `${APIS.HTTP.GOVERNANCE}`,
     });
   },
-  requestAccountVotesLegacy(address, id) {
-    return axios({
-      url: `/proposals/${id}/votes/${address}`,
-      method: 'get',
-      baseURL: `${APIS.HTTP.GOVERNANCE_LEGACY}`,
-    });
-  },
 };
 
 export default governance;
