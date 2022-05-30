@@ -163,10 +163,13 @@ describe('store/validators/actions', () => {
 
     await actions.fetchDetail({ commit, dispatch }, id);
 
-    expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data.result);
+    expect(commit).toHaveBeenCalledWith(
+      'setDetail',
+      mockResponse.data.validator
+    );
     expect(dispatch).toHaveBeenCalledWith(
       'fetchDetailLogo',
-      mockResponse.data.result.description.identity
+      mockResponse.data.validator.description.identity
     );
 
     mockError = true;
@@ -294,7 +297,7 @@ jest.mock('../../../apis/http/staking.js', () => ({
       }, 1);
     });
   },
-  requestValidatorsDetailLegacy: () => {
+  requestValidatorsDetail: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -302,7 +305,7 @@ jest.mock('../../../apis/http/staking.js', () => ({
         }
 
         mockResponse = {
-          data: { result: mockValidator(), height: '0' },
+          data: { validator: mockValidator() },
         };
         resolve(mockResponse);
       }, 1);

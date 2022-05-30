@@ -79,18 +79,6 @@ const staking = {
   /**
    *
    * @param {String} id
-   * @returns {AxiosPromise}
-   */
-  requestValidatorsDetailLegacy(id) {
-    return axios({
-      url: `/validators/${id}`,
-      method: 'get',
-      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-    });
-  },
-  /**
-   *
-   * @param {String} id
    * @returns {Promise}
    */
   requestValidatorsDetailDelegations(id) {
