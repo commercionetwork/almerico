@@ -42,13 +42,6 @@ export const APIS = {
     // RPC
     BLOCKS_RPC: `${LCD}/blocks`,
     VALIDATORSETS_RPC: `${LCD}/validatorsets`,
-    // Legacy
-    AUTH_LEGACY: `${LCD}/auth`,
-    BANK_LEGACY: `${LCD}/bank`,
-    DISTRIBUTION_LEGACY: `${LCD}/distribution`,
-    GOVERNANCE_LEGACY: `${LCD}/gov`,
-    STAKING_LEGACY: `${LCD}/staking`,
-    TXS_LEGACY: `${LCD}/txs`,
     // Keybase
     KEYBASE: `${KEYBASE_API}/${KEYBASE_VERSION}`,
   },
