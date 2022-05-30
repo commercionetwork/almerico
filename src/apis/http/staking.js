@@ -78,18 +78,6 @@ const staking = {
   },
   /**
    *
-   * @param {String} address
-   * @returns {AxiosPromise}
-   */
-  requestDelegationsLegacy(address) {
-    return axios({
-      url: `/delegators/${address}/delegations`,
-      method: 'get',
-      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-    });
-  },
-  /**
-   *
    * @param {String} id
    * @returns {AxiosPromise}
    */

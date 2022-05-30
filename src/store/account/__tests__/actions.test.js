@@ -91,7 +91,7 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setDelegations',
-      mockResponse.data.result
+      mockResponse.data.delegation_responses
     );
 
     mockError = true;
@@ -305,7 +305,7 @@ jest.mock('../../../apis/http/distribution.js', () => ({
 }));
 
 jest.mock('../../../apis/http/staking.js', () => ({
-  requestDelegationsLegacy: () => {
+  requestDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -314,8 +314,8 @@ jest.mock('../../../apis/http/staking.js', () => ({
 
         mockResponse = {
           data: {
-            height: '0',
-            result: mockDelegations(),
+            delegation_responses: mockDelegations(),
+            pagination: mockPagination(),
           },
         };
         resolve(mockResponse);

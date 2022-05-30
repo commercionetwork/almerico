@@ -45,8 +45,8 @@ export default {
 
   async fetchDelegations({ commit }, address) {
     try {
-      const response = await staking.requestDelegationsLegacy(address);
-      commit('setDelegations', response.data.result);
+      const response = await staking.requestDelegations(address);
+      commit('setDelegations', response.data.delegation_responses);
     } catch (error) {
       commit('setError', error);
     }
