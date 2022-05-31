@@ -1,10 +1,6 @@
-const LCD =
-  process.env.VUE_APP_LCD !== undefined ? process.env.VUE_APP_LCD : '';
+const LCD = process.env.VUE_APP_LCD || '';
 
-const API_VERSION =
-  process.env.VUE_APP_API_VERSION !== undefined
-    ? process.env.VUE_APP_API_VERSION
-    : '';
+const API_VERSION = process.env.VUE_APP_API_VERSION || '';
 
 const API_PATHS = {
   BASE: 'base',
@@ -14,7 +10,11 @@ const API_PATHS = {
   TX: 'tx',
 };
 
-const WS = process.env.VUE_APP_WS !== undefined ? process.env.VUE_APP_WS : '';
+const WS = process.env.VUE_APP_WS || '';
+
+const BACKEND = process.env.VUE_APP_BACKEND || '';
+const BACKEND_VERSION = process.env.VUE_APP_BACKEND_API_VERSION || '';
+const BACKEND_WS = process.env.VUE_APP_BACKEND_WS || '';
 
 const KEYBASE_API = `https://keybase.io/_/api`;
 const KEYBASE_VERSION = '1.0';
@@ -23,6 +23,7 @@ export const APIS = {
   HTTP: {
     LCD: LCD,
     API_VERSION: API_VERSION,
+    BACKEND: `${BACKEND}/${BACKEND_VERSION}`,
     // Query
     AUTH: `${LCD}/${API_PATHS.COSMOS}/auth/${API_VERSION}`,
     BANK: `${LCD}/${API_PATHS.COSMOS}/bank/${API_VERSION}`,
@@ -58,5 +59,6 @@ export const APIS = {
       VALIDATOR_SET_UPDATES: 'ValidatorSetUpdates',
     },
     URL: WS,
+    URL_BACKEND: BACKEND_WS,
   },
 };
