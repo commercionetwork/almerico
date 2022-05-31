@@ -12,7 +12,6 @@ export default {
   async fetchList({ commit }) {
     try {
       const response = await validators.requestList();
-      console.log('FETCH_LIST', response.data);
       commit('setList', response.data);
     } catch (error) {
       commit('setError', error);
@@ -31,16 +30,15 @@ export default {
   },
 
   async updateValidatorsDetail({ commit, dispatch }, address) {
-    commit('setLoading', true);
+    commit('setUpdating', true);
     await dispatch('fetchDetail', address);
     commit('setNewUpdate', false);
-    commit('setLoading', false);
+    commit('setUpdating', false);
   },
 
   async fetchDetail({ commit }, address) {
     try {
       const response = await validators.requestDetail(address);
-      console.log('FETCH_DETAIL', response.data);
       commit('setDetail', response.data);
     } catch (error) {
       commit('setError', error);

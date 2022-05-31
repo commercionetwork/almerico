@@ -1,7 +1,6 @@
 <template>
   <v-card
     outlined
-    :loading="isFirstloading"
     class="fill-height d-flex flex-column justify-start align-center"
   >
     <v-card-title class="text-overline font-weight-bold">
@@ -9,7 +8,7 @@
         <span v-text="limit" />
       </i18n>
     </v-card-title>
-    <v-card-text v-if="!verifiedBlocks.length" data-test="info">
+    <v-card-text v-if="!blocks.length" data-test="info">
       <v-alert type="info" v-text="$t('msgs.notAvailable')" />
     </v-card-text>
     <v-card-text v-else data-test="content">
@@ -17,11 +16,11 @@
         <v-col cols="12" md="10" offset-md="1">
           <ul class="monitor">
             <li
-              v-for="(verified, index) in verifiedBlocks"
+              v-for="(block, index) in blocks"
               :key="index"
               class="box"
-              :class="getItemStyle(verified, index)"
-              :title="verified.height"
+              :class="getItemStyle(block, index)"
+              :title="block.height"
             />
           </ul>
         </v-col>
@@ -32,9 +31,9 @@
 
 <script>
 import '@/assets/style/block-monitor.scss';
-import validatorAttendanceCalculator from '../helpers/validatorAttendanceCalculator';
 import { VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
+import { orderBy } from 'lodash';
 
 export default {
   name: 'ValidatorsViewDetailBlocksMonitor',
@@ -44,25 +43,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['isLoadingBlocks', 'blocks', 'detail']),
-    isFirstloading() {
-      return this.isLoadingBlocks && !this.blocks.length;
-    },
+    ...mapGetters('validators', ['isUpdating', 'detail']),
     limit() {
       return VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
     },
-    verifiedBlocks() {
-      return this.detail
-        ? validatorAttendanceCalculator.getDetailDefinedBlocks({
-            blocks: this.blocks,
-            validator: this.detail,
-            limit: this.limit,
-          })
-        : [];
+    blocks() {
+      return orderBy(this.detail.blocks, ['height'], ['desc']);
     },
   },
   watch: {
-    isLoadingBlocks(value) {
+    isUpdating(value) {
       if (value) this.isMonitorUpdating = value;
     },
   },

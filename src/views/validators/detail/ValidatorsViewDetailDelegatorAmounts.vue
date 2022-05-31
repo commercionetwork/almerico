@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     ...mapGetters('application', ['stakingParams']),
-    ...mapGetters('validators', ['account', 'delegations', 'detail']),
+    ...mapGetters('validators', ['delegations', 'detail']),
     bondDenom() {
       return this.stakingParams.bond_denom ? this.stakingParams.bond_denom : '';
     },
@@ -73,7 +73,7 @@ export default {
     items() {
       return this.detail
         ? validatorsDetailDelegatorsHelper.build({
-            account: this.account,
+            account: this.detail.account,
             detail: this.detail,
             delegations: this.delegations,
           })

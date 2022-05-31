@@ -26,7 +26,6 @@ import TheHeaderContent from '@/components/TheHeaderContent';
 import ValidatorsViewListContentTop from './list/ValidatorsViewListContentTop.vue';
 import ValidatorsViewListTable from './list/ValidatorsViewListTable.vue';
 
-import { VALIDATORS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -39,23 +38,13 @@ export default {
     ValidatorsViewListTable,
   },
   computed: {
-    ...mapGetters('application', ['latestBlock']),
-    ...mapGetters('validators', ['error', 'isLoading', 'newHeight']),
-    lastHeight() {
-      return this.latestBlock.header.height;
-    },
-  },
-  watch: {
-    newHeight(value) {
-      if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY && value)
-        this.addBlocksItem(value);
-    },
+    ...mapGetters('validators', ['error', 'isLoading']),
   },
   created() {
-    this.initValidatorsList(this.lastHeight);
+    this.initValidatorsList();
   },
   methods: {
-    ...mapActions('validators', ['addBlocksItem', 'initValidatorsList']),
+    ...mapActions('validators', ['initValidatorsList']),
   },
 };
 </script>

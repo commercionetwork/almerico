@@ -6,7 +6,6 @@
         :headers="headers"
         :hide-default-footer="true"
         :items="items"
-        :loading="isLoadingBlocks"
         :search="filter.query"
         :sort-by.sync="sortBy"
         disable-pagination
@@ -26,7 +25,10 @@
           </div>
         </template>
         <template #[`item.moniker`]="{ item }">
-          <v-btn icon @click="handleBookmark(item.operator, item.bookmark)">
+          <v-btn
+            icon
+            @click="handleBookmark(item.operatorAddress, item.bookmark)"
+          >
             <v-icon v-if="item.bookmark" color="amber darken-2">
               {{ mdiStar }}
             </v-icon>
@@ -56,7 +58,7 @@
             v-text="item.moniker"
             :to="{
               name: ROUTES.NAME.VALIDATORS_DETAIL,
-              params: { id: item.operator },
+              params: { id: item.operatorAddress },
             }"
           />
         </template>
@@ -67,7 +69,7 @@
           <span v-text="formatAsPercentage(item.commission)" />
         </template>
         <template #[`item.votingPower`]="{ item }">
-          <span v-text="formatAsPercentage(item.votingPower)" />
+          <span v-text="formatAsPercentage(item.power)" />
         </template>
         <template #[`item.cumulative`]="{ item }">
           <span v-text="formatAsPercentage(item.cumulative)" />
@@ -84,7 +86,7 @@
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
 import validatorsTableHelper from './helpers/validatorsTableHelper';
 
-import { ROUTES, VALIDATORS } from '@/constants';
+import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
@@ -102,36 +104,19 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('application', ['stakingParams', 'validators']),
-    ...mapGetters('validators', [
-      'blocks',
-      'isLoadingBlocks',
-      'filter',
-      'pool',
-    ]),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('validators', ['list', 'filter']),
     caption() {
-      switch (this.filter.status) {
-        case VALIDATORS.FILTER.ACTIVE:
-          return this.$t('titles.activeValidatorsList');
-        case VALIDATORS.FILTER.INACTIVE:
-          return this.$t('titles.inactiveValidatorsList');
-        case VALIDATORS.FILTER.BOOKMARK:
-          return this.$t('titles.myValidators');
-        default:
-          return this.$t('titles.validatorsList');
-      }
+      return validatorsTableHelper.getCaption(this.filter, this.$t, this);
     },
     headers() {
       return validatorsTableHelper.getHeaders(this.$t, this);
     },
     items() {
       return validatorsTableHelper.getItems({
-        validators: this.validators,
-        pool: this.pool,
+        validators: this.list,
         bookmarks: this.bookmarks,
         filter: this.filter,
-        blocks: this.blocks,
-        isLoading: this.isLoadingBlocks,
       });
     },
   },
@@ -143,7 +128,7 @@ export default {
       if (typeof search.trim() !== 'string') {
         return;
       }
-      const props = [item.moniker, item.operator, item.account];
+      const props = [item.moniker, item.operatorAddress, item.account];
       let found = false;
       for (const prop of props) {
         if (prop.toLowerCase().includes(search.toLowerCase())) {

@@ -1,6 +1,7 @@
 export default {
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
+  isUpdating: (state) => state.isUpdating,
   detail: (state) => state.detail,
   list: (state) => state.list,
   newUpdate: (state) => state.newUpdate,

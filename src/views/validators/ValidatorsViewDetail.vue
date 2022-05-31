@@ -26,7 +26,6 @@ import TheHeaderContent from '@/components/TheHeaderContent';
 import ValidatorsViewDetailContentBottom from './detail/ValidatorsViewDetailContentBottom.vue';
 import ValidatorsViewDetailContentTop from './detail/ValidatorsViewDetailContentTop.vue';
 
-import { VALIDATORS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -50,31 +49,23 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('application', ['latestBlock']),
-    ...mapGetters('validators', ['error', 'isLoading', 'newHeight']),
-    lastHeight() {
-      return this.latestBlock.header.height;
-    },
+    ...mapGetters('validators', ['error', 'isLoading', 'newUpdate']),
   },
   watch: {
     id(value) {
-      this.initValidatorsDetail({ id: value, lastHeight: this.lastHeight });
+      this.initValidatorsDetail(value);
     },
-    newHeight(value) {
-      if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY && value)
-        this.updateBlocksMonitor(value);
+    newUpdate() {
+      this.updateValidatorsDetail(this.id);
     },
   },
   created() {
-    this.initValidatorsDetail({
-      id: this.id,
-      lastHeight: this.lastHeight,
-    });
+    this.initValidatorsDetail(this.id);
   },
   methods: {
     ...mapActions('validators', [
       'initValidatorsDetail',
-      'updateBlocksMonitor',
+      'updateValidatorsDetail',
     ]),
   },
 };

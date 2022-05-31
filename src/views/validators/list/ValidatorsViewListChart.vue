@@ -33,16 +33,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('application', ['validators']),
+    ...mapGetters('validators', ['list']),
     chartData() {
-      return validatorsChartHelper.getChartData(this.validators, {
+      return validatorsChartHelper.getChartData(this.list, {
         bonded: this.$t('labels.bonded'),
         notBonded: this.$t('labels.notBonded'),
       });
     },
     chartLabel() {
       return validatorsChartHelper.getChartLabel(
-        this.validators,
+        this.list,
         this.$t('titles.validators')
       );
     },

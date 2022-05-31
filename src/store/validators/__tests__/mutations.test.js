@@ -12,6 +12,7 @@ describe('store/validators/mutations', () => {
   test('mutations.reset', () => {
     state.error = new Error('error');
     state.isLoading = true;
+    state.isUpdating = true;
     state.detail = { id: 1 };
     state.list = [{ id: 1 }];
     state.newUpdate = true;
@@ -42,6 +43,12 @@ describe('store/validators/mutations', () => {
     mutations.setLoading(state, true);
 
     expect(state.isLoading).toBe(true);
+  });
+
+  test('mutations.setUpdating', () => {
+    mutations.setUpdating(state, true);
+
+    expect(state.isUpdating).toBe(true);
   });
 
   test('mutations.setDetail', () => {

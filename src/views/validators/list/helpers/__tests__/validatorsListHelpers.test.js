@@ -1,11 +1,11 @@
 import { VALIDATORS } from '@/constants';
-import { mockBlocks, mockPool, mockValidators } from '@/__mocks__';
+import { mockValidatorsBackend } from '@/__mocks__';
 import validatorsChartHelper from '../validatorsChartHelper';
 import validatorsTableHelper from '../validatorsTableHelper';
 
 describe('views/validators/list/helpers', () => {
   test('if "validatorsChartHelper.getChartData" method return expected object', () => {
-    const data = validatorsChartHelper.getChartData(mockValidators(), [
+    const data = validatorsChartHelper.getChartData(mockValidatorsBackend(), [
       'label1',
       'label2',
     ]);
@@ -21,34 +21,37 @@ describe('views/validators/list/helpers', () => {
 
   test('if "validatorsTableHelper.getItems" method return an array of wanted validators', () => {
     const items = 5;
-    const validators = mockValidators(items);
-    const pool = mockPool();
+    const validators = mockValidatorsBackend(items);
     const bookmarks = ['address'];
-    const blocks = mockBlocks();
-    const isLoading = false;
     const filter = { status: VALIDATORS.FILTER.ACTIVE, query: '' };
     const validatorsRows = validatorsTableHelper.getItems({
       validators,
-      pool,
       bookmarks,
-      blocks,
-      isLoading,
       filter,
     });
 
     const expectedKeys = [
+      'id',
+      'operatorAddress',
+      'account',
+      'pubkey',
       'active',
       'rank',
-      'bookmark',
-      'logo',
-      'moniker',
-      'operator',
       'tokens',
       'commission',
-      'account',
-      'votingPower',
+      'moniker',
+      'logo',
+      'identity',
+      'website',
+      'securityContact',
+      'details',
+      'updateTime',
+      'power',
       'cumulative',
       'attendance',
+      'createdAt',
+      'updatedAt',
+      'bookmark',
     ];
 
     expect(validatorsRows.length).toBe(items);

@@ -10,6 +10,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setUpdating(state, payload) {
+    state.isUpdating = payload;
+  },
   setDetail(state, payload) {
     state.detail = payload;
   },
