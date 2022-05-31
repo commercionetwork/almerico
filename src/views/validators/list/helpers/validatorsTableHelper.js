@@ -47,8 +47,8 @@ const validatorsTableHelper = {
     return headers;
   },
   getItems({ validators, bookmarks, filter }) {
-    const bookmarkedItems = _bookmarkItems({ items: validators, bookmarks });
-    return _filterItems({ items: bookmarkedItems, filter });
+    const items = _bookmarkItems({ items: validators, bookmarks });
+    return _filterItems({ items, filter });
   },
 };
 
