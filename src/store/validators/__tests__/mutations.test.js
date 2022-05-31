@@ -1,3 +1,4 @@
+import { VALIDATORS } from '@/constants';
 import { initState } from '../index';
 import mutations from '../mutations';
 
@@ -11,8 +12,16 @@ describe('store/validators/mutations', () => {
   test('mutations.reset', () => {
     state.error = new Error('error');
     state.isLoading = true;
-    state.blocks = [{ id: 1 }];
-    state.pool = { id: 1 };
+    state.detail = { id: 1 };
+    state.list = [{ id: 1 }];
+    state.newUpdate = true;
+    state.delegations = [{ id: 1 }];
+    state.delegationsOffset = 1;
+    state.delegationsPagination = { total: 25 };
+    state.filter = {
+      status: VALIDATORS.FILTER.INACTIVE,
+      query: 'abc',
+    };
 
     const expected = initState();
 
@@ -35,54 +44,6 @@ describe('store/validators/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('mutations.setLoadingBlocks', () => {
-    mutations.setLoadingBlocks(state, true);
-
-    expect(state.isLoadingBlocks).toBe(true);
-  });
-
-  test('mutations.setBlocks', () => {
-    const blocks = [{ id: 1 }];
-
-    mutations.setBlocks(state, blocks);
-
-    expect(state.blocks).toStrictEqual(blocks);
-  });
-
-  test('mutations.addBlock', () => {
-    state.blocks = [{ id: 1 }];
-    const payload = { id: 2 };
-    const expected = [{ id: 1 }, { id: 2 }];
-
-    mutations.addBlock(state, payload);
-
-    expect(state.blocks).toStrictEqual(expected);
-  });
-
-  test('mutations.setNewHeight', () => {
-    const newHeight = '1';
-
-    mutations.setNewHeight(state, newHeight);
-
-    expect(state.newHeight).toBe(newHeight);
-  });
-
-  test('mutations.setFilter', () => {
-    const filter = 'filter';
-
-    mutations.setFilter(state, filter);
-
-    expect(state.filter).toBe(filter);
-  });
-
-  test('mutations.setPool', () => {
-    const pool = { id: 1 };
-
-    mutations.setPool(state, pool);
-
-    expect(state.pool).toStrictEqual(pool);
-  });
-
   test('mutations.setDetail', () => {
     const detail = { id: 1 };
 
@@ -91,20 +52,18 @@ describe('store/validators/mutations', () => {
     expect(state.detail).toStrictEqual(detail);
   });
 
-  test('mutations.setDetailLogo', () => {
-    const logo = 'https://url.com';
+  test('mutations.setList', () => {
+    const items = [{ id: 1 }];
 
-    mutations.setDetailLogo(state, logo);
+    mutations.setList(state, items);
 
-    expect(state.detailLogo).toStrictEqual(logo);
+    expect(state.list).toStrictEqual(items);
   });
 
-  test('mutations.setAccount', () => {
-    const account = 'did:com:';
+  test('mutations.setNewUpdate', () => {
+    mutations.setNewUpdate(state, true);
 
-    mutations.setAccount(state, account);
-
-    expect(state.account).toBe(account);
+    expect(state.newUpdate).toBe(true);
   });
 
   test('mutations.setDelegations', () => {
@@ -152,5 +111,13 @@ describe('store/validators/mutations', () => {
     mutations.setDelegationsPagination(state, pagination);
 
     expect(state.delegationsPagination).toStrictEqual(pagination);
+  });
+
+  test('mutations.setFilter', () => {
+    const filter = 'filter';
+
+    mutations.setFilter(state, filter);
+
+    expect(state.filter).toBe(filter);
   });
 });
