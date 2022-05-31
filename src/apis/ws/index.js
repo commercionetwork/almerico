@@ -1,3 +1,4 @@
+import wsBackendClient from './wsBackendClient';
 import wsChainClient from './wsChainClient';
 
-export { wsChainClient };
+export { wsBackendClient, wsChainClient };
