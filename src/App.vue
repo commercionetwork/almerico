@@ -47,9 +47,7 @@ export default {
   },
   created() {
     this.initAppData();
-  },
-  mounted() {
-    wsChainClient.subscribe();
+    wsChainClient.get();
   },
   methods: {
     ...mapActions('application', ['initAppData']),
