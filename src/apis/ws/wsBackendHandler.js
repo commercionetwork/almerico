@@ -1,3 +1,4 @@
+import { APIS } from '@/constants';
 import store from '@/store';
 
 const wsBackendHandler = {
@@ -6,7 +7,10 @@ const wsBackendHandler = {
   },
   onMessage(event) {
     const eventData = JSON.parse(event.data);
-    console.log(eventData);
+    if (eventData.event === APIS.WS.EVENTS.BACKEND_VALIDATORS_UPDATES) {
+      store.commit('validators/setList', eventData.data.validators);
+      store.commit('validators/newUpdate', true);
+    }
   },
 };
 

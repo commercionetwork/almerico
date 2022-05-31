@@ -1,4 +1,4 @@
-import { APIS, VALIDATORS } from '@/constants';
+import { APIS } from '@/constants';
 import store from '@/store';
 
 const wsChainHandler = {
@@ -40,9 +40,6 @@ const _handleNewBlockEvent = (data) => {
   store.commit('blocks/setNewHeight', block.header.height);
   if (block.data.txs.length > 0)
     store.dispatch('application/fetchLatestTransactions', block.header.height);
-  //TODO: remove
-  if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY)
-    store.commit('validators/setNewHeight', block.header.height);
 };
 
 const _handleNewValidatorSetsEvent = (data) => {
