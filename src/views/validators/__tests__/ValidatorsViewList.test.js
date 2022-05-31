@@ -25,17 +25,12 @@ describe('views/validators/ValidatorsViewList.vue', () => {
     $store: mockStore,
     $t: (msg) => msg,
   };
-  const computed = {
-    lastHeight: () => '1',
-    newHeight: () => '2',
-  };
 
   test('if loading indicator is displayed', () => {
     const wrapper = shallowMount(ValidatorsViewList, {
       localVue,
       mocks,
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -52,7 +47,6 @@ describe('views/validators/ValidatorsViewList.vue', () => {
       localVue,
       mocks,
       computed: {
-        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -68,7 +62,6 @@ describe('views/validators/ValidatorsViewList.vue', () => {
       localVue,
       mocks,
       computed: {
-        ...computed,
         error: () => null,
         isLoading: () => false,
       },

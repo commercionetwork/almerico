@@ -4,22 +4,19 @@ import getters from './getters';
 import mutations from './mutations';
 
 export const initState = () => ({
-  account: '',
-  blocks: [],
+  error: null,
+  isLoading: false,
+  isUpdating: false,
+  detail: null,
+  list: [],
+  newUpdate: false,
   delegations: [],
   delegationsOffset: 0,
   delegationsPagination: null,
-  detail: null,
-  detailLogo: '',
-  error: null,
   filter: {
     status: VALIDATORS.FILTER.ACTIVE,
     query: '',
   },
-  isLoading: false,
-  isLoadingBlocks: false,
-  newHeight: '',
-  pool: null,
 });
 
 export default {

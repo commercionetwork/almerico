@@ -8,10 +8,13 @@
       </v-btn>
     </v-col>
     <v-col cols="10" xl="11" class="d-flex flex-column">
-      <div class="text-h5 text-capitalize font-weight-bold" v-text="moniker" />
+      <div
+        class="text-h5 text-capitalize font-weight-bold"
+        v-text="detail.moniker"
+      />
       <div class="d-flex flex-row">
-        <v-icon left size="18" :color="isActive ? 'success' : 'error'">
-          {{ isActive ? mdiAccountNetwork : mdiCloseNetwork }}
+        <v-icon left size="18" :color="detail.active ? 'success' : 'error'">
+          {{ detail.active ? mdiAccountNetwork : mdiCloseNetwork }}
         </v-icon>
         <span class="text-caption" :class="statusClass" v-text="statusText" />
       </div>
@@ -49,17 +52,11 @@ export default {
     bookmarkIcon() {
       return this.isBookmark ? mdiStar : mdiStarOutline;
     },
-    moniker() {
-      return this.detail ? this.detail.description.moniker : '';
-    },
-    isActive() {
-      return this.detail ? this.detail.status === 3 : false;
-    },
     statusClass() {
-      return this.isActive ? 'success--text' : 'error--text';
+      return this.detail.active ? 'success--text' : 'error--text';
     },
     statusText() {
-      return this.isActive
+      return this.detail.active
         ? this.$t('labels.active')
         : this.$t('labels.inactive');
     },

@@ -1,5 +1,3 @@
-import { VALIDATORS } from '@/constants';
-
 const BACKGROUND_COLOR = ['rgba(48, 63, 159, 1)', 'rgba(92, 107, 192, 1)'];
 const BORDER_COLOR = ['rgba(98, 113, 208, 1)', 'rgba(163, 172, 219, 1)'];
 const CHART_OPTIONS = {
@@ -70,7 +68,7 @@ export default validatorsChartHelper;
  */
 const _defineValidators = (validators) => {
   const bondedValidators = validators.filter(
-    (validator) => validator.status === VALIDATORS.STATUS.BONDED,
+    (validator) => validator.active
   ).length;
   const notBondedValidators = validators.length - bondedValidators;
   return { bondedValidators, notBondedValidators };

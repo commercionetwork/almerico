@@ -1,4 +1,31 @@
 import { VALIDATORS } from '@/constants';
+import { v4 as uuidv4 } from 'uuid';
+
+const mockValidatorBackend = (rank = 1, active = true) => {
+  const item = {
+    id: uuidv4(),
+    operatorAddress: 'did:com:valoper1mfddzjvr8vpeqdtm6fuay2nvnecuk9qaylfxd8',
+    account: 'did:com:1mfddzjvr8vpeqdtm6fuay2nvnecuk9qa8usqq5',
+    pubkey: 'Fr03KpOeregR9AGDWf/ikalGXC6U1cUoXJPLPb5ezNY=',
+    active,
+    rank,
+    tokens: 100000000,
+    commission: '0.100000000000000000',
+    moniker: 'mock-moniker',
+    logo: '',
+    identity: '',
+    website: '',
+    securityContact: '',
+    details: '',
+    updateTime: '2020-01-01T00:00:00Z',
+    power: 0.1,
+    cumulative: 0.1,
+    attendance: 1,
+    createdAt: '2022-01-01T00:00:00Z',
+    updatedAt: '2022-01-01T00:00:00Z',
+  };
+  return item;
+};
 
 const mockValidator = ({
   operator_address = 'did:com:valoper1yq5z4236gmcuus2t940spppwzz8uggpjhgac6w',
@@ -37,30 +64,22 @@ const mockValidator = ({
   return item;
 };
 
-const mockValidatorLogo = () => {
-  const item = {
-    status: {
-      code: 0,
-      name: 'OK',
-    },
-    them: [
-      {
-        id: '2305a60760b68d702afd6ae423185419',
-        pictures: {
-          primary: {
-            url: 'https://s3.amazonaws.com/keybase_processed_uploads/300.jpg',
-            source: null,
-          },
-        },
-      },
-    ],
-  };
-  return item;
-};
-
 const mockValidators = (validators = 4) => {
   const list = new Array(validators).fill(null).map(() => mockValidator());
   return list;
 };
 
-export { mockValidator, mockValidatorLogo, mockValidators };
+const mockValidatorsBackend = (validators = 4) => {
+  let rank = 1;
+  const list = new Array(validators)
+    .fill(null)
+    .map(() => mockValidatorBackend(rank++));
+  return list;
+};
+
+export {
+  mockValidator,
+  mockValidatorBackend,
+  mockValidators,
+  mockValidatorsBackend,
+};

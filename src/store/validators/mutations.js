@@ -10,32 +10,17 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
-  setLoadingBlocks(state, payload) {
-    state.isLoadingBlocks = payload;
-  },
-  setBlocks(state, payload) {
-    state.blocks = payload;
-  },
-  addBlock(state, payload) {
-    state.blocks.push(payload);
-  },
-  setNewHeight(state, payload) {
-    state.newHeight = payload;
-  },
-  setFilter(state, payload) {
-    state.filter = payload;
-  },
-  setPool(state, payload) {
-    state.pool = payload;
+  setUpdating(state, payload) {
+    state.isUpdating = payload;
   },
   setDetail(state, payload) {
     state.detail = payload;
   },
-  setDetailLogo(state, payload) {
-    state.detailLogo = payload;
+  setList(state, payload) {
+    state.list = payload;
   },
-  setAccount(state, payload) {
-    state.account = payload;
+  setNewUpdate(state, payload) {
+    state.newUpdate = payload;
   },
   setDelegations(state, payload) {
     state.delegations = payload;
@@ -51,5 +36,8 @@ export default {
   },
   setDelegationsPagination(state, payload) {
     state.delegationsPagination = payload;
+  },
+  setFilter(state, payload) {
+    state.filter = payload;
   },
 };

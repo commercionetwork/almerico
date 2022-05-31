@@ -1,6 +1,6 @@
 <template>
   <v-avatar>
-    <v-img v-if="detailLogo" :src="detailLogo" max-height="40" max-width="40">
+    <v-img v-if="detail.logo" :src="detail.logo" max-height="40" max-width="40">
       <template v-slot:placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
           <v-progress-circular
@@ -28,7 +28,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['detailLogo']),
+    ...mapGetters('validators', ['detail']),
   },
 };
 </script>
