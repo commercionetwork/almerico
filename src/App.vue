@@ -28,7 +28,7 @@ import BaseLoadingCircular from '@/components/BaseLoadingCircular';
 import TheNavBar from '@/components/layout/TheNavBar.vue';
 
 import { mapActions, mapGetters } from 'vuex';
-import ws from '@/apis/ws';
+import { wsChainClient } from '@/apis/ws';
 
 export default {
   name: 'App',
@@ -49,7 +49,7 @@ export default {
     this.initAppData();
   },
   mounted() {
-    ws.subscribe();
+    wsChainClient.subscribe();
   },
   methods: {
     ...mapActions('application', ['initAppData']),

@@ -1,9 +1,9 @@
 import { APIS, VALIDATORS } from '@/constants';
 import store from '@/store';
 
-export default {
+const wsChainHandler = {
   onError(event) {
-    _handleErrorEvent(event);
+    store.commit('application/setError', event.error);
   },
   onMessage(data) {
     const eventData = JSON.parse(data);
@@ -15,7 +15,7 @@ export default {
   },
 };
 
-const _handleErrorEvent = (event) => store.dispatch('handleError', event.error);
+export default wsChainHandler;
 
 const _handleEvent = (type, eventData) => {
   switch (type) {
@@ -40,6 +40,7 @@ const _handleNewBlockEvent = (data) => {
   store.commit('blocks/setNewHeight', block.header.height);
   if (block.data.txs.length > 0)
     store.dispatch('application/fetchLatestTransactions', block.header.height);
+  //TODO: remove
   if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY)
     store.commit('validators/setNewHeight', block.header.height);
 };
