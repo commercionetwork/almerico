@@ -12,9 +12,7 @@ describe('views/validators/detail/ValidatorsViewDetailBlocksMonitor.vue', () => 
     $t: (msg) => msg,
   };
   const computed = {
-    isLoadingBlocks: () => false,
-    detail: () => ({ id: 1 }),
-    blocks: () => [{ id: 1 }],
+    isUpdating: () => false,
   };
 
   test('if info message is displayed', () => {
@@ -24,7 +22,7 @@ describe('views/validators/detail/ValidatorsViewDetailBlocksMonitor.vue', () => 
       stubs: ['i18n'],
       computed: {
         ...computed,
-        verifiedBlocks: () => [],
+        detail: () => ({ id: 1, blocks: [] }),
       },
     });
 
@@ -39,7 +37,7 @@ describe('views/validators/detail/ValidatorsViewDetailBlocksMonitor.vue', () => 
       stubs: ['i18n'],
       computed: {
         ...computed,
-        verifiedBlocks: () => [{ id: 1 }],
+        detail: () => ({ id: 1, blocks: [{ height: 1 }] }),
       },
     });
 

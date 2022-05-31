@@ -1,204 +1,93 @@
-import { VALIDATORS } from '@/constants';
 import {
-  mockBlock,
   mockDelegation,
   mockErrors,
   mockPagination,
-  mockPool,
-  mockValidator,
-  mockValidatorLogo,
-  mockValidatorSets,
+  mockValidatorBackend,
+  mockValidatorsBackend,
 } from '@/__mocks__';
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
-const mockAddress = 'did:com:';
 let mockError = false;
 let mockResponse = null;
-let mockResponseValidatorSets = null;
 
 describe('store/validators/actions', () => {
-  const OLD_ENV = process.env;
-
   beforeEach(() => {
     mockError = false;
     mockResponse = null;
     jest.resetModules();
-    process.env = { ...OLD_ENV };
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  afterAll(() => {
-    process.env = OLD_ENV;
-  });
-
-  test('if "initValidatorsList" reset store, set loading state, dispatch "fetchPool", "fetchValidatorsLogo", and "fetchTrackedBlocks" actions', async () => {
+  test('if "initValidatorsList" reset store, set loading state and dispatch "fetchList" action', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const lastHeight = '1000';
 
-    process.env.VUE_APP_BLOCKS_MONITOR = 'false';
-
-    await actions.initValidatorsList({ commit, dispatch }, lastHeight);
+    await actions.initValidatorsList({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchPool');
-    expect(dispatch).toHaveBeenCalledWith('fetchValidatorsLogo');
-    expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
+    expect(dispatch).toHaveBeenCalledWith('fetchList');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
-
-    process.env.VUE_APP_BLOCKS_MONITOR = 'true';
-
-    await actions.initValidatorsList({ commit, dispatch }, lastHeight);
-
-    expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
   });
 
-  test('if "fetchPool" action commit "setPool", and set the error if it is caught', async () => {
+  test('if "fetchList" action commit "setList", and set the error if it is caught', async () => {
     const commit = jest.fn();
 
-    await actions.fetchPool({ commit });
+    await actions.fetchList({ commit });
 
-    expect(commit).toHaveBeenCalledWith('setPool', mockResponse.data.pool);
+    expect(commit).toHaveBeenCalledWith('setList', mockResponse.data);
 
     mockError = true;
 
-    await actions.fetchPool({ commit });
+    await actions.fetchList({ commit });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchTrackedBlocks" set loading state and dispatch "addBlocksItem"', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const lastHeight = '1000';
-    let height = parseInt(lastHeight);
-    let minHeight = height - VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
-
-    await actions.fetchTrackedBlocks({ commit, dispatch }, lastHeight);
-
-    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', true);
-    expect(dispatch).toHaveBeenCalledTimes(
-      VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT
-    );
-    while (height > minHeight) {
-      expect(dispatch).toHaveBeenCalledWith('addBlocksItem', height--);
-    }
-    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', false);
-  });
-
-  test('if "addBlocksItem" commit "addBlock, and set the error if it is caught"', async () => {
-    const commit = jest.fn();
-    const height = '100';
-
-    await actions.addBlocksItem({ commit }, height);
-
-    expect(commit).toHaveBeenCalledWith('addBlock', {
-      ...mockResponse.data,
-      ...mockResponseValidatorSets.data.result,
-    });
-
-    mockError = true;
-
-    await actions.addBlocksItem({ commit }, height);
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "initValidatorsDetail" reset store, set loading state, dispatch "fetchDetail", "fetchDetailDelegations", "fetchPool" and "fetchTrackedBlocks" actions', async () => {
+  test('if "initValidatorsDetail" reset store, set loading state, dispatch "fetchDetail" and "fetchDetailDelegations" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
-    const lastHeight = '1000';
 
-    process.env.VUE_APP_BLOCKS_MONITOR = 'false';
-
-    await actions.initValidatorsDetail(
-      { commit, dispatch },
-      { id: address, lastHeight }
-    );
+    await actions.initValidatorsDetail({ commit, dispatch }, address);
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('setAccount', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetail', address);
     expect(dispatch).toHaveBeenCalledWith('fetchDetailDelegations', address);
-    expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
-    expect(dispatch).not.toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
-
-    process.env.VUE_APP_BLOCKS_MONITOR = 'true';
-
-    await actions.initValidatorsDetail(
-      { commit, dispatch },
-      { id: address, lastHeight }
-    );
-
-    expect(dispatch).toHaveBeenCalledWith('fetchTrackedBlocks', lastHeight);
   });
 
-  test('if "setAccount" commit "setAccount", and set the error if it is caught', () => {
-    const commit = jest.fn();
-    const address = 'address';
-
-    actions.setAccount({ commit }, address);
-
-    expect(commit).toHaveBeenCalledWith('setAccount', mockAddress);
-
-    mockError = true;
-
-    actions.setAccount({ commit }, address);
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "fetchDetail" action commit "setDetail" and dispatch "fetchDetailLogo", and set the error if it is caught', async () => {
+  test('if "updateValidatorsDetail" set updating state and dispatch "fetchDetail" action', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const id = 'id';
+    const address = 'address';
 
-    await actions.fetchDetail({ commit, dispatch }, id);
+    await actions.updateValidatorsDetail({ commit, dispatch }, address);
 
-    expect(commit).toHaveBeenCalledWith(
-      'setDetail',
-      mockResponse.data.validator
-    );
-    expect(dispatch).toHaveBeenCalledWith(
-      'fetchDetailLogo',
-      mockResponse.data.validator.description.identity
-    );
-
-    mockError = true;
-
-    await actions.fetchDetail({ commit, dispatch }, id);
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setUpdating', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchDetail', address);
+    expect(commit).toHaveBeenCalledWith('setUpdating', false);
   });
 
-  test('if "fetchDetailLogo" commit "setDetailLogo", and set the logo to "" if error is caught', async () => {
+  test('if "fetchDetail" action commit "setDetail", and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const identity = 'identity';
+    const dispatch = jest.fn();
+    const address = 'address';
 
-    await actions.fetchDetailLogo({ commit }, identity);
+    await actions.fetchDetail({ commit, dispatch }, address);
 
-    for (const item of mockResponse.data.them) {
-      if ('primary' in item['pictures']) {
-        expect(commit).toHaveBeenCalledWith(
-          'setDetailLogo',
-          item['pictures']['primary']['url']
-        );
-      }
-    }
+    expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data);
 
     mockError = true;
 
-    await actions.fetchDetailLogo({ commit }, identity);
+    await actions.fetchDetail({ commit, dispatch }, address);
 
-    expect(commit).toHaveBeenCalledWith('setDetailLogo', '');
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchDetailDelegations" dispatch "addDetailDelegations" action', async () => {
@@ -238,18 +127,6 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "updateBlocksMonitor" action det loading state and dispatch "addBlocksItem"', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const height = 'height';
-
-    await actions.updateBlocksMonitor({ commit, dispatch }, height);
-
-    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', true);
-    expect(dispatch).toHaveBeenCalledWith('addBlocksItem', height);
-    expect(commit).toHaveBeenCalledWith('setLoadingBlocks', false);
-  });
-
   test('if "setValidatorsFilter" set filter', () => {
     const commit = jest.fn();
     const filter = {
@@ -263,8 +140,8 @@ describe('store/validators/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/keybase.js', () => ({
-  requestValidatorLogo: () => {
+jest.mock('../../../apis/http/validators.js', () => ({
+  requestList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -272,7 +149,21 @@ jest.mock('../../../apis/http/keybase.js', () => ({
         }
 
         mockResponse = {
-          data: mockValidatorLogo(),
+          data: mockValidatorsBackend(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestDetail: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockValidatorBackend(),
         };
         resolve(mockResponse);
       }, 1);
@@ -281,36 +172,6 @@ jest.mock('../../../apis/http/keybase.js', () => ({
 }));
 
 jest.mock('../../../apis/http/staking.js', () => ({
-  requestPool: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            pool: mockPool(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestValidatorsDetail: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: { validator: mockValidator() },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
   requestValidatorsDetailDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -327,56 +188,5 @@ jest.mock('../../../apis/http/staking.js', () => ({
         resolve(mockResponse);
       }, 1);
     });
-  },
-}));
-
-jest.mock('../../../apis/http/tendermintRpc.js', () => ({
-  requestBlock: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: mockBlock(),
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestValidatorSets: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponseValidatorSets = {
-          data: {
-            height: '1',
-            result: mockValidatorSets(),
-          },
-        };
-        resolve(mockResponseValidatorSets);
-      }, 1);
-    });
-  },
-}));
-
-jest.mock('../../../utils/bech32Manager.js', () => ({
-  decode: () => {
-    if (mockError) {
-      throw mockErrorResponse;
-    }
-
-    return mockAddress;
-  },
-  encode: () => {
-    if (mockError) {
-      throw mockErrorResponse;
-    }
-
-    return mockAddress;
   },
 }));

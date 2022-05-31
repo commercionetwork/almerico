@@ -29,8 +29,7 @@ describe('views/validators/ValidatorsViewDetail.vue', () => {
     id: 'id',
   };
   const computed = {
-    lastHeight: () => '1',
-    newHeight: () => '2',
+    newUpdate: () => false,
   };
 
   test('if loading indicator is displayed', async () => {
