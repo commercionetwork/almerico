@@ -64,27 +64,6 @@ const mockValidator = ({
   return item;
 };
 
-const mockValidatorLogo = () => {
-  const item = {
-    status: {
-      code: 0,
-      name: 'OK',
-    },
-    them: [
-      {
-        id: '2305a60760b68d702afd6ae423185419',
-        pictures: {
-          primary: {
-            url: 'https://s3.amazonaws.com/keybase_processed_uploads/300.jpg',
-            source: null,
-          },
-        },
-      },
-    ],
-  };
-  return item;
-};
-
 const mockValidators = (validators = 4) => {
   const list = new Array(validators).fill(null).map(() => mockValidator());
   return list;
@@ -101,7 +80,6 @@ const mockValidatorsBackend = (validators = 4) => {
 export {
   mockValidator,
   mockValidatorBackend,
-  mockValidatorLogo,
   mockValidators,
   mockValidatorsBackend,
 };

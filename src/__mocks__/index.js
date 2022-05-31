@@ -22,7 +22,6 @@ import { mockUnbondings } from './unbondings';
 import {
   mockValidator,
   mockValidatorBackend,
-  mockValidatorLogo,
   mockValidators,
   mockValidatorsBackend,
 } from './validators';
@@ -56,7 +55,6 @@ export {
   mockUnbondings,
   mockValidator,
   mockValidatorBackend,
-  mockValidatorLogo,
   mockValidatorSets,
   mockValidators,
   mockValidatorsBackend,
