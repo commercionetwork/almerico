@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.0.0] - 2022-06
 
+### Added
+
+- To fetch validators data add calls to backend endpoints
+
 ### Changed
 
 - Replace legacy endpoints
