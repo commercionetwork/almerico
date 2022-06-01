@@ -33,7 +33,6 @@
 import '@/assets/style/block-monitor.scss';
 import { VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
-import { orderBy } from 'lodash';
 
 export default {
   name: 'ValidatorsViewDetailBlocksMonitor',
@@ -48,7 +47,7 @@ export default {
       return VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
     },
     blocks() {
-      return orderBy(this.detail.blocks, ['height'], ['desc']);
+      return this.detail.blocks || [];
     },
   },
   watch: {
