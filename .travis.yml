@@ -97,3 +97,8 @@ deploy:
     script: bash ./scripts/docker_push_alfa.sh
     on:
       branch: alfa
+  - provider: script
+    skip_cleanup: true
+    script: bash ./scripts/docker_push_v32.sh
+    on:
+      branch: version/3.2.0
