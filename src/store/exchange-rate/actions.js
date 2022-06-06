@@ -7,8 +7,8 @@ export default {
     commit('setLoading', true);
     const requests = [
       dispatch('fetchAbrTokens'),
-      dispatch('fetchAccounts'),
-      dispatch('fetchFreezedTokens'),
+      dispatch('fetchAccountsLegacy'),
+      dispatch('fetchFreezedTokensLegacy'),
       dispatch('fetchPool'),
       dispatch('fetchSupply'),
       dispatch('fetchVbrTokens'),
@@ -71,6 +71,29 @@ export default {
     try {
       const response = await commercio.requestVbrTokens();
       commit('setVbrTokens', response.data.funds);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  //TODO: remove when the new version will be available
+  async fetchAccountsLegacy({ commit }) {
+    const accounts = JSON.parse(CONFIG.SPREADSHEET_ACCOUNTS);
+    if (!accounts.length) return;
+    try {
+      for (const account of accounts) {
+        const response = await bank.requestBalancesLegacy(account.address);
+        account.balances = response.data.result;
+        commit('addAccount', account);
+      }
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async fetchFreezedTokensLegacy({ commit }) {
+    try {
+      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
+      commit('setFreezedTokens', response.data.result);
     } catch (error) {
       commit('setError', error);
     }

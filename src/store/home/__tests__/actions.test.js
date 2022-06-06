@@ -33,7 +33,7 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
-    expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
+    expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokensLegacy');
     expect(dispatch).toHaveBeenCalledWith('fetchParams');
     expect(dispatch).toHaveBeenCalledWith('fetchParamsUpdates');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
@@ -243,6 +243,24 @@ jest.mock('../../../apis/http/bank.js', () => ({
         mockResponse = {
           data: {
             supply: mockBalances(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  //TODO: remove when the new version will be available
+  requestBalancesLegacy: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            height: '0',
+            result: mockBalances(),
           },
         };
         resolve(mockResponse);

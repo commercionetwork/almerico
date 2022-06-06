@@ -8,7 +8,7 @@ export default {
     const requests = [
       dispatch('fetchAbrTokens'),
       dispatch('fetchAllTokens'),
-      dispatch('fetchFreezedTokens'),
+      dispatch('fetchFreezedTokensLegacy'),
       dispatch('fetchParams'),
       dispatch('fetchParamsUpdates'),
       dispatch('fetchPool'),
@@ -138,5 +138,15 @@ export default {
   async refreshTransactions({ commit, dispatch }) {
     commit('setTransactions', []);
     await dispatch('fetchTransactions');
+  },
+
+  //TODO: remove when the new version will be available
+  async fetchFreezedTokensLegacy({ commit }) {
+    try {
+      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
+      commit('setFreezedTokens', response.data.result);
+    } catch (error) {
+      commit('setError', error);
+    }
   },
 };

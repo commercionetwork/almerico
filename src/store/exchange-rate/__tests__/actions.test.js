@@ -29,8 +29,8 @@ describe('store/exchange-rate/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchAccounts');
-    expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
+    expect(dispatch).toHaveBeenCalledWith('fetchAccountsLegacy');
+    expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokensLegacy');
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).toHaveBeenCalledWith('fetchSupply');
     expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
@@ -154,6 +154,24 @@ jest.mock('../../../apis/http/bank.js', () => ({
         mockResponse = {
           data: {
             supply: mockBalances(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  //TODO: remove when the new version will be available
+  requestBalancesLegacy: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            height: '0',
+            result: mockBalances(),
           },
         };
         resolve(mockResponse);
