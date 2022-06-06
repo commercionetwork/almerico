@@ -40,6 +40,10 @@ export const APIS = {
     // RPC
     BLOCKS_RPC: `${LCD}/blocks`,
     VALIDATORSETS_RPC: `${LCD}/validatorsets`,
+    //TODO: remove when the new version will be available
+    // Legacy
+    BANK_LEGACY: `${LCD}/bank`,
+    STAKING_LEGACY: `${LCD}/staking`,
   },
   SORTING_ORDERS: {
     ORDER_BY_ASC: 'ORDER_BY_ASC',
