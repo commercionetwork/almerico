@@ -7,7 +7,10 @@ const wsBackendHandler = {
   },
   onMessage(event) {
     const eventData = JSON.parse(event.data);
-    if (eventData.event === APIS.WS.EVENTS.BACKEND_VALIDATORS_UPDATES) {
+    if (
+      eventData.events &&
+      eventData.events.indexOf(APIS.WS.EVENTS.BACKEND_NEW_BLOCK) > -1
+    ) {
       store.commit('validators/setList', eventData.data.validators);
       store.commit('validators/setNewUpdate', true);
     }

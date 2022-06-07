@@ -8,7 +8,7 @@ const wsChainHandler = {
   onMessage(data) {
     const eventData = JSON.parse(data);
     const type =
-      eventData.result.data != undefined
+      eventData.result && eventData.result.data
         ? eventData.result.data.type.replace('tendermint/event/', '')
         : null;
     _handleEvent(type, eventData);

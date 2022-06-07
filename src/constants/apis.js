@@ -52,7 +52,8 @@ export const APIS = {
   },
   WS: {
     EVENTS: {
-      BACKEND_VALIDATORS_UPDATES: 'validators-update',
+      BACKEND_NEW_BLOCK: 'new-block',
+      BACKEND_NEW_TX: 'new-tx',
       NEW_BLOCK: 'NewBlock',
       TX: 'Tx',
       TX_SET_PARAMS: 'setParams',
