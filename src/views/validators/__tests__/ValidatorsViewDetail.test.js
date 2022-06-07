@@ -29,7 +29,7 @@ describe('views/validators/ValidatorsViewDetail.vue', () => {
     id: 'id',
   };
   const computed = {
-    newUpdate: () => false,
+    newBlock: () => false,
   };
 
   test('if loading indicator is displayed', async () => {

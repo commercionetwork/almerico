@@ -12,7 +12,10 @@ const wsBackendHandler = {
       eventData.events.indexOf(APIS.WS.EVENTS.BACKEND_NEW_BLOCK) > -1
     ) {
       store.commit('validators/setList', eventData.data.validators);
-      store.commit('validators/setNewUpdate', true);
+      store.commit('validators/setNewBlock', true);
+      if (eventData.events.indexOf(APIS.WS.EVENTS.BACKEND_NEW_TX) > -1) {
+        store.commit('validators/setNewUpdate', true);
+      }
     }
   },
 };

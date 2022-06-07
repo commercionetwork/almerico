@@ -4,6 +4,7 @@ export default {
   isUpdating: (state) => state.isUpdating,
   detail: (state) => state.detail,
   list: (state) => state.list,
+  newBlock: (state) => state.newBlock,
   newUpdate: (state) => state.newUpdate,
   delegations: (state) => state.delegations,
   delegationsOffset: (state) => state.delegationsOffset,

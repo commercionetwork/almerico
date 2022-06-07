@@ -4,7 +4,7 @@
       <div class="fill-height">
         <BaseChart
           :id="CHARTS.ID.VALIDATORS_LIST"
-          :dataset="chartData"
+          :dataset="dataset"
           :options="chartOptions"
           :type="CHARTS.TYPE.PIE"
         />
@@ -30,16 +30,11 @@ export default {
   data() {
     return {
       CHARTS,
+      dataset: null,
     };
   },
   computed: {
-    ...mapGetters('validators', ['list']),
-    chartData() {
-      return validatorsChartHelper.getChartData(this.list, {
-        bonded: this.$t('labels.bonded'),
-        notBonded: this.$t('labels.notBonded'),
-      });
-    },
+    ...mapGetters('validators', ['list', 'newUpdate']),
     chartLabel() {
       return validatorsChartHelper.getChartLabel(
         this.list,
@@ -49,6 +44,22 @@ export default {
     chartOptions() {
       return validatorsChartHelper.getChartOptions();
     },
+  },
+  watch: {
+    newUpdate(value) {
+      if (value) {
+        this.dataset = validatorsChartHelper.getChartData(this.list, {
+          bonded: this.$t('labels.bonded'),
+          notBonded: this.$t('labels.notBonded'),
+        });
+      }
+    },
+  },
+  created() {
+    this.dataset = validatorsChartHelper.getChartData(this.list, {
+      bonded: this.$t('labels.bonded'),
+      notBonded: this.$t('labels.notBonded'),
+    });
   },
 };
 </script>

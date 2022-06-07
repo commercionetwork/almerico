@@ -67,6 +67,12 @@ describe('store/validators/mutations', () => {
     expect(state.list).toStrictEqual(items);
   });
 
+  test('mutations.setNewBlock', () => {
+    mutations.setNewBlock(state, true);
+
+    expect(state.newBlock).toBe(true);
+  });
+
   test('mutations.setNewUpdate', () => {
     mutations.setNewUpdate(state, true);
 

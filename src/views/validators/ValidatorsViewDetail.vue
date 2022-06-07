@@ -49,13 +49,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('validators', ['error', 'isLoading', 'newUpdate']),
+    ...mapGetters('validators', ['error', 'isLoading', 'newBlock']),
   },
   watch: {
     id(value) {
       this.initValidatorsDetail(value);
     },
-    newUpdate() {
+    newBlock() {
       this.updateValidatorsDetail(this.id);
     },
   },
