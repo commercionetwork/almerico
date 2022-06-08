@@ -65,21 +65,6 @@ after_success:
     --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_DEVNET_SPREADSHEET_ACCOUNTS}"
     --build-arg WS_URL=${ALMERICO_DEVNET_WS_URL}
     .
-  - test $TRAVIS_BRANCH = "version/3.2.0" && docker build -t $DOCKER_IMAGE_ALMERICO_V_3_2
-    --build-arg ANCESTORS_LIST="${ALMERICO_DEVNET_ANCESTORS_LIST}"
-    --build-arg API_VERSION=${ALMERICO_DEVNET_API_VERSION}
-    --build-arg BACKEND=${ALMERICO_DEVNET_BACKEND}
-    --build-arg BACKEND_API_VERSION=${ALMERICO_DEVNET_BACKEND_API_VERSION}
-    --build-arg BACKEND_WS=${ALMERICO_DEVNET_BACKEND_WS}
-    --build-arg BLOCKS_MONITOR="${ALMERICO_DEVNET_BLOCKS_MONITOR}"
-    --build-arg FIRST_CONVERSION_RATE=${ALMERICO_DEVNET_FIRST_CONVERSION_RATE}
-    --build-arg FIRST_HEIGHT=${ALMERICO_DEVNET_FIRST_HEIGHT}
-    --build-arg LCD_URL=${ALMERICO_DEVNET_LCD_URL}
-    --build-arg MAIN_TITLE="${ALMERICO_DEVNET_MAIN_TITLE}"
-    --build-arg MINTER_ACCOUNT="${ALMERICO_DEVNET_MINTER_ACCOUNT}"
-    --build-arg SPREADSHEET_ACCOUNTS="${ALMERICO_DEVNET_SPREADSHEET_ACCOUNTS}"
-    --build-arg WS_URL=${ALMERICO_DEVNET_WS_URL}
-    .
 
 deploy:
   - provider: script
@@ -97,8 +82,3 @@ deploy:
     script: bash ./scripts/docker_push_alfa.sh
     on:
       branch: alfa
-  - provider: script
-    skip_cleanup: true
-    script: bash ./scripts/docker_push_v32.sh
-    on:
-      branch: version/3.2.0
