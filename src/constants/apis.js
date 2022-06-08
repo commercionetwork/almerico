@@ -52,8 +52,7 @@ export const APIS = {
   },
   WS: {
     EVENTS: {
-      BACKEND_NEW_BLOCK: 'new-block',
-      BACKEND_NEW_TX: 'new-tx',
+      BACKEND_NEW_HEIGHT: 'NewHeight',
       NEW_BLOCK: 'NewBlock',
       TX: 'Tx',
       TX_SET_PARAMS: 'setParams',
