@@ -20,7 +20,10 @@ export const APIS = {
   HTTP: {
     LCD: LCD,
     API_VERSION: API_VERSION,
-    BACKEND: `${BACKEND}/${BACKEND_VERSION}`,
+    // Backend
+    BACKEND_CHART: `${BACKEND}/${BACKEND_VERSION}/chart`,
+    BACKEND_OVERVIEW: `${BACKEND}/${BACKEND_VERSION}/overview`,
+    BACKEND_VALIDATORS: `${BACKEND}/${BACKEND_VERSION}/validators`,
     // Query
     AUTH: `${LCD}/${API_PATHS.COSMOS}/auth/${API_VERSION}`,
     BANK: `${LCD}/${API_PATHS.COSMOS}/bank/${API_VERSION}`,
