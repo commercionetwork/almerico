@@ -10,25 +10,10 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
-  setAbrTokens(state, payload) {
-    state.abrTokens = payload;
+  setChart(state, payload) {
+    state.chart = payload;
   },
-  setAccounts(state, payload) {
-    state.accounts = payload;
-  },
-  addAccount(state, payload) {
-    state.accounts.push(payload);
-  },
-  setFreezedTokens(state, payload) {
-    state.freezedTokens = payload;
-  },
-  setPool(state, payload) {
-    state.pool = payload;
-  },
-  setSupply(state, payload) {
-    state.supply = payload;
-  },
-  setVbrTokens(state, payload) {
-    state.vbrTokens = payload;
+  setOverview(state, payload) {
+    state.overview = payload;
   },
 };

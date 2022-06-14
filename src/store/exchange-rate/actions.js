@@ -1,99 +1,27 @@
-import { bank, commercio, staking } from '@/apis/http';
-import { CONFIG } from '@/constants';
+import { chart, overview } from '@/apis/http';
 
 export default {
   async initExchangeRate({ commit, dispatch }) {
     commit('reset');
     commit('setLoading', true);
-    const requests = [
-      dispatch('fetchAbrTokens'),
-      dispatch('fetchAccountsLegacy'),
-      dispatch('fetchFreezedTokensLegacy'),
-      dispatch('fetchPool'),
-      dispatch('fetchSupply'),
-      dispatch('fetchVbrTokens'),
-    ];
+    const requests = [dispatch('fetchChart'), dispatch('fetchOverview')];
     await Promise.all(requests);
     commit('setLoading', false);
   },
 
-  async fetchAbrTokens({ commit }) {
+  async fetchChart({ commit }) {
     try {
-      const response = await commercio.requestAbrTokens();
-      commit('setAbrTokens', response.data.funds);
+      const response = await chart.requestTokens();
+      commit('setChart', response.data);
     } catch (error) {
       commit('setError', error);
     }
   },
 
-  async fetchAccounts({ commit }) {
-    const accounts = JSON.parse(CONFIG.SPREADSHEET_ACCOUNTS);
-    if (!accounts.length) return;
+  async fetchOverview({ commit }) {
     try {
-      for (const account of accounts) {
-        const response = await bank.requestBalances(account.address);
-        account.balances = response.data.balances;
-        commit('addAccount', account);
-      }
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchFreezedTokens({ commit }) {
-    try {
-      const response = await bank.requestBalances(CONFIG.MINTER_ACCOUNT);
-      commit('setFreezedTokens', response.data.balances);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchPool({ commit }) {
-    try {
-      const response = await staking.requestPool();
-      commit('setPool', response.data.pool);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchSupply({ commit }) {
-    try {
-      const response = await bank.requestSupply();
-      commit('setSupply', response.data.supply);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchVbrTokens({ commit }) {
-    try {
-      const response = await commercio.requestVbrTokens();
-      commit('setVbrTokens', response.data.funds);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  //TODO: remove when the new version will be available
-  async fetchAccountsLegacy({ commit }) {
-    const accounts = JSON.parse(CONFIG.SPREADSHEET_ACCOUNTS);
-    if (!accounts.length) return;
-    try {
-      for (const account of accounts) {
-        const response = await bank.requestBalancesLegacy(account.address);
-        account.balances = response.data.result;
-        commit('addAccount', account);
-      }
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-  async fetchFreezedTokensLegacy({ commit }) {
-    try {
-      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
-      commit('setFreezedTokens', response.data.result);
+      const response = await overview.requestExchangeRate();
+      commit('setOverview', response.data);
     } catch (error) {
       commit('setError', error);
     }

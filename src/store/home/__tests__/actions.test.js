@@ -1,10 +1,8 @@
 import {
-  mockBalances,
   mockBlock,
   mockErrors,
   mockPagination,
   mockParams,
-  mockPool,
   mockTransactions,
 } from '@/__mocks__';
 import actions from '../actions.js';

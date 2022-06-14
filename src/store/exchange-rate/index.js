@@ -3,14 +3,10 @@ import getters from './getters';
 import mutations from './mutations';
 
 export const initState = () => ({
-  abrTokens: [],
-  accounts: [],
   error: null,
-  freezedTokens: [],
   isLoading: false,
-  pool: null,
-  supply: [],
-  vbrTokens: [],
+  chart: null,
+  overview: null,
 });
 
 export default {
