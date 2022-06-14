@@ -33,31 +33,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('application', ['stakingParams']),
-    ...mapGetters('home', [
-      'abrTokens',
-      'freezedTokens',
-      'pool',
-      'supply',
-      'vbrTokens',
-    ]),
+    ...mapGetters('home', ['tokensChart']),
     chartData() {
-      const labels = {
-        bonded: this.$t('labels.bonded'),
-        burned: this.$t('labels.burned'),
-        freezed: this.$t('labels.freezed'),
-        notBonded: this.$t('labels.notBonded'),
-        unreleasedRewards: this.$t('labels.unreleasedRewards'),
-      };
-      return tokensChartHelper.getChartData({
-        abrTokens: this.abrTokens,
-        freezedTokens: this.freezedTokens,
-        params: this.stakingParams,
-        pool: this.pool,
-        tokens: this.supply,
-        vbrTokens: this.vbrTokens,
-        labels,
-      });
+      return tokensChartHelper.getChartData(this.$t, this, this.tokensChart);
     },
     chartLabel() {
       return tokensChartHelper.getChartLabel(this.$t('titles.total'));

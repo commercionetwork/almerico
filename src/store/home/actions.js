@@ -1,4 +1,4 @@
-import { bank, commercio, staking, tendermintRpc, tx } from '@/apis/http';
+import { chart, commercio, tendermintRpc, tx } from '@/apis/http';
 import { APIS, HOME, CONFIG } from '@/constants';
 
 export default {
@@ -6,14 +6,10 @@ export default {
     commit('reset');
     commit('setLoading', true);
     const requests = [
-      dispatch('fetchAbrTokens'),
-      dispatch('fetchAllTokens'),
-      dispatch('fetchFreezedTokensLegacy'),
       dispatch('fetchParams'),
       dispatch('fetchParamsUpdates'),
-      dispatch('fetchPool'),
       dispatch('fetchStartingDate'),
-      dispatch('fetchVbrTokens'),
+      dispatch('fetchTokensChart'),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
@@ -72,46 +68,10 @@ export default {
     }
   },
 
-  async fetchAbrTokens({ commit }) {
+  async fetchTokensChart({ commit }) {
     try {
-      const response = await commercio.requestAbrTokens();
-      commit('setAbrTokens', response.data.funds);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchVbrTokens({ commit }) {
-    try {
-      const response = await commercio.requestVbrTokens();
-      commit('setVbrTokens', response.data.funds);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchFreezedTokens({ commit }) {
-    try {
-      const response = await bank.requestBalances(CONFIG.MINTER_ACCOUNT);
-      commit('setFreezedTokens', response.data.balances);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchAllTokens({ commit }) {
-    try {
-      const response = await bank.requestSupply();
-      commit('setSupply', response.data.supply);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-
-  async fetchPool({ commit }) {
-    try {
-      const response = await staking.requestPool();
-      commit('setPool', response.data.pool);
+      const response = await chart.requestTokens();
+      commit('setTokensChart', response.data);
     } catch (error) {
       commit('setError', error);
     }
@@ -138,15 +98,5 @@ export default {
   async refreshTransactions({ commit, dispatch }) {
     commit('setTransactions', []);
     await dispatch('fetchTransactions');
-  },
-
-  //TODO: remove when the new version will be available
-  async fetchFreezedTokensLegacy({ commit }) {
-    try {
-      const response = await bank.requestBalancesLegacy(CONFIG.MINTER_ACCOUNT);
-      commit('setFreezedTokens', response.data.result);
-    } catch (error) {
-      commit('setError', error);
-    }
   },
 };
