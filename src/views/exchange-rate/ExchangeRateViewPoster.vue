@@ -17,11 +17,18 @@
 <script>
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'ExchangeRateViewPoster',
   components: { BaseTopContentCard },
-  props: {
-    rate: String,
+  computed: {
+    ...mapGetters('exchangeRate', ['overview']),
+    rate() {
+      const index = this.overview.data.length - 1;
+      const last = this.overview.data[index];
+      return (1 / last.percentage).toFixed(2) || '-';
+    },
   },
 };
 </script>
