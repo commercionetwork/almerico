@@ -35,7 +35,7 @@ export default {
   computed: {
     ...mapGetters('exchangeRate', ['chart']),
     chartData() {
-      return tokensChartHelper.getChartData(this.$t, this, this.tokensChart);
+      return tokensChartHelper.getChartData(this.$t, this, this.chart);
     },
     chartLabel() {
       return tokensChartHelper.getChartLabel(this.$t('titles.total'));
