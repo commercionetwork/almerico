@@ -1,4 +1,4 @@
-import { mockErrors } from '@/__mocks__';
+import { mockErrors, mockChart, mockOverview } from '@/__mocks__';
 import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
@@ -27,4 +27,66 @@ describe('store/exchange-rate/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchOverview');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
+
+  test('if "fetchChart" action commit "setChart" mutation, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchChart({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setChart', mockResponse.data);
+
+    mockError = true;
+
+    await actions.fetchChart({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "fetchOverview" action commit "setOverview" mutation, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchOverview({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setOverview', mockResponse.data);
+
+    mockError = true;
+
+    await actions.fetchOverview({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
 });
+
+jest.mock('../../../apis/http/chart.js', () => ({
+  requestTokens: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockChart(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
+
+jest.mock('../../../apis/http/overview.js', () => ({
+  requestExchangeRate: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockOverview(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
