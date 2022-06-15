@@ -16,6 +16,9 @@ export default {
   setLoadingTxs(state, payload) {
     state.isLoadingTxs = payload;
   },
+  setParams(state, payload) {
+    state.params = payload;
+  },
   setParamsUpdates(state, payload) {
     state.paramsUpdates = payload;
   },
@@ -31,14 +34,11 @@ export default {
   setParamsUpdatesPagination(state, payload) {
     state.paramsUpdatesPagination = payload;
   },
-  setStartingDate(state, payload) {
-    state.startingDate = payload;
-  },
-  setParams(state, payload) {
-    state.params = payload;
-  },
   setSetParamsEventHeight(state, payload) {
     state.setParamsEventHeight = payload;
+  },
+  setStartingDate(state, payload) {
+    state.startingDate = payload;
   },
   setTokensChart(state, payload) {
     state.tokensChart = payload;

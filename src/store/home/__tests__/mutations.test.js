@@ -59,6 +59,14 @@ describe('store/home/mutations', () => {
     expect(state.isLoadingTxs).toBe(true);
   });
 
+  test('mutations.setParams', () => {
+    const params = { id: 1 };
+
+    mutations.setParams(state, params);
+
+    expect(state.params).toStrictEqual(params);
+  });
+
   test('mutations.setParamsUpdates', () => {
     const txs = [{ id: 1 }];
 
@@ -106,20 +114,19 @@ describe('store/home/mutations', () => {
     expect(state.paramsUpdatesPagination).toStrictEqual(pagination);
   });
 
+  test('mutations.setSetParamsEventHeight', () => {
+    const payload = '1';
+    mutations.setSetParamsEventHeight(state, payload);
+
+    expect(state.setParamsEventHeight).toBe(payload);
+  });
+
   test('mutations.setStartingDate', () => {
     const date = '2021-02-11T15:58:02.264848898Z';
 
     mutations.setStartingDate(state, date);
 
     expect(state.startingDate).toBe(date);
-  });
-
-  test('mutations.setParams', () => {
-    const params = { id: 1 };
-
-    mutations.setParams(state, params);
-
-    expect(state.params).toStrictEqual(params);
   });
 
   test('mutations.setTokensChart', () => {
@@ -153,12 +160,5 @@ describe('store/home/mutations', () => {
     mutations.setTxEventHeight(state, payload);
 
     expect(state.txEventHeight).toBe(payload);
-  });
-
-  test('mutations.setSetParamsEventHeight', () => {
-    const payload = '1';
-    mutations.setSetParamsEventHeight(state, payload);
-
-    expect(state.setParamsEventHeight).toBe(payload);
   });
 });

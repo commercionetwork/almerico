@@ -1,5 +1,6 @@
 import {
   mockBlock,
+  mockChart,
   mockErrors,
   mockPagination,
   mockParams,
@@ -86,6 +87,18 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
+  test('if "refreshParams" set loading state and dispatch "fetchParams" and "fetchParamsUpdates" actions', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.refreshParams({ commit, dispatch });
+
+    expect(commit).toHaveBeenCalledWith('setLoadingParams', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchParams');
+    expect(dispatch).toHaveBeenCalledWith('fetchParamsUpdates');
+    expect(commit).toHaveBeenCalledWith('setLoadingParams', false);
+  });
+
   test('if "fetchStartingDate" action commit "setStartingDate", and set the error if it is caught', async () => {
     const commit = jest.fn();
 
@@ -99,6 +112,20 @@ describe('store/home/actions', () => {
     mockError = true;
 
     await actions.fetchStartingDate({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "fetchTokensChart" action commit "setTokensChart" mutation, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchTokensChart({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setTokensChart', mockResponse.data);
+
+    mockError = true;
+
+    await actions.fetchTokensChart({ commit });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
@@ -132,6 +159,23 @@ describe('store/home/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
   });
 });
+
+jest.mock('../../../apis/http/chart.js', () => ({
+  requestTokens: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockChart(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
 
 jest.mock('../../../apis/http/commercio.js', () => ({
   requestParams: () => {
