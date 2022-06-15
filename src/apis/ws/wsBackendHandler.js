@@ -13,8 +13,11 @@ const wsBackendHandler = {
     ) {
       store.commit('validators/setNewBlock', true);
       store.dispatch('validators/fetchList');
-      // if (eventData.data.hasTxs) {
-      // }
+      if (eventData.data.hasTxs) {
+        store.dispatch('exchangeRate/fetchChart');
+        store.dispatch('exchangeRate/fetchOverview');
+        store.dispatch('home/fetchTokensChart');
+      }
     }
   },
 };
