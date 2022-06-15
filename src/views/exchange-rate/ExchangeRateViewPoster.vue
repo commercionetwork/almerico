@@ -25,9 +25,8 @@ export default {
   computed: {
     ...mapGetters('exchangeRate', ['overview']),
     rate() {
-      const index = this.overview.data.length - 1;
-      const last = this.overview.data[index];
-      return (1 / last.percentage).toFixed(2) || '-';
+      const rate = this.overview.specs.find((spec) => spec.name === 'rate');
+      return parseFloat(rate.content).toFixed(2) || '-';
     },
   },
 };
