@@ -1,3 +1,5 @@
+import { EXCHANGE_RATE } from '@/constants';
+
 const overviewHelper = {
   /**
    * @param {Function} translator
@@ -6,16 +8,26 @@ const overviewHelper = {
    */
   buildRows(translator, context, rows) {
     const $t = translator.bind(context);
-    return rows.map((row) => ({
-      label: $t(`labels.${row.label}`),
-      quantity: new Intl.NumberFormat(undefined, {
-        style: 'decimal',
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 2,
-      }).format(row.amount),
-      percentage: (row.percentage * 100).toFixed(2) + '%',
-      style: row.style,
-    }));
+    return rows.map((row) => {
+      const quantity =
+        row.style === EXCHANGE_RATE.ROW_STYLE.COMING_SOON
+          ? $t('msgs.comingSoon')
+          : new Intl.NumberFormat(undefined, {
+              style: 'decimal',
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            }).format(row.amount);
+      const percentage =
+        row.style === EXCHANGE_RATE.ROW_STYLE.COMING_SOON
+          ? $t('msgs.comingSoon')
+          : (row.percentage * 100).toFixed(2) + '%';
+      return {
+        label: $t(`labels.${row.label}`),
+        quantity: quantity,
+        percentage: percentage,
+        style: row.style,
+      };
+    });
   },
   /**
    * @param {Function} translator
