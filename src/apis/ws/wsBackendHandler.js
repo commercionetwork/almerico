@@ -12,9 +12,9 @@ const wsBackendHandler = {
       eventData.event === APIS.WS.EVENTS.BACKEND_NEW_HEIGHT
     ) {
       store.commit('validators/setNewBlock', true);
-      if (eventData.data.hasTxs) {
-        store.commit('validators/setNewUpdate', true);
-      }
+      store.dispatch('validators/fetchList');
+      // if (eventData.data.hasTxs) {
+      // }
     }
   },
 };

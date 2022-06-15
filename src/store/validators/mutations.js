@@ -22,9 +22,6 @@ export default {
   setNewBlock(state, payload) {
     state.newBlock = payload;
   },
-  setNewUpdate(state, payload) {
-    state.newUpdate = payload;
-  },
   setDelegations(state, payload) {
     state.delegations = payload;
   },

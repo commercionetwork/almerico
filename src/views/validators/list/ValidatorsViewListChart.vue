@@ -34,7 +34,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['list', 'newUpdate']),
+    ...mapGetters('validators', ['list']),
     chartLabel() {
       return validatorsChartHelper.getChartLabel(
         this.list,
@@ -46,20 +46,24 @@ export default {
     },
   },
   watch: {
-    newUpdate(value) {
-      if (value) {
-        this.dataset = validatorsChartHelper.getChartData(this.list, {
-          bonded: this.$t('labels.bonded'),
-          notBonded: this.$t('labels.notBonded'),
-        });
+    list(value, oldValue) {
+      const bondedList = value.filter((it) => it.active).length;
+      const oldBondedList = oldValue.filter((it) => it.active).length;
+      if (bondedList !== oldBondedList) {
+        this.setDataset(value);
       }
     },
   },
   created() {
-    this.dataset = validatorsChartHelper.getChartData(this.list, {
-      bonded: this.$t('labels.bonded'),
-      notBonded: this.$t('labels.notBonded'),
-    });
+    this.setDataset(this.list);
+  },
+  methods: {
+    setDataset(list) {
+      this.dataset = validatorsChartHelper.getChartData(list, {
+        bonded: this.$t('labels.bonded'),
+        notBonded: this.$t('labels.notBonded'),
+      });
+    },
   },
 };
 </script>
