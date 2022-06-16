@@ -163,7 +163,7 @@ jest.mock('../../../apis/http/validators.js', () => ({
         }
 
         mockResponse = {
-          data: mockValidatorBackend(),
+          data: mockValidatorBackend(false),
         };
         resolve(mockResponse);
       }, 1);

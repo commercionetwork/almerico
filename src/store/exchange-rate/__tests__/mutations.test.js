@@ -11,8 +11,8 @@ describe('store/exchange-rate/mutations', () => {
   test('mutations.reset', () => {
     state.error = new Error('error');
     state.isLoading = true;
-    state.abrTokens = [{ id: 1 }];
-    state.pool = { id: 1 };
+    state.chart = { id: 1 };
+    state.overview = { id: 1 };
 
     const expected = initState();
 
@@ -35,61 +35,19 @@ describe('store/exchange-rate/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('mutations.setAbrTokens', () => {
-    const payload = [{ denom: 'ucommercio', amount: '1' }];
-
-    mutations.setAbrTokens(state, payload);
-
-    expect(state.abrTokens).toStrictEqual(payload);
-  });
-
-  test('mutations.setAccounts', () => {
-    const payload = [{ id: 1 }];
-
-    mutations.setAccounts(state, payload);
-
-    expect(state.accounts).toStrictEqual(payload);
-  });
-
-  test('mutations.addAccount', () => {
-    state.accounts = [{ id: 1 }];
-    const payload = { id: 2 };
-    const expected = [{ id: 1 }, { id: 2 }];
-
-    mutations.addAccount(state, payload);
-
-    expect(state.accounts).toStrictEqual(expected);
-  });
-
-  test('mutations.setFreezedTokens', () => {
-    const payload = [{ id: 1 }];
-
-    mutations.setFreezedTokens(state, payload);
-
-    expect(state.freezedTokens).toStrictEqual(payload);
-  });
-
-  test('mutations.setPool', () => {
+  test('mutations.setChart', () => {
     const payload = { id: 1 };
 
-    mutations.setPool(state, payload);
+    mutations.setChart(state, payload);
 
-    expect(state.pool).toStrictEqual(payload);
+    expect(state.chart).toStrictEqual(payload);
   });
 
-  test('mutations.setSupply', () => {
-    const payload = [{ denom: 'ucommercio', amount: '1' }];
+  test('mutations.setOverview', () => {
+    const payload = { id: 1 };
 
-    mutations.setSupply(state, payload);
+    mutations.setOverview(state, payload);
 
-    expect(state.supply).toStrictEqual(payload);
-  });
-
-  test('mutations.setVbrTokens', () => {
-    const payload = [{ denom: 'ucommercio', amount: '1' }];
-
-    mutations.setVbrTokens(state, payload);
-
-    expect(state.vbrTokens).toStrictEqual(payload);
+    expect(state.overview).toStrictEqual(payload);
   });
 });

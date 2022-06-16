@@ -5,7 +5,6 @@ export default {
   detail: (state) => state.detail,
   list: (state) => state.list,
   newBlock: (state) => state.newBlock,
-  newUpdate: (state) => state.newUpdate,
   delegations: (state) => state.delegations,
   delegationsOffset: (state) => state.delegationsOffset,
   delegationsTotal: (state) => state.delegationsPagination.total,

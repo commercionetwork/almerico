@@ -8,13 +8,15 @@ const wsBackendHandler = {
   onMessage(event) {
     const eventData = JSON.parse(event.data);
     if (
-      eventData.events &&
-      eventData.events.indexOf(APIS.WS.EVENTS.BACKEND_NEW_BLOCK) > -1
+      eventData.event &&
+      eventData.event === APIS.WS.EVENTS.BACKEND_NEW_HEIGHT
     ) {
-      store.commit('validators/setList', eventData.data.validators);
       store.commit('validators/setNewBlock', true);
-      if (eventData.events.indexOf(APIS.WS.EVENTS.BACKEND_NEW_TX) > -1) {
-        store.commit('validators/setNewUpdate', true);
+      store.dispatch('validators/fetchList');
+      if (eventData.data.hasTxs) {
+        store.dispatch('exchangeRate/fetchChart');
+        store.dispatch('exchangeRate/fetchOverview');
+        store.dispatch('home/fetchTokensChart');
       }
     }
   },

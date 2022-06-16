@@ -1,7 +1,5 @@
 export default {
-  abrTokens: (state) => state.abrTokens,
   error: (state) => state.error,
-  freezedTokens: (state) => state.freezedTokens,
   isLoading: (state) => state.isLoading,
   isLoadingParams: (state) => state.isLoadingParams,
   isLoadingTxs: (state) => state.isLoadingTxs,
@@ -11,11 +9,9 @@ export default {
   paramsUpdatesOffset: (state) => state.paramsUpdatesOffset,
   paramsUpdatesPagination: (state) => state.paramsUpdatesPagination,
   paramsUpdatesTotal: (state) => state.paramsUpdatesPagination.total,
-  pool: (state) => state.pool,
   setParamsEventHeight: (state) => state.setParamsEventHeight,
   startingDate: (state) => state.startingDate,
-  supply: (state) => state.supply,
+  tokensChart: (state) => state.tokensChart,
   transactions: (state) => state.transactions,
   txEventHeight: (state) => state.txEventHeight,
-  vbrTokens: (state) => state.vbrTokens,
 };

@@ -1,29 +1,42 @@
 import { VALIDATORS } from '@/constants';
 import { v4 as uuidv4 } from 'uuid';
 
-const mockValidatorBackend = (rank = 1, active = true) => {
+const mockValidatorAttendanceBackend = () => {
   const item = {
-    id: uuidv4(),
-    operatorAddress: 'did:com:valoper1mfddzjvr8vpeqdtm6fuay2nvnecuk9qaylfxd8',
-    account: 'did:com:1mfddzjvr8vpeqdtm6fuay2nvnecuk9qa8usqq5',
-    pubkey: 'Fr03KpOeregR9AGDWf/ikalGXC6U1cUoXJPLPb5ezNY=',
-    active,
-    rank,
-    tokens: 100000000,
-    commission: '0.100000000000000000',
-    moniker: 'mock-moniker',
-    logo: '',
-    identity: '',
-    website: '',
-    securityContact: '',
-    details: '',
-    updateTime: '2020-01-01T00:00:00Z',
-    power: 0.1,
-    cumulative: 0.1,
-    attendance: 1,
-    createdAt: '2022-01-01T00:00:00Z',
-    updatedAt: '2022-01-01T00:00:00Z',
+    height: 1,
+    status: true,
   };
+  return item;
+};
+
+const mockValidatorBackend = (isList, id = uuidv4()) => {
+  const item = {
+    id,
+    operatorAddress: 'did:com:valoper133nf49v83dts7pq30csnnl7ul5unsvzzhhed8u',
+    account: 'did:com:133nf49v83dts7pq30csnnl7ul5unsvzz55qt20',
+    pubkey: 'tY4XIhur8QznKgnjuo3Bf+jbb5hV3KMEmm7hJq0qMis=',
+    active: true,
+    rank: 1,
+    tokens: 100,
+    commission: '0.100000000000000000',
+    moniker: 'moniker',
+    logo: 'https://logo.url',
+    identity: '123456AB',
+    website: 'https://website.url',
+    details: 'details',
+    securityContact: 'security contact',
+    updateTime: '2020-06-17T09:45:00Z',
+    power: 0.25,
+    cumulative: 0.25,
+    attendance: 1,
+    createdAt: '2022-06-07T14:37:43.420Z',
+    updatedAt: '2022-06-07T14:37:43.420Z',
+  };
+  if (!isList) {
+    item.blocks = new Array(5)
+      .fill(null)
+      .map(() => mockValidatorAttendanceBackend());
+  }
   return item;
 };
 
@@ -70,10 +83,9 @@ const mockValidators = (validators = 4) => {
 };
 
 const mockValidatorsBackend = (validators = 4) => {
-  let rank = 1;
   const list = new Array(validators)
     .fill(null)
-    .map(() => mockValidatorBackend(rank++));
+    .map(() => mockValidatorBackend(true));
   return list;
 };
 

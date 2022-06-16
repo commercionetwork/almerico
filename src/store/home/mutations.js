@@ -16,6 +16,9 @@ export default {
   setLoadingTxs(state, payload) {
     state.isLoadingTxs = payload;
   },
+  setParams(state, payload) {
+    state.params = payload;
+  },
   setParamsUpdates(state, payload) {
     state.paramsUpdates = payload;
   },
@@ -31,29 +34,14 @@ export default {
   setParamsUpdatesPagination(state, payload) {
     state.paramsUpdatesPagination = payload;
   },
-  setStartingDate(state, payload) {
-    state.startingDate = payload;
-  },
-  setAbrTokens(state, payload) {
-    state.abrTokens = payload;
-  },
-  setVbrTokens(state, payload) {
-    state.vbrTokens = payload;
-  },
-  setFreezedTokens(state, payload) {
-    state.freezedTokens = payload;
-  },
-  setParams(state, payload) {
-    state.params = payload;
-  },
   setSetParamsEventHeight(state, payload) {
     state.setParamsEventHeight = payload;
   },
-  setPool(state, payload) {
-    state.pool = payload;
+  setStartingDate(state, payload) {
+    state.startingDate = payload;
   },
-  setSupply(state, payload) {
-    state.supply = payload;
+  setTokensChart(state, payload) {
+    state.tokensChart = payload;
   },
   setTransactions(state, payload) {
     state.transactions = payload;

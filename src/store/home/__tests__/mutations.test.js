@@ -9,9 +9,7 @@ describe('store/home/mutations', () => {
   });
 
   test('mutations.reset', () => {
-    state.abrTokens = [{ id: 1 }];
     state.error = new Error('error');
-    state.freezedTokens = [{ id: 1 }];
     state.isLoading = true;
     state.isLoadingParams = true;
     state.isLoadingTxs = true;
@@ -22,13 +20,11 @@ describe('store/home/mutations', () => {
       next_key: 'string',
       total: 'string',
     };
-    state.pool = { id: 1 };
     state.setParamsEventHeight = 'setParamsEventHeight';
     state.startingDate = 'startingDate';
-    state.supply = [{ id: 1 }];
+    state.tokensChart = { id: 1 };
     state.transactions = [{ id: 1 }];
     state.txEventHeight = 'txEventHeight';
-    state.vbrTokens = [{ id: 1 }];
 
     const expected = initState();
 
@@ -61,6 +57,14 @@ describe('store/home/mutations', () => {
     mutations.setLoadingTxs(state, true);
 
     expect(state.isLoadingTxs).toBe(true);
+  });
+
+  test('mutations.setParams', () => {
+    const params = { id: 1 };
+
+    mutations.setParams(state, params);
+
+    expect(state.params).toStrictEqual(params);
   });
 
   test('mutations.setParamsUpdates', () => {
@@ -110,6 +114,13 @@ describe('store/home/mutations', () => {
     expect(state.paramsUpdatesPagination).toStrictEqual(pagination);
   });
 
+  test('mutations.setSetParamsEventHeight', () => {
+    const payload = '1';
+    mutations.setSetParamsEventHeight(state, payload);
+
+    expect(state.setParamsEventHeight).toBe(payload);
+  });
+
   test('mutations.setStartingDate', () => {
     const date = '2021-02-11T15:58:02.264848898Z';
 
@@ -118,57 +129,12 @@ describe('store/home/mutations', () => {
     expect(state.startingDate).toBe(date);
   });
 
-  test('mutations.setAbrTokens', () => {
-    const abrTokens = [{ id: 1 }];
+  test('mutations.setTokensChart', () => {
+    const chart = { id: 1 };
 
-    mutations.setAbrTokens(state, abrTokens);
+    mutations.setTokensChart(state, chart);
 
-    expect(state.abrTokens).toStrictEqual(abrTokens);
-  });
-
-  test('mutations.setVbrTokens', () => {
-    const vbrTokens = [{ id: 1 }];
-
-    mutations.setVbrTokens(state, vbrTokens);
-
-    expect(state.vbrTokens).toStrictEqual(vbrTokens);
-  });
-
-  test('mutations.setFreezedTokens', () => {
-    const payload = [{ id: 1 }];
-
-    mutations.setFreezedTokens(state, payload);
-
-    expect(state.freezedTokens).toStrictEqual(payload);
-  });
-
-  test('mutations.setParams', () => {
-    const params = { id: 1 };
-
-    mutations.setParams(state, params);
-
-    expect(state.params).toStrictEqual(params);
-  });
-
-  test('mutations.setPool', () => {
-    const pool = { id: 1 };
-
-    mutations.setPool(state, pool);
-
-    expect(state.pool).toStrictEqual(pool);
-  });
-
-  test('mutations.setSupply', () => {
-    const supply = [
-      {
-        denom: 'ucommercio',
-        amount: '59999952300200',
-      },
-    ];
-
-    mutations.setSupply(state, supply);
-
-    expect(state.supply).toStrictEqual(supply);
+    expect(state.tokensChart).toStrictEqual(chart);
   });
 
   test('mutations.setTransactions', () => {
@@ -194,12 +160,5 @@ describe('store/home/mutations', () => {
     mutations.setTxEventHeight(state, payload);
 
     expect(state.txEventHeight).toBe(payload);
-  });
-
-  test('mutations.setSetParamsEventHeight', () => {
-    const payload = '1';
-    mutations.setSetParamsEventHeight(state, payload);
-
-    expect(state.setParamsEventHeight).toBe(payload);
   });
 });

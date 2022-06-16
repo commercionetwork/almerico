@@ -1,10 +1,12 @@
 import { mockBalance, mockBalances } from './balances';
 import { mockBlock, mockBlocks } from './blocks';
+import { mockChart } from './chart';
 import { mockCommission } from './commission';
 import { mockDelegation, mockDelegations } from './delegations';
 import { mockErrors } from './errors';
 import { mockMembership } from './membership';
 import { mockNodeInfo } from './node_info';
+import { mockOverview } from './overview';
 import { mockPagination } from './pagination';
 import { mockParams } from './params';
 import { mockParamsUpdate, mockParamsUpdates } from './params_updates';
@@ -32,12 +34,14 @@ export {
   mockBalances,
   mockBlock,
   mockBlocks,
+  mockChart,
   mockCommission,
   mockDelegation,
   mockDelegations,
   mockErrors,
   mockMembership,
   mockNodeInfo,
+  mockOverview,
   mockPagination,
   mockParams,
   mockParamsUpdate,

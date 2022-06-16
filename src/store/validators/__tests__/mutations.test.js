@@ -15,7 +15,7 @@ describe('store/validators/mutations', () => {
     state.isUpdating = true;
     state.detail = { id: 1 };
     state.list = [{ id: 1 }];
-    state.newUpdate = true;
+    state.newBlock = true;
     state.delegations = [{ id: 1 }];
     state.delegationsOffset = 1;
     state.delegationsPagination = { total: 25 };
@@ -71,12 +71,6 @@ describe('store/validators/mutations', () => {
     mutations.setNewBlock(state, true);
 
     expect(state.newBlock).toBe(true);
-  });
-
-  test('mutations.setNewUpdate', () => {
-    mutations.setNewUpdate(state, true);
-
-    expect(state.newUpdate).toBe(true);
   });
 
   test('mutations.setDelegations', () => {
