@@ -11,9 +11,15 @@ describe('store/application/mutations', () => {
   test('mutations.reset', () => {
     state.error = new Error('error');
     state.isLoading = true;
+    state.eventHeight = { id: 1 };
     state.info = { id: 1 };
     state.latestTransactions = [{ id: 1 }];
     state.validatorsOffset = 10;
+    state.latestBlock = { id: 1 };
+    state.latestValidatorSets = [{ id: 1 }];
+    state.stakingParams = { id: 1 };
+    state.validators = [{ id: 1 }];
+    state.validatorsPagination = { id: 1 };
 
     const expected = initState();
 
@@ -34,6 +40,13 @@ describe('store/application/mutations', () => {
     mutations.setLoading(state, true);
 
     expect(state.isLoading).toBe(true);
+  });
+
+  test('mutations.setEventHeight', () => {
+    const payload = { id: 1 };
+    mutations.setEventHeight(state, payload);
+
+    expect(state.eventHeight).toStrictEqual(payload);
   });
 
   test('mutations.setInfo', () => {

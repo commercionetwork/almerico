@@ -38,13 +38,19 @@ export default {
     ValidatorsViewListTable,
   },
   computed: {
+    ...mapGetters('application', ['eventHeight']),
     ...mapGetters('validators', ['error', 'isLoading']),
+  },
+  watch: {
+    eventHeight(value) {
+      if (value) this.fetchList();
+    },
   },
   created() {
     this.initValidatorsList();
   },
   methods: {
-    ...mapActions('validators', ['initValidatorsList']),
+    ...mapActions('validators', ['initValidatorsList', 'fetchList']),
   },
 };
 </script>

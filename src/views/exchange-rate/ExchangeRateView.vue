@@ -35,13 +35,26 @@ export default {
     TheHeaderContent,
   },
   computed: {
+    ...mapGetters('application', ['eventHeight']),
     ...mapGetters('exchangeRate', ['error', 'isLoading']),
+  },
+  watch: {
+    eventHeight(value) {
+      if (value.hasTxs) {
+        this.fetchChart();
+        this.fetchOverview();
+      }
+    },
   },
   created() {
     this.initExchangeRate();
   },
   methods: {
-    ...mapActions('exchangeRate', ['initExchangeRate']),
+    ...mapActions('exchangeRate', [
+      'initExchangeRate',
+      'fetchChart',
+      'fetchOverview',
+    ]),
   },
 };
 </script>
