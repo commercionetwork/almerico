@@ -1,5 +1,5 @@
 import { mockBalance, mockBalances } from './balances';
-import { mockBlock, mockBlocks } from './blocks';
+import { mockBlock, mockBlocks, mockBlockSupposedTime } from './blocks';
 import { mockChart } from './chart';
 import { mockCommission } from './commission';
 import { mockDelegation, mockDelegations } from './delegations';
@@ -33,6 +33,7 @@ export {
   mockBalance,
   mockBalances,
   mockBlock,
+  mockBlockSupposedTime,
   mockBlocks,
   mockChart,
   mockCommission,

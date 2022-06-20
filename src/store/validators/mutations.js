@@ -19,9 +19,6 @@ export default {
   setList(state, payload) {
     state.list = payload;
   },
-  setNewBlock(state, payload) {
-    state.newBlock = payload;
-  },
   setDelegations(state, payload) {
     state.delegations = payload;
   },

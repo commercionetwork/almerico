@@ -11,13 +11,7 @@ const wsBackendHandler = {
       eventData.event &&
       eventData.event === APIS.WS.EVENTS.BACKEND_NEW_HEIGHT
     ) {
-      store.commit('validators/setNewBlock', true);
-      store.dispatch('validators/fetchList');
-      if (eventData.data.hasTxs) {
-        store.dispatch('exchangeRate/fetchChart');
-        store.dispatch('exchangeRate/fetchOverview');
-        store.dispatch('home/fetchTokensChart');
-      }
+      store.commit('application/setEventHeight', eventData.data);
     }
   },
 };

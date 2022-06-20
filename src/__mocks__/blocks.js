@@ -82,4 +82,12 @@ const mockBlocks = (blocks = 10) => {
   return list;
 };
 
-export { mockBlock, mockBlocks };
+const mockBlockSupposedTime = (height = '1') => {
+  const item = {
+    height,
+    milliseconds: 1000,
+  };
+  return item;
+};
+
+export { mockBlock, mockBlocks, mockBlockSupposedTime };

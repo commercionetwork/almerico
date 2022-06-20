@@ -13,16 +13,18 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.blockDetail')" />
-      <BlocksViewDetailContent />
+      <BlocksViewDetailCountdown v-if="isFutureHeight" data-test="countdown" />
+      <BlocksViewDetailContent v-else data-test="block-detail" />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import BlocksViewDetailContent from './detail/BlocksViewDetailContent.vue';
+import BlocksViewDetailCountdown from './detail/BlocksViewDetailCountdown.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -30,6 +32,7 @@ export default {
   name: 'BlocksViewDetail',
   components: {
     BaseLoadingLinear,
+    BlocksViewDetailCountdown,
     BlocksViewDetailContent,
     TheErrorMessage,
     TheHeaderContent,
@@ -41,18 +44,30 @@ export default {
     },
   },
   computed: {
+    ...mapGetters('application', ['latestBlock']),
     ...mapGetters('blocks', ['error', 'isLoading']),
+    isFutureHeight() {
+      return parseInt(this.id) > parseInt(this.latestBlock.header.height);
+    },
   },
   watch: {
-    id(value) {
-      if (value) this.initBlocksDetail(value);
+    id() {
+      this.init();
+    },
+    isFutureHeight(value) {
+      if (!value) this.initBlocksDetail(this.id);
     },
   },
   created() {
-    this.initBlocksDetail(this.id);
+    this.init();
   },
   methods: {
-    ...mapActions('blocks', ['initBlocksDetail']),
+    ...mapActions('blocks', ['initBlocksDetail', 'initBlockCountdown']),
+    init() {
+      this.isFutureHeight
+        ? this.initBlockCountdown(this.id)
+        : this.initBlocksDetail(this.id);
+    },
   },
 };
 </script>

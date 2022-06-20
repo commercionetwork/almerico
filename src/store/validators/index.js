@@ -9,7 +9,6 @@ export const initState = () => ({
   isUpdating: false,
   detail: null,
   list: [],
-  newBlock: false,
   delegations: [],
   delegationsOffset: 0,
   delegationsPagination: null,
