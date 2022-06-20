@@ -11,6 +11,7 @@ const localVue = createLocalVue();
 
 describe('views/blocks/BlocksViewDetail.vue', () => {
   const actions = {
+    initBlockCountdown: jest.fn(),
     initBlocksDetail: jest.fn(),
   };
   const mockStore = new Vuex.Store({
@@ -39,12 +40,15 @@ describe('views/blocks/BlocksViewDetail.vue', () => {
       computed: {
         error: () => null,
         isLoading: () => true,
+        isFutureHeight: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="countdown"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="block-detail"]').exists()).toBe(false);
   });
 
   test('if message error is displayed', () => {
@@ -58,15 +62,18 @@ describe('views/blocks/BlocksViewDetail.vue', () => {
       computed: {
         error: () => error,
         isLoading: () => false,
+        isFutureHeight: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="countdown"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="block-detail"]').exists()).toBe(false);
   });
 
-  test('if content is displayed', () => {
+  test('if block countdown is displayed', () => {
     const wrapper = shallowMount(BlocksViewDetail, {
       localVue,
       mocks,
@@ -76,11 +83,35 @@ describe('views/blocks/BlocksViewDetail.vue', () => {
       computed: {
         error: () => null,
         isLoading: () => false,
+        isFutureHeight: () => true,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="countdown"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="block-detail"]').exists()).toBe(false);
+  });
+
+  test('if block detail is displayed', () => {
+    const wrapper = shallowMount(BlocksViewDetail, {
+      localVue,
+      mocks,
+      propsData: {
+        ...props,
+      },
+      computed: {
+        error: () => null,
+        isLoading: () => false,
+        isFutureHeight: () => false,
+      },
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="countdown"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="block-detail"]').exists()).toBe(true);
   });
 });

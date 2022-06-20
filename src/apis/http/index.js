@@ -1,4 +1,5 @@
 import bank from './bank';
+import blocks from './blocks';
 import chart from './chart';
 import commercio from './commercio';
 import distribution from './distribution';
@@ -12,6 +13,7 @@ import validators from './validators';
 
 export {
   bank,
+  blocks,
   chart,
   commercio,
   distribution,

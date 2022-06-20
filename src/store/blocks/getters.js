@@ -1,4 +1,6 @@
 export default {
+  error: (state) => state.error,
+  isLoading: (state) => state.isLoading,
   blockTxs: (state) => state.blockTxs,
   blockTxsOffest: (state) => state.blockTxsOffest,
   blockTxsPagination: (state) => state.blockTxsPagination,
@@ -7,9 +9,8 @@ export default {
   blocks: (state) => state.blocks,
   currentHeight: (state) => state.currentHeight,
   detail: (state) => state.detail,
-  error: (state) => state.error,
   isAddingBlocks: (state) => state.isAddingBlocks,
-  isLoading: (state) => state.isLoading,
   isSearching: (state) => state.isSearching,
   newHeight: (state) => state.newHeight,
+  supposedTime: (state) => state.supposedTime.milliseconds,
 };

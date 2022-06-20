@@ -21,6 +21,7 @@ export const APIS = {
     LCD: LCD,
     API_VERSION: API_VERSION,
     // Backend
+    BACKEND_BLOCKS: `${BACKEND}/${BACKEND_VERSION}/blocks`,
     BACKEND_CHART: `${BACKEND}/${BACKEND_VERSION}/chart`,
     BACKEND_OVERVIEW: `${BACKEND}/${BACKEND_VERSION}/overview`,
     BACKEND_VALIDATORS: `${BACKEND}/${BACKEND_VERSION}/validators`,
