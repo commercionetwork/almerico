@@ -37,11 +37,6 @@ export default {
     TheErrorMessage,
     TheHeaderContent,
   },
-  provide() {
-    return {
-      height: this.id,
-    };
-  },
   props: {
     id: {
       type: String,
@@ -56,20 +51,23 @@ export default {
     },
   },
   watch: {
-    id(value) {
-      if (value) this.initBlocksDetail(value);
+    id() {
+      this.init();
     },
     isFutureHeight(value) {
       if (!value) this.initBlocksDetail(this.id);
     },
   },
   created() {
-    this.isFutureHeight
-      ? this.initBlockCountdown(this.id)
-      : this.initBlocksDetail(this.id);
+    this.init();
   },
   methods: {
     ...mapActions('blocks', ['initBlocksDetail', 'initBlockCountdown']),
+    init() {
+      this.isFutureHeight
+        ? this.initBlockCountdown(this.id)
+        : this.initBlocksDetail(this.id);
+    },
   },
 };
 </script>

@@ -17,9 +17,11 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'BlocksViewDetailCountdownHeight',
   components: { BaseTopContentCard },
-  inject: ['height'],
   computed: {
     ...mapGetters('application', ['latestBlock']),
+    height() {
+      return this.$route.params.id;
+    },
     remainingBlocks() {
       const latestHeight = parseInt(this.latestBlock.header.height);
       return this.height - latestHeight;

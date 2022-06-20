@@ -28,6 +28,9 @@ describe('views/validators/ValidatorsViewDetail.vue', () => {
   const props = {
     id: 'id',
   };
+  const computed = {
+    eventHeight: () => ({ hegiht: '1', hasTxs: false }),
+  };
 
   test('if loading indicator is displayed', async () => {
     const wrapper = shallowMount(ValidatorsViewDetail, {
@@ -37,6 +40,7 @@ describe('views/validators/ValidatorsViewDetail.vue', () => {
         ...props,
       },
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -56,6 +60,7 @@ describe('views/validators/ValidatorsViewDetail.vue', () => {
         ...props,
       },
       computed: {
+        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -74,6 +79,7 @@ describe('views/validators/ValidatorsViewDetail.vue', () => {
         ...props,
       },
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
       },

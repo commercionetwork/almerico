@@ -26,6 +26,7 @@ describe('views/home/HomeView.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
+    eventHeight: () => ({ hegiht: '1', hasTxs: false }),
     setParamsEventHeight: () => 'setParamsEventHeight',
     txEventHeight: () => 'txEventHeight',
   };

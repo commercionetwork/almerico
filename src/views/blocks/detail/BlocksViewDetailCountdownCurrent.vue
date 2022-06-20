@@ -17,7 +17,6 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'BlocksViewDetailCountdownCurrent',
   components: { BaseTopContentCard },
-  inject: ['height'],
   computed: {
     ...mapGetters('application', ['latestBlock']),
     latestHeight() {

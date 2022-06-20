@@ -57,7 +57,6 @@ import BaseTopContentCard from '@/components/BaseTopContentCard';
 export default {
   name: 'BlocksViewDetailCountdownTimer',
   components: { BaseTopContentCard },
-  inject: ['height'],
   props: {
     countDown: {
       type: Object,
@@ -67,6 +66,9 @@ export default {
     },
   },
   computed: {
+    height() {
+      return this.$route.params.id;
+    },
     estimatedDate() {
       const datum = new Date(this.goalTime);
       return `${this.$t('msgs.estimatedTime')}: ${datum}`;
