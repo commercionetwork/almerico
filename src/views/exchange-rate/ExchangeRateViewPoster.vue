@@ -17,11 +17,17 @@
 <script>
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'ExchangeRateViewPoster',
   components: { BaseTopContentCard },
-  props: {
-    rate: String,
+  computed: {
+    ...mapGetters('exchangeRate', ['overview']),
+    rate() {
+      const rate = this.overview.specs.find((spec) => spec.name === 'rate');
+      return parseFloat(rate.content).toFixed(2) || '-';
+    },
   },
 };
 </script>

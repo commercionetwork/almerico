@@ -17,6 +17,14 @@ describe('store/blocks/mutations', () => {
       next_key: 'string',
       total: 'string',
     };
+    state.blockValidatorSets = [{ id: 1 }];
+    state.blocks = [{ id: 1 }];
+    state.currentHeight = 100;
+    state.detail = { id: 1 };
+    state.isAddingBlocks = true;
+    state.isSearching = true;
+    state.newHeight = 100;
+    state.supposedTime = { id: 1 };
 
     const expected = initState();
 
@@ -134,5 +142,12 @@ describe('store/blocks/mutations', () => {
     mutations.setValidatorSets(state, payload);
 
     expect(state.blockValidatorSets).toStrictEqual(payload);
+  });
+
+  test('mutations.setSupposedTime', () => {
+    const payload = { id: 1 };
+    mutations.setSupposedTime(state, payload);
+
+    expect(state.supposedTime).toStrictEqual(payload);
   });
 });

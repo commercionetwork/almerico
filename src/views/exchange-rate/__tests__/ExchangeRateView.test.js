@@ -26,13 +26,7 @@ describe('views/exchange-rate/ExchangeRateView.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
-    abrTokens: () => [{ id: 1 }],
-    accounts: () => [{ id: 1 }],
-    freezedTokens: () => ({ id: 1 }),
-    params: () => ({ id: 1 }),
-    pool: () => ({ id: 1 }),
-    supply: () => [{ id: 1 }],
-    vbrTokens: () => [{ id: 1 }],
+    eventHeight: () => ({ hegiht: '1', hasTxs: false }),
   };
 
   test('if loading indicator is displayed', () => {

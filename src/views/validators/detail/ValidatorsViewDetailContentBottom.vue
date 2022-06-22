@@ -30,11 +30,11 @@ export default {
     ValidatorsViewDetailDelegatorAmounts,
   },
   computed: {
-    ...mapGetters('validators', ['account', 'delegations']),
+    ...mapGetters('validators', ['detail', 'delegations']),
     processedDelegations() {
       return validatorsDetailDelegationsHelper.build(
         this.delegations,
-        this.account
+        this.detail.account
       );
     },
   },

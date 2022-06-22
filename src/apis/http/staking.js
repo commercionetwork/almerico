@@ -78,30 +78,6 @@ const staking = {
   },
   /**
    *
-   * @param {String} address
-   * @returns {AxiosPromise}
-   */
-  requestDelegationsLegacy(address) {
-    return axios({
-      url: `/delegators/${address}/delegations`,
-      method: 'get',
-      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-    });
-  },
-  /**
-   *
-   * @param {String} id
-   * @returns {AxiosPromise}
-   */
-  requestValidatorsDetailLegacy(id) {
-    return axios({
-      url: `/validators/${id}`,
-      method: 'get',
-      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-    });
-  },
-  /**
-   *
    * @param {String} id
    * @returns {Promise}
    */
@@ -110,6 +86,19 @@ const staking = {
       url: `/validators/${id}/delegations`,
       method: 'get',
       baseURL: `${APIS.HTTP.STAKING}`,
+    });
+  },
+  //TODO: remove when the new version will be available
+  /**
+   *
+   * @param {String} address
+   * @returns {AxiosPromise}
+   */
+  requestDelegationsLegacy(address) {
+    return axios({
+      url: `/delegators/${address}/delegations`,
+      method: 'get',
+      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
     });
   },
 };

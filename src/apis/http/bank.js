@@ -25,6 +25,7 @@ const bank = {
       baseURL: `${APIS.HTTP.BANK}`,
     });
   },
+  //TODO: remove when the new version will be available
   /**
    *
    * @param {String} address

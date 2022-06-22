@@ -4,8 +4,9 @@ import mutations from './mutations';
 
 export const initState = () => ({
   error: null,
-  info: null,
   isLoading: false,
+  eventHeight: null,
+  info: null,
   latestBlock: null,
   latestTransactions: [],
   latestValidatorSets: [],

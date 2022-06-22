@@ -7,11 +7,14 @@ export default {
   setError(state, error) {
     state.error = error;
   },
-  setInfo(state, payload) {
-    state.info = payload;
-  },
   setLoading(state, payload) {
     state.isLoading = payload;
+  },
+  setEventHeight(state, payload) {
+    state.eventHeight = payload;
+  },
+  setInfo(state, payload) {
+    state.info = payload;
   },
   setLatestBlock(state, payload) {
     state.latestBlock = payload;

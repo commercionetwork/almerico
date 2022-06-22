@@ -55,58 +55,45 @@ export default {
   components: { BaseDetailItem },
   computed: {
     ...mapGetters('application', ['stakingParams']),
-    ...mapGetters('validators', ['detail', 'pool']),
+    ...mapGetters('validators', ['detail']),
     commission() {
-      return this.detail
-        ? new Intl.NumberFormat(undefined, {
-            style: 'percent',
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2,
-          }).format(this.detail.commission.commission_rates.rate)
-        : '-';
+      return (
+        new Intl.NumberFormat(undefined, {
+          style: 'percent',
+          maximumFractionDigits: 2,
+          minimumFractionDigits: 2,
+        }).format(this.detail.commission) || '-'
+      );
     },
     identity() {
-      return this.detail && this.detail.description.identity
-        ? this.detail.description.identity
-        : '-';
+      return this.detail.identity || '-';
     },
     particulars() {
-      return this.detail && this.detail.description.detail
-        ? this.detail.description.detail
-        : '-';
+      return this.detail.details || '-';
     },
     securityContact() {
-      return this.detail && this.detail.description.security_contact
-        ? this.detail.description.security_contact
-        : '-';
+      return this.detail.securityContact || '-';
     },
     tokens() {
-      return this.detail
-        ? coinAdapter.format({
-            amount: parseFloat(this.detail.tokens),
-            denom: this.stakingParams.bond_denom,
-          })
-        : '-';
+      return (
+        coinAdapter.format({
+          amount: parseFloat(this.detail.tokens),
+          denom: this.stakingParams.bond_denom,
+        }) || '-'
+      );
     },
     updateTime() {
-      return this.detail
-        ? new Date(this.detail.commission.update_time).toLocaleString()
-        : '-';
+      return new Date(this.detail.updateTime).toLocaleString() || '-';
     },
     votingPower() {
-      const bonded = this.pool ? parseFloat(this.pool.bonded_tokens) : 0;
-      const tokens = this.detail ? parseFloat(this.detail.tokens) : 0;
-      const percent = !isNaN(bonded) || bonded > 0 ? tokens / bonded : 0;
       return new Intl.NumberFormat(undefined, {
         style: 'percent',
         maximumFractionDigits: 2,
         minimumFractionDigits: 2,
-      }).format(percent);
+      }).format(this.detail.power);
     },
     website() {
-      return this.detail && this.detail.description.website
-        ? this.detail.description.website
-        : '-';
+      return this.detail.website || '-';
     },
   },
 };

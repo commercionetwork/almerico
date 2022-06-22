@@ -1,7 +1,8 @@
 export default {
   error: (state) => state.error,
-  info: (state) => state.info,
   isLoading: (state) => state.isLoading,
+  eventHeight: (state) => state.eventHeight,
+  info: (state) => state.info,
   latestBlock: (state) => state.latestBlock,
   latestTransactions: (state) => state.latestTransactions,
   latestValidatorSets: (state) => state.latestValidatorSets,

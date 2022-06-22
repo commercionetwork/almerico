@@ -34,7 +34,6 @@ import ValidatorsViewDetailIdentityLogo from './ValidatorsViewDetailIdentityLogo
 import ValidatorsViewDetailIdentityMoniker from './ValidatorsViewDetailIdentityMoniker.vue';
 
 import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetailIdentity',
@@ -50,7 +49,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['detailLogo']),
     isBookmark() {
       return (
         this.bookmarks.findIndex((address) => address === this.address) > -1

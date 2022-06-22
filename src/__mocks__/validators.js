@@ -1,4 +1,44 @@
 import { VALIDATORS } from '@/constants';
+import { v4 as uuidv4 } from 'uuid';
+
+const mockValidatorAttendanceBackend = () => {
+  const item = {
+    height: 1,
+    status: true,
+  };
+  return item;
+};
+
+const mockValidatorBackend = (isList, id = uuidv4()) => {
+  const item = {
+    id,
+    operatorAddress: 'did:com:valoper133nf49v83dts7pq30csnnl7ul5unsvzzhhed8u',
+    account: 'did:com:133nf49v83dts7pq30csnnl7ul5unsvzz55qt20',
+    pubkey: 'tY4XIhur8QznKgnjuo3Bf+jbb5hV3KMEmm7hJq0qMis=',
+    active: true,
+    rank: 1,
+    tokens: 100,
+    commission: '0.100000000000000000',
+    moniker: 'moniker',
+    logo: 'https://logo.url',
+    identity: '123456AB',
+    website: 'https://website.url',
+    details: 'details',
+    securityContact: 'security contact',
+    updateTime: '2020-06-17T09:45:00Z',
+    power: 0.25,
+    cumulative: 0.25,
+    attendance: 1,
+    createdAt: '2022-06-07T14:37:43.420Z',
+    updatedAt: '2022-06-07T14:37:43.420Z',
+  };
+  if (!isList) {
+    item.blocks = new Array(5)
+      .fill(null)
+      .map(() => mockValidatorAttendanceBackend());
+  }
+  return item;
+};
 
 const mockValidator = ({
   operator_address = 'did:com:valoper1yq5z4236gmcuus2t940spppwzz8uggpjhgac6w',
@@ -37,30 +77,21 @@ const mockValidator = ({
   return item;
 };
 
-const mockValidatorLogo = () => {
-  const item = {
-    status: {
-      code: 0,
-      name: 'OK',
-    },
-    them: [
-      {
-        id: '2305a60760b68d702afd6ae423185419',
-        pictures: {
-          primary: {
-            url: 'https://s3.amazonaws.com/keybase_processed_uploads/300.jpg',
-            source: null,
-          },
-        },
-      },
-    ],
-  };
-  return item;
-};
-
 const mockValidators = (validators = 4) => {
   const list = new Array(validators).fill(null).map(() => mockValidator());
   return list;
 };
 
-export { mockValidator, mockValidatorLogo, mockValidators };
+const mockValidatorsBackend = (validators = 4) => {
+  const list = new Array(validators)
+    .fill(null)
+    .map(() => mockValidatorBackend(true));
+  return list;
+};
+
+export {
+  mockValidator,
+  mockValidatorBackend,
+  mockValidators,
+  mockValidatorsBackend,
+};

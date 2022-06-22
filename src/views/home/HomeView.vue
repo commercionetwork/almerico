@@ -48,6 +48,7 @@ export default {
     TheHeaderContent,
   },
   computed: {
+    ...mapGetters('application', ['eventHeight']),
     ...mapGetters('home', [
       'error',
       'isLoading',
@@ -56,6 +57,9 @@ export default {
     ]),
   },
   watch: {
+    eventHeight(value) {
+      if (value.hasTxs) this.fetchTokensChart();
+    },
     setParamsEventHeight() {
       this.refreshParams();
     },
@@ -67,7 +71,12 @@ export default {
     this.initHome();
   },
   methods: {
-    ...mapActions('home', ['initHome', 'refreshParams', 'refreshTransactions']),
+    ...mapActions('home', [
+      'initHome',
+      'refreshParams',
+      'refreshTransactions',
+      'fetchTokensChart',
+    ]),
   },
 };
 </script>

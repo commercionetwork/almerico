@@ -37,17 +37,6 @@ const commercio = {
   },
   /**
    *
-   * @returns {AxiosPromise}
-   */
-  requestAllTokens() {
-    return axios({
-      url: '/total',
-      method: 'get',
-      baseURL: `${APIS.HTTP.SUPPLY}`,
-    });
-  },
-  /**
-   *
    * @param {String} address
    * @returns {AxiosPromise}
    */
