@@ -80,6 +80,10 @@ describe('App.vue', () => {
   });
 });
 
-jest.mock('../apis/ws/index.js', () => ({
-  subscribe: () => jest.fn(),
+jest.mock('../apis/ws/wsBackendClient.js', () => ({
+  get: () => jest.fn(),
+}));
+
+jest.mock('../apis/ws/wsChainClient.js', () => ({
+  get: () => jest.fn(),
 }));

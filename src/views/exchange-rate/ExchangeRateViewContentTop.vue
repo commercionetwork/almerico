@@ -7,7 +7,7 @@
       <ExchangeRateViewChart />
     </v-col>
     <v-col cols="12" md="4">
-      <ExchangeRateViewPoster :rate="rate" />
+      <ExchangeRateViewPoster />
     </v-col>
   </v-row>
 </template>
@@ -23,13 +23,6 @@ export default {
     ExchangeRateViewChart,
     ExchangeRateViewPoster,
     TheLatestHeight,
-  },
-  props: {
-    rate: {
-      Type: Number,
-      default: 0,
-      note: 'The exchange rate value',
-    },
   },
 };
 </script>

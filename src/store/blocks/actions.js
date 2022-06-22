@@ -1,4 +1,4 @@
-import { tendermintRpc, tx } from '@/apis/http';
+import { blocks, tendermintRpc, tx } from '@/apis/http';
 import { BLOCKS, CONFIG } from '@/constants';
 import { blocksRequestHelper } from '@/utils';
 
@@ -119,6 +119,22 @@ export default {
       commit('addTransactions', response.data.tx_responses);
       commit('setBlockTxsPagination', response.data.pagination);
       commit('sumBlockTxsOffset', response.data.tx_responses.length);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+
+  async initBlockCountdown({ commit, dispatch }, height) {
+    commit('reset');
+    commit('setLoading', true);
+    await dispatch('fetchSupposedTime', height);
+    commit('setLoading', false);
+  },
+
+  async fetchSupposedTime({ commit }, height) {
+    try {
+      const response = await blocks.requestSupposedTime(height);
+      commit('setSupposedTime', response.data);
     } catch (error) {
       commit('setError', error);
     }

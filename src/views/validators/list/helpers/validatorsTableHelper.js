@@ -1,8 +1,20 @@
 import { VALIDATORS } from '@/constants';
-import { orderBy } from 'lodash';
-import validatorBuilder from './validatorBuilder';
 
 const validatorsTableHelper = {
+  getCaption(filter, translator, context) {
+    const status = filter.status;
+    const $t = translator.bind(context);
+    switch (status) {
+      case VALIDATORS.FILTER.ACTIVE:
+        return $t('titles.activeValidatorsList');
+      case VALIDATORS.FILTER.INACTIVE:
+        return $t('titles.inactiveValidatorsList');
+      case VALIDATORS.FILTER.BOOKMARK:
+        return $t('titles.myValidators');
+      default:
+        return $t('titles.validatorsList');
+    }
+  },
   getHeaders(translator, context) {
     const $t = translator.bind(context);
     let headers = [
@@ -34,78 +46,32 @@ const validatorsTableHelper = {
     }
     return headers;
   },
-  getItems({ validators, pool, bookmarks, blocks, isLoading, filter }) {
-    const sortedValidators = _sortValidators(validators);
-    const processedValidators = _processValidators({
-      validators: sortedValidators,
-      pool,
-      bookmarks,
-      blocks,
-      isLoading,
-    });
-    return _filterValidators(processedValidators, filter.status);
+  getItems({ validators, bookmarks, filter }) {
+    const items = _bookmarkItems({ items: validators, bookmarks });
+    return _filterItems({ items, filter });
   },
 };
 
 export default validatorsTableHelper;
 
-const _sortValidators = (validators) => {
-  const bondedValidators = [];
-  const unbondedValidators = [];
-  for (const validator of validators) {
-    if (validator.status === VALIDATORS.STATUS.BONDED) {
-      bondedValidators.push(validator);
-    } else {
-      unbondedValidators.push(validator);
-    }
-  }
-  const bondedSorted = orderBy(
-    bondedValidators,
-    (validator) => parseInt(validator.tokens),
-    ['desc']
-  );
-  const unbondedSorted = orderBy(
-    unbondedValidators,
-    (validator) => parseInt(validator.tokens),
-    ['desc']
-  );
-  return bondedSorted.concat(unbondedSorted);
-};
-
-const _processValidators = ({
-  validators,
-  pool,
-  bookmarks,
-  blocks,
-  isLoading,
-}) => {
-  let rank = 1;
-  let cumulative = 0;
-  return validators.map((it) => {
-    const validator = validatorBuilder.build({
-      rank,
-      cumulative,
-      data: it,
-      pool,
-      bookmarks,
-      blocks,
-      isLoading,
-    });
-    ++rank;
-    cumulative = validator.cumulative;
-    return validator;
+const _bookmarkItems = ({ items, bookmarks }) => {
+  return items.map((it) => {
+    it.bookmark =
+      bookmarks.findIndex((address) => address === it.operatorAddress) > -1;
+    return it;
   });
 };
 
-const _filterValidators = (validators, status) => {
+const _filterItems = ({ items, filter }) => {
+  const status = filter.status;
   switch (status) {
     case VALIDATORS.FILTER.ACTIVE:
-      return validators.filter((validator) => validator.active === true);
+      return items.filter((it) => it.active === true);
     case VALIDATORS.FILTER.INACTIVE:
-      return validators.filter((validator) => validator.active === false);
+      return items.filter((it) => it.active === false);
     case VALIDATORS.FILTER.BOOKMARK:
-      return validators.filter((validator) => validator.bookmark === true);
+      return items.filter((it) => it.bookmark === true);
     default:
-      return validators;
+      return items;
   }
 };

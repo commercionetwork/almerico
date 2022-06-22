@@ -49,4 +49,7 @@ export default {
   setValidatorSets(state, payload) {
     state.blockValidatorSets = payload;
   },
+  setSupposedTime(state, payload) {
+    state.supposedTime = payload;
+  },
 };

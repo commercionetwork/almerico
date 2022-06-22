@@ -1,70 +1,87 @@
-import circulatingSupply from './overview/circulatingSupply';
-import exchangeRate from './overview/exchangeRate';
-import maxSupply from './overview/maxSupply';
-import nonCirculatingSupply from './overview/nonCirculatingSupply';
+import { EXCHANGE_RATE } from '@/constants';
 
-export default {
+const overviewHelper = {
   /**
-   * @param {Array.<Object>} abrTokens
-   * @param {Array.<Object>} accounts
-   * @param {Array.<Object>} freezedTokens
-   * @param {Array.<Object>} supply
-   * @param {Array.<Object>} vbrTokens
    * @param {Function} translator
    * @param {Object} context The context to bind to the translator function
-   * @param {Object} pool
-   * @param {String} denom
-   * @returns {Promise}
+   * @param {Array.<Object>} rows
    */
-  getOverview({
-    abrTokens,
-    accounts,
-    freezedTokens,
-    pool,
-    supply,
-    vbrTokens,
-    denom,
-    translator,
-    ctx,
-  }) {
-    return new Promise((resolve) => {
-      const maxSupplyTable = maxSupply.getTable({
-        accounts,
-        abrTokens,
-        vbrTokens,
-        denom,
-        translator: translator.bind(ctx),
-      });
-
-      const bondedTokens = pool ? pool.bonded_tokens : '0';
-      const nonCirculatingSupplyTable = nonCirculatingSupply.getTable({
-        abrTokens,
-        bondedTokens,
-        freezedTokens,
-        maxSupply: maxSupplyTable.total,
-        supply,
-        vbrTokens,
-        denom,
-        translator: translator.bind(ctx),
-      });
-
-      const circulatingSupplyTable = circulatingSupply.getTable({
-        maxSupply: maxSupplyTable.total,
-        nonCirculatingSupply: nonCirculatingSupplyTable.total,
-        translator: translator.bind(ctx),
-      });
-
-      const rate = exchangeRate.getRate(
-        maxSupplyTable.total,
-        circulatingSupplyTable.total,
-      );
-
-      resolve({
-        maxSupplyTable,
-        nonCirculatingSupplyTable,
-        circulatingSupplyTable,
-        exchangeRate: rate,
-      });
+  buildRows(translator, context, rows) {
+    const $t = translator.bind(context);
+    return rows.map((row) => {
+      const quantity =
+        row.style === EXCHANGE_RATE.ROW_STYLE.COMING_SOON
+          ? $t('msgs.comingSoon')
+          : new Intl.NumberFormat(undefined, {
+              style: 'decimal',
+              maximumFractionDigits: 2,
+              minimumFractionDigits: 2,
+            }).format(row.amount);
+      const percentage =
+        row.style === EXCHANGE_RATE.ROW_STYLE.COMING_SOON
+          ? $t('msgs.comingSoon')
+          : (row.percentage * 100).toFixed(2) + '%';
+      return {
+        label: $t(`labels.${row.label}`),
+        quantity: quantity,
+        percentage: percentage,
+        style: row.style,
+      };
     });
   },
+  /**
+   * @param {Function} translator
+   * @param {Object} context The context to bind to the translator function
+   */
+  getHeaders(translator, context) {
+    const $t = translator.bind(context);
+    const commonHeaders = _getCommonHeaders($t);
+    const circulatingSupply = [
+      {
+        text: $t('labels.circulatingSupply'),
+        value: 'label',
+        sortable: false,
+        align: 'start',
+      },
+    ].concat(commonHeaders);
+    const maxSupply = [
+      {
+        text: $t('labels.maxSupply'),
+        value: 'label',
+        sortable: false,
+        align: 'start',
+      },
+    ].concat(commonHeaders);
+    const nonCirculatingSupply = [
+      {
+        text: $t('labels.nonCirculatingSupply'),
+        value: 'label',
+        sortable: false,
+        align: 'start',
+      },
+    ].concat(commonHeaders);
+    return { circulatingSupply, maxSupply, nonCirculatingSupply };
+  },
+};
+
+export default overviewHelper;
+
+const _getCommonHeaders = (translator) => {
+  const $t = translator;
+  return [
+    {
+      text: $t('labels.quantity'),
+      value: 'quantity',
+      sortable: false,
+      align: 'end',
+      width: '20%',
+    },
+    {
+      text: $t('labels.percentage'),
+      value: 'percentage',
+      sortable: false,
+      align: 'end',
+      width: '20%',
+    },
+  ];
 };

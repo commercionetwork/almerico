@@ -27,7 +27,7 @@
       <router-link
         class="pl-1 text-decoration-none font-monotype"
         :to="toAccount"
-        v-text="account"
+        v-text="detail.account"
       />
     </div>
   </div>
@@ -49,11 +49,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['account']),
+    ...mapGetters('validators', ['detail']),
     toAccount() {
       return {
         name: ROUTES.NAME.ACCOUNT,
-        params: { id: this.account },
+        params: { id: this.detail.account },
       };
     },
   },

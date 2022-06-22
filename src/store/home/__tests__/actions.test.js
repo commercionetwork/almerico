@@ -1,10 +1,9 @@
 import {
-  mockBalances,
   mockBlock,
+  mockChart,
   mockErrors,
   mockPagination,
   mockParams,
-  mockPool,
   mockTransactions,
 } from '@/__mocks__';
 import actions from '../actions.js';
@@ -23,7 +22,7 @@ describe('store/home/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initHome" reset store, set loading state, dispatch "fetchAbrTokens", "fetchAllTokens", "fetchFreezedTokens", "fetchParams", "fetchPool", "fetchParamsUpdates", "fetchStartingDate", "fetchVbrTokens" and "fetchTransactions"', async () => {
+  test('if "initHome" reset store, set loading state, dispatch "fetchParams", "fetchParamsUpdates", "fetchStartingDate", "fetchTokensChart" and "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
@@ -31,14 +30,10 @@ describe('store/home/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchAbrTokens');
-    expect(dispatch).toHaveBeenCalledWith('fetchAllTokens');
-    expect(dispatch).toHaveBeenCalledWith('fetchFreezedTokens');
     expect(dispatch).toHaveBeenCalledWith('fetchParams');
     expect(dispatch).toHaveBeenCalledWith('fetchParamsUpdates');
-    expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).toHaveBeenCalledWith('fetchStartingDate');
-    expect(dispatch).toHaveBeenCalledWith('fetchVbrTokens');
+    expect(dispatch).toHaveBeenCalledWith('fetchTokensChart');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions');
   });
@@ -92,6 +87,18 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
+  test('if "refreshParams" set loading state and dispatch "fetchParams" and "fetchParamsUpdates" actions', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+
+    await actions.refreshParams({ commit, dispatch });
+
+    expect(commit).toHaveBeenCalledWith('setLoadingParams', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchParams');
+    expect(dispatch).toHaveBeenCalledWith('fetchParamsUpdates');
+    expect(commit).toHaveBeenCalledWith('setLoadingParams', false);
+  });
+
   test('if "fetchStartingDate" action commit "setStartingDate", and set the error if it is caught', async () => {
     const commit = jest.fn();
 
@@ -109,78 +116,16 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchAbrTokens" action commit "setAbrTokens", and set the error if it is caught', async () => {
+  test('if "fetchTokensChart" action commit "setTokensChart" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
 
-    await actions.fetchAbrTokens({ commit });
+    await actions.fetchTokensChart({ commit });
 
-    expect(commit).toHaveBeenCalledWith(
-      'setAbrTokens',
-      mockResponse.data.funds
-    );
+    expect(commit).toHaveBeenCalledWith('setTokensChart', mockResponse.data);
 
     mockError = true;
 
-    await actions.fetchAbrTokens({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "fetchVbrTokens" action commit "setVbrTokens", and set the error if it is caught', async () => {
-    const commit = jest.fn();
-
-    await actions.fetchVbrTokens({ commit });
-
-    expect(commit).toHaveBeenCalledWith(
-      'setVbrTokens',
-      mockResponse.data.funds
-    );
-
-    mockError = true;
-
-    await actions.fetchVbrTokens({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "fetchFreezedTokens" commit "setFreezedTokens", and set the error if it is caught', async () => {
-    const commit = jest.fn();
-
-    await actions.fetchFreezedTokens({ commit });
-
-    commit('setFreezedTokens', mockResponse.data.result);
-
-    mockError = true;
-
-    await actions.fetchFreezedTokens({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "fetchAllTokens" action commit "setSupply", and set the error if it is caught', async () => {
-    const commit = jest.fn();
-
-    await actions.fetchAllTokens({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setSupply', mockResponse.data.supply);
-
-    mockError = true;
-
-    await actions.fetchAllTokens({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "fetchPool" action commit "setPool", and set the error if it is caught', async () => {
-    const commit = jest.fn();
-
-    await actions.fetchPool({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setPool', mockResponse.data.pool);
-
-    mockError = true;
-
-    await actions.fetchPool({ commit });
+    await actions.fetchTokensChart({ commit });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
@@ -215,8 +160,8 @@ describe('store/home/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/bank.js', () => ({
-  requestBalancesLegacy: () => {
+jest.mock('../../../apis/http/chart.js', () => ({
+  requestTokens: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -224,26 +169,7 @@ jest.mock('../../../apis/http/bank.js', () => ({
         }
 
         mockResponse = {
-          data: {
-            height: '0',
-            result: mockBalances(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestSupply: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            supply: mockBalances(),
-          },
+          data: mockChart(),
         };
         resolve(mockResponse);
       }, 1);
@@ -252,22 +178,6 @@ jest.mock('../../../apis/http/bank.js', () => ({
 }));
 
 jest.mock('../../../apis/http/commercio.js', () => ({
-  requestAbrTokens: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            funds: mockBalances(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
   requestParams: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -277,41 +187,6 @@ jest.mock('../../../apis/http/commercio.js', () => ({
 
         mockResponse = {
           data: mockParams(),
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestVbrTokens: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            funds: mockBalances(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-}));
-
-jest.mock('../../../apis/http/staking.js', () => ({
-  requestPool: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            pool: mockPool(),
-          },
         };
         resolve(mockResponse);
       }, 1);

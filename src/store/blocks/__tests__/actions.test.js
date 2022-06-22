@@ -1,5 +1,6 @@
 import {
   mockBlock,
+  mockBlockSupposedTime,
   mockErrors,
   mockPagination,
   mockTransactions,
@@ -138,7 +139,7 @@ describe('store/blocks/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'setValidatorSets',
-      mockResponseValidatorSets.data.result.validators,
+      mockResponseValidatorSets.data.result.validators
     );
 
     mockError = true;
@@ -167,15 +168,15 @@ describe('store/blocks/actions', () => {
 
     expect(commit).toHaveBeenCalledWith(
       'addTransactions',
-      mockResponse.data.tx_responses,
+      mockResponse.data.tx_responses
     );
     expect(commit).toHaveBeenCalledWith(
       'setBlockTxsPagination',
-      mockResponse.data.pagination,
+      mockResponse.data.pagination
     );
     expect(commit).toHaveBeenCalledWith(
       'sumBlockTxsOffset',
-      mockResponse.data.tx_responses.length,
+      mockResponse.data.tx_responses.length
     );
 
     mockError = true;
@@ -184,7 +185,52 @@ describe('store/blocks/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
+
+  test('if "initBlockCountdown" reset store, set loading state and dispatch "fetchSupposedTime" action', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const height = '100';
+
+    await actions.initBlockCountdown({ commit, dispatch }, height);
+
+    expect(commit).toHaveBeenCalledWith('reset');
+    expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchSupposedTime', height);
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
+
+  test('if "fetchSupposedTime" commit "setSupposedTime", and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const height = '100';
+
+    await actions.fetchSupposedTime({ commit }, height);
+
+    expect(commit).toHaveBeenCalledWith('setSupposedTime', mockResponse.data);
+
+    mockError = true;
+
+    await actions.fetchSupposedTime({ commit }, height);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
 });
+
+jest.mock('../../../apis/http/blocks.js', () => ({
+  requestSupposedTime: (height) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockBlockSupposedTime(height),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
 
 jest.mock('../../../apis/http/tendermintRpc.js', () => ({
   requestBlock: () => {

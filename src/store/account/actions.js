@@ -7,9 +7,9 @@ export default {
     commit('reset');
     commit('setLoading', true);
     const requests = [
-      dispatch('fetchBalances', address),
+      dispatch('fetchBalancesLegacy', address),
       dispatch('fetchCommission', address),
-      dispatch('fetchDelegations', address),
+      dispatch('fetchDelegationsLegacy', address),
       dispatch('fetchMembership', address),
       dispatch('fetchMembershipTxs', address),
       dispatch('fetchRewards', address),
@@ -22,8 +22,8 @@ export default {
 
   async fetchBalances({ commit }, address) {
     try {
-      const response = await bank.requestBalancesLegacy(address);
-      commit('setBalances', response.data.result);
+      const response = await bank.requestBalances(address);
+      commit('setBalances', response.data.balances);
     } catch (error) {
       commit('setError', error);
     }
@@ -45,8 +45,8 @@ export default {
 
   async fetchDelegations({ commit }, address) {
     try {
-      const response = await staking.requestDelegationsLegacy(address);
-      commit('setDelegations', response.data.result);
+      const response = await staking.requestDelegations(address);
+      commit('setDelegations', response.data.delegation_responses);
     } catch (error) {
       commit('setError', error);
     }
@@ -127,5 +127,23 @@ export default {
 
   async addTransactions({ dispatch }, { address, offset }) {
     await dispatch('fetchTransactions', { address, offset });
+  },
+
+  //TODO: remove when the new version will be available
+  async fetchBalancesLegacy({ commit }, address) {
+    try {
+      const response = await bank.requestBalancesLegacy(address);
+      commit('setBalances', response.data.result);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async fetchDelegationsLegacy({ commit }, address) {
+    try {
+      const response = await staking.requestDelegationsLegacy(address);
+      commit('setDelegations', response.data.result);
+    } catch (error) {
+      commit('setError', error);
+    }
   },
 };

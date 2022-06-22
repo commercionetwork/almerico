@@ -5,6 +5,7 @@ export const msgs = {
   comingSoon: 'Coming soon',
   copy: 'Copy',
   dataNotAvailable: 'At this point in time the data, unfortunately, is not available. Please refresh the page.',
+  estimatedTime: 'Estimated time',
   exchangeRateCalc: '1 divided the % of Circulating Supply',
   failed: 'Failed',
   filterByStatus: 'Filter by status',

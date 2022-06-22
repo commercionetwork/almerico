@@ -3,9 +3,7 @@ import getters from './getters';
 import mutations from './mutations';
 
 export const initState = () => ({
-  abrTokens: [],
   error: null,
-  freezedTokens: [],
   isLoading: false,
   isLoadingParams: false,
   isLoadingTxs: false,
@@ -13,13 +11,11 @@ export const initState = () => ({
   paramsUpdates: [],
   paramsUpdatesOffset: 0,
   paramsUpdatesPagination: null,
-  pool: null,
   setParamsEventHeight: '',
   startingDate: '',
-  supply: [],
+  tokensChart: null,
   transactions: [],
   txEventHeight: '',
-  vbrTokens: [],
 });
 
 export default {
