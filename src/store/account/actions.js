@@ -120,7 +120,7 @@ export default {
       commit('setTransactionsPagination', response.data.pagination);
       commit('sumTransactionsOffset', response.data.tx_responses.length);
     } catch (error) {
-      commit('setError', error);
+      commit('setTransactions', []);
     }
     commit('setAddingTxs', false);
   },
