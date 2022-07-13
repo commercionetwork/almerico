@@ -32,7 +32,6 @@ export default {
   async updateValidatorsDetail({ commit, dispatch }, address) {
     commit('setUpdating', true);
     await dispatch('fetchDetail', address);
-    commit('setNewBlock', false);
     commit('setUpdating', false);
   },
 
