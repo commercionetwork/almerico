@@ -189,7 +189,7 @@ describe('store/account/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchTransactions" set loading state, commit "addTransactions", "sumTransactionsOffset" and "setTransactionsPagination", and set the error if it is caught', async () => {
+  test('if "fetchTransactions" set loading state, commit "addTransactions", "sumTransactionsOffset" and "setTransactionsPagination", and set an empty array if an error is caught', async () => {
     const commit = jest.fn();
     const address = 'address';
 
@@ -214,7 +214,7 @@ describe('store/account/actions', () => {
 
     await actions.fetchTransactions({ commit }, { address });
 
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
   });
 
   test('if "addTransactions" dispatch action "fetchTransactions"', async () => {
