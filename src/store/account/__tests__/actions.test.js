@@ -36,9 +36,9 @@ describe('store/account/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchBalancesLegacy', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
     expect(dispatch).toHaveBeenCalledWith('fetchCommission', address);
-    expect(dispatch).toHaveBeenCalledWith('fetchDelegationsLegacy', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembershipTxs', address);
     expect(dispatch).toHaveBeenCalledWith('fetchRewards', address);
@@ -250,24 +250,6 @@ jest.mock('../../../apis/http/bank.js', () => ({
       }, 1);
     });
   },
-  //TODO: remove when the new version will be available
-  requestBalancesLegacy: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            height: '0',
-            result: mockBalances(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
 }));
 
 jest.mock('../../../apis/http/commercio.js', () => ({
@@ -351,24 +333,6 @@ jest.mock('../../../apis/http/staking.js', () => ({
           data: {
             unbonding_responses: mockUnbondings(),
             pagination: mockPagination(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  //TODO: remove when the new version will be available
-  requestDelegationsLegacy: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            height: '0',
-            result: mockDelegations(),
           },
         };
         resolve(mockResponse);

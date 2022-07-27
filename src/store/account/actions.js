@@ -7,9 +7,9 @@ export default {
     commit('reset');
     commit('setLoading', true);
     const requests = [
-      dispatch('fetchBalancesLegacy', address),
+      dispatch('fetchBalances', address),
       dispatch('fetchCommission', address),
-      dispatch('fetchDelegationsLegacy', address),
+      dispatch('fetchDelegations', address),
       dispatch('fetchMembership', address),
       dispatch('fetchMembershipTxs', address),
       dispatch('fetchRewards', address),
@@ -127,23 +127,5 @@ export default {
 
   async addTransactions({ dispatch }, { address, offset }) {
     await dispatch('fetchTransactions', { address, offset });
-  },
-
-  //TODO: remove when the new version will be available
-  async fetchBalancesLegacy({ commit }, address) {
-    try {
-      const response = await bank.requestBalancesLegacy(address);
-      commit('setBalances', response.data.result);
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-  async fetchDelegationsLegacy({ commit }, address) {
-    try {
-      const response = await staking.requestDelegationsLegacy(address);
-      commit('setDelegations', response.data.result);
-    } catch (error) {
-      commit('setError', error);
-    }
   },
 };
