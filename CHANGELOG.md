@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replace legacy endpoints
 - Replace governance endpoints with backend endpoints
+- Update value to enable searching of `MsgExecuteContract` txs
 
 ## [3.3.1] - 2022-07-13
 
