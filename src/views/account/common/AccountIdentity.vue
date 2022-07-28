@@ -3,7 +3,7 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <AccountViewIdentityMembership />
+    <AccountIdentityMembership />
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="pl-md-2 text-center text-md-left">
@@ -27,7 +27,7 @@
             </template>
             <span v-text="$t('msgs.scan')" />
           </v-tooltip>
-          <AccountViewModalQRCode v-model="dialog" :address="address" />
+          <AccountModalQRCode v-model="dialog" :address="address" />
         </div>
         <div
           class="text-break font-weight-bold font-monotype"
@@ -39,16 +39,16 @@
 </template>
 
 <script>
-import AccountViewIdentityMembership from './AccountViewIdentityMembership.vue';
-import AccountViewModalQRCode from './AccountViewModalQRCode.vue';
+import AccountIdentityMembership from './AccountIdentityMembership.vue';
+import AccountModalQRCode from './AccountModalQRCode.vue';
 
 import { mdiCheckAll, mdiContentCopy, mdiQrcode } from '@mdi/js';
 
 export default {
-  name: 'AccountViewIdentity',
+  name: 'AccountIdentity',
   components: {
-    AccountViewIdentityMembership,
-    AccountViewModalQRCode,
+    AccountIdentityMembership,
+    AccountModalQRCode,
   },
   inject: ['address'],
   data() {

@@ -2,16 +2,16 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
-import AccountView from '../AccountView.vue';
+import AccountViewDashboard from '../AccountViewDashboard.vue';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const localVue = createLocalVue();
 
-describe('views/account/AccountView.vue', () => {
+describe('views/account/AccountViewDashboard.vue', () => {
   const actions = {
-    initAccount: jest.fn(),
+    initAccountDashboard: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
@@ -30,7 +30,7 @@ describe('views/account/AccountView.vue', () => {
   };
 
   test('if loading indicator is displayed', async () => {
-    const wrapper = shallowMount(AccountView, {
+    const wrapper = shallowMount(AccountViewDashboard, {
       localVue,
       mocks,
       propsData: {
@@ -49,7 +49,7 @@ describe('views/account/AccountView.vue', () => {
 
   test('if message error is displayed', async () => {
     const error = Error('message');
-    const wrapper = shallowMount(AccountView, {
+    const wrapper = shallowMount(AccountViewDashboard, {
       localVue,
       mocks,
       propsData: {
@@ -67,7 +67,7 @@ describe('views/account/AccountView.vue', () => {
   });
 
   test('if content is displayed', async () => {
-    const wrapper = shallowMount(AccountView, {
+    const wrapper = shallowMount(AccountViewDashboard, {
       localVue,
       mocks,
       propsData: {

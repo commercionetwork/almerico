@@ -44,11 +44,6 @@ const LEGACY_VERSIONS = {
   V_038: '0.38',
 };
 
-const MINTER_ACCOUNT =
-  process.env.VUE_APP_MINTER_ACCOUNT !== undefined
-    ? process.env.VUE_APP_MINTER_ACCOUNT
-    : '';
-
 const PREFIXES = {
   ACCOUNT: {
     ADDRESS: 'did:com:',
@@ -72,11 +67,6 @@ const SCROLL = {
   OFFSET_Y: 70,
 };
 
-const SPREADSHEET_ACCOUNTS =
-  process.env.VUE_APP_SPREADSHEET_ACCOUNTS !== undefined
-    ? process.env.VUE_APP_SPREADSHEET_ACCOUNTS
-    : '[]';
-
 const STABLE_COIN = {
   NAME: 'commercio cash credits',
   SYMBOL: 'CCC',
@@ -98,6 +88,11 @@ const TOKEN = {
 // ms
 const REST_LEAD_TIME = 5 * 1000;
 
+const WASM_CODE_ID =
+  process.env.VUE_APP_WASM_CODE_ID !== undefined
+    ? process.env.VUE_APP_WASM_CODE_ID
+    : '';
+
 export const CONFIG = {
   BROWSER_STORAGE_KEYS,
   CHAIN,
@@ -105,11 +100,10 @@ export const CONFIG = {
   FIRST_CONVERSION_RATE,
   FIRST_HEIGHT,
   LEGACY_VERSIONS,
-  MINTER_ACCOUNT,
   PREFIXES,
   REST_LEAD_TIME,
   SCROLL,
-  SPREADSHEET_ACCOUNTS,
   STABLE_COIN,
   TOKEN,
+  WASM_CODE_ID,
 };

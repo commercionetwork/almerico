@@ -2,6 +2,7 @@ import bank from './bank';
 import blocks from './blocks';
 import chart from './chart';
 import commercio from './commercio';
+import cosmwasm from './cosmwasm';
 import distribution from './distribution';
 import gaiaRest from './gaiaRest';
 import governance from './governance';
@@ -16,6 +17,7 @@ export {
   blocks,
   chart,
   commercio,
+  cosmwasm,
   distribution,
   gaiaRest,
   governance,

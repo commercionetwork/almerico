@@ -34,7 +34,7 @@
 import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'AccountViewCapitalization',
+  name: 'AccountViewDashboardCapitalization',
   props: {
     capitalization: {
       type: Object,

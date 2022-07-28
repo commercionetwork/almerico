@@ -13,17 +13,17 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.accountDetail')" />
-      <AccountViewContentTop />
-      <AccountViewContentMiddle />
-      <AccountViewContentBottom />
+      <AccountViewDashboardContentTop />
+      <AccountViewDashboardContentMiddle />
+      <AccountViewDashboardContentBottom />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import AccountViewContentBottom from './AccountViewContentBottom.vue';
-import AccountViewContentMiddle from './AccountViewContentMiddle.vue';
-import AccountViewContentTop from './AccountViewContentTop.vue';
+import AccountViewDashboardContentBottom from './dashboard/AccountViewDashboardContentBottom.vue';
+import AccountViewDashboardContentMiddle from './dashboard/AccountViewDashboardContentMiddle.vue';
+import AccountViewDashboardContentTop from './dashboard/AccountViewDashboardContentTop.vue';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
@@ -31,11 +31,11 @@ import TheHeaderContent from '@/components/TheHeaderContent';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'AccountView',
+  name: 'AccountViewDashboard',
   components: {
-    AccountViewContentBottom,
-    AccountViewContentMiddle,
-    AccountViewContentTop,
+    AccountViewDashboardContentBottom,
+    AccountViewDashboardContentMiddle,
+    AccountViewDashboardContentTop,
     BaseLoadingLinear,
     TheAlertNotice,
     TheHeaderContent,
@@ -56,14 +56,14 @@ export default {
   },
   watch: {
     id(value) {
-      this.initAccount(value);
+      this.initAccountDashboard(value);
     },
   },
   created() {
-    this.initAccount(this.id);
+    this.initAccountDashboard(this.id);
   },
   methods: {
-    ...mapActions('account', ['initAccount']),
+    ...mapActions('account', ['initAccountDashboard']),
   },
 };
 </script>
