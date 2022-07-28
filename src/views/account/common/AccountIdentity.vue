@@ -50,7 +50,6 @@ export default {
     AccountIdentityMembership,
     AccountModalQRCode,
   },
-  inject: ['address'],
   data() {
     return {
       mdiCheckAll,
@@ -59,6 +58,11 @@ export default {
       copied: false,
       dialog: false,
     };
+  },
+  computed: {
+    address() {
+      return this.$route.params.id;
+    },
   },
   methods: {
     copyToClipboard() {

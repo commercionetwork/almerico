@@ -34,7 +34,6 @@ export default {
     AccountTokensBalance,
     AccountViewDashboardChartPerformance,
   },
-  inject: ['address'],
   computed: {
     ...mapGetters('application', ['stakingParams']),
     ...mapGetters('account', [
@@ -44,6 +43,9 @@ export default {
       'rewards',
       'unbondings',
     ]),
+    address() {
+      return this.$route.params.id;
+    },
     capital() {
       return accountBalanceHelper.build({
         balances: this.balances,

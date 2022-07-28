@@ -33,7 +33,6 @@ export default {
     AccountViewDashboardTransactions,
     BaseLoadingLinear,
   },
-  inject: ['address'],
   computed: {
     ...mapGetters('account', [
       'isAddingTxs',
@@ -41,6 +40,9 @@ export default {
       'transactionsOffset',
       'transactionsTotal',
     ]),
+    address() {
+      return this.$route.params.id;
+    },
     items() {
       return txsTableAdapter.build({
         txs: this.transactions,

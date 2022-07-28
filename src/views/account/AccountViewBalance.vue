@@ -38,11 +38,6 @@ export default {
     TheAlertNotice,
     TheHeaderContent,
   },
-  provide() {
-    return {
-      address: this.id,
-    };
-  },
   props: {
     id: {
       type: String,

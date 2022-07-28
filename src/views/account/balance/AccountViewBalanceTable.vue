@@ -26,7 +26,6 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'AccountViewBalanceTable',
-  inject: ['address'],
   data() {
     return {
       sortBy: 'name',
@@ -35,6 +34,9 @@ export default {
   },
   computed: {
     ...mapGetters('account', ['allBalances']),
+    address() {
+      return this.$route.params.id;
+    },
     headers() {
       return [
         { text: this.$t('labels.name'), value: 'name', width: '40%' },
