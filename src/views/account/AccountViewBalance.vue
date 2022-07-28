@@ -12,38 +12,31 @@
       <TheAlertNotice kind="warning" :message="$t('msgs.accountNotExist')" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <TheHeaderContent :title="$t('titles.accountDetail')" />
-      <AccountViewContentTop />
-      <AccountViewContentMiddle />
-      <AccountViewContentBottom />
+      <TheHeaderContent :title="$t('titles.accountBalance')" />
+      <AccountViewBalanceContentTop />
+      <AccountViewBalanceTable />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import AccountViewContentBottom from './AccountViewContentBottom.vue';
-import AccountViewContentMiddle from './AccountViewContentMiddle.vue';
-import AccountViewContentTop from './AccountViewContentTop.vue';
+import AccountViewBalanceTable from './balance/AccountViewBalanceTable.vue';
+import AccountViewBalanceContentTop from './balance/AccountViewBalanceContentTop.vue';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 
+import { ROUTES } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'AccountView',
+  name: 'AccountViewBalance',
   components: {
-    AccountViewContentBottom,
-    AccountViewContentMiddle,
-    AccountViewContentTop,
+    AccountViewBalanceTable,
+    AccountViewBalanceContentTop,
     BaseLoadingLinear,
     TheAlertNotice,
     TheHeaderContent,
-  },
-  provide() {
-    return {
-      address: this.id,
-    };
   },
   props: {
     id: {
@@ -53,17 +46,15 @@ export default {
   },
   computed: {
     ...mapGetters('account', ['error', 'isLoading']),
-  },
-  watch: {
-    id(value) {
-      this.initAccount(value);
+    routeBack() {
+      return { name: ROUTES.NAME.ACCOUNT, params: { id: this.id } };
     },
   },
   created() {
-    this.initAccount(this.id);
+    this.initAccountBalance(this.id);
   },
   methods: {
-    ...mapActions('account', ['initAccount']),
+    ...mapActions('account', ['initAccountBalance']),
   },
 };
 </script>

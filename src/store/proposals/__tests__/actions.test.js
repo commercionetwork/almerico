@@ -1,4 +1,3 @@
-import { PROPOSALS } from '@/constants';
 import {
   mockErrors,
   mockPagination,
@@ -28,20 +27,16 @@ describe('store/proposals/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith(
-      'fetchProposals',
-      PROPOSALS.STATUS.UNSPECIFIED.ID
-    );
+    expect(dispatch).toHaveBeenCalledWith('fetchProposals');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
   test('if "fetchProposals" save proposals, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const status = PROPOSALS.STATUS.UNSPECIFIED.ID;
 
-    await actions.fetchProposals({ commit }, status);
+    await actions.fetchProposals({ commit });
 
-    expect(commit).toHaveBeenCalledWith('setList', mockResponse.data.proposals);
+    expect(commit).toHaveBeenCalledWith('setList', mockResponse.data);
 
     mockError = true;
 
@@ -86,7 +81,9 @@ describe('store/proposals/actions', () => {
 
     await actions.fetchProposalDetail({ commit }, id);
 
-    expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data);
+    expect(commit).toHaveBeenCalledWith('setDetail', {
+      proposal: mockResponse.data,
+    });
 
     mockError = true;
 
@@ -130,7 +127,7 @@ describe('store/proposals/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/governance.js', () => ({
+jest.mock('../../../apis/http/proposals.js', () => ({
   requestList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -139,10 +136,7 @@ jest.mock('../../../apis/http/governance.js', () => ({
         }
 
         mockResponse = {
-          data: {
-            proposals: mockProposals(),
-            pagination: mockPagination(),
-          },
+          data: mockProposals(),
         };
         resolve(mockResponse);
       }, 1);
@@ -162,6 +156,9 @@ jest.mock('../../../apis/http/governance.js', () => ({
       }, 1);
     });
   },
+}));
+
+jest.mock('../../../apis/http/governance.js', () => ({
   requestTally: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

@@ -22,11 +22,11 @@
 <script>
 import BaseChart from '@/components/chart/BaseChart';
 
-import accountCapitalizationChartHelper from './helpers/accountCapitalizationChartHelper';
+import accountCapitalizationChartHelper from '../helpers/accountCapitalizationChartHelper';
 import { CHARTS } from '@/constants';
 
 export default {
-  name: 'AccountViewChartCapitalization',
+  name: 'AccountViewDashboardChartCapitalization',
   components: { BaseChart },
   props: {
     capitalization: {

@@ -41,7 +41,7 @@
       <div description-card__container>
         <div
           class="mx-2 px-2 py-1 text-body-2 description-card__content"
-          v-text="item.content.description"
+          v-html="item.content.description"
         />
       </div>
     </v-card-text>

@@ -24,9 +24,11 @@ export default {
     TheTransactionsCommonContent,
     TransactionsViewSharedocMessage,
   },
-  inject: ['uuid'],
   computed: {
     ...mapGetters('transactions', ['detail']),
+    uuid() {
+      return this.$route.params.uuid;
+    },
     componentName() {
       return !this.detail.version
         ? TransactionsViewSharedocMessage.name

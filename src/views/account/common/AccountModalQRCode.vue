@@ -25,9 +25,8 @@ import QrcodeVue from 'qrcode.vue';
 import { mdiClose } from '@mdi/js';
 
 export default {
-  name: 'AccountViewModalQRCode',
+  name: 'AccountModalQRCode',
   components: { QrcodeVue },
-  inject: ['address'],
   props: {
     value: Boolean,
   },
@@ -36,6 +35,9 @@ export default {
     return { mdiClose };
   },
   computed: {
+    address() {
+      return this.$route.params.id;
+    },
     show: {
       get() {
         return this.value;

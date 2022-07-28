@@ -1,4 +1,5 @@
 export default {
+  allBalances: (state) => state.allBalances,
   balances: (state) => state.balances,
   commission: (state) => state.commission,
   delegations: (state) => state.delegations,
