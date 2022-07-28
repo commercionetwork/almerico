@@ -7,9 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.0.0] -
 
+### Added
+
+- Add account balance page to show CW20 token
+
 ### Chnaged
 
 - Replace legacy endpoints
+- Replace governance endpoints with backend endpoints
 
 ## [3.3.1] - 2022-07-13
 

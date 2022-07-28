@@ -7,6 +7,7 @@ import distribution from './distribution';
 import gaiaRest from './gaiaRest';
 import governance from './governance';
 import overview from './overview';
+import proposals from './proposals';
 import staking from './staking';
 import tendermintRpc from './tendermintRpc';
 import tx from './tx';
@@ -22,6 +23,7 @@ export {
   gaiaRest,
   governance,
   overview,
+  proposals,
   staking,
   tendermintRpc,
   tx,

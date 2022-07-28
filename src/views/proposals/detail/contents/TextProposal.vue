@@ -1,8 +1,6 @@
 <template>
   <v-list>
     <BaseDetailItem :label="$t('labels.type')" :content="type" />
-    <BaseDetailItem :label="$t('labels.title')" :content="title" />
-    <BaseDetailItem :label="$t('labels.description')" :content="description" />
   </v-list>
 </template>
 
@@ -22,12 +20,6 @@ export default {
   computed: {
     type() {
       return this.content['@type'] || '-';
-    },
-    title() {
-      return this.content.title || `-`;
-    },
-    description() {
-      return this.content.description || `-`;
     },
   },
 };
