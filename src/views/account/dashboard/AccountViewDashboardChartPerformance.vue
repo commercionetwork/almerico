@@ -22,11 +22,11 @@
 <script>
 import BaseChart from '@/components/chart/BaseChart';
 
-import accountPerformanceChartHelper from './helpers/accountPerformanceChartHelper';
+import accountPerformanceChartHelper from '../helpers/accountPerformanceChartHelper';
 import { CHARTS } from '@/constants';
 
 export default {
-  name: 'AccountViewChartPerformance',
+  name: 'AccountViewDashboardChartPerformance',
   components: { BaseChart },
   props: {
     assets: {

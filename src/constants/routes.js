@@ -2,6 +2,8 @@ export const ROUTES = {
   NAME: {
     NOT_FOUND: 'notFound',
     ACCOUNT: 'account',
+    ACCOUNT_BALANCE: 'accountBalance',
+    ACCOUNT_DASHBOARD: 'accountDashboard',
     BLOCKS: 'blocks',
     BLOCKS_LIST: 'blocksList',
     BLOCKS_DETAIL: 'blocksDetail',
@@ -22,6 +24,8 @@ export const ROUTES = {
     ROOT: '/',
     NOT_FOUND: '/404',
     ACCOUNT: '/account/:id',
+    ACCOUNT_BALANCE: 'balance',
+    ACCOUNT_DASHBOARD: 'dashboard',
     BLOCKS: '/blocks',
     BLOCKS_LIST: 'list',
     BLOCKS_DETAIL: 'detail/:id',
@@ -41,6 +45,8 @@ export const ROUTES = {
   TITLE: {
     NOT_FOUND: 'Not Found',
     ACCOUNT: 'Account',
+    ACCOUNT_BALANCE: 'Account Balance',
+    ACCOUNT_DASHBOARD: 'Account Dashboard',
     BLOCKS: 'Blocks',
     BLOCKS_LIST: 'Blocks List',
     BLOCKS_DETAIL: 'Blocks Detail',

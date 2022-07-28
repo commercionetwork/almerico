@@ -1,20 +1,17 @@
-import { governance, staking } from '@/apis/http';
-import { PROPOSALS } from '@/constants';
+import { governance, proposals, staking } from '@/apis/http';
 
 export default {
   async initProposalsList({ commit, dispatch }) {
     commit('reset');
     commit('setLoading', true);
-    const requests = [
-      dispatch('fetchProposals', PROPOSALS.STATUS.UNSPECIFIED.ID),
-    ];
+    const requests = [dispatch('fetchProposals')];
     await Promise.all(requests);
     commit('setLoading', false);
   },
-  async fetchProposals({ commit }, status) {
+  async fetchProposals({ commit }) {
     try {
-      const response = await governance.requestList(status);
-      commit('setList', response.data.proposals);
+      const response = await proposals.requestList();
+      commit('setList', response.data);
     } catch (error) {
       commit('setError', error);
     }
@@ -42,8 +39,8 @@ export default {
   },
   async fetchProposalDetail({ commit }, id) {
     try {
-      const response = await governance.requestDetail(id);
-      commit('setDetail', response.data);
+      const response = await proposals.requestDetail(id);
+      commit('setDetail', { proposal: response.data });
     } catch (error) {
       commit('setError', error);
     }

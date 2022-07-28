@@ -27,18 +27,18 @@ describe('store/account/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initAccount" reset store, set loading state, dispatch "fetchBalances", "fetchCommission", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", "fetchUnbondings" and "fetchTransactions" actions', async () => {
+  test('if "initAccountDashboard" reset store, set loading state, dispatch "fetchBalances", "fetchCommission", "fetchDelegations", "fetchMembership", "fetchMembershipTxs", "fetchRewards", "fetchUnbondings" and "fetchTransactions" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.initAccount({ commit, dispatch }, address);
+    await actions.initAccountDashboard({ commit, dispatch }, address);
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchBalancesLegacy', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
     expect(dispatch).toHaveBeenCalledWith('fetchCommission', address);
-    expect(dispatch).toHaveBeenCalledWith('fetchDelegationsLegacy', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchDelegations', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
     expect(dispatch).toHaveBeenCalledWith('fetchMembershipTxs', address);
     expect(dispatch).toHaveBeenCalledWith('fetchRewards', address);
@@ -230,6 +230,21 @@ describe('store/account/actions', () => {
       offset,
     });
   });
+
+  test('if "initAccountBalance" reset store, set loading state, dispatch "fetchBalances", "fetchMembership" and "fetchWasmBalances" actions', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const address = 'address';
+
+    await actions.initAccountBalance({ commit, dispatch }, address);
+
+    expect(commit).toHaveBeenCalledWith('reset');
+    expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
+    expect(dispatch).toHaveBeenCalledWith('fetchWasmBalances', address);
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({
@@ -244,24 +259,6 @@ jest.mock('../../../apis/http/bank.js', () => ({
           data: {
             balances: mockBalances(),
             pagination: mockPagination(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  //TODO: remove when the new version will be available
-  requestBalancesLegacy: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            height: '0',
-            result: mockBalances(),
           },
         };
         resolve(mockResponse);
@@ -351,24 +348,6 @@ jest.mock('../../../apis/http/staking.js', () => ({
           data: {
             unbonding_responses: mockUnbondings(),
             pagination: mockPagination(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  //TODO: remove when the new version will be available
-  requestDelegationsLegacy: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            height: '0',
-            result: mockDelegations(),
           },
         };
         resolve(mockResponse);

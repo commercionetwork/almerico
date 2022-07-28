@@ -1,30 +1,29 @@
 import { APIS } from '@/constants';
 import axios from 'axios';
 
-const bank = {
+const proposals = {
   /**
    *
    * @returns {AxiosPromise}
    */
-  requestSupply() {
+  requestList() {
     return axios({
-      url: '/supply',
       method: 'get',
-      baseURL: `${APIS.HTTP.BANK}`,
+      baseURL: `${APIS.HTTP.BACKEND_PROPOSALS}`,
     });
   },
   /**
    *
-   * @param {String} address
+   * @param {String} id
    * @returns {AxiosPromise}
    */
-  requestBalances(address) {
+  requestDetail(id) {
     return axios({
-      url: `/balances/${address}`,
+      url: `/${id}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.BANK}`,
+      baseURL: `${APIS.HTTP.BACKEND_PROPOSALS}`,
     });
   },
 };
 
-export default bank;
+export default proposals;

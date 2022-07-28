@@ -1,15 +1,22 @@
-import { bank, commercio, distribution, staking, tx } from '@/apis/http';
+import {
+  bank,
+  commercio,
+  cosmwasm,
+  distribution,
+  staking,
+  tx,
+} from '@/apis/http';
 import { ACCOUNT, APIS, CONFIG } from '@/constants';
-import { bech32Manager } from '@/utils';
+import { bech32Manager, stringEncoder } from '@/utils';
 
 export default {
-  async initAccount({ commit, dispatch }, address) {
+  async initAccountDashboard({ commit, dispatch }, address) {
     commit('reset');
     commit('setLoading', true);
     const requests = [
-      dispatch('fetchBalancesLegacy', address),
+      dispatch('fetchBalances', address),
       dispatch('fetchCommission', address),
-      dispatch('fetchDelegationsLegacy', address),
+      dispatch('fetchDelegations', address),
       dispatch('fetchMembership', address),
       dispatch('fetchMembershipTxs', address),
       dispatch('fetchRewards', address),
@@ -129,21 +136,77 @@ export default {
     await dispatch('fetchTransactions', { address, offset });
   },
 
-  //TODO: remove when the new version will be available
-  async fetchBalancesLegacy({ commit }, address) {
+  async initAccountBalance({ commit, dispatch }, address) {
+    commit('reset');
+    commit('setLoading', true);
+    const requests = [
+      dispatch('fetchBalances', address),
+      dispatch('fetchMembership', address),
+      dispatch('fetchWasmBalances', address),
+    ];
+    await Promise.all(requests);
+    commit('setLoading', false);
+  },
+
+  async fetchWasmBalances({ commit }, address) {
+    const balances = [];
     try {
-      const response = await bank.requestBalancesLegacy(address);
-      commit('setBalances', response.data.result);
+      const contracts = await _fetchContracts();
+      if (!contracts.length) {
+        commit('setAllBalances', balances);
+        return;
+      }
+      const all = await _fetchContractsBalance(address, contracts);
+      for (const el of all) {
+        const entries = await _fetchContractHistory(el.contract);
+        if (!entries.length) {
+          continue;
+        }
+        el.name = entries[0].msg.name;
+        el.symbol = entries[0].msg.symbol;
+        balances.push(el);
+      }
+      commit('setAllBalances', balances);
     } catch (error) {
-      commit('setError', error);
+      commit('setAllBalances', balances);
     }
   },
-  async fetchDelegationsLegacy({ commit }, address) {
-    try {
-      const response = await staking.requestDelegationsLegacy(address);
-      commit('setDelegations', response.data.result);
-    } catch (error) {
-      commit('setError', error);
+};
+
+const _fetchContracts = async () => {
+  try {
+    const response = await cosmwasm.requestContracts(CONFIG.WASM_CODE_ID);
+    return response.data.contracts;
+  } catch (error) {
+    return [];
+  }
+};
+
+const _fetchContractsBalance = async (address, contracts) => {
+  const all = [];
+  try {
+    const obj = { balance: { address } };
+    const query_data = stringEncoder.encodeObjToBase64(obj);
+    for (const contract of contracts) {
+      const response = await cosmwasm.requestContractBalance(
+        contract,
+        query_data
+      );
+      if (parseFloat(response.data.data.balance) > 0) {
+        all.push({ contract, balance: response.data.data.balance });
+      }
     }
-  },
+    return all;
+  } catch (error) {
+    return all;
+  }
+};
+
+const _fetchContractHistory = async (address) => {
+  try {
+    const response = await cosmwasm.requestContractHistory(address);
+    return response.data.entries;
+  } catch (error) {
+    return [];
+  }
 };

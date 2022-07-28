@@ -42,13 +42,15 @@ export default {
     ValidatorsViewDetailIdentityLogo,
     ValidatorsViewDetailIdentityMoniker,
   },
-  inject: ['address'],
   data() {
     return {
       bookmarks: [],
     };
   },
   computed: {
+    address() {
+      return this.$route.params.id;
+    },
     isBookmark() {
       return (
         this.bookmarks.findIndex((address) => address === this.address) > -1

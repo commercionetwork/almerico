@@ -40,7 +40,6 @@ import { mdiCheckAll, mdiContentCopy } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewDetailIdentityAddress',
-  inject: ['address'],
   data() {
     return {
       mdiCheckAll,
@@ -50,6 +49,9 @@ export default {
   },
   computed: {
     ...mapGetters('validators', ['detail']),
+    address() {
+      return this.$route.params.id;
+    },
     toAccount() {
       return {
         name: ROUTES.NAME.ACCOUNT,
