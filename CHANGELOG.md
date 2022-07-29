@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [alfa] - 4.0.1 - 2022-07-29
 
-### Chnaged
+### Changed
 
 - Improve proposals list filter
 
