@@ -1,25 +1,25 @@
 <template>
   <v-row class="mt-1">
     <v-col cols="12" md="6">
-      <AccountViewChartCapitalization
+      <AccountViewDashboardChartCapitalization
         :capitalization="capital.capitalization"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountViewCapitalization
+      <AccountViewDashboardCapitalization
         :capitalization="capital.capitalization"
         :params="stakingParams"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountViewDelegations
+      <AccountViewDashboardDelegations
         :delegations="delegations"
         :params="stakingParams"
         :validators="validators"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountViewUnbondingDelegations
+      <AccountViewDashboardUnbondingDelegations
         :unbondings="unbondings"
         :params="stakingParams"
         :validators="validators"
@@ -29,21 +29,21 @@
 </template>
 
 <script>
-import AccountViewChartCapitalization from './AccountViewChartCapitalization.vue';
-import AccountViewCapitalization from './AccountViewCapitalization.vue';
-import AccountViewDelegations from './AccountViewDelegations.vue';
-import AccountViewUnbondingDelegations from './AccountViewUnbondingDelegations.vue';
+import AccountViewDashboardChartCapitalization from './AccountViewDashboardChartCapitalization.vue';
+import AccountViewDashboardCapitalization from './AccountViewDashboardCapitalization.vue';
+import AccountViewDashboardDelegations from './AccountViewDashboardDelegations.vue';
+import AccountViewDashboardUnbondingDelegations from './AccountViewDashboardUnbondingDelegations.vue';
 
-import accountBalanceHelper from './helpers/accountBalanceHelper';
+import accountBalanceHelper from '../helpers/accountBalanceHelper';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'AccountViewContentMiddle',
+  name: 'AccountViewDashboardContentMiddle',
   components: {
-    AccountViewChartCapitalization,
-    AccountViewCapitalization,
-    AccountViewDelegations,
-    AccountViewUnbondingDelegations,
+    AccountViewDashboardChartCapitalization,
+    AccountViewDashboardCapitalization,
+    AccountViewDashboardDelegations,
+    AccountViewDashboardUnbondingDelegations,
   },
   computed: {
     ...mapGetters('application', ['stakingParams', 'validators']),

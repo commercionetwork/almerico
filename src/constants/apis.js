@@ -1,11 +1,13 @@
 const LCD = process.env.VUE_APP_LCD || '';
 
 const API_VERSION = process.env.VUE_APP_API_VERSION || '';
+const API_VERSION_COSMWASM = process.env.VUE_APP_API_VERSION_COSMWASM || '';
 
 const API_PATHS = {
   BASE: 'base',
   COMMERCIO: 'commercionetwork',
   COSMOS: 'cosmos',
+  COSMWASM: 'cosmwasm',
   TENDERMINT: 'tendermint',
   TX: 'tx',
 };
@@ -24,6 +26,7 @@ export const APIS = {
     BACKEND_BLOCKS: `${BACKEND}/${BACKEND_VERSION}/blocks`,
     BACKEND_CHART: `${BACKEND}/${BACKEND_VERSION}/chart`,
     BACKEND_OVERVIEW: `${BACKEND}/${BACKEND_VERSION}/overview`,
+    BACKEND_PROPOSALS: `${BACKEND}/${BACKEND_VERSION}/proposals`,
     BACKEND_VALIDATORS: `${BACKEND}/${BACKEND_VERSION}/validators`,
     // Query
     AUTH: `${LCD}/${API_PATHS.COSMOS}/auth/${API_VERSION}`,
@@ -36,6 +39,8 @@ export const APIS = {
     NODE_INFO: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/node_info`,
     VALIDATORSETS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/validatorsets`,
     TXS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}`,
+    // Cosmwasm
+    WASM: `${LCD}/${API_PATHS.COSMWASM}/wasm/${API_VERSION_COSMWASM}`,
     // Commercio
     KYC: `${LCD}/${API_PATHS.COMMERCIO}/commerciokyc`,
     MINT: `${LCD}/${API_PATHS.COMMERCIO}/commerciomint`,
@@ -44,10 +49,6 @@ export const APIS = {
     // RPC
     BLOCKS_RPC: `${LCD}/blocks`,
     VALIDATORSETS_RPC: `${LCD}/validatorsets`,
-    //TODO: remove when the new version will be available
-    // Legacy
-    BANK_LEGACY: `${LCD}/bank`,
-    STAKING_LEGACY: `${LCD}/staking`,
   },
   SORTING_ORDERS: {
     ORDER_BY_ASC: 'ORDER_BY_ASC',

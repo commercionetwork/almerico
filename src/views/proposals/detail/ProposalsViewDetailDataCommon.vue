@@ -1,6 +1,14 @@
 <template>
   <div>
-    <BaseDetailItem :label="$t('labels.description')" :content="description" />
+    <v-list-item>
+      <v-list-item-content>
+        <v-list-item-title
+          class="py-1 text-h5 font-weight-bold"
+          v-text="$t('labels.description')"
+        />
+        <v-list-item-subtitle class="py-1" v-html="description" />
+      </v-list-item-content>
+    </v-list-item>
     <BaseDetailItem :label="$t('labels.submitTime')" :content="submitTime" />
     <BaseDetailItem
       :label="$t('labels.depositEndTime')"

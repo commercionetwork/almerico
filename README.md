@@ -31,6 +31,7 @@ you have to:
     VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://lcd.com",
     "lcd": "http://lcd.com", "ver": "0.12"}])
     VUE_APP_API_VERSION=VALUE (e.g., v1)
+    VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
     VUE_APP_BACKEND=VALUE (e.g., http://backend.com)
     VUE_APP_BACKEND_API_VERSION=VALUE (e.g., v1)
     VUE_APP_BACKEND_WS=VALUE (e.g., ws://backend.com/websocket)
@@ -39,8 +40,7 @@ you have to:
     VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1234)
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
     VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
-    VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
-    VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:1"},{"name":"liquidityPool","address":"did:com:1"},{"name":"validator","address":"did:com:1"}])
+    VUE_APP_WASM_CODE_ID=VALUE (e.g., '7')
     VUE_APP_WS=VALUE (e.g., ws://rpc.com/websocket)
     ```
 
@@ -63,6 +63,7 @@ and set the following data with your values:
 VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://lcd.com",
 "lcd": "https://lcd.com", "ver": "0.12"}])
 VUE_APP_API_VERSION=VALUE (e.g., v1)
+VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
 VUE_APP_BACKEND=VALUE (e.g., https://backend.com)
 VUE_APP_BACKEND_API_VERSION=VALUE (e.g., v1)
 VUE_APP_BACKEND_WS=VALUE (e.g., wss://backend.com/websocket)
@@ -71,8 +72,7 @@ VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
 VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)
 VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
-VUE_APP_MINTER_ACCOUNT=VALUE (e.g., did:com:1lhk7zyhvzn07zw48ydyh6fq0unwnv64xguvtlk)
-VUE_APP_SPREADSHEET_ACCOUNTS=VALUE (e.g., [{"name":"community","address":"did:com:1"},{"name":"liquidityPool","address":"did:com:1"},{"name":"validator","address":"did:com:1"}])
+VUE_APP_WASM_CODE_ID=VALUE (e.g., '7')
 VUE_APP_WS=VALUE (e.g., wss://rpc.com/websocket)
 ```
 
@@ -106,6 +106,7 @@ npm run lint
 docker build -t almerico \
   --build-arg ANCESTORS_LIST=<Ancestors list> \
   --build-arg API_VERSION=<API version> \
+  --build-arg API_VERSION_COSMWASM=<API version> \
   --build-arg BACKEND=<Backend url> \
   --build-arg BACKEND_API_VERSION=<Backend API version> \
   --build-arg BACKEND_WS=<Backend WebSocket URL> \
@@ -114,8 +115,7 @@ docker build -t almerico \
   --build-arg FIRST_HEIGHT=<First height> \
   --build-arg LCD_URL=<LCD URL> \
   --build-arg MAIN_TITLE=<App title> \
-  --build-arg MINTER_ACCOUNT=<Minter account address> \
-  --build-arg SPREADSHEET_ACCOUNTS=<Spreadsheet accounts list> \
+  --build-arg WASM_CODE_ID=<Wasm code_id> \
   --build-arg WS_URL=<WebSocket URL> \
   .
 ```

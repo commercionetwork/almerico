@@ -55,7 +55,7 @@
 import { ROUTES } from '@/constants';
 
 export default {
-  name: 'AccountViewTransactions',
+  name: 'AccountViewDashboardTransactions',
   props: {
     items: {
       type: Array,

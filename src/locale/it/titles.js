@@ -1,4 +1,5 @@
 export const titles = {
+  accountBalance: 'Account balance',
   accountDetail: 'Dettagli account',
   activeValidatorsList: 'Lista validatori attivi',
   allTokensBalance: 'Saldo token',
@@ -29,6 +30,7 @@ export const titles = {
   metadata: 'Metadata',
   msgsTxs: 'Msgs/txs',
   myValidators: 'Miei validatori',
+  otherTokensBalance: 'saldo altri token',
   price: 'Prezzo',
   proof: 'Prova',
   proposalDetail: 'Dettagli proposta',

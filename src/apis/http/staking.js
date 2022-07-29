@@ -88,19 +88,6 @@ const staking = {
       baseURL: `${APIS.HTTP.STAKING}`,
     });
   },
-  //TODO: remove when the new version will be available
-  /**
-   *
-   * @param {String} address
-   * @returns {AxiosPromise}
-   */
-  requestDelegationsLegacy(address) {
-    return axios({
-      url: `/delegators/${address}/delegations`,
-      method: 'get',
-      baseURL: `${APIS.HTTP.STAKING_LEGACY}`,
-    });
-  },
 };
 
 export default staking;

@@ -7,10 +7,10 @@
       <v-data-table
         :headers="headers"
         :items="items"
-        :items-per-page="2"
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
-        :footer-props="{ itemsPerPageOptions: [2] }"
+        :hide-default-footer="true"
+        disable-pagination
       >
         <template #top>
           <div
@@ -26,6 +26,9 @@
         </template>
       </v-data-table>
     </v-card-text>
+    <v-card-actions>
+      <slot />
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -33,7 +36,7 @@
 import { coinAdapter } from '@/utils';
 
 export default {
-  name: 'AccountViewTokensBalance',
+  name: 'AccountTokensBalance',
   props: {
     balances: {
       type: Array,

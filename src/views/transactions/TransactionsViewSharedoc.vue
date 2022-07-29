@@ -34,11 +34,6 @@ export default {
     TheHeaderContent,
     TransactionsViewSharedocContent,
   },
-  provide() {
-    return {
-      uuid: this.uuid,
-    };
-  },
   props: {
     hash: {
       type: String,
