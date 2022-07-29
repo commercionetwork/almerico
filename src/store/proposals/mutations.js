@@ -13,6 +13,9 @@ export default {
   setList(state, payload) {
     state.list = payload;
   },
+  setFilter(state, payload) {
+    state.filter = payload;
+  },
   setDetail(state, payload) {
     const detail = state.detail
       ? Object.assign(state.detail, payload)

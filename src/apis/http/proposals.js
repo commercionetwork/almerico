@@ -6,10 +6,11 @@ const proposals = {
    *
    * @returns {AxiosPromise}
    */
-  requestList() {
+  requestList(status) {
     return axios({
       method: 'get',
       baseURL: `${APIS.HTTP.BACKEND_PROPOSALS}`,
+      params: { status },
     });
   },
   /**
