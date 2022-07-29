@@ -1,20 +1,24 @@
 import { governance, proposals, staking } from '@/apis/http';
+import { PROPOSALS } from '@/constants';
 
 export default {
-  async initProposalsList({ commit, dispatch }) {
+  async initProposalsList({ commit, dispatch }, status) {
     commit('reset');
     commit('setLoading', true);
-    const requests = [dispatch('fetchProposals')];
+    const requests = [dispatch('fetchProposals', status)];
     await Promise.all(requests);
     commit('setLoading', false);
   },
-  async fetchProposals({ commit }) {
+  async fetchProposals({ commit }, status = PROPOSALS.STATUS.UNSPECIFIED) {
     try {
-      const response = await proposals.requestList();
+      const response = await proposals.requestList(status);
       commit('setList', response.data);
     } catch (error) {
       commit('setError', error);
     }
+  },
+  filterProposals({ commit }, filter) {
+    commit('setFilter', filter);
   },
 
   async initProposalsDetail({ commit, dispatch }, id) {

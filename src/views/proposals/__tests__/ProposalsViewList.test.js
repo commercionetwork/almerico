@@ -25,12 +25,16 @@ describe('views/proposals/ProposalsViewList.vue', () => {
     $store: mockStore,
     $t: (msg) => msg,
   };
+  const computed = {
+    filter: () => 'filter',
+  };
 
   test('if loading indicator is displayed', () => {
     const wrapper = shallowMount(ProposalsViewList, {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -47,6 +51,7 @@ describe('views/proposals/ProposalsViewList.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -62,6 +67,7 @@ describe('views/proposals/ProposalsViewList.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
       },

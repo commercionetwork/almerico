@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.proposalsStatus')">
+  <BaseTopContentCard :title="title">
     <template #content>
       <div class="fill-height">
         <BaseChart
@@ -19,7 +19,7 @@ import BaseChart from '@/components/chart/BaseChart';
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import proposalsChartHelper from './helpers/proposalsChartHelper';
-import { CHARTS } from '@/constants';
+import { CHARTS, PROPOSALS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -34,12 +34,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('proposals', ['list']),
+    ...mapGetters('proposals', ['list', 'filter']),
     chartData() {
       return proposalsChartHelper.getChartData(this.list);
     },
     chartOptions() {
       return proposalsChartHelper.getChartOptions();
+    },
+    title() {
+      return PROPOSALS.TEXTS[this.filter]
+        ? `${this.$t('titles.proposals')} "${PROPOSALS.TEXTS[this.filter]}"`
+        : this.$t('titles.allProposals');
     },
   },
 };

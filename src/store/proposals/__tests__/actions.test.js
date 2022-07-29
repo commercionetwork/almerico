@@ -22,19 +22,21 @@ describe('store/proposals/actions', () => {
   test('if "initProposalsList" reset store, set loading state and get proposals', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
+    const status = 'status';
 
-    await actions.initProposalsList({ commit, dispatch });
+    await actions.initProposalsList({ commit, dispatch }, status);
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchProposals');
+    expect(dispatch).toHaveBeenCalledWith('fetchProposals', status);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
   test('if "fetchProposals" save proposals, and set the error if it is caught', async () => {
     const commit = jest.fn();
+    const status = 'status';
 
-    await actions.fetchProposals({ commit });
+    await actions.fetchProposals({ commit }, status);
 
     expect(commit).toHaveBeenCalledWith('setList', mockResponse.data);
 
@@ -43,6 +45,15 @@ describe('store/proposals/actions', () => {
     await actions.fetchProposals({ commit }, status);
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "filterProposals" set the filter', () => {
+    const commit = jest.fn();
+    const filter = 'filter';
+
+    actions.filterProposals({ commit }, filter);
+
+    expect(commit).toHaveBeenCalledWith('setFilter', filter);
   });
 
   test('if "initProposalsDetail" reset store, set loading state then get proposal detail, tally and votes', async () => {
