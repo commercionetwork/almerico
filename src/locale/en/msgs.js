@@ -8,8 +8,10 @@ export const msgs = {
   estimatedTime: 'Estimated time',
   exchangeRateCalc: '1 divided the % of Circulating Supply',
   failed: 'Failed',
+  failedToSuggestTheChain: 'Failed to suggest the chain',
   filterByStatus: 'Filter by status',
   filterValidatorsInfo: 'Filter list by status',
+  installKeplrExtension: 'Please install keplr extension',
   loading: 'Loading...',
   noCode: 'No code available',
   noMessage: 'No message available',
@@ -24,6 +26,7 @@ export const msgs = {
   success: 'Success',
   triggeredAnError: 'Something happened in setting up the request that triggered an error',
   unansweredRequest: 'The request was made but no response was received',
+  useRecentVersionOfKeplr: 'Please use the recent version of keplr extension',
   validatorNotExist: 'Validator does not exist',
   workInProgress: 'Work in progress',
 };

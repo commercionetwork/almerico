@@ -1,9 +1,10 @@
 import { CONFIG } from '@/constants';
 
 const keplrHandler = {
-  async suggest() {
+  async suggest(translator, context) {
+    const $t = translator.bind(context);
     if (!window.getOfflineSigner || !window.keplr) {
-      alert('Please install keplr extension');
+      alert($t('msgs.installKeplrExtension'));
     } else {
       if (window.keplr.experimentalSuggestChain) {
         try {
@@ -17,15 +18,16 @@ const keplrHandler = {
               rpc: chain.rpc,
               rest: chain.lcd,
               bip44: {
-                coinType: 118,
+                coinType: CONFIG.COIN_TYPE,
               },
               bech32Config: {
                 bech32PrefixAccAddr: CONFIG.PREFIXES.ACCOUNT.ADDRESS,
                 bech32PrefixAccPub: CONFIG.PREFIXES.ACCOUNT.KEY,
-                bech32PrefixValAddr: CONFIG.PREFIXES.OPERATOR.ADDRESS,
-                bech32PrefixValPub: CONFIG.PREFIXES.OPERATOR.KEY,
-                bech32PrefixConsAddr: CONFIG.PREFIXES.CONSENSUS.ADDRESS,
-                bech32PrefixConsPub: CONFIG.PREFIXES.CONSENSUS.KEY,
+                bech32PrefixValAddr: CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS,
+                bech32PrefixValPub: CONFIG.PREFIXES.VALIDATOR.OPERATOR.KEY,
+                bech32PrefixConsAddr:
+                  CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS,
+                bech32PrefixConsPub: CONFIG.PREFIXES.VALIDATOR.CONSENSUS.KEY,
               },
               currencies: [
                 {
@@ -51,19 +53,20 @@ const keplrHandler = {
                 coinMinimalDenom: CONFIG.TOKEN.DENOM,
                 coinDecimals: CONFIG.TOKEN.EXPONENT,
               },
-              coinType: 118,
+              coinType: CONFIG.COIN_TYPE,
               gasPriceStep: {
-                low: 0.05,
-                average: 0.1,
-                high: 0.2,
+                low: CONFIG.GAS_PRICE_STEP.LOW,
+                average: CONFIG.GAS_PRICE_STEP.AVERAGE,
+                high: CONFIG.GAS_PRICE_STEP.HIGH,
               },
             });
           }
-        } catch {
-          alert('Failed to suggest the chain');
+        } catch (error) {
+          console.log(error);
+          alert($t('msgs.failedToSuggestTheChain'));
         }
       } else {
-        alert('Please use the recent version of keplr extension');
+        alert($t('msgs.useRecentVersionOfKeplr'));
       }
     }
   },

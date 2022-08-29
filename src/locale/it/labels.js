@@ -30,6 +30,7 @@ export const labels = {
   communityTokensDistributed: 'Token Community distribuiti',
   communityTokensNotDistributed: 'Token Community non distribuiti',
   completionDate: 'Data di completamento',
+  connect: 'Connetti',
   content: 'Contenuto',
   contentUri: 'URI contenuto',
   context: 'Contesto',

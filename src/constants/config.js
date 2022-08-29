@@ -95,6 +95,14 @@ const TOKEN = {
   STAKEABLE: true,
 };
 
+const COIN_TYPE = 118;
+
+const GAS_PRICE_STEP = {
+  AVERAGE: 0.1,
+  HIGH: 0.2,
+  LOW: 0.05,
+};
+
 // ms
 const REST_LEAD_TIME = 5 * 1000;
 
@@ -106,9 +114,11 @@ const WASM_CODE_ID =
 export const CONFIG = {
   BROWSER_STORAGE_KEYS,
   CHAIN,
+  COIN_TYPE,
   COPYRIGHT,
   FIRST_CONVERSION_RATE,
   FIRST_HEIGHT,
+  GAS_PRICE_STEP,
   LEGACY_VERSIONS,
   PREFIXES,
   REST_LEAD_TIME,

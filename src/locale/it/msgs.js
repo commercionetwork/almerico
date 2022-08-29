@@ -8,8 +8,10 @@ export const msgs = {
   estimatedTime: 'Tempo stimato',
   exchangeRateCalc: '1 diviso la % di Supply circolante',
   failed: 'Fallito',
+  failedToSuggestTheChain: 'Impossibile suggerire la chain',
   filterByStatus: 'Filtra per stato',
   filterValidatorsInfo: 'Filtra la lista per stato',
+  installKeplrExtension: 'Si prega di installare l\'estensione keplr',
   loading: 'Caricando...',
   noCode: 'Codice non disponibile',
   noMessage: 'Messaggio non disponibile',
@@ -24,6 +26,7 @@ export const msgs = {
   success: 'Successo',
   triggeredAnError: 'È successo qualcosa nell\'impostazione della richiesta che ha generato un errore',
   unansweredRequest: 'La richiesta è stata fatta ma non è stata ricevuta alcuna risposta',
+  useRecentVersionOfKeplr: 'Si prega di utilizzare la versione recente dell\'estensione keplr',
   validatorNotExist: 'Questo validatore non esiste',
   workInProgress: 'Lavori in corso',
 };
