@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Commercio blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -27,7 +27,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
-    "@mdi/js": "^6.6.96",
+    "@mdi/js": "^7.0.96",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",

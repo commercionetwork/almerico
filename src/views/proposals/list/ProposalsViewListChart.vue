@@ -43,7 +43,7 @@ export default {
     },
     title() {
       return PROPOSALS.TEXTS[this.filter]
-        ? `${this.$t('titles.proposals')} "${PROPOSALS.TEXTS[this.filter]}"`
+        ? `${PROPOSALS.TEXTS[this.filter]} ${this.$t('titles.proposals')}`
         : this.$t('titles.allProposals');
     },
   },
