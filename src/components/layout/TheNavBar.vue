@@ -18,9 +18,9 @@
           </router-link>
         </v-col>
         <v-col cols="7" md="5" class="d-flex justify-end">
-          <v-btn outlined @click="suggest">
-            <span class="text-caption">{{ $t('labels.connectWallet') }}</span>
-            <v-icon right size="15">{{ mdiWalletOutline }}</v-icon>
+          <v-btn outlined v-bind="size" @click="suggest">
+            <span>{{ $t('labels.connectWallet') }}</span>
+            <v-icon right v-bind="size">{{ mdiWalletOutline }}</v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -51,6 +51,12 @@ export default {
   computed: {
     logoSrc() {
       return require('@/assets/img/logo-white.png');
+    },
+    size() {
+      const size = { xs: 'x-small', sm: 'small' }[
+        this.$vuetify.breakpoint.name
+      ];
+      return size ? { [size]: true } : {};
     },
   },
   methods: {
