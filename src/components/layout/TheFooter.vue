@@ -18,23 +18,24 @@
       >
         <v-icon dark>{{ mdiArrowUpBold }}</v-icon>
       </v-btn>
-      <v-row class="my-0 py-0 py-md-2 overline rm__text-transform">
-        <v-col cols="12" md="4" class="my-0 py-0" order="3" order-md="1">
-          <span
-            class="d-flex justify-center justify-md-start"
-            v-text="appVersion"
-          />
-        </v-col>
-        <v-col cols="12" md="4" class="my-0 py-0" order="1" order-md="2">
-          <span class="font-italic d-flex justify-center" v-html="copy" />
-        </v-col>
-        <v-col cols="12" md="4" class="my-0 py-0" order="2" order-md="3">
-          <div class="d-flex justify-center justify-md-end">
+      <v-row class="d-flex align-center rm__text-transform">
+        <v-col cols="12" md="4" order="1" order-md="3" class="pb-1 py-md-5">
+          <div class="text-center text-md-right text-caption">
             <span class="pr-1 font-weight-bold" v-text="chainNetwork" />
             <span v-text="chainVersion" />
             <v-icon right>
               {{ connectionIcon }}
             </v-icon>
+          </div>
+        </v-col>
+        <v-col cols="12" md="4" order="2" class="py-0 py-md-5">
+          <div class="text-center text-overline font-weight-bold">
+            <span class="font-italic" v-html="copy" />
+          </div>
+        </v-col>
+        <v-col cols="12" md="4" order="3" order-md="1" class="pt-1 py-md-5">
+          <div class="text-center text-md-left text-caption">
+            <span v-text="appVersion" />
           </div>
         </v-col>
       </v-row>
