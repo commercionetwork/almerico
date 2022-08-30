@@ -36,7 +36,7 @@ describe('store/proposals/actions', () => {
     const commit = jest.fn();
     const status = 'status';
 
-    await actions.fetchProposals({ commit }, status);
+    await actions.fetchProposals({ commit });
 
     expect(commit).toHaveBeenCalledWith('setList', mockResponse.data);
 
