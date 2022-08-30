@@ -98,9 +98,9 @@ const TOKEN = {
 const COIN_TYPE = 118;
 
 const GAS_PRICE_STEP = {
-  AVERAGE: 0.1,
-  HIGH: 0.2,
-  LOW: 0.05,
+  AVERAGE: 0.125,
+  HIGH: 0.125,
+  LOW: 0.125,
 };
 
 // ms

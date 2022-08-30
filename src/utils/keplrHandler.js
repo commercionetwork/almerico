@@ -1,6 +1,21 @@
 import { CONFIG } from '@/constants';
 
 const keplrHandler = {
+  async getWalletAddress() {
+    if (window.keplr) {
+      try {
+        const chain = _detectChain();
+        if (chain) {
+          await window.keplr.enable(chain.chainId);
+          const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
+          const accounts = await offlineSigner.getAccounts();
+          return accounts[0].address;
+        }
+      } catch {
+        return '';
+      }
+    }
+  },
   async suggest(translator, context) {
     const $t = translator.bind(context);
     if (!window.getOfflineSigner || !window.keplr) {
@@ -8,9 +23,7 @@ const keplrHandler = {
     } else {
       if (window.keplr.experimentalSuggestChain) {
         try {
-          const chain = CONFIG.CHAIN.LIST.find(
-            (item) => item.lcd === process.env.VUE_APP_LCD
-          );
+          const chain = _detectChain();
           if (chain) {
             await window.keplr.experimentalSuggestChain({
               chainId: chain.chainId,
@@ -61,8 +74,7 @@ const keplrHandler = {
               },
             });
           }
-        } catch (error) {
-          console.log(error);
+        } catch {
           alert($t('msgs.failedToSuggestTheChain'));
         }
       } else {
@@ -73,3 +85,6 @@ const keplrHandler = {
 };
 
 export default keplrHandler;
+
+const _detectChain = () =>
+  CONFIG.CHAIN.LIST.find((item) => item.lcd === process.env.VUE_APP_LCD);
