@@ -18,7 +18,10 @@
           </router-link>
         </v-col>
         <v-col cols="7" md="5" class="d-flex justify-end">
-          <v-btn outlined v-bind="size" @click="suggest">
+          <span v-if="walletAddress" class="text-caption font-weight-bold">
+            {{ displayAddress }}...
+          </span>
+          <v-btn v-else outlined v-bind="size" @click="suggest">
             <span>{{ $t('labels.connectWallet') }}</span>
             <v-icon right v-bind="size">{{ mdiWalletOutline }}</v-icon>
           </v-btn>
@@ -46,6 +49,7 @@ export default {
       mdiMenu,
       mdiWalletOutline,
       drawer: false,
+      walletAddress: '',
     };
   },
   computed: {
@@ -58,6 +62,14 @@ export default {
       ];
       return size ? { [size]: true } : {};
     },
+    displayAddress() {
+      return this.walletAddress ? this.walletAddress.slice(0, 17) : '';
+    },
+  },
+  created() {
+    keplrHandler
+      .getWalletAddress()
+      .then((address) => (this.walletAddress = address));
   },
   methods: {
     suggest() {
