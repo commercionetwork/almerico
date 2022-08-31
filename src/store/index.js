@@ -6,6 +6,7 @@ import application from './application';
 import blocks from './blocks';
 import exchangeRate from './exchange-rate';
 import home from './home';
+import keplr from './keplr';
 import proposals from './proposals';
 import transactions from './transactions';
 import validators from './validators';
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     blocks,
     exchangeRate,
     home,
+    keplr,
     proposals,
     transactions,
     validators,
