@@ -8,6 +8,8 @@ export const msgs = {
   estimatedTime: 'Tempo stimato',
   exchangeRateCalc: '1 diviso la % di Supply circolante',
   failed: 'Fallito',
+  failedToDetectTheChain: 'Impossibile identificare la chain',
+  failedToGetTheAccounts: 'Impossibile scaricare gli account',
   failedToSuggestTheChain: 'Impossibile suggerire la chain',
   filterByStatus: 'Filtra per stato',
   filterValidatorsInfo: 'Filtra la lista per stato',

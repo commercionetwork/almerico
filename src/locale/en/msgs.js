@@ -8,6 +8,8 @@ export const msgs = {
   estimatedTime: 'Estimated time',
   exchangeRateCalc: '1 divided the % of Circulating Supply',
   failed: 'Failed',
+  failedToDetectTheChain: 'Failed to detect the chain',
+  failedToGetTheAccounts: 'Failed to get the accounts',
   failedToSuggestTheChain: 'Failed to suggest the chain',
   filterByStatus: 'Filter by status',
   filterValidatorsInfo: 'Filter list by status',
