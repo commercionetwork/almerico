@@ -85,8 +85,8 @@ export default {
       commit('setError', $t('msgs.noAccountFound'));
     }
   },
-  disconnect() {
-    console.log('DISCONNECT');
+  disconnect({ commit }) {
+    commit('reset');
   },
   resetError({ commit }) {
     commit('setError', undefined);
