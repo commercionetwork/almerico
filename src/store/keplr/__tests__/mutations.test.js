@@ -36,8 +36,8 @@ describe('store/proposals/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('mutations.setIsInitialized', () => {
-    mutations.setIsInitialized(state, true);
+  test('mutations.setInitialized', () => {
+    mutations.setInitialized(state, true);
 
     expect(state.isInitialized).toBe(true);
   });

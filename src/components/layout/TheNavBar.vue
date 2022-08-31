@@ -18,13 +18,7 @@
           </router-link>
         </v-col>
         <v-col cols="7" md="5" class="d-flex justify-end">
-          <span v-if="walletAddress" class="text-caption font-weight-bold">
-            {{ displayAddress }}...
-          </span>
-          <v-btn v-else outlined v-bind="size" @click="suggest">
-            <span>{{ $t('labels.connectWallet') }}</span>
-            <v-icon right v-bind="size">{{ mdiWalletOutline }}</v-icon>
-          </v-btn>
+          <TheConnectWalletButton />
         </v-col>
       </v-row>
     </v-app-bar>
@@ -32,48 +26,28 @@
 </template>
 
 <script>
-import TheDrawer from './drawer/TheDrawer';
+import TheConnectWalletButton from './nav-bar/TheConnectWalletButton.vue';
+import TheDrawer from './nav-bar/drawer/TheDrawer';
 
 import { ROUTES } from '@/constants';
-import { mdiMenu, mdiWalletOutline } from '@mdi/js';
-import { keplrHandler } from '@/utils';
+import { mdiMenu } from '@mdi/js';
 
 export default {
   name: 'TheNavBar',
   components: {
+    TheConnectWalletButton,
     TheDrawer,
   },
   data() {
     return {
       ROUTES,
       mdiMenu,
-      mdiWalletOutline,
       drawer: false,
-      walletAddress: '',
     };
   },
   computed: {
     logoSrc() {
       return require('@/assets/img/logo-white.png');
-    },
-    size() {
-      const size = { xs: 'x-small', sm: 'small' }[
-        this.$vuetify.breakpoint.name
-      ];
-      return size ? { [size]: true } : {};
-    },
-    displayAddress() {
-      return this.walletAddress ? this.walletAddress.slice(0, 17) : '';
-    },
-  },
-  created() {
-    keplrHandler
-      .getWalletAddress()
-      .then((address) => (this.walletAddress = address));
-  },
-  methods: {
-    suggest() {
-      keplrHandler.suggest(this.$t, this);
     },
   },
 };

@@ -10,7 +10,7 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
-  setIsInitialized(state, payload) {
+  setInitialized(state, payload) {
     state.isInitialized = payload;
   },
   setHasKeplr(state, payload) {

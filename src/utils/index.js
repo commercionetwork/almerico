@@ -2,7 +2,6 @@ import bech32Manager from './bech32Manager';
 import blocksRequestHelper from './blocksRequestHelper';
 import coinAdapter from './coinAdapter';
 import dateHandler from './dateHandler';
-import keplrHandler from './keplrHandler';
 import proposerHandler from './proposerHandler';
 import regExpBuilder from './regExpBuilder';
 import stringEncoder from './stringEncoder';
@@ -15,7 +14,6 @@ export {
   blocksRequestHelper,
   coinAdapter,
   dateHandler,
-  keplrHandler,
   proposerHandler,
   regExpBuilder,
   stringEncoder,

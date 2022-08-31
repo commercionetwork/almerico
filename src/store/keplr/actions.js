@@ -82,7 +82,13 @@ export default {
       commit('setAccounts', accounts);
       commit('setInitialized', true);
     } catch (error) {
-      commit('setError', $t('msgs.failedToGetTheAccounts'));
+      commit('setError', $t('msgs.noAccountFound'));
     }
+  },
+  disconnect() {
+    console.log('DISCONNECT');
+  },
+  resetError({ commit }) {
+    commit('setError', undefined);
   },
 };
