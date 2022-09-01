@@ -14,7 +14,7 @@
           />
         </template>
         <template #[`item.balance`]="{ item }">
-          <span v-text="formatBalance(item.balance)" />
+          <span v-text="formatBalance(item.balance, item.decimals)" />
         </template>
       </v-data-table>
     </v-col>
@@ -49,11 +49,11 @@ export default {
     },
   },
   methods: {
-    formatBalance(balance) {
+    formatBalance(balance, decimals = 6) {
       return new Intl.NumberFormat(undefined, {
         style: 'decimal',
-        maximumFractionDigits: 6,
-        minimumFractionDigits: 6,
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: decimals,
       }).format(balance);
     },
   },

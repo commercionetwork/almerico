@@ -163,6 +163,7 @@ export default {
           continue;
         }
         el.name = entries[0].msg.name;
+        el.decimals = entries[0].msg.decimals;
         el.symbol = entries[0].msg.symbol;
         balances.push(el);
       }
