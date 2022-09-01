@@ -11,18 +11,27 @@ const CHAIN = {
       id: 1,
       text: 'Main-net',
       value: 'https://mainnet.commercio.network',
+      chainId: 'commercio-3',
+      chainName: 'Commercio.network',
+      rpc: 'https://rpc-mainnet.commercio.network',
       lcd: 'https://lcd-mainnet.commercio.network',
     },
     {
       id: 2,
       text: 'Test-net',
       value: 'https://testnet.commercio.network',
+      chainId: 'commercio-testnet11k',
+      chainName: 'Testnet.network',
+      rpc: 'https://rpc-testnet.commercio.network',
       lcd: 'https://lcd-testnet.commercio.network',
     },
     {
       id: 3,
       text: 'Dev-net',
       value: 'https://devnet.commercio.network',
+      chainId: 'commercio-devnet09',
+      chainName: 'Devnet.network',
+      rpc: 'https://rpc-devnet.commercio.network',
       lcd: 'https://lcd-devnet.commercio.network',
     },
   ],
@@ -71,6 +80,7 @@ const STABLE_COIN = {
   NAME: 'commercio cash credits',
   SYMBOL: 'CCC',
   DENOM: 'uccc',
+  EXPONENT: 6,
   VALUE: {
     AMOUNT: '1.00',
     SYMBOL: '€',
@@ -85,6 +95,14 @@ const TOKEN = {
   STAKEABLE: true,
 };
 
+const COIN_TYPE = 118;
+
+const GAS_PRICE_STEP = {
+  AVERAGE: 0.125,
+  HIGH: 0.125,
+  LOW: 0.125,
+};
+
 // ms
 const REST_LEAD_TIME = 5 * 1000;
 
@@ -96,9 +114,11 @@ const WASM_CODE_ID =
 export const CONFIG = {
   BROWSER_STORAGE_KEYS,
   CHAIN,
+  COIN_TYPE,
   COPYRIGHT,
   FIRST_CONVERSION_RATE,
   FIRST_HEIGHT,
+  GAS_PRICE_STEP,
   LEGACY_VERSIONS,
   PREFIXES,
   REST_LEAD_TIME,

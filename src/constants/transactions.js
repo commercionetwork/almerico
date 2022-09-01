@@ -44,7 +44,7 @@ export const TRANSACTIONS = {
     {
       name: 'MsgInstantiateContract',
       text: '/cosmwasm.wasm.v1.MsgInstantiateContract',
-      value: 'instantiate',
+      value: '/cosmwasm.wasm.v1.MsgInstantiateContract',
     },
     {
       name: 'MsgInviteUser',

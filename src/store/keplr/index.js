@@ -2,15 +2,12 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-import { PROPOSALS } from '@/constants';
-
 export const initState = () => ({
-  error: null,
+  error: undefined,
   isLoading: false,
-  list: [],
-  filter: PROPOSALS.STATUS.UNSPECIFIED,
-  detail: null,
-  pool: null,
+  isInitialized: false,
+  hasKeplr: true,
+  accounts: [],
 });
 
 export default {

@@ -34,7 +34,7 @@ export const titles = {
   price: 'Prezzo',
   proof: 'Prova',
   proposalDetail: 'Dettagli proposta',
-  proposalsStatus: 'Stato proposte',
+  proposalsByType: 'Proposte per tipo',
   qrCode: 'QR Code',
   recipients: 'Destinatari',
   remainingBlocks: 'Blocchi rimanenti',

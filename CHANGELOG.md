@@ -5,13 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2022-09-01
+
+### Added
+
+- Add wallet connection by Keplr
+
+### Fixed
+
+- Fix the display of CW20 tokens
+
+## [alfa] - 4.0.2 - 2022-08-29
+
+### Fixed
+
+- Fix proposals chart title
+
+## [alfa] - 4.0.1 - 2022-07-29
+
+### Changed
+
+- Improve proposals list filter
+
 ## [4.0.0] - 2022-07-29
 
 ### Added
 
 - Add account balance page to show CW20 token
 
-### Chnaged
+### Changed
 
 - Replace legacy endpoints
 - Replace governance endpoints with backend endpoints
@@ -429,6 +451,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.1.0]: https://github.com/commercionetwork/almerico/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/commercionetwork/almerico/compare/v3.3.1...v4.0.0
 [3.3.1]: https://github.com/commercionetwork/almerico/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/commercionetwork/almerico/compare/v3.1.6...v3.3.0

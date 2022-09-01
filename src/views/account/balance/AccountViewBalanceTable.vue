@@ -52,8 +52,8 @@ export default {
     formatBalance(balance) {
       return new Intl.NumberFormat(undefined, {
         style: 'decimal',
-        maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
+        maximumFractionDigits: 6,
+        minimumFractionDigits: 6,
       }).format(balance);
     },
   },

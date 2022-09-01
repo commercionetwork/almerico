@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.proposalsStatus')">
+  <BaseTopContentCard :title="$t('titles.proposalsByType')">
     <template #content>
       <div class="fill-height">
         <BaseChart
@@ -34,7 +34,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('proposals', ['list']),
+    ...mapGetters('proposals', ['list', 'filter']),
     chartData() {
       return proposalsChartHelper.getChartData(this.list);
     },
