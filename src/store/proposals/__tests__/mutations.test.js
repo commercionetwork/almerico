@@ -12,6 +12,7 @@ describe('store/proposals/mutations', () => {
     state.error = new Error('error');
     state.isLoading = true;
     state.list = [{ id: 1 }];
+    state.filter = 'filter';
     state.detail = { id: 1 };
     state.pool = { id: 1 };
 
@@ -42,6 +43,14 @@ describe('store/proposals/mutations', () => {
     mutations.setList(state, payload);
 
     expect(state.list).toStrictEqual(payload);
+  });
+
+  test('mutations.setFilter', () => {
+    const payload = 'filter';
+
+    mutations.setFilter(state, payload);
+
+    expect(state.filter).toStrictEqual(payload);
   });
 
   test('mutations.setDetail', () => {

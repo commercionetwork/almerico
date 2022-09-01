@@ -26,6 +26,7 @@
                 block
                 color="primary"
                 depressed
+                :disabled="!selectedStatus"
                 v-text="$t('labels.filter')"
               />
             </v-col>
@@ -50,6 +51,7 @@ import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import { PROPOSALS } from '@/constants';
 import { mdiFilterOutline } from '@mdi/js';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ProposalsViewListSearch',
@@ -68,11 +70,12 @@ export default {
     },
   },
   methods: {
+    ...mapActions('proposals', ['filterProposals']),
     filter(isFilter) {
       if (!isFilter) {
-        this.selectedStatus = '';
+        this.selectedStatus = PROPOSALS.STATUS.UNSPECIFIED;
       }
-      this.$parent.$emit('filter-proposals', this.selectedStatus);
+      this.filterProposals(this.selectedStatus);
     },
   },
 };
