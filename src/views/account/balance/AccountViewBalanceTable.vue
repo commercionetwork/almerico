@@ -49,7 +49,8 @@ export default {
     },
   },
   methods: {
-    formatBalance(balance, decimals = 6) {
+    formatBalance(amount, decimals = 0) {
+      const balance = amount / Math.pow(10, decimals);
       return new Intl.NumberFormat(undefined, {
         style: 'decimal',
         maximumFractionDigits: decimals,
