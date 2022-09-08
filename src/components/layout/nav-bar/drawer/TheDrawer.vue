@@ -35,6 +35,7 @@
       />
       <v-divider />
       <TheDrawerTheme />
+      <TheDrawerMedialSocials />
     </v-list-item-group>
   </v-list>
 </template>
@@ -42,6 +43,7 @@
 <script>
 import BaseDrawerMenuItem from './BaseDrawerMenuItem';
 import TheDrawerLocale from './TheDrawerLocale';
+import TheDrawerMedialSocials from './TheDrawerMedialSocials';
 import TheDrawerTheme from './TheDrawerTheme';
 
 import { ROUTES } from '@/constants';
@@ -60,6 +62,7 @@ export default {
     BaseDrawerMenuItem,
     TheDrawerTheme,
     TheDrawerLocale,
+    TheDrawerMedialSocials,
   },
   data() {
     return {
