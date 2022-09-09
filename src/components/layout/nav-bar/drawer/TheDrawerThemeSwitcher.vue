@@ -1,20 +1,25 @@
 <template>
-  <v-list-item @click="toggleTheme">
-    <v-list-item-icon>
-      <v-icon aria-hidden="false">{{ mdiThemeLightDark }}</v-icon>
-    </v-list-item-icon>
-    <v-list-item-title v-text="$t('titles.toggleTheme')" />
-  </v-list-item>
+  <v-switch
+    inset
+    :append-icon="themeIcon"
+    v-model="$vuetify.theme.dark"
+    @change="toggleTheme"
+  >
+  </v-switch>
 </template>
 
 <script>
 import { CONFIG } from '@/constants';
-import { mdiThemeLightDark } from '@mdi/js';
+import { mdiWeatherNight, mdiWhiteBalanceSunny } from '@mdi/js';
 
 export default {
-  name: 'TheDrawerTheme',
-  data() {
-    return { mdiThemeLightDark };
+  name: 'TheDrawerThemeSwitcher',
+  computed: {
+    themeIcon() {
+      return this.$vuetify.theme.dark === true
+        ? mdiWeatherNight
+        : mdiWhiteBalanceSunny;
+    },
   },
   mounted() {
     const darkTheme = localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.THEME);
@@ -26,7 +31,6 @@ export default {
   },
   methods: {
     toggleTheme() {
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       localStorage.setItem(
         CONFIG.BROWSER_STORAGE_KEYS.THEME,
         this.$vuetify.theme.dark.toString()

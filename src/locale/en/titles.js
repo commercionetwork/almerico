@@ -44,7 +44,6 @@ export const titles = {
   service: 'Service',
   sharedocDetail: 'Sharedoc detail',
   statisticsVotes: 'Statistics votes',
-  toggleTheme: 'Toggle theme',
   total: 'Total',
   transactionDetail: 'Transaction detail',
   transactions: 'Transactions',
