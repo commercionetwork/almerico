@@ -1,5 +1,5 @@
 <template>
-  <v-list-item class="mt-auto">
+  <v-list-item inactive>
     <v-row class="py-2">
       <v-col cols="3" class="text-center">
         <a href="https://discord.gg/N7DxaDj5sW" target="_blank">

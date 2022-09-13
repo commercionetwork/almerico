@@ -1,5 +1,5 @@
 <template>
-  <v-list-item class="mt-auto">
+  <v-list-item inactive>
     <v-row>
       <v-col cols="12" class="d-flex justify-center">
         <v-switch
