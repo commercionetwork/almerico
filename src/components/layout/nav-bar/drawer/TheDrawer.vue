@@ -34,7 +34,8 @@
         :to="{ name: ROUTES.NAME.EXCHANGE_RATE }"
       />
       <v-divider />
-      <TheDrawerTheme />
+      <TheDrawerSocialMedial />
+      <TheDrawerThemeSwitcher />
     </v-list-item-group>
   </v-list>
 </template>
@@ -42,7 +43,8 @@
 <script>
 import BaseDrawerMenuItem from './BaseDrawerMenuItem';
 import TheDrawerLocale from './TheDrawerLocale';
-import TheDrawerTheme from './TheDrawerTheme';
+import TheDrawerSocialMedial from './TheDrawerSocialMedial';
+import TheDrawerThemeSwitcher from './TheDrawerThemeSwitcher';
 
 import { ROUTES } from '@/constants';
 import {
@@ -58,8 +60,9 @@ export default {
   name: 'TheDrawer',
   components: {
     BaseDrawerMenuItem,
-    TheDrawerTheme,
     TheDrawerLocale,
+    TheDrawerSocialMedial,
+    TheDrawerThemeSwitcher,
   },
   data() {
     return {
