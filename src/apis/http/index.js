@@ -1,3 +1,4 @@
+import auth from './auth';
 import bank from './bank';
 import blocks from './blocks';
 import chart from './chart';
@@ -14,6 +15,7 @@ import tx from './tx';
 import validators from './validators';
 
 export {
+  auth,
   bank,
   blocks,
   chart,

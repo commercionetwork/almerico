@@ -1,7 +1,7 @@
 import { initState } from '../index';
 import mutations from '../mutations';
 
-describe('store/keplr/mutations', () => {
+describe('store/stats/mutations', () => {
   let state = {};
 
   beforeEach(() => {
@@ -11,9 +11,7 @@ describe('store/keplr/mutations', () => {
   test('mutations.reset', () => {
     state.error = 'error';
     state.isLoading = true;
-    state.isInitialized = true;
-    state.hasKeplr = false;
-    state.accounts = [{ id: 1 }];
+    state.wallets = [{ id: 1 }];
 
     const expected = initState();
 
@@ -36,23 +34,13 @@ describe('store/keplr/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('mutations.setInitialized', () => {
-    mutations.setInitialized(state, true);
+  test('mutations.addWallet', () => {
+    state.wallets = [{ id: 1 }];
+    const payload = { id: 2 };
+    const expectedValue = [{ id: 1 }, { id: 2 }];
 
-    expect(state.isInitialized).toBe(true);
-  });
+    mutations.addWallet(state, payload);
 
-  test('mutations.setHasKeplr', () => {
-    mutations.setHasKeplr(state, false);
-
-    expect(state.hasKeplr).toBe(false);
-  });
-
-  test('mutations.setAccounts', () => {
-    const payload = [{ id: 1 }];
-
-    mutations.setAccounts(state, payload);
-
-    expect(state.accounts).toStrictEqual(payload);
+    expect(state.wallets).toStrictEqual(expectedValue);
   });
 });
