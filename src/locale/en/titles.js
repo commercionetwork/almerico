@@ -1,9 +1,11 @@
 export const titles = {
   accountBalance: 'Account balance',
   accountDetail: 'Account detail',
+  accountsBalance: 'Accounts balance',
   activeValidatorsList: 'Active validators list',
   allTokensBalance: 'All tokens balance',
   allTypesTransactions: 'All types transactions',
+  allWallets: 'All wallets',
   blockDetail: 'Block detail',
   blocks: 'Blocks',
   blocksFromTo: 'Blocks from {0} to {1}',
