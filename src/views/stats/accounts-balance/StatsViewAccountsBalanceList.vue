@@ -8,6 +8,17 @@
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
     >
+      <template #[`item.address`]="{ item }">
+        <router-link
+          class="text-decoration-none font-weight-bold"
+          target="_blank"
+          v-text="item.address"
+          :to="{
+            name: ROUTES.NAME.ACCOUNT,
+            params: { id: item.address },
+          }"
+        />
+      </template>
       <template #[`item.com`]="{ item }">
         <span v-text="formatBalance(item.com, 6)" />
       </template>
@@ -19,18 +30,20 @@
 </template>
 
 <script>
+import { ROUTES } from '@/constants';
+
 export default {
   name: 'StatsViewAccountsBalanceList',
   props: {
     wallets: {
-      type: Array,
+      type: Object,
       required: true,
       note: 'The items to display',
     },
   },
-
   data() {
     return {
+      ROUTES,
       sortBy: 'com',
       sortDesc: true,
     };
@@ -44,19 +57,22 @@ export default {
       ];
     },
     items() {
-      return this.wallets.map((wallet) => {
-        const item = { address: wallet.address };
-        wallet.balances.forEach((balance) => {
-          const amount = parseInt(balance.amount);
-          if (balance.denom === 'ucommercio') {
-            item.com = amount;
+      const items = [];
+      for (const el in this.wallets) {
+        const wallet = this.wallets[el];
+        const item = { address: wallet.address, com: 0, ccc: 0 };
+        wallet.value.forEach((val) => {
+          const amount = parseInt(val.amount);
+          if (val.denom === 'ucommercio') {
+            item.com += amount;
           }
-          if (balance.denom === 'uccc') {
-            item.ccc = amount;
+          if (val.denom === 'uccc') {
+            item.ccc += amount;
           }
         });
-        return item;
-      });
+        items.push(item);
+      }
+      return items;
     },
   },
   methods: {
