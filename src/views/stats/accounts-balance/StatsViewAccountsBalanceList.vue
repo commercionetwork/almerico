@@ -11,6 +11,7 @@
       <template #[`item.address`]="{ item }">
         <router-link
           class="text-decoration-none font-weight-bold"
+          target="_blank"
           v-text="item.address"
           :to="{
             name: ROUTES.NAME.ACCOUNT,
