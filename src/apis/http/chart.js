@@ -10,7 +10,7 @@ const chart = {
     return axios({
       url: '/tokens',
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_CHART}`,
+      baseURL: `${APIS.HTTP.BACKEND_CHARTS}`,
     });
   },
 };
