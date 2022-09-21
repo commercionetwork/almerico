@@ -81,6 +81,8 @@ export const labels = {
   keyAgreement: 'Key agreement',
   label: 'Label',
   lang: 'Lang',
+  lbrTokensDistributed: 'LBR Tokens Distributed',
+  lbrTokensNotDistributed: 'LBR Tokens Not Distributed',
   liquidityPoolTokensDistributed: 'Liquidity pool tokens distributed',
   liquidityPoolTokensNotDistributed: 'Liquidity pool tokens not distributed',
   maxChangeRate: 'Max change rate',
