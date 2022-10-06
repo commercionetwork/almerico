@@ -20,6 +20,7 @@ export const msgs = {
   notAvailable: 'Non disponibile',
   notFound: 'Non trovato',
   placeholderSearchBar: 'Cerca indirizzo, blocco, transazione',
+  proposalMinimumStaked: 'Per l\'approvazione della proposta è necessario il voto di un minimo di {0} partecipanti ({1}).',
   scan: 'Scansiona',
   scanAddress: 'Scansiona indirizzo',
   searchBlocksInfo: 'Cerca {0} blocchi in ordine discendente da un\'altezza (min {1})',
@@ -30,4 +31,5 @@ export const msgs = {
   unansweredRequest: 'La richiesta è stata fatta ma non è stata ricevuta alcuna risposta',
   validatorNotExist: 'Questo validatore non esiste',
   workInProgress: 'Lavori in corso',
+  youVoted: 'Hai votato "{0}"',
 };

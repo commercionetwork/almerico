@@ -1,5 +1,10 @@
 import { governance, proposals, staking } from '@/apis/http';
-import { PROPOSALS } from '@/constants';
+import { CONFIG, PROPOSALS } from '@/constants';
+import {
+  assertIsDeliverTxSuccess,
+  SigningStargateClient,
+} from '@cosmjs/stargate';
+import { MsgVote } from 'cosmjs-types/cosmos/gov/v1beta1/tx';
 
 export default {
   async initProposalsList({ commit, dispatch }, status) {
@@ -28,7 +33,8 @@ export default {
       dispatch('fetchPool'),
       dispatch('fetchProposalDetail', id),
       dispatch('fetchProposalTally', id),
-      dispatch('fetchProposalVotes', id),
+      dispatch('fetchProposalVotesLegacy', id),
+      dispatch('fetchTallyParams'),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
@@ -65,4 +71,69 @@ export default {
       commit('setError', error);
     }
   },
+  async fetchTallyParams({ commit }) {
+    try {
+      const response = await governance.requestTallyParams();
+      commit('setTallyParams', response.data.tally_params);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async voteProposal(
+    { commit, dispatch, rootGetters },
+    { voteOption, proposalId, translator, context }
+  ) {
+    commit('setLoading', true);
+    const isKeplrInitialized = rootGetters['keplr/isInitialized'];
+    if (!isKeplrInitialized) {
+      await dispatch('keplr/connect', { translator, context }, { root: true });
+    }
+    try {
+      const chain = CONFIG.CHAIN.LIST.find(
+        (item) => item.lcd === process.env.VUE_APP_LCD
+      );
+      const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
+      const client = await SigningStargateClient.connectWithSigner(
+        chain.rpc,
+        offlineSigner
+      );
+      const fee = _getFee();
+      const accounts = rootGetters['keplr/accounts'];
+      const msg = {
+        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
+        value: MsgVote.fromPartial({
+          proposalId: proposalId,
+          voter: accounts[0].address,
+          option: voteOption,
+        }),
+      };
+      const result = await client.signAndBroadcast(
+        accounts[0].address,
+        [msg],
+        fee
+      );
+      assertIsDeliverTxSuccess(result);
+    } catch (error) {
+      commit('setError', error);
+    }
+    commit('setLoading', false);
+  },
+  async fetchProposalVotesLegacy({ commit }, id) {
+    try {
+      const response = await governance.requestVotesLegacy(id);
+      commit('setDetail', { votes: response.data.result });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
 };
+
+const _getFee = () => ({
+  amount: [
+    {
+      denom: 'ucom',
+      amount: '10000',
+    },
+  ],
+  gas: '200000',
+});

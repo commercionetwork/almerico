@@ -49,6 +49,9 @@ export const APIS = {
     // RPC
     BLOCKS_RPC: `${LCD}/blocks`,
     VALIDATORSETS_RPC: `${LCD}/validatorsets`,
+    // TODO:remove
+    // Legacy
+    GOVERNANCE_LEGACY: `${LCD}/gov`,
   },
   SORTING_ORDERS: {
     ORDER_BY_ASC: 'ORDER_BY_ASC',

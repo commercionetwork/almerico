@@ -20,6 +20,7 @@ export const msgs = {
   notAvailable: 'Not available',
   notFound: 'Not found',
   placeholderSearchBar: 'Search Address, Block Height, TxHash',
+  proposalMinimumStaked: 'Minimum of {0} COM ({1}) staked COM need to vote for this proposal to pass',
   scan: 'Scan',
   scanAddress: 'Scan the address',
   searchBlocksInfo: 'Search {0} blocks in descending order starting from an height (min {1})',
@@ -30,4 +31,5 @@ export const msgs = {
   unansweredRequest: 'The request was made but no response was received',
   validatorNotExist: 'Validator does not exist',
   workInProgress: 'Work in progress',
+  youVoted: 'You voted "{0}"',
 };

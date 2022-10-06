@@ -53,6 +53,24 @@ const mockTally = () => {
   return item;
 };
 
+const mockTallyParams = () => {
+  const item = {
+    voting_params: {
+      voting_period: '0s',
+    },
+    deposit_params: {
+      min_deposit: [],
+      max_deposit_period: '0s',
+    },
+    tally_params: {
+      quorum: '0.100000000000000000',
+      threshold: '0.100000000000000000',
+      veto_threshold: '0.334000000000000000',
+    },
+  };
+  return item;
+};
+
 const mockVote = (id = 1) => {
   const item = {
     id,
@@ -66,4 +84,4 @@ const mockVotes = (votes = 10) => {
   return list;
 };
 
-export { mockProposal, mockProposals, mockTally, mockVotes };
+export { mockProposal, mockProposals, mockTally, mockTallyParams, mockVotes };

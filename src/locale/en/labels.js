@@ -30,6 +30,7 @@ export const labels = {
   communityTokensDistributed: 'Community tokens distributed',
   communityTokensNotDistributed: 'Community tokens not distributed',
   completionDate: 'Completion date',
+  confirm: 'Confirm',
   connectWallet: 'Connect wallet',
   content: 'Content',
   contentUri: 'Content URI',
@@ -56,6 +57,7 @@ export const labels = {
   did: 'Did',
   documentUUID: 'Document UUID',
   earning: 'Earning',
+  editVote: 'Edit vote',
   encryptionDataEncryptedData: 'Encryption data encrypted data',
   encryptionDataKeys: 'Encryption data keys',
   failed: 'Failed',
@@ -195,4 +197,5 @@ export const labels = {
   wasmByteCode: 'Wasm bytecode',
   website: 'Website',
   yes: 'Yes',
+  turnout: 'Turnout',
 };

@@ -11,6 +11,7 @@ export const initState = () => ({
   filter: PROPOSALS.STATUS.UNSPECIFIED,
   detail: null,
   pool: null,
+  tallyParams: null,
 });
 
 export default {

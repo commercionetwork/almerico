@@ -14,8 +14,8 @@
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.proposalDetail')" />
       <v-row>
-        <v-col cols="12" md="6"><ProposalsViewDetailData /></v-col>
-        <v-col cols="12" md="6"><ProposalsViewDetailChart /></v-col>
+        <v-col cols="12" lg="6"><ProposalsViewDetailData /></v-col>
+        <v-col cols="12" lg="6"><ProposalsViewDetailVotes /></v-col>
       </v-row>
     </v-col>
   </v-row>
@@ -23,8 +23,8 @@
 
 <script>
 import BaseLoadingLinear from '@/components/BaseLoadingLinear.vue';
-import ProposalsViewDetailChart from './detail/ProposalsViewDetailChart.vue';
 import ProposalsViewDetailData from './detail/ProposalsViewDetailData.vue';
+import ProposalsViewDetailVotes from './detail/ProposalsViewDetailVotes.vue';
 import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 
@@ -34,8 +34,8 @@ export default {
   name: 'ProposalsViewDetail',
   components: {
     BaseLoadingLinear,
-    ProposalsViewDetailChart,
     ProposalsViewDetailData,
+    ProposalsViewDetailVotes,
     TheErrorMessage,
     TheHeaderContent,
   },

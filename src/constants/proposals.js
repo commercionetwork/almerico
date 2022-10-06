@@ -78,6 +78,13 @@ const LABELS = {
   [TYPES.TEXT]: 'Text Proposal',
 };
 
+const VOTE_OPTIONS = [
+  { label: 'Yes', value: '1' },
+  { label: 'Abstain', value: '2' },
+  { label: 'No', value: '3' },
+  { label: 'No with veto', value: '4' },
+];
+
 export const PROPOSALS = {
   COLORS,
   ICONS,
@@ -86,4 +93,5 @@ export const PROPOSALS = {
   SUPPORTED_TYPES,
   TEXTS,
   TYPES,
+  VOTE_OPTIONS,
 };

@@ -109,7 +109,7 @@ export const TRANSACTIONS = {
     {
       name: 'MsgVote',
       text: '/cosmos.gov.v1beta1.MsgVote',
-      value: 'vote',
+      value: '/cosmos.gov.v1beta1.MsgVote',
     },
     {
       name: 'MsgWithdrawDelegatorReward',
