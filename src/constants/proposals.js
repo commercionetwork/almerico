@@ -79,10 +79,10 @@ const LABELS = {
 };
 
 const VOTE_OPTIONS = [
-  { label: 'Yes', value: '1' },
-  { label: 'Abstain', value: '2' },
-  { label: 'No', value: '3' },
-  { label: 'No with veto', value: '4' },
+  { tag: 'yes', value: 1, label: 'Yes' },
+  { tag: 'abstain', value: 2, label: 'Abstain' },
+  { tag: 'no', value: 3, label: 'No' },
+  { tag: 'no_with_veto', value: 4, label: 'Veto' },
 ];
 
 export const PROPOSALS = {

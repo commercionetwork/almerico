@@ -7,17 +7,17 @@
       />
     </v-card-title>
     <v-card-text>
-      <ProposalsViewDetailVotesStatsData :stats="stats" />
+      <ProposalsViewDetailVotesStatsHeader :stats="stats" />
     </v-card-text>
     <v-card-text>
-      <ProposalsViewDetailVotesStatsChart :stats="stats" />
+      <ProposalsViewDetailVotesStatsBody :stats="stats" />
     </v-card-text>
   </v-card>
 </template>
 
 <script>
-import ProposalsViewDetailVotesStatsChart from './ProposalsViewDetailVotesStatsChart.vue';
-import ProposalsViewDetailVotesStatsData from './ProposalsViewDetailVotesStatsData.vue';
+import ProposalsViewDetailVotesStatsHeader from './ProposalsViewDetailVotesStatsHeader.vue';
+import ProposalsViewDetailVotesStatsBody from './ProposalsViewDetailVotesStatsBody.vue';
 
 import proposalDetailHelper from './helpers/proposalDetailHelper';
 import { mapGetters } from 'vuex';
@@ -25,8 +25,8 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ProposalsViewDetailVotesStats',
   components: {
-    ProposalsViewDetailVotesStatsChart,
-    ProposalsViewDetailVotesStatsData,
+    ProposalsViewDetailVotesStatsHeader,
+    ProposalsViewDetailVotesStatsBody,
   },
   computed: {
     ...mapGetters('proposals', ['pool', 'tally', 'tallyParams']),

@@ -45,7 +45,7 @@ import { mdiClose } from '@mdi/js';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'ProposalsViewDetailVotesVotingModal',
+  name: 'ProposalsViewDetailDataVotingModal',
   props: {
     value: Boolean,
     proposal: Object,

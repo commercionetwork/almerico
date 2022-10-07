@@ -18,8 +18,7 @@ export default proposalDetailHelper;
 const _getLabel = (vote) => {
   if (!vote) return '';
   const optionIndex = PROPOSALS.VOTE_OPTIONS.findIndex(
-    // use == to compare string with number
-    (option) => option.value == vote.options[0].option
+    (option) => option.value === vote.options[0].option
   );
   return optionIndex < 0 ? '' : PROPOSALS.VOTE_OPTIONS[optionIndex].label;
 };
@@ -43,7 +42,7 @@ const _getVotes = (tally) => {
   const data = { ...tally };
   for (const k in data) {
     data[k] = {
-      label: _formatLabel(k),
+      label: _getLabelFromOption(k),
       amount: _formatDecimal(data[k] / 1000000),
       percentage: _formatPercent(data[k] / total),
     };
@@ -73,6 +72,7 @@ const _calcTotal = (data) => {
   return tot;
 };
 
-const _formatLabel = (text) => {
-  return text.replaceAll('_', ' ').toUpperCase();
+const _getLabelFromOption = (tag) => {
+  const option = PROPOSALS.VOTE_OPTIONS.find((option) => option.tag === tag);
+  return option.label;
 };

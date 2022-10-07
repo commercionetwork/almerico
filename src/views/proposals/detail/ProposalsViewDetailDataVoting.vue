@@ -9,7 +9,7 @@
       >
         <span class="px-5" v-text="voteButtonLabel" />
       </v-btn>
-      <ProposalsViewDetailVotesVotingModal
+      <ProposalsViewDetailDataVotingModal
         v-model="dialog"
         :proposal="proposal"
       />
@@ -26,15 +26,15 @@
 </template>
 
 <script>
-import ProposalsViewDetailVotesVotingModal from './ProposalsViewDetailVotesVotingModal.vue';
+import ProposalsViewDetailDataVotingModal from './ProposalsViewDetailDataVotingModal.vue';
 
 import proposalDetailHelper from './helpers/proposalDetailHelper';
 import { PROPOSALS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'ProposalsViewDetailVotesVoting',
-  components: { ProposalsViewDetailVotesVotingModal },
+  name: 'ProposalsViewDetailDataVoting',
+  components: { ProposalsViewDetailDataVotingModal },
   data() {
     return {
       dialog: false,
@@ -52,7 +52,7 @@ export default {
         const voteIndex = this.votes.findIndex((vote) => {
           return vote.voter === this.accounts[0].address;
         });
-        if (voteIndex > 0) {
+        if (voteIndex > -1) {
           vote = this.votes[voteIndex];
         }
       }
