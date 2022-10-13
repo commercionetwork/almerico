@@ -27,6 +27,7 @@ const governance = {
       baseURL: `${APIS.HTTP.GOVERNANCE}`,
     });
   },
+  //TODO: remove legacy
   requestVotesLegacy(id) {
     return axios({
       url: `/proposals/${id}/votes`,

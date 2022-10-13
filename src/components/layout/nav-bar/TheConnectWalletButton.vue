@@ -18,13 +18,11 @@
       <span>{{ $t('labels.connectWallet') }}</span>
       <v-icon right v-bind="size">{{ mdiWalletOutline }}</v-icon>
     </v-btn>
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="dialog" max-width="960">
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title
-            class="primary--text"
-            v-text="$t('labels.connectWallet')"
-          />
+          <v-toolbar-title class="info--text" v-text="$t('labels.info')" />
+          <v-icon color="info" right>{{ mdiInformationOutline }}</v-icon>
           <v-spacer />
           <v-toolbar-items>
             <v-btn icon color="grey" dark @click="closeDialog">
@@ -33,7 +31,9 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
-          <div class="py-3 text-body-1" v-html="dialogMessage" />
+          <v-alert border="left" colored-border color="info">
+            <div class="py-3 text-body-1" v-html="dialogMessage" />
+          </v-alert>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { mdiClose, mdiWalletOutline } from '@mdi/js';
+import { mdiClose, mdiInformationOutline, mdiWalletOutline } from '@mdi/js';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       mdiClose,
+      mdiInformationOutline,
       mdiWalletOutline,
       dialog: false,
     };

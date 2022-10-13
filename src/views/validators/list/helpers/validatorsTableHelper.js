@@ -19,8 +19,8 @@ const validatorsTableHelper = {
     const $t = translator.bind(context);
     let headers = [
       { text: $t('labels.rank'), value: 'rank' },
-      { text: $t('labels.validator'), value: 'moniker', width: '35%' },
-      { text: $t('labels.tokens'), value: 'tokens', width: '20%' },
+      { text: $t('labels.validator'), value: 'moniker', width: '32%' },
+      { text: $t('labels.tokens'), value: 'tokens', width: '16%' },
       {
         text: $t('labels.commission'),
         value: 'commission',
@@ -36,9 +36,11 @@ const validatorsTableHelper = {
         value: 'cumulative',
         width: '10%',
       },
+      { text: '', value: 'operatorAddress', width: '7%' },
     ];
     if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
-      headers.push({
+      const index = headers.length - 2;
+      headers.splice(index, 0, {
         text: $t('labels.blocksPercentage'),
         value: 'attendance',
         width: '10%',

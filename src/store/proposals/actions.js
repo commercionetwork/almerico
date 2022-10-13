@@ -1,10 +1,6 @@
-import { governance, proposals, staking } from '@/apis/http';
-import { CONFIG, PROPOSALS } from '@/constants';
-import {
-  assertIsDeliverTxSuccess,
-  SigningStargateClient,
-} from '@cosmjs/stargate';
 import { MsgVote } from 'cosmjs-types/cosmos/gov/v1beta1/tx';
+import { PROPOSALS } from '@/constants';
+import { governance, proposals, staking } from '@/apis/http';
 
 export default {
   async initProposalsList({ commit, dispatch }, status) {
@@ -84,20 +80,15 @@ export default {
     { voteOption, proposalId, translator, context }
   ) {
     commit('setLoading', true);
-    const isKeplrInitialized = rootGetters['keplr/isInitialized'];
-    if (!isKeplrInitialized) {
-      await dispatch('keplr/connect', { translator, context }, { root: true });
-    }
     try {
-      const chain = CONFIG.CHAIN.LIST.find(
-        (item) => item.lcd === process.env.VUE_APP_LCD
-      );
-      const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
-      const client = await SigningStargateClient.connectWithSigner(
-        chain.rpc,
-        offlineSigner
-      );
-      const fee = _getFee();
+      const isKeplrInitialized = rootGetters['keplr/isInitialized'];
+      if (!isKeplrInitialized) {
+        await dispatch(
+          'keplr/connect',
+          { translator, context },
+          { root: true }
+        );
+      }
       const accounts = rootGetters['keplr/accounts'];
       const msg = {
         typeUrl: '/cosmos.gov.v1beta1.MsgVote',
@@ -107,17 +98,19 @@ export default {
           option: voteOption,
         }),
       };
-      const result = await client.signAndBroadcast(
-        accounts[0].address,
-        [msg],
-        fee
+      await dispatch(
+        'keplr/signAndBroadcastTransaction',
+        { msgs: [msg] },
+        {
+          root: true,
+        }
       );
-      assertIsDeliverTxSuccess(result);
     } catch (error) {
       commit('setError', error);
     }
     commit('setLoading', false);
   },
+  //TODO: remove legacy
   async fetchProposalVotesLegacy({ commit }, id) {
     try {
       const response = await governance.requestVotesLegacy(id);
@@ -127,13 +120,3 @@ export default {
     }
   },
 };
-
-const _getFee = () => ({
-  amount: [
-    {
-      denom: 'ucom',
-      amount: '10000',
-    },
-  ],
-  gas: '200000',
-});

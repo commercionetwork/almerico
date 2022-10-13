@@ -4,6 +4,7 @@ import coinAdapter from './coinAdapter';
 import dateHandler from './dateHandler';
 import proposerHandler from './proposerHandler';
 import regExpBuilder from './regExpBuilder';
+import storageHandler from './storageHandler';
 import stringEncoder from './stringEncoder';
 import txHandler from './txs/txHandler';
 import txsFilter from './txs/txsFilter';
@@ -16,6 +17,7 @@ export {
   dateHandler,
   proposerHandler,
   regExpBuilder,
+  storageHandler,
   stringEncoder,
   txHandler,
   txsFilter,

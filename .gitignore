@@ -2,7 +2,6 @@
 node_modules
 /dist
 /playground
-/src/constants/config.local.js
 
 # local env files
 .env.local

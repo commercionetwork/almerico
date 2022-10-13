@@ -14,6 +14,7 @@
     <v-col cols="12" v-else data-test="content">
       <TheHeaderContent :title="$t('titles.validators')" />
       <ValidatorsViewListContentTop />
+      <WalletSummary v-if="isInitialized" data-test="wallet-summary" />
       <ValidatorsViewListTable />
     </v-col>
   </v-row>
@@ -25,6 +26,7 @@ import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent';
 import ValidatorsViewListContentTop from './list/ValidatorsViewListContentTop.vue';
 import ValidatorsViewListTable from './list/ValidatorsViewListTable.vue';
+import WalletSummary from './list/summary/WalletSummary.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -36,9 +38,11 @@ export default {
     TheHeaderContent,
     ValidatorsViewListContentTop,
     ValidatorsViewListTable,
+    WalletSummary,
   },
   computed: {
     ...mapGetters('application', ['eventHeight']),
+    ...mapGetters('keplr', ['isInitialized']),
     ...mapGetters('validators', ['error', 'isLoading']),
   },
   watch: {
