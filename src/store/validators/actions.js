@@ -141,7 +141,7 @@ export default {
     try {
       const response = await distribution.requestRewards(account);
       commit('setWalletItem', {
-        rewards: response.data.balances,
+        rewards: response.data,
       });
     } catch (error) {
       commit('setWalletItem', { rewards: [] });
