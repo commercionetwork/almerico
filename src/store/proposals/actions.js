@@ -1,6 +1,6 @@
-import { MsgVote } from 'cosmjs-types/cosmos/gov/v1beta1/tx';
-import { PROPOSALS } from '@/constants';
 import { governance, proposals, staking } from '@/apis/http';
+import { PROPOSALS } from '@/constants';
+import msgBuilder from '@/store/keplr/helpers/msgBuilder';
 
 export default {
   async initProposalsList({ commit, dispatch }, status) {
@@ -80,34 +80,16 @@ export default {
     { voteOption, proposalId, translator, context }
   ) {
     commit('setLoading', true);
-    try {
-      const isKeplrInitialized = rootGetters['keplr/isInitialized'];
-      if (!isKeplrInitialized) {
-        await dispatch(
-          'keplr/connect',
-          { translator, context },
-          { root: true }
-        );
+    const accounts = rootGetters['keplr/accounts'];
+    const account = accounts[0].address;
+    const msg = msgBuilder.buildMsgVote({ voteOption, proposalId, account });
+    await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { msgs: [msg], translator, context },
+      {
+        root: true,
       }
-      const accounts = rootGetters['keplr/accounts'];
-      const msg = {
-        typeUrl: '/cosmos.gov.v1beta1.MsgVote',
-        value: MsgVote.fromPartial({
-          proposalId: proposalId,
-          voter: accounts[0].address,
-          option: voteOption,
-        }),
-      };
-      await dispatch(
-        'keplr/signAndBroadcastTransaction',
-        { msgs: [msg] },
-        {
-          root: true,
-        }
-      );
-    } catch (error) {
-      commit('setError', error);
-    }
+    );
     commit('setLoading', false);
   },
   //TODO: remove legacy

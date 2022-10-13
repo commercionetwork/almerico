@@ -21,11 +21,13 @@
           <TheConnectWalletButton />
         </v-col>
       </v-row>
+      <TheConnectSnackBar />
     </v-app-bar>
   </nav>
 </template>
 
 <script>
+import TheConnectSnackBar from './nav-bar/TheConnectSnackBar.vue';
 import TheConnectWalletButton from './nav-bar/TheConnectWalletButton.vue';
 import TheDrawer from './nav-bar/drawer/TheDrawer';
 
@@ -35,6 +37,7 @@ import { mdiMenu } from '@mdi/js';
 export default {
   name: 'TheNavBar',
   components: {
+    TheConnectSnackBar,
     TheConnectWalletButton,
     TheDrawer,
   },

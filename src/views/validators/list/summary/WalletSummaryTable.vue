@@ -4,7 +4,7 @@
       :caption="$t('titles.delegations')"
       :headers="headers"
       :items="items"
-      :items-per-page="2"
+      :items-per-page="5"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
     ></v-data-table>

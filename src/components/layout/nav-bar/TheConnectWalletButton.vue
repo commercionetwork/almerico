@@ -18,7 +18,7 @@
       <span>{{ $t('labels.connectWallet') }}</span>
       <v-icon right v-bind="size">{{ mdiWalletOutline }}</v-icon>
     </v-btn>
-    <v-dialog v-model="dialog" max-width="960">
+    <v-dialog v-model="dialog" max-width="800">
       <v-card>
         <v-toolbar flat>
           <v-toolbar-title class="info--text" v-text="$t('labels.info')" />

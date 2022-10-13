@@ -104,8 +104,14 @@ export default {
       commit('setLoading', false);
     });
   },
-  async signAndBroadcastTransaction({ commit, getters }, { msgs }) {
+  async signAndBroadcastTransaction(
+    { commit, dispatch, getters },
+    { msgs, translator, context }
+  ) {
     try {
+      if (!getters['isInitialized']) {
+        await dispatch('connect', { translator, context });
+      }
       const chain = CONFIG.CHAIN.LIST.find(
         (item) => item.lcd === process.env.VUE_APP_LCD
       );

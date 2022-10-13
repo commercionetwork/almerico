@@ -1,10 +1,5 @@
-import {
-  MsgBeginRedelegate,
-  MsgDelegate,
-  MsgUndelegate,
-} from 'cosmjs-types/cosmos/staking/v1beta1/tx';
-import { MsgWithdrawDelegatorReward } from 'cosmjs-types/cosmos/distribution/v1beta1/tx';
 import { bank, distribution, staking, validators } from '@/apis/http';
+import msgBuilder from '@/store/keplr/helpers/msgBuilder';
 
 export default {
   async initValidatorsList({ commit, dispatch }) {
@@ -153,25 +148,16 @@ export default {
     { validatorAddress, amount, translator, context }
   ) {
     commit('setLoading', true);
-    const isKeplrInitialized = rootGetters['keplr/isInitialized'];
-    if (!isKeplrInitialized) {
-      await dispatch('keplr/connect', { translator, context }, { root: true });
-    }
     const accounts = rootGetters['keplr/accounts'];
-    const msg = {
-      typeUrl: '/cosmos.staking.v1beta1.MsgDelegate',
-      value: MsgDelegate.fromPartial({
-        delegatorAddress: accounts[0].address,
-        validatorAddress: validatorAddress,
-        amount: {
-          denom: 'ucommercio',
-          amount: amount,
-        },
-      }),
-    };
+    const account = accounts[0].address;
+    const msg = msgBuilder.buildMsgDelegate({
+      validatorAddress,
+      amount,
+      account,
+    });
     await dispatch(
       'keplr/signAndBroadcastTransaction',
-      { msgs: [msg] },
+      { msgs: [msg], translator, context },
       { root: true }
     );
     commit('setLoading', false);
@@ -181,25 +167,16 @@ export default {
     { validatorAddress, amount, translator, context }
   ) {
     commit('setLoading', true);
-    const isKeplrInitialized = rootGetters['keplr/isInitialized'];
-    if (!isKeplrInitialized) {
-      await dispatch('keplr/connect', { translator, context }, { root: true });
-    }
     const accounts = rootGetters['keplr/accounts'];
-    const msg = {
-      typeUrl: '/cosmos.staking.v1beta1.MsgUndelegate',
-      value: MsgUndelegate.fromPartial({
-        delegatorAddress: accounts[0].address,
-        validatorAddress: validatorAddress,
-        amount: {
-          denom: 'ucommercio',
-          amount: amount,
-        },
-      }),
-    };
+    const account = accounts[0].address;
+    const msg = msgBuilder.buildMsgUndelegate({
+      validatorAddress,
+      amount,
+      account,
+    });
     await dispatch(
       'keplr/signAndBroadcastTransaction',
-      { msgs: [msg] },
+      { msgs: [msg], translator, context },
       { root: true }
     );
     commit('setLoading', false);
@@ -209,26 +186,17 @@ export default {
     { validatorAddress, srcAddress, amount, translator, context }
   ) {
     commit('setLoading', true);
-    const isKeplrInitialized = rootGetters['keplr/isInitialized'];
-    if (!isKeplrInitialized) {
-      await dispatch('keplr/connect', { translator, context }, { root: true });
-    }
     const accounts = rootGetters['keplr/accounts'];
-    const msg = {
-      typeUrl: '/cosmos.staking.v1beta1.MsgBeginRedelegate',
-      value: MsgBeginRedelegate.fromPartial({
-        delegatorAddress: accounts[0].address,
-        validatorSrcAddress: srcAddress,
-        validatorDstAddress: validatorAddress,
-        amount: {
-          denom: 'ucommercio',
-          amount: amount,
-        },
-      }),
-    };
+    const account = accounts[0].address;
+    const msg = msgBuilder.buildMsgBeginRedelegate({
+      validatorAddress,
+      srcAddress,
+      amount,
+      account,
+    });
     await dispatch(
       'keplr/signAndBroadcastTransaction',
-      { msgs: [msg] },
+      { msgs: [msg], translator, context },
       { root: true }
     );
     commit('setLoading', false);
@@ -238,25 +206,19 @@ export default {
     { validators, translator, context }
   ) {
     commit('setLoading', true);
-    const isKeplrInitialized = rootGetters['keplr/isInitialized'];
-    if (!isKeplrInitialized) {
-      await dispatch('keplr/connect', { translator, context }, { root: true });
-    }
     const accounts = rootGetters['keplr/accounts'];
+    const account = accounts[0].address;
     const msgs = [];
     for (const validatorAddress of validators) {
-      const msg = {
-        typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-        value: MsgWithdrawDelegatorReward.fromPartial({
-          delegatorAddress: accounts[0].address,
-          validatorAddress: validatorAddress,
-        }),
-      };
+      const msg = msgBuilder.buildMsgWithdrawDelegatorReward({
+        validatorAddress,
+        account,
+      });
       msgs.push(msg);
     }
     await dispatch(
       'keplr/signAndBroadcastTransaction',
-      { msgs: msgs },
+      { msgs: msgs, translator, context },
       { root: true }
     );
     commit('setLoading', false);
