@@ -32,12 +32,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['list']),
+    ...mapGetters('validators', ['wallet']),
     hasRewards() {
       return this.amount > 0;
     },
     validators() {
-      return this.list.map((it) => it.operatorAddress);
+      return this.wallet.delegations.map(
+        (el) => el.delegation.validator_address
+      );
     },
   },
   methods: {
