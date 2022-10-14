@@ -135,6 +135,7 @@ export const labels = {
   rate: 'Rate',
   rawLog: 'Raw log',
   recipient: 'Recipient',
+  redelegateFrom: 'Redelegate from',
   refresh: 'Refresh',
   reset: 'Reset',
   result: 'Result',

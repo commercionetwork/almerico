@@ -1,6 +1,7 @@
 <template>
   <v-autocomplete
     :items="items"
+    :label="$t('labels.redelegateFrom')"
     item-text="moniker"
     item-value="address"
     return-object
