@@ -135,6 +135,7 @@ export const labels = {
   rate: 'Tasso',
   rawLog: 'Raw log',
   recipient: 'Destinatario',
+  redelegateFrom: 'Redelegate da',
   refresh: 'Aggiornare',
   reset: 'Azzera',
   result: 'Risultato',
