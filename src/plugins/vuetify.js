@@ -29,12 +29,12 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: '#38ba8c',
+        primary: '#38BA8C',
         background: colors.grey.lighten5,
         backgroundFooter: colors.blueGrey.lighten5,
       },
       dark: {
-        primary: '#38ba8c',
+        primary: '#38BA8C',
         secondary: colors.grey.lighten4,
       },
     },
