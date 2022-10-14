@@ -25,4 +25,7 @@ export default {
   setPool(state, payload) {
     state.pool = payload;
   },
+  setTallyParams(state, payload) {
+    state.tallyParams = payload;
+  },
 };

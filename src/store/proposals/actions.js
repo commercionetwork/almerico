@@ -1,5 +1,6 @@
 import { governance, proposals, staking } from '@/apis/http';
 import { PROPOSALS } from '@/constants';
+import msgBuilder from '@/store/keplr/helpers/msgBuilder';
 
 export default {
   async initProposalsList({ commit, dispatch }, status) {
@@ -28,7 +29,8 @@ export default {
       dispatch('fetchPool'),
       dispatch('fetchProposalDetail', id),
       dispatch('fetchProposalTally', id),
-      dispatch('fetchProposalVotes', id),
+      dispatch('fetchProposalVotesLegacy', id),
+      dispatch('fetchTallyParams'),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
@@ -61,6 +63,40 @@ export default {
     try {
       const response = await governance.requestVotes(id);
       commit('setDetail', { votes: response.data.votes });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async fetchTallyParams({ commit }) {
+    try {
+      const response = await governance.requestTallyParams();
+      commit('setTallyParams', response.data.tally_params);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async voteProposal(
+    { commit, dispatch, rootGetters },
+    { voteOption, proposalId, translator, context }
+  ) {
+    commit('setLoading', true);
+    const accounts = rootGetters['keplr/accounts'];
+    const account = accounts[0].address;
+    const msg = msgBuilder.buildMsgVote({ voteOption, proposalId, account });
+    await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { msgs: [msg], translator, context },
+      {
+        root: true,
+      }
+    );
+    commit('setLoading', false);
+  },
+  //TODO: remove legacy
+  async fetchProposalVotesLegacy({ commit }, id) {
+    try {
+      const response = await governance.requestVotesLegacy(id);
+      commit('setDetail', { votes: response.data.result });
     } catch (error) {
       commit('setError', error);
     }

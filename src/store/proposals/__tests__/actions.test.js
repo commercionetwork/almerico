@@ -5,6 +5,7 @@ import {
   mockProposal,
   mockProposals,
   mockTally,
+  mockTallyParams,
   mockVotes,
 } from '@/__mocks__';
 import actions from '../actions.js';
@@ -68,7 +69,8 @@ describe('store/proposals/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('fetchPool');
     expect(dispatch).toHaveBeenCalledWith('fetchProposalDetail', id);
     expect(dispatch).toHaveBeenCalledWith('fetchProposalTally', id);
-    expect(dispatch).toHaveBeenCalledWith('fetchProposalVotes', id);
+    expect(dispatch).toHaveBeenCalledWith('fetchProposalVotesLegacy', id);
+    expect(dispatch).toHaveBeenCalledWith('fetchTallyParams');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
@@ -136,6 +138,23 @@ describe('store/proposals/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
+
+  test('if "fetchTallyParams" save tally params, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchTallyParams({ commit });
+
+    expect(commit).toHaveBeenCalledWith(
+      'setTallyParams',
+      mockResponse.data.tally_params
+    );
+
+    mockError = true;
+
+    await actions.fetchTallyParams({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
 });
 
 jest.mock('../../../apis/http/proposals.js', () => ({
@@ -179,6 +198,20 @@ jest.mock('../../../apis/http/governance.js', () => ({
 
         mockResponse = {
           data: { tally: mockTally() },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestTallyParams: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockTallyParams(),
         };
         resolve(mockResponse);
       }, 1);

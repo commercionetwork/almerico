@@ -37,12 +37,14 @@ describe('views/validators/ValidatorsViewList.vue', () => {
         ...computed,
         error: () => null,
         isLoading: () => true,
+        isInitialized: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="wallet-summary"]').exists()).toBe(false);
   });
 
   test('if message error is displayed', () => {
@@ -54,12 +56,14 @@ describe('views/validators/ValidatorsViewList.vue', () => {
         ...computed,
         error: () => error,
         isLoading: () => false,
+        isInitialized: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="wallet-summary"]').exists()).toBe(false);
   });
 
   test('if content is displayed', () => {
@@ -70,11 +74,31 @@ describe('views/validators/ValidatorsViewList.vue', () => {
         ...computed,
         error: () => null,
         isLoading: () => false,
+        isInitialized: () => false,
       },
     });
 
     expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="wallet-summary"]').exists()).toBe(false);
+  });
+
+  test('if wallet is displayed', () => {
+    const wrapper = shallowMount(ValidatorsViewList, {
+      localVue,
+      mocks,
+      computed: {
+        ...computed,
+        error: () => null,
+        isLoading: () => false,
+        isInitialized: () => true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="loading"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="error"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="content"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="wallet-summary"]').exists()).toBe(true);
   });
 });

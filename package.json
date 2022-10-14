@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "4.2.3",
+  "version": "4.3.0",
   "description": "Commercio blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -11,6 +11,7 @@
     "test": "vue-cli-service test:unit --setupTestFrameworkScriptFile=./tests/setup.js"
   },
   "dependencies": {
+    "@cosmjs/stargate": "^0.29.0",
     "axios": "^0.27.2",
     "bech32": "^2.0.0",
     "chart.js": "^3.5.1",
@@ -23,6 +24,7 @@
     "vue-country-flag": "^2.3.2",
     "vue-i18n": "^8.26.5",
     "vue-router": "^3.5.3",
+    "vuelidate": "^0.7.7",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"
   },

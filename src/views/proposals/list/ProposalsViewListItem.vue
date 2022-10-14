@@ -1,13 +1,9 @@
 <template>
-  <v-card outlined shaped>
+  <v-card outlined shaped :to="toDetail">
     <v-toolbar flat>
       <v-toolbar-title>
         <span v-text="proposalId" />
       </v-toolbar-title>
-      {{ '&nbsp;-&nbsp;' }}
-      <router-link :to="toDetail" :title="$t('labels.detail')">
-        <v-icon size="20">{{ mdiOpenInNew }}</v-icon>
-      </router-link>
       <v-spacer />
       <v-chip
         class="ml-1 ml-md-3 text-caption white--text font-weight-bold"
@@ -38,12 +34,6 @@
         </v-col>
       </v-row>
       <div class="pa-2 text-h6 text-truncate" v-text="item.content.title" />
-      <div description-card__container>
-        <div
-          class="mx-2 px-2 py-1 text-body-2 description-card__content"
-          v-html="item.content.description"
-        />
-      </div>
     </v-card-text>
   </v-card>
 </template>
@@ -51,7 +41,6 @@
 <script>
 import { PROPOSALS, ROUTES } from '@/constants';
 import { regExpBuilder } from '@/utils';
-import { mdiOpenInNew } from '@mdi/js';
 
 export default {
   name: 'ProposalsViewListItem',
@@ -63,7 +52,7 @@ export default {
     },
   },
   data() {
-    return { PROPOSALS, mdiOpenInNew };
+    return { PROPOSALS };
   },
   computed: {
     proposalId() {
@@ -99,19 +88,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.description-card__container {
-  height: 4.5rem;
-  max-height: 4.5rem;
-  overflow: hidden;
-}
-
-.description-card__content {
-  display: block;
-  border: 1px solid;
-  height: 4.5rem;
-  max-height: 4.5rem;
-  overflow-y: scroll;
-}
-</style>

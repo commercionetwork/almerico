@@ -59,4 +59,5 @@ export const titles = {
   validatorDetail: 'Dettagli validatore',
   validators: 'Validatori',
   validatorsList: 'Lista validatori',
+  votingDetail: 'Dettaglio votazione',
 };

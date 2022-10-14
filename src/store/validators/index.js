@@ -16,6 +16,15 @@ export const initState = () => ({
     status: VALIDATORS.FILTER.ACTIVE,
     query: '',
   },
+  isLoadingWallet: false,
+  wallet: {
+    balances: [],
+    delegations: [],
+    rewards: [],
+    unbondings: [],
+  },
+  walletUnbondingsOffset: 0,
+  walletUnbondingsPagination: null,
 });
 
 export default {

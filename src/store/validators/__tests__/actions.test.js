@@ -22,7 +22,7 @@ describe('store/validators/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initValidatorsList" reset store, set loading state and dispatch "fetchList" action', async () => {
+  test('if "initValidatorsList" reset store, set loading state, dispatch "fetchList" action', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
