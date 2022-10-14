@@ -25,41 +25,12 @@
           </div>
         </template>
         <template #[`item.moniker`]="{ item }">
-          <v-btn
-            icon
-            @click="handleBookmark(item.operatorAddress, item.bookmark)"
-          >
-            <v-icon v-if="item.bookmark" color="amber darken-2">
-              {{ mdiStar }}
-            </v-icon>
-            <v-icon v-else color="amber darken-2">{{ mdiStarOutline }}</v-icon>
-          </v-btn>
-          <v-avatar>
-            <v-img
-              v-if="item.logo"
-              :src="item.logo"
-              max-height="30"
-              max-width="30"
-            >
-              <template v-slot:placeholder>
-                <v-progress-circular
-                  :width="2"
-                  indeterminate
-                  color="grey lighten-1"
-                ></v-progress-circular>
-              </template>
-            </v-img>
-            <v-icon v-else color="grey lighten-1" size="30">
-              {{ mdiCog }}
-            </v-icon>
-          </v-avatar>
-          <router-link
-            class="text-decoration-none font-weight-bold"
-            v-text="item.moniker"
-            :to="{
-              name: ROUTES.NAME.VALIDATORS_DETAIL,
-              params: { id: item.operatorAddress },
-            }"
+          <ValidatorsViewListTableValidator
+            :address="item.operatorAddress"
+            :bookmark="item.bookmark"
+            :logo="item.logo"
+            :moniker="item.moniker"
+            v-on:handle-bookmark="onHandleBookmark"
           />
         </template>
         <template #[`item.tokens`]="{ item }">
@@ -77,30 +48,37 @@
         <template #[`item.attendance`]="{ item }">
           <span v-text="formatAsPercentage(item.attendance)" />
         </template>
+        <template #[`item.operatorAddress`]="{ item }">
+          <ValidatorManager
+            :address="item.operatorAddress"
+            :commission="item.commission"
+            :moniker="item.moniker"
+          />
+        </template>
       </v-data-table>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import validatorsStorageHandler from '../helpers/validatorsStorageHandler';
+import ValidatorManager from './manager/ValidatorManager.vue';
+import ValidatorsViewListTableValidator from './ValidatorsViewListTableValidator.vue';
 import validatorsTableHelper from './helpers/validatorsTableHelper';
 
-import { ROUTES } from '@/constants';
-import { coinAdapter } from '@/utils';
+import { CONFIG } from '@/constants';
+import { coinAdapter, storageHandler } from '@/utils';
 import { mapGetters } from 'vuex';
-import { mdiCog, mdiStar, mdiStarOutline } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListTable',
+  components: {
+    ValidatorManager,
+    ValidatorsViewListTableValidator,
+  },
   data() {
     return {
-      ROUTES,
-      mdiCog,
-      mdiStar,
-      mdiStarOutline,
-      sortBy: 'rank',
       bookmarks: [],
+      sortBy: 'rank',
     };
   },
   computed: {
@@ -114,14 +92,14 @@ export default {
     },
     items() {
       return validatorsTableHelper.getItems({
-        validators: this.list,
         bookmarks: this.bookmarks,
         filter: this.filter,
+        validators: this.list,
       });
     },
   },
   created() {
-    this.bookmarks = validatorsStorageHandler.get();
+    this.bookmarks = storageHandler.get(CONFIG.BROWSER_STORAGE_KEYS.VALIDATORS);
   },
   methods: {
     filterValidators(_value, search, item) {
@@ -152,13 +130,10 @@ export default {
         denom: this.stakingParams.bond_denom,
       });
     },
-    handleBookmark(address, status) {
-      if (status) {
-        validatorsStorageHandler.remove(address);
-      } else {
-        validatorsStorageHandler.set(address);
-      }
-      this.bookmarks = validatorsStorageHandler.get();
+    onHandleBookmark() {
+      this.bookmarks = storageHandler.get(
+        CONFIG.BROWSER_STORAGE_KEYS.VALIDATORS
+      );
     },
   },
 };

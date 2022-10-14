@@ -15,6 +15,7 @@ describe('store/proposals/mutations', () => {
     state.filter = 'filter';
     state.detail = { id: 1 };
     state.pool = { id: 1 };
+    state.tallyParams = { id: 1 };
 
     const expected = initState();
 
@@ -76,5 +77,13 @@ describe('store/proposals/mutations', () => {
     mutations.setPool(state, payload);
 
     expect(state.pool).toStrictEqual(payload);
+  });
+
+  test('mutations.setTallyParams', () => {
+    const payload = { id: 1 };
+
+    mutations.setTallyParams(state, payload);
+
+    expect(state.tallyParams).toStrictEqual(payload);
   });
 });

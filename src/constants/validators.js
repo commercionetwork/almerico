@@ -18,4 +18,9 @@ export const VALIDATORS = {
     INACTIVE: 'inactive',
     BOOKMARK: 'bookmark',
   },
+  STAKING_ACTIONS: [
+    { id: 1, text: 'Delegate', value: 'delegate' },
+    { id: 2, text: 'Redelegate', value: 'redelegate' },
+    { id: 3, text: 'Undelegate', value: 'undelegate' },
+  ],
 };

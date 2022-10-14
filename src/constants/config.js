@@ -37,6 +37,18 @@ const CHAIN = {
   ],
 };
 
+if (process.env.VUE_APP_LCD === 'http://localhost:7123') {
+  CHAIN.LIST.push({
+    id: 4,
+    text: 'Local-net',
+    value: 'https://localhost:9099',
+    chainId: 'chain-hN6HnD',
+    chainName: 'Localnet.network',
+    rpc: 'http://localhost:7124',
+    lcd: 'http://localhost:7123',
+  });
+}
+
 const COPYRIGHT = 'Commercio.network SpA';
 
 const FIRST_CONVERSION_RATE =
@@ -98,10 +110,14 @@ const TOKEN = {
 const COIN_TYPE = 118;
 
 const GAS_PRICE_STEP = {
-  AVERAGE: 0.125,
-  HIGH: 0.125,
-  LOW: 0.125,
+  AVERAGE: 0.01,
+  HIGH: 0.02,
+  LOW: 0.005,
 };
+
+const FEE_AMOUNT = 10000;
+
+const GAS_AMOUNT = 1000000;
 
 // ms
 const REST_LEAD_TIME = 5 * 1000;
@@ -116,8 +132,10 @@ export const CONFIG = {
   CHAIN,
   COIN_TYPE,
   COPYRIGHT,
+  FEE_AMOUNT,
   FIRST_CONVERSION_RATE,
   FIRST_HEIGHT,
+  GAS_AMOUNT,
   GAS_PRICE_STEP,
   LEGACY_VERSIONS,
   PREFIXES,

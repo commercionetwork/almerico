@@ -22,6 +22,8 @@ describe('store/validators/mutations', () => {
       status: VALIDATORS.FILTER.INACTIVE,
       query: 'abc',
     };
+    state.isLoadingWallet = true;
+    state.wallet = [{ balances: [{ id: 1 }] }];
 
     const expected = initState();
 
@@ -119,5 +121,46 @@ describe('store/validators/mutations', () => {
     mutations.setFilter(state, filter);
 
     expect(state.filter).toBe(filter);
+  });
+
+  test('mutations.setLoadingWallet', () => {
+    mutations.setLoadingWallet(state, true);
+
+    expect(state.isLoadingWallet).toBe(true);
+  });
+
+  test('mutations.setWalletItem', () => {
+    state.wallet = {
+      balances: [{ id: 1 }],
+    };
+
+    mutations.setWalletItem(state, { delegations: [{ id: 1 }] });
+
+    const expected = {
+      balances: [{ id: 1 }],
+      delegations: [{ id: 1 }],
+    };
+
+    expect(state.wallet).toStrictEqual(expected);
+  });
+
+  test('mutations.resetWallet', () => {
+    state.wallet = {
+      balances: [{ id: 1 }],
+      delegations: [],
+      rewards: [],
+      unbondings: [],
+    };
+
+    mutations.resetWallet(state);
+
+    const expected = {
+      balances: [],
+      delegations: [],
+      rewards: [],
+      unbondings: [],
+    };
+
+    expect(state.wallet).toStrictEqual(expected);
   });
 });

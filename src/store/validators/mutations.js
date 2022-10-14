@@ -37,4 +37,26 @@ export default {
   setFilter(state, payload) {
     state.filter = payload;
   },
+  setLoadingWallet(state, payload) {
+    state.isLoadingWallet = payload;
+  },
+  setWalletItem(state, payload) {
+    state.wallet = { ...state.wallet, ...payload };
+  },
+  addWalletUnbondings(state, payload) {
+    state.wallet['unbondings'].push(...payload);
+  },
+  setWalletUnbondingsPagination(state, payload) {
+    state.setWalletUnbondingsPagination = payload;
+  },
+  sumWalletUnbondingsOffset(state, payload) {
+    state.walletUnbondingsOffset += payload;
+  },
+  resetWallet(state) {
+    state.walletUnbondingsOffset = 0;
+    state.setWalletUnbondingsPagination = null;
+    for (const k in state.wallet) {
+      state.wallet[k] = [];
+    }
+  },
 };

@@ -23,32 +23,35 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import {
   mdiAccountNetwork,
   mdiCloseNetwork,
   mdiStar,
   mdiStarOutline,
 } from '@mdi/js';
+import { CONFIG } from '@/constants';
+import { mapGetters } from 'vuex';
+import { storageHandler } from '@/utils';
 
 export default {
   name: 'ValidatorsViewDetailIdentityMoniker',
-  props: {
-    isBookmark: {
-      type: Boolean,
-      default: false,
-      note: 'The validator status',
-    },
-  },
-  emits: [`handle-bookmark`],
   data() {
     return {
+      bookmarks: [],
       mdiAccountNetwork,
       mdiCloseNetwork,
     };
   },
   computed: {
     ...mapGetters('validators', ['detail']),
+    address() {
+      return this.$route.params.id;
+    },
+    isBookmark() {
+      return (
+        this.bookmarks.findIndex((address) => address === this.address) > -1
+      );
+    },
     bookmarkIcon() {
       return this.isBookmark ? mdiStar : mdiStarOutline;
     },
@@ -61,9 +64,25 @@ export default {
         : this.$t('labels.inactive');
     },
   },
+  created() {
+    this.bookmarks = storageHandler.get(CONFIG.BROWSER_STORAGE_KEYS.VALIDATORS);
+  },
   methods: {
     handleBookmark() {
-      this.$emit('handle-bookmark');
+      if (this.isBookmark) {
+        storageHandler.remove({
+          payload: this.address,
+          key: CONFIG.BROWSER_STORAGE_KEYS.VALIDATORS,
+        });
+      } else {
+        storageHandler.set({
+          payload: this.address,
+          key: CONFIG.BROWSER_STORAGE_KEYS.VALIDATORS,
+        });
+      }
+      this.bookmarks = storageHandler.get(
+        CONFIG.BROWSER_STORAGE_KEYS.VALIDATORS
+      );
     },
   },
 };
