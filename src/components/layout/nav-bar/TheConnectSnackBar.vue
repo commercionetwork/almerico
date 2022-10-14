@@ -1,6 +1,6 @@
 <template>
   <v-snackbar
-    color="red darken-4"
+    :color="snackbarColor"
     transition="slide-y-transition"
     :timeout="timeout"
     v-model="snackbar"
@@ -33,6 +33,9 @@ export default {
       if (!this.accounts.length) return '';
       const address = this.accounts[0].address;
       return `${address.slice(0, 14)}...${address.slice(44, 47)}`;
+    },
+    snackbarColor() {
+      return !this.address ? 'red darken-3' : 'blue darken-3';
     },
     snackbarMessage() {
       return !this.address
