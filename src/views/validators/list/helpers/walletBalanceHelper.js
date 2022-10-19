@@ -21,6 +21,27 @@ const walletBalanceHelper = {
 
     return capital;
   },
+  filterToManage({ wallet, validatorAddress, srcAddress, bondDenom }) {
+    const availablesAmount = _getAvailablesAmount(wallet.balances, bondDenom);
+    const delegations = wallet.delegations.filter(
+      (it) => it.delegation.validator_address === validatorAddress
+    );
+    const delegatedAmount = _getDelegationsAmount(delegations);
+    const redelegableDelegations = wallet.delegations.filter(
+      (it) => it.delegation.validator_address === srcAddress
+    );
+    const redelegableAmount = _getDelegationsAmount(redelegableDelegations);
+    const unbondings = wallet.unbondings.filter(
+      (it) => it.validator_address === validatorAddress
+    );
+    const unbondingsAmount = _getUnbondingsAmount(unbondings);
+    return {
+      availables: availablesAmount,
+      delegated: delegatedAmount,
+      redelegable: redelegableAmount,
+      unbondings: unbondingsAmount,
+    };
+  },
 };
 
 export default walletBalanceHelper;
