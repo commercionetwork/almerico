@@ -1,17 +1,17 @@
 <template>
   <v-row>
-    <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
+    <v-col v-if="isLoading" cols="12" class="pa-5" data-test="loading">
       <BaseLoadingLinear :height="25" />
     </v-col>
     <v-col
+      v-else-if="!isLoading && error"
       cols="12"
       class="pa-5"
-      v-else-if="!isLoading && error"
       data-test="error"
     >
       <TheErrorMessage :error="error" />
     </v-col>
-    <v-col cols="12" v-else data-test="content">
+    <v-col v-else cols="12" class="mb-1" data-test="content">
       <TheHeaderContent :title="$t('titles.validators')" />
       <ValidatorsViewListContentTop />
       <WalletSummary v-if="isInitialized" data-test="wallet-summary" />

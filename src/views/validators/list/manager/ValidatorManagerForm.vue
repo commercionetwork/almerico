@@ -12,6 +12,10 @@
         />
       </v-col>
       <v-col cols="12" md="8" offset-md="2">
+        <ValidatorManagerSummary :actionId="actionId" :summary="summary" />
+      </v-col>
+      <v-col cols="12" md="8" offset-md="2">
+        <ValidatorManagerMaxButton v-on:set-max="onSetMax" />
         <ValidatorManagerAmount
           v-model.number="model.amount"
           :v="$v.model.amount"
@@ -28,26 +32,37 @@
           <span v-text="$t('labels.confirm')" />
         </v-btn>
       </v-col>
+      <v-col v-if="!isRedelegating" cols="12" md="8" offset-md="2">
+        <ValidatorManagerAdvice :actionId="actionId" />
+      </v-col>
     </v-row>
   </v-form>
 </template>
 
 <script>
-import ValidatorManagerAmount from './ValidatorManagerAmount.vue';
 import ValidatorManagerAction from './ValidatorManagerAction.vue';
+import ValidatorManagerAdvice from './ValidatorManagerAdvice.vue';
+import ValidatorManagerAmount from './ValidatorManagerAmount.vue';
 import ValidatorManagerDelegationSearch from './ValidatorManagerDelegationSearch.vue';
+import ValidatorManagerMaxButton from './ValidatorManagerMaxButton.vue';
+import ValidatorManagerSummary from './ValidatorManagerSummary.vue';
 
-import { decimal, required } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
+import { decimal, required } from 'vuelidate/lib/validators';
+
+import walletBalanceHelper from '../helpers/walletBalanceHelper';
 import { VALIDATORS } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorManagerForm',
   components: {
-    ValidatorManagerAmount,
     ValidatorManagerAction,
+    ValidatorManagerAdvice,
+    ValidatorManagerAmount,
     ValidatorManagerDelegationSearch,
+    ValidatorManagerMaxButton,
+    ValidatorManagerSummary,
   },
   mixins: [validationMixin],
   validations: {
@@ -69,13 +84,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['isLoading']),
+    ...mapGetters('application', ['stakingParams']),
+    ...mapGetters('validators', ['isLoading', 'wallet']),
+    actionId() {
+      return this.model.action.id;
+    },
     isRedelegating() {
-      return this.model.action.id === 2;
+      return this.actionId === 2;
     },
     stakingAction() {
-      const actionId = this.model.action.id;
-      switch (actionId) {
+      switch (this.actionId) {
         case 2:
           return this.redelagateTokens;
         case 3:
@@ -84,6 +102,22 @@ export default {
           return this.delegateTokens;
       }
     },
+    summary() {
+      return walletBalanceHelper.filterToManage({
+        wallet: this.wallet,
+        validatorAddress: this.validatorAddress,
+        srcAddress: this.model.srcAddress?.address || '',
+        bondDenom: this.stakingParams.bond_denom,
+      });
+    },
+  },
+  watch: {
+    actionId() {
+      this.resetAmount();
+    },
+  },
+  created() {
+    this.resetAmount();
   },
   methods: {
     ...mapActions('validators', [
@@ -99,6 +133,24 @@ export default {
         translator: this.$t,
         context: this,
       });
+    },
+    onSetMax() {
+      let amount = 0;
+      switch (this.actionId) {
+        case 2:
+          amount = this.summary.redelegable;
+          break;
+        case 3:
+          amount = this.summary.delegated;
+          break;
+        default:
+          amount = this.summary.availables;
+          break;
+      }
+      this.model.amount = amount / 1000000;
+    },
+    resetAmount() {
+      this.model.amount = 0;
     },
   },
 };
