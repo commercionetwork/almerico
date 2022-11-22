@@ -11,11 +11,11 @@ const localVue = createLocalVue();
 
 describe('views/account/AccountViewBalance.vue', () => {
   const actions = {
-    initAccountBalance: jest.fn(),
+    initAllBalancesDashboard: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
-      account: {
+      accountBalance: {
         namespaced: true,
         actions,
       },

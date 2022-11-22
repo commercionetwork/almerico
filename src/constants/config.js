@@ -122,9 +122,14 @@ const GAS_AMOUNT = 1000000;
 // ms
 const REST_LEAD_TIME = 5 * 1000;
 
-const WASM_CODE_ID =
-  process.env.VUE_APP_WASM_CODE_ID !== undefined
-    ? process.env.VUE_APP_WASM_CODE_ID
+const WASM_CW20_CODE_ID =
+  process.env.VUE_APP_WASM_CW20_CODE_ID !== undefined
+    ? process.env.VUE_APP_WASM_CW20_CODE_ID
+    : '';
+
+const WASM_SWAP_CODE_ID =
+  process.env.VUE_APP_WASM_SWAP_CODE_ID !== undefined
+    ? process.env.VUE_APP_WASM_SWAP_CODE_ID
     : '';
 
 export const CONFIG = {
@@ -143,5 +148,6 @@ export const CONFIG = {
   SCROLL,
   STABLE_COIN,
   TOKEN,
-  WASM_CODE_ID,
+  WASM_CW20_CODE_ID,
+  WASM_SWAP_CODE_ID,
 };

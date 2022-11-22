@@ -15,6 +15,18 @@ const apisHelper = {
     }
     return obj;
   },
+  /**
+   *
+   * @param {Object} pagination
+   * @returns {Object}
+   */
+  setupPagination(pagination) {
+    const obj = {};
+    Object.keys(pagination).forEach((k) => {
+      if (pagination[k]) obj[`pagination.${k}`] = pagination[k];
+    });
+    return obj;
+  },
 };
 
 export default apisHelper;
