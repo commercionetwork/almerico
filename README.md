@@ -40,7 +40,7 @@ you have to:
     VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1234)
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
     VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
-    VUE_APP_WASM_CODE_ID=VALUE (e.g., '7')
+    VUE_APP_WASM_CW20_CODE_ID=VALUE (e.g., '7')
     VUE_APP_WS=VALUE (e.g., ws://rpc.com/websocket)
     ```
 
@@ -72,7 +72,7 @@ VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
 VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)
 VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
-VUE_APP_WASM_CODE_ID=VALUE (e.g., '7')
+VUE_APP_WASM_CW20_CODE_ID=VALUE (e.g., '7')
 VUE_APP_WS=VALUE (e.g., wss://rpc.com/websocket)
 ```
 
@@ -115,7 +115,8 @@ docker build -t almerico \
   --build-arg FIRST_HEIGHT=<First height> \
   --build-arg LCD_URL=<LCD URL> \
   --build-arg MAIN_TITLE=<App title> \
-  --build-arg WASM_CODE_ID=<Wasm code_id> \
+  --build-arg WASM_CW20_CODE_ID=<Wasm CW20 code_id> \
+  --build-arg WASM_SWAP_CODE_ID=<Wasm SWAP code_id> \
   --build-arg WS_URL=<WebSocket URL> \
   .
 ```

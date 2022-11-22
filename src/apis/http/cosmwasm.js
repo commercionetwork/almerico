@@ -1,17 +1,22 @@
-import { APIS } from '@/constants';
 import axios from 'axios';
+
+import apisHelper from '../helpers/apisHelper';
+import { APIS } from '@/constants';
 
 const cosmwasm = {
   /**
    *
    * @param {String} code_id
+   * @param {Object} pagination
    * @returns {AxiosPromise}
    */
-  requestContracts(code_id) {
+  requestContracts(code_id, pagination) {
+    const params = apisHelper.setupPagination(pagination);
     return axios({
       url: `/code/${code_id}/contracts`,
       method: 'get',
       baseURL: `${APIS.HTTP.WASM}`,
+      params,
     });
   },
   /**
@@ -30,11 +35,26 @@ const cosmwasm = {
   /**
    *
    * @param {String} address
+   * @param {Object} pagination
    * @returns {AxiosPromise}
    */
-  requestContractHistory(address) {
+  requestContractHistory(address, pagination) {
+    const params = apisHelper.setupPagination(pagination);
     return axios({
       url: `/contract/${address}/history`,
+      method: 'get',
+      baseURL: `${APIS.HTTP.WASM}`,
+      params,
+    });
+  },
+  /**
+   *
+   * @param {String} address
+   * @returns {AxiosPromise}
+   */
+  requestContractState(address) {
+    return axios({
+      url: `/contract/${address}/state`,
       method: 'get',
       baseURL: `${APIS.HTTP.WASM}`,
     });

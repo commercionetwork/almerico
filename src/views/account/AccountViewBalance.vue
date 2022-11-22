@@ -45,16 +45,16 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('account', ['error', 'isLoading']),
+    ...mapGetters('accountBalance', ['error', 'isLoading']),
     routeBack() {
       return { name: ROUTES.NAME.ACCOUNT, params: { id: this.id } };
     },
   },
   created() {
-    this.initAccountBalance(this.id);
+    this.initAllBalancesDashboard(this.id);
   },
   methods: {
-    ...mapActions('account', ['initAccountBalance']),
+    ...mapActions('accountBalance', ['initAllBalancesDashboard']),
   },
 };
 </script>

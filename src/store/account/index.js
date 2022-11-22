@@ -3,7 +3,6 @@ import getters from './getters';
 import mutations from './mutations';
 
 export const initState = () => ({
-  allBalances: [],
   balances: [],
   commission: null,
   delegations: [],

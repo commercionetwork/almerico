@@ -230,21 +230,6 @@ describe('store/account/actions', () => {
       offset,
     });
   });
-
-  test('if "initAccountBalance" reset store, set loading state, dispatch "fetchBalances", "fetchMembership" and "fetchWasmBalances" actions', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const address = 'address';
-
-    await actions.initAccountBalance({ commit, dispatch }, address);
-
-    expect(commit).toHaveBeenCalledWith('reset');
-    expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchBalances', address);
-    expect(dispatch).toHaveBeenCalledWith('fetchMembership', address);
-    expect(dispatch).toHaveBeenCalledWith('fetchWasmBalances', address);
-    expect(commit).toHaveBeenCalledWith('setLoading', false);
-  });
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({

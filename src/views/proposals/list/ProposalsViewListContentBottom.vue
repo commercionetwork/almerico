@@ -12,7 +12,6 @@
 import ProposalsViewListItem from './ProposalsViewListItem.vue';
 
 import { mapGetters } from 'vuex';
-import { orderBy } from 'lodash';
 
 export default {
   name: 'ProposalsViewListContentBottom',
@@ -20,7 +19,14 @@ export default {
   computed: {
     ...mapGetters('proposals', ['list']),
     orderedList() {
-      return orderBy(this.list, ['proposal_id'], ['desc']);
+      const proposals = [...this.list];
+      return proposals.sort((a, b) =>
+        parseInt(b.proposal_id) > parseInt(a.proposal_id)
+          ? 1
+          : parseInt(a.proposal_id) > parseInt(b.proposal_id)
+          ? -1
+          : 0
+      );
     },
   },
 };
