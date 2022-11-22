@@ -39,14 +39,6 @@ describe('store/account/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('mutations.setAllBalances', () => {
-    const balances = [{ id: 1 }];
-
-    mutations.setAllBalances(state, balances);
-
-    expect(state.allBalances).toStrictEqual(balances);
-  });
-
   test('mutations.setBalances', () => {
     const balances = [{ id: 1 }];
 

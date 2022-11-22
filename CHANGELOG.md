@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.3] - 2022-11-22
+
+### Changed
+
+- Update txs filter
+
+### Fixed
+
+- Fix account all balances page
+- Fix proposals list order
+
 ## [4.3.2] - 2022-10-19
 
 ### Changed
@@ -526,6 +537,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.3.3]: https://github.com/commercionetwork/almerico/compare/v4.3.2...v4.3.3
 [4.3.2]: https://github.com/commercionetwork/almerico/compare/v4.3.1...v4.3.2
 [4.3.1]: https://github.com/commercionetwork/almerico/compare/v4.3.0...v4.3.1
 [4.3.0]: https://github.com/commercionetwork/almerico/compare/v4.2.3...v4.3.0

@@ -2,6 +2,14 @@ import { mockBalance, mockBalances } from './balances';
 import { mockBlock, mockBlocks, mockBlockSupposedTime } from './blocks';
 import { mockChart } from './chart';
 import { mockCommission } from './commission';
+import {
+  mockContract,
+  mockContracts,
+  mockEntries,
+  mockEntry,
+  mockModel,
+  mockModels,
+} from './cosmwasm';
 import { mockDelegation, mockDelegations } from './delegations';
 import { mockErrors } from './errors';
 import { mockMembership } from './membership';
@@ -43,10 +51,16 @@ export {
   mockBlocks,
   mockChart,
   mockCommission,
+  mockContract,
+  mockContracts,
   mockDelegation,
   mockDelegations,
+  mockEntries,
+  mockEntry,
   mockErrors,
   mockMembership,
+  mockModel,
+  mockModels,
   mockNodeInfo,
   mockOverview,
   mockPagination,

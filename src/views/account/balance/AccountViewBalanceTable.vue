@@ -33,7 +33,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('account', ['allBalances']),
+    ...mapGetters('accountBalance', ['balances']),
     address() {
       return this.$route.params.id;
     },
@@ -45,7 +45,7 @@ export default {
       ];
     },
     items() {
-      return this.allBalances;
+      return this.balances;
     },
   },
   methods: {

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import account from './account';
+import accountBalance from './account-balance';
 import application from './application';
 import blocks from './blocks';
 import exchangeRate from './exchange-rate';
@@ -21,6 +22,7 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     account,
+    accountBalance,
     application,
     blocks,
     exchangeRate,
