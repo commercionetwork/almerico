@@ -8,6 +8,7 @@ import { HOME } from './home';
 import { LOCALES } from './locale';
 import { PROPOSALS } from './proposals';
 import { ROUTES } from './routes';
+import { STATS } from './stats';
 import { TRANSACTIONS } from './transactions';
 import { VALIDATORS } from './validators';
 
@@ -22,6 +23,7 @@ export {
   LOCALES,
   PROPOSALS,
   ROUTES,
+  STATS,
   TRANSACTIONS,
   VALIDATORS,
 };
