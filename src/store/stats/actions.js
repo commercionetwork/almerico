@@ -1,5 +1,7 @@
-import { auth, bank, distribution, staking } from '@/apis/http';
-import { CONFIG } from '@/constants';
+import { Semaphore } from 'async-mutex';
+
+import { bank, distribution, staking } from '@/apis/http';
+import { CONFIG, STATS } from '@/constants';
 import { bech32Manager } from '@/utils';
 
 export default {
@@ -11,10 +13,10 @@ export default {
     commit('setLoading', false);
   },
   async fetchAccounts({ commit }) {
+    const chain = _getChain();
+    const requests = _buildAccountsBalanceRequests(chain.addresses);
     try {
-      const response = await auth.requestAccounts(1000);
-      const requests = _buildAccountsBalanceRequests(response.data.accounts);
-      const responses = await Promise.all(requests);
+      const responses = await _fetchAll(requests);
       for (const res of responses) {
         commit('addWallet', res);
       }
@@ -24,19 +26,25 @@ export default {
   },
 };
 
-const _buildAccountsBalanceRequests = (accounts) => {
+const _getChain = () => {
+  const chainIndex = STATS.CHAIN.LIST.findIndex(
+    (item) => item.lcd === process.env.VUE_APP_LCD
+  );
+  return chainIndex > -1
+    ? STATS.CHAIN.LIST[chainIndex]
+    : STATS.CHAIN.LIST[STATS.CHAIN.DEFAULT_INDEX];
+};
+
+const _buildAccountsBalanceRequests = (addresses) => {
   const requests = [];
-  accounts.forEach((account) => {
-    const address = account.address;
-    if (address) {
-      requests.push(
-        _fetchBalances(address),
-        _fetchCommission(address),
-        _fetchDelegations(address),
-        _fetchRewards(address),
-        _fetchUnbondings(address)
-      );
-    }
+  addresses.forEach((address) => {
+    requests.push(
+      _fetchBalances(address),
+      _fetchCommission(address),
+      _fetchDelegations(address),
+      _fetchRewards(address),
+      _fetchUnbondings(address)
+    );
   });
   return requests;
 };
@@ -109,4 +117,17 @@ const _getUnbondings = async (address, offset) => {
   const response = await staking.requestUnbondings(address, pagination);
   const newOffset = offset + response.data.unbonding_responses.length;
   return { data: response.data, offset: newOffset };
+};
+
+const _fetchAll = async (requests) => {
+  const semaphore = new Semaphore(STATS.SEMAPHORE_ITEMS);
+  const wallets = [];
+  for (const request of requests) {
+    // eslint-disable-next-line no-unused-vars
+    const [_, release] = await semaphore.acquire();
+    const response = await request;
+    if (response.value.length > 0) wallets.push(response);
+    release();
+  }
+  return wallets;
 };
