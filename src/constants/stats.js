@@ -135,26 +135,20 @@ const ACCOUNTS_DEVNET = [
   'did:com:13zexjr23zcwuav2k4gfzvrmy2dkvaa9vhdgw06',
 ];
 
+const getAccounts = () => {
+  switch (process.env.VUE_APP_LCD) {
+    case 'https://lcd-mainnet.commercio.network':
+      return ACCOUNTS_MAINNET;
+    case 'https://lcd-testnet.commercio.network':
+      return ACCOUNTS_TESTNET;
+    case 'https://lcd-devnet.commercio.network':
+      return ACCOUNTS_DEVNET;
+    default:
+      return ACCOUNTS_MAINNET;
+  }
+};
+
 export const STATS = Object.freeze({
-  CHAIN: {
-    DEFAULT_INDEX: 1,
-    LIST: [
-      {
-        id: 1,
-        lcd: 'https://lcd-mainnet.commercio.network',
-        addresses: ACCOUNTS_MAINNET,
-      },
-      {
-        id: 2,
-        lcd: 'https://lcd-testnet.commercio.network',
-        addresses: ACCOUNTS_TESTNET,
-      },
-      {
-        id: 1,
-        lcd: 'https://lcd-devnet.commercio.network',
-        addresses: ACCOUNTS_DEVNET,
-      },
-    ],
-  },
+  ADDRESSES: getAccounts(),
   SEMAPHORE_ITEMS: 2,
 });

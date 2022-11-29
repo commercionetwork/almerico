@@ -13,26 +13,21 @@ export default {
     commit('setLoading', false);
   },
   async fetchAccounts({ commit }) {
-    const chain = _getChain();
-    const requests = _buildAccountsBalanceRequests(chain.addresses);
-    try {
-      const responses = await _fetchAll(requests);
-      for (const res of responses) {
-        commit('addWallet', res);
+    const requests = _buildAccountsBalanceRequests(STATS.ADDRESSES);
+    const semaphore = new Semaphore(STATS.SEMAPHORE_ITEMS);
+    for (const request of requests) {
+      // eslint-disable-next-line no-unused-vars
+      const [_, release] = await semaphore.acquire();
+      try {
+        const response = await request;
+        if (response.value.length > 0) commit('addWallet', response);
+      } catch (error) {
+        commit('setError', error);
+      } finally {
+        release();
       }
-    } catch (error) {
-      commit('setError', error);
     }
   },
-};
-
-const _getChain = () => {
-  const chainIndex = STATS.CHAIN.LIST.findIndex(
-    (item) => item.lcd === process.env.VUE_APP_LCD
-  );
-  return chainIndex > -1
-    ? STATS.CHAIN.LIST[chainIndex]
-    : STATS.CHAIN.LIST[STATS.CHAIN.DEFAULT_INDEX];
 };
 
 const _buildAccountsBalanceRequests = (addresses) => {
@@ -117,17 +112,4 @@ const _getUnbondings = async (address, offset) => {
   const response = await staking.requestUnbondings(address, pagination);
   const newOffset = offset + response.data.unbonding_responses.length;
   return { data: response.data, offset: newOffset };
-};
-
-const _fetchAll = async (requests) => {
-  const semaphore = new Semaphore(STATS.SEMAPHORE_ITEMS);
-  const wallets = [];
-  for (const request of requests) {
-    // eslint-disable-next-line no-unused-vars
-    const [_, release] = await semaphore.acquire();
-    const response = await request;
-    if (response.value.length > 0) wallets.push(response);
-    release();
-  }
-  return wallets;
 };
