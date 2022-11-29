@@ -73,7 +73,7 @@ export default {
       return new Date(this.detail.block.header.time).toLocaleString();
     },
     txs() {
-      return this.detail.block.data.txs.length;
+      return this.detail.block.data.txs ? this.detail.block.data.txs.length : 0;
     },
   },
 };
