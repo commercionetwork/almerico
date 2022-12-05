@@ -51,6 +51,9 @@
             }"
           />
         </template>
+        <template #[`item.date`]="{ item }">
+          <div v-text="formatDate(item.date)" />
+        </template>
         <template #[`item.time`]="{ item }">
           <v-tooltip top>
             <template #activator="{ on }">
@@ -58,7 +61,7 @@
                 <span v-text="item.time" />
               </div>
             </template>
-            <span v-text="item.date" />
+            <span v-text="formatDate(item.date)" />
           </v-tooltip>
         </template>
       </v-data-table>
@@ -143,6 +146,9 @@ export default {
   },
   methods: {
     ...mapActions('transactions', ['addTransactions']),
+    formatDate(timestamp) {
+      return new Date(timestamp).toLocaleString();
+    },
     onIntersect(_entries, _observer, isIntersecting) {
       if (isIntersecting && this.total > this.offset) {
         this.addTransactions({ query: this.query, offset: this.offset });

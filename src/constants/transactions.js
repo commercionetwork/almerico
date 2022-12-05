@@ -19,7 +19,7 @@ export const TRANSACTIONS = {
     {
       name: 'MsgCreateValidator',
       text: '/cosmos.staking.v1beta1.MsgCreateValidator',
-      value: 'create_validator',
+      value: '/cosmos.staking.v1beta1.MsgCreateValidator',
     },
     {
       name: 'MsgDelegate',

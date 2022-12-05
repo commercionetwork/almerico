@@ -12,76 +12,44 @@ const transactionsTableAdapter = {
   build({ txs, labels, type }) {
     const uniqTxs = uniqBy(txs, 'txhash');
     const filteredTxs = txsFilter.filter(uniqTxs, type);
-    return filteredTxs.map((tx) => {
-      const row = new Row(tx, labels);
-      return row.data;
-    });
+    return filteredTxs.map((tx) => getRow(tx, labels));
   },
 };
 
 export default transactionsTableAdapter;
 
-class Row {
-  constructor(tx, labels) {
-    this.tx = tx;
-    this.labels = labels;
-  }
+const getRow = (tx, labels) => {
+  const type = txHandler.getType_current(
+    tx.tx.body.messages,
+    labels.multiTypes
+  );
+  const result = tx.code === 0 ? 1 : 0;
+  const fee = getFee(tx, labels);
+  const msgs = tx.tx.body.messages.length;
+  const time = getTime(tx);
 
-  get data() {
-    return {
-      height: this.height,
-      type: this.type,
-      msgs: this.msgs,
-      result: this.result,
-      fee: this.fee,
-      hash: this.hash,
-      date: this.date,
-      time: this.time,
-    };
-  }
+  return {
+    height: tx.height,
+    type,
+    result,
+    fee,
+    msgs,
+    hash: tx.txhash,
+    date: tx.timestamp,
+    time,
+  };
+};
 
-  get height() {
-    return this.tx.height;
+const getFee = (tx, labels) => {
+  const fee = tx.tx.auth_info.fee;
+  if (fee.amount.length > 1) {
+    return labels.multiValues;
   }
+  return coinAdapter.format({
+    amount: fee.amount[0] ? fee.amount[0].amount : '0',
+    denom: fee.amount[0] ? fee.amount[0].denom : '',
+  });
+};
 
-  get type() {
-    return txHandler.getType_current(
-      this.tx.tx.body.messages,
-      this.labels.multiTypes,
-    );
-  }
-
-  get msgsNumber() {
-    return this.tx.tx.body.messages.length;
-  }
-
-  get result() {
-    return this.tx.code === 0 ? 1 : 0;
-  }
-
-  get fee() {
-    const fee = this.tx.tx.auth_info.fee;
-    if (fee.amount.length > 1) {
-      return this.labels.multiValues;
-    }
-    return coinAdapter.format({
-      amount: fee.amount[0] ? fee.amount[0].amount : '0',
-      denom: fee.amount[0] ? fee.amount[0].denom : '',
-    });
-  }
-
-  get hash() {
-    return this.tx.txhash;
-  }
-
-  get date() {
-    return new Date(this.tx.timestamp).toLocaleString();
-  }
-
-  get time() {
-    return dateHandler.getFormattedDifference(
-      new Date(this.tx.timestamp),
-      new Date(),
-    );
-  }
-}
+const getTime = (tx) =>
+  dateHandler.getFormattedDifference(new Date(tx.timestamp), new Date());
