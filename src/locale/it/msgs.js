@@ -10,6 +10,7 @@ export const msgs = {
   delegateAdvice1: 'Lo staking bloccherà i fondi per 21 giorni.',
   delegateAdvice2: 'Dovrai ritirare la delega per rendere nuovamente liquidi i tuoi staked assets.',
   delegateAdvice3: 'Il processo richiederà 21 giorni per essere completato.',
+  dropYourFile: 'Trascina qui il file, oppure fai clic per selezionarlo.',
   estimatedTime: 'Tempo stimato',
   exchangeRateCalc: '1 diviso la % di Supply circolante',
   failed: 'Fallito',

@@ -3,6 +3,7 @@ import { APIS } from './apis';
 import { BLOCKS } from './blocks';
 import { CHARTS } from './charts';
 import { CONFIG } from './config';
+import { CRYPTO } from './crypto';
 import { EXCHANGE_RATE } from './exchange-rate';
 import { HOME } from './home';
 import { LOCALES } from './locale';
@@ -18,6 +19,7 @@ export {
   BLOCKS,
   CHARTS,
   CONFIG,
+  CRYPTO,
   EXCHANGE_RATE,
   HOME,
   LOCALES,
