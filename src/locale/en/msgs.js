@@ -10,6 +10,7 @@ export const msgs = {
   delegateAdvice1: 'Staking will lock your funds for 21 days.',
   delegateAdvice2: 'You will need to undelegate in order for your staked assets to be liquid again.',
   delegateAdvice3: 'This proccess will take 21 days to complete.',
+  dropYourFile: 'Drop your file here, or click to select it.',
   estimatedTime: 'Estimated time',
   exchangeRateCalc: '1 divided the % of Circulating Supply',
   failed: 'Failed',

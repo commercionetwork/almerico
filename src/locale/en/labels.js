@@ -197,6 +197,7 @@ export const labels = {
   vbrTokensNotDistributed: 'VBR tokens not distributed',
   vcrId: 'VCR id',
   verificationMethod: 'Verification method',
+  verifyHash: 'Verify hash',
   vote: 'Vote',
   voter: 'Voter',
   votingEndTime: 'Voting end time',
