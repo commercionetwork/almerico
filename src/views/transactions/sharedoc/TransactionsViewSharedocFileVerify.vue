@@ -1,5 +1,10 @@
 <template>
   <v-card outlined>
+    <v-card-text v-if="isUnsupported">
+      <v-alert dense dismissible type="info" @input="reset">
+        <span class="text-body-2" v-text="$t('msgs.unsupportedAlgorithm')" />
+      </v-alert>
+    </v-card-text>
     <v-card-text v-if="isVerified">
       <v-alert dense dismissible :type="alertType" @input="reset">
         <span class="text-body-2" v-text="hash" />
@@ -72,6 +77,7 @@ export default {
       mdiCloudUpload,
       mdiUpload,
       isDragover: false,
+      isUnsupported: false,
       isVerified: false,
       verify: false,
       file: null,
@@ -92,6 +98,7 @@ export default {
     },
     async onDrop(event) {
       if (event.dataTransfer.files.length > 1) {
+        this.isDragover = false;
         return;
       }
       await this.check(event.dataTransfer.files[0]);
@@ -103,15 +110,22 @@ export default {
         content,
         this.checksumAlgorithm
       );
-      if (this.hash.toLowerCase() === this.checksumValue.toLowerCase())
+      if (!this.hash) {
+        this.isUnsupported = true;
+        this.isDragover = false;
+        return;
+      }
+      if (this.hash.toLowerCase() === this.checksumValue.toLowerCase()) {
         this.verify = true;
+      }
       this.isDragover = false;
       this.isVerified = true;
     },
     reset() {
+      this.hash = '';
+      this.isUnsupported = false;
       this.isVerified = false;
       this.verify = false;
-      this.hash = '';
     },
   },
 };
