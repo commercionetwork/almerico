@@ -103,8 +103,9 @@ export default {
         content,
         this.checksumAlgorithm
       );
-      if (this.hash.toLowerCase() === this.checksumValue.toLowerCase())
+      if (this.hash.toLowerCase() === this.checksumValue.toLowerCase()) {
         this.verify = true;
+      }
       this.isDragover = false;
       this.isVerified = true;
     },

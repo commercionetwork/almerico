@@ -1,47 +1,51 @@
-import CryptoJS from 'crypto-js';
+import jsSHA from 'jssha';
+import SparkMD5 from 'spark-md5';
 
 import { CRYPTO } from '@/constants';
 
 const transactionsVerifyHelper = {
+  /**
+   *
+   * @param {File} file
+   * @returns {Promise.<ArrayBuffer>}
+   */
   getContent(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = () => {
-        reject('Error reading the file content');
-      };
-      reader.readAsBinaryString(file);
+      reader.readAsArrayBuffer(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject('Error reading the file content');
     });
   },
+  /**
+   *
+   * @param {ArrayBuffer} content
+   * @param {String} algorithm
+   * @returns {String}
+   */
   getHash(content, algorithm) {
-    const alg = algorithm.toLowerCase();
-    let hash;
-    switch (alg) {
-      case CRYPTO.ALGORITHM.MD5:
-        hash = CryptoJS.MD5(content);
-        break;
-      case CRYPTO.ALGORITHM.SHA1:
-        hash = CryptoJS.SHA1(content);
-        break;
-      case CRYPTO.ALGORITHM.SHA224:
-        hash = CryptoJS.SHA224(content);
-        break;
-      case CRYPTO.ALGORITHM.SHA256:
-        hash = CryptoJS.SHA256(content);
-        break;
-      case CRYPTO.ALGORITHM.SHA384:
-        hash = CryptoJS.SHA384(content);
-        break;
-      case CRYPTO.ALGORITHM.SHA512:
-        hash = CryptoJS.SHA512(content);
-        break;
-      default:
-        break;
+    const alg = algorithm.toUpperCase();
+    const index = Object.values(CRYPTO.ALGORITHM).indexOf(alg);
+    if (index < 0) {
+      return;
+    } else if (alg === CRYPTO.ALGORITHM.MD5) {
+      return getMd5(content);
+    } else {
+      return getSha(content, alg);
     }
-    return hash.toString() || '';
   },
 };
 
 export default transactionsVerifyHelper;
+
+const getMd5 = (content) => {
+  const spark = new SparkMD5.ArrayBuffer();
+  spark.append(content);
+  return spark.end();
+};
+
+const getSha = (content, algorithm) => {
+  const shaObj = new jsSHA(algorithm, 'ARRAYBUFFER');
+  shaObj.update(content);
+  return shaObj.getHash('HEX');
+};
