@@ -2,7 +2,9 @@
   <v-list nav dense>
     <v-list-item-group>
       <TheDrawerLocale />
-      <v-divider />
+    </v-list-item-group>
+    <v-divider class="ma-1" />
+    <v-list-item-group>
       <BaseDrawerMenuItem
         :icon="mdiViewDashboard"
         :title="$t('titles.dashboard')"
@@ -33,7 +35,9 @@
         :title="$t('titles.exchangeRate')"
         :to="{ name: ROUTES.NAME.EXCHANGE_RATE }"
       />
-      <v-divider />
+    </v-list-item-group>
+    <v-divider class="ma-1" />
+    <v-list-item-group>
       <TheDrawerSocialMedial />
       <TheDrawerThemeSwitcher />
     </v-list-item-group>

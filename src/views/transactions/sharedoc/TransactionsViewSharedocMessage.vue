@@ -73,6 +73,10 @@
             :label="$t('labels.value')"
             :content="checksumValue"
           />
+          <TransactionsViewSharedocFileVerify
+            :checksumAlgorithm="checksumAlgorithm"
+            :checksumValue="checksumValue"
+          />
           <BaseDetailItem
             :label="$t('labels.algorithm')"
             :content="checksumAlgorithm"
@@ -117,6 +121,7 @@
 import BaseDetailItem from '@/components/BaseDetailItem.vue';
 import BaseDetailLink from '@/components/BaseDetailLink.vue';
 import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
+import TransactionsViewSharedocFileVerify from './TransactionsViewSharedocFileVerify.vue';
 
 import { ROUTES } from '@/constants';
 
@@ -127,6 +132,7 @@ export default {
     BaseDetailItem,
     BaseDetailLink,
     BaseTransactionMessage,
+    TransactionsViewSharedocFileVerify,
   },
   props: {
     message: {
