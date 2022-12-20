@@ -1,15 +1,15 @@
 <template>
   <v-card outlined>
-    <v-card-text v-if="isUnsupported">
-      <v-alert dense dismissible type="info" @input="reset">
-        <span class="text-body-2" v-text="$t('msgs.unsupportedAlgorithm')" />
-      </v-alert>
-    </v-card-text>
-    <v-card-text v-if="isVerified">
-      <v-alert dense dismissible :type="alertType" @input="reset">
-        <span class="text-body-2" v-text="hash" />
-      </v-alert>
-    </v-card-text>
+    <TransactionsViewSharedocUnsupported
+      :reset="reset"
+      v-model="isUnsupported"
+    />
+    <TransactionsViewSharedocResult
+      :hash="hash"
+      :reset="reset"
+      :result="result"
+      v-model="isVerified"
+    />
     <v-card-text>
       <v-expansion-panels accordion flat>
         <v-expansion-panel @click="reset">
@@ -57,11 +57,18 @@
 </template>
 
 <script>
+import TransactionsViewSharedocResult from './TransactionsViewSharedocResult.vue';
+import TransactionsViewSharedocUnsupported from './TransactionsViewSharedocUnsupported.vue';
+
 import { mdiCloudUpload, mdiUpload } from '@mdi/js';
 import transactionsVerifyHelper from './helpers/transactionsVerifyHelper';
 
 export default {
   name: 'TransactionsViewSharedocFileVerify',
+  components: {
+    TransactionsViewSharedocResult,
+    TransactionsViewSharedocUnsupported,
+  },
   props: {
     checksumAlgorithm: {
       type: String,
@@ -79,15 +86,10 @@ export default {
       isDragover: false,
       isUnsupported: false,
       isVerified: false,
-      verify: false,
       file: null,
       hash: '',
+      result: false,
     };
-  },
-  computed: {
-    alertType() {
-      return this.verify ? 'success' : 'error';
-    },
   },
   methods: {
     async onChange() {
@@ -116,7 +118,7 @@ export default {
         return;
       }
       if (this.hash.toLowerCase() === this.checksumValue.toLowerCase()) {
-        this.verify = true;
+        this.result = true;
       }
       this.isDragover = false;
       this.isVerified = true;
@@ -125,7 +127,7 @@ export default {
       this.hash = '';
       this.isUnsupported = false;
       this.isVerified = false;
-      this.verify = false;
+      this.result = false;
     },
   },
 };
