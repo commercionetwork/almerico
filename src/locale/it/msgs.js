@@ -16,6 +16,8 @@ export const msgs = {
   failed: 'Fallito',
   failedToDetectTheChain: 'Impossibile identificare la chain',
   failedToSuggestTheChain: 'Impossibile suggerire la chain',
+  filesCorrespond: 'L\'impronta del file (Hash) inviato corrisponde alla notarizzazione nella blockchain.',
+  filesNotCorrespond: 'L\'impronta del file (Hash) inviato NON corrisponde alla notarizzazione nella blockchain. Controlla che il file che inviato sia quello corretto.',
   filterByStatus: 'Filtra per stato',
   filterValidatorsInfo: 'Filtra la lista per stato',
   installKeplrExtension: 'Si prega di installare l\'estensione Keplr',
@@ -40,6 +42,8 @@ export const msgs = {
   undelegateAdvice: 'Una volta ritirata la delega non si riceveranno più gli staking rewards e non si potrà più annullare il ritiro della delega; bisognerà attendere 21 giorni perché l\'importo venga liquidato.',
   unsupportedAlgorithm: 'L\'algoritmo non è supportato',
   validatorNotExist: 'Questo validatore non esiste',
+  verificationFailed: 'Male!!!  Verifica fallita.',
+  verificationSuccess: 'Ottimo!!! Verifica riuscita.',
   workInProgress: 'Lavori in corso',
   youVoted: 'Hai votato "{0}"',
 };

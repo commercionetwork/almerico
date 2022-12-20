@@ -16,6 +16,8 @@ export const msgs = {
   failed: 'Failed',
   failedToDetectTheChain: 'Failed to detect the chain',
   failedToSuggestTheChain: 'Failed to suggest the chain',
+  filesCorrespond: 'The file\'s footprint(Hash) you submitted correspond to the notarization in blockchain.',
+  filesNotCorrespond: 'The file\'s footprint(Hash) you submitted DO NOT correspond to the notarization in blockchain.\nPlease check the file you submitted is the right one.',
   filterByStatus: 'Filter by status',
   filterValidatorsInfo: 'Filter list by status',
   installKeplrExtension: 'Please install Keplr extension',
@@ -40,6 +42,8 @@ export const msgs = {
   undelegateAdvice: 'Once you undelegate you will not receive staking rewards or be able to cancel the unbonding , need to wait 21 day for the amount to be liquid.',
   unsupportedAlgorithm: 'The algorithm is not supported',
   validatorNotExist: 'Validator does not exist',
+  verificationFailed: 'Bad!!!  Verification failed.',
+  verificationSuccess: 'Great!!! Verification success.',
   workInProgress: 'Work in progress',
   youVoted: 'You voted "{0}"',
 };
