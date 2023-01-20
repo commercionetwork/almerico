@@ -5,52 +5,23 @@ export default {
   async initTransactionsList({ commit, dispatch }) {
     commit('reset');
     commit('setLoading', true);
-    const requests = [
-      dispatch('fetchTransactions', { query: 'tx.height >= 1', offset: 0 }),
-    ];
+    const requests = [dispatch('fetchTransactions', APIS.SORTING_ORDERS.DESC)];
     await Promise.all(requests);
     commit('setLoading', false);
   },
-
-  async searchTransactions({ commit, dispatch }, { query, offset }) {
+  async refreshTransactions({ commit, dispatch }) {
     commit('setTransactions', []);
-    commit('setOffset', 0);
-    commit('setLoading', true);
-    await dispatch('fetchTransactions', { query, offset });
-    commit('setLoading', false);
+    commit('setRefreshing', true);
+    await dispatch('fetchTransactions', APIS.SORTING_ORDERS.DESC);
+    commit('setRefreshing', false);
   },
-
-  async fetchTransactions({ commit }, { query, offset }) {
-    const params = {
-      events: query,
-      order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
-    };
-    const pagination = {
-      limit: TRANSACTIONS.TABLE_ITEMS,
-      offset: offset,
-    };
+  async fetchTransactions({ commit }, order) {
     try {
-      const response = await tx.requestTxsList(params, pagination);
-      commit('addTransactions', response.data.tx_responses);
-      commit('setPagination', response.data.pagination);
-      commit('sumOffset', response.data.tx_responses.length);
+      const response = await tx.requestTxs(order, TRANSACTIONS.AMOUNT_TO_LOAD);
+      commit('setTransactions', response.data.txs);
     } catch (error) {
       commit('setError', error);
     }
-  },
-
-  async addTransactions({ commit, dispatch }, { query, offset }) {
-    commit('setAddingTxs', true);
-    await dispatch('fetchTransactions', { query, offset });
-    commit('setAddingTxs', false);
-  },
-
-  async refreshTransactions({ commit, dispatch }) {
-    commit('setTransactions', []);
-    commit('setOffset', 0);
-    commit('setRefreshing', true);
-    await dispatch('fetchTransactions', { query: 'tx.height >= 1', offset: 0 });
-    commit('setRefreshing', false);
   },
 
   async initTransactionsDetail({ commit, dispatch }, hash) {
@@ -60,7 +31,6 @@ export default {
     await Promise.all(requests);
     commit('setLoading', false);
   },
-
   async fetchTransactionByHash({ commit, dispatch }, hash) {
     try {
       const response = await tx.requestTxByHash(hash);
@@ -79,7 +49,6 @@ export default {
       }
     }
   },
-
   async fetchAncestorsTransaction({ commit }, { hash, ancestors }) {
     for (const [i, ancestor] of ancestors.entries()) {
       try {

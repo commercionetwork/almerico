@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" md="6">
     <v-card outlined>
-      <v-card-title v-text="type" />
+      <v-card-title v-text="transaction.type" />
       <v-card-subtitle v-text="$t('labels.msgType')" />
       <v-card-text>
         <v-list dense class="text-break">
@@ -41,7 +41,7 @@
                 />
                 <router-link
                   class="pl-1 text-decoration-none text-overline"
-                  v-text="hash"
+                  v-text="transaction.hash"
                   :to="txLink"
                 />
               </div>
@@ -55,7 +55,7 @@
 
 <script>
 import { ROUTES } from '@/constants';
-import { dateHandler, txHandler } from '@/utils';
+import { dateHandler } from '@/utils';
 
 export default {
   name: 'HomeViewGridListItem',
@@ -70,14 +70,11 @@ export default {
     date() {
       return new Date(this.transaction.timestamp).toLocaleString();
     },
-    hash() {
-      return this.transaction.txhash;
-    },
     statusClass() {
-      return !this.transaction.code ? 'info--text' : 'error--text';
+      return this.transaction.result ? 'info--text' : 'error--text';
     },
     statusText() {
-      return !this.transaction.code
+      return this.transaction.result
         ? this.$t('msgs.success')
         : this.$t('msgs.failed');
     },
@@ -87,16 +84,10 @@ export default {
         new Date()
       );
     },
-    type() {
-      return txHandler.getType_current(
-        this.transaction.tx.body.messages,
-        this.$t('labels.multiTypes')
-      );
-    },
     txLink() {
       return {
         name: ROUTES.NAME.TRANSACTIONS_DETAIL,
-        params: { id: this.hash },
+        params: { id: this.transaction.hash },
       };
     },
   },

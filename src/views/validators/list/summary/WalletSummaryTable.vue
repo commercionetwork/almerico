@@ -34,7 +34,7 @@ export default {
     items() {
       return this.wallet.delegations.map((el) => {
         const index = this.list.findIndex(
-          (it) => it.operatorAddress === el.delegation.validator_address
+          (it) => it.operator_address === el.delegation.validator_address
         );
         let moniker = '';
         if (index > -1) {

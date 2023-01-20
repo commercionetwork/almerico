@@ -12,7 +12,7 @@ export default {
   async fetchList({ commit }) {
     try {
       const response = await validators.requestList();
-      commit('setList', response.data);
+      commit('setList', response.data.validators);
     } catch (error) {
       commit('setError', error);
     }

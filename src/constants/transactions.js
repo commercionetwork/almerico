@@ -1,5 +1,7 @@
 export const TRANSACTIONS = {
-  TABLE_ITEMS: 30,
+  AMOUNT_TO_LOAD: 50,
+  MULTI_FEE: 'multi-fee',
+  MULTI_TYPE: 'multi-type',
   SUPPORTED_TYPES: [
     {
       name: 'MsgBeginRedelegate',

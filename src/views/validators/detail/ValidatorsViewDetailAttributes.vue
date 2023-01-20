@@ -72,7 +72,7 @@ export default {
       return this.detail.details || '-';
     },
     securityContact() {
-      return this.detail.securityContact || '-';
+      return this.detail.security_contact || '-';
     },
     tokens() {
       return (
@@ -83,7 +83,7 @@ export default {
       );
     },
     updateTime() {
-      return new Date(this.detail.updateTime).toLocaleString() || '-';
+      return new Date(this.detail.update_time).toLocaleString() || '-';
     },
     votingPower() {
       return new Intl.NumberFormat(undefined, {

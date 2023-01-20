@@ -32,7 +32,7 @@ describe('views/validators/list/helpers', () => {
 
     const expectedKeys = [
       'id',
-      'operatorAddress',
+      'operator_address',
       'account',
       'pubkey',
       'active',
@@ -44,8 +44,8 @@ describe('views/validators/list/helpers', () => {
       'identity',
       'website',
       'details',
-      'securityContact',
-      'updateTime',
+      'security_contact',
+      'update_time',
       'power',
       'cumulative',
       'attendance',

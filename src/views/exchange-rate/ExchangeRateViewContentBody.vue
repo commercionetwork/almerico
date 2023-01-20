@@ -1,6 +1,13 @@
 <template>
   <v-row>
     <v-col cols="12">
+      <div class="pl-3 text-overline font-italic">
+        <i18n tag="span" path="labels.lastUpdate">
+          <span v-text="lastUpdate" />
+        </i18n>
+      </div>
+    </v-col>
+    <v-col cols="12">
       <ExchangeRateViewTable
         :headers="headers.maxSupply"
         :items="maxSupplyRows"
@@ -38,6 +45,9 @@ export default {
     ...mapGetters('exchangeRate', ['overview']),
     headers() {
       return overviewHelper.getHeaders(this.$t, this);
+    },
+    lastUpdate() {
+      return new Date(this.overview.last_update).toLocaleString();
     },
     maxSupplyRows() {
       const rows = this.overview.data.filter(
