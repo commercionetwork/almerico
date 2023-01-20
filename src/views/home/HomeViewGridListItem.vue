@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12" md="6">
     <v-card outlined>
-      <v-card-title v-text="transaction.type" />
+      <v-card-title v-text="type" />
       <v-card-subtitle v-text="$t('labels.msgType')" />
       <v-card-text>
         <v-list dense class="text-break">
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { ROUTES } from '@/constants';
+import { ROUTES, TRANSACTIONS } from '@/constants';
 import { dateHandler } from '@/utils';
 
 export default {
@@ -89,6 +89,12 @@ export default {
         name: ROUTES.NAME.TRANSACTIONS_DETAIL,
         params: { id: this.transaction.hash },
       };
+    },
+    type() {
+      if (this.transaction.msgs_number > 1) {
+        return this.$t(`labels.${TRANSACTIONS.MULTI_TYPE}`);
+      }
+      return this.transaction.types[0];
     },
   },
 };
