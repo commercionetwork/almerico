@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [develop] 4.5.1 - 2023-01-20
 
+### Added
+
+- Add template to support `MsgWithdrawValidatorCommission` tx message
+
 ### Changed
 
 - Switch to v2 of the backend APIs

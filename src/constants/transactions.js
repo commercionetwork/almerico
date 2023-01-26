@@ -116,7 +116,12 @@ export const TRANSACTIONS = {
     {
       name: 'MsgWithdrawDelegatorReward',
       text: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-      value: 'withdraw_delegator_reward',
+      value: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+    },
+    {
+      name: 'MsgWithdrawValidatorCommission',
+      text: '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
+      value: '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
     },
   ],
 };
