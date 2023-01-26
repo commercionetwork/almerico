@@ -61,12 +61,6 @@ export default {
     ]),
     onSearchTxs(txType) {
       this.txType = txType;
-      if (!txType) {
-        this.initTransactionsList();
-        return;
-      }
-      const query = `message.action='${txType}'`;
-      this.searchTransactions({ query, offset: 0 });
     },
   },
 };

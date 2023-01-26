@@ -1,4 +1,4 @@
-import { APIS } from '@/constants';
+import { APIS, TRANSACTIONS } from '@/constants';
 import {
   mockErrors,
   mockPagination,
@@ -38,85 +38,42 @@ describe('store/transactions/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
-      query: 'tx.height >= 1',
-      offset: 0,
-    });
+    expect(dispatch).toHaveBeenCalledWith(
+      'fetchTransactions',
+      APIS.SORTING_ORDERS.DESC
+    );
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "searchTransactions" reset store, set loading state, and dispatch "fetchTransactions"', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const query = 'query';
-    const offset = '10';
-
-    await actions.searchTransactions({ commit, dispatch }, { query, offset });
-
-    expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setOffset', 0);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
-      query,
-      offset,
-    });
-    expect(commit).toHaveBeenCalledWith('setLoading', false);
-  });
-
-  test('if "fetchTransactions" commit "addTransactions", "setPagination" and "sumOffset", and set the error if it is caught', async () => {
+  test('if "fetchTransactions" commit "setTransactions", and set the error if it is caught', async () => {
     const commit = jest.fn();
 
-    await actions.fetchTransactions({ commit }, { query: 'query', offset: 0 });
+    await actions.fetchTransactions({ commit }, APIS.SORTING_ORDERS.DESC);
 
     expect(commit).toHaveBeenCalledWith(
-      'addTransactions',
-      mockResponse.data.tx_responses
-    );
-    expect(commit).toHaveBeenCalledWith(
-      'setPagination',
-      mockResponse.data.pagination
-    );
-    expect(commit).toHaveBeenCalledWith(
-      'sumOffset',
-      mockResponse.data.tx_responses.length
+      'setTransactions',
+      mockResponse.data.txs
     );
 
     mockError = true;
 
-    await actions.fetchTransactions({ commit }, { query: 'query', offset: 0 });
+    await actions.fetchTransactions({ commit }, APIS.SORTING_ORDERS.DESC);
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "addTransactions" set loading state and dispatch "fetchTransactions"', async () => {
-    const commit = jest.fn();
-    const dispatch = jest.fn();
-    const query = 'query';
-    const offset = '10';
-
-    await actions.addTransactions({ commit, dispatch }, { query, offset });
-
-    expect(commit).toHaveBeenCalledWith('setAddingTxs', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
-      query,
-      offset,
-    });
-    expect(commit).toHaveBeenCalledWith('setAddingTxs', false);
-  });
-
-  test('if "refreshTransactions" reset txs and offset, set loading state and dispatch "fetchTransactions"', async () => {
+  test('if "refreshTransactions" reset txs, set loading state and dispatch "fetchTransactions"', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
 
     await actions.refreshTransactions({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setTransactions', []);
-    expect(commit).toHaveBeenCalledWith('setOffset', 0);
     expect(commit).toHaveBeenCalledWith('setRefreshing', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
-      query: 'tx.height >= 1',
-      offset: 0,
-    });
+    expect(dispatch).toHaveBeenCalledWith(
+      'fetchTransactions',
+      APIS.SORTING_ORDERS.DESC
+    );
     expect(commit).toHaveBeenCalledWith('setRefreshing', false);
   });
 
@@ -187,7 +144,7 @@ describe('store/transactions/actions', () => {
 });
 
 jest.mock('../../../apis/http/tx.js', () => ({
-  requestTxsList: () => {
+  requestTxs: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -196,9 +153,7 @@ jest.mock('../../../apis/http/tx.js', () => ({
 
         mockResponse = {
           data: {
-            tx: {},
-            tx_responses: mockTransactions(),
-            pagination: mockPagination(),
+            txs: mockTransactions(),
           },
         };
         resolve(mockResponse);

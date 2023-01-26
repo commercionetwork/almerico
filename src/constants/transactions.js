@@ -1,5 +1,7 @@
 export const TRANSACTIONS = {
-  TABLE_ITEMS: 30,
+  AMOUNT_TO_LOAD: 50,
+  MULTI_FEE: 'multi-fee',
+  MULTI_TYPE: 'multi-type',
   SUPPORTED_TYPES: [
     {
       name: 'MsgBeginRedelegate',
@@ -114,7 +116,12 @@ export const TRANSACTIONS = {
     {
       name: 'MsgWithdrawDelegatorReward',
       text: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
-      value: 'withdraw_delegator_reward',
+      value: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+    },
+    {
+      name: 'MsgWithdrawValidatorCommission',
+      text: '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
+      value: '/cosmos.distribution.v1beta1.MsgWithdrawValidatorCommission',
     },
   ],
 };

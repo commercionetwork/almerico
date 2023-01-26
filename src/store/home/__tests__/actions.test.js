@@ -130,15 +130,15 @@ describe('store/home/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchTransactions" set loading state and commit "addTransactions", and set the error if it is caught', async () => {
+  test('if "fetchTransactions" set loading state and commit "setTransactions", and set the error if it is caught', async () => {
     const commit = jest.fn();
 
     await actions.fetchTransactions({ commit });
 
     expect(commit).toHaveBeenCalledWith('setLoadingTxs', true);
     expect(commit).toHaveBeenCalledWith(
-      'addTransactions',
-      mockResponse.data.tx_responses
+      'setTransactions',
+      mockResponse.data.txs
     );
     expect(commit).toHaveBeenCalledWith('setLoadingTxs', false);
 
@@ -212,6 +212,22 @@ jest.mock('../../../apis/http/tendermintRpc.js', () => ({
 }));
 
 jest.mock('../../../apis/http/tx.js', () => ({
+  requestTxs: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            txs: mockTransactions(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
   requestTxsList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

@@ -36,7 +36,7 @@ const validatorsTableHelper = {
         value: 'cumulative',
         width: '10%',
       },
-      { text: '', value: 'operatorAddress', width: '7%' },
+      { text: '', value: 'operator_address', width: '7%' },
     ];
     if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
       const index = headers.length - 2;
@@ -59,7 +59,7 @@ export default validatorsTableHelper;
 const _bookmarkItems = ({ items, bookmarks }) => {
   return items.map((it) => {
     it.bookmark =
-      bookmarks.findIndex((address) => address === it.operatorAddress) > -1;
+      bookmarks.findIndex((address) => address === it.operator_address) > -1;
     return it;
   });
 };
