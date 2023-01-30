@@ -39,7 +39,7 @@ describe('store/proposals/actions', () => {
 
     await actions.fetchProposals({ commit });
 
-    expect(commit).toHaveBeenCalledWith('setList', mockResponse.data);
+    expect(commit).toHaveBeenCalledWith('setList', mockResponse.data.proposals);
 
     mockError = true;
 
@@ -166,7 +166,7 @@ jest.mock('../../../apis/http/proposals.js', () => ({
         }
 
         mockResponse = {
-          data: mockProposals(),
+          data: { proposals: mockProposals() },
         };
         resolve(mockResponse);
       }, 1);

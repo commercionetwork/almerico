@@ -1,4 +1,8 @@
+import { TRANSACTIONS } from '@/constants';
+
 export const labels = {
+  [TRANSACTIONS.MULTI_FEE]: 'Multi fees',
+  [TRANSACTIONS.MULTI_TYPE]: 'Multi types',
   abrAndVbrRewardsNotDistributed: 'ABR and VBR rewards not distributed',
   abrTokensDistributed: 'ABR tokens distributed',
   abrTokensNotDistributed: 'ABR tokens not distributed',
@@ -85,6 +89,7 @@ export const labels = {
   keyAgreement: 'Key agreement',
   label: 'Label',
   lang: 'Lang',
+  lastUpdate: 'Last update: {0}',
   lbrTokensDistributed: 'LBR Tokens Distributed',
   lbrTokensNotDistributed: 'LBR Tokens Not Distributed',
   liquidityPoolTokensDistributed: 'Liquidity pool tokens distributed',

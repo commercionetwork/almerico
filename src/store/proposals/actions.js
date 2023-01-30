@@ -13,7 +13,7 @@ export default {
   async fetchProposals({ commit }, status = PROPOSALS.STATUS.UNSPECIFIED) {
     try {
       const response = await proposals.requestList(status);
-      commit('setList', response.data);
+      commit('setList', response.data.proposals);
     } catch (error) {
       commit('setError', error);
     }

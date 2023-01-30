@@ -26,7 +26,7 @@
         </template>
         <template #[`item.moniker`]="{ item }">
           <ValidatorsViewListTableValidator
-            :address="item.operatorAddress"
+            :address="item.operator_address"
             :bookmark="item.bookmark"
             :logo="item.logo"
             :moniker="item.moniker"
@@ -48,9 +48,9 @@
         <template #[`item.attendance`]="{ item }">
           <span v-text="formatAsPercentage(item.attendance)" />
         </template>
-        <template #[`item.operatorAddress`]="{ item }">
+        <template #[`item.operator_address`]="{ item }">
           <ValidatorManager
-            :address="item.operatorAddress"
+            :address="item.operator_address"
             :commission="item.commission"
             :moniker="item.moniker"
           />
@@ -106,7 +106,7 @@ export default {
       if (typeof search.trim() !== 'string') {
         return;
       }
-      const props = [item.moniker, item.operatorAddress, item.account];
+      const props = [item.moniker, item.operator_address, item.account];
       let found = false;
       for (const prop of props) {
         if (prop.toLowerCase().includes(search.toLowerCase())) {

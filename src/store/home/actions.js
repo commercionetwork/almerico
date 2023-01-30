@@ -78,17 +78,13 @@ export default {
   },
 
   async fetchTransactions({ commit }) {
-    const params = {
-      events: 'tx.height >= 1',
-      order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
-    };
-    const pagination = {
-      limit: HOME.TRANSACTIONS_NUMBER,
-    };
     commit('setLoadingTxs', true);
     try {
-      const response = await tx.requestTxsList(params, pagination);
-      commit('addTransactions', response.data.tx_responses);
+      const response = await tx.requestTxs(
+        APIS.SORTING_ORDERS.DESC,
+        HOME.TRANSACTIONS_NUMBER
+      );
+      commit('setTransactions', response.data.txs);
     } catch (error) {
       commit('setError', error);
     }

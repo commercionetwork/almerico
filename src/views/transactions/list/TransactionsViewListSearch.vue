@@ -8,14 +8,14 @@
               <v-autocomplete
                 :items="items"
                 :label="$t('labels.type')"
-                :loading="isLoadingTxs"
+                :loading="isLoading"
                 :placeholder="$t('msgs.startTypingToFilterTypes')"
                 :prepend-inner-icon="mdiMagnify"
                 dense
                 hide-no-data
                 hide-selected
                 item-text="name"
-                item-value="value"
+                item-value="name"
                 outlined
                 v-model="selectedType"
               />
@@ -65,10 +65,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('transactions', ['isLoading', 'isAddingTxs']),
-    isLoadingTxs() {
-      return this.isLoading || this.isAddingTxs;
-    },
+    ...mapGetters('transactions', ['isLoading']),
     items() {
       return TRANSACTIONS.SUPPORTED_TYPES;
     },

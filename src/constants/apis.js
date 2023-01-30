@@ -15,7 +15,6 @@ const API_PATHS = {
 const WS = process.env.VUE_APP_WS || '';
 
 const BACKEND = process.env.VUE_APP_BACKEND || '';
-const BACKEND_VERSION = process.env.VUE_APP_BACKEND_API_VERSION || '';
 const BACKEND_WS = process.env.VUE_APP_BACKEND_WS || '';
 
 export const APIS = {
@@ -23,11 +22,12 @@ export const APIS = {
     LCD: LCD,
     API_VERSION: API_VERSION,
     // Backend
-    BACKEND_BLOCKS: `${BACKEND}/${BACKEND_VERSION}/blocks`,
-    BACKEND_CHARTS: `${BACKEND}/${BACKEND_VERSION}/charts`,
-    BACKEND_OVERVIEWS: `${BACKEND}/${BACKEND_VERSION}/overviews`,
-    BACKEND_PROPOSALS: `${BACKEND}/${BACKEND_VERSION}/proposals`,
-    BACKEND_VALIDATORS: `${BACKEND}/${BACKEND_VERSION}/validators`,
+    BACKEND_BLOCKS: `${BACKEND}/api/v2/blocks`,
+    BACKEND_CHARTS: `${BACKEND}/api/v2/charts`,
+    BACKEND_OVERVIEWS: `${BACKEND}/api/v2/overviews`,
+    BACKEND_PROPOSALS: `${BACKEND}/api/v2/proposals`,
+    BACKEND_TXS: `${BACKEND}/api/v2/txs`,
+    BACKEND_VALIDATORS: `${BACKEND}/api/v2/validators`,
     // Query
     AUTH: `${LCD}/${API_PATHS.COSMOS}/auth/${API_VERSION}`,
     BANK: `${LCD}/${API_PATHS.COSMOS}/bank/${API_VERSION}`,
@@ -54,6 +54,8 @@ export const APIS = {
     GOVERNANCE_LEGACY: `${LCD}/gov`,
   },
   SORTING_ORDERS: {
+    ASC: 'asc',
+    DESC: 'desc',
     ORDER_BY_ASC: 'ORDER_BY_ASC',
     ORDER_BY_DESC: 'ORDER_BY_DESC',
     ORDER_BY_UNSPECIFIED: 'ORDER_BY_UNSPECIFIED',

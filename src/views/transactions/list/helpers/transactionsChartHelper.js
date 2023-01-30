@@ -59,4 +59,4 @@ const transactionsChartHelper = {
 export default transactionsChartHelper;
 
 const _getMsgs = (transactions) =>
-  transactions.reduce((acc, item) => acc + item.tx.body.messages.length, 0);
+  transactions.reduce((acc, item) => acc + item.msgs_number, 0);
