@@ -12,7 +12,7 @@ const mockValidatorAttendanceBackend = () => {
 const mockValidatorBackend = (isList, id = uuidv4()) => {
   const item = {
     id,
-    operatorAddress: 'did:com:valoper133nf49v83dts7pq30csnnl7ul5unsvzzhhed8u',
+    operator_address: 'did:com:valoper133nf49v83dts7pq30csnnl7ul5unsvzzhhed8u',
     account: 'did:com:133nf49v83dts7pq30csnnl7ul5unsvzz55qt20',
     pubkey: 'tY4XIhur8QznKgnjuo3Bf+jbb5hV3KMEmm7hJq0qMis=',
     active: true,
@@ -24,8 +24,8 @@ const mockValidatorBackend = (isList, id = uuidv4()) => {
     identity: '123456AB',
     website: 'https://website.url',
     details: 'details',
-    securityContact: 'security contact',
-    updateTime: '2020-06-17T09:45:00Z',
+    security_contact: 'security contact',
+    update_time: '2020-06-17T09:45:00Z',
     power: 0.25,
     cumulative: 0.25,
     attendance: 1,

@@ -39,7 +39,10 @@ describe('store/validators/actions', () => {
 
     await actions.fetchList({ commit });
 
-    expect(commit).toHaveBeenCalledWith('setList', mockResponse.data);
+    expect(commit).toHaveBeenCalledWith(
+      'setList',
+      mockResponse.data.validators
+    );
 
     mockError = true;
 
@@ -149,7 +152,7 @@ jest.mock('../../../apis/http/validators.js', () => ({
         }
 
         mockResponse = {
-          data: mockValidatorsBackend(),
+          data: { validators: mockValidatorsBackend() },
         };
         resolve(mockResponse);
       }, 1);

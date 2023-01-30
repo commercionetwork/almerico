@@ -15,30 +15,11 @@
         disable-pagination
       >
         <template #top>
-          <div
-            class="py-2 text-center text-overline font-weight-bold"
-            v-text="title"
-          />
-        </template>
-        <template #[`item.height`]="{ item }">
-          <router-link
-            class="text-decoration-none"
-            v-text="item.height"
-            :to="{
-              name: ROUTES.NAME.BLOCKS_DETAIL,
-              params: { id: item.height },
-            }"
-          />
-        </template>
-        <template #[`item.result`]="{ item }">
-          <span
-            class="font-weight-bold"
-            :class="item.result ? 'info--text' : 'error--text'"
-            v-text="item.result ? $t('labels.success') : $t('labels.failed')"
-          />
-        </template>
-        <template #[`item.fee`]="{ item }">
-          <span class="text-uppercase" v-text="item.fee" />
+          <div class="py-2 text-center text-overline font-weight-bold">
+            <i18n tag="span" path="titles.lastTxs">
+              <span v-text="TRANSACTIONS.AMOUNT_TO_LOAD" />
+            </i18n>
+          </div>
         </template>
         <template #[`item.hash`]="{ item }">
           <router-link
@@ -51,32 +32,43 @@
             }"
           />
         </template>
-        <template #[`item.date`]="{ item }">
-          <div v-text="formatDate(item.date)" />
+        <template #[`item.types`]="{ item }">
+          <span v-text="getType(item.msgs_number, item.types)" />
         </template>
-        <template #[`item.time`]="{ item }">
+        <template #[`item.result`]="{ item }">
+          <span
+            class="font-weight-bold"
+            :class="item.result ? 'info--text' : 'error--text'"
+            v-text="item.result ? $t('labels.success') : $t('labels.failed')"
+          />
+        </template>
+        <template #[`item.fee_amount`]="{ item }">
+          <span
+            class="text-uppercase"
+            v-text="getFee(item.fee_denom, item.fee_amount)"
+          />
+        </template>
+        <template #[`item.height`]="{ item }">
+          <router-link
+            class="text-decoration-none"
+            v-text="item.height"
+            :to="{
+              name: ROUTES.NAME.BLOCKS_DETAIL,
+              params: { id: item.height },
+            }"
+          />
+        </template>
+        <template #[`item.timestamp`]="{ item }">
           <v-tooltip top>
             <template #activator="{ on }">
               <div v-on="on">
-                <span v-text="item.time" />
+                <span v-text="formatTime(item.timestamp)" />
               </div>
             </template>
-            <span v-text="formatDate(item.date)" />
+            <span v-text="formatDate(item.timestamp)" />
           </v-tooltip>
         </template>
       </v-data-table>
-    </v-col>
-    <v-col
-      cols="12"
-      class="pa-5"
-      v-intersect="{
-        handler: onIntersect,
-        options: {
-          threshold: [0.5],
-        },
-      }"
-    >
-      <BaseLoadingLinear v-if="isAddingTxs" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
@@ -84,9 +76,9 @@
 <script>
 import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
-import { ROUTES } from '@/constants';
-import { mapActions, mapGetters } from 'vuex';
-import transactionsTableAdapter from './helpers/transactionsTableAdapter';
+import { ROUTES, TRANSACTIONS } from '@/constants';
+import { coinAdapter, dateHandler } from '@/utils';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'TransactionsViewListTable',
@@ -101,58 +93,56 @@ export default {
   data() {
     return {
       ROUTES,
+      TRANSACTIONS,
       sortBy: 'height',
       sortDesc: true,
     };
   },
   computed: {
-    ...mapGetters('transactions', [
-      'isAddingTxs',
-      'isRefreshing',
-      'offset',
-      'total',
-      'transactions',
-    ]),
+    ...mapGetters('transactions', ['isRefreshing', 'transactions']),
     headers() {
       return [
-        { text: this.$t('labels.height'), value: 'height' },
-        { text: this.$t('labels.type'), value: 'type', width: '22%' },
+        { text: this.$t('labels.hash'), value: 'hash', width: '25%' },
+        { text: this.$t('labels.type'), value: 'types', width: '25%' },
         { text: this.$t('labels.result'), value: 'result', width: '10%' },
-        { text: this.$t('labels.fee'), value: 'fee', width: '10%' },
-        { text: this.$t('labels.hash'), value: 'hash', width: '23%' },
-        { text: this.$t('labels.date'), value: 'date', width: '15%' },
-        { text: this.$t('labels.time'), value: 'time', width: '10%' },
+        { text: this.$t('labels.fee'), value: 'fee_amount', width: '15%' },
+        { text: this.$t('labels.height'), value: 'height', width: '15%' },
+        { text: this.$t('labels.time'), value: 'timestamp' },
       ];
     },
     items() {
-      return transactionsTableAdapter.build({
-        txs: this.transactions,
-        labels: {
-          multiTypes: this.$t('labels.multiTypes'),
-          multiValues: this.$t('labels.multiValues'),
-        },
-      });
-    },
-    query() {
-      return !this.txType
-        ? 'tx.height >= 1'
-        : `message.action='${this.txType}'`;
-    },
-    title() {
-      return !this.txType
-        ? this.$t('titles.allTypesTransactions')
-        : `${this.$t('titles.txType')}: ${this.txType}`;
+      if (!this.txType) {
+        return this.transactions;
+      }
+      return this.transactions.filter(
+        (tx) => tx.types.indexOf(this.txType) > -1
+      );
     },
   },
   methods: {
-    ...mapActions('transactions', ['addTransactions']),
     formatDate(timestamp) {
       return new Date(timestamp).toLocaleString();
     },
-    onIntersect(_entries, _observer, isIntersecting) {
-      if (isIntersecting && this.total > this.offset) {
-        this.addTransactions({ query: this.query, offset: this.offset });
+    formatTime(timestamp) {
+      return dateHandler.getFormattedDifference(
+        new Date(timestamp),
+        new Date()
+      );
+    },
+    getFee(feeDenom, feeAmount) {
+      if (feeDenom === TRANSACTIONS.MULTI_FEE) {
+        return this.$t(`labels.${TRANSACTIONS.MULTI_FEE}`);
       }
+      return coinAdapter.format({
+        denom: feeDenom,
+        amount: feeAmount,
+      });
+    },
+    getType(msgs, types) {
+      if (msgs > 1) {
+        return this.$t(`labels.${TRANSACTIONS.MULTI_TYPE}`);
+      }
+      return types[0];
     },
   },
 };
