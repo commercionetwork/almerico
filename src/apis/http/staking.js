@@ -11,7 +11,7 @@ const staking = {
     return axios({
       url: '/params',
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING}`,
+      baseURL: APIS.HTTP.STAKING,
     });
   },
   /**
@@ -22,7 +22,7 @@ const staking = {
     return axios({
       url: '/pool',
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING}`,
+      baseURL: APIS.HTTP.STAKING,
     });
   },
   /**
@@ -36,7 +36,7 @@ const staking = {
     return axios({
       url: '/validators',
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING}`,
+      baseURL: APIS.HTTP.STAKING,
       params,
     });
   },
@@ -49,7 +49,7 @@ const staking = {
     return axios({
       url: `/validators/${id}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING}`,
+      baseURL: APIS.HTTP.STAKING,
     });
   },
   /**
@@ -61,7 +61,7 @@ const staking = {
     return axios({
       url: `/delegations/${address}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING}`,
+      baseURL: APIS.HTTP.STAKING,
     });
   },
   /**
@@ -73,7 +73,7 @@ const staking = {
     return axios({
       url: `/delegators/${address}/unbonding_delegations`,
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING}`,
+      baseURL: APIS.HTTP.STAKING,
     });
   },
   /**
@@ -85,7 +85,7 @@ const staking = {
     return axios({
       url: `/validators/${id}/delegations`,
       method: 'get',
-      baseURL: `${APIS.HTTP.STAKING}`,
+      baseURL: APIS.HTTP.STAKING,
     });
   },
 };

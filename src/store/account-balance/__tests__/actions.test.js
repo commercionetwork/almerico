@@ -1,13 +1,5 @@
 import actions from '../actions.js';
-import {
-  mockErrors,
-  mockPagination,
-  mockContracts,
-  mockEntries,
-  mockEntry,
-  mockModels,
-} from '@/__mocks__';
-import { stringEncoder } from '@/utils';
+import { mockErrors, mockWasmsBalances } from '@/__mocks__';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
@@ -42,70 +34,27 @@ describe('store/account-balance/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchWasmBalances" dispatch "fetchCw20Contracts" and "fetchSwapContract" actions, and set the balances', async () => {
+  test('if "fetchWasmBalances" action commit "setBalances" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const dispatch = jest.fn();
-    const cw20Contracts = mockContracts(10);
-    const swapContracts = mockContracts(5);
-    const getters = { cw20Contracts, swapContracts };
-    const address = 'address';
-    const expectedBalances = () => {
-      const entry = mockEntry();
-      const contracts = [];
-      for (const cw20 of cw20Contracts) {
-        if (swapContracts.includes(cw20)) {
-          continue;
-        } else {
-          contracts.push(cw20);
-        }
-      }
-      return contracts.map((contract) => ({
-        contract,
-        balance: '1',
-        name: entry.msg.name,
-        decimals: entry.msg.decimals,
-        symbol: entry.msg.symbol,
-      }));
-    };
+    const accountAddress = 'address';
 
-    await actions.fetchWasmBalances({ commit, dispatch, getters }, address);
-
-    expect(dispatch).toHaveBeenCalledWith('fetchCw20Contracts');
-    expect(dispatch).toHaveBeenCalledWith('fetchSwapContracts');
-    expect(commit).toHaveBeenCalledWith('setBalances', expectedBalances());
-  });
-
-  test('if "fetchCw20Contracts" action commit "addCw20Contracts" mutation, and set an empty string if an error is caught', async () => {
-    const commit = jest.fn();
-
-    await actions.fetchCw20Contracts({ commit });
+    await actions.fetchWasmBalances({ commit }, accountAddress);
 
     expect(commit).toHaveBeenCalledWith(
-      'addCw20Contracts',
-      mockResponse.data.contracts
+      'setBalances',
+      mockResponse.data.balances
     );
 
     mockError = true;
 
-    await actions.fetchCw20Contracts({ commit });
+    await actions.fetchWasmBalances({ commit }, accountAddress);
 
-    expect(commit).toHaveBeenCalledWith('addCw20Contracts', '');
-  });
-
-  test('if "fetchSwapContracts" action commit "addSwapContract" mutation', async () => {
-    const commit = jest.fn();
-    const mockAddress = 'did:com:1';
-    const spy = jest.spyOn(stringEncoder, 'decodeBase64ToString');
-    spy.mockReturnValue(mockAddress);
-
-    await actions.fetchSwapContracts({ commit });
-
-    expect(commit).toHaveBeenCalledWith('addSwapContract', mockAddress);
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 });
 
-jest.mock('../../../apis/http/cosmwasm.js', () => ({
-  requestContracts() {
+jest.mock('../../../apis/http/wasms.js', () => ({
+  requestAccountBalances() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -114,59 +63,7 @@ jest.mock('../../../apis/http/cosmwasm.js', () => ({
 
         mockResponse = {
           data: {
-            contracts: mockContracts(),
-            pagination: mockPagination(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestContractBalance() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            data: {
-              balance: '1',
-            },
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestContractHistory() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            entries: mockEntries(),
-            pagination: mockPagination(),
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestContractState() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            models: mockModels(),
+            balances: mockWasmsBalances(),
           },
         };
         resolve(mockResponse);

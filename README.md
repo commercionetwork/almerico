@@ -34,12 +34,12 @@ you have to:
     VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
     VUE_APP_BACKEND=VALUE (e.g., http://backend.com)
     VUE_APP_BACKEND_WS=VALUE (e.g., ws://backend.com/websocket)
-    VUE_APP_BLOCKS_MONITOR=VALUE (e.g., true)
     VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
     VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1234)
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
     VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
     VUE_APP_WASM_CW20_CODE_ID=VALUE (e.g., '7')
+    VUE_APP_WASM_SWAP_CODE_ID=VALUE (e.g., '4')
     VUE_APP_WS=VALUE (e.g., ws://rpc.com/websocket)
     ```
 
@@ -65,12 +65,12 @@ VUE_APP_API_VERSION=VALUE (e.g., v1)
 VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
 VUE_APP_BACKEND=VALUE (e.g., https://backend.com)
 VUE_APP_BACKEND_WS=VALUE (e.g., wss://backend.com/websocket)
-VUE_APP_BLOCKS_MONITOR=VALUE (e.g., false)
 VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
 VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)
 VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
-VUE_APP_WASM_CW20_CODE_ID=VALUE (e.g., '7')
+VUE_APP_WASM_CW20_CODE_ID=VALUE (e.g., '1')
+VUE_APP_WASM_SWAP_CODE_ID=VALUE (e.g., '2')
 VUE_APP_WS=VALUE (e.g., wss://rpc.com/websocket)
 ```
 
@@ -106,9 +106,7 @@ docker build -t almerico \
   --build-arg API_VERSION=<API version> \
   --build-arg API_VERSION_COSMWASM=<API version> \
   --build-arg BACKEND=<Backend url> \
-  --build-arg BACKEND_API_VERSION=<Backend API version> \
   --build-arg BACKEND_WS=<Backend WebSocket URL> \
-  --build-arg BLOCKS_MONITOR=<Boolean> \
   --build-arg FIRST_CONVERSION_RATE=<First conversion rate> \
   --build-arg FIRST_HEIGHT=<First height> \
   --build-arg LCD_URL=<LCD URL> \

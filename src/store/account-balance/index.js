@@ -6,8 +6,6 @@ export const initState = () => ({
   error: null,
   isLoading: false,
   balances: [],
-  cw20Contracts: [],
-  swapContracts: [],
 });
 
 export default {

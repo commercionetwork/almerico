@@ -11,7 +11,7 @@ const blocks = {
     return axios({
       url: `/${height}/supposed-time`,
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_BLOCKS}`,
+      baseURL: APIS.HTTP.BACKEND_BLOCKS,
     });
   },
 };

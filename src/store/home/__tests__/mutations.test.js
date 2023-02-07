@@ -25,6 +25,7 @@ describe('store/home/mutations', () => {
     state.tokensChart = { id: 1 };
     state.transactions = [{ id: 1 }];
     state.txEventHeight = 'txEventHeight';
+    state.chartEventTokens = { data: '1' };
 
     const expected = initState();
 
@@ -160,5 +161,13 @@ describe('store/home/mutations', () => {
     mutations.setTxEventHeight(state, payload);
 
     expect(state.txEventHeight).toBe(payload);
+  });
+
+  test('mutations.setChartEventTokens', () => {
+    const payload = { data: '1' };
+
+    mutations.setChartEventTokens(state, payload);
+
+    expect(state.chartEventTokens).toStrictEqual(payload);
   });
 });

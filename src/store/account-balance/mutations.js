@@ -13,10 +13,4 @@ export default {
   setBalances(state, payload) {
     state.balances = payload;
   },
-  addCw20Contracts(state, payload) {
-    state.cw20Contracts.push(...payload);
-  },
-  addSwapContract(state, payload) {
-    state.swapContracts.push(payload);
-  },
 };

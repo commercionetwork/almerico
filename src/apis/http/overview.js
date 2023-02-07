@@ -10,7 +10,7 @@ const overview = {
     return axios({
       url: '/exchange-rate',
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_OVERVIEWS}`,
+      baseURL: APIS.HTTP.BACKEND_OVERVIEWS,
     });
   },
 };

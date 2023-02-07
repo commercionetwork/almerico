@@ -12,7 +12,7 @@ const tx = {
   requestTxs(order, limit) {
     return axios({
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_TXS}`,
+      baseURL: APIS.HTTP.BACKEND_TXS,
       params: {
         order: order || undefined,
         limit: limit || undefined,
@@ -30,7 +30,7 @@ const tx = {
     return axios({
       url: '/txs',
       method: 'get',
-      baseURL: `${APIS.HTTP.TXS}`,
+      baseURL: APIS.HTTP.TXS,
       params,
     });
   },
@@ -43,7 +43,7 @@ const tx = {
     return axios({
       url: `/txs/${hash}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.TXS}`,
+      baseURL: APIS.HTTP.TXS,
     });
   },
   /**

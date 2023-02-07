@@ -48,17 +48,17 @@ export default {
     TheHeaderContent,
   },
   computed: {
-    ...mapGetters('application', ['eventHeight']),
     ...mapGetters('home', [
       'error',
       'isLoading',
       'setParamsEventHeight',
       'txEventHeight',
+      'chartEventTokens',
     ]),
   },
   watch: {
-    eventHeight(value) {
-      if (value.hasTxs) this.fetchTokensChart();
+    chartEventTokens() {
+      this.fetchTokensChart();
     },
     setParamsEventHeight() {
       this.refreshParams();

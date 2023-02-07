@@ -28,6 +28,7 @@ export const APIS = {
     BACKEND_PROPOSALS: `${BACKEND}/api/v2/proposals`,
     BACKEND_TXS: `${BACKEND}/api/v2/txs`,
     BACKEND_VALIDATORS: `${BACKEND}/api/v2/validators`,
+    BACKEND_WASMS: `${BACKEND}/api/v2/wasms`,
     // Query
     AUTH: `${LCD}/${API_PATHS.COSMOS}/auth/${API_VERSION}`,
     BANK: `${LCD}/${API_PATHS.COSMOS}/bank/${API_VERSION}`,
@@ -62,7 +63,10 @@ export const APIS = {
   },
   WS: {
     EVENTS: {
+      BACKEND_ACCOUNT_STATISTICS_UPDATE: 'AccountStatisticsUpdate',
+      BACKEND_EXCHANGE_RATE_OVERVIEW_UPDATE: 'ExchangeRateOverviewUpdate',
       BACKEND_NEW_HEIGHT: 'NewHeight',
+      BACKEND_TOKENS_CHART_UPDATE: 'TokensChartUpdate',
       NEW_BLOCK: 'NewBlock',
       TX: 'Tx',
       TX_SET_PARAMS: 'setParams',

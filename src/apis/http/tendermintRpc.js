@@ -11,7 +11,7 @@ const tendermintRpc = {
     return axios({
       url: `/${height}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.BLOCKS_RPC}`,
+      baseURL: APIS.HTTP.BLOCKS_RPC,
     });
   },
   /**
@@ -22,7 +22,7 @@ const tendermintRpc = {
     return axios({
       url: '/latest',
       method: 'get',
-      baseURL: `${APIS.HTTP.BLOCKS_RPC}`,
+      baseURL: APIS.HTTP.BLOCKS_RPC,
     });
   },
   /**
@@ -34,7 +34,7 @@ const tendermintRpc = {
     return axios({
       url: `/${height}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.VALIDATORSETS_RPC}`,
+      baseURL: APIS.HTTP.VALIDATORSETS_RPC,
     });
   },
   /**
@@ -45,7 +45,7 @@ const tendermintRpc = {
     return axios({
       url: '/latest',
       method: 'get',
-      baseURL: `${APIS.HTTP.VALIDATORSETS_RPC}`,
+      baseURL: APIS.HTTP.VALIDATORSETS_RPC,
     });
   },
 };

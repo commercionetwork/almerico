@@ -10,7 +10,7 @@ const commercio = {
     return axios({
       url: '/params',
       method: 'get',
-      baseURL: `${APIS.HTTP.MINT}`,
+      baseURL: APIS.HTTP.MINT,
     });
   },
   /**
@@ -21,7 +21,7 @@ const commercio = {
     return axios({
       url: `/funds`,
       method: 'get',
-      baseURL: `${APIS.HTTP.KYC}`,
+      baseURL: APIS.HTTP.KYC,
     });
   },
   /**
@@ -32,7 +32,7 @@ const commercio = {
     return axios({
       url: `/funds`,
       method: 'get',
-      baseURL: `${APIS.HTTP.VBR}`,
+      baseURL: APIS.HTTP.VBR,
     });
   },
   /**
@@ -44,7 +44,7 @@ const commercio = {
     return axios({
       url: `/${address}/membership`,
       method: 'get',
-      baseURL: `${APIS.HTTP.KYC}`,
+      baseURL: APIS.HTTP.KYC,
     });
   },
 };

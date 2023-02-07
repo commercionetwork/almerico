@@ -3,7 +3,6 @@ import bank from './bank';
 import blocks from './blocks';
 import chart from './chart';
 import commercio from './commercio';
-import cosmwasm from './cosmwasm';
 import distribution from './distribution';
 import gaiaRest from './gaiaRest';
 import governance from './governance';
@@ -13,6 +12,7 @@ import staking from './staking';
 import tendermintRpc from './tendermintRpc';
 import tx from './tx';
 import validators from './validators';
+import wasms from './wasms';
 
 export {
   auth,
@@ -20,7 +20,6 @@ export {
   blocks,
   chart,
   commercio,
-  cosmwasm,
   distribution,
   gaiaRest,
   governance,
@@ -30,4 +29,5 @@ export {
   tendermintRpc,
   tx,
   validators,
+  wasms,
 };

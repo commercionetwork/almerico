@@ -7,6 +7,8 @@ export const initState = () => ({
   isLoading: false,
   chart: null,
   overview: null,
+  eventChart: null,
+  eventOverview: null,
 });
 
 export default {

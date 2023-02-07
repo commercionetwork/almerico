@@ -7,7 +7,7 @@
       color="primary"
       depressed
     >
-      <span v-text="$t('labels.manage')" />
+      <span class="text-caption" v-text="$t('labels.manage')" />
     </v-btn>
     <v-dialog v-model="dialog" max-width="800">
       <v-card>
