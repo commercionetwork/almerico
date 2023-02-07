@@ -26,7 +26,8 @@ describe('views/exchange-rate/ExchangeRateView.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
-    eventHeight: () => ({ hegiht: '1', hasTxs: false }),
+    eventChart: () => ({ date: '2023-02-06T14:13:00.768Z' }),
+    eventOverview: () => ({ date: '2023-02-06T14:13:00.757Z' }),
   };
 
   test('if loading indicator is displayed', () => {

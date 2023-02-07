@@ -9,7 +9,7 @@ const validators = {
   requestList() {
     return axios({
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_VALIDATORS}`,
+      baseURL: APIS.HTTP.BACKEND_VALIDATORS,
     });
   },
   /**
@@ -21,7 +21,7 @@ const validators = {
     return axios({
       url: `/${address}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_VALIDATORS}`,
+      baseURL: APIS.HTTP.BACKEND_VALIDATORS,
     });
   },
 };

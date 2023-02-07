@@ -16,4 +16,10 @@ export default {
   setOverview(state, payload) {
     state.overview = payload;
   },
+  setEventChart(state, payload) {
+    state.eventChart = payload;
+  },
+  setEventOverview(state, payload) {
+    state.eventOverview = payload;
+  },
 };

@@ -7,7 +7,17 @@
       :items-per-page="5"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-    ></v-data-table>
+    >
+      <template #[`item.moniker`]="{ item }">
+        <span class="text-caption" v-text="item.moniker" />
+      </template>
+      <template #[`item.amount`]="{ item }">
+        <span class="text-caption" v-text="item.amount" />
+      </template>
+      <template #[`item.denom`]="{ item }">
+        <span class="text-caption" v-text="item.denom" />
+      </template>
+    </v-data-table>
   </v-card-text>
 </template>
 

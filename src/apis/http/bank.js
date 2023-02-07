@@ -10,7 +10,7 @@ const bank = {
     return axios({
       url: '/supply',
       method: 'get',
-      baseURL: `${APIS.HTTP.BANK}`,
+      baseURL: APIS.HTTP.BANK,
     });
   },
   /**
@@ -22,7 +22,7 @@ const bank = {
     return axios({
       url: `/balances/${address}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.BANK}`,
+      baseURL: APIS.HTTP.BANK,
     });
   },
 };

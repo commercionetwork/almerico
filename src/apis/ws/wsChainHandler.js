@@ -52,8 +52,6 @@ const _handleNewValidatorSetsEvent = (data) => {
 
 const _handleNewTxEvent = (data) => {
   const height = data.result.data.value.TxResult.height;
-  store.commit('home/setTxEventHeight', height);
-  store.commit('transactions/setTxEventHeight', height);
   if (
     data['result']['events'] &&
     data['result']['events']['message.action'] &&

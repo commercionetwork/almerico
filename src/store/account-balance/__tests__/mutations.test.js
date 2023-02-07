@@ -12,8 +12,6 @@ describe('store/account-balance/mutations', () => {
     state.error = new Error('error');
     state.isLoading = true;
     state.balances = [{ id: 1 }];
-    state.cw20Contracts = [{ id: 1 }];
-    state.swapContracts = [{ id: 1 }];
 
     const expected = initState();
 
@@ -42,25 +40,5 @@ describe('store/account-balance/mutations', () => {
     mutations.setBalances(state, balances);
 
     expect(state.balances).toStrictEqual(balances);
-  });
-
-  test('mutations.addCw20Contracts', () => {
-    state.cw20Contracts = [{ id: 1 }];
-    const contracts = [{ id: 2 }];
-    const expected = [{ id: 1 }, { id: 2 }];
-
-    mutations.addCw20Contracts(state, contracts);
-
-    expect(state.cw20Contracts).toStrictEqual(expected);
-  });
-
-  test('mutations.addSwapContract', () => {
-    state.swapContracts = [{ id: 1 }];
-    const contract = { id: 2 };
-    const expected = [{ id: 1 }, { id: 2 }];
-
-    mutations.addSwapContract(state, contract);
-
-    expect(state.swapContracts).toStrictEqual(expected);
   });
 });

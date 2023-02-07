@@ -10,7 +10,7 @@ const auth = {
     return axios({
       url: '/accounts',
       method: 'get',
-      baseURL: `${APIS.HTTP.AUTH}`,
+      baseURL: APIS.HTTP.AUTH,
       params: {
         'pagination.limit': limit,
       },
