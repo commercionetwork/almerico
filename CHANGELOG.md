@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Subscribe to events of backend websocket
 
+### Changed
+
+- Always enable the block monitor
+
 ## [4.5.1] - 2023-01-26
 
 ### Added
