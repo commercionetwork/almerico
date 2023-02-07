@@ -13,6 +13,8 @@ describe('store/exchange-rate/mutations', () => {
     state.isLoading = true;
     state.chart = { id: 1 };
     state.overview = { id: 1 };
+    state.eventChart = { data: '1' };
+    state.eventOverview = { data: '1' };
 
     const expected = initState();
 
@@ -49,5 +51,21 @@ describe('store/exchange-rate/mutations', () => {
     mutations.setOverview(state, payload);
 
     expect(state.overview).toStrictEqual(payload);
+  });
+
+  test('mutations.setEventChart', () => {
+    const payload = { data: '1' };
+
+    mutations.setEventChart(state, payload);
+
+    expect(state.eventChart).toStrictEqual(payload);
+  });
+
+  test('mutations.setEventOverview', () => {
+    const payload = { data: '1' };
+
+    mutations.setEventOverview(state, payload);
+
+    expect(state.eventOverview).toStrictEqual(payload);
   });
 });

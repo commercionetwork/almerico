@@ -35,15 +35,19 @@ export default {
     TheHeaderContent,
   },
   computed: {
-    ...mapGetters('application', ['eventHeight']),
-    ...mapGetters('exchangeRate', ['error', 'isLoading']),
+    ...mapGetters('exchangeRate', [
+      'error',
+      'isLoading',
+      'eventChart',
+      'eventOverview',
+    ]),
   },
   watch: {
-    eventHeight(value) {
-      if (value.hasTxs) {
-        this.fetchChart();
-        this.fetchOverview();
-      }
+    eventChart() {
+      this.fetchChart();
+    },
+    eventOverview() {
+      this.fetchOverview();
     },
   },
   created() {

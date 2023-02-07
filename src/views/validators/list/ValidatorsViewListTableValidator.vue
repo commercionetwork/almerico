@@ -21,7 +21,7 @@
       </v-icon>
     </v-avatar>
     <router-link
-      class="text-decoration-none font-weight-bold"
+      class="text-caption text-decoration-none font-weight-bold"
       v-text="moniker"
       :to="{
         name: ROUTES.NAME.VALIDATORS_DETAIL,

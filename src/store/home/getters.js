@@ -14,4 +14,5 @@ export default {
   tokensChart: (state) => state.tokensChart,
   transactions: (state) => state.transactions,
   txEventHeight: (state) => state.txEventHeight,
+  chartEventTokens: (state) => state.chartEventTokens,
 };

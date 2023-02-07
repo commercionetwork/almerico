@@ -52,4 +52,7 @@ export default {
   setTxEventHeight(state, payload) {
     state.txEventHeight = payload;
   },
+  setChartEventTokens(state, payload) {
+    state.chartEventTokens = payload;
+  },
 };

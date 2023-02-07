@@ -8,7 +8,7 @@
     </v-col>
     <v-col cols="12" md="6" class="d-flex justify-end">
       <v-btn color="primary" depressed :disabled="!hasRewards" @click="claim">
-        <span v-text="$t('labels.claimRewards')" />
+        <span class="text-caption" v-text="$t('labels.claimRewards')" />
       </v-btn>
     </v-col>
   </v-row>

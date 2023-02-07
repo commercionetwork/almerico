@@ -36,16 +36,13 @@ const validatorsTableHelper = {
         value: 'cumulative',
         width: '10%',
       },
-      { text: '', value: 'operator_address', width: '7%' },
-    ];
-    if (VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.VISIBILITY) {
-      const index = headers.length - 2;
-      headers.splice(index, 0, {
+      {
         text: $t('labels.blocksPercentage'),
         value: 'attendance',
         width: '10%',
-      });
-    }
+      },
+      { text: '', value: 'operator_address', width: '7%' },
+    ];
     return headers;
   },
   getItems({ validators, bookmarks, filter }) {

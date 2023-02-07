@@ -18,7 +18,7 @@
         </template>
         <template #[`item.rank`]="{ item }">
           <div
-            class="py-1 px-3 rounded-circle d-inline-block"
+            class="py-1 px-3 text-caption rounded-circle d-inline-block"
             :class="item.active ? 'primary' : 'error'"
           >
             <span class="font-weight-bold white--text" v-text="item.rank" />
@@ -34,19 +34,31 @@
           />
         </template>
         <template #[`item.tokens`]="{ item }">
-          <span class="text-uppercase" v-text="formatAsTokens(item.tokens)" />
+          <span
+            class="text-caption text-uppercase"
+            v-text="formatAsTokens(item.tokens)"
+          />
         </template>
         <template #[`item.commission`]="{ item }">
-          <span v-text="formatAsPercentage(item.commission)" />
+          <span
+            class="text-caption"
+            v-text="formatAsPercentage(item.commission)"
+          />
         </template>
         <template #[`item.votingPower`]="{ item }">
-          <span v-text="formatAsPercentage(item.power)" />
+          <span class="text-caption" v-text="formatAsPercentage(item.power)" />
         </template>
         <template #[`item.cumulative`]="{ item }">
-          <span v-text="formatAsPercentage(item.cumulative)" />
+          <span
+            class="text-caption"
+            v-text="formatAsPercentage(item.cumulative)"
+          />
         </template>
         <template #[`item.attendance`]="{ item }">
-          <span v-text="formatAsPercentage(item.attendance)" />
+          <span
+            class="text-caption"
+            v-text="formatAsPercentage(item.attendance)"
+          />
         </template>
         <template #[`item.operator_address`]="{ item }">
           <ValidatorManager

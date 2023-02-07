@@ -26,7 +26,7 @@ describe('views/home/HomeView.vue', () => {
     $t: (msg) => msg,
   };
   const computed = {
-    eventHeight: () => ({ hegiht: '1', hasTxs: false }),
+    chartEventTokens: () => ({ date: '2023-02-06T14:13:00.768Z' }),
     setParamsEventHeight: () => 'setParamsEventHeight',
     txEventHeight: () => 'txEventHeight',
   };

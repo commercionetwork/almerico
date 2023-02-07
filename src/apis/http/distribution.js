@@ -11,7 +11,7 @@ const distribution = {
     return axios({
       url: `/delegators/${address}/rewards`,
       method: 'get',
-      baseURL: `${APIS.HTTP.DISTRIBUTION}`,
+      baseURL: APIS.HTTP.DISTRIBUTION,
     });
   },
   /**
@@ -23,7 +23,7 @@ const distribution = {
     return axios({
       url: `/validators/${address}/commission`,
       method: 'get',
-      baseURL: `${APIS.HTTP.DISTRIBUTION}`,
+      baseURL: APIS.HTTP.DISTRIBUTION,
     });
   },
 };

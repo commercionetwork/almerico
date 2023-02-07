@@ -16,6 +16,7 @@ export const initState = () => ({
   tokensChart: null,
   transactions: [],
   txEventHeight: '',
+  chartEventTokens: null,
 });
 
 export default {

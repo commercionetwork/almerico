@@ -9,7 +9,7 @@ const proposals = {
   requestList(status) {
     return axios({
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_PROPOSALS}`,
+      baseURL: APIS.HTTP.BACKEND_PROPOSALS,
       params: { status },
     });
   },
@@ -22,7 +22,7 @@ const proposals = {
     return axios({
       url: `/${id}`,
       method: 'get',
-      baseURL: `${APIS.HTTP.BACKEND_PROPOSALS}`,
+      baseURL: APIS.HTTP.BACKEND_PROPOSALS,
     });
   },
 };
