@@ -46,6 +46,16 @@
             }"
           />
         </template>
+        <template #[`item.timestamp`]="{ item }">
+          <v-tooltip top>
+            <template #activator="{ on }">
+              <div v-on="on">
+                <span v-text="formatTime(item.timestamp)" />
+              </div>
+            </template>
+            <span v-text="formatDate(item.timestamp)" />
+          </v-tooltip>
+        </template>
       </v-data-table>
     </v-card-text>
   </v-card>
@@ -53,6 +63,7 @@
 
 <script>
 import { ROUTES } from '@/constants';
+import { dateHandler } from '@/utils';
 
 export default {
   name: 'AccountViewDashboardTransactions',
@@ -78,8 +89,19 @@ export default {
         { text: this.$t('labels.result'), value: 'result', width: '10%' },
         { text: this.$t('labels.fee'), value: 'fee', width: '15%' },
         { text: this.$t('labels.hash'), value: 'hash', width: '25%' },
-        { text: this.$t('labels.date'), value: 'date', width: '15%' },
+        { text: this.$t('labels.date'), value: 'timestamp', width: '15%' },
       ];
+    },
+  },
+  methods: {
+    formatDate(timestamp) {
+      return new Date(timestamp).toLocaleString();
+    },
+    formatTime(timestamp) {
+      return dateHandler.getFormattedDifference(
+        new Date(timestamp),
+        new Date()
+      );
     },
   },
 };

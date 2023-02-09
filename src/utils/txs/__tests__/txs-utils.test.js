@@ -49,6 +49,7 @@ describe('utils/txs', () => {
       'hash',
       'date',
       'time',
+      'timestamp',
     ];
 
     expect(convertedTxs.length).toBe(items);
