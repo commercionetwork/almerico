@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update Kepler config
 
+### Fixed
+
+- Fix account txs sorting
+
 ## [4.5.2] - 2023-02-07
 
 ### Added

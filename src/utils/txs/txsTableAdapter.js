@@ -39,6 +39,7 @@ class Row {
       hash: this.hash,
       date: this.date,
       time: this.time,
+      timestamp: this.timestamp,
     };
   }
 
@@ -49,7 +50,7 @@ class Row {
   get type() {
     return txHandler.getType_current(
       this.tx.tx.body.messages,
-      this.labels.multiTypes,
+      this.labels.multiTypes
     );
   }
 
@@ -83,7 +84,11 @@ class Row {
   get time() {
     return dateHandler.getFormattedDifference(
       new Date(this.tx.timestamp),
-      new Date(),
+      new Date()
     );
+  }
+
+  get timestamp() {
+    return this.tx.timestamp;
   }
 }
