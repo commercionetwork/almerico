@@ -110,9 +110,9 @@ const TOKEN = {
 const COIN_TYPE = 118;
 
 const GAS_PRICE_STEP = {
-  AVERAGE: 0.01,
-  HIGH: 0.02,
-  LOW: 0.005,
+  AVERAGE: 0.125,
+  HIGH: 0.125,
+  LOW: 0.125,
 };
 
 const FEE_AMOUNT = 10000;
