@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.6.0] - 2023-05-
+
+### Changed
+
+- Update the account page to show both received and sent transactions
+
 ## [4.5.3] - 2023-02-09
 
 ### Changed
@@ -601,6 +607,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.6.0]: https://github.com/commercionetwork/almerico/compare/v4.5.3...v4.6.0
 [4.5.3]: https://github.com/commercionetwork/almerico/compare/v4.5.2...v4.5.3
 [4.5.2]: https://github.com/commercionetwork/almerico/compare/v4.5.1...v4.5.2
 [4.5.1]: https://github.com/commercionetwork/almerico/compare/v4.5.0...v4.5.1
