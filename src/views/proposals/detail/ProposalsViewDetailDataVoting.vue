@@ -9,7 +9,7 @@
       >
         <span class="px-5" v-text="voteButtonLabel" />
       </v-btn>
-      <ProposalsViewDetailDataVotingModal
+      <proposals-view-detail-data-voting-modal
         v-model="dialog"
         :proposal="proposal"
       />

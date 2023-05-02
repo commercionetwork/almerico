@@ -1,6 +1,8 @@
 <template>
   <v-list-item-content v-if="isLoop">
-    <v-list-item-title class="py-1" v-text="label" />
+    <v-list-item-title class="py-1">
+      <span v-text="label" />
+    </v-list-item-title>
     <v-list-item-subtitle>
       <a
         v-if="link"
@@ -14,7 +16,9 @@
   </v-list-item-content>
   <v-list-item v-else>
     <v-list-item-content>
-      <v-list-item-title class="py-1" v-text="label" />
+      <v-list-item-title class="py-1">
+        <span v-text="label" />
+      </v-list-item-title>
       <v-list-item-subtitle>
         <a
           v-if="link"

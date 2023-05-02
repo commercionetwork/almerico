@@ -27,8 +27,9 @@
       <router-link
         class="pl-1 text-decoration-none font-monotype"
         :to="toAccount"
-        v-text="detail.account"
-      />
+      >
+        <span v-text="detail.account" />
+      </router-link>
     </div>
   </div>
 </template>

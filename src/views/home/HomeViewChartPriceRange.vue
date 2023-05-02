@@ -5,25 +5,28 @@
       small
       class="font-weight-bold grey--text"
       :class="{ 'info--text': range === HOME.RANGE.TODAY }"
-      v-text="$t(`home.${HOME.RANGE.TODAY}`)"
       @click="onChangeRange(HOME.RANGE.TODAY)"
-    />
+    >
+      <span v-text="$t(`home.${HOME.RANGE.TODAY}`)" />
+    </v-btn>
     <v-btn
       text
       small
       class="font-weight-bold grey--text"
       :class="{ 'info--text': range === HOME.RANGE.WEEK }"
-      v-text="$t(`home.${HOME.RANGE.WEEK}`)"
       @click="onChangeRange(HOME.RANGE.WEEK)"
-    />
+    >
+      <span v-text="$t(`home.${HOME.RANGE.WEEK}`)" />
+    </v-btn>
     <v-btn
       text
       small
       class="font-weight-bold grey--text"
       :class="{ 'info--text': range === HOME.RANGE.MONTH }"
-      v-text="$t(`home.${HOME.RANGE.MONTH}`)"
       @click="onChangeRange(HOME.RANGE.MONTH)"
-    />
+    >
+      <span v-text="$t(`home.${HOME.RANGE.MONTH}`)" />
+    </v-btn>
   </div>
 </template>
 

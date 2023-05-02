@@ -10,10 +10,9 @@
                 <slot name="export" />
               </div>
             </v-list-item-title>
-            <v-list-item-subtitle
-              class="pb-1 text-capitalize font-italic"
-              v-text="subtitle"
-            />
+            <v-list-item-subtitle class="pb-1 text-capitalize font-italic">
+              <span v-text="subtitle" />
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider />

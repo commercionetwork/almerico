@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ExchangeRateViewContentTop />
-    <ExchangeRateViewContentBody />
+    <exchange-rate-view-content-top />
+    <exchange-rate-view-content-body />
   </div>
 </template>
 

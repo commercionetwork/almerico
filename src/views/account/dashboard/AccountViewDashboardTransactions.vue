@@ -18,12 +18,13 @@
         <template #[`item.height`]="{ item }">
           <router-link
             class="text-decoration-none"
-            v-text="item.height"
             :to="{
               name: ROUTES.NAME.BLOCKS_DETAIL,
               params: { id: item.height },
             }"
-          />
+          >
+            <span v-text="item.height" />
+          </router-link>
         </template>
         <template #[`item.result`]="{ item }">
           <span
@@ -39,12 +40,13 @@
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
             style="max-width: 10rem"
-            v-text="item.hash"
             :to="{
               name: ROUTES.NAME.TRANSACTIONS_DETAIL,
               params: { id: item.hash },
             }"
-          />
+          >
+            <span v-text="item.hash" />
+          </router-link>
         </template>
         <template #[`item.timestamp`]="{ item }">
           <v-tooltip top>

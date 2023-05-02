@@ -1,16 +1,16 @@
 <template>
   <v-row>
     <v-col cols="12" lg="2">
-      <BlocksViewDetailCountdownCurrent />
+      <blocks-view-detail-countdown-current />
     </v-col>
     <v-col cols="12" lg="8">
-      <BlocksViewDetailCountdownTimer
+      <blocks-view-detail-countdown-timer
         :countDown="countDown"
         :goalTime="goalTime"
       />
     </v-col>
     <v-col cols="12" lg="2">
-      <BlocksViewDetailCountdownHeight />
+      <blocks-view-detail-countdown-height />
     </v-col>
   </v-row>
 </template>

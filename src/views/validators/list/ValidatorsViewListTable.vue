@@ -25,7 +25,7 @@
           </div>
         </template>
         <template #[`item.moniker`]="{ item }">
-          <ValidatorsViewListTableValidator
+          <validators-view-list-table-validator
             :address="item.operator_address"
             :bookmark="item.bookmark"
             :logo="item.logo"
@@ -61,7 +61,7 @@
           />
         </template>
         <template #[`item.operator_address`]="{ item }">
-          <ValidatorManager
+          <validator-manager
             :address="item.operator_address"
             :commission="item.commission"
             :moniker="item.moniker"

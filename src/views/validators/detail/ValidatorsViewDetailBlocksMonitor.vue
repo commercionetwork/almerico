@@ -9,7 +9,9 @@
       </i18n>
     </v-card-title>
     <v-card-text v-if="!blocks.length" data-test="info">
-      <v-alert type="info" v-text="$t('msgs.notAvailable')" />
+      <v-alert type="info">
+        <span v-text="$t('msgs.notAvailable')" />
+      </v-alert>
     </v-card-text>
     <v-card-text v-else data-test="content">
       <v-row>

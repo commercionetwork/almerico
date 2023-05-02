@@ -1,7 +1,11 @@
 <template>
   <div>
-    <div><ProposalsViewDetailVotesStats /></div>
-    <div class="mt-3"><ProposalsViewDetailVotesTable /></div>
+    <div>
+      <proposals-view-detail-votes-stats />
+    </div>
+    <div class="mt-3">
+      <proposals-view-detail-votes-table />
+    </div>
   </div>
 </template>
 
