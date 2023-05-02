@@ -10,8 +10,6 @@ import BaseDetailLink from '../src/components/BaseDetailLink.vue';
 import BaseDetailUrl from '../src/components/BaseDetailUrl.vue';
 import BaseLoadingCircular from '../src/components/BaseLoadingCircular.vue';
 import BaseLoadingLinear from '../src/components/BaseLoadingLinear.vue';
-import BasePlaceholderComponentError from '../src/components/BasePlaceholderComponentError.vue';
-import BasePlaceholderComponentLoading from '../src/components/BasePlaceholderComponentLoading.vue';
 import BaseTopContentCard from '../src/components/BaseTopContentCard.vue';
 import BaseTransactionMessage from '../src/components/BaseTransactionMessage.vue';
 import TheAlertNotice from '../src/components/TheAlertNotice.vue';
@@ -27,14 +25,6 @@ Vue.component('base-detail-link', BaseDetailLink);
 Vue.component('base-detail-url', BaseDetailUrl);
 Vue.component('base-loading-circular', BaseLoadingCircular);
 Vue.component('base-loading-linear', BaseLoadingLinear);
-Vue.component(
-  'base-placeholder-component-error',
-  BasePlaceholderComponentError
-);
-Vue.component(
-  'base-placeholder-component-loading',
-  BasePlaceholderComponentLoading
-);
 Vue.component('base-top-content-card', BaseTopContentCard);
 Vue.component('base-transaction-message', BaseTransactionMessage);
 Vue.component('the-alert-notice', TheAlertNotice);

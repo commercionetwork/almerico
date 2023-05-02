@@ -1,8 +1,8 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailItem :label="$t('labels.context')" :content="context" />
-      <BaseDetailLink
+      <base-detail-item :label="$t('labels.context')" :content="context" />
+      <base-detail-link
         :label="$t('labels.did')"
         :content="id"
         :route="{
@@ -13,25 +13,27 @@
       />
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize"
-            v-text="$t('labels.verificationMethod')"
-          />
+          <v-list-item-title>
+            <span
+              class="text-capitalize"
+              v-text="$t('labels.verificationMethod')"
+            />
+          </v-list-item-title>
           <v-list-item
             v-for="(method, index) in verificationMethod"
             :key="index"
           >
             <v-list dense>
-              <BaseDetailItem :label="$t('labels.id')" :content="method.ID" />
-              <BaseDetailItem
+              <base-detail-item :label="$t('labels.id')" :content="method.ID" />
+              <base-detail-item
                 :label="$t('labels.type')"
                 :content="method.Type"
               />
-              <BaseDetailItem
+              <base-detail-item
                 :label="$t('labels.controller')"
                 :content="method.Controller"
               />
-              <BaseDetailItem
+              <base-detail-item
                 :label="$t('labels.publicKeyMultibase')"
                 :content="method.publicKeyMultibase"
               />
@@ -39,37 +41,39 @@
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.authentication')"
         :content="authentication"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.assertionMethod')"
         :content="assertionMethod"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.keyAgreement')"
         :content="keyAgreement"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.capabilityInvocation')"
         :content="capabilityInvocation"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.capabilityDelegation')"
         :content="capabilityDelegation"
       />
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize"
-            v-text="$t('labels.service')"
-          />
+          <v-list-item-title>
+            <span class="text-capitalize" v-text="$t('labels.service')" />
+          </v-list-item-title>
           <v-list-item v-for="(serv, index) in service" :key="index">
             <v-list dense>
-              <BaseDetailItem :label="$t('labels.id')" :content="serv.ID" />
-              <BaseDetailItem :label="$t('labels.type')" :content="serv.type" />
-              <BaseDetailItem
+              <base-detail-item :label="$t('labels.id')" :content="serv.ID" />
+              <base-detail-item
+                :label="$t('labels.type')"
+                :content="serv.type"
+              />
+              <base-detail-item
                 :label="$t('labels.serviceEndpoint')"
                 :content="serv.serviceEndpoint"
               />
@@ -78,24 +82,15 @@
         </v-list-item-content>
       </v-list-item>
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSetIdentity',
   description: 'Display a set identity transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

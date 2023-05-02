@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="isSearching" data-test="loading">
     <v-col cols="12" class="pa-5">
-      <BaseLoadingLinear />
+      <base-loading-linear />
     </v-col>
   </v-row>
   <v-row v-else data-test="content">
@@ -25,12 +25,13 @@
         <template #[`item.height`]="{ item }">
           <router-link
             class="text-decoration-none"
-            v-text="item.height"
             :to="{
               name: ROUTES.NAME.BLOCKS_DETAIL,
               params: { id: item.height },
             }"
-          />
+          >
+            <span v-text="item.height" />
+          </router-link>
         </template>
         <template #[`item.hash`]="{ item }">
           <span
@@ -44,12 +45,13 @@
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-weight-bold"
             style="max-width: 10rem"
-            v-text="item.moniker"
             :to="{
               name: ROUTES.NAME.VALIDATORS_DETAIL,
               params: { id: item.operator },
             }"
-          />
+          >
+            <span v-text="item.moniker" />
+          </router-link>
         </template>
       </v-data-table>
     </v-col>
@@ -63,21 +65,18 @@
         },
       }"
     >
-      <BaseLoadingLinear v-if="isAddingBlocks" data-test="scrolling" />
+      <base-loading-linear v-if="isAddingBlocks" data-test="scrolling" />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-
 import blocksTableAdapter from './helpers/blocksTableAdapter';
 import { CONFIG, ROUTES } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'BlocksViewListTable',
-  components: { BaseLoadingLinear },
   data() {
     return {
       ROUTES,

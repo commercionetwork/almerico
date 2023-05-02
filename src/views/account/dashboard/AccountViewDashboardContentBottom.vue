@@ -2,7 +2,7 @@
   <v-row class="mt-1">
     <v-col cols="12">
       <v-card outlined>
-        <AccountViewDashboardTransactions :items="items" />
+        <account-view-dashboard-transactions :items="items" />
       </v-card>
     </v-col>
     <v-col
@@ -15,24 +15,20 @@
         },
       }"
     >
-      <BaseLoadingLinear v-if="isAddingTxs" />
+      <base-loading-linear v-if="isAddingTxs" />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import AccountViewDashboardTransactions from './AccountViewDashboardTransactions.vue';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { mapActions, mapGetters } from 'vuex';
 import { txsTableAdapter } from '@/utils';
 
 export default {
   name: 'AccountViewDashboardContentBottom',
-  components: {
-    AccountViewDashboardTransactions,
-    BaseLoadingLinear,
-  },
+  components: { AccountViewDashboardTransactions },
   computed: {
     ...mapGetters('account', [
       'isAddingTxs',

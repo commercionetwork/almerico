@@ -7,16 +7,16 @@
       <v-row>
         <v-col cols="12" md="6">
           <v-list dense>
-            <BaseDetailItem :label="$t('labels.tokens')" :content="tokens" />
-            <BaseDetailItem
+            <base-detail-item :label="$t('labels.tokens')" :content="tokens" />
+            <base-detail-item
               :label="$t('labels.votingPower')"
               :content="votingPower"
             />
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.commission')"
               :content="commission"
             />
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.updateTime')"
               :content="updateTime"
             />
@@ -24,16 +24,19 @@
         </v-col>
         <v-col cols="12" md="6">
           <v-list dense>
-            <BaseDetailItem :label="$t('labels.website')" :content="website" />
-            <BaseDetailItem
+            <base-detail-item
+              :label="$t('labels.website')"
+              :content="website"
+            />
+            <base-detail-item
               :label="$t('labels.securityContact')"
               :content="securityContact"
             />
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.identity')"
               :content="identity"
             />
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.udetails')"
               :content="particulars"
             />
@@ -45,14 +48,11 @@
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem';
-
 import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ValidatorsViewDetailAttributes',
-  components: { BaseDetailItem },
   computed: {
     ...mapGetters('application', ['stakingParams']),
     ...mapGetters('validators', ['detail']),

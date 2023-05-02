@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :loading="isLoadingParams" :title="$t('titles.price')">
+  <base-top-content-card :loading="isLoadingParams" :title="$t('titles.price')">
     <template #content>
       <div
         class="fill-height d-flex flex-row justify-space-between align-center"
@@ -25,18 +25,15 @@
         </div>
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-
 import { mapGetters } from 'vuex';
 import { CONFIG } from '@/constants';
 
 export default {
   name: 'HomeViewPosterPrice',
-  components: { BaseTopContentCard },
   data() {
     return {
       CONFIG,

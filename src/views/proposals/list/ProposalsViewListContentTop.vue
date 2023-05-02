@@ -1,13 +1,13 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <TheLatestHeight />
+      <the-latest-height />
     </v-col>
     <v-col cols="12" md="4">
-      <ProposalsViewListChart />
+      <proposals-view-list-chart />
     </v-col>
     <v-col cols="12" md="4">
-      <ProposalsViewListSearch />
+      <proposals-view-list-search />
     </v-col>
   </v-row>
 </template>
@@ -15,14 +15,12 @@
 <script>
 import ProposalsViewListChart from './ProposalsViewListChart.vue';
 import ProposalsViewListSearch from './ProposalsViewListSearch.vue';
-import TheLatestHeight from '@/components/TheLatestHeight';
 
 export default {
   name: 'ProposalsViewListContentTop',
   components: {
     ProposalsViewListChart,
     ProposalsViewListSearch,
-    TheLatestHeight,
   },
 };
 </script>

@@ -4,15 +4,14 @@
       <v-list class="text-break">
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title
-              class="pb-1 font-weight-bold"
-              v-text="$t('titles.message')"
-            />
+            <v-list-item-title class="pb-1 font-weight-bold">
+              <span v-text="$t('titles.message')" />
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-divider />
         <v-list-item v-for="(value, key) in message" :key="key">
-          <BaseDetailItem
+          <base-detail-item
             :label="formatKey(key)"
             :content="value"
             :is-loop="true"
@@ -24,11 +23,8 @@
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-
 export default {
   name: 'MsgDefault',
-  components: { BaseDetailItem },
   props: {
     message: {
       type: Object,
