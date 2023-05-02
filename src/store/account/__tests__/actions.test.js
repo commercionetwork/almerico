@@ -67,7 +67,7 @@ describe('store/account/actions', () => {
 
   test('if "fetchCommission" action commit "setCommission" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const address = 'address';
+    const address = 'did:com:133nf49v83dts7pq30csnnl7ul5unsvzz55qt20';
 
     await actions.fetchCommission({ commit }, address);
 
