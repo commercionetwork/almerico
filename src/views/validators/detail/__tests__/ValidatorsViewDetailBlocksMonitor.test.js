@@ -1,9 +1,5 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vue from 'vue';
-import Vuetify from 'vuetify';
 import ValidatorsViewDetailBlocksMonitor from '../ValidatorsViewDetailBlocksMonitor.vue';
-
-Vue.use(Vuetify);
 
 const localVue = createLocalVue();
 
