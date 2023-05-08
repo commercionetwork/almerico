@@ -104,14 +104,19 @@ export default {
     }
   },
 
-  async fetchTransactions({ commit }, { address, offset }) {
+  async fetchTransactions(
+    { commit },
+    { address, offset = 0, sent = true } = {}
+  ) {
     const parameters = {
-      events: `transfer.sender='${address}'`,
+      events: sent
+        ? `transfer.sender='${address}'`
+        : `transfer.recipient='${address}'`,
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
     };
     const pagination = {
       limit: ACCOUNT.TRANSACTIONS_NUMBER,
-      offset: offset ? offset : 0,
+      offset,
     };
     commit('setAddingTxs', true);
     try {
@@ -125,7 +130,7 @@ export default {
     commit('setAddingTxs', false);
   },
 
-  async addTransactions({ dispatch }, { address, offset }) {
-    await dispatch('fetchTransactions', { address, offset });
+  async addTransactions({ dispatch }, { address, offset, sent = true } = {}) {
+    await dispatch('fetchTransactions', { address, offset, sent });
   },
 };
