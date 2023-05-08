@@ -133,4 +133,10 @@ export default {
   async addTransactions({ dispatch }, { address, offset, sent = true } = {}) {
     await dispatch('fetchTransactions', { address, offset, sent });
   },
+
+  resetTransactions({ commit }) {
+    commit('setTransactions', []);
+    commit('setTransactionsPagination', []);
+    commit('setTransactionsOffset', 0);
+  },
 };

@@ -2,6 +2,7 @@
   <v-row class="mt-1">
     <v-col cols="12">
       <v-card outlined>
+        <account-view-dashboard-transactions-filter @filter-txs="onFilterTxs" />
         <account-view-dashboard-transactions :items="items" />
       </v-card>
     </v-col>
@@ -22,13 +23,22 @@
 
 <script>
 import AccountViewDashboardTransactions from './AccountViewDashboardTransactions.vue';
+import AccountViewDashboardTransactionsFilter from './AccountViewDashboardTransactionsFilter.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 import { txsTableAdapter } from '@/utils';
 
 export default {
   name: 'AccountViewDashboardContentBottom',
-  components: { AccountViewDashboardTransactions },
+  components: {
+    AccountViewDashboardTransactions,
+    AccountViewDashboardTransactionsFilter,
+  },
+  data() {
+    return {
+      isSentTxs: true,
+    };
+  },
   computed: {
     ...mapGetters('account', [
       'isAddingTxs',
@@ -50,12 +60,25 @@ export default {
     },
   },
   methods: {
-    ...mapActions('account', ['addTransactions']),
+    ...mapActions('account', [
+      'addTransactions',
+      'fetchTransactions',
+      'resetTransactions',
+    ]),
+    onFilterTxs(value) {
+      this.resetTransactions();
+      this.isSentTxs = value;
+      this.fetchTransactions({
+        address: this.address,
+        sent: value,
+      });
+    },
     onIntersect(_entries, _observer, isIntersecting) {
       if (isIntersecting && this.transactionsTotal > this.transactionsOffset) {
         this.addTransactions({
           address: this.address,
           offset: this.transactionsOffset,
+          sent: this.isSentTxs,
         });
       }
     },
