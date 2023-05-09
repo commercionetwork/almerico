@@ -1,10 +1,10 @@
 <template>
-  <v-card-text class="d-flex justify-center">
-    <v-menu open-on-hover offset-x style="max-width: 600px">
+  <v-card-text class="d-flex flex-row justify-center align-center">
+    <span class="text-overline font-weight-bold" v-text="caption" />
+    <v-menu bottom offset-y style="max-width: 600px">
       <template #activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
-          <span v-text="btnLabel" />
-          <v-icon right color="primary">{{ mdiChevronDown }}</v-icon>
+          <v-icon right>{{ mdiChevronDown }}</v-icon>
         </v-btn>
       </template>
       <v-list dense>
@@ -51,7 +51,7 @@ export default {
     };
   },
   computed: {
-    btnLabel() {
+    caption() {
       return this.isSent
         ? this.$t('labels.sentTxs')
         : this.$t('labels.receivedTxs');
