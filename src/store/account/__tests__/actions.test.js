@@ -222,12 +222,17 @@ describe('store/account/actions', () => {
     const dispatch = jest.fn();
     const address = 'address';
     const offset = ACCOUNT.TRANSACTIONS_NUMBER;
+    const sent = false;
 
-    await actions.addTransactions({ commit, dispatch }, { address, offset });
+    await actions.addTransactions(
+      { commit, dispatch },
+      { address, offset, sent }
+    );
 
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       address,
       offset,
+      sent,
     });
   });
 });
