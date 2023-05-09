@@ -235,6 +235,16 @@ describe('store/account/actions', () => {
       sent,
     });
   });
+
+  test('if "resetTransactions" commit "setTransactions", "setTransactionsPagination" and "setTransactionsOffset" mutations', () => {
+    const commit = jest.fn();
+
+    actions.resetTransactions({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setTransactionsPagination', []);
+    expect(commit).toHaveBeenCalledWith('setTransactionsOffset', 0);
+  });
 });
 
 jest.mock('../../../apis/http/bank.js', () => ({
