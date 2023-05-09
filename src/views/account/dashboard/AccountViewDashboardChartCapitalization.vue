@@ -3,12 +3,11 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-center"
   >
-    <v-card-title
-      class="text-truncate text-overline font-weight-bold"
-      v-text="chartLabel"
-    />
+    <v-card-title class="text-truncate text-overline font-weight-bold">
+      <span v-text="chartLabel" />
+    </v-card-title>
     <v-card-text>
-      <BaseChart
+      <base-chart
         :id="CHARTS.ID.ACCOUNT_DETAIL_CAPITALIZATION"
         :dataset="chartData"
         :options="chartOptions"
@@ -20,14 +19,11 @@
 </template>
 
 <script>
-import BaseChart from '@/components/chart/BaseChart';
-
 import accountCapitalizationChartHelper from '../helpers/accountCapitalizationChartHelper';
 import { CHARTS } from '@/constants';
 
 export default {
   name: 'AccountViewDashboardChartCapitalization',
-  components: { BaseChart },
   props: {
     capitalization: {
       type: Object,

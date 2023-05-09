@@ -1,25 +1,23 @@
 <template>
-  <BaseTopContentCard :loading="isLoadingParams" :title="$t('titles.trend')">
+  <base-top-content-card :loading="isLoadingParams" :title="$t('titles.trend')">
     <template #content>
       <div
         class="py-3 fill-height flex-column d-flex justify-center align-center"
       >
-        <BaseChart
+        <base-chart
           :id="CHARTS.ID.DASHBOARD_PRICE"
           :dataset="chartData"
           :options="chartOptions"
           :type="CHARTS.TYPE.LINE"
         />
-        <HomeViewChartPriceRange @range-changed="chartRangeChange" />
+        <home-view-chart-price-range @range-changed="chartRangeChange" />
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseChart from '@/components/chart/BaseChart';
 import HomeViewChartPriceRange from './HomeViewChartPriceRange';
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 
 import priceChartHelper from './helpers/priceChartHelper';
 import { CHARTS, HOME } from '@/constants';
@@ -27,11 +25,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'HomeViewChartPrice',
-  components: {
-    BaseChart,
-    HomeViewChartPriceRange,
-    BaseTopContentCard,
-  },
+  components: { HomeViewChartPriceRange },
   data() {
     return {
       CHARTS,

@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.searchValidator')">
+  <base-top-content-card :title="$t('titles.searchValidator')">
     <template #content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-content-space-around"
@@ -25,15 +25,14 @@
           </v-text-field>
         </div>
         <div class="px-3">
-          <ValidatorsViewListFilter @filter="onFilter" />
+          <validators-view-list-filter @filter="onFilter" />
         </div>
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 import ValidatorsViewListFilter from './ValidatorsViewListFilter.vue';
 
 import { VALIDATORS } from '@/constants';
@@ -42,10 +41,7 @@ import { mdiInformationOutline, mdiMagnify } from '@mdi/js';
 
 export default {
   name: 'ValidatorsViewListSearch',
-  components: {
-    ValidatorsViewListFilter,
-    BaseTopContentCard,
-  },
+  components: { ValidatorsViewListFilter },
   data() {
     return {
       mdiInformationOutline,

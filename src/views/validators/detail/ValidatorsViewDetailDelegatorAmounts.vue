@@ -21,12 +21,13 @@
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
             style="max-width: 9rem"
-            v-text="item.delegator"
             :to="{
               name: ROUTES.NAME.ACCOUNT,
               params: { id: item.delegator },
             }"
-          />
+          >
+            <span v-text="item.delegator" />
+          </router-link>
         </template>
         <template #[`item.amount`]="{ item }">
           <span

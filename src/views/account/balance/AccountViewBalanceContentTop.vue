@@ -1,10 +1,10 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <AccountIdentity />
+      <account-identity />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountTokensBalance :balances="balances" />
+      <account-tokens-balance :balances="balances" />
     </v-col>
   </v-row>
 </template>

@@ -1,7 +1,7 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.sender')"
         :content="senderAddress"
         :route="{
@@ -10,33 +10,24 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.instantiatePermission')"
         :content="instantiatePermission"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.wasmByteCode')"
         :content="wasmByteCode"
       />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgStoreCode',
   description: 'Display a store code transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

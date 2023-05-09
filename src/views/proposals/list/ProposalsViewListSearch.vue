@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.filterProposals')">
+  <base-top-content-card :title="$t('titles.filterProposals')">
     <template #content>
       <div class="fill-height">
         <v-form>
@@ -27,35 +27,29 @@
                 color="primary"
                 depressed
                 :disabled="!selectedStatus"
-                v-text="$t('labels.filter')"
-              />
+              >
+                <span v-text="$t('labels.filter')" />
+              </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn
-                @click="filter(false)"
-                block
-                color="secondary"
-                outlined
-                v-text="$t('labels.reset')"
-              />
+              <v-btn @click="filter(false)" block color="secondary" outlined>
+                <span v-text="$t('labels.reset')" />
+              </v-btn>
             </v-col>
           </v-row>
         </v-form>
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-
 import { PROPOSALS } from '@/constants';
 import { mdiFilterOutline } from '@mdi/js';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'ProposalsViewListSearch',
-  components: { BaseTopContentCard },
   data() {
     return {
       mdiFilterOutline,

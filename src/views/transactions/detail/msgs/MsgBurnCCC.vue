@@ -1,7 +1,7 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.signer')"
         :content="signerAddress"
         :route="{
@@ -10,32 +10,23 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.amount')"
         :content="amount"
         class="text-uppercase"
       />
-      <BaseDetailItem :label="$t('labels.id')" :content="id" />
+      <base-detail-item :label="$t('labels.id')" :content="id" />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 
 export default {
   name: 'MsgBurnCCC',
   description: 'Display a burnCCC transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

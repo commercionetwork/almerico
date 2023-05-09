@@ -4,10 +4,9 @@
     class="d-flex flex-column justify-space-between align-center"
     outlined
   >
-    <v-card-title
-      class="text-truncate text-overline font-weight-bold"
-      v-html="title"
-    />
+    <v-card-title class="text-truncate text-overline font-weight-bold">
+      <span v-html="title" />
+    </v-card-title>
     <v-card-text class="card-text">
       <slot name="content" />
     </v-card-text>

@@ -1,8 +1,8 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.proposalsByType')">
+  <base-top-content-card :title="$t('titles.proposalsByType')">
     <template #content>
       <div class="fill-height">
-        <BaseChart
+        <base-chart
           v-if="chartData && chartOptions"
           :id="CHARTS.ID.PROPOSALS_LIST"
           :dataset="chartData"
@@ -11,23 +11,16 @@
         />
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseChart from '@/components/chart/BaseChart';
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-
 import proposalsChartHelper from './helpers/proposalsChartHelper';
 import { CHARTS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ProposalsViewListChart',
-  components: {
-    BaseChart,
-    BaseTopContentCard,
-  },
   data() {
     return {
       CHARTS,

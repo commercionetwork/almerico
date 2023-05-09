@@ -1,26 +1,24 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <TheLatestHeight />
+      <the-latest-height />
     </v-col>
     <v-col cols="12" md="4">
-      <TransactionsViewListChart />
+      <transactions-view-list-chart />
     </v-col>
     <v-col cols="12" md="4">
-      <TransactionsViewListSearch />
+      <transactions-view-list-search />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import TheLatestHeight from '@/components/TheLatestHeight';
 import TransactionsViewListChart from './TransactionsViewListChart.vue';
 import TransactionsViewListSearch from './TransactionsViewListSearch.vue';
 
 export default {
   name: 'TransactionsViewListContentTop',
   components: {
-    TheLatestHeight,
     TransactionsViewListChart,
     TransactionsViewListSearch,
   },

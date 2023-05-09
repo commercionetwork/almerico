@@ -1,16 +1,16 @@
 <template>
   <v-row>
     <v-col cols="12" md="6" xl="3">
-      <TheLatestHeight />
+      <the-latest-height />
     </v-col>
     <v-col cols="12" md="6" xl="3">
-      <HomeViewPosterPrice />
+      <home-view-poster-price />
     </v-col>
     <v-col cols="12" md="6" xl="3">
-      <HomeViewChartPrice />
+      <home-view-chart-price />
     </v-col>
     <v-col cols="12" md="6" xl="3">
-      <HomeViewChartTokens />
+      <home-view-chart-tokens />
     </v-col>
   </v-row>
 </template>
@@ -19,7 +19,6 @@
 import HomeViewChartPrice from './HomeViewChartPrice.vue';
 import HomeViewChartTokens from './HomeViewChartTokens.vue';
 import HomeViewPosterPrice from './HomeViewPosterPrice.vue';
-import TheLatestHeight from '@/components/TheLatestHeight';
 
 export default {
   name: 'HomeViewContentTop',
@@ -27,7 +26,6 @@ export default {
     HomeViewChartPrice,
     HomeViewChartTokens,
     HomeViewPosterPrice,
-    TheLatestHeight,
   },
 };
 </script>

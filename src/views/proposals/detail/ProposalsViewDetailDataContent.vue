@@ -1,10 +1,9 @@
 <template>
   <v-list-item>
     <v-list-item-content>
-      <v-list-item-title
-        class="text-capitalize"
-        v-text="$t('labels.content')"
-      />
+      <v-list-item-title>
+        <span class="text-capitalize" v-text="$t('labels.content')" />
+      </v-list-item-title>
       <component
         :is="getComponentName(proposal.content)"
         :content="proposal.content"

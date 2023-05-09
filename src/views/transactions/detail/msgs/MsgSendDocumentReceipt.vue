@@ -1,8 +1,8 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailItem :label="$t('labels.uuid')" :content="uuid" />
-      <BaseDetailLink
+      <base-detail-item :label="$t('labels.uuid')" :content="uuid" />
+      <base-detail-link
         :label="$t('labels.sender')"
         :content="senderAddress"
         :route="{
@@ -11,7 +11,7 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.recipient')"
         :content="recipientAddress"
         :route="{
@@ -20,35 +20,26 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.txHash')"
         :content="txHash"
         look="font-monotype"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.documentUUID')"
         :content="documentUuid"
       />
-      <BaseDetailItem :label="$t('labels.proof')" :content="proof" />
+      <base-detail-item :label="$t('labels.proof')" :content="proof" />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSendDocumentReceipt',
   description: 'Display a send document transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

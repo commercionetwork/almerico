@@ -4,25 +4,23 @@
       <v-list>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title
-              class="pb-1 text-h6"
-              v-text="detail.block.header.height"
-            />
-            <v-list-item-subtitle
-              class="pb-1 font-weight-bold"
-              v-text="$t('labels.height')"
-            />
+            <v-list-item-title class="pb-1 text-h6">
+              <span v-text="detail.block.header.height" />
+            </v-list-item-title>
+            <v-list-item-subtitle class="pb-1 font-weight-bold">
+              <span v-text="$t('labels.height')" />
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-divider />
-        <BaseDetailItem :label="$t('labels.time')" :content="time" />
-        <BaseDetailItem
+        <base-detail-item :label="$t('labels.time')" :content="time" />
+        <base-detail-item
           :label="$t('labels.hash')"
           :content="hash"
           look="font-monotype"
         />
-        <BaseDetailItem :label="$t('labels.txsAmount')" :content="txs" />
-        <BaseDetailLink
+        <base-detail-item :label="$t('labels.txsAmount')" :content="txs" />
+        <base-detail-link
           :label="$t('labels.proposer')"
           :content="proposer.description.moniker"
           :route="{
@@ -37,17 +35,10 @@
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'BlocksViewDetailHeight',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-  },
   props: {
     detail: {
       type: Object,

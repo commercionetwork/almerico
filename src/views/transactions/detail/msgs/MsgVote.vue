@@ -1,8 +1,8 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailItem :label="$t('labels.id')" :content="proposalId" />
-      <BaseDetailLink
+      <base-detail-item :label="$t('labels.id')" :content="proposalId" />
+      <base-detail-link
         :label="$t('labels.voter')"
         :content="voterAddress"
         :route="{
@@ -11,26 +11,17 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem :label="$t('labels.vote')" :content="vote" />
+      <base-detail-item :label="$t('labels.vote')" :content="vote" />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgVote',
   description: 'Display a vote transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

@@ -1,10 +1,10 @@
 <template>
   <v-card outlined>
-    <TransactionsViewSharedocUnsupported
+    <transactions-view-sharedoc-unsupported
       :reset="reset"
       v-model="isUnsupported"
     />
-    <TransactionsViewSharedocResult
+    <transactions-view-sharedoc-result
       :hash="hash"
       :reset="reset"
       :result="result"

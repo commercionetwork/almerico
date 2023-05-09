@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <BaseLoadingLinear :height="25" />
+      <base-loading-linear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -9,13 +9,13 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <TheAlertNotice kind="warning" :message="$t('msgs.accountNotExist')" />
+      <the-alert-notice kind="warning" :message="$t('msgs.accountNotExist')" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <TheHeaderContent :title="$t('titles.accountDetail')" />
-      <AccountViewDashboardContentTop />
-      <AccountViewDashboardContentMiddle />
-      <AccountViewDashboardContentBottom />
+      <the-header-content :title="$t('titles.accountDetail')" />
+      <account-view-dashboard-content-top />
+      <account-view-dashboard-content-middle />
+      <account-view-dashboard-content-bottom />
     </v-col>
   </v-row>
 </template>
@@ -24,9 +24,6 @@
 import AccountViewDashboardContentBottom from './dashboard/AccountViewDashboardContentBottom.vue';
 import AccountViewDashboardContentMiddle from './dashboard/AccountViewDashboardContentMiddle.vue';
 import AccountViewDashboardContentTop from './dashboard/AccountViewDashboardContentTop.vue';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import TheAlertNotice from '@/components/TheAlertNotice.vue';
-import TheHeaderContent from '@/components/TheHeaderContent';
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -36,9 +33,6 @@ export default {
     AccountViewDashboardContentBottom,
     AccountViewDashboardContentMiddle,
     AccountViewDashboardContentTop,
-    BaseLoadingLinear,
-    TheAlertNotice,
-    TheHeaderContent,
   },
   props: {
     id: {

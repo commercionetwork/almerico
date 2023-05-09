@@ -8,8 +8,9 @@
           name: ROUTES.NAME.TRANSACTIONS_DETAIL,
           params: { id: txhash },
         }"
-        v-text="membershipText"
-      />
+      >
+        <span v-text="membershipText" />
+      </router-link>
       <div
         v-else
         class="text-h5 text-capitalize font-weight-bold"

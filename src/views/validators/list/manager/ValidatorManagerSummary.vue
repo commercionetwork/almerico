@@ -1,5 +1,5 @@
 <template>
-  <Component v-bind:is="currentSummary" :summary="summary" />
+  <component v-bind:is="currentSummary" :summary="summary" />
 </template>
 
 <script>

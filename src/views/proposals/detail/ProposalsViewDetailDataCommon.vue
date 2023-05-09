@@ -2,31 +2,32 @@
   <div>
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title
-          class="py-1 text-h5 font-weight-bold"
-          v-text="$t('labels.description')"
-        />
-        <v-list-item-subtitle class="py-1" v-html="description" />
+        <v-list-item-title class="py-1 text-h5 font-weight-bold">
+          <span v-text="$t('labels.description')" />
+        </v-list-item-title>
+        <v-list-item-subtitle class="py-1">
+          <span v-html="description" />
+        </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-    <BaseDetailItem :label="$t('labels.submitTime')" :content="submitTime" />
-    <BaseDetailItem
+    <base-detail-item :label="$t('labels.submitTime')" :content="submitTime" />
+    <base-detail-item
       :label="$t('labels.depositEndTime')"
       :content="depositEndTime"
     />
     <v-list-item v-for="(amount, index) in deposits" :key="index">
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.deposit')"
         :content="amount"
         :is-loop="true"
         look="text-uppercase"
       />
     </v-list-item>
-    <BaseDetailItem
+    <base-detail-item
       :label="$t('labels.votingStartTime')"
       :content="votingStartTime"
     />
-    <BaseDetailItem
+    <base-detail-item
       :label="$t('labels.votingEndTime')"
       :content="votingEndTime"
     />
@@ -34,14 +35,11 @@
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem';
-
 import { coinAdapter } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ProposalsViewDetailDataCommon',
-  components: { BaseDetailItem },
   computed: {
     ...mapGetters('proposals', ['proposal']),
     description() {

@@ -67,7 +67,7 @@ describe('store/account/actions', () => {
 
   test('if "fetchCommission" action commit "setCommission" mutation, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const address = 'address';
+    const address = 'did:com:133nf49v83dts7pq30csnnl7ul5unsvzz55qt20';
 
     await actions.fetchCommission({ commit }, address);
 
@@ -222,13 +222,28 @@ describe('store/account/actions', () => {
     const dispatch = jest.fn();
     const address = 'address';
     const offset = ACCOUNT.TRANSACTIONS_NUMBER;
+    const sent = false;
 
-    await actions.addTransactions({ commit, dispatch }, { address, offset });
+    await actions.addTransactions(
+      { commit, dispatch },
+      { address, offset, sent }
+    );
 
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       address,
       offset,
+      sent,
     });
+  });
+
+  test('if "resetTransactions" commit "setTransactions", "setTransactionsPagination" and "setTransactionsOffset" mutations', () => {
+    const commit = jest.fn();
+
+    actions.resetTransactions({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setTransactions', []);
+    expect(commit).toHaveBeenCalledWith('setTransactionsPagination', []);
+    expect(commit).toHaveBeenCalledWith('setTransactionsOffset', 0);
   });
 });
 

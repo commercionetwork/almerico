@@ -1,11 +1,11 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.membershipType')"
         :content="membershipType"
       />
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.buyer')"
         :content="buyerAddress"
         :route="{
@@ -14,7 +14,7 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.tsp')"
         :content="tspAddress"
         :route="{
@@ -24,24 +24,15 @@
         look="font-monotype"
       />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgBuyMembership',
   description: 'Display a buy membership transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

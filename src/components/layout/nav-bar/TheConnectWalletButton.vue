@@ -21,7 +21,9 @@
     <v-dialog v-model="dialog" max-width="800">
       <v-card>
         <v-toolbar flat>
-          <v-toolbar-title class="info--text" v-text="$t('labels.info')" />
+          <v-toolbar-title>
+            <span class="info--text" v-text="$t('labels.info')" />
+          </v-toolbar-title>
           <v-icon color="info" right>{{ mdiInformationOutline }}</v-icon>
           <v-spacer />
           <v-toolbar-items>

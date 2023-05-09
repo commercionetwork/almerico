@@ -1,25 +1,25 @@
 <template>
   <v-row class="mt-1">
     <v-col cols="12" md="6">
-      <AccountViewDashboardChartCapitalization
+      <account-view-dashboard-chart-capitalization
         :capitalization="capital.capitalization"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountViewDashboardCapitalization
+      <account-view-dashboard-capitalization
         :capitalization="capital.capitalization"
         :params="stakingParams"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountViewDashboardDelegations
+      <account-view-dashboard-delegations
         :delegations="delegations"
         :params="stakingParams"
         :validators="validators"
       />
     </v-col>
     <v-col cols="12" md="6">
-      <AccountViewDashboardUnbondingDelegations
+      <account-view-dashboard-unbonding-delegations
         :unbondings="unbondings"
         :params="stakingParams"
         :validators="validators"

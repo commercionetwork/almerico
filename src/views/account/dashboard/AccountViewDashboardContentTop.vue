@@ -1,19 +1,19 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <AccountIdentity />
+      <account-identity />
     </v-col>
     <v-col cols="12" md="4">
-      <AccountViewDashboardChartPerformance :assets="capital.assets" />
+      <account-view-dashboard-chart-performance :assets="capital.assets" />
     </v-col>
     <v-col cols="12" md="4">
-      <AccountTokensBalance :balances="balances">
+      <account-tokens-balance :balances="balances">
         <template>
           <v-btn color="primary" depressed :to="toBalance">
             <span class="px-3" v-text="$t('labels.showAll')" />
           </v-btn>
         </template>
-      </AccountTokensBalance>
+      </account-tokens-balance>
     </v-col>
   </v-row>
 </template>

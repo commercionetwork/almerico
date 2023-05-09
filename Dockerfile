@@ -1,4 +1,4 @@
-FROM node:16-slim
+FROM node:16
 
 # Read the set variables
 ARG ANCESTORS_LIST
@@ -28,9 +28,6 @@ ENV VUE_APP_WASM_CW20_CODE_ID ${WASM_CW20_CODE_ID}
 ENV VUE_APP_WASM_SWAP_CODE_ID ${WASM_SWAP_CODE_ID}
 ENV VUE_APP_WS ${WS_URL}
 
-# Set unsafe perm in order to avoid npm errors
-RUN npm config set unsafe-perm true
-
 # Install static server
 RUN npm install -g serve
 
@@ -54,6 +51,9 @@ WORKDIR /app
 
 # Clean up (i.e. extract 'dist' folder and remove everything else)
 RUN mv tmp/dist dist && rm -fr tmp
+
+# Update docker image
+RUN apt-get update && apt-get dist-upgrade -y
 
 # Start the server
 CMD [ "serve", "--single", "-p", "5000", "dist" ]
