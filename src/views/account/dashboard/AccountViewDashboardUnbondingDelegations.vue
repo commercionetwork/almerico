@@ -23,22 +23,24 @@
         <template #[`item.moniker`]="{ item }">
           <router-link
             class="text-decoration-none"
-            v-text="item.moniker"
             :to="{
               name: ROUTES.NAME.VALIDATORS_DETAIL,
               params: { id: item.operator },
             }"
-          />
+          >
+            <span v-text="item.moniker" />
+          </router-link>
         </template>
         <template #[`item.height`]="{ item }">
           <router-link
             class="text-decoration-none"
-            v-text="item.height"
             :to="{
               name: ROUTES.NAME.BLOCKS_DETAIL,
               params: { id: item.height },
             }"
-          />
+          >
+            <span v-text="item.height" />
+          </router-link>
         </template>
         <template #[`item.balance`]="{ item }">
           <span

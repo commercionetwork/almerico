@@ -1,10 +1,10 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <BlocksViewDetailHeight :detail="detail" :proposer="proposer" />
+      <blocks-view-detail-height :detail="detail" :proposer="proposer" />
     </v-col>
     <v-col cols="12" md="6">
-      <BlocksViewDetailTransactions
+      <blocks-view-detail-transactions
         :items="items"
         :height="detail.block.header.height"
       />

@@ -18,8 +18,9 @@
               href="https://commercio.network/"
               target="_blank"
               text
-              v-text="$t('labels.getOnline')"
-            />
+            >
+              <span v-text="$t('labels.getOnline')" />
+            </v-btn>
           </template>
         </v-banner>
       </v-card>

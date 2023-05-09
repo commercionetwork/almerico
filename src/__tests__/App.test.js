@@ -1,15 +1,8 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import App from '../App.vue';
 
-Vue.use(Vuetify);
-Vue.use(Vuex);
-
 const localVue = createLocalVue();
-localVue.use(VueRouter);
 
 describe('App.vue', () => {
   const actions = {

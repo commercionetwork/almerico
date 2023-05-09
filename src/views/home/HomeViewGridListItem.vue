@@ -1,8 +1,12 @@
 <template>
   <v-col cols="12" md="6">
     <v-card outlined>
-      <v-card-title v-text="type" />
-      <v-card-subtitle v-text="$t('labels.msgType')" />
+      <v-card-title>
+        <span v-text="type" />
+      </v-card-title>
+      <v-card-subtitle>
+        <span v-text="$t('labels.msgType')" />
+      </v-card-subtitle>
       <v-card-text>
         <v-list dense class="text-break">
           <v-list-item>
@@ -41,9 +45,10 @@
                 />
                 <router-link
                   class="pl-1 text-decoration-none text-overline"
-                  v-text="transaction.hash"
                   :to="txLink"
-                />
+                >
+                  <span v-text="transaction.hash" />
+                </router-link>
               </div>
             </v-list-item-content>
           </v-list-item>

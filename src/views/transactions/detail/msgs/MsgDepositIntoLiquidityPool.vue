@@ -1,7 +1,7 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.depositor')"
         :content="depositorAddress"
         :route="{
@@ -11,7 +11,7 @@
         look="font-monotype"
       />
       <v-list-item v-for="(amount, index) in amounts" :key="index">
-        <BaseDetailItem
+        <base-detail-item
           :label="$t('labels.amount')"
           :content="amount"
           :is-loop="true"
@@ -19,25 +19,16 @@
         />
       </v-list-item>
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 
 export default {
   name: 'MsgDepositIntoLiquidityPool',
   description: 'Display a deposit into liquidity pool transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

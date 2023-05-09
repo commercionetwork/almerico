@@ -1,10 +1,10 @@
 <template>
   <v-row class="mt-1">
     <v-col cols="12" md="8">
-      <ProposalsViewDetailVotesStatsData :stats="stats" />
+      <proposals-view-detail-votes-stats-data :stats="stats" />
     </v-col>
     <v-col cols="12" md="4">
-      <ProposalsViewDetailVotesStatsChart :stats="stats" />
+      <proposals-view-detail-votes-stats-chart :stats="stats" />
     </v-col>
   </v-row>
 </template>

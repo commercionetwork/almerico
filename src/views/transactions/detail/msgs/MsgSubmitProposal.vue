@@ -1,38 +1,36 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize"
-            v-text="$t('labels.content')"
-          />
-          <BaseDetailItem
+          <v-list-item-title>
+            <span class="text-capitalize" v-text="$t('labels.content')" />
+          </v-list-item-title>
+          <base-detail-item
             :label="$t('labels.type')"
             :content="content['@type']"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.title')"
             :content="content.title"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.description')"
             :content="content.description"
           />
           <v-list dense>
             <v-list-item>
               <v-list-item-content>
-                <v-list-item-title
-                  class="text-capitalize"
-                  v-text="$t('labels.changes')"
-                />
+                <v-list-item-title>
+                  <span class="text-capitalize" v-text="$t('labels.changes')" />
+                </v-list-item-title>
                 <v-list-item
                   v-for="(change, index) in content.changes"
                   :key="index"
                 >
                   <v-list dense>
                     <v-list-item v-for="(value, key) in change" :key="key">
-                      <BaseDetailItem
+                      <base-detail-item
                         :label="key"
                         :content="value"
                         :is-loop="true"
@@ -46,14 +44,14 @@
         </v-list-item-content>
       </v-list-item>
       <v-list-item v-for="(deposit, index) in initialDeposit" :key="index">
-        <BaseDetailItem
+        <base-detail-item
           :label="$t('labels.deposit')"
           :content="deposit"
           :is-loop="true"
           look="text-uppercase"
         />
       </v-list-item>
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.proposer')"
         :content="proposerAddress"
         :route="{
@@ -63,25 +61,16 @@
         look="font-monotype"
       />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 
 export default {
   name: 'MsgSubmitProposal',
   description: 'Display a submit proposal transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

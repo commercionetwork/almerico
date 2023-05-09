@@ -1,15 +1,15 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <ValidatorsViewDetailDelegatedTokens
+      <validators-view-detail-delegated-tokens
         :delegations="processedDelegations"
       />
     </v-col>
     <v-col cols="12" md="4">
-      <ValidatorsViewDetailChart :delegations="processedDelegations" />
+      <validators-view-detail-chart :delegations="processedDelegations" />
     </v-col>
     <v-col cols="12" md="4">
-      <ValidatorsViewDetailDelegatorAmounts />
+      <validators-view-detail-delegator-amounts />
     </v-col>
   </v-row>
 </template>

@@ -1,7 +1,7 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.government')"
         :content="governmentAddress"
         :route="{
@@ -10,7 +10,7 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.subscriber')"
         :content="subscriberAddress"
         :route="{
@@ -19,29 +19,20 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.newMembership')"
         :content="newMembership"
       />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgSetMembership',
   description: 'Display a set membership transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

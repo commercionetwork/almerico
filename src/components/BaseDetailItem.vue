@@ -1,20 +1,20 @@
 <template>
   <v-list-item-content v-if="isLoop">
-    <v-list-item-title class="py-1 text-capitalize" v-text="label" />
-    <v-list-item-subtitle
-      class="py-1 word-break"
-      :class="look"
-      v-text="content"
-    />
+    <v-list-item-title class="py-1 text-capitalize">
+      <span v-text="label" />
+    </v-list-item-title>
+    <v-list-item-subtitle class="py-1 word-break" :class="look">
+      <span v-text="content" />
+    </v-list-item-subtitle>
   </v-list-item-content>
   <v-list-item v-else>
     <v-list-item-content>
-      <v-list-item-title class="py-1 text-capitalize" v-text="label" />
-      <v-list-item-subtitle
-        class="py-1 word-break"
-        :class="look"
-        v-text="content"
-      />
+      <v-list-item-title class="py-1 text-capitalize">
+        <span v-text="label" />
+      </v-list-item-title>
+      <v-list-item-subtitle class="py-1 word-break" :class="look">
+        <span v-text="content" />
+      </v-list-item-subtitle>
     </v-list-item-content>
   </v-list-item>
 </template>

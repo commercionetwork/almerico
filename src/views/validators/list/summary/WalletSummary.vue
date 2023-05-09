@@ -6,25 +6,25 @@
           <v-col cols="12" md="8">
             <v-row>
               <v-col cols="12" md="3">
-                <WalletSummaryItem
+                <wallet-summary-item
                   :label="$t('labels.total')"
                   :amount="capital.total"
                 />
               </v-col>
               <v-col cols="12" md="3">
-                <WalletSummaryItem
+                <wallet-summary-item
                   :label="$t('labels.availables')"
                   :amount="capital.availables"
                 />
               </v-col>
               <v-col cols="12" md="3">
-                <WalletSummaryItem
+                <wallet-summary-item
                   :label="$t('labels.delegations')"
                   :amount="capital.delegations"
                 />
               </v-col>
               <v-col cols="12" md="3">
-                <WalletSummaryItem
+                <wallet-summary-item
                   :label="$t('labels.unbondings')"
                   :amount="capital.unbondings"
                 />
@@ -32,11 +32,11 @@
             </v-row>
           </v-col>
           <v-col cols="12" md="4">
-            <WalletSummaryClaim :amount="capital.rewards" />
+            <wallet-summary-claim :amount="capital.rewards" />
           </v-col>
         </v-row>
         <v-divider />
-        <WalletSummaryTable />
+        <wallet-summary-table />
       </v-card>
     </v-col>
   </v-row>

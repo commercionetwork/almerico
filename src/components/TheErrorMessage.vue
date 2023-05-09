@@ -1,13 +1,13 @@
 <template>
   <div>
-    <TheAlertNotice kind="info" :message="$t('msgs.dataNotAvailable')">
+    <the-alert-notice kind="info" :message="$t('msgs.dataNotAvailable')">
       <template #action>
         <v-btn color="info" outlined @click="refresh">
           <v-icon>{{ mdiReload }}</v-icon>
           <span v-text="$t('labels.refresh')" />
         </v-btn>
       </template>
-    </TheAlertNotice>
+    </the-alert-notice>
     <v-row justify="center">
       <v-col>
         <v-expansion-panels flat poput>
@@ -19,26 +19,22 @@
               <v-list>
                 <v-list-item two-line>
                   <v-list-item-content>
-                    <v-list-item-title
-                      class="pb-1"
-                      v-text="$t('titles.message')"
-                    />
-                    <v-list-item-subtitle
-                      class="pb-1 text-wrap"
-                      v-text="message"
-                    />
+                    <v-list-item-title class="pb-1">
+                      <span v-text="$t('titles.message')" />
+                    </v-list-item-title>
+                    <v-list-item-subtitle class="pb-1 text-wrap">
+                      <span v-text="message" />
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
                 <v-list-item two-line>
                   <v-list-item-content>
-                    <v-list-item-title
-                      class="pb-1"
-                      v-text="$t('titles.code')"
-                    />
-                    <v-list-item-subtitle
-                      class="pb-1 text-wrap"
-                      v-text="code"
-                    />
+                    <v-list-item-title class="pb-1">
+                      <span v-text="$t('titles.code')" />
+                    </v-list-item-title>
+                    <v-list-item-subtitle class="pb-1 text-wrap">
+                      <span v-text="code" />
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -51,16 +47,11 @@
 </template>
 
 <script>
-import TheAlertNotice from '@/components/TheAlertNotice.vue';
-
 import errorHandler from './helpers/errorHandler';
 import { mdiReload } from '@mdi/js';
 
 export default {
   name: 'TheErrorMessage',
-  components: {
-    TheAlertNotice,
-  },
   props: {
     error: {
       type: Error,

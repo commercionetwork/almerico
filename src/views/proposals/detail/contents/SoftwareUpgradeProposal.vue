@@ -1,27 +1,29 @@
 <template>
   <v-list>
-    <BaseDetailItem :label="$t('labels.type')" :content="type" />
+    <base-detail-item :label="$t('labels.type')" :content="type" />
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title class="text-capitalize" v-text="$t('labels.plan')" />
+        <v-list-item-title>
+          <span class="text-capitalize" v-text="$t('labels.plan')" />
+        </v-list-item-title>
         <v-list>
           <v-list-item>
-            <BaseDetailItem :label="$t('labels.time')" :content="planTime" />
+            <base-detail-item :label="$t('labels.time')" :content="planTime" />
           </v-list-item>
           <v-list-item>
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.height')"
               :content="planHeight"
             />
           </v-list-item>
           <v-list-item>
-            <BaseDetailItem :label="$t('labels.name')" :content="planName" />
+            <base-detail-item :label="$t('labels.name')" :content="planName" />
           </v-list-item>
           <v-list-item>
-            <BaseDetailItem :label="$t('labels.info')" :content="planInfo" />
+            <base-detail-item :label="$t('labels.info')" :content="planInfo" />
           </v-list-item>
           <v-list-item>
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.upgradedClientState')"
               :content="planUpgradedClientState"
             />
@@ -33,11 +35,8 @@
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem';
-
 export default {
   name: 'SoftwareUpgradeProposal',
-  components: { BaseDetailItem },
   props: {
     content: {
       type: Object,

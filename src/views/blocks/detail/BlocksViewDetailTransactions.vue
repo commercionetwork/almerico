@@ -26,12 +26,13 @@
           <div class="word-overflow">
             <router-link
               class="text-decoration-none text-monotype"
-              v-text="item.hash"
               :to="{
                 name: ROUTES.NAME.TRANSACTIONS_DETAIL,
                 params: { id: item.hash },
               }"
-            />
+            >
+              <span v-text="item.hash" />
+            </router-link>
           </div>
         </template>
       </v-data-table>

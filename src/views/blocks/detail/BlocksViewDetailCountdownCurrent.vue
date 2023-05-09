@@ -1,22 +1,19 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.latestHeight')">
+  <base-top-content-card :title="$t('titles.latestHeight')">
     <template #content>
       <div
         class="primary--text text-h4 font-weight-bold fill-height d-flex justify-center"
         v-text="latestHeight"
       />
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard';
-
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'BlocksViewDetailCountdownCurrent',
-  components: { BaseTopContentCard },
   computed: {
     ...mapGetters('application', ['latestBlock']),
     latestHeight() {

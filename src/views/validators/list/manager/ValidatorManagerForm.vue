@@ -2,21 +2,21 @@
   <v-form :disabled="isLoading" @submit.prevent="onConfirm">
     <v-row>
       <v-col cols="12" md="8" offset-md="2">
-        <ValidatorManagerAction v-model="model.action" />
+        <validator-manager-action v-model="model.action" />
       </v-col>
       <v-col v-if="isRedelegating" cols="12" md="8" offset-md="2">
-        <ValidatorManagerDelegationSearch
+        <validator-manager-delegation-search
           :delegations="delegations"
           :validatorAddress="validatorAddress"
           v-model="model.srcAddress"
         />
       </v-col>
       <v-col cols="12" md="8" offset-md="2">
-        <ValidatorManagerSummary :actionId="actionId" :summary="summary" />
+        <validator-manager-summary :actionId="actionId" :summary="summary" />
       </v-col>
       <v-col cols="12" md="8" offset-md="2">
-        <ValidatorManagerMaxButton v-on:set-max="onSetMax" />
-        <ValidatorManagerAmount
+        <validator-manager-max-button v-on:set-max="onSetMax" />
+        <validator-manager-amount
           v-model.number="model.amount"
           :v="$v.model.amount"
         />
@@ -33,7 +33,7 @@
         </v-btn>
       </v-col>
       <v-col v-if="!isRedelegating" cols="12" md="8" offset-md="2">
-        <ValidatorManagerAdvice :actionId="actionId" />
+        <validator-manager-advice :actionId="actionId" />
       </v-col>
     </v-row>
   </v-form>

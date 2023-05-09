@@ -1,5 +1,5 @@
 <template>
-  <BaseChart
+  <base-chart
     v-if="chartData && chartOptions"
     :id="CHARTS.ID.PROPOSAL_DETAIL"
     :dataset="chartData"
@@ -11,14 +11,11 @@
 </template>
 
 <script>
-import BaseChart from '@/components/chart/BaseChart';
-
 import proposalChartHelper from './helpers/proposalChartHelper';
 import { CHARTS } from '@/constants';
 
 export default {
   name: 'ProposalsViewDetailVotesStatsChart',
-  components: { BaseChart },
   props: {
     stats: {
       type: Object,

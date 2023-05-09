@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.cccExchangeRate')">
+  <base-top-content-card :title="$t('titles.cccExchangeRate')">
     <template #content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-center"
@@ -11,17 +11,14 @@
         />
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'ExchangeRateViewPoster',
-  components: { BaseTopContentCard },
   computed: {
     ...mapGetters('exchangeRate', ['overview']),
     rate() {

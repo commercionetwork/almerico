@@ -1,13 +1,13 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <ValidatorsViewDetailIdentity />
+      <validators-view-detail-identity />
     </v-col>
     <v-col cols="12" md="4">
-      <ValidatorsViewDetailAttributes />
+      <validators-view-detail-attributes />
     </v-col>
     <v-col cols="12" md="4">
-      <ValidatorsViewDetailBlocksMonitor />
+      <validators-view-detail-blocks-monitor />
     </v-col>
   </v-row>
 </template>

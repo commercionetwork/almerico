@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <BaseLoadingLinear :height="25" />
+      <base-loading-linear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -9,12 +9,12 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <TheErrorMessage :error="error" />
+      <the-error-message :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <TheHeaderContent :title="$t('titles.blocks')" />
-      <BlocksViewListContentTop @searching-blocks="onSearchingBlocks" />
-      <BlocksViewListTable />
+      <the-header-content :title="$t('titles.blocks')" />
+      <blocks-view-list-content-top @searching-blocks="onSearchingBlocks" />
+      <blocks-view-list-table />
     </v-col>
   </v-row>
 </template>
@@ -22,9 +22,6 @@
 <script>
 import BlocksViewListTable from './list/BlocksViewListTable.vue';
 import BlocksViewListContentTop from './list/BlocksViewListContentTop.vue';
-import TheErrorMessage from '@/components/TheErrorMessage.vue';
-import TheHeaderContent from '@/components/TheHeaderContent';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 
 import { CONFIG } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
@@ -32,11 +29,8 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
   name: 'BlocksViewList',
   components: {
-    BaseLoadingLinear,
     BlocksViewListContentTop,
     BlocksViewListTable,
-    TheErrorMessage,
-    TheHeaderContent,
   },
   data() {
     return {

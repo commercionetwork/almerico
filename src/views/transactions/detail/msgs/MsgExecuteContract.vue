@@ -1,7 +1,7 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.sender')"
         :content="senderAddress"
         :route="{
@@ -10,28 +10,19 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem :label="$t('labels.contract')" :content="contract" />
-      <BaseDetailItem :label="$t('labels.msg')" :content="msg" />
-      <BaseDetailItem :label="$t('labels.funds')" :content="funds" />
+      <base-detail-item :label="$t('labels.contract')" :content="contract" />
+      <base-detail-item :label="$t('labels.msg')" :content="msg" />
+      <base-detail-item :label="$t('labels.funds')" :content="funds" />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgExecuteContract',
   description: 'Display an execute contract transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

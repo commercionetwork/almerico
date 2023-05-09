@@ -3,7 +3,7 @@
     outlined
     class="fill-height d-flex flex-column justify-start align-content-center"
   >
-    <AccountIdentityMembership />
+    <account-identity-membership />
     <v-divider class="mx-3" />
     <v-card-text>
       <div class="pl-md-2 text-center text-md-left">
@@ -27,7 +27,7 @@
             </template>
             <span v-text="$t('msgs.scan')" />
           </v-tooltip>
-          <AccountModalQRCode v-model="dialog" :address="address" />
+          <account-modal-QR-code v-model="dialog" :address="address" />
         </div>
         <div
           class="text-break font-weight-bold font-monotype"

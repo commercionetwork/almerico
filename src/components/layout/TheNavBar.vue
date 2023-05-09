@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-navigation-drawer app disable-resize-watcher fixed v-model="drawer">
-      <TheDrawer />
+      <the-drawer />
     </v-navigation-drawer>
     <v-app-bar app color="primary" dark flat>
       <v-row class="d-flex align-center">
@@ -18,10 +18,10 @@
           </router-link>
         </v-col>
         <v-col cols="7" md="5" class="d-flex justify-end">
-          <TheConnectWalletButton />
+          <the-connect-wallet-button />
         </v-col>
       </v-row>
-      <TheConnectSnackBar />
+      <the-connect-snack-bar />
     </v-app-bar>
   </nav>
 </template>

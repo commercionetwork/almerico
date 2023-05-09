@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.searchBlocks')">
+  <base-top-content-card :title="$t('titles.searchBlocks')">
     <template #content>
       <div class="fill-height">
         <v-form>
@@ -29,39 +29,28 @@
           </v-row>
           <v-row>
             <v-col cols="4" offset="2">
-              <v-btn
-                @click="search(true)"
-                block
-                color="primary"
-                depressed
-                v-text="$t('labels.search')"
-              />
+              <v-btn @click="search(true)" block color="primary" depressed>
+                <span v-text="$t('labels.search')" />
+              </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn
-                @click="search(false)"
-                block
-                color="secondary"
-                outlined
-                v-text="$t('labels.reset')"
-              />
+              <v-btn @click="search(false)" block color="secondary" outlined>
+                <span v-text="$t('labels.reset')" />
+              </v-btn>
             </v-col>
           </v-row>
         </v-form>
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-
 import { BLOCKS, CONFIG } from '@/constants';
 import { mdiInformationOutline, mdiMagnify } from '@mdi/js';
 
 export default {
   name: 'BlocksViewListSearch',
-  components: { BaseTopContentCard },
   data() {
     return {
       BLOCKS,
