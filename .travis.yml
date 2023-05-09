@@ -8,7 +8,8 @@ services:
 
 branches:
   except:
-    - /^wip\/.*/
+    - /^bug/
+    - /^wip/
 
 install:
   - npm install -s --no-audit --no-fund

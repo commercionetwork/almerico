@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <BaseLoadingLinear :height="25" />
+      <base-loading-linear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -9,43 +9,35 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <TheErrorMessage :error="error" />
+      <the-error-message :error="error" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <TheHeaderContent
+      <the-header-content
         :title="$t('titles.dashboard')"
         :has-optional-content="true"
       >
-        <TheChainChooser />
-      </TheHeaderContent>
-      <HomeViewContentTop />
-      <HomeViewBanner />
-      <HomeViewGridList />
+        <the-chain-chooser />
+      </the-header-content>
+      <home-view-content-top />
+      <home-view-banner />
+      <home-view-grid-list />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
 import HomeViewBanner from './HomeViewBanner';
 import HomeViewContentTop from './HomeViewContentTop';
 import HomeViewGridList from './HomeViewGridList';
-import TheChainChooser from '@/components/TheChainChooser';
-import TheErrorMessage from '@/components/TheErrorMessage.vue';
-import TheHeaderContent from '@/components/TheHeaderContent';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'HomeView',
   components: {
-    BaseLoadingLinear,
     HomeViewBanner,
     HomeViewContentTop,
     HomeViewGridList,
-    TheChainChooser,
-    TheErrorMessage,
-    TheHeaderContent,
   },
   computed: {
     ...mapGetters('home', [

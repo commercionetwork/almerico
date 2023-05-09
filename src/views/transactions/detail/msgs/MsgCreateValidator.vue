@@ -1,29 +1,31 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.description')"
-          />
-          <BaseDetailItem
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('titles.description')"
+            />
+          </v-list-item-title>
+          <base-detail-item
             :label="$t('labels.moniker')"
             :content="descriptionMoniker"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.identity')"
             :content="descriptionIdentity"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.website')"
             :content="descriptionWebsite"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.securityContact')"
             :content="descriptionSecurityContact"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.detail')"
             :content="descriptionDetails"
           />
@@ -31,29 +33,31 @@
       </v-list-item>
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.commission')"
-          />
-          <BaseDetailItem
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('titles.commission')"
+            />
+          </v-list-item-title>
+          <base-detail-item
             :label="$t('labels.rate')"
             :content="commissionRate"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.maxRate')"
             :content="commissionMaxRate"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.maxChangeRate')"
             :content="commissionMaxChangeRate"
           />
         </v-list-item-content>
       </v-list-item>
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.minSelfDelegation')"
         :content="minSelfDelegation"
       />
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.delegatorAddress')"
         :content="delegatorAddress"
         :route="{
@@ -62,7 +66,7 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.validatorAddress')"
         :content="validatorAddress"
         :route="{
@@ -71,41 +75,34 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.amount')"
         :content="amount"
         class="text-uppercase"
       />
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('labels.publicKey')"
-          />
-          <BaseDetailItem :label="$t('labels.type')" :content="pubkeyType" />
-          <BaseDetailItem :label="$t('labels.key')" :content="pubkeyKey" />
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('labels.publicKey')"
+            />
+          </v-list-item-title>
+          <base-detail-item :label="$t('labels.type')" :content="pubkeyType" />
+          <base-detail-item :label="$t('labels.key')" :content="pubkeyKey" />
         </v-list-item-content>
       </v-list-item>
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 import { coinAdapter } from '@/utils';
 
 export default {
   name: 'MsgCreateValidator',
   description: 'Display a create validator transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

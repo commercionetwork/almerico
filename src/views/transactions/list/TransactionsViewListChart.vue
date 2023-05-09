@@ -1,8 +1,8 @@
 <template>
-  <BaseTopContentCard :loading="isRefreshing" :title="chartLabel">
+  <base-top-content-card :loading="isRefreshing" :title="chartLabel">
     <template #content>
       <div class="fill-height">
-        <BaseChart
+        <base-chart
           :id="CHARTS.ID.TRANSACTIONS_LIST"
           :dataset="chartData"
           :options="chartOptions"
@@ -10,23 +10,16 @@
         />
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseChart from '@/components/chart/BaseChart';
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-
 import transactionsChartHelper from './helpers/transactionsChartHelper';
 import { CHARTS } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'TransactionsViewListChart',
-  components: {
-    BaseChart,
-    BaseTopContentCard,
-  },
   data() {
     return {
       CHARTS,

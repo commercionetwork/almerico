@@ -1,35 +1,37 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.description')"
-          />
-          <BaseDetailItem
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('titles.description')"
+            />
+          </v-list-item-title>
+          <base-detail-item
             :label="$t('labels.moniker')"
             :content="descriptionMoniker"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.identity')"
             :content="descriptionIdentity"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.website')"
             :content="descriptionWebsite"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.securityContact')"
             :content="descriptionSecurityContact"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.detail')"
             :content="descriptionDetails"
           />
         </v-list-item-content>
       </v-list-item>
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.address')"
         :content="address"
         :route="{
@@ -38,30 +40,21 @@
         }"
         look="font-monotype"
       />
-      <BaseDetailItem :label="$t('labels.rate')" :content="commissionRate" />
-      <BaseDetailItem
+      <base-detail-item :label="$t('labels.rate')" :content="commissionRate" />
+      <base-detail-item
         :label="$t('labels.minSelfDelegation')"
         :content="minSelfDelegation"
       />
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
-
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'MsgEditValidator',
   description: 'Display an edit validator transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-  },
   props: {
     message: {
       type: Object,

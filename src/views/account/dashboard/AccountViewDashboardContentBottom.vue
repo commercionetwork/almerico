@@ -2,7 +2,8 @@
   <v-row class="mt-1">
     <v-col cols="12">
       <v-card outlined>
-        <AccountViewDashboardTransactions :items="items" />
+        <account-view-dashboard-transactions-filter @filter-txs="onFilterTxs" />
+        <account-view-dashboard-transactions :items="items" />
       </v-card>
     </v-col>
     <v-col
@@ -15,14 +16,14 @@
         },
       }"
     >
-      <BaseLoadingLinear v-if="isAddingTxs" />
+      <base-loading-linear v-if="isAddingTxs" />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import AccountViewDashboardTransactions from './AccountViewDashboardTransactions.vue';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
+import AccountViewDashboardTransactionsFilter from './AccountViewDashboardTransactionsFilter.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 import { txsTableAdapter } from '@/utils';
@@ -31,7 +32,12 @@ export default {
   name: 'AccountViewDashboardContentBottom',
   components: {
     AccountViewDashboardTransactions,
-    BaseLoadingLinear,
+    AccountViewDashboardTransactionsFilter,
+  },
+  data() {
+    return {
+      isSentTxs: true,
+    };
   },
   computed: {
     ...mapGetters('account', [
@@ -54,12 +60,25 @@ export default {
     },
   },
   methods: {
-    ...mapActions('account', ['addTransactions']),
+    ...mapActions('account', [
+      'addTransactions',
+      'fetchTransactions',
+      'resetTransactions',
+    ]),
+    onFilterTxs(value) {
+      this.resetTransactions();
+      this.isSentTxs = value;
+      this.fetchTransactions({
+        address: this.address,
+        sent: value,
+      });
+    },
     onIntersect(_entries, _observer, isIntersecting) {
       if (isIntersecting && this.transactionsTotal > this.transactionsOffset) {
         this.addTransactions({
           address: this.address,
           offset: this.transactionsOffset,
+          sent: this.isSentTxs,
         });
       }
     },

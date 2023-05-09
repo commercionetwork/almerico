@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
-      <BaseLoadingLinear :height="25" />
+      <base-loading-linear :height="25" />
     </v-col>
     <v-col
       cols="12"
@@ -9,12 +9,12 @@
       v-else-if="!isLoading && error"
       data-test="error"
     >
-      <TheAlertNotice kind="warning" :message="$t('msgs.accountNotExist')" />
+      <the-alert-notice kind="warning" :message="$t('msgs.accountNotExist')" />
     </v-col>
     <v-col cols="12" v-else data-test="content">
-      <TheHeaderContent :title="$t('titles.accountBalance')" />
-      <AccountViewBalanceContentTop />
-      <AccountViewBalanceTable />
+      <the-header-content :title="$t('titles.accountBalance')" />
+      <account-view-balance-content-top />
+      <account-view-balance-table />
     </v-col>
   </v-row>
 </template>
@@ -22,9 +22,6 @@
 <script>
 import AccountViewBalanceTable from './balance/AccountViewBalanceTable.vue';
 import AccountViewBalanceContentTop from './balance/AccountViewBalanceContentTop.vue';
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-import TheAlertNotice from '@/components/TheAlertNotice.vue';
-import TheHeaderContent from '@/components/TheHeaderContent';
 
 import { ROUTES } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
@@ -34,9 +31,6 @@ export default {
   components: {
     AccountViewBalanceTable,
     AccountViewBalanceContentTop,
-    BaseLoadingLinear,
-    TheAlertNotice,
-    TheHeaderContent,
   },
   props: {
     id: {

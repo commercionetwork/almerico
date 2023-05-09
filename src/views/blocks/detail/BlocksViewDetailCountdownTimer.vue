@@ -1,5 +1,5 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.countdownForBlock')">
+  <base-top-content-card :title="$t('titles.countdownForBlock')">
     <template #content>
       <v-row>
         <v-col cols="12" sm="3" class="d-flex flex-column align-center">
@@ -48,15 +48,12 @@
         </v-col>
       </v-row>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard';
-
 export default {
   name: 'BlocksViewDetailCountdownTimer',
-  components: { BaseTopContentCard },
   props: {
     countDown: {
       type: Object,

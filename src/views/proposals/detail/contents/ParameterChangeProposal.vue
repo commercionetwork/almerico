@@ -1,24 +1,23 @@
 <template>
   <v-list>
-    <BaseDetailItem :label="$t('labels.type')" :content="type" />
+    <base-detail-item :label="$t('labels.type')" :content="type" />
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title
-          class="text-capitalize"
-          v-text="$t('labels.changes')"
-        />
+        <v-list-item-title>
+          <span class="text-capitalize" v-text="$t('labels.changes')" />
+        </v-list-item-title>
         <v-list v-for="(change, index) in changes" :key="index">
           <v-list-item>
-            <BaseDetailItem :label="$t('labels.key')" :content="change.key" />
+            <base-detail-item :label="$t('labels.key')" :content="change.key" />
           </v-list-item>
           <v-list-item>
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.subspace')"
               :content="change.subspace"
             />
           </v-list-item>
           <v-list-item>
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.value')"
               :content="change.value"
             />
@@ -30,11 +29,8 @@
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem';
-
 export default {
   name: 'ParameterChangeProposal',
-  components: { BaseDetailItem },
   props: {
     content: {
       type: Object,

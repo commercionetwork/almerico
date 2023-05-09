@@ -27,7 +27,7 @@
           </v-toolbar-items>
         </v-toolbar>
         <v-card-text>
-          <ValidatorManagerForm
+          <validator-manager-form
             :delegations="delegations"
             :validatorAddress="address"
           />

@@ -1,26 +1,24 @@
 <template>
   <v-row>
     <v-col cols="12" md="4">
-      <TheLatestHeight />
+      <the-latest-height />
     </v-col>
     <v-col cols="12" md="4">
-      <ValidatorsViewListChart />
+      <validators-view-list-chart />
     </v-col>
     <v-col cols="12" md="4">
-      <ValidatorsViewListSearch />
+      <validators-view-list-search />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import TheLatestHeight from '@/components/TheLatestHeight';
 import ValidatorsViewListChart from './ValidatorsViewListChart.vue';
 import ValidatorsViewListSearch from './ValidatorsViewListSearch.vue';
 
 export default {
   name: 'ValidatorsViewListContentTop',
   components: {
-    TheLatestHeight,
     ValidatorsViewListChart,
     ValidatorsViewListSearch,
   },

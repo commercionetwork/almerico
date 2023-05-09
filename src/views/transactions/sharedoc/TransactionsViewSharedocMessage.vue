@@ -1,7 +1,7 @@
 <template>
-  <BaseTransactionMessage :message="message">
+  <base-transaction-message :message="message">
     <div slot="body">
-      <BaseDetailLink
+      <base-detail-link
         :label="$t('labels.sender')"
         :content="senderAddress"
         :route="{
@@ -12,15 +12,17 @@
       />
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.recipients')"
-          />
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('titles.recipients')"
+            />
+          </v-list-item-title>
           <v-list-item
             v-for="(recipientAddress, index) in recipients"
             :key="index"
           >
-            <BaseDetailLink
+            <base-detail-link
               :label="$t('labels.address')"
               :content="recipientAddress"
               :is-loop="true"
@@ -33,94 +35,103 @@
           </v-list-item>
         </v-list-item-content>
       </v-list-item>
-      <BaseDetailItem :label="$t('labels.uuid')" :content="uuid" />
+      <base-detail-item :label="$t('labels.uuid')" :content="uuid" />
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.metadata')"
-          />
-          <BaseDetailItem
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('titles.metadata')"
+            />
+          </v-list-item-title>
+          <base-detail-item
             :label="$t('labels.metadataContentUri')"
             :content="metadataContentUri"
           />
           <span v-if="metadataSchemaType !== '-'">
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.metadataSchemaType')"
               :content="metadataSchemaType"
             />
           </span>
           <span v-else>
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.metadataSchemaUri')"
               :content="metadataSchemaUri"
             />
-            <BaseDetailItem
+            <base-detail-item
               :label="$t('labels.metadataSchemaVersion')"
               :content="metadataSchemaVersion"
             />
           </span>
         </v-list-item-content>
       </v-list-item>
-      <BaseDetailItem :label="$t('labels.contentUri')" :content="contentUri" />
+      <base-detail-item
+        :label="$t('labels.contentUri')"
+        :content="contentUri"
+      />
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.checksum')"
-          />
-          <BaseDetailItem
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('titles.checksum')"
+            />
+          </v-list-item-title>
+          <base-detail-item
             :label="$t('labels.value')"
             :content="checksumValue"
           />
-          <TransactionsViewSharedocFileVerify
+          <transactions-view-sharedoc-file-verify
             :checksumAlgorithm="checksumAlgorithm"
             :checksumValue="checksumValue"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.algorithm')"
             :content="checksumAlgorithm"
           />
         </v-list-item-content>
       </v-list-item>
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.encryptionDataKeys')"
         :content="encryptionDataKeys"
       />
-      <BaseDetailItem
+      <base-detail-item
         :label="$t('labels.encryptionDataEncryptedData')"
         :content="encryptionDataEncryptedData"
       />
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title
-            class="text-capitalize font-weight-bold"
-            v-text="$t('titles.doSign')"
-          />
-          <BaseDetailItem
+          <v-list-item-title>
+            <span
+              class="text-capitalize font-weight-bold"
+              v-text="$t('titles.doSign')"
+            />
+          </v-list-item-title>
+          <base-detail-item
             :label="$t('labels.storageUri')"
             :content="doSignStorageUri"
           />
-          <BaseDetailItem
+          <base-detail-item
             :label="$t('labels.signerInstance')"
             :content="doSignSigner"
           />
-          <BaseDetailItem :label="$t('labels.sdnData')" :content="doSignSdn" />
-          <BaseDetailItem :label="$t('labels.vcrId')" :content="doSignVcr" />
-          <BaseDetailItem
+          <base-detail-item
+            :label="$t('labels.sdnData')"
+            :content="doSignSdn"
+          />
+          <base-detail-item :label="$t('labels.vcrId')" :content="doSignVcr" />
+          <base-detail-item
             :label="$t('labels.certificateProfile')"
             :content="doSignCertificate"
           />
         </v-list-item-content>
       </v-list-item>
     </div>
-  </BaseTransactionMessage>
+  </base-transaction-message>
 </template>
 
 <script>
-import BaseDetailItem from '@/components/BaseDetailItem.vue';
-import BaseDetailLink from '@/components/BaseDetailLink.vue';
-import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 import TransactionsViewSharedocFileVerify from './TransactionsViewSharedocFileVerify.vue';
 
 import { ROUTES } from '@/constants';
@@ -128,12 +139,7 @@ import { ROUTES } from '@/constants';
 export default {
   name: 'TransactionsViewSharedocMessage',
   description: 'Display a share document transaction message',
-  components: {
-    BaseDetailItem,
-    BaseDetailLink,
-    BaseTransactionMessage,
-    TransactionsViewSharedocFileVerify,
-  },
+  components: { TransactionsViewSharedocFileVerify },
   props: {
     message: {
       type: Object,

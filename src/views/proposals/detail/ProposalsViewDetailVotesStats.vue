@@ -7,10 +7,10 @@
       />
     </v-card-title>
     <v-card-text>
-      <ProposalsViewDetailVotesStatsHeader :stats="stats" />
+      <proposals-view-detail-votes-stats-header :stats="stats" />
     </v-card-text>
     <v-card-text>
-      <ProposalsViewDetailVotesStatsBody :stats="stats" />
+      <proposals-view-detail-votes-stats-body :stats="stats" />
     </v-card-text>
   </v-card>
 </template>

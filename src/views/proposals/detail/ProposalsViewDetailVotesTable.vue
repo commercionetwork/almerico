@@ -11,12 +11,13 @@
         <template #[`item.voter`]="{ item }">
           <router-link
             class="text-decoration-none"
-            v-text="item.voter"
             :to="{
               name: ROUTES.NAME.ACCOUNT,
               params: { id: item.voter },
             }"
-          />
+          >
+            <span v-text="item.voter" />
+          </router-link>
         </template>
       </v-data-table>
     </v-card-text>

@@ -8,21 +8,21 @@
       </div>
     </v-col>
     <v-col cols="12">
-      <ExchangeRateViewTable
+      <exchange-rate-view-table
         :headers="headers.maxSupply"
         :items="maxSupplyRows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
-      <ExchangeRateViewTable
+      <exchange-rate-view-table
         :headers="headers.nonCirculatingSupply"
         :items="nonCirculatingSupplyRows"
         :getRowStyle="getRowStyle"
       />
     </v-col>
     <v-col cols="12">
-      <ExchangeRateViewTable
+      <exchange-rate-view-table
         :headers="headers.circulatingSupply"
         :items="circulatingSupplyRows"
         :getRowStyle="getRowStyle"

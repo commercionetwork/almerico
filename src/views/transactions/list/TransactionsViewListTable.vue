@@ -1,7 +1,7 @@
 <template>
   <v-row v-if="isRefreshing" data-test="loading">
     <v-col cols="12" class="pa-5">
-      <BaseLoadingLinear />
+      <base-loading-linear />
     </v-col>
   </v-row>
   <v-row v-else data-test="content">
@@ -25,12 +25,13 @@
           <router-link
             class="d-inline-block text-truncate text-decoration-none font-monotype"
             style="max-width: 12rem"
-            v-text="item.hash"
             :to="{
               name: ROUTES.NAME.TRANSACTIONS_DETAIL,
               params: { id: item.hash },
             }"
-          />
+          >
+            <span v-text="item.hash" />
+          </router-link>
         </template>
         <template #[`item.types`]="{ item }">
           <span v-text="getType(item.msgs_number, item.types)" />
@@ -51,12 +52,13 @@
         <template #[`item.height`]="{ item }">
           <router-link
             class="text-decoration-none"
-            v-text="item.height"
             :to="{
               name: ROUTES.NAME.BLOCKS_DETAIL,
               params: { id: item.height },
             }"
-          />
+          >
+            <span v-text="item.height" />
+          </router-link>
         </template>
         <template #[`item.timestamp`]="{ item }">
           <v-tooltip top>
@@ -74,15 +76,12 @@
 </template>
 
 <script>
-import BaseLoadingLinear from '@/components/BaseLoadingLinear';
-
 import { ROUTES, TRANSACTIONS } from '@/constants';
 import { coinAdapter, dateHandler } from '@/utils';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'TransactionsViewListTable',
-  components: { BaseLoadingLinear },
   props: {
     txType: {
       type: String,

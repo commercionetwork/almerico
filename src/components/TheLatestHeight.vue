@@ -1,14 +1,15 @@
 <template>
-  <BaseTopContentCard :title="$t('titles.latestHeight')">
+  <base-top-content-card :title="$t('titles.latestHeight')">
     <template #content>
       <div
         class="fill-height d-flex flex-column justify-space-around align-center"
       >
         <router-link
           class="text-h4 text-decoration-none font-weight-bold"
-          v-text="blockHeight"
           :to="blockLink"
-        />
+        >
+          <span v-text="blockHeight" />
+        </router-link>
         <div class="font-weight-bold" v-text="time" />
         <div>
           <span v-text="$t('labels.msgsOnTxs')" />
@@ -18,9 +19,10 @@
           <span v-text="$t('labels.proposer')" />
           <router-link
             class="pl-1 text-decoration-none font-weight-bold"
-            v-text="proposerName"
             :to="proposerLink"
-          />
+          >
+            <span v-text="proposerName" />
+          </router-link>
         </div>
         <div>
           <span v-text="$t('labels.validators')" />
@@ -31,19 +33,16 @@
         </div>
       </div>
     </template>
-  </BaseTopContentCard>
+  </base-top-content-card>
 </template>
 
 <script>
-import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
-
 import { CONFIG, ROUTES, VALIDATORS } from '@/constants';
 import { mapGetters } from 'vuex';
 import { proposerHandler } from '@/utils';
 
 export default {
   name: 'TheLatestHeight',
-  components: { BaseTopContentCard },
   computed: {
     ...mapGetters('application', [
       'latestBlock',

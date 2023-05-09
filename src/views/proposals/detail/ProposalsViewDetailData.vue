@@ -1,16 +1,16 @@
 <template>
   <div>
     <div>
-      <ProposalsViewDetailDataVoting />
+      <proposals-view-detail-data-voting />
     </div>
     <div class="mt-3">
       <v-card outlined>
         <v-card-text>
           <v-list>
-            <ProposalsViewDetailDataHeader />
+            <proposals-view-detail-data-header />
             <v-divider />
-            <ProposalsViewDetailDataCommon />
-            <ProposalsViewDetailDataContent />
+            <proposals-view-detail-data-common />
+            <proposals-view-detail-data-content />
           </v-list>
         </v-card-text>
       </v-card>

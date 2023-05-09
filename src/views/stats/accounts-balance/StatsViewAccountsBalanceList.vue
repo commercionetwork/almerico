@@ -12,12 +12,13 @@
         <router-link
           class="text-decoration-none font-weight-bold"
           target="_blank"
-          v-text="item.address"
           :to="{
             name: ROUTES.NAME.ACCOUNT,
             params: { id: item.address },
           }"
-        />
+        >
+          <span v-text="item.address" />
+        </router-link>
       </template>
       <template #[`item.com`]="{ item }">
         <span v-text="formatBalance(item.com, 6)" />

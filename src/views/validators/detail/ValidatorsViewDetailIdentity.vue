@@ -6,7 +6,7 @@
     <v-card-text class="d-flex flex-row justify-space-between align-center">
       <v-row class="d-flex align-center">
         <v-col cols="12" sm="10" order="2" order-sm="1">
-          <ValidatorsViewDetailIdentityMoniker />
+          <validators-view-detail-identity-moniker />
         </v-col>
         <v-col
           cols="12"
@@ -15,13 +15,13 @@
           order-sm="2"
           class="d-flex justify-center justify-sm-end"
         >
-          <ValidatorsViewDetailIdentityLogo />
+          <validators-view-detail-identity-logo />
         </v-col>
       </v-row>
     </v-card-text>
     <v-divider class="mx-3" />
     <v-card-text>
-      <ValidatorsViewDetailIdentityAddress />
+      <validators-view-detail-identity-address />
     </v-card-text>
   </v-card>
 </template>

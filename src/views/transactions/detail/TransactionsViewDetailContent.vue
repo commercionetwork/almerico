@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12" md="6">
-      <TheTransactionsCommonContent :tx="tx" />
+      <the-transactions-common-content :tx="tx" />
     </v-col>
     <v-col cols="12" md="6">
       <div v-for="(message, index) in tx.msgs" :key="index">
