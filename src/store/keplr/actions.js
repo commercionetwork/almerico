@@ -115,7 +115,9 @@ export default {
       const chain = CONFIG.CHAIN.LIST.find(
         (item) => item.lcd === process.env.VUE_APP_LCD
       );
-      const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
+      const offlineSigner = await window.keplr.getOfflineSignerAuto(
+        chain.chainId
+      );
       const client = await SigningStargateClient.connectWithSigner(
         chain.rpc,
         offlineSigner
