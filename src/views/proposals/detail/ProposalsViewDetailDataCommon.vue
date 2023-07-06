@@ -6,7 +6,7 @@
           <span v-text="$t('labels.description')" />
         </v-list-item-title>
         <v-list-item-subtitle class="py-1">
-          <span v-html="description" />
+          <span class="text-wrap" v-html="description" />
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
