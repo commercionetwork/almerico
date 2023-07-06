@@ -45,6 +45,7 @@ const _getVotes = (tally) => {
       label: _getLabelFromOption(k),
       amount: _formatDecimal(data[k] / 1000000),
       percentage: _formatPercent(data[k] / total),
+      raw_amount: data[k],
     };
   }
   return data;
