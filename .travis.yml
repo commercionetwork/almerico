@@ -8,6 +8,7 @@ services:
 
 branches:
   except:
+    - /^bck/
     - /^bug/
     - /^wip/
 

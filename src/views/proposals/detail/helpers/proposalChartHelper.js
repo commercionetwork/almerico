@@ -16,7 +16,7 @@ const proposalChartHelper = {
     if (!votes) return null;
     const values = Object.values(votes);
     const labels = values.map((value) => `${value.label}: ${value.percentage}`);
-    const data = values.map((value) => parseFloat(value.amount));
+    const data = values.map((value) => parseFloat(value.raw_amount));
     return {
       labels,
       datasets: [

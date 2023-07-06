@@ -8,7 +8,7 @@
         <v-col cols="2" md="5" class="d-flex justify-start">
           <v-app-bar-nav-icon @click.stop="drawer = !drawer">
             <slot>
-              <v-icon size="35">{{ mdiMenu }}</v-icon>
+              <v-icon size="35">{{ drawer ? mdiWindowClose : mdiMenu }}</v-icon>
             </slot>
           </v-app-bar-nav-icon>
         </v-col>
@@ -32,7 +32,7 @@ import TheConnectWalletButton from './nav-bar/TheConnectWalletButton.vue';
 import TheDrawer from './nav-bar/drawer/TheDrawer';
 
 import { ROUTES } from '@/constants';
-import { mdiMenu } from '@mdi/js';
+import { mdiMenu, mdiWindowClose } from '@mdi/js';
 
 export default {
   name: 'TheNavBar',
@@ -45,6 +45,7 @@ export default {
     return {
       ROUTES,
       mdiMenu,
+      mdiWindowClose,
       drawer: false,
     };
   },
