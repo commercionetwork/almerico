@@ -1,26 +1,26 @@
 <template>
-  <v-list-item>
-    <v-list-item-icon>
-      <country-flag :country="locale.flag" size="normal" />
-    </v-list-item-icon>
-    <v-list-item-title>
-      <v-select
-        :hint="`${locale.text}, ${locale.label}`"
-        :items="items"
-        :placeholder="$t('labels.lang')"
-        dense
-        item-text="text"
-        item-value="value"
-        return-object
-        v-model="locale"
-        @change="onChangeLocale"
-      >
-        <template #selection="{ item }">
-          <span class="text-subtitle-2">{{ item.text }}</span>
-        </template>
-      </v-select>
-    </v-list-item-title>
-  </v-list-item>
+  <v-sheet color="rgba(0,0,0,0)">
+    <v-select
+      dense
+      item-text="text"
+      item-value="value"
+      persistent-hint
+      return-object
+      single-line
+      :hint="`${model.text}, ${model.label}`"
+      :items="items"
+      :label="$t('labels.lang')"
+      v-model="model"
+      @change="onChangeLocale"
+    >
+      <template #prepend>
+        <country-flag :country="model.flag" size="normal" />
+      </template>
+      <template #selection="{ item }">
+        <span class="text-subtitle-2">{{ item.text }}</span>
+      </template>
+    </v-select>
+  </v-sheet>
 </template>
 
 <script>
@@ -33,29 +33,29 @@ export default {
   components: { CountryFlag },
   data() {
     return {
-      locale: null,
+      model: null,
     };
   },
   computed: {
-    defaultLocale() {
-      return LOCALES.find((locale) => locale.default);
-    },
     items() {
       return LOCALES;
     },
   },
   created() {
-    this.locale = localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE)
-      ? JSON.parse(localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE))
-      : this.defaultLocale;
-    this.$i18n.locale = this.locale.value;
+    this.model = LOCALES.find((locale) => locale.default);
+    if (localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE)) {
+      this.model = JSON.parse(
+        localStorage.getItem(CONFIG.BROWSER_STORAGE_KEYS.LOCALE)
+      );
+      this.$i18n.locale = this.model.value;
+    }
   },
   methods: {
     onChangeLocale() {
-      this.$i18n.locale = this.locale.value;
+      this.$i18n.locale = this.model.value;
       localStorage.setItem(
         CONFIG.BROWSER_STORAGE_KEYS.LOCALE,
-        JSON.stringify(this.locale)
+        JSON.stringify(this.model)
       );
     },
   },
