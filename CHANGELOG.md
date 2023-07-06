@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.6.3] - 2023-07-06
 
+### Changed
+
+- Update drawer:
+
+  - Localization selector;
+  - Opening icon.
+
 ### Fixed
 
 - Fix chart of proposal detail page
