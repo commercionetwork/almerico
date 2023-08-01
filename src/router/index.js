@@ -1,6 +1,9 @@
-import { CONFIG, ROUTES } from '@/constants';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+
+import { CONFIG, ROUTES } from '@/constants';
+import store from '@/store';
+
 import { accountRoutes } from './routes/account';
 import { blocksRoutes } from './routes/blocks';
 import { exchangeRateRoutes } from './routes/exchangeRate';
@@ -51,6 +54,25 @@ const router = new VueRouter({
       });
     }
   },
+});
+
+router.beforeEach(async (to, _from, next) => {
+  if (
+    to.name === ROUTES.NAME.WORK_IN_PROGRESS &&
+    store.getters['application/isMaintenance']
+  ) {
+    next();
+    return;
+  }
+
+  await store.dispatch('application/fetchHealth');
+  if (store.getters['application/isMaintenance']) {
+    next({ name: ROUTES.NAME.WORK_IN_PROGRESS });
+    return;
+  }
+
+  next();
+  return;
 });
 
 export default router;
