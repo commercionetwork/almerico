@@ -6,6 +6,7 @@ import commercio from './commercio';
 import distribution from './distribution';
 import gaiaRest from './gaiaRest';
 import governance from './governance';
+import monitor from './monitor';
 import overview from './overview';
 import proposals from './proposals';
 import staking from './staking';
@@ -23,6 +24,7 @@ export {
   distribution,
   gaiaRest,
   governance,
+  monitor,
   overview,
   proposals,
   staking,
