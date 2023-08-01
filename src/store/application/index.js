@@ -10,6 +10,7 @@ export const initState = () => ({
   latestBlock: null,
   latestTransactions: [],
   latestValidatorSets: [],
+  maintenance: false,
   stakingParams: null,
   validators: [],
   validatorsOffset: 0,

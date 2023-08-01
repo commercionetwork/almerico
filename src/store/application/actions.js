@@ -1,4 +1,4 @@
-import { gaiaRest, staking, tendermintRpc, tx } from '@/apis/http';
+import { gaiaRest, monitor, staking, tendermintRpc, tx } from '@/apis/http';
 import { VALIDATORS } from '@/constants';
 
 export default {
@@ -6,6 +6,7 @@ export default {
     commit('reset');
     commit('setLoading', true);
     const requests = [
+      dispatch('fetchHealth'),
       dispatch('fetchInfo'),
       dispatch('fetchLatestBlock'),
       dispatch('fetchLatestValidatorSets'),
@@ -14,6 +15,15 @@ export default {
     ];
     await Promise.all(requests);
     commit('setLoading', false);
+  },
+
+  async fetchHealth({ commit }) {
+    try {
+      const response = await monitor.requestBackendHealth();
+      commit('setMaintenance', response.data.maintenance);
+    } catch (error) {
+      commit('setError', error);
+    }
   },
 
   async fetchInfo({ commit }) {
