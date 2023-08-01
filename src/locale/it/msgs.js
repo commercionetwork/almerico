@@ -40,6 +40,7 @@ export const msgs = {
   triggeredAnError: 'È successo qualcosa nell\'impostazione della richiesta che ha generato un errore',
   unansweredRequest: 'La richiesta è stata fatta ma non è stata ricevuta alcuna risposta',
   undelegateAdvice: 'Una volta ritirata la delega non si riceveranno più gli staking rewards e non si potrà più annullare il ritiro della delega; bisognerà attendere 21 giorni perché l\'importo venga liquidato.',
+  underMaintenance: 'Ci stiamo lavorando, torna più tardi!',
   unsupportedAlgorithm: 'L\'algoritmo non è supportato',
   validatorNotExist: 'Questo validatore non esiste',
   verificationFailed: 'Male!!!  Verifica fallita.',
