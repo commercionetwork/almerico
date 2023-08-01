@@ -22,6 +22,7 @@ export const ROUTES = {
     VALIDATORS: 'validators',
     VALIDATORS_LIST: 'validatorsList',
     VALIDATORS_DETAIL: 'validatorsDetail',
+    WORK_IN_PROGRESS: 'workInProgress',
   },
   PATH: {
     ROOT: '/',
@@ -47,6 +48,7 @@ export const ROUTES = {
     VALIDATORS: '/validators',
     VALIDATORS_LIST: 'list',
     VALIDATORS_DETAIL: 'detail/:id',
+    WORK_IN_PROGRESS: '/work-in-progress',
   },
   TITLE: {
     NOT_FOUND: 'Not Found',
@@ -71,5 +73,6 @@ export const ROUTES = {
     VALIDATORS: 'Validators',
     VALIDATORS_LIST: 'Validators List',
     VALIDATORS_DETAIL: 'Validators Detail',
+    WORK_IN_PROGRESS: 'Work In Progress',
   },
 };

@@ -40,6 +40,7 @@ export const msgs = {
   triggeredAnError: 'Something happened in setting up the request that triggered an error',
   unansweredRequest: 'The request was made but no response was received',
   undelegateAdvice: 'Once you undelegate you will not receive staking rewards or be able to cancel the unbonding , need to wait 21 day for the amount to be liquid.',
+  underMaintenance: 'We are working on this, please come back later!',
   unsupportedAlgorithm: 'The algorithm is not supported',
   validatorNotExist: 'Validator does not exist',
   verificationFailed: 'Bad!!!  Verification failed.',

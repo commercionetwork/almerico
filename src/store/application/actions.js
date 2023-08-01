@@ -1,7 +1,15 @@
-import { gaiaRest, staking, tendermintRpc, tx } from '@/apis/http';
+import { gaiaRest, monitor, staking, tendermintRpc, tx } from '@/apis/http';
 import { VALIDATORS } from '@/constants';
 
 export default {
+  async fetchHealth({ commit }) {
+    try {
+      const response = await monitor.requestBackendHealth();
+      commit('setMaintenance', response.data.maintenance);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
   async initAppData({ commit, dispatch }) {
     commit('reset');
     commit('setLoading', true);
@@ -15,7 +23,6 @@ export default {
     await Promise.all(requests);
     commit('setLoading', false);
   },
-
   async fetchInfo({ commit }) {
     try {
       const response = await gaiaRest.requestNodeInfo();
@@ -24,7 +31,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchLatestBlock({ commit }) {
     try {
       const response = await tendermintRpc.requestBlockLatest();
@@ -33,7 +39,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchLatestTransactions({ commit }, height) {
     try {
       const response = await tx.requestTxsList({
@@ -44,7 +49,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchLatestValidatorSets({ commit }) {
     try {
       const response = await tendermintRpc.requestValidatorSetsLatest();
@@ -53,7 +57,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchStakingParams({ commit }) {
     try {
       const response = await staking.requestParameters();
@@ -62,7 +65,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchValidators({ commit, dispatch, getters }) {
     const statuses = Object.values(VALIDATORS.STATUS);
     for (const status of statuses) {
@@ -78,7 +80,6 @@ export default {
       commit('setValidatorsOffset', 0);
     }
   },
-
   async addValidators({ commit }, { params, offset }) {
     const pagination = {
       offset: offset ? offset : 0,
@@ -92,7 +93,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async refreshValidators({ commit, dispatch }) {
     commit('setLoading', true);
     commit('setValidators', []);

@@ -17,6 +17,7 @@ describe('store/application/mutations', () => {
     state.validatorsOffset = 10;
     state.latestBlock = { id: 1 };
     state.latestValidatorSets = [{ id: 1 }];
+    state.maintenance = true;
     state.stakingParams = { id: 1 };
     state.validators = [{ id: 1 }];
     state.validatorsPagination = { id: 1 };
@@ -40,6 +41,12 @@ describe('store/application/mutations', () => {
     mutations.setLoading(state, true);
 
     expect(state.isLoading).toBe(true);
+  });
+
+  test('mutations.setMaintenance', () => {
+    mutations.setMaintenance(state, true);
+
+    expect(state.maintenance).toBe(true);
   });
 
   test('mutations.setEventHeight', () => {
