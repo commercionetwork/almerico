@@ -10,6 +10,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setMaintenance(state, payload) {
+    state.maintenance = payload;
+  },
   setEventHeight(state, payload) {
     state.eventHeight = payload;
   },

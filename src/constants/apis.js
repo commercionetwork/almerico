@@ -29,6 +29,7 @@ export const APIS = {
     BACKEND_TXS: `${BACKEND}/api/v2/txs`,
     BACKEND_VALIDATORS: `${BACKEND}/api/v2/validators`,
     BACKEND_WASMS: `${BACKEND}/api/v2/wasms`,
+    BACKEND_HEALTHCHECK: `${BACKEND}/healthcheck`,
     // Query
     AUTH: `${LCD}/${API_PATHS.COSMOS}/auth/${API_VERSION}`,
     BANK: `${LCD}/${API_PATHS.COSMOS}/bank/${API_VERSION}`,
