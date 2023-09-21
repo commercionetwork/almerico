@@ -10,4 +10,10 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  addContract(state, payload) {
+    state.list.push(payload);
+  },
+  setDetail(state, payload) {
+    state.detail = payload;
+  },
 };
