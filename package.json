@@ -11,6 +11,7 @@
     "test": "vue-cli-service test:unit --setupTestFrameworkScriptFile=./tests/setup.js"
   },
   "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.29.5",
     "@cosmjs/stargate": "^0.29.0",
     "async-mutex": "^0.4.0",
     "axios": "^1.1.3",
