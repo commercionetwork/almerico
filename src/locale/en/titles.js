@@ -5,6 +5,7 @@ export const titles = {
   activeValidatorsList: 'Active validators list',
   allTokensBalance: 'All tokens balance',
   allWallets: 'All wallets',
+  assets: 'Assets',
   blockDetail: 'Block detail',
   blocks: 'Blocks',
   blocksFromTo: 'Blocks from {0} to {1}',

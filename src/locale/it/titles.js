@@ -6,6 +6,7 @@ export const titles = {
   allBalances: 'All balances',
   allTokensBalance: 'Saldo token',
   allWallets: 'All wallets',
+  assets: 'Assets',
   blockDetail: 'Dettagli blocco',
   blocks: 'Blocchi',
   blocksFromTo: 'Blocchi da {0} a {1}',
