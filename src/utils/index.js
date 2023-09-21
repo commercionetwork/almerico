@@ -6,6 +6,7 @@ import proposerHandler from './proposerHandler';
 import regExpBuilder from './regExpBuilder';
 import storageHandler from './storageHandler';
 import stringEncoder from './stringEncoder';
+import tokensHandler from './tokensHandler';
 import txHandler from './txs/txHandler';
 import txsFilter from './txs/txsFilter';
 import txsTableAdapter from './txs/txsTableAdapter';
@@ -19,6 +20,7 @@ export {
   regExpBuilder,
   storageHandler,
   stringEncoder,
+  tokensHandler,
   txHandler,
   txsFilter,
   txsTableAdapter,

@@ -5,6 +5,7 @@ import { CONFIG, ROUTES } from '@/constants';
 import store from '@/store';
 
 import { accountRoutes } from './routes/account';
+import { assetsRoutes } from './routes/assets';
 import { blocksRoutes } from './routes/blocks';
 import { exchangeRateRoutes } from './routes/exchangeRate';
 import { homeRoutes } from './routes/home';
@@ -27,6 +28,7 @@ const routes = [
 
 routes.push(
   accountRoutes,
+  assetsRoutes,
   blocksRoutes,
   exchangeRateRoutes,
   homeRoutes,
