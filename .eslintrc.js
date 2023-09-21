@@ -24,7 +24,7 @@ module.exports = {
         ignoreWhenBindingPresent: true,
       },
     ],
-    'vue/experimental-script-setup-vars': 'no-undef',
+    'vue/experimental-script-setup-vars': 'off',
   },
   overrides: [
     {
