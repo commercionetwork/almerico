@@ -174,6 +174,7 @@ export const labels = {
   subspace: 'Sottospazio',
   subtotal: 'Subtotale',
   success: 'Successo',
+  supply: 'Supply',
   symbol: 'Simbolo',
   time: 'Orario',
   title: 'Titolo',

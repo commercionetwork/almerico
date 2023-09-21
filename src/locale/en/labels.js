@@ -174,6 +174,7 @@ export const labels = {
   subspace: 'Subspace',
   subtotal: 'Subtotal',
   success: 'Success',
+  supply: 'Supply',
   symbol: 'Symbol',
   time: 'Time',
   title: 'Title',
