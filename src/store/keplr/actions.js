@@ -1,8 +1,9 @@
-import { CONFIG } from '@/constants';
 import {
   assertIsDeliverTxSuccess,
   SigningStargateClient,
 } from '@cosmjs/stargate';
+import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
+import { CONFIG } from '@/constants';
 
 export default {
   async connect({ commit, dispatch }, { translator, context }) {
@@ -104,31 +105,44 @@ export default {
       commit('setLoading', false);
     });
   },
-  async signAndBroadcastTransaction(
-    { commit, dispatch, getters },
-    { msgs, translator, context }
-  ) {
+  async getOfflineSigner({ commit }, chainId) {
     try {
-      if (!getters['isInitialized']) {
-        await dispatch('connect', { translator, context });
-      }
-      const chain = CONFIG.CHAIN.LIST.find(
-        (item) => item.lcd === process.env.VUE_APP_LCD
-      );
-      const offlineSigner = await window.keplr.getOfflineSignerAuto(
-        chain.chainId
-      );
+      return await window.keplr.getOfflineSignerAuto(chainId);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async signAndBroadcastTransaction({ commit, dispatch }, msgs) {
+    try {
+      const chain = _getChain();
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
       const client = await SigningStargateClient.connectWithSigner(
         chain.rpc,
         offlineSigner
       );
-      const accounts = getters['accounts'];
-      const fee = _calcFee(msgs.length);
-      const result = await client.signAndBroadcast(
-        accounts[0].address,
-        msgs,
-        fee
+      await dispatch('deliverTx', { client, msgs });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async signAndBroadcastCosmWasmTx({ commit, dispatch }, msgs) {
+    try {
+      const chain = _getChain();
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
+      const client = await SigningCosmWasmClient.connectWithSigner(
+        chain.rpc,
+        offlineSigner
       );
+      await dispatch('deliverTx', { client, msgs });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async deliverTx({ commit, getters }, { client, msgs }) {
+    try {
+      const wallet = getters['wallet'];
+      const fee = _calcFee(msgs.length);
+      const result = await client.signAndBroadcast(wallet, msgs, fee);
       assertIsDeliverTxSuccess(result);
     } catch (error) {
       commit('setError', error);
@@ -141,6 +155,9 @@ export default {
     commit('setError', undefined);
   },
 };
+
+const _getChain = () =>
+  CONFIG.CHAIN.LIST.find((item) => item.lcd === process.env.VUE_APP_LCD);
 
 const _calcFee = (msgs) => ({
   amount: [

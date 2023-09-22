@@ -156,6 +156,7 @@ export const labels = {
   reset: 'Reset',
   result: 'Result',
   rewards: 'Rewards',
+  save: 'Save',
   sdnData: 'SDN data',
   search: 'Search',
   searchHeight: 'Search height',

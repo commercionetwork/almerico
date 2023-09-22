@@ -147,67 +147,86 @@ export default {
     { commit, dispatch, rootGetters },
     { validatorAddress, amount, translator, context }
   ) {
-    commit('setLoading', true);
-    const accounts = rootGetters['keplr/accounts'];
-    const account = accounts[0].address;
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgDelegate({
       validatorAddress,
       amount,
       account,
     });
-    await dispatch(
-      'keplr/signAndBroadcastTransaction',
-      { msgs: [msg], translator, context },
-      { root: true }
-    );
+    commit('setLoading', true);
+    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
     commit('setLoading', false);
   },
   async undelegateTokens(
     { commit, dispatch, rootGetters },
     { validatorAddress, amount, translator, context }
   ) {
-    commit('setLoading', true);
-    const accounts = rootGetters['keplr/accounts'];
-    const account = accounts[0].address;
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgUndelegate({
       validatorAddress,
       amount,
       account,
     });
-    await dispatch(
-      'keplr/signAndBroadcastTransaction',
-      { msgs: [msg], translator, context },
-      { root: true }
-    );
+    commit('setLoading', true);
+    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
     commit('setLoading', false);
   },
   async redelagateTokens(
     { commit, dispatch, rootGetters },
     { validatorAddress, srcAddress, amount, translator, context }
   ) {
-    commit('setLoading', true);
-    const accounts = rootGetters['keplr/accounts'];
-    const account = accounts[0].address;
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgBeginRedelegate({
       validatorAddress,
       srcAddress,
       amount,
       account,
     });
-    await dispatch(
-      'keplr/signAndBroadcastTransaction',
-      { msgs: [msg], translator, context },
-      { root: true }
-    );
+    commit('setLoading', true);
+    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
     commit('setLoading', false);
   },
   async claimRewards(
     { commit, dispatch, rootGetters },
     { validators, translator, context }
   ) {
-    commit('setLoading', true);
-    const accounts = rootGetters['keplr/accounts'];
-    const account = accounts[0].address;
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    const account = rootGetters['keplr/wallet'];
     const msgs = [];
     for (const validatorAddress of validators) {
       const msg = msgBuilder.buildMsgWithdrawDelegatorReward({
@@ -216,11 +235,8 @@ export default {
       });
       msgs.push(msg);
     }
-    await dispatch(
-      'keplr/signAndBroadcastTransaction',
-      { msgs: msgs, translator, context },
-      { root: true }
-    );
+    commit('setLoading', true);
+    await dispatch('keplr/signAndBroadcastTransaction', msgs, { root: true });
     commit('setLoading', false);
   },
 };
