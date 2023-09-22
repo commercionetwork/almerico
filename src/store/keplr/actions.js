@@ -122,13 +122,16 @@ export default {
         chain.rpc,
         offlineSigner
       );
-      const accounts = getters['accounts'];
+      await dispatch('deliverTx', { client, msgs });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async deliverTx({ commit, getters }, { client, msgs }) {
+    try {
+      const wallet = getters['wallet'];
       const fee = _calcFee(msgs.length);
-      const result = await client.signAndBroadcast(
-        accounts[0].address,
-        msgs,
-        fee
-      );
+      const result = await client.signAndBroadcast(wallet, msgs, fee);
       assertIsDeliverTxSuccess(result);
     } catch (error) {
       commit('setError', error);
