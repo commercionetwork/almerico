@@ -1,7 +1,17 @@
 <template>
-  <v-btn color="primary" depressed :loading="isHandling" @click="save">
-    <div class="text-caption" v-text="$t('labels.save')" />
-  </v-btn>
+  <v-row>
+    <v-col cols="12" sm="8" offset-sm="2" md="4" offset-md="4">
+      <v-btn
+        block
+        color="primary"
+        depressed
+        :loading="isHandling"
+        @click="save"
+      >
+        <div class="text-caption" v-text="$t('labels.save')" />
+      </v-btn>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
