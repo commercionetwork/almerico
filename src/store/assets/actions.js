@@ -84,21 +84,25 @@ export default {
     { commit, dispatch, rootGetters },
     { contract, textMsg, translator, context }
   ) {
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
     const sender = rootGetters['keplr/wallet'];
-    if (!sender) return;
     const msg = msgBuilder.buildMsgExecuteContract({
       sender,
       contract,
       msg: textMsg,
     });
     commit('setHandling', true);
-    await dispatch(
-      'keplr/createSignAndSendCosmWasmTx',
-      { msgs: [msg], translator, context },
-      {
-        root: true,
-      }
-    );
+    await dispatch('keplr/signAndBroadcastCosmWasmTx', [msg], {
+      root: true,
+    });
     await dispatch('fetchAssetDetail', contract);
     commit('setHandling', false);
     return true;

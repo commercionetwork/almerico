@@ -79,17 +79,21 @@ export default {
     { commit, dispatch, rootGetters },
     { voteOption, proposalId, translator, context }
   ) {
-    commit('setLoading', true);
-    const accounts = rootGetters['keplr/accounts'];
-    const account = accounts[0].address;
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgVote({ voteOption, proposalId, account });
-    await dispatch(
-      'keplr/signAndBroadcastTransaction',
-      { msgs: [msg], translator, context },
-      {
-        root: true,
-      }
-    );
+    commit('setLoading', true);
+    await dispatch('keplr/signAndBroadcastTransaction', [msg], {
+      root: true,
+    });
     commit('setLoading', false);
   },
   //TODO: remove legacy

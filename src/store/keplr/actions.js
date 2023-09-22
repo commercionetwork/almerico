@@ -105,20 +105,17 @@ export default {
       commit('setLoading', false);
     });
   },
-  async signAndBroadcastTransaction(
-    { commit, dispatch, getters },
-    { msgs, translator, context }
-  ) {
+  async getOfflineSigner({ commit }, chainId) {
     try {
-      if (!getters['isInitialized']) {
-        await dispatch('connect', { translator, context });
-      }
-      const chain = CONFIG.CHAIN.LIST.find(
-        (item) => item.lcd === process.env.VUE_APP_LCD
-      );
-      const offlineSigner = await window.keplr.getOfflineSignerAuto(
-        chain.chainId
-      );
+      return await window.keplr.getOfflineSignerAuto(chainId);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async signAndBroadcastTransaction({ commit, dispatch }, msgs) {
+    try {
+      const chain = _getChain();
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
       const client = await SigningStargateClient.connectWithSigner(
         chain.rpc,
         offlineSigner
@@ -128,20 +125,10 @@ export default {
       commit('setError', error);
     }
   },
-  async createSignAndSendCosmWasmTx(
-    { commit, dispatch, getters },
-    { msgs, translator, context }
-  ) {
+  async signAndBroadcastCosmWasmTx({ commit, dispatch }, msgs) {
     try {
-      if (!getters['isInitialized']) {
-        await dispatch('connect', { translator, context });
-      }
-      const chain = CONFIG.CHAIN.LIST.find(
-        (item) => item.lcd === process.env.VUE_APP_LCD
-      );
-      const offlineSigner = await window.keplr.getOfflineSignerAuto(
-        chain.chainId
-      );
+      const chain = _getChain();
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
       const client = await SigningCosmWasmClient.connectWithSigner(
         chain.rpc,
         offlineSigner
@@ -168,6 +155,9 @@ export default {
     commit('setError', undefined);
   },
 };
+
+const _getChain = () =>
+  CONFIG.CHAIN.LIST.find((item) => item.lcd === process.env.VUE_APP_LCD);
 
 const _calcFee = (msgs) => ({
   amount: [
