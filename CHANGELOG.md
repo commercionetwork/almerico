@@ -5,15 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.8.0] - 2023-09-
+## [4.8.1] - 2023-09-22
 
 ### Added
 
 - Add assets section:
-  - CW20 list;
-  - CW20 detail;
-  - CW20 update;
-  - CW20 new.
+  - CW20 detail.
+
+## [develop] 4.8.0 - 2023-09-21
+
+### Added
+
+- Add assets section:
+  - CW20 list.
 
 ## [4.7.0] - 2023-08-01
 

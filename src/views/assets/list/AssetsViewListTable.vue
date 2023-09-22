@@ -7,7 +7,11 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
         @click:row="(item) => openDetail(item)"
-      ></v-data-table>
+      >
+        <template #[`item.total_supply`]="{ item }">
+          <div v-text="formatSupply(item.total_supply, item.decimals)" />
+        </template>
+      </v-data-table>
     </v-col>
   </v-row>
 </template>
@@ -29,9 +33,13 @@ export default {
     ...mapGetters('assets', ['list']),
     headers() {
       return [
-        { text: this.$t('labels.name'), value: 'name' },
-        { text: this.$t('labels.symbol'), value: 'symbol' },
-        { text: this.$t('labels.supply'), value: 'total_supply' },
+        { text: this.$t('labels.name'), value: 'name', width: '35%' },
+        { text: this.$t('labels.symbol'), value: 'symbol', width: '15%' },
+        {
+          text: this.$t('labels.supply'),
+          value: 'total_supply',
+          align: 'right',
+        },
       ];
     },
     items() {

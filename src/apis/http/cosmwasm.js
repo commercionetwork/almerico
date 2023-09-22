@@ -8,7 +8,7 @@ const cosmwasm = {
    * @returns {AxiosPromise}
    */
   requestContracts(codeId, nextKey) {
-    const params = { 'pagination.limit': 25 };
+    const params = { 'pagination.limit': APIS.LIMIT };
     if (nextKey) {
       params['pagination.key'] = nextKey;
     }
@@ -22,12 +22,42 @@ const cosmwasm = {
   /**
    *
    * @param {String} address
+   * @param {String} nextKey
+   * @returns {AxiosPromise}
+   */
+  requestContractHistory(address, nextKey) {
+    const params = { 'pagination.limit': APIS.LIMIT };
+    if (nextKey) {
+      params['pagination.key'] = nextKey;
+    }
+    return axios({
+      url: `/contract/${address}/history`,
+      method: 'get',
+      baseURL: APIS.COSWMWASM,
+      params,
+    });
+  },
+  /**
+   *
+   * @param {String} address
    * @param {String} queryData
    * @returns {AxiosPromise}
    */
   requestContractSmartQuery({ address, queryData }) {
     return axios({
       url: `/contract/${address}/smart/${queryData}`,
+      method: 'get',
+      baseURL: APIS.HTTP.WASM,
+    });
+  },
+  /**
+   *
+   * @param {String} address
+   * @returns {AxiosPromise}
+   */
+  requestContractState(address) {
+    return axios({
+      url: `/contract/${address}/state`,
       method: 'get',
       baseURL: APIS.HTTP.WASM,
     });
