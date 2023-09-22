@@ -11,6 +11,7 @@ describe('store/assets/mutations', () => {
   test('mutations.reset', () => {
     state.error = new Error('error');
     state.isLoading = true;
+    state.isHandling = true;
     state.list = [{ id: 1 }];
     state.detail = { id: 1 };
 
@@ -33,6 +34,12 @@ describe('store/assets/mutations', () => {
     mutations.setLoading(state, true);
 
     expect(state.isLoading).toBe(true);
+  });
+
+  test('mutations.setHandling', () => {
+    mutations.setHandling(state, true);
+
+    expect(state.isHandling).toBe(true);
   });
 
   test('mutations.addContract', () => {

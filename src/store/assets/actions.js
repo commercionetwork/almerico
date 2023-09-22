@@ -1,6 +1,6 @@
 import { cosmwasm } from '@/apis/http';
 import { CONFIG } from '@/constants';
-import { stringEncoder } from '@/utils';
+import { msgBuilder, stringEncoder } from '@/utils';
 
 export default {
   async initAssetsList({ commit, dispatch }) {
@@ -79,5 +79,28 @@ export default {
     const queryData = stringEncoder.encodeToBase64('{"token_info":{}}');
     const data = await dispatch('getContractDetail', { address, queryData });
     return { token: data };
+  },
+  async executeContract(
+    { commit, dispatch, rootGetters },
+    { contract, textMsg, translator, context }
+  ) {
+    const sender = rootGetters['keplr/wallet'];
+    if (!sender) return;
+    const msg = msgBuilder.buildMsgExecuteContract({
+      sender,
+      contract,
+      msg: textMsg,
+    });
+    commit('setHandling', true);
+    await dispatch(
+      'keplr/createSignAndSendCosmWasmTx',
+      { msgs: [msg], translator, context },
+      {
+        root: true,
+      }
+    );
+    await dispatch('fetchAssetDetail', contract);
+    commit('setHandling', false);
+    return true;
   },
 };

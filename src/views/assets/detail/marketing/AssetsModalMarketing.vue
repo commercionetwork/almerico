@@ -13,7 +13,7 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-card-text>
-        <v-form>
+        <v-form :disabled="isHandling">
           <v-row>
             <v-col cols="12">
               <base-form-text-field
@@ -40,7 +40,7 @@
         </v-form>
       </v-card-text>
       <v-card-actions class="d-flex justify-center">
-        <assets-modal-btn-marketing :model="model" />
+        <assets-modal-btn-marketing :model="model" @saved="dialog = false" />
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -50,6 +50,7 @@
 import AssetsModalBtnMarketing from './AssetsModalBtnMarketing.vue';
 
 import { mdiClose } from '@mdi/js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'AssetsModalMarketing',
@@ -78,6 +79,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('assets', ['isHandling']),
     dialog: {
       get() {
         return this.value;

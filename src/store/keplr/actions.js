@@ -1,8 +1,9 @@
-import { CONFIG } from '@/constants';
 import {
   assertIsDeliverTxSuccess,
   SigningStargateClient,
 } from '@cosmjs/stargate';
+import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
+import { CONFIG } from '@/constants';
 
 export default {
   async connect({ commit, dispatch }, { translator, context }) {
@@ -119,6 +120,29 @@ export default {
         chain.chainId
       );
       const client = await SigningStargateClient.connectWithSigner(
+        chain.rpc,
+        offlineSigner
+      );
+      await dispatch('deliverTx', { client, msgs });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async createSignAndSendCosmWasmTx(
+    { commit, dispatch, getters },
+    { msgs, translator, context }
+  ) {
+    try {
+      if (!getters['isInitialized']) {
+        await dispatch('connect', { translator, context });
+      }
+      const chain = CONFIG.CHAIN.LIST.find(
+        (item) => item.lcd === process.env.VUE_APP_LCD
+      );
+      const offlineSigner = await window.keplr.getOfflineSignerAuto(
+        chain.chainId
+      );
+      const client = await SigningCosmWasmClient.connectWithSigner(
         chain.rpc,
         offlineSigner
       );
