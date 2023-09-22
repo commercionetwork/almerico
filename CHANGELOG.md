@@ -10,9 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add assets section:
-  - CW20 detail;
-  - CW20 update;
-  - CW20 new.
+  - CW20 detail.
 
 ## [develop] 4.8.0 - 2023-09-21
 
