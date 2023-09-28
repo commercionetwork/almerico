@@ -62,6 +62,12 @@ export default {
     return {
       model: {
         balance: {
+          amountVsCap: (value) => {
+            if (!this.newCW20 || !this.newCW20.mint.cap) {
+              return true;
+            }
+            return parseFloat(value) <= parseFloat(this.newCW20.mint.cap);
+          },
           minValue: (value) => value >= 0,
           required,
         },
@@ -84,6 +90,7 @@ export default {
   },
   computed: {
     ...mapGetters('keplr', ['wallet']),
+    ...mapGetters('assets', ['newCW20']),
   },
   watch: {
     model: {

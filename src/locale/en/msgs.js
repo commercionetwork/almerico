@@ -3,6 +3,7 @@ export const msgs = {
   addingAMarketer: 'Adding a marketing manager is mandatory in order to change marketing in the future',
   addingAMinter: 'Adding a minter is mandatory in order to mint further tokens',
   amountGreaterZero: 'Amount must be greater than or equal to zero',
+  amountVsCap: 'If a cap, amount must be less than or equal to cap',
   bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
   bannerSecondary: 'Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe',
   comingSoon: 'Coming soon',
