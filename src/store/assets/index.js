@@ -8,6 +8,7 @@ export const initState = () => ({
   isHandling: false,
   list: [],
   detail: null,
+  newCW20: null,
 });
 
 export default {
