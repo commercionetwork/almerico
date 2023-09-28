@@ -24,6 +24,7 @@
         outlined
         persistent-placeholder
         required
+        step="0.01"
         type="number"
         :error-messages="errorMessages"
         :label="$t('labels.amount')"
