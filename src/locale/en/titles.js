@@ -37,6 +37,7 @@ export const titles = {
   metadata: 'Metadata',
   msgsTxs: 'Msgs/txs',
   myValidators: 'My validators',
+  newAsset: 'New asset',
   otherTokensBalance: 'Other tokens balance',
   price: 'Price',
   proof: 'Proof',
