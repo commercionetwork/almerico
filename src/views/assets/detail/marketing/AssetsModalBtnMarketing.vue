@@ -29,10 +29,10 @@ export default {
     ...mapGetters('assets', ['contract', 'isHandling']),
   },
   methods: {
-    ...mapActions('assets', ['executeContract']),
+    ...mapActions('assets', ['updateMarketing']),
     async save() {
       const msg = JSON.stringify({ update_marketing: this.model });
-      const res = await this.executeContract({
+      const res = await this.updateMarketing({
         contract: this.contract,
         textMsg: msg,
         translator: this.$t,
