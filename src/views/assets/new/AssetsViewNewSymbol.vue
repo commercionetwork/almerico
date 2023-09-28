@@ -44,7 +44,7 @@ export default {
     errorMessages() {
       const errors = [];
       if (!this.v || !this.v.$dirty) return errors;
-      !this.v.charsAndDash && errors.push(this.$t('alerts.cw20SymbolPolicies'));
+      !this.v.charsAndDash && errors.push(this.$t('msgs.cw20SymbolPolicies'));
       return errors;
     },
   },

@@ -44,8 +44,8 @@ export default {
     errorMessages() {
       const errors = [];
       if (!this.v || !this.v.$dirty) return errors;
-      !this.v.required && errors.push(this.$t('alerts.mandatoryField'));
-      !this.v.maxLength && errors.push(this.$t('alerts.tooLongField'));
+      !this.v.required && errors.push(this.$t('msgs.mandatoryField'));
+      !this.v.maxLength && errors.push(this.$t('msgs.tooLongField'));
       return errors;
     },
   },
