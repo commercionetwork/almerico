@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'AssetsViewNewMarketing',
@@ -57,8 +57,26 @@ export default {
   computed: {
     ...mapGetters('keplr', ['wallet']),
   },
+  watch: {
+    model: {
+      handler(value) {
+        this.updateContractProp({
+          marketing: {
+            description: value.description,
+            logo: value.logo,
+            marketing: value.marketing,
+            project: value.project,
+          },
+        });
+      },
+      deep: true,
+    },
+  },
   created() {
     this.model.marketing = this.wallet;
+  },
+  methods: {
+    ...mapActions('assets', ['updateContractProp']),
   },
 };
 </script>

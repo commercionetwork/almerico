@@ -1,33 +1,19 @@
 <template>
-  <v-row>
-    <v-col cols="12" md="6">
-      <v-text-field
-        id="contract-minter"
-        dense
-        disabled
-        outlined
-        persistent-placeholder
-        :label="$t('labels.address')"
-        :placeholder="minter"
-      />
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-text-field
-        id="contract-cap"
-        dense
-        outlined
-        persistent-placeholder
-        required
-        type="number"
-        :error-messages="errorMessages"
-        :label="$t('labels.cap')"
-        v-model="model"
-        @blur="v.$touch()"
-        @input="v.$touch()"
-      >
-      </v-text-field>
-    </v-col>
-  </v-row>
+  <v-text-field
+    id="contract-cap"
+    dense
+    outlined
+    persistent-placeholder
+    required
+    step="0.01"
+    type="number"
+    :error-messages="errorMessages"
+    :label="$t('labels.cap')"
+    v-model="model"
+    @blur="v.$touch()"
+    @input="v.$touch()"
+  >
+  </v-text-field>
 </template>
 
 <script>
@@ -40,9 +26,6 @@ export default {
     v: {
       type: Object,
       default: () => null,
-    },
-    minter: {
-      type: String,
     },
   },
   emits: ['input'],
