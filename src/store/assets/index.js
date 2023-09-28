@@ -6,6 +6,7 @@ export const initState = () => ({
   error: null,
   isLoading: false,
   isHandling: false,
+  isInvalid: true,
   list: [],
   detail: null,
   newCW20: null,

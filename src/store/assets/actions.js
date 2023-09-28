@@ -97,8 +97,11 @@ export default {
     const data = await dispatch('getContractDetail', { address, queryData });
     return { token: data };
   },
-  saveNewCW20({ commit }, payload) {
+  updateContractProp({ commit }, payload) {
     commit('addPropToNewCW20', payload);
+  },
+  updateIsInvalid({ commit }, isInvalid) {
+    commit('setIsInvalid', isInvalid);
   },
   async instantiateContract(
     { dispatch, rootGetters },

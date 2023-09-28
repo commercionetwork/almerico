@@ -34,7 +34,7 @@ import AssetsViewNewInitialBalance from './AssetsViewNewInitialBalance.vue';
 import AssetsViewNewName from './AssetsViewNewName.vue';
 import AssetsViewNewSymbol from './AssetsViewNewSymbol.vue';
 
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { maxLength, required } from 'vuelidate/lib/validators';
 import { validationMixin } from 'vuelidate';
 import { regExpBuilder } from '@/utils';
@@ -75,7 +75,7 @@ export default {
         },
         symbol: {
           charsAndDash: (value) => {
-            const regExp = regExpBuilder.isSymbolValid();
+            const regExp = regExpBuilder.getCW20SymbolRegExp();
             return regExp.test(value);
           },
         },
@@ -84,6 +84,28 @@ export default {
   },
   computed: {
     ...mapGetters('keplr', ['wallet']),
+  },
+  watch: {
+    model: {
+      handler(value) {
+        this.updateContractProp({ name: value.name });
+        this.updateContractProp({ symbol: value.symbol });
+        this.updateContractProp({ decimals: parseInt(value.decimals) });
+        this.updateContractProp({
+          initial_balances: [{ address: this.wallet, amount: value.balance }],
+        });
+      },
+      deep: true,
+    },
+    $v: {
+      handler(value) {
+        this.updateIsInvalid(value.$invalid);
+      },
+      deep: true,
+    },
+  },
+  methods: {
+    ...mapActions('assets', ['updateIsInvalid', 'updateContractProp']),
   },
 };
 </script>

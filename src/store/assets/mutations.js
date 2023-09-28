@@ -23,4 +23,7 @@ export default {
     const cw20 = Object.assign({}, state.newCW20, payload);
     state.newCW20 = cw20;
   },
+  setIsInvalid(state, payload) {
+    state.isInvalid = payload;
+  },
 };
