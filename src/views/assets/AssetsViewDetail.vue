@@ -44,9 +44,12 @@ export default {
   },
   computed: {
     ...mapGetters('assets', ['error', 'isLoading']),
+    address() {
+      return this.$route.params.id;
+    },
   },
   created() {
-    this.initAssetsDetail(this.$route.params.id);
+    this.initAssetsDetail(this.address);
   },
   methods: {
     ...mapActions('assets', ['initAssetsDetail']),
