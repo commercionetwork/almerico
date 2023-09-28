@@ -40,6 +40,23 @@ export default {
     };
     commit('setDetail', detail);
   },
+  async initAssetsNew(
+    { commit, dispatch, rootGetters },
+    { translator, context }
+  ) {
+    commit('reset');
+    commit('setLoading', true);
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    commit('setLoading', false);
+  },
   async getContracts({ commit }, codeId) {
     const contracts = [];
     let nextKey = null;
@@ -80,8 +97,56 @@ export default {
     const data = await dispatch('getContractDetail', { address, queryData });
     return { token: data };
   },
+  updateContractProp({ commit }, payload) {
+    commit('addPropToNewCW20', payload);
+  },
+  updateIsInvalid({ commit }, isInvalid) {
+    commit('setIsInvalid', isInvalid);
+  },
+  async instantiateContract(
+    { dispatch, rootGetters },
+    { codeId, contract, translator, context }
+  ) {
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    const account = rootGetters['keplr/wallet'];
+    const label = `Init ${contract.name} contract`;
+    const funds = [];
+    const msg = msgBuilder.buildMsgInstantiateContract({
+      account,
+      codeId,
+      funds,
+      label,
+      msg: JSON.stringify(contract),
+    });
+    await dispatch('keplr/signAndBroadcastCosmWasmTx', [msg], {
+      root: true,
+    });
+  },
+  async createNewAsset(
+    { commit, dispatch },
+    { contract, translator, context }
+  ) {
+    const codeId = CONFIG.WASM_CW20_CODE_ID;
+    commit('setHandling', true);
+    await dispatch('instantiateContract', {
+      codeId,
+      contract,
+      translator,
+      context,
+    });
+    commit('setHandling', false);
+    return true;
+  },
   async executeContract(
-    { commit, dispatch, rootGetters },
+    { dispatch, rootGetters },
     { contract, textMsg, translator, context }
   ) {
     if (!rootGetters['keplr/isInitialized']) {
@@ -99,9 +164,20 @@ export default {
       contract,
       msg: textMsg,
     });
-    commit('setHandling', true);
     await dispatch('keplr/signAndBroadcastCosmWasmTx', [msg], {
       root: true,
+    });
+  },
+  async updateMarketing(
+    { commit, dispatch },
+    { contract, textMsg, translator, context }
+  ) {
+    commit('setHandling', true);
+    await dispatch('executeContract', {
+      contract,
+      textMsg,
+      translator,
+      context,
     });
     await dispatch('fetchAssetDetail', contract);
     commit('setHandling', false);

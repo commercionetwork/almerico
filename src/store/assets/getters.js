@@ -5,4 +5,6 @@ export default {
   list: (state) => state.list,
   detail: (state) => state.detail,
   contract: (state) => (state.detail ? state.detail.id : ''),
+  newCW20: (state) => state.newCW20,
+  isValidCW20: (state) => !state.isInvalid,
 };
