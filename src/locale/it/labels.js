@@ -87,6 +87,7 @@ export const labels = {
   identity: 'Identità',
   inactive: 'Inattivo',
   info: 'Info',
+  instantiateContract: 'Instanzia contratto',
   instantiatePermission: 'Instanziare autorizzazione',
   key: 'Chiave',
   keyAgreement: 'Accordo chiave',

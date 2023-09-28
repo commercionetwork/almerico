@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AssetsViewNewMarketing',
   data() {
@@ -51,6 +53,12 @@ export default {
         project: '',
       },
     };
+  },
+  computed: {
+    ...mapGetters('keplr', ['wallet']),
+  },
+  created() {
+    this.model.marketing = this.wallet;
   },
 };
 </script>
