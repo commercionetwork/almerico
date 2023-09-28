@@ -70,7 +70,9 @@ export default {
         : '-';
     },
     logo() {
-      return this.marketing && this.marketing.logo ? this.marketing.logo : '-';
+      return this.marketing && this.marketing.logo
+        ? this.marketing.logo.url
+        : '-';
     },
     marketingMarketing() {
       return this.marketing && this.marketing.marketing
