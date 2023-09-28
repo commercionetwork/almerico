@@ -98,6 +98,7 @@ export const labels = {
   liquidityPoolTokensDistributed: 'Liquidity pool tokens distributed',
   liquidityPoolTokensNotDistributed: 'Liquidity pool tokens not distributed',
   logo: 'Logo',
+  logoUrl: 'Logo URL',
   manage: 'Manage',
   marketing: 'Marketing',
   max: 'Max',
