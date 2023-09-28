@@ -63,7 +63,7 @@ export default {
         this.updateContractProp({
           marketing: {
             description: value.description,
-            logo: value.logo,
+            logo: { url: value.logo },
             marketing: value.marketing,
             project: value.project,
           },

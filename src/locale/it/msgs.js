@@ -2,7 +2,7 @@ export const msgs = {
   accountNotExist: 'Questo account non esiste',
   addingAMarketer: 'Aggiungere un responsabile marketing è obbligatorio per poter modificare in futuro il marketing',
   addingAMinter: 'Aggiungere un minter è obbligatorio per poter eseguire il mint di ulteriori token',
-  amountGreaterZero: 'L\'importo deve essere maggiore di zero',
+  amountGreaterZero: 'L\'importo deve essere maggiore od uguale a zero',
   bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
   bannerSecondary: 'Creare un ID, firmare e scambiare documenti sulla prima Blockchain conforme eIDAS in Europa',
   comingSoon: 'Prossimamente',

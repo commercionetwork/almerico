@@ -130,9 +130,11 @@ export default {
       root: true,
     });
   },
-  async createNewAsset({ commit, dispatch, getters }, { translator, context }) {
+  async createNewAsset(
+    { commit, dispatch },
+    { contract, translator, context }
+  ) {
     const codeId = CONFIG.WASM_CW20_CODE_ID;
-    const contract = getters['newCW20'];
     commit('setHandling', true);
     await dispatch('instantiateContract', {
       codeId,
