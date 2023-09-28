@@ -13,15 +13,21 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <the-header-content :title="$t('titles.newAsset')" />
+      <assets-view-new-form />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import AssetsViewNewForm from './new/AssetsViewNewForm.vue';
+
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'AssetsViewNew',
+  components: {
+    AssetsViewNewForm,
+  },
   computed: {
     ...mapGetters('assets', ['error', 'isLoading']),
   },

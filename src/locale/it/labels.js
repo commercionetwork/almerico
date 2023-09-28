@@ -221,6 +221,7 @@ export const labels = {
   votingEndTime: 'Ora fine voto',
   votingPower: 'Potere voto',
   votingStartTime: 'Ora inizio voto',
+  wallet: 'Wallet',
   wasmByteCode: 'Wasm bytecode',
   website: 'Sito Web',
   yes: 'Si',
