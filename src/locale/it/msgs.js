@@ -1,5 +1,7 @@
 export const msgs = {
   accountNotExist: 'Questo account non esiste',
+  addingAMarketer: 'Aggiungere un responsabile marketing è obbligatorio per poter modificare in futuro il marketing',
+  addingAMinter: 'Aggiungere un minter è obbligatorio per poter eseguire il mint di ulteriori token',
   bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
   bannerSecondary: 'Creare un ID, firmare e scambiare documenti sulla prima Blockchain conforme eIDAS in Europa',
   comingSoon: 'Prossimamente',

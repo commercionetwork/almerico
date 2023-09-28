@@ -1,32 +1,26 @@
 <template>
   <v-row>
-    <v-col cols="12">
-      <div class="font-weight-bold">
-        <span class="mx-1 error--text">*</span>
-        <span v-text="$t('titles.initialBalance')" />
-      </div>
-    </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        id="contract-wallet"
+        id="contract-minter"
         dense
         disabled
         outlined
         persistent-placeholder
         :label="$t('labels.address')"
-        :placeholder="wallet"
+        :placeholder="minter"
       />
     </v-col>
     <v-col cols="12" md="6">
       <v-text-field
-        id="contract-initial-balance"
+        id="contract-cap"
         dense
         outlined
         persistent-placeholder
         required
         type="number"
         :error-messages="errorMessages"
-        :label="$t('labels.amount')"
+        :label="$t('labels.cap')"
         v-model="model"
         @blur="v.$touch()"
         @input="v.$touch()"
@@ -38,7 +32,7 @@
 
 <script>
 export default {
-  name: 'AssetsViewNewInitialBalance',
+  name: 'AssetsViewNewCap',
   props: {
     value: {
       type: String,
@@ -47,7 +41,7 @@ export default {
       type: Object,
       default: () => null,
     },
-    wallet: {
+    minter: {
       type: String,
     },
   },
@@ -65,7 +59,6 @@ export default {
       const errors = [];
       if (!this.v || !this.v.$dirty) return errors;
       !this.v.minValue && errors.push(this.$t('alerts.amountGreaterZero'));
-      !this.v.required && errors.push(this.$t('alerts.mandatoryField'));
       return errors;
     },
   },

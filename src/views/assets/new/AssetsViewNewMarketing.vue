@@ -1,7 +1,8 @@
 <template>
   <v-card flat>
     <v-card-subtitle>
-      <span v-text="$t('titles.marketingDetail')" />
+      <div class="text-h6" v-text="$t('titles.marketingDetail')" />
+      <div v-text="$t('msgs.addingAMarketer')" />
     </v-card-subtitle>
   </v-card>
 </template>

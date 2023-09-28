@@ -1,7 +1,9 @@
 <template>
   <v-card outlined>
     <assets-view-new-detail />
+    <v-divider class="mx-3" />
     <assets-view-new-minting />
+    <v-divider class="mx-3" />
     <assets-view-new-marketing />
   </v-card>
 </template>
