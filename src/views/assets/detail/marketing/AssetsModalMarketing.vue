@@ -89,12 +89,16 @@ export default {
       },
     },
   },
-  created() {
-    this.model = {
-      description: this.marketing.description,
-      marketing: this.marketing.marketing,
-      project: this.marketing.project,
-    };
+  watch: {
+    dialog(isVisible) {
+      if (isVisible) {
+        this.model = {
+          description: this.marketing.description,
+          marketing: this.marketing.marketing,
+          project: this.marketing.project,
+        };
+      }
+    },
   },
 };
 </script>
