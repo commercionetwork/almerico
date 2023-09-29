@@ -14,6 +14,7 @@ describe('store/assets/mutations', () => {
     state.isHandling = true;
     state.list = [{ id: 1 }];
     state.detail = { id: 1 };
+    state.newCW20 = { id: 1 };
 
     const expected = initState();
 
@@ -56,5 +57,21 @@ describe('store/assets/mutations', () => {
     mutations.setDetail(state, payload);
 
     expect(state.detail).toStrictEqual(payload);
+  });
+
+  test('mutations.addPropToNewCW20', () => {
+    state.newCW20 = { id: 1 };
+    const payload = { name: 'name' };
+    const expected = { id: 1, name: 'name' };
+
+    mutations.addPropToNewCW20(state, payload);
+
+    expect(state.newCW20).toStrictEqual(expected);
+  });
+
+  test('mutations.setIsInvalid', () => {
+    mutations.setIsInvalid(state, false);
+
+    expect(state.isInvalid).toBe(false);
   });
 });
