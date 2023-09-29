@@ -5,11 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.4] 2023-09-29
+
+### Added
+
+- Add marketing dialog reset on opening
+- Add store and view tests
+
+## [alfa] 4.8.3 - 2023-09-28
+
+### Added
+
+- Add assets section:
+  - CW20 create.
+
+## [alfa] 4.8.2 - 2023-09-22
+
+### Added
+
+- Add assets section:
+  - CW20 management.
+
+## [alfa] 4.8.1 - 2023-09-22
+
+### Added
+
+- Add assets section:
+  - CW20 detail.
+
+## [alfa] 4.8.0 - 2023-09-21
+
+### Added
+
+- Add assets section:
+  - CW20 list.
+
 ## [4.7.0] - 2023-08-01
 
 ### Added
 
-- Add maintennance page
+- Add maintenance page
 
 ## [4.6.3] - 2023-07-06
 
@@ -638,6 +673,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.8.4]: https://github.com/commercionetwork/almerico/compare/v4.7.0...v4.8.4
 [4.7.0]: https://github.com/commercionetwork/almerico/compare/v4.6.3...v4.7.0
 [4.6.3]: https://github.com/commercionetwork/almerico/compare/v4.6.2...v4.6.3
 [4.6.2]: https://github.com/commercionetwork/almerico/compare/v4.6.1...v4.6.2
