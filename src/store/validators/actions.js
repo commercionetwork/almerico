@@ -1,5 +1,5 @@
 import { bank, distribution, staking, validators } from '@/apis/http';
-import msgBuilder from '@/store/keplr/helpers/msgBuilder';
+import { msgBuilder } from '@/utils';
 
 export default {
   async initValidatorsList({ commit, dispatch }) {

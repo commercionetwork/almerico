@@ -1,6 +1,6 @@
 import { governance, proposals, staking } from '@/apis/http';
 import { PROPOSALS } from '@/constants';
-import msgBuilder from '@/store/keplr/helpers/msgBuilder';
+import { msgBuilder } from '@/utils';
 
 export default {
   async initProposalsList({ commit, dispatch }, status) {
