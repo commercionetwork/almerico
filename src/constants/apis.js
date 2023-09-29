@@ -55,6 +55,7 @@ export const APIS = {
     // Legacy
     GOVERNANCE_LEGACY: `${LCD}/gov`,
   },
+  LIMIT: 25,
   SORTING_ORDERS: {
     ASC: 'asc',
     DESC: 'desc',

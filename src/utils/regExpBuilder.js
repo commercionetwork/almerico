@@ -3,6 +3,10 @@ const regExpBuilder = {
   getAddressRegExp(prefix) {
     return new RegExp(prefix + '[a-z0-9]{39}$', 'igm');
   },
+  // Return a regular expression to test a CW20 symbol
+  getCW20SymbolRegExp() {
+    return new RegExp('^[a-zA-Z-]{3,12}$', 'igm');
+  },
   // Return a regular expression to test a transaction hash
   getHashRegExp() {
     return new RegExp(/[0-9A-F]{64}$/, 'igm');
