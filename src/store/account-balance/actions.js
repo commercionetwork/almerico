@@ -26,6 +26,9 @@ export default {
       commit('setError', error);
     }
   },
+  saveCW20({ commit }, cw20) {
+    commit('setCW20', cw20);
+  },
   async executeContract(
     { dispatch, rootGetters },
     { contract, textMsg, translator, context }
@@ -51,7 +54,7 @@ export default {
   },
   async sendTokens(
     { commit, dispatch },
-    { contract, textMsg, translator, context, address }
+    { contract, textMsg, translator, context, accountAddress }
   ) {
     commit('setHandling', true);
     await dispatch('executeContract', {
@@ -60,7 +63,8 @@ export default {
       translator,
       context,
     });
-    await dispatch('fetchWasmBalances', address);
+    dispatch('saveCW20', null);
+    await dispatch('fetchWasmBalances', accountAddress);
     commit('setHandling', false);
     return true;
   },

@@ -13,6 +13,7 @@ describe('store/account-balance/mutations', () => {
     state.isLoading = true;
     state.isHandling = true;
     state.balances = [{ id: 1 }];
+    state.cw20 = { id: 1 };
 
     const expected = initState();
 
@@ -47,5 +48,13 @@ describe('store/account-balance/mutations', () => {
     mutations.setBalances(state, balances);
 
     expect(state.balances).toStrictEqual(balances);
+  });
+
+  test('mutations.setCW20', () => {
+    const cw20 = { id: 1 };
+
+    mutations.setCW20(state, cw20);
+
+    expect(state.cw20).toStrictEqual(cw20);
   });
 });

@@ -17,14 +17,10 @@
           <span v-text="formatBalance(item.balance, item.decimals)" />
         </template>
         <template #[`item.contract`]="{ item }">
-          <v-btn color="primary" depressed @click="dialog = true">
+          <v-btn color="primary" depressed @click="onSend(item)">
             <span class="text-caption" v-text="$t('labels.send')" />
           </v-btn>
-          <accounts-modal-send
-            :address="address"
-            :balance="item"
-            v-model="dialog"
-          />
+          <accounts-modal-send v-model="dialog" />
         </template>
       </v-data-table>
     </v-col>
@@ -34,7 +30,7 @@
 <script>
 import AccountsModalSend from './AccountsModalSend.vue';
 
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'AccountViewBalanceTable',
@@ -66,6 +62,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions('accountBalance', ['saveCW20']),
     formatBalance(amount, decimals = 0) {
       const balance = amount / Math.pow(10, decimals);
       return new Intl.NumberFormat(undefined, {
@@ -73,6 +70,10 @@ export default {
         maximumFractionDigits: decimals,
         minimumFractionDigits: decimals,
       }).format(balance);
+    },
+    onSend(balance) {
+      this.saveCW20({ accountAddress: this.address, balance });
+      this.dialog = true;
     },
   },
 };

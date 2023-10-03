@@ -16,4 +16,7 @@ export default {
   setBalances(state, payload) {
     state.balances = payload;
   },
+  setCW20(state, payload) {
+    state.cw20 = payload;
+  },
 };

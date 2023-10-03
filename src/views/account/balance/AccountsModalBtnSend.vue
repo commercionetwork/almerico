@@ -25,33 +25,25 @@ export default {
       type: Object,
       required: true,
     },
-    address: {
-      type: String,
-      required: true,
-    },
-    balance: {
-      type: Object,
-      required: true,
-    },
   },
   computed: {
-    ...mapGetters('accountBalance', ['isHandling']),
+    ...mapGetters('accountBalance', ['cw20', 'isHandling']),
   },
   methods: {
     ...mapActions('accountBalance', ['sendTokens']),
     async send() {
       const amount = tokensHandler
-        .convertToBase(this.model.amount, this.balance.decimals)
+        .convertToBase(this.model.amount, this.cw20.balance.decimals)
         .toString();
       const msg = JSON.stringify({
         transfer: { recipient: this.model.recipient, amount },
       });
       const res = await this.sendTokens({
-        contract: this.balance.contract,
+        contract: this.cw20.balance.contract,
         textMsg: msg,
         translator: this.$t,
         context: this,
-        address: this.address,
+        accountAddress: this.cw20.accountAddress,
       });
       if (res) {
         this.$emit('sent');

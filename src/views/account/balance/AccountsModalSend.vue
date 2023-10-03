@@ -33,12 +33,7 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <accounts-modal-btn-send
-          :model="model"
-          :address="address"
-          :balance="balance"
-          @sent="dialog = false"
-        />
+        <accounts-modal-btn-send :model="model" @sent="dialog = false" />
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -58,14 +53,6 @@ export default {
   props: {
     value: {
       type: Boolean,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    balance: {
-      type: Object,
       required: true,
     },
   },
