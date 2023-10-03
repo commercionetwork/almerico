@@ -12,7 +12,26 @@
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
-      <v-card-text> </v-card-text>
+      <v-card-text>
+        <v-form>
+          <v-row>
+            <v-col cols="12">
+              <base-form-text-field
+                id="send-address"
+                :label="$t('labels.address')"
+                v-model.trim="model.address"
+              />
+            </v-col>
+            <v-col cols="12">
+              <base-form-number-field
+                id="send-amount"
+                :label="$t('labels.amount')"
+                v-model.trim="model.amount"
+              />
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
       <v-card-actions> </v-card-actions>
     </v-card>
   </v-dialog>
@@ -39,7 +58,7 @@ export default {
       mdiClose,
       model: {
         address: '',
-        amount: '',
+        amount: '0.01',
       },
     };
   },

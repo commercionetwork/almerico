@@ -18,7 +18,7 @@
         </template>
         <template #[`item.contract`]="{ item }">
           <v-btn color="primary" depressed @click="dialog = true">
-            <span v-text="$t('labels.send')" />
+            <span class="text-caption" v-text="$t('labels.send')" />
           </v-btn>
           <accounts-modal-send :token="item" v-model="dialog" />
         </template>
