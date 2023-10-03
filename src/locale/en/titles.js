@@ -51,6 +51,7 @@ export const titles = {
   searchBlocks: 'Search blocks',
   searchTxs: 'Search txs',
   searchValidator: 'Search validator',
+  sendTokens: 'Send tokens',
   service: 'Service',
   sharedocDetail: 'Sharedoc detail',
   statisticsVotes: 'Statistics votes',

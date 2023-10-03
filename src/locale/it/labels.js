@@ -166,6 +166,7 @@ export const labels = {
   seconds: 'Secondi',
   securityContact: 'Contatto sicurezza',
   self: 'Self',
+  send: 'Invia',
   sender: 'Mittente',
   sent: 'Inviate',
   sentTxs: 'Transazioni inviate',

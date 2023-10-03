@@ -51,6 +51,15 @@ describe('store/account-balance/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
+
+  test('if "saveCW20" action commit "setCW20" mutation', () => {
+    const commit = jest.fn();
+    const cw20 = { id: 1 };
+
+    actions.saveCW20({ commit }, cw20);
+
+    expect(commit).toHaveBeenCalledWith('setCW20', cw20);
+  });
 });
 
 jest.mock('../../../apis/http/wasms.js', () => ({
