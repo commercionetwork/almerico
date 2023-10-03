@@ -32,16 +32,23 @@
           </v-row>
         </v-form>
       </v-card-text>
-      <v-card-actions> </v-card-actions>
+      <v-card-actions>
+        <accounts-modal-send-btn :model="model" />
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import AccountsModalSendBtn from './AccountsModalSendBtn.vue';
+
 import { mdiClose } from '@mdi/js';
 
 export default {
   name: 'AccountsModalSend',
+  components: {
+    AccountsModalSendBtn,
+  },
   props: {
     value: {
       type: Boolean,
