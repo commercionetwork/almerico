@@ -51,6 +51,7 @@ export const titles = {
   searchBlocks: 'Cerca blocchi',
   searchTxs: 'Cerca txs',
   searchValidator: 'Cerca validatore',
+  sendTokens: 'Invia token',
   service: 'Service',
   sharedocDetail: 'Dettagli Sharedoc',
   statisticsVotes: 'Statistiche voti',

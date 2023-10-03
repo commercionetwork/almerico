@@ -166,6 +166,7 @@ export const labels = {
   seconds: 'Seconds',
   securityContact: 'Security contact',
   self: 'Self',
+  send: 'Send',
   sender: 'Sender',
   sent: 'Sent',
   sentTxs: 'Sent transactions',
