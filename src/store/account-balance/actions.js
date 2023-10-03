@@ -1,5 +1,6 @@
 import { wasms } from '@/apis/http';
 import { CONFIG } from '@/constants';
+import { msgBuilder } from '@/utils';
 
 export default {
   async initAllBalancesDashboard({ commit, dispatch }, address) {
@@ -24,5 +25,43 @@ export default {
     } catch (error) {
       commit('setError', error);
     }
+  },
+  async executeContract(
+    { dispatch, rootGetters },
+    { contract, textMsg, translator, context }
+  ) {
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    const sender = rootGetters['keplr/wallet'];
+    const msg = msgBuilder.buildMsgExecuteContract({
+      sender,
+      contract,
+      msg: textMsg,
+    });
+    await dispatch('keplr/signAndBroadcastCosmWasmTx', [msg], {
+      root: true,
+    });
+  },
+  async sendTokens(
+    { commit, dispatch },
+    { contract, textMsg, translator, context, address }
+  ) {
+    commit('setHandling', true);
+    await dispatch('executeContract', {
+      contract,
+      textMsg,
+      translator,
+      context,
+    });
+    await dispatch('fetchWasmBalances', address);
+    commit('setHandling', false);
+    return true;
   },
 };

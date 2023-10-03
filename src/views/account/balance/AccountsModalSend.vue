@@ -13,7 +13,7 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-card-text>
-        <v-form>
+        <v-form :disabled="isHandling">
           <v-row>
             <v-col cols="12">
               <base-form-text-field
@@ -33,28 +33,38 @@
         </v-form>
       </v-card-text>
       <v-card-actions>
-        <accounts-modal-send-btn :model="model" />
+        <accounts-modal-btn-send
+          :model="model"
+          :address="address"
+          :balance="balance"
+          @sent="dialog = false"
+        />
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import AccountsModalSendBtn from './AccountsModalSendBtn.vue';
+import AccountsModalBtnSend from './AccountsModalBtnSend.vue';
 
 import { mdiClose } from '@mdi/js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'AccountsModalSend',
   components: {
-    AccountsModalSendBtn,
+    AccountsModalBtnSend,
   },
   props: {
     value: {
       type: Boolean,
       required: true,
     },
-    token: {
+    address: {
+      type: String,
+      required: true,
+    },
+    balance: {
       type: Object,
       required: true,
     },
@@ -70,6 +80,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('accountBalance', ['isHandling']),
     dialog: {
       get() {
         return this.value;

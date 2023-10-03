@@ -20,7 +20,11 @@
           <v-btn color="primary" depressed @click="dialog = true">
             <span class="text-caption" v-text="$t('labels.send')" />
           </v-btn>
-          <accounts-modal-send :token="item" v-model="dialog" />
+          <accounts-modal-send
+            :address="address"
+            :balance="item"
+            v-model="dialog"
+          />
         </template>
       </v-data-table>
     </v-col>

@@ -10,6 +10,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setHandling(state, payload) {
+    state.isHandling = payload;
+  },
   setBalances(state, payload) {
     state.balances = payload;
   },
