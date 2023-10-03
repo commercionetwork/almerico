@@ -16,20 +16,32 @@
         <template #[`item.balance`]="{ item }">
           <span v-text="formatBalance(item.balance, item.decimals)" />
         </template>
+        <template #[`item.contract`]="{ item }">
+          <v-btn color="primary" depressed @click="dialog = true">
+            <span v-text="$t('labels.send')" />
+          </v-btn>
+          <accounts-modal-send :token="item" v-model="dialog" />
+        </template>
       </v-data-table>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import AccountsModalSend from './AccountsModalSend.vue';
+
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'AccountViewBalanceTable',
+  components: {
+    AccountsModalSend,
+  },
   data() {
     return {
       sortBy: 'name',
       sortDesc: false,
+      dialog: false,
     };
   },
   computed: {
@@ -41,7 +53,8 @@ export default {
       return [
         { text: this.$t('labels.name'), value: 'name', width: '40%' },
         { text: this.$t('labels.symbol'), value: 'symbol', width: '20%' },
-        { text: this.$t('labels.balance'), value: 'balance' },
+        { text: this.$t('labels.balance'), value: 'balance', width: '30%' },
+        { text: '', value: 'contract' },
       ];
     },
     items() {
