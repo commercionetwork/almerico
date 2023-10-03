@@ -44,7 +44,7 @@ export default {
         .convertToBase(this.model.amount, this.balance.decimals)
         .toString();
       const msg = JSON.stringify({
-        transfer: { recipient: this.model.address, amount },
+        transfer: { recipient: this.model.recipient, amount },
       });
       const res = await this.sendTokens({
         contract: this.balance.contract,

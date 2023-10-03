@@ -17,9 +17,9 @@
           <v-row>
             <v-col cols="12">
               <base-form-text-field
-                id="send-address"
-                :label="$t('labels.address')"
-                v-model.trim="model.address"
+                id="send-recipient"
+                :label="$t('labels.recipient')"
+                v-model.trim="model.recipient"
               />
             </v-col>
             <v-col cols="12">
@@ -74,8 +74,8 @@ export default {
     return {
       mdiClose,
       model: {
-        address: '',
         amount: '0.01',
+        recipient: '',
       },
     };
   },
