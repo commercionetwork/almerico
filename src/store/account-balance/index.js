@@ -7,7 +7,6 @@ export const initState = () => ({
   isLoading: false,
   isHandling: false,
   balances: [],
-  cw20: null,
 });
 
 export default {
