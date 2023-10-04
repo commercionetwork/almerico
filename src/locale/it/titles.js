@@ -7,6 +7,7 @@ export const titles = {
   allTokensBalance: 'Saldo token',
   allWallets: 'All wallets',
   assetDetail: 'Dettagli asset',
+  assetTransfer: 'Trasferimento asset',
   assets: 'Assets',
   blockDetail: 'Dettagli blocco',
   blocks: 'Blocchi',

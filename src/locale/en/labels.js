@@ -195,6 +195,7 @@ export const labels = {
   total: 'Total',
   totalCirculatingSupply: 'Total circulating supply',
   totalNonCirculatingSupply: 'Total non circulating supply',
+  transfer: 'Transfer',
   tsp: 'Tsp',
   turnout: 'Turnout',
   txHash: 'Tx hash',
