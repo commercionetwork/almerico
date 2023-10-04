@@ -1,10 +1,10 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
-import AssetsViewDetail from '../AssetsViewDetail.vue';
+import AssetsViewDetailInfo from '../AssetsViewDetailInfo.vue';
 
 const localVue = createLocalVue();
 
-describe('views/assets/AssetsViewDetail.vue', () => {
+describe('views/assets/AssetsViewDetailInfo.vue', () => {
   const actions = {
     initAssetsDetail: jest.fn(),
   };
@@ -25,7 +25,7 @@ describe('views/assets/AssetsViewDetail.vue', () => {
   };
 
   test('if loading indicator is displayed', async () => {
-    const wrapper = shallowMount(AssetsViewDetail, {
+    const wrapper = shallowMount(AssetsViewDetailInfo, {
       localVue,
       mocks,
       computed: {
@@ -42,7 +42,7 @@ describe('views/assets/AssetsViewDetail.vue', () => {
 
   test('if message error is displayed', async () => {
     const error = Error('message');
-    const wrapper = shallowMount(AssetsViewDetail, {
+    const wrapper = shallowMount(AssetsViewDetailInfo, {
       localVue,
       mocks,
       computed: {
@@ -58,7 +58,7 @@ describe('views/assets/AssetsViewDetail.vue', () => {
   });
 
   test('if content is displayed', async () => {
-    const wrapper = shallowMount(AssetsViewDetail, {
+    const wrapper = shallowMount(AssetsViewDetailInfo, {
       localVue,
       mocks,
       computed: {
