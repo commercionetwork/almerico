@@ -198,4 +198,18 @@ export default {
     commit('setHandling', false);
     return true;
   },
+  async transferAsset(
+    { commit, dispatch },
+    { contract, textMsg, translator, context }
+  ) {
+    commit('setHandling', true);
+    await dispatch('executeContract', {
+      contract,
+      textMsg,
+      translator,
+      context,
+    });
+    commit('setHandling', false);
+    return true;
+  },
 };
