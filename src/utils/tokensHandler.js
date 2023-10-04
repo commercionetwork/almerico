@@ -1,9 +1,9 @@
 const tokensHandler = {
   convertFromBase(amount, decimals) {
-    return parseFloat(amount) / Math.pow(10, decimals);
+    return parseInt(amount) / Math.pow(10, decimals);
   },
   convertToBase(amount, decimals) {
-    return parseFloat(amount) * Math.pow(10, decimals);
+    return Math.round(parseFloat(amount) * Math.pow(10, decimals));
   },
   format(amount, decimals) {
     if (isNaN(parseFloat(amount)) || isNaN(parseFloat(decimals))) {
