@@ -1,4 +1,5 @@
 export const msgs = {
+  accessDenied: 'Access denied',
   accountNotExist: 'Account does not exist',
   addingAMarketer: 'Adding a marketing manager is mandatory in order to change marketing in the future',
   addingAMinter: 'Adding a minter is mandatory in order to mint further tokens',
