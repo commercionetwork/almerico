@@ -3,8 +3,9 @@
     v-if="isDenied"
     kind="warning"
     :message="$t('msgs.accessDenied')"
+    data-test="access-denied"
   />
-  <v-row v-else>
+  <v-row v-else data-test="access-not-denied">
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <base-loading-linear :height="25" />
     </v-col>
