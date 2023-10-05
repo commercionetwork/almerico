@@ -21,11 +21,29 @@ describe('views/assets/AssetsViewNew.vue', () => {
     $t: (msg) => msg,
   };
 
+  test('if "access denied" alert is displayed', () => {
+    const wrapper = shallowMount(AssetsViewNew, {
+      localVue,
+      mocks,
+      computed: {
+        isDenied: () => true,
+        error: () => null,
+        isLoading: () => true,
+      },
+    });
+
+    expect(wrapper.find('[data-test="access-denied"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="access-not-denied"]').exists()).toBe(
+      false
+    );
+  });
+
   test('if loading indicator is displayed', async () => {
     const wrapper = shallowMount(AssetsViewNew, {
       localVue,
       mocks,
       computed: {
+        isDenied: () => false,
         error: () => null,
         isLoading: () => true,
       },
@@ -42,6 +60,7 @@ describe('views/assets/AssetsViewNew.vue', () => {
       localVue,
       mocks,
       computed: {
+        isDenied: () => false,
         error: () => error,
         isLoading: () => false,
       },
@@ -57,6 +76,7 @@ describe('views/assets/AssetsViewNew.vue', () => {
       localVue,
       mocks,
       computed: {
+        isDenied: () => false,
         error: () => null,
         isLoading: () => false,
       },
