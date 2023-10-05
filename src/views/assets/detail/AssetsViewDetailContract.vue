@@ -1,7 +1,17 @@
 <template>
   <v-card outlined>
     <v-card-title>
-      <span v-text="$t('titles.contractDetail')" />
+      <div v-text="$t('titles.contractDetail')" />
+      <v-spacer />
+      <v-btn
+        icon
+        :to="{
+          name: ROUTES.NAME.ASSETS_DETAIL_TRANSFER,
+          params: { id: detail.id },
+        }"
+      >
+        <v-icon size="20">{{ mdiSend }}</v-icon>
+      </v-btn>
     </v-card-title>
     <v-divider class="mx-3" />
     <v-card-text>
@@ -40,6 +50,7 @@
 </template>
 
 <script>
+import { mdiSend } from '@mdi/js';
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
 import { tokensHandler } from '@/utils';
@@ -49,6 +60,7 @@ export default {
   data() {
     return {
       ROUTES,
+      mdiSend,
     };
   },
   computed: {
