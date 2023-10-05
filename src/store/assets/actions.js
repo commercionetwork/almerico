@@ -40,6 +40,21 @@ export default {
     };
     commit('setDetail', detail);
   },
+  async initAssetsTransfer({ commit, dispatch }, address) {
+    commit('reset');
+    commit('setLoading', true);
+    const requests = [dispatch('fetchAssetToTransfer', address)];
+    await Promise.all(requests);
+    commit('setLoading', false);
+  },
+  async fetchAssetToTransfer({ commit, dispatch }, address) {
+    const asset = await dispatch('getTokenInfo', address);
+    const detail = {
+      id: address,
+      ...asset,
+    };
+    commit('setDetail', detail);
+  },
   async initAssetsNew(
     { commit, dispatch, rootGetters },
     { translator, context }
@@ -180,6 +195,20 @@ export default {
       context,
     });
     await dispatch('fetchAssetDetail', contract);
+    commit('setHandling', false);
+    return true;
+  },
+  async transferAsset(
+    { commit, dispatch },
+    { contract, textMsg, translator, context }
+  ) {
+    commit('setHandling', true);
+    await dispatch('executeContract', {
+      contract,
+      textMsg,
+      translator,
+      context,
+    });
     commit('setHandling', false);
     return true;
   },

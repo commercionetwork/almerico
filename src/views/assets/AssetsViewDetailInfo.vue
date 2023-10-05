@@ -36,7 +36,7 @@ import AssetsViewDetailTechnical from './detail/AssetsViewDetailTechnical.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'AssetsViewDetail',
+  name: 'AssetsViewDetailInfo',
   components: {
     AssetsViewDetailTechnical,
     AssetsViewDetailContract,

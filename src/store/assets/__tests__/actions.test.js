@@ -53,6 +53,19 @@ describe('store/assets/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
+  test('if "initAssetsTransfer" reset store, set loading state, dispatch "fetchAssetToTransfer" action', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const address = 'address';
+
+    await actions.initAssetsTransfer({ commit, dispatch }, address);
+
+    expect(commit).toHaveBeenCalledWith('reset');
+    expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchAssetToTransfer', address);
+    expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
+
   test('if "initAssetsNew" reset store, set loading state, dispatch "keplr/connect" action', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
