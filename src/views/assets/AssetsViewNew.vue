@@ -1,5 +1,11 @@
 <template>
-  <v-row>
+  <the-alert-notice
+    v-if="isDenied"
+    kind="warning"
+    :message="$t('msgs.accessDenied')"
+    data-test="access-denied"
+  />
+  <v-row v-else data-test="access-not-denied">
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <base-loading-linear :height="25" />
     </v-col>
@@ -22,6 +28,7 @@
 import AssetsViewNewForm from './new/AssetsViewNewForm.vue';
 
 import { mapActions, mapGetters } from 'vuex';
+import { dateHandler } from '@/utils';
 
 export default {
   name: 'AssetsViewNew',
@@ -30,9 +37,22 @@ export default {
   },
   computed: {
     ...mapGetters('assets', ['error', 'isLoading']),
+    isDenied() {
+      const query = this.$route.query;
+      if (!query['op']) {
+        return true;
+      }
+      const expexted = dateHandler.getFormattedDate(
+        dateHandler.getSubtractedDate(2, 'day'),
+        'YYMMDD'
+      );
+      return expexted !== query['op'];
+    },
   },
   created() {
-    this.initAssetsNew({ translator: this.$t, context: this });
+    if (!this.isDenied) {
+      this.initAssetsNew({ translator: this.$t, context: this });
+    }
   },
   methods: {
     ...mapActions('assets', ['initAssetsNew']),

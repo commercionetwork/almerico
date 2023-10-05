@@ -1,4 +1,5 @@
 export const msgs = {
+  accessDenied: 'Accesso negato',
   accountNotExist: 'Questo account non esiste',
   addingAMarketer: 'Aggiungere un responsabile marketing è obbligatorio per poter modificare in futuro il marketing',
   addingAMinter: 'Aggiungere un minter è obbligatorio per poter eseguire il mint di ulteriori token',

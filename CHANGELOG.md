@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.7] 2023-10-05
+
+### Changed
+
+- Change the landing route after CW20 transfer
+
 ## [4.8.6] 2023-10-04
 
 ### Changed
@@ -685,6 +691,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.8.7]: https://github.com/commercionetwork/almerico/compare/v4.8.6...v4.8.7
 [4.8.6]: https://github.com/commercionetwork/almerico/compare/v4.8.5...v4.8.6
 [4.8.5]: https://github.com/commercionetwork/almerico/compare/v4.8.4...v4.8.5
 [4.8.4]: https://github.com/commercionetwork/almerico/compare/v4.7.0...v4.8.4

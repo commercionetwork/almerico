@@ -89,8 +89,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('keplr', ['wallet']),
     ...mapGetters('assets', ['newCW20']),
+    ...mapGetters('keplr', ['wallet']),
   },
   watch: {
     model: {
