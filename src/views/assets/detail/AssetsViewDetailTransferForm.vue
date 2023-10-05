@@ -47,6 +47,7 @@ export default {
   },
   computed: {
     ...mapGetters('assets', ['isHandling', 'detail']),
+    ...mapGetters('keplr', ['wallet']),
   },
   methods: {
     ...mapActions('assets', ['transferAsset']),
@@ -64,7 +65,10 @@ export default {
         context: this,
       });
       if (res) {
-        this.$router.replace({ name: ROUTES.NAME.ASSETS });
+        this.$router.replace({
+          name: ROUTES.NAME.ACCOUNT_BALANCE,
+          params: { id: this.wallet },
+        });
       }
     },
   },
