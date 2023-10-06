@@ -10,6 +10,7 @@ export const initState = () => ({
   list: [],
   detail: null,
   newCW20: null,
+  government: '',
 });
 
 export default {

@@ -7,4 +7,5 @@ export default {
   contract: (state) => (state.detail ? state.detail.id : ''),
   newCW20: (state) => state.newCW20,
   isValidCW20: (state) => !state.isInvalid,
+  government: (state) => state.government,
 };
