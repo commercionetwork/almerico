@@ -68,7 +68,7 @@ export default {
   },
   created() {
     this.updateContractProp({
-      mint: { minter: this.wallet, cap: this.model.cap },
+      mint: { minter: this.wallet },
     });
   },
   methods: {
