@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.8] 2023-10-06
+
+### Fixed
+
+- Fix the action to create a new CW20 token
+
 ## [4.8.7] 2023-10-05
 
 ### Changed
@@ -691,6 +697,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.8.8]: https://github.com/commercionetwork/almerico/compare/v4.8.7...v4.8.8
 [4.8.7]: https://github.com/commercionetwork/almerico/compare/v4.8.6...v4.8.7
 [4.8.6]: https://github.com/commercionetwork/almerico/compare/v4.8.5...v4.8.6
 [4.8.5]: https://github.com/commercionetwork/almerico/compare/v4.8.4...v4.8.5

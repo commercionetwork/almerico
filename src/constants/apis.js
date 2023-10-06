@@ -44,6 +44,7 @@ export const APIS = {
     // Cosmwasm
     WASM: `${LCD}/${API_PATHS.COSMWASM}/wasm/${API_VERSION_COSMWASM}`,
     // Commercio
+    GOVERNMENT: `${LCD}/${API_PATHS.COMMERCIO}/government`,
     KYC: `${LCD}/${API_PATHS.COMMERCIO}/commerciokyc`,
     MINT: `${LCD}/${API_PATHS.COMMERCIO}/commerciomint`,
     SUPPLY: `${LCD}/${API_PATHS.COMMERCIO}/supply`,

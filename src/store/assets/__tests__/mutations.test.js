@@ -15,6 +15,8 @@ describe('store/assets/mutations', () => {
     state.list = [{ id: 1 }];
     state.detail = { id: 1 };
     state.newCW20 = { id: 1 };
+    state.isInvalid = false;
+    state.government = 'government';
 
     const expected = initState();
 
@@ -73,5 +75,13 @@ describe('store/assets/mutations', () => {
     mutations.setIsInvalid(state, false);
 
     expect(state.isInvalid).toBe(false);
+  });
+
+  test('mutations.setGovernment', () => {
+    const payload = 'government';
+
+    mutations.setGovernment(state, payload);
+
+    expect(state.government).toBe(payload);
   });
 });

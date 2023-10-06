@@ -47,6 +47,17 @@ const commercio = {
       baseURL: APIS.HTTP.KYC,
     });
   },
+  /**
+   *
+   * @returns {AxiosPromise}
+   */
+  requestGovernmentAddress() {
+    return axios({
+      url: '/governmentAddress',
+      method: 'get',
+      baseURL: APIS.HTTP.GOVERNMENT,
+    });
+  },
 };
 
 export default commercio;
