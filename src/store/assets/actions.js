@@ -1,4 +1,4 @@
-import { cosmwasm } from '@/apis/http';
+import { commercio, cosmwasm } from '@/apis/http';
 import { CONFIG } from '@/constants';
 import { msgBuilder, stringEncoder } from '@/utils';
 
@@ -70,7 +70,16 @@ export default {
         }
       );
     }
+    await dispatch('fetchGovernmentAddress');
     commit('setLoading', false);
+  },
+  async fetchGovernmentAddress({ commit }) {
+    try {
+      const response = await commercio.requestGovernmentAddress();
+      commit('setGovernment', response.data.governmentAddress);
+    } catch (error) {
+      commit('setError', error);
+    }
   },
   async getContracts({ commit }, codeId) {
     const contracts = [];
@@ -119,7 +128,7 @@ export default {
     commit('setIsInvalid', isInvalid);
   },
   async instantiateContract(
-    { dispatch, rootGetters },
+    { dispatch, getters, rootGetters },
     { codeId, contract, translator, context }
   ) {
     if (!rootGetters['keplr/isInitialized']) {
@@ -132,10 +141,12 @@ export default {
       );
     }
     const account = rootGetters['keplr/wallet'];
+    const government = getters['government'];
     const label = `Init ${contract.name} contract`;
     const funds = [];
     const msg = msgBuilder.buildMsgInstantiateContract({
-      account,
+      sender: account,
+      admin: government,
       codeId,
       funds,
       label,
