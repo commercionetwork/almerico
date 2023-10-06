@@ -66,7 +66,7 @@ describe('store/assets/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "initAssetsNew" reset store, set loading state, dispatch "keplr/connect" action', async () => {
+  test('if "initAssetsNew" reset store, set loading state, dispatch "keplr/connect" and "fetchGovernmentAddress" actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const rootGetters = { keplr: { isInitialized: false } };
@@ -87,7 +87,25 @@ describe('store/assets/actions', () => {
         root: true,
       }
     );
+    expect(dispatch).toHaveBeenCalledWith('fetchGovernmentAddress');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
+
+  test('if "fetchGovernmentAddress" set the government address, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchGovernmentAddress({ commit });
+
+    expect(commit).toHaveBeenCalledWith(
+      'setGovernment',
+      mockResponse.data.governmentAddress
+    );
+
+    mockError = true;
+
+    await actions.fetchGovernmentAddress({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "getContracts" return the contracts list, and set the error if it is caught', async () => {
@@ -178,6 +196,25 @@ describe('store/assets/actions', () => {
     expect(commit).toHaveBeenCalledWith('setIsInvalid', isInvalid);
   });
 });
+
+jest.mock('../../../apis/http/commercio.js', () => ({
+  requestGovernmentAddress: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            governmentAddress: 'governmentAddress',
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
 
 jest.mock('../../../apis/http/cosmwasm.js', () => ({
   requestContracts: () => {

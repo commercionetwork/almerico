@@ -52,7 +52,8 @@ const msgBuilder = {
     };
   },
   buildMsgInstantiateContract({
-    account,
+    sender,
+    admin,
     codeId,
     label,
     msg,
@@ -61,8 +62,8 @@ const msgBuilder = {
     return {
       typeUrl: '/cosmwasm.wasm.v1.MsgInstantiateContract',
       value: MsgInstantiateContract.fromPartial({
-        sender: account,
-        admin: account,
+        sender,
+        admin,
         codeId,
         label,
         msg: new TextEncoder().encode(msg),

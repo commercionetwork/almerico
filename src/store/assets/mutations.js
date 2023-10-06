@@ -26,4 +26,7 @@ export default {
   setIsInvalid(state, payload) {
     state.isInvalid = payload;
   },
+  setGovernment(state, payload) {
+    state.government = payload;
+  },
 };
