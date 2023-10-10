@@ -24,6 +24,7 @@ export const titles = {
   delegatorAmounts: 'Importi delegatore',
   description: 'Descrizione',
   doSign: 'Firma',
+  editLogo: 'Modifica logo',
   editMarketing: 'Modifica marketing',
   exchangeRate: 'Tasso di cambio',
   filterProposals: 'Filtra proposte',

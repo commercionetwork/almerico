@@ -208,6 +208,7 @@ export const labels = {
   unreleasedRewards: 'Unreleased rewards',
   updateTime: 'Update time',
   upgradedClientState: 'Upgraded client state',
+  urlLogo: 'URL logo',
   uuid: 'UUID',
   validator: 'Validator',
   validatorAddress: 'Validator address',

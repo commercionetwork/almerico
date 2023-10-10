@@ -3,6 +3,10 @@
     <v-card-title>
       <div v-text="$t('titles.contractDetail')" />
       <v-spacer />
+      <v-btn v-if="minter" icon @click="dialog = true">
+        <v-icon size="20">{{ mdiPencilPlus }}</v-icon>
+      </v-btn>
+      <assets-modal-minting v-model="dialog" />
       <v-btn
         icon
         :to="{
@@ -12,10 +16,6 @@
       >
         <v-icon size="20">{{ mdiSend }}</v-icon>
       </v-btn>
-      <v-btn v-if="minter" icon @click="dialog = true">
-        <v-icon size="20">{{ mdiPencilPlus }}</v-icon>
-      </v-btn>
-      <assets-modal-minting v-model="dialog" />
     </v-card-title>
     <v-divider class="mx-3" />
     <v-card-text>
