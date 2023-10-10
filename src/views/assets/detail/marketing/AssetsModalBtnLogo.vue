@@ -29,10 +29,10 @@ export default {
     ...mapGetters('assets', ['contract', 'isHandling']),
   },
   methods: {
-    ...mapActions('assets', ['updateMarketing']),
+    ...mapActions('assets', ['handleAsset']),
     async save() {
       const msg = JSON.stringify({ upload_logo: { url: this.model.url } });
-      const res = await this.updateMarketing({
+      const res = await this.handleAsset({
         contract: this.contract,
         textMsg: msg,
         translator: this.$t,

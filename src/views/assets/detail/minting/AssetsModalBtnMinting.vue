@@ -30,7 +30,7 @@ export default {
     ...mapGetters('assets', ['detail', 'isHandling']),
   },
   methods: {
-    ...mapActions('assets', ['mintAsset']),
+    ...mapActions('assets', ['handleAsset']),
     async save() {
       const amount = tokensHandler.convertToBase(
         this.model.amount,
@@ -39,7 +39,7 @@ export default {
       const msg = JSON.stringify({
         mint: { amount: amount.toString(), recipient: this.model.address },
       });
-      const res = await this.mintAsset({
+      const res = await this.handleAsset({
         contract: this.detail.id,
         textMsg: msg,
         translator: this.$t,

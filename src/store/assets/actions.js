@@ -194,7 +194,7 @@ export default {
       root: true,
     });
   },
-  async mintAsset(
+  async handleAsset(
     { commit, dispatch },
     { contract, textMsg, translator, context }
   ) {
@@ -220,21 +220,6 @@ export default {
       translator,
       context,
     });
-    commit('setHandling', false);
-    return true;
-  },
-  async updateMarketing(
-    { commit, dispatch },
-    { contract, textMsg, translator, context }
-  ) {
-    commit('setHandling', true);
-    await dispatch('executeContract', {
-      contract,
-      textMsg,
-      translator,
-      context,
-    });
-    await dispatch('fetchAssetDetail', contract);
     commit('setHandling', false);
     return true;
   },
