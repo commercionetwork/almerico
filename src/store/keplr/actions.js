@@ -30,10 +30,15 @@ export default {
   async suggestChain({ commit }, { chain, $t }) {
     try {
       await window.keplr.experimentalSuggestChain({
-        chainId: chain.chainId,
-        chainName: chain.chainName,
         rpc: chain.rpc,
         rest: chain.lcd,
+        chainId: chain.chainId,
+        chainName: chain.chainName,
+        stakeCurrency: {
+          coinDenom: CONFIG.TOKEN.SYMBOL,
+          coinMinimalDenom: CONFIG.TOKEN.DENOM,
+          coinDecimals: CONFIG.TOKEN.EXPONENT,
+        },
         bip44: {
           coinType: CONFIG.COIN_TYPE,
         },
@@ -62,24 +67,23 @@ export default {
             coinDenom: CONFIG.STABLE_COIN.SYMBOL,
             coinMinimalDenom: CONFIG.STABLE_COIN.DENOM,
             coinDecimals: CONFIG.STABLE_COIN.EXPONENT,
+            gasPriceStep: {
+              low: CONFIG.GAS_PRICE_STEP.LOW,
+              average: CONFIG.GAS_PRICE_STEP.AVERAGE,
+              high: CONFIG.GAS_PRICE_STEP.HIGH,
+            },
           },
           {
             coinDenom: CONFIG.TOKEN.SYMBOL,
             coinMinimalDenom: CONFIG.TOKEN.DENOM,
             coinDecimals: CONFIG.TOKEN.EXPONENT,
+            gasPriceStep: {
+              low: CONFIG.GAS_PRICE_STEP.LOW,
+              average: CONFIG.GAS_PRICE_STEP.AVERAGE,
+              high: CONFIG.GAS_PRICE_STEP.HIGH,
+            },
           },
         ],
-        stakeCurrency: {
-          coinDenom: CONFIG.TOKEN.SYMBOL,
-          coinMinimalDenom: CONFIG.TOKEN.DENOM,
-          coinDecimals: CONFIG.TOKEN.EXPONENT,
-        },
-        coinType: CONFIG.COIN_TYPE,
-        gasPriceStep: {
-          low: CONFIG.GAS_PRICE_STEP.LOW,
-          average: CONFIG.GAS_PRICE_STEP.AVERAGE,
-          high: CONFIG.GAS_PRICE_STEP.HIGH,
-        },
       });
     } catch (error) {
       commit('setError', $t('msgs.failedToSuggestTheChain'));

@@ -4,10 +4,17 @@
       <div v-text="$t('titles.marketingDetail')" />
       <v-spacer />
       <div v-if="marketing">
-        <v-btn icon @click="dialog = true">
+        <v-btn icon @click="dialog.marketing = true">
           <v-icon size="20">{{ mdiPencil }}</v-icon>
         </v-btn>
-        <assets-modal-marketing :marketing="marketing" v-model="dialog" />
+        <assets-modal-marketing
+          :marketing="marketing"
+          v-model="dialog.marketing"
+        />
+        <v-btn icon @click="dialog.logo = true">
+          <v-icon size="20">{{ mdiImage }}</v-icon>
+        </v-btn>
+        <assets-modal-logo v-model="dialog.logo" />
       </div>
     </v-card-title>
     <v-divider class="mx-3" />
@@ -39,22 +46,28 @@
 </template>
 
 <script>
+import AssetsModalLogo from './marketing/AssetsModalLogo.vue';
 import AssetsModalMarketing from './marketing/AssetsModalMarketing.vue';
 
-import { mdiPencil } from '@mdi/js';
+import { mdiImage, mdiPencil } from '@mdi/js';
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
 
 export default {
   name: 'AssetsViewDetailMarketing',
   components: {
+    AssetsModalLogo,
     AssetsModalMarketing,
   },
   data() {
     return {
       ROUTES,
+      mdiImage,
       mdiPencil,
-      dialog: false,
+      dialog: {
+        marketing: false,
+        logo: false,
+      },
     };
   },
   computed: {
