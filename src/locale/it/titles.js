@@ -37,6 +37,7 @@ export const titles = {
   membership: 'Membership',
   message: 'Messaggio',
   metadata: 'Metadata',
+  mintTokens: 'Mint tokens',
   mintingDetail: 'Dettagli minting',
   msgsTxs: 'Msgs/txs',
   myValidators: 'Miei validatori',

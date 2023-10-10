@@ -12,6 +12,10 @@
       >
         <v-icon size="20">{{ mdiSend }}</v-icon>
       </v-btn>
+      <v-btn v-if="minter" icon @click="dialog = true">
+        <v-icon size="20">{{ mdiPencilPlus }}</v-icon>
+      </v-btn>
+      <assets-modal-minting v-model="dialog" />
     </v-card-title>
     <v-divider class="mx-3" />
     <v-card-text>
@@ -50,17 +54,24 @@
 </template>
 
 <script>
-import { mdiSend } from '@mdi/js';
+import AssetsModalMinting from './minting/AssetsModalMinting.vue';
+
+import { mdiPencilPlus, mdiSend } from '@mdi/js';
 import { mapGetters } from 'vuex';
 import { ROUTES } from '@/constants';
 import { tokensHandler } from '@/utils';
 
 export default {
   name: 'AssetsViewDetailContract',
+  components: {
+    AssetsModalMinting,
+  },
   data() {
     return {
       ROUTES,
+      mdiPencilPlus,
       mdiSend,
+      dialog: false,
     };
   },
   computed: {
