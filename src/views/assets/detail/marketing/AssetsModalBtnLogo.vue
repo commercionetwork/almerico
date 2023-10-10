@@ -18,7 +18,7 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'AssetsModalBtnMarketing',
+  name: 'AssetsModalBtnLogo',
   props: {
     model: {
       type: Object,
@@ -31,7 +31,7 @@ export default {
   methods: {
     ...mapActions('assets', ['handleAsset']),
     async save() {
-      const msg = JSON.stringify({ update_marketing: this.model });
+      const msg = JSON.stringify({ upload_logo: { url: this.model.url } });
       const res = await this.handleAsset({
         contract: this.contract,
         textMsg: msg,

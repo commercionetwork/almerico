@@ -16,9 +16,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import { tokensHandler } from '@/utils';
 
 export default {
-  name: 'AssetsModalBtnMarketing',
+  name: 'AssetsModalBtnMinting',
   props: {
     model: {
       type: Object,
@@ -26,14 +27,20 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('assets', ['contract', 'isHandling']),
+    ...mapGetters('assets', ['detail', 'isHandling']),
   },
   methods: {
     ...mapActions('assets', ['handleAsset']),
     async save() {
-      const msg = JSON.stringify({ update_marketing: this.model });
+      const amount = tokensHandler.convertToBase(
+        this.model.amount,
+        this.detail.token.decimals
+      );
+      const msg = JSON.stringify({
+        mint: { amount: amount.toString(), recipient: this.model.address },
+      });
       const res = await this.handleAsset({
-        contract: this.contract,
+        contract: this.detail.id,
         textMsg: msg,
         translator: this.$t,
         context: this,
