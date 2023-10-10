@@ -194,7 +194,7 @@ export default {
       root: true,
     });
   },
-  async updateMarketing(
+  async handleAsset(
     { commit, dispatch },
     { contract, textMsg, translator, context }
   ) {
