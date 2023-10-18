@@ -12,7 +12,7 @@
 <script>
 import { CONFIG, ROUTES } from '@/constants';
 import { mdiMagnify } from '@mdi/js';
-import { regExpBuilder } from '@/utils';
+import { bech32Manager, regExpBuilder } from '@/utils';
 
 export default {
   name: 'TheSearchBar',
@@ -24,19 +24,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      const validatorRegEx = regExpBuilder.getAddressRegExp(
-        CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS
-      );
-      const accountRegEx = regExpBuilder.getAddressRegExp(
-        CONFIG.PREFIXES.ACCOUNT.ADDRESS
-      );
+      const prefix = bech32Manager.extractPrefix(this.query);
       const hashRegEx = regExpBuilder.getHashRegExp();
       const heightRegEx = regExpBuilder.getHeightRegExp();
-
       let routeName = null;
-      if (validatorRegEx.test(this.query)) {
+      if (prefix === CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS) {
         routeName = ROUTES.NAME.VALIDATORS_DETAIL;
-      } else if (accountRegEx.test(this.query)) {
+      } else if (prefix === CONFIG.PREFIXES.ACCOUNT.ADDRESS) {
         routeName = ROUTES.NAME.ACCOUNT;
       } else if (hashRegEx.test(this.query)) {
         routeName = ROUTES.NAME.TRANSACTIONS_DETAIL;
