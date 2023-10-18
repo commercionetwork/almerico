@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.11] 2023-10-11
+
+### Changed
+
+- Update global search to accept a contract address
+
 ## [4.8.10] 2023-10-10
 
 ### Added
@@ -714,6 +720,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.8.11]: https://github.com/commercionetwork/almerico/compare/v4.8.10...v4.8.11
 [4.8.10]: https://github.com/commercionetwork/almerico/compare/v4.8.9...v4.8.10
 [4.8.9]: https://github.com/commercionetwork/almerico/compare/v4.8.8...v4.8.9
 [4.8.8]: https://github.com/commercionetwork/almerico/compare/v4.8.7...v4.8.8
