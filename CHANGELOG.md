@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update global search to accept a contract address
+- Update global search bar to accept a contract address
 
 ## [4.8.10] 2023-10-10
 
