@@ -35,6 +35,19 @@ const bech32Manager = {
     }
     return encoded;
   },
+  /**
+   *
+   * @param {String} value
+   * @returns {String}
+   */
+  extractPrefix(value) {
+    try {
+      const obj = bech32.decode(value);
+      return obj.prefix;
+    } catch (error) {
+      return '';
+    }
+  },
 };
 
 export default bech32Manager;
