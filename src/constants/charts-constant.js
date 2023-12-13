@@ -1,4 +1,4 @@
-const ID = {
+const ID = Object.freeze({
   ACCOUNT_DETAIL_CAPITALIZATION: 'chart-account-detail-capitalization',
   ACCOUNT_DETAIL_PERFORMANCE: 'chart-account-detail-performance',
   BLOCKS_LIST: 'chart-blocks-list',
@@ -10,15 +10,15 @@ const ID = {
   TRANSACTIONS_LIST: 'chart-transactions-list',
   VALIDATOR_DETAIL: 'chart-validator-detail',
   VALIDATORS_LIST: 'chart-validators-list',
-};
+});
 
-const TYPE = {
+const TYPE = Object.freeze({
   BAR: 'bar',
   LINE: 'line',
   PIE: 'pie',
-};
+});
 
-export const CHARTS = {
+export default Object.freeze({
   ID,
   TYPE,
-};
+});

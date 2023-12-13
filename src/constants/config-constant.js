@@ -1,8 +1,8 @@
-const BROWSER_STORAGE_KEYS = {
+const BROWSER_STORAGE_KEYS = Object.freeze({
   LOCALE: 'almerico-locale',
   THEME: 'almerico-dark-theme',
   VALIDATORS: 'almerico-my-validators',
-};
+});
 
 const CHAIN = {
   DEFAULT_INDEX: 1,
@@ -88,11 +88,11 @@ const FIRST_HEIGHT =
     ? process.env.VUE_APP_FIRST_HEIGHT
     : '1';
 
-const LEGACY_VERSIONS = {
+const LEGACY_VERSIONS = Object.freeze({
   V_038: '0.38',
-};
+});
 
-const PREFIXES = {
+const PREFIXES = Object.freeze({
   ACCOUNT: {
     ADDRESS: 'did:com:',
     KEY: 'did:com:pub',
@@ -107,15 +107,15 @@ const PREFIXES = {
       KEY: 'did:com:valoperpub',
     },
   },
-};
+});
 
-const SCROLL = {
+const SCROLL = Object.freeze({
   BEHAVIOR: 'smooth',
   OFFSET_X: 0,
   OFFSET_Y: 70,
-};
+});
 
-const STABLE_COIN = {
+const STABLE_COIN = Object.freeze({
   NAME: 'commercio cash credits',
   SYMBOL: 'CCC',
   DENOM: 'uccc',
@@ -124,23 +124,23 @@ const STABLE_COIN = {
     AMOUNT: '1.00',
     SYMBOL: '€',
   },
-};
+});
 
-const TOKEN = {
+const TOKEN = Object.freeze({
   NAME: 'commercio',
   SYMBOL: 'COM',
   DENOM: 'ucommercio',
   EXPONENT: 6,
   STAKEABLE: true,
-};
+});
 
 const COIN_TYPE = 118;
 
-const GAS_PRICE_STEP = {
+const GAS_PRICE_STEP = Object.freeze({
   AVERAGE: 0.125,
   HIGH: 0.125,
   LOW: 0.125,
-};
+});
 
 const FEE_AMOUNT = 10000;
 
@@ -159,7 +159,7 @@ const WASM_SWAP_CODE_ID =
     ? process.env.VUE_APP_WASM_SWAP_CODE_ID
     : '';
 
-export const CONFIG = {
+export default Object.freeze({
   BROWSER_STORAGE_KEYS,
   CHAIN,
   COIN_TYPE,
@@ -177,4 +177,4 @@ export const CONFIG = {
   TOKEN,
   WASM_CW20_CODE_ID,
   WASM_SWAP_CODE_ID,
-};
+});

@@ -1,4 +1,4 @@
-const ACCOUNTS_MAINNET = [
+const ACCOUNTS_MAINNET = Object.freeze([
   'did:com:1xq366z9wpx2uzvr6d5e5g89hl3902km252n4nl',
   'did:com:1jyhpltwrnlccfs3puy95suvh8xlep38rckvn99',
   'did:com:1rkrnz57sf0474m6pyx453aghcyxpra3spm5sdg',
@@ -119,21 +119,21 @@ const ACCOUNTS_MAINNET = [
   'did:com:197p2t6cueylr3kfhs7u5jfxdmpryw4zxq0pvqj',
   'did:com:15a0fh4w52d0e6ffrnls52rujl5ydcaq5wd4zcw',
   'did:com:12yqgkd5tjdfz7ccqlczecyd6zxr5swgdjhmp8t',
-];
+]);
 
-const ACCOUNTS_TESTNET = [
+const ACCOUNTS_TESTNET = Object.freeze([
   'did:com:1qq3hlgcgs3496u5xyxar2sd8yvd7m3yr9da8t6',
   'did:com:1zy2z428nt35w6ar93tvp6d9cxhrmrh9240ssth',
   'did:com:1rdfrpkys87xx5z5lh39f6um4jyceen4rkc3nzc',
   'did:com:1qzn8jnk0ku8fmlyenn96tj0mkh964t35uhgpyg',
-];
+]);
 
-const ACCOUNTS_DEVNET = [
+const ACCOUNTS_DEVNET = Object.freeze([
   'did:com:1mfddzjvr8vpeqdtm6fuay2nvnecuk9qa8usqq5',
   'did:com:133nf49v83dts7pq30csnnl7ul5unsvzz55qt20',
   'did:com:12hzcdgapfh9eyamd092mz0gp6gvl2regvsn0zq',
   'did:com:13zexjr23zcwuav2k4gfzvrmy2dkvaa9vhdgw06',
-];
+]);
 
 const getAccounts = () => {
   switch (process.env.VUE_APP_LCD) {
@@ -148,7 +148,7 @@ const getAccounts = () => {
   }
 };
 
-export const STATS = Object.freeze({
+export default Object.freeze({
   ADDRESSES: getAccounts(),
   SEMAPHORE_ITEMS: 2,
 });

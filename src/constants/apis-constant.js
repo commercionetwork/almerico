@@ -1,23 +1,23 @@
-const LCD = process.env.VUE_APP_LCD || '';
-
-const API_VERSION = process.env.VUE_APP_API_VERSION || '';
-const API_VERSION_COSMWASM = process.env.VUE_APP_API_VERSION_COSMWASM || '';
-
-const API_PATHS = {
+const API_PATHS = Object.freeze({
   BASE: 'base',
   COMMERCIO: 'commercionetwork',
   COSMOS: 'cosmos',
   COSMWASM: 'cosmwasm',
   TENDERMINT: 'tendermint',
   TX: 'tx',
-};
+});
 
-const WS = process.env.VUE_APP_WS || '';
+const API_VERSION = process.env.VUE_APP_API_VERSION || '';
+const API_VERSION_COSMWASM = process.env.VUE_APP_API_VERSION_COSMWASM || '';
 
 const BACKEND = process.env.VUE_APP_BACKEND || '';
 const BACKEND_WS = process.env.VUE_APP_BACKEND_WS || '';
 
-export const APIS = {
+const LCD = process.env.VUE_APP_LCD || '';
+
+const WS = process.env.VUE_APP_WS || '';
+
+export default Object.freeze({
   HTTP: {
     LCD: LCD,
     API_VERSION: API_VERSION,
@@ -78,4 +78,4 @@ export const APIS = {
     URL: WS,
     URL_BACKEND: BACKEND_WS,
   },
-};
+});

@@ -1,4 +1,4 @@
-const COMMERCIO_COLOR = {
+const COMMERCIO_COLOR = Object.freeze({
   BLACK: {
     NAME: 'black',
     HEX: '#000000',
@@ -19,9 +19,9 @@ const COMMERCIO_COLOR = {
     NAME: 'silver',
     HEX: '#B4B4B4',
   },
-};
+});
 
-export const ACCOUNT = {
+export default Object.freeze({
   TRANSACTIONS_NUMBER: 10,
   MEMBERSHIPS: [
     {
@@ -45,4 +45,4 @@ export const ACCOUNT = {
       color: COMMERCIO_COLOR.BLACK.HEX,
     },
   ],
-};
+});
