@@ -376,7 +376,7 @@ jest.mock('../../../apis/http/tx-api.js', () => ({
   },
 }));
 
-jest.mock('../../../utils/bech32Manager.js', () => ({
+jest.mock('../../../utils/bech32-manager.js', () => ({
   decode: () => {
     if (mockError) {
       return mockErrorResponse;

@@ -1,6 +1,4 @@
-import { coinAdapter, dateHandler } from '@/utils';
-import txsFilter from './txsFilter';
-import txHandler from './txHandler';
+import { coinAdapter, dateHandler, txsFilter, txHandler } from '@/utils';
 import { uniqBy } from 'lodash';
 
 const txsTableAdapter = {
