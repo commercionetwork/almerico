@@ -22,6 +22,7 @@ export const titles = {
   delegations: 'Delegations',
   delegatorAmounts: 'Delegator amounts',
   description: 'Description',
+  dex: 'Dex',
   doSign: 'Do sign',
   editLogo: 'Edit logo',
   editMarketing: 'Edit marketing',
