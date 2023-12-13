@@ -6,6 +6,7 @@ import accountBalance from './account-balance';
 import application from './application';
 import assets from './assets';
 import blocks from './blocks';
+import dex from './dex';
 import exchangeRate from './exchange-rate';
 import home from './home';
 import keplr from './keplr';
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     application,
     assets,
     blocks,
+    dex,
     exchangeRate,
     home,
     keplr,
