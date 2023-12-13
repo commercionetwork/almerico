@@ -157,7 +157,7 @@ describe('store/proposals/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/proposals.js', () => ({
+jest.mock('../../../apis/http/proposals-api.js', () => ({
   requestList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -188,7 +188,7 @@ jest.mock('../../../apis/http/proposals.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/governance.js', () => ({
+jest.mock('../../../apis/http/governance-api.js', () => ({
   requestTally: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -236,7 +236,7 @@ jest.mock('../../../apis/http/governance.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/staking.js', () => ({
+jest.mock('../../../apis/http/staking-api.js', () => ({
   requestPool: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

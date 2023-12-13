@@ -1,20 +1,20 @@
-import auth from './auth';
-import bank from './bank';
-import blocks from './blocks';
-import chart from './chart';
-import commercio from './commercio';
-import cosmwasm from './cosmwasm';
-import distribution from './distribution';
-import gaiaRest from './gaiaRest';
-import governance from './governance';
-import monitor from './monitor';
-import overview from './overview';
-import proposals from './proposals';
-import staking from './staking';
-import tendermintRpc from './tendermintRpc';
-import tx from './tx';
-import validators from './validators';
-import wasms from './wasms';
+import auth from './auth-api';
+import bank from './bank-api';
+import blocks from './blocks-api';
+import chart from './chart-api';
+import commercio from './commercio-api';
+import cosmwasm from './cosmwasm-api';
+import distribution from './distribution-api';
+import gaiaRest from './gaiaRest-api';
+import governance from './governance-api';
+import monitor from './monitor-api';
+import overview from './overview-api';
+import proposals from './proposals-api';
+import staking from './staking-api';
+import tendermintRpc from './tendermintRpc-api';
+import tx from './tx-api';
+import validators from './validators-api';
+import wasms from './wasms-api';
 
 export {
   auth,
