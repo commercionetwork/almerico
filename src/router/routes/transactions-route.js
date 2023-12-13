@@ -8,7 +8,7 @@ const TransactionsViewSharedoc = loadView(
   'transactions/TransactionsViewSharedoc'
 );
 
-export const transactionsRoutes = {
+const transactionsRoute = {
   path: ROUTES.PATH.TRANSACTIONS,
   component: TransactionsRouter,
   meta: {
@@ -48,3 +48,5 @@ export const transactionsRoutes = {
     },
   ],
 };
+
+export default transactionsRoute;

@@ -5,7 +5,7 @@ const StatsRouter = loadView('stats/StatsRouter');
 const StatsViewAccountsBalance = loadView('stats/StatsViewAccountsBalance');
 const StatsViewDashboard = loadView('stats/StatsViewDashboard');
 
-export const statsRoutes = {
+const statsRoute = {
   path: ROUTES.PATH.STATS,
   component: StatsRouter,
   meta: {
@@ -27,3 +27,5 @@ export const statsRoutes = {
     },
   ],
 };
+
+export default statsRoute;

@@ -3,7 +3,7 @@ import { loadView } from '../index';
 
 const ExchangeRateView = loadView('exchange-rate/ExchangeRateView');
 
-export const exchangeRateRoutes = {
+const exchangeRateRoute = {
   path: ROUTES.PATH.EXCHANGE_RATE,
   name: ROUTES.NAME.EXCHANGE_RATE,
   component: ExchangeRateView,
@@ -11,3 +11,5 @@ export const exchangeRateRoutes = {
     title: ROUTES.TITLE.EXCHANGE_RATE,
   },
 };
+
+export default exchangeRateRoute;

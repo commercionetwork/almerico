@@ -4,7 +4,7 @@ import { loadView } from '../index';
 const IssueNotFoundView = loadView('issues/IssueNotFoundView');
 const WorkInProgress = loadView('issues/WorkInProgress');
 
-export const issuesRoute = [
+const issueRoutes = [
   {
     path: ROUTES.PATH.WORK_IN_PROGRESS,
     name: ROUTES.NAME.WORK_IN_PROGRESS,
@@ -26,3 +26,5 @@ export const issuesRoute = [
     redirect: ROUTES.PATH.NOT_FOUND,
   },
 ];
+
+export default issueRoutes;

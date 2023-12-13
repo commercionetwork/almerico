@@ -5,7 +5,7 @@ const ProposalsRouter = loadView('proposals/ProposalsRouter');
 const ProposalsViewDetail = loadView('proposals/ProposalsViewDetail');
 const ProposalsViewList = loadView('proposals/ProposalsViewList');
 
-export const proposalsRoutes = {
+const proposalsRoute = {
   path: ROUTES.PATH.PROPOSALS,
   component: ProposalsRouter,
   meta: {
@@ -28,3 +28,5 @@ export const proposalsRoutes = {
     },
   ],
 };
+
+export default proposalsRoute;

@@ -8,7 +8,7 @@ const AssetsViewDetailTransfer = loadView('assets/AssetsViewDetailTransfer');
 const AssetsViewList = loadView('assets/AssetsViewList');
 const AssetsViewNew = loadView('assets/AssetsViewNew');
 
-export const assetsRoutes = {
+const assetsRoute = {
   path: ROUTES.PATH.ASSETS,
   component: AssetsRouter,
   meta: {
@@ -66,3 +66,5 @@ export const assetsRoutes = {
     },
   ],
 };
+
+export default assetsRoute;

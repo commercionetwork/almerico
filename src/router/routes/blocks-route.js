@@ -5,7 +5,7 @@ const BlocksRouter = loadView('blocks/BlocksRouter');
 const BlocksViewDetail = loadView('blocks/BlocksViewDetail');
 const BlocksViewList = loadView('blocks/BlocksViewList');
 
-export const blocksRoutes = {
+const blocksRoute = {
   path: ROUTES.PATH.BLOCKS,
   component: BlocksRouter,
   meta: {
@@ -28,3 +28,5 @@ export const blocksRoutes = {
     },
   ],
 };
+
+export default blocksRoute;

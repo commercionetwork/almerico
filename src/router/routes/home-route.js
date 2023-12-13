@@ -3,7 +3,7 @@ import { loadView } from '../index';
 
 const HomeView = loadView('home/HomeView');
 
-export const homeRoutes = {
+const homeRoute = {
   path: ROUTES.PATH.HOME,
   name: ROUTES.NAME.HOME,
   component: HomeView,
@@ -11,3 +11,5 @@ export const homeRoutes = {
     title: ROUTES.TITLE.HOME,
   },
 };
+
+export default homeRoute;

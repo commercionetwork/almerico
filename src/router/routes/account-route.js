@@ -5,7 +5,7 @@ const AccountRouter = loadView('account/AccountRouter');
 const AccountViewBalance = loadView('account/AccountViewBalance');
 const AccountViewDashboard = loadView('account/AccountViewDashboard');
 
-export const accountRoutes = {
+const accountRoute = {
   path: ROUTES.PATH.ACCOUNT,
   component: AccountRouter,
   meta: {
@@ -38,3 +38,5 @@ export const accountRoutes = {
     },
   ],
 };
+
+export default accountRoute;

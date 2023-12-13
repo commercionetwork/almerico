@@ -5,7 +5,7 @@ const ValidatorsRouter = loadView('validators/ValidatorsRouter');
 const ValidatorsViewDetail = loadView('validators/ValidatorsViewDetail');
 const ValidatorsViewList = loadView('validators/ValidatorsViewList');
 
-export const validatorsRoutes = {
+const validatorsRoute = {
   path: ROUTES.PATH.VALIDATORS,
   component: ValidatorsRouter,
   meta: {
@@ -32,3 +32,5 @@ export const validatorsRoutes = {
     },
   ],
 };
+
+export default validatorsRoute;
