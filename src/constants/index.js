@@ -3,6 +3,7 @@ import APIS from './apis-constant';
 import BLOCKS from './blocks-constant';
 import CHARTS from './charts-constant';
 import CONFIG from './config-constant';
+import CONTRACT from './contract-constant';
 import CRYPTO from './crypto-constant';
 import EXCHANGE_RATE from './exchange-rate-constant';
 import HOME from './home-constant';
@@ -19,6 +20,7 @@ export {
   BLOCKS,
   CHARTS,
   CONFIG,
+  CONTRACT,
   CRYPTO,
   EXCHANGE_RATE,
   HOME,

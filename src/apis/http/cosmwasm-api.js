@@ -5,10 +5,12 @@ const cosmwasm = {
   /**
    *
    * @param {String} codeId
+   * @param {number} limit
+   * @param {String} nextKey
    * @returns {AxiosPromise}
    */
-  requestContracts(codeId, nextKey) {
-    const params = { 'pagination.limit': APIS.LIMIT };
+  requestContracts({ codeId, nextKey, limit = APIS.LIMIT } = {}) {
+    const params = { 'pagination.limit': limit };
     if (nextKey) {
       params['pagination.key'] = nextKey;
     }
@@ -22,11 +24,12 @@ const cosmwasm = {
   /**
    *
    * @param {String} address
+   * @param {number} limit
    * @param {String} nextKey
    * @returns {AxiosPromise}
    */
-  requestContractHistory(address, nextKey) {
-    const params = { 'pagination.limit': APIS.LIMIT };
+  requestContractHistory({ address, nextKey, limit = APIS.LIMIT } = {}) {
+    const params = { 'pagination.limit': limit };
     if (nextKey) {
       params['pagination.key'] = nextKey;
     }
