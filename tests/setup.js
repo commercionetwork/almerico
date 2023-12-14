@@ -21,6 +21,7 @@ import TheErrorMessage from '../src/components/TheErrorMessage.vue';
 import TheHeaderContent from '../src/components/TheHeaderContent.vue';
 import TheLatestHeight from '../src/components/TheLatestHeight.vue';
 import TheSearchBar from '../src/components/TheSearchBar.vue';
+import TheTxAssertModal from '../src/components/TheTxAssertModal.vue';
 
 Vue.component('base-chart', BaseChart);
 Vue.component('base-detail-item', BaseDetailItem);
@@ -39,6 +40,7 @@ Vue.component('the-error-message', TheErrorMessage);
 Vue.component('the-header-content', TheHeaderContent);
 Vue.component('the-latest-height', TheLatestHeight);
 Vue.component('the-search-bar', TheSearchBar);
+Vue.component('the-tx-assert-modal', TheTxAssertModal);
 
 Vue.use(VueI18n);
 Vue.use(VueRouter);

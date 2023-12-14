@@ -22,6 +22,7 @@ import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent.vue';
 import TheLatestHeight from '@/components/TheLatestHeight.vue';
 import TheSearchBar from '@/components/TheSearchBar.vue';
+import TheTxAssertModal from '@/components/TheTxAssertModal.vue';
 
 Vue.component('base-chart', BaseChart);
 Vue.component('base-detail-item', BaseDetailItem);
@@ -40,6 +41,7 @@ Vue.component('the-error-message', TheErrorMessage);
 Vue.component('the-header-content', TheHeaderContent);
 Vue.component('the-latest-height', TheLatestHeight);
 Vue.component('the-search-bar', TheSearchBar);
+Vue.component('the-tx-assert-modal', TheTxAssertModal);
 
 Vue.config.productionTip = false;
 

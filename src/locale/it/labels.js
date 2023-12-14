@@ -190,6 +190,7 @@ export const labels = {
   subtotal: 'Subtotale',
   success: 'Successo',
   supply: 'Supply',
+  swap: 'Swap',
   symbol: 'Simbolo',
   time: 'Orario',
   title: 'Titolo',

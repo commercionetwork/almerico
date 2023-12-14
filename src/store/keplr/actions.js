@@ -103,6 +103,8 @@ export default {
     }
   },
   async deliverTx({ commit, getters }, { client, msgs }) {
+    console.log(msgs);
+    debugger;
     try {
       const wallet = getters['wallet'];
       const fee = _calcFee(msgs.length);
@@ -120,12 +122,12 @@ export default {
   },
 };
 
-const _calcFee = (msgs) => ({
+const _calcFee = (msgsLength) => ({
   amount: [
     {
       denom: CONFIG.STABLE_COIN.DENOM,
-      amount: (CONFIG.FEE_AMOUNT * msgs).toString(),
+      amount: (CONFIG.FEE_AMOUNT * msgsLength).toString(),
     },
   ],
-  gas: (CONFIG.GAS_AMOUNT * msgs).toString(),
+  gas: (CONFIG.GAS_AMOUNT * msgsLength).toString(),
 });

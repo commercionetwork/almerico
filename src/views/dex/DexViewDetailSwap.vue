@@ -20,22 +20,28 @@
     <v-col cols="12" v-else data-test="content">
       <base-small-window :title="$t('titles.swap')">
         <template #main-content>
-          <dex-view-swap-form />
+          <dex-view-swap-form @complete="onComplete" @invalid="onInvalid" />
         </template>
-        <template #bottom-content> </template>
+        <template #bottom-content>
+          <dex-view-swap-execute :model="model" @success="onSuccess" />
+        </template>
       </base-small-window>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import DexViewSwapExecute from './detail/swap/DexViewSwapExecute.vue';
 import DexViewSwapForm from './detail/swap/DexViewSwapForm.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'DexViewDetailSwap',
-  components: { DexViewSwapForm },
+  components: {
+    DexViewSwapExecute,
+    DexViewSwapForm,
+  },
   props: {
     id: {
       type: String,

@@ -71,7 +71,7 @@ const calcSwapAmount = ({ amount, tokenFrom, tokenTo, lp }) => {
 };
 
 const setFunds = (tokenFrom, amount) => {
-  if (tokenFrom.type !== CONTRACT.TOKEN_TYPE.NATIVE) {
+  if (tokenFrom.type !== CONTRACT.TOKEN.TYPE.NATIVE) {
     return [];
   }
   return [{ denom: tokenFrom.id, amount }];
