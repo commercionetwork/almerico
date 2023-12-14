@@ -24,6 +24,7 @@ export const titles = {
   delegatorAmounts: 'Importi delegatore',
   description: 'Descrizione',
   dex: 'Dex',
+  dexDetail: 'Dettagli Dex',
   dexList: 'Elenco Dex',
   doSign: 'Firma',
   editLogo: 'Modifica logo',

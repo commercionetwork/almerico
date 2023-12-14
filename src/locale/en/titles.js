@@ -23,6 +23,7 @@ export const titles = {
   delegatorAmounts: 'Delegator amounts',
   description: 'Description',
   dex: 'Dex',
+  dexDetail: 'Dex detail',
   dexList: 'Dex List',
   doSign: 'Do sign',
   editLogo: 'Edit logo',

@@ -11,6 +11,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setHasWallet(state, payload) {
+    state.hasWallet = payload;
+  },
   setContractProp(state, payload) {
     const obj = { ...state.contract };
     set(obj, payload.path, payload.value);

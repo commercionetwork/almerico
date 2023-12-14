@@ -5,6 +5,7 @@ import mutations from './mutations';
 export const initState = () => ({
   error: undefined,
   isLoading: false,
+  hasWallet: true,
   contract: null,
 });
 

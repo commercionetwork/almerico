@@ -1,5 +1,11 @@
 <template>
-  <v-row>
+  <the-alert-notice
+    v-if="!hasWallet"
+    kind="warning"
+    :message="$t('msgs.noWalletConnected')"
+    data-test="alert"
+  />
+  <v-row v-else data-test="view">
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
       <base-loading-linear :height="25" />
     </v-col>
@@ -30,7 +36,15 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('dexDetail', ['error', 'isLoading', 'contract']),
+    ...mapGetters('dexDetail', ['error', 'isLoading', 'hasWallet', 'contract']),
+    ...mapGetters('keplr', ['accounts']),
+  },
+  watch: {
+    accounts(newValue) {
+      if (newValue) {
+        this.initDexDetail(this.id);
+      }
+    },
   },
   created() {
     this.initDexDetail(this.id);
