@@ -34,7 +34,7 @@ import { CONFIG, ROUTES } from '@/constants';
 import { regExpBuilder } from '@/utils';
 
 export default {
-  name: 'DexViewTable',
+  name: 'DexViewListTable',
   data() {
     return {
       search: '',
