@@ -11,6 +11,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setHandling(state, payload) {
+    state.isHandling = payload;
+  },
   setHasWallet(state, payload) {
     state.hasWallet = payload;
   },

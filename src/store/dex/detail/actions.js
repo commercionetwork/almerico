@@ -172,4 +172,22 @@ export default {
     value['allowance'] = responses[1]['allowance'];
     commit('setContractProp', { path: denom, value });
   },
+  async executeContract(
+    { commit, dispatch, rootGetters },
+    { msgs, translator, context } = {}
+  ) {
+    if (!rootGetters['keplr/wallet']) {
+      await dispatch('keplr/connect', { translator, context }, { root: true });
+    }
+    commit('setHandling', true);
+    const res = await dispatch(
+      'keplr/signAndBroadcastCosmWasmTx',
+      { msgs },
+      {
+        root: true,
+      }
+    );
+    commit('setHandling', false);
+    return res;
+  },
 };
