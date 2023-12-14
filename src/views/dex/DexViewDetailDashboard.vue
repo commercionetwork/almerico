@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import DexViewDetailContract from './detail/DexViewDetailContract.vue';
+import DexViewDetailContract from './detail/dashboard/DexViewDetailContract.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 
