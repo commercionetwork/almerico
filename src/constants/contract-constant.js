@@ -1,7 +1,7 @@
 const KEY = Object.freeze({
   FEE: {
-    LP_FEE_PERCENT: 'lpFeePercent',
-    PROTOCOL_FEE_PERCENT: 'protocolFeePercent',
+    LP_FEE_PERCENT: 'protocol_fee_percent',
+    PROTOCOL_FEE_PERCENT: 'protocol_fee_percent',
   },
   STATE: {
     BALANCE: 'balance',

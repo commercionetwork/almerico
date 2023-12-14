@@ -1,3 +1,14 @@
+const KEY = Object.freeze({
+  ADD_LIQUIDITY: 'add_liquidity',
+  DECREASE_ALLOWANCE: 'decrease_allowance',
+  INCREASE_ALLOWANCE: 'increase_allowance',
+  MINT: 'mint',
+  REMOVE_LIQUIDITY: 'remove_liquidity',
+  SWAP: 'swap',
+  TRANSFER_NFT: 'transfer_nft',
+  UPDATE_MARKETING: 'update_marketing',
+});
+
 const SUPPORTED_TYPES = Object.freeze([
   {
     name: 'MsgBeginRedelegate',
@@ -123,6 +134,7 @@ const SUPPORTED_TYPES = Object.freeze([
 
 export default Object.freeze({
   AMOUNT_TO_LOAD: 50,
+  KEY,
   MULTI_FEE: 'multi-fee',
   MULTI_TYPE: 'multi-type',
   SUPPORTED_TYPES,
