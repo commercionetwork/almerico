@@ -2,7 +2,9 @@ import { ROUTES } from '@/constants';
 import { loadView } from '../index';
 
 const DexRouter = loadView('dex/DexRouter');
-const DexViewDetail = loadView('dex/DexViewDetail');
+const DexRouterDetail = loadView('dex/DexRouterDetail');
+const DexViewDetailDashboard = loadView('dex/DexViewDetailDashboard');
+const DexViewDetailSwap = loadView('dex/DexViewDetailSwap');
 const DexViewList = loadView('dex/DexViewList');
 
 const dexRoute = {
@@ -15,10 +17,34 @@ const dexRoute = {
     { path: '', name: ROUTES.NAME.DEX, component: DexViewList },
     {
       path: ROUTES.PATH.DEX_DETAIL,
-      name: ROUTES.NAME.DEX_DETAIL,
-      component: DexViewDetail,
-      props: true,
+      component: DexRouterDetail,
       meta: { title: ROUTES.TITLE.DEX_DETAIL },
+      children: [
+        {
+          path: '',
+          name: ROUTES.NAME.DEX_DETAIL,
+          component: DexViewDetailDashboard,
+          props: true,
+        },
+        {
+          path: ROUTES.PATH.DEX_DETAIL_DASHBOARD,
+          name: ROUTES.NAME.DEX_DETAIL_DASHBOARD,
+          component: DexViewDetailDashboard,
+          props: true,
+          meta: {
+            title: ROUTES.TITLE.DEX_DETAIL_DASHBOARD,
+          },
+        },
+        {
+          path: ROUTES.PATH.DEX_DETAIL_SWAP,
+          name: ROUTES.NAME.DEX_DETAIL_SWAP,
+          component: DexViewDetailSwap,
+          props: true,
+          meta: {
+            title: ROUTES.TITLE.DEX_DETAIL_SWAP,
+          },
+        },
+      ],
     },
     {
       path: ROUTES.PATH.DEX_LIST,

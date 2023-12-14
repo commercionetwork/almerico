@@ -9,7 +9,7 @@
       <v-btn disabled icon>
         <v-icon size="20">{{ mdiDatabaseMinus }}</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon :to="{ name: ROUTES.NAME.DEX_DETAIL_SWAP }">
         <v-icon size="20">{{ mdiDatabaseSync }}</v-icon>
       </v-btn>
     </v-card-title>
@@ -38,7 +38,7 @@ import DexViewDetailToken from './DexViewDetailToken.vue';
 
 import { mdiDatabaseMinus, mdiDatabasePlus, mdiDatabaseSync } from '@mdi/js';
 import { mapGetters } from 'vuex';
-import { CONTRACT } from '@/constants';
+import { CONTRACT, ROUTES } from '@/constants';
 
 export default {
   name: 'DexViewDetailContract',
@@ -49,6 +49,7 @@ export default {
   data() {
     return {
       CONTRACT,
+      ROUTES,
       mdiDatabaseMinus,
       mdiDatabasePlus,
       mdiDatabaseSync,

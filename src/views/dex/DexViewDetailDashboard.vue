@@ -30,7 +30,7 @@ import DexViewDetailContract from './detail/DexViewDetailContract.vue';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'DexViewDetail',
+  name: 'DexViewDetailDashboard',
   components: { DexViewDetailContract },
   props: {
     id: {
