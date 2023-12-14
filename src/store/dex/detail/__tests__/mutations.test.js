@@ -1,7 +1,7 @@
 import { initState } from '../index';
 import mutations from '../mutations';
 
-describe('store/dexList/mutations', () => {
+describe('store/dexDetail/mutations', () => {
   let state = {};
 
   beforeEach(() => {
@@ -11,7 +11,6 @@ describe('store/dexList/mutations', () => {
   test('mutations.reset', () => {
     state.error = 'error';
     state.isLoading = true;
-    state.contracts = [{ id: 1 }];
 
     const expected = initState();
 
@@ -32,13 +31,5 @@ describe('store/dexList/mutations', () => {
     mutations.setLoading(state, true);
 
     expect(state.isLoading).toBe(true);
-  });
-
-  test('mutations.addContract', () => {
-    const payload = { id: 1 };
-
-    mutations.addContract(state, payload);
-
-    expect(state.contracts).toStrictEqual([payload]);
   });
 });
