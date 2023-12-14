@@ -190,6 +190,8 @@ export const labels = {
   time: 'Time',
   title: 'Title',
   toAddress: 'To address',
+  token1: 'Token1',
+  token2: 'Token2',
   tokens: 'Tokens',
   tokensPerformance: 'tokens performance',
   total: 'Total',

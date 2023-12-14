@@ -13,23 +13,29 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <the-header-content :title="$t('titles.dexList')" />
+      <dex-view-table />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import DexViewTable from './list/DexViewTable.vue';
+
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'DexViewList',
+  components: {
+    DexViewTable,
+  },
   computed: {
-    ...mapGetters('dex', ['error', 'isLoading']),
+    ...mapGetters('dexList', ['error', 'isLoading']),
   },
   created() {
     this.initDexList();
   },
   methods: {
-    ...mapActions('dex', ['initDexList']),
+    ...mapActions('dexList', ['initDexList']),
   },
 };
 </script>
