@@ -15,11 +15,11 @@ export default {
     for (const address of addresses) {
       const models = await dispatch('getContractModels', address);
       const token1 = await dispatch('getToken', {
-        key: CONTRACT.STATE_KEY.TOKEN_1,
+        key: CONTRACT.KEY.STATE.TOKEN_1,
         models,
       });
       const token2 = await dispatch('getToken', {
-        key: CONTRACT.STATE_KEY.TOKEN_2,
+        key: CONTRACT.KEY.STATE.TOKEN_2,
         models,
       });
       const contract = { id: address, token1, token2 };
@@ -59,15 +59,15 @@ export default {
     const token = JSON.parse(
       stringEncoder.decodeFromBase64(models[index].value)
     );
-    if (token['denom'][CONTRACT.TOKEN_TYPE.NATIVE]) {
-      return token['denom'][CONTRACT.TOKEN_TYPE.NATIVE];
+    if (token['denom'][CONTRACT.TOKEN.TYPE.NATIVE]) {
+      return token['denom'][CONTRACT.TOKEN.TYPE.NATIVE];
     }
     try {
-      const address = token['denom'][CONTRACT.TOKEN_TYPE.CW20];
+      const address = token['denom'][CONTRACT.TOKEN.TYPE.CW20];
       const cw20Models = await dispatch('getContractModels', address);
       const cw20Index = getIndexByKey(
         cw20Models,
-        CONTRACT.STATE_KEY.TOKEN_INFO
+        CONTRACT.KEY.STATE.TOKEN_INFO
       );
       if (cw20Index < 0) {
         return address;
