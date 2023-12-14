@@ -19,30 +19,19 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <the-header-content :title="$t('titles.dexDetail')" />
-      <dex-detail-lp class="mb-1" />
-      <dex-detail-token
-        class="mb-1"
-        :title="CONTRACT.TOKEN.KEY.TOKEN_1"
-        :token="token1"
-      />
-      <dex-detail-token :title="CONTRACT.TOKEN.KEY.TOKEN_2" :token="token2" />
+      <dex-view-detail-contract />
     </v-col>
   </v-row>
 </template>
 
 <script>
-import DexDetailLp from './detail/DexDetailLp.vue';
-import DexDetailToken from './detail/DexDetailToken.vue';
+import DexViewDetailContract from './detail/DexViewDetailContract.vue';
 
 import { mapActions, mapGetters } from 'vuex';
-import { CONTRACT } from '@/constants';
 
 export default {
   name: 'DexViewDetail',
-  components: {
-    DexDetailLp,
-    DexDetailToken,
-  },
+  components: { DexViewDetailContract },
   props: {
     id: {
       type: String,
@@ -50,20 +39,9 @@ export default {
       note: 'The contract address',
     },
   },
-  data() {
-    return {
-      CONTRACT,
-    };
-  },
   computed: {
-    ...mapGetters('dexDetail', ['error', 'isLoading', 'hasWallet', 'contract']),
+    ...mapGetters('dexDetail', ['error', 'isLoading', 'hasWallet']),
     ...mapGetters('keplr', ['accounts']),
-    token1() {
-      return this.contract[CONTRACT.TOKEN.DENOM.TOKEN_1] || {};
-    },
-    token2() {
-      return this.contract[CONTRACT.TOKEN.DENOM.TOKEN_2] || {};
-    },
   },
   watch: {
     accounts(newValue) {

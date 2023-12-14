@@ -37,7 +37,7 @@ export const titles = {
   lastBlocks: 'Last {0} blocks',
   lastTxs: 'Last {0} transactions',
   latestHeight: 'Latest height',
-  lpToken: 'Lp token',
+  liquidityPool: 'Liquidity pool',
   marketingDetail: 'Marketing detail',
   membership: 'Membership',
   message: 'Message',

@@ -38,7 +38,7 @@ export const titles = {
   lastBlocks: 'Ultimi {0} blocchi',
   lastTxs: 'Ultime {0} transazioni',
   latestHeight: 'Ultima altezza',
-  lpToken: 'Lp token',
+  liquidityPool: 'Liquidity pool',
   membership: 'Membership',
   message: 'Messaggio',
   metadata: 'Metadata',
