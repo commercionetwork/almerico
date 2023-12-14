@@ -1,7 +1,7 @@
 <template>
   <v-form>
     <v-select
-      :items="CONFIG.CHAIN.LIST"
+      :items="CHAIN.LIST"
       @change="changeChain"
       flat
       item-text="text"
@@ -25,24 +25,24 @@
 </template>
 
 <script>
-import { CONFIG } from '@/constants';
+import { CHAIN } from '@/constants';
 
 export default {
   name: 'TheChainChooser',
   data() {
     return {
-      CONFIG,
+      CHAIN,
       selectedItem: null,
     };
   },
   computed: {
     currentItem() {
-      const chainIndex = CONFIG.CHAIN.LIST.findIndex(
+      const chainIndex = CHAIN.LIST.findIndex(
         (item) => item.lcd === process.env.VUE_APP_LCD
       );
       return chainIndex > -1
-        ? CONFIG.CHAIN.LIST[chainIndex]
-        : CONFIG.CHAIN.LIST[CONFIG.CHAIN.DEFAULT_INDEX];
+        ? CHAIN.LIST[chainIndex]
+        : CHAIN.LIST[CHAIN.DEFAULT_INDEX];
     },
   },
   methods: {

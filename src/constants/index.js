@@ -1,6 +1,7 @@
 import ACCOUNT from './account-constant';
 import APIS from './apis-constant';
 import BLOCKS from './blocks-constant';
+import CHAIN from './chain-constant';
 import CHARTS from './charts-constant';
 import CONFIG from './config-constant';
 import CONTRACT from './contract-constant';
@@ -18,6 +19,7 @@ export {
   ACCOUNT,
   APIS,
   BLOCKS,
+  CHAIN,
   CHARTS,
   CONFIG,
   CONTRACT,

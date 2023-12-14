@@ -4,78 +4,6 @@ const BROWSER_STORAGE_KEYS = Object.freeze({
   VALIDATORS: 'almerico-my-validators',
 });
 
-const CHAIN = {
-  DEFAULT_INDEX: 1,
-  LIST: [
-    {
-      id: 1,
-      text: 'Main-net',
-      value: 'https://mainnet.commercio.network',
-      chainId: 'commercio-3',
-      chainName: 'Commercio.network',
-      rpc: 'https://rpc-mainnet.commercio.network',
-      lcd: 'https://lcd-mainnet.commercio.network',
-    },
-    {
-      id: 2,
-      text: 'Main-net',
-      value: 'https://mainnet.commercio.network',
-      chainId: 'commercio-3',
-      chainName: 'Commercio.network',
-      rpc: 'https://rpc-b-mainnet.commercio.network',
-      lcd: 'https://lcd-b-mainnet.commercio.network',
-    },
-    {
-      id: 3,
-      text: 'Test-net',
-      value: 'https://testnet.commercio.network',
-      chainId: 'commercio-testnet11k',
-      chainName: 'Testnet.network',
-      rpc: 'https://rpc-testnet.commercio.network',
-      lcd: 'https://lcd-testnet.commercio.network',
-    },
-    {
-      id: 4,
-      text: 'Test-net',
-      value: 'https://testnet.commercio.network',
-      chainId: 'commercio-testnet11k',
-      chainName: 'Testnet.network',
-      rpc: 'https://rpc-b-testnet.commercio.network',
-      lcd: 'https://lcd-b-testnet.commercio.network',
-    },
-    {
-      id: 5,
-      text: 'Dev-net',
-      value: 'https://devnet.commercio.network',
-      chainId: 'commercio-devnet09',
-      chainName: 'Devnet.network',
-      rpc: 'https://rpc-devnet.commercio.network',
-      lcd: 'https://lcd-devnet.commercio.network',
-    },
-    {
-      id: 6,
-      text: 'Dev-net',
-      value: 'https://devnet.commercio.network',
-      chainId: 'commercio-devnet09',
-      chainName: 'Devnet.network',
-      rpc: 'https://rpc-b-devnet.commercio.network',
-      lcd: 'https://lcd-b-devnet.commercio.network',
-    },
-  ],
-};
-
-if (process.env.VUE_APP_LCD === 'http://localhost:7123') {
-  CHAIN.LIST.push({
-    id: 4,
-    text: 'Local-net',
-    value: 'https://localhost:9099',
-    chainId: 'chain-hN6HnD',
-    chainName: 'Localnet.network',
-    rpc: 'http://localhost:7124',
-    lcd: 'http://localhost:7123',
-  });
-}
-
 const COPYRIGHT = 'Commercio.network SpA';
 
 const FIRST_CONVERSION_RATE =
@@ -161,7 +89,6 @@ const WASM_SWAP_CODE_ID =
 
 export default Object.freeze({
   BROWSER_STORAGE_KEYS,
-  CHAIN,
   COIN_TYPE,
   COPYRIGHT,
   FEE_AMOUNT,
