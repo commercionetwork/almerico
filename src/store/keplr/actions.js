@@ -5,8 +5,13 @@ import {
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 import { CHAIN, CONFIG } from '@/constants';
 
+let controller;
+
 export default {
   async connect({ commit, dispatch }, { translator, context }) {
+    if (controller) {
+      controller.abort();
+    }
     commit('reset');
     const $t = translator.bind(context);
     if (!window.keplr) {
@@ -43,14 +48,20 @@ export default {
       commit('setError', $t('msgs.noAccountFound'));
     }
   },
-  subscribeKeyStoreChange({ commit, dispatch }, { chainInfo, $t }) {
-    window.addEventListener('keplr_keystorechange', async () => {
-      commit('setLoading', true);
-      commit('setAccounts', []);
-      commit('setInitialized', false);
-      await dispatch('getAccounts', { chainInfo, $t });
-      commit('setLoading', false);
-    });
+  async refreshAccounts({ commit, dispatch }, { chainInfo, $t }) {
+    commit('setAccounts', []);
+    commit('setInitialized', false);
+    commit('setLoading', true);
+    await dispatch('getAccounts', { chainId: chainInfo.chainId, $t });
+    commit('setLoading', false);
+  },
+  subscribeKeyStoreChange({ dispatch }, { chainInfo, $t }) {
+    controller = new AbortController();
+    window.addEventListener(
+      'keplr_keystorechange',
+      async () => await dispatch('refreshAccounts', { chainInfo, $t }),
+      { signal: controller.signal }
+    );
   },
   async getOfflineSigner({ commit }, chainId) {
     try {
