@@ -6,6 +6,7 @@ export const msgs = {
   amountGreaterZero: 'Amount must be greater than or equal to zero',
   amonutLessThanBalance: 'The amount must be less than the balance',
   amountVsCap: 'If a cap, amount must be less than or equal to cap',
+  assertAndViewTx: 'The transaction was successful and can be viewed at this link',
   bannerPrimary: 'Commercio.network: The Digital Transformation Blockchain',
   bannerSecondary: 'Create an ID, sign and exchange documents on the first eIDAS compliant Blockchain in Europe',
   comingSoon: 'Coming soon',

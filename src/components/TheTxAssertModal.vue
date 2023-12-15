@@ -21,6 +21,7 @@
         <v-alert border="left" color="info" colored-border>
           <div class="pb-2" v-text="$t('msgs.assertAndViewTx')" />
           <router-link
+            target="_blank"
             :to="{
               name: ROUTES.NAME.TRANSACTIONS_DETAIL,
               params: { id: hash },
