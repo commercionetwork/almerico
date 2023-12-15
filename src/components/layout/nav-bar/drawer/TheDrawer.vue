@@ -36,6 +36,11 @@
         :to="{ name: ROUTES.NAME.ASSETS }"
       />
       <base-drawer-menu-item
+        :icon="mdiFolderSwap"
+        :title="$t('titles.dex')"
+        :to="{ name: ROUTES.NAME.DEX }"
+      />
+      <base-drawer-menu-item
         :icon="mdiTableEye"
         :title="$t('titles.exchangeRate')"
         :to="{ name: ROUTES.NAME.EXCHANGE_RATE }"
@@ -58,6 +63,7 @@ import TheDrawerThemeSwitcher from './TheDrawerThemeSwitcher';
 import { ROUTES } from '@/constants';
 import {
   mdiAccountMultiple,
+  mdiFolderSwap,
   mdiLibrary,
   mdiShape,
   mdiSwapHorizontalBold,
@@ -78,6 +84,7 @@ export default {
     return {
       ROUTES,
       mdiAccountMultiple,
+      mdiFolderSwap,
       mdiLibrary,
       mdiShape,
       mdiSwapHorizontalBold,

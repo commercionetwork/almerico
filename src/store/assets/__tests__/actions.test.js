@@ -197,7 +197,7 @@ describe('store/assets/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/commercio.js', () => ({
+jest.mock('../../../apis/http/commercio-api.js', () => ({
   requestGovernmentAddress: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -216,7 +216,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/cosmwasm.js', () => ({
+jest.mock('../../../apis/http/cosmwasm-api.js', () => ({
   requestContracts: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

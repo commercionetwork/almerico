@@ -215,7 +215,7 @@ describe('store/blocks/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/blocks.js', () => ({
+jest.mock('../../../apis/http/blocks-api.js', () => ({
   requestSupposedTime: (height) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -232,7 +232,7 @@ jest.mock('../../../apis/http/blocks.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/tendermintRpc.js', () => ({
+jest.mock('../../../apis/http/tendermintRpc-api.js', () => ({
   requestBlock: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -266,7 +266,7 @@ jest.mock('../../../apis/http/tendermintRpc.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/tx.js', () => ({
+jest.mock('../../../apis/http/tx-api.js', () => ({
   requestTxsList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

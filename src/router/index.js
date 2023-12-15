@@ -4,16 +4,17 @@ import VueRouter from 'vue-router';
 import { CONFIG, ROUTES } from '@/constants';
 import store from '@/store';
 
-import { accountRoutes } from './routes/account';
-import { assetsRoutes } from './routes/assets';
-import { blocksRoutes } from './routes/blocks';
-import { exchangeRateRoutes } from './routes/exchangeRate';
-import { homeRoutes } from './routes/home';
-import { issuesRoute } from './routes/issues';
-import { proposalsRoutes } from './routes/proposals';
-import { statsRoutes } from './routes/stats';
-import { transactionsRoutes } from './routes/transactions';
-import { validatorsRoutes } from './routes/validators';
+import accountRoute from './routes/account-route';
+import assetsRoute from './routes/assets-route';
+import blocksRoute from './routes/blocks-route';
+import dexRoute from './routes/dex-route';
+import exchangeRateRoute from './routes/exchangeRate-route';
+import homeRoute from './routes/home-route';
+import issueRoutes from './routes/issue-routes';
+import proposalsRoute from './routes/proposals-route';
+import statsRoute from './routes/stats-route';
+import transactionsRoute from './routes/transactions-route';
+import validatorsRoute from './routes/validators-route';
 
 Vue.use(VueRouter);
 
@@ -27,16 +28,17 @@ const routes = [
 ];
 
 routes.push(
-  accountRoutes,
-  assetsRoutes,
-  blocksRoutes,
-  exchangeRateRoutes,
-  homeRoutes,
-  proposalsRoutes,
-  statsRoutes,
-  transactionsRoutes,
-  validatorsRoutes,
-  ...issuesRoute
+  accountRoute,
+  assetsRoute,
+  blocksRoute,
+  dexRoute,
+  exchangeRateRoute,
+  homeRoute,
+  proposalsRoute,
+  statsRoute,
+  transactionsRoute,
+  validatorsRoute,
+  ...issueRoutes
 );
 
 const router = new VueRouter({

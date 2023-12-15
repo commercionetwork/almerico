@@ -143,7 +143,7 @@ describe('store/validators/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/validators.js', () => ({
+jest.mock('../../../apis/http/validators-api.js', () => ({
   requestList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -174,7 +174,7 @@ jest.mock('../../../apis/http/validators.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/staking.js', () => ({
+jest.mock('../../../apis/http/staking-api.js', () => ({
   requestValidatorsDetailDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

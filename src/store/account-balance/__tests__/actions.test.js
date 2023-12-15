@@ -53,7 +53,7 @@ describe('store/account-balance/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/wasms.js', () => ({
+jest.mock('../../../apis/http/wasms-api.js', () => ({
   requestAccountBalances() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

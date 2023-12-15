@@ -3,10 +3,15 @@ import {
   SigningStargateClient,
 } from '@cosmjs/stargate';
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
-import { CONFIG } from '@/constants';
+import { CHAIN, CONFIG } from '@/constants';
+
+let controller;
 
 export default {
   async connect({ commit, dispatch }, { translator, context }) {
+    if (controller) {
+      controller.abort();
+    }
     commit('reset');
     const $t = translator.bind(context);
     if (!window.keplr) {
@@ -14,85 +19,28 @@ export default {
       commit('setError', $t('msgs.installKeplrExtension'));
       return;
     }
-    const chain = CONFIG.CHAIN.LIST.find(
-      (item) => item.lcd === process.env.VUE_APP_LCD
-    );
-    if (!chain) {
+    const chainInfo = CHAIN.INFO();
+    if (!chainInfo) {
       commit('setError', $t('msgs.failedToDetectTheChain'));
       return;
     }
     commit('setLoading', true);
-    await dispatch('suggestChain', { chain, $t });
-    await dispatch('getAccounts', { chain, $t });
-    dispatch('subscribeKeyStoreChange', { chain, $t });
+    await dispatch('suggestChain', { chainInfo, $t });
+    await dispatch('getAccounts', { chainInfo, $t });
+    dispatch('subscribeKeyStoreChange', { chainInfo, $t });
     commit('setLoading', false);
   },
-  async suggestChain({ commit }, { chain, $t }) {
+  async suggestChain({ commit }, { chainInfo, $t }) {
     try {
-      await window.keplr.experimentalSuggestChain({
-        rpc: chain.rpc,
-        rest: chain.lcd,
-        chainId: chain.chainId,
-        chainName: chain.chainName,
-        stakeCurrency: {
-          coinDenom: CONFIG.TOKEN.SYMBOL,
-          coinMinimalDenom: CONFIG.TOKEN.DENOM,
-          coinDecimals: CONFIG.TOKEN.EXPONENT,
-        },
-        bip44: {
-          coinType: CONFIG.COIN_TYPE,
-        },
-        bech32Config: {
-          bech32PrefixAccAddr: CONFIG.PREFIXES.ACCOUNT.ADDRESS,
-          bech32PrefixAccPub: CONFIG.PREFIXES.ACCOUNT.KEY,
-          bech32PrefixValAddr: CONFIG.PREFIXES.VALIDATOR.OPERATOR.ADDRESS,
-          bech32PrefixValPub: CONFIG.PREFIXES.VALIDATOR.OPERATOR.KEY,
-          bech32PrefixConsAddr: CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS,
-          bech32PrefixConsPub: CONFIG.PREFIXES.VALIDATOR.CONSENSUS.KEY,
-        },
-        currencies: [
-          {
-            coinDenom: CONFIG.TOKEN.SYMBOL,
-            coinMinimalDenom: CONFIG.TOKEN.DENOM,
-            coinDecimals: CONFIG.TOKEN.EXPONENT,
-          },
-          {
-            coinDenom: CONFIG.STABLE_COIN.SYMBOL,
-            coinMinimalDenom: CONFIG.STABLE_COIN.DENOM,
-            coinDecimals: CONFIG.STABLE_COIN.EXPONENT,
-          },
-        ],
-        feeCurrencies: [
-          {
-            coinDenom: CONFIG.STABLE_COIN.SYMBOL,
-            coinMinimalDenom: CONFIG.STABLE_COIN.DENOM,
-            coinDecimals: CONFIG.STABLE_COIN.EXPONENT,
-            gasPriceStep: {
-              low: CONFIG.GAS_PRICE_STEP.LOW,
-              average: CONFIG.GAS_PRICE_STEP.AVERAGE,
-              high: CONFIG.GAS_PRICE_STEP.HIGH,
-            },
-          },
-          {
-            coinDenom: CONFIG.TOKEN.SYMBOL,
-            coinMinimalDenom: CONFIG.TOKEN.DENOM,
-            coinDecimals: CONFIG.TOKEN.EXPONENT,
-            gasPriceStep: {
-              low: CONFIG.GAS_PRICE_STEP.LOW,
-              average: CONFIG.GAS_PRICE_STEP.AVERAGE,
-              high: CONFIG.GAS_PRICE_STEP.HIGH,
-            },
-          },
-        ],
-      });
+      await window.keplr.experimentalSuggestChain(chainInfo);
     } catch (error) {
       commit('setError', $t('msgs.failedToSuggestTheChain'));
     }
   },
-  async getAccounts({ commit }, { chain, $t }) {
+  async getAccounts({ commit }, { chainInfo, $t }) {
     try {
-      await window.keplr.enable(chain.chainId);
-      const offlineSigner = window.keplr.getOfflineSigner(chain.chainId);
+      await window.keplr.enable(chainInfo.chainId);
+      const offlineSigner = window.keplr.getOfflineSigner(chainInfo.chainId);
       const accounts = await offlineSigner.getAccounts();
       commit('setAccounts', accounts);
       commit('setInitialized', true);
@@ -100,14 +48,20 @@ export default {
       commit('setError', $t('msgs.noAccountFound'));
     }
   },
-  subscribeKeyStoreChange({ commit, dispatch }, { chain, $t }) {
-    window.addEventListener('keplr_keystorechange', async () => {
-      commit('setLoading', true);
-      commit('setAccounts', []);
-      commit('setInitialized', false);
-      await dispatch('getAccounts', { chain, $t });
-      commit('setLoading', false);
-    });
+  async refreshAccounts({ commit, dispatch }, { chainInfo, $t }) {
+    commit('setAccounts', []);
+    commit('setInitialized', false);
+    commit('setLoading', true);
+    await dispatch('getAccounts', { chainId: chainInfo.chainId, $t });
+    commit('setLoading', false);
+  },
+  subscribeKeyStoreChange({ dispatch }, { chainInfo, $t }) {
+    controller = new AbortController();
+    window.addEventListener(
+      'keplr_keystorechange',
+      async () => await dispatch('refreshAccounts', { chainInfo, $t }),
+      { signal: controller.signal }
+    );
   },
   async getOfflineSigner({ commit }, chainId) {
     try {
@@ -118,26 +72,34 @@ export default {
   },
   async signAndBroadcastTransaction({ commit, dispatch }, msgs) {
     try {
-      const chain = _getChain();
-      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
+      const chainInfo = CHAIN.INFO();
+      const offlineSigner = await dispatch(
+        'getOfflineSigner',
+        chainInfo.chainId
+      );
       const client = await SigningStargateClient.connectWithSigner(
-        chain.rpc,
+        chainInfo.rpc,
         offlineSigner
       );
-      await dispatch('deliverTx', { client, msgs });
+      const result = await dispatch('deliverTx', { client, msgs });
+      return result;
     } catch (error) {
       commit('setError', error);
     }
   },
   async signAndBroadcastCosmWasmTx({ commit, dispatch }, msgs) {
     try {
-      const chain = _getChain();
-      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
+      const chainInfo = CHAIN.INFO();
+      const offlineSigner = await dispatch(
+        'getOfflineSigner',
+        chainInfo.chainId
+      );
       const client = await SigningCosmWasmClient.connectWithSigner(
-        chain.rpc,
+        chainInfo.rpc,
         offlineSigner
       );
-      await dispatch('deliverTx', { client, msgs });
+      const result = await dispatch('deliverTx', { client, msgs });
+      return result;
     } catch (error) {
       commit('setError', error);
     }
@@ -148,6 +110,7 @@ export default {
       const fee = _calcFee(msgs.length);
       const result = await client.signAndBroadcast(wallet, msgs, fee);
       assertIsDeliverTxSuccess(result);
+      return result;
     } catch (error) {
       commit('setError', error);
     }
@@ -160,15 +123,12 @@ export default {
   },
 };
 
-const _getChain = () =>
-  CONFIG.CHAIN.LIST.find((item) => item.lcd === process.env.VUE_APP_LCD);
-
-const _calcFee = (msgs) => ({
+const _calcFee = (msgsLength) => ({
   amount: [
     {
       denom: CONFIG.STABLE_COIN.DENOM,
-      amount: (CONFIG.FEE_AMOUNT * msgs).toString(),
+      amount: (CONFIG.FEE_AMOUNT * msgsLength).toString(),
     },
   ],
-  gas: (CONFIG.GAS_AMOUNT * msgs).toString(),
+  gas: (CONFIG.GAS_AMOUNT * msgsLength).toString(),
 });
