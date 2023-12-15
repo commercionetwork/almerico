@@ -81,7 +81,8 @@ export default {
         chainInfo.rpc,
         offlineSigner
       );
-      await dispatch('deliverTx', { client, msgs });
+      const result = await dispatch('deliverTx', { client, msgs });
+      return result;
     } catch (error) {
       commit('setError', error);
     }
@@ -97,19 +98,19 @@ export default {
         chainInfo.rpc,
         offlineSigner
       );
-      await dispatch('deliverTx', { client, msgs });
+      const result = await dispatch('deliverTx', { client, msgs });
+      return result;
     } catch (error) {
       commit('setError', error);
     }
   },
   async deliverTx({ commit, getters }, { client, msgs }) {
-    console.log(msgs);
-    debugger;
     try {
       const wallet = getters['wallet'];
       const fee = _calcFee(msgs.length);
       const result = await client.signAndBroadcast(wallet, msgs, fee);
       assertIsDeliverTxSuccess(result);
+      return result;
     } catch (error) {
       commit('setError', error);
     }

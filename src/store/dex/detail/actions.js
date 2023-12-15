@@ -180,13 +180,9 @@ export default {
       await dispatch('keplr/connect', { translator, context }, { root: true });
     }
     commit('setHandling', true);
-    const res = await dispatch(
-      'keplr/signAndBroadcastCosmWasmTx',
-      { msgs },
-      {
-        root: true,
-      }
-    );
+    const res = await dispatch('keplr/signAndBroadcastCosmWasmTx', msgs, {
+      root: true,
+    });
     commit('setHandling', false);
     return res;
   },
