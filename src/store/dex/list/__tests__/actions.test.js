@@ -1,10 +1,10 @@
-import actions from '../actions.js';
 import {
   mockContracts,
-  mockModels,
   mockErrors,
+  mockModels,
   mockPagination,
 } from '@/__mocks__';
+import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
