@@ -1,40 +1,40 @@
-import { mockBalance, mockBalances } from './balances';
-import { mockBlock, mockBlocks, mockBlockSupposedTime } from './blocks';
-import { mockChart } from './chart';
-import { mockCommission } from './commission';
-import { mockDelegation, mockDelegations } from './delegations';
-import { mockErrors } from './errors';
-import { mockMembership } from './membership';
-import { mockNodeInfo } from './node_info';
-import { mockOverview } from './overview';
-import { mockPagination } from './pagination';
-import { mockParams } from './params';
-import { mockParamsUpdate, mockParamsUpdates } from './params_updates';
-import { mockPool } from './pool';
+import { mockBalance, mockBalances } from './balances-mock';
+import { mockBlock, mockBlockSupposedTime, mockBlocks } from './blocks-mock';
+import { mockChart } from './chart-mock';
+import { mockCommission } from './commission-mock';
+import { mockDelegation, mockDelegations } from './delegations-mock';
+import { mockErrors } from './errors-mock';
+import { mockMembership } from './membership-mock';
+import { mockNodeInfo } from './node-info-mock';
+import { mockOverview } from './overview-mock';
+import { mockPagination } from './pagination-mock';
+import { mockParams } from './params-mock';
+import { mockParamsUpdate, mockParamsUpdates } from './params-updates-mock';
+import { mockPool } from './pool-mock';
 import {
   mockProposal,
   mockProposals,
   mockTally,
   mockTallyParams,
   mockVotes,
-} from './proposals';
-import { mockRewards } from './rewards';
-import { mockStakingParams } from './staking_params';
+} from './proposals-mock';
+import { mockRewards } from './rewards-mock';
+import { mockStakingParams } from './staking-params-mock';
 import {
   mockTransaction,
   mockTransactionLegacy,
   mockTransactions,
   mockTransactionsLegacy,
-} from './transactions';
-import { mockUnbondings } from './unbondings';
+} from './transactions-mock';
+import { mockUnbondings } from './unbondings-mock';
+import { mockValidatorSets } from './validator-sets-mock';
 import {
   mockValidator,
   mockValidatorBackend,
   mockValidators,
   mockValidatorsBackend,
-} from './validators';
-import { mockValidatorSets } from './validator_sets';
-import { mockWasmsBalance, mockWasmsBalances } from './wasms';
+} from './validators-mock';
+import { mockWasmsBalance, mockWasmsBalances } from './wasms-mock';
 
 export {
   mockBalance,
