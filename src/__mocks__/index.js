@@ -2,6 +2,12 @@ import { mockBalance, mockBalances } from './balances-mock';
 import { mockBlock, mockBlockSupposedTime, mockBlocks } from './blocks-mock';
 import { mockChart } from './chart-mock';
 import { mockCommission } from './commission-mock';
+import {
+  mockContract,
+  mockContracts,
+  mockModel,
+  mockModels,
+} from './cosmwasm-mock';
 import { mockDelegation, mockDelegations } from './delegations-mock';
 import { mockErrors } from './errors-mock';
 import { mockMembership } from './membership-mock';
@@ -44,10 +50,14 @@ export {
   mockBlocks,
   mockChart,
   mockCommission,
+  mockContract,
+  mockContracts,
   mockDelegation,
   mockDelegations,
   mockErrors,
   mockMembership,
+  mockModel,
+  mockModels,
   mockNodeInfo,
   mockOverview,
   mockPagination,

@@ -24,25 +24,6 @@ const cosmwasm = {
   /**
    *
    * @param {String} address
-   * @param {number} limit
-   * @param {String} nextKey
-   * @returns {AxiosPromise}
-   */
-  requestContractHistory({ address, nextKey, limit = APIS.LIMIT } = {}) {
-    const params = { 'pagination.limit': limit };
-    if (nextKey) {
-      params['pagination.key'] = nextKey;
-    }
-    return axios({
-      url: `/contract/${address}/history`,
-      method: 'get',
-      baseURL: APIS.COSWMWASM,
-      params,
-    });
-  },
-  /**
-   *
-   * @param {String} address
    * @param {String} queryData
    * @returns {AxiosPromise}
    */
