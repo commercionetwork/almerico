@@ -7,8 +7,8 @@
             <div v-text="title" />
           </v-toolbar-title>
           <v-spacer />
-          <v-btn color="transparent" icon @click="$router.back()">
-            <v-icon color="grey darken-3">{{ mdiCloseThick }}</v-icon>
+          <v-btn icon @click="$router.back()">
+            <v-icon>{{ mdiCloseThick }}</v-icon>
           </v-btn>
         </v-toolbar>
         <v-card-text>
