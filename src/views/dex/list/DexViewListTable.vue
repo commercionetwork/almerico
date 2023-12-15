@@ -10,11 +10,13 @@
     @click:row="(item) => openDetail(item)"
   >
     <template v-slot:top>
-      <v-text-field
-        class="mx-4"
-        :label="$t('labels.filter')"
-        v-model="search"
-      ></v-text-field>
+      <v-text-field class="mx-4" :label="$t('labels.filter')" v-model="search">
+        <template v-slot:prepend>
+          <v-icon>
+            {{ mdiFilter }}
+          </v-icon>
+        </template>
+      </v-text-field>
     </template>
     <template #[`item.id`]="{ item }">
       <div v-text="shrinkToken(item.id)" />
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import { mdiFilter } from '@mdi/js';
 import { mapGetters } from 'vuex';
 import { CONFIG, ROUTES } from '@/constants';
 import { regExpBuilder } from '@/utils';
@@ -37,6 +40,7 @@ export default {
   name: 'DexViewListTable',
   data() {
     return {
+      mdiFilter,
       search: '',
     };
   },

@@ -77,7 +77,7 @@ export default {
       this.model = null;
     },
     onSuccess() {
-      this.initDexManagement(this.dexId);
+      this.initDexDetail(this.id);
     },
   },
 };
