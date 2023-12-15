@@ -1,0 +1,15 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches-ignore:
+      - 'alfa'
+      - 'development'
+      - 'master'
+      - 'bck**'
+      - 'bug**'
+      - 'wip**'
+
+jobs:
+  call-workflow-build-and-test:
+    uses: ./.github/workflows/wf-build-test.yml

@@ -1,0 +1,28 @@
+name: Build and Test
+
+run-name: ${{ github.actor }} is running ${{ github.workflow }} on ${{ github.ref_name }}
+
+on:
+  workflow_call:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install -s --no-audit --no-fund
+
+      - name: Run Build
+        run: npm run build
+
+      - name: Run Tests
+        run: npm run test

@@ -1,0 +1,49 @@
+name: CI/CD Pipeline - Alfa Branch
+
+on:
+  push:
+    branches:
+      - 'alfa'
+
+jobs:
+  call-workflow-build-and-test:
+    uses: ./.github/workflows/wf-build-test.yml
+
+  deploy-docker-image:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login To Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_IMAGE }}:devnet
+          build-args: |
+            ANCESTORS_LIST =${{ secrets.ALMERICO_DEVNET_ANCESTORS_LIST }}
+            API_VERSION =${{ secrets.ALMERICO_DEVNET_API_VERSION }}
+            API_VERSION_COSMWASM =${{ secrets.ALMERICO_DEVNET_API_VERSION_COSMWASM }}
+            BACKEND =${{ secrets.ALMERICO_DEVNET_BACKEND }}
+            BACKEND_API_VERSION =${{ secrets.ALMERICO_DEVNET_BACKEND_API_VERSION }}
+            BACKEND_WS =${{ secrets.ALMERICO_DEVNET_BACKEND_WS }}
+            FIRST_CONVERSION_RATE =${{ secrets.ALMERICO_DEVNET_FIRST_CONVERSION_RATE }}
+            FIRST_HEIGHT =${{ secrets.ALMERICO_DEVNET_FIRST_HEIGHT }}
+            LCD_URL =${{ secrets.ALMERICO_DEVNET_LCD_URL }}
+            MAIN_TITLE =${{ secrets.ALMERICO_DEVNET_MAIN_TITLE }}
+            WASM_CW20_CODE_ID =${{ secrets.ALMERICO_DEVNET_WASM_CW20_CODE_ID }}
+            WASM_SWAP_CODE_ID =${{ secrets.ALMERICO_DEVNET_WASM_SWAP_CODE_ID }}
+            WS_URL =${{ secrets.ALMERICO_DEVNET_WS_URL }}
