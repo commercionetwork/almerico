@@ -1,5 +1,7 @@
 name: CI/CD Pipeline - Development Branch
 
+run-name: ${{ github.actor }} is building the Testnet Explorer from ${{ github.ref_name }}
+
 on:
   push:
     branches:

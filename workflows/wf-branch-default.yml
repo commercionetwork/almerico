@@ -1,5 +1,7 @@
 name: CI/CD Pipeline
 
+run-name: ${{ github.actor }} is running ${{ github.workflow }} on ${{ github.ref_name }}
+
 on:
   push:
     branches-ignore:

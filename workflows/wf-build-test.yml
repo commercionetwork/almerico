@@ -1,6 +1,6 @@
 name: Build and Test
 
-run-name: ${{ github.actor }} is running ${{ github.workflow }} on ${{ github.ref_name }}
+run-name: Running ${{ github.workflow }}
 
 on:
   workflow_call:
