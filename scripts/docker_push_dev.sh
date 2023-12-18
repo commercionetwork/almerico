@@ -1,5 +1,0 @@
-#!/bin/bash
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_REGISTRY"
-echo "Publishing release $DOCKER_IMAGE_ALMERICO_TESTNET from $TRAVIS_BRANCH branch"
-docker tag $DOCKER_IMAGE_ALMERICO_TESTNET $DOCKER_IMAGE_ALMERICO_TESTNET
-docker push $DOCKER_IMAGE_ALMERICO_TESTNET
