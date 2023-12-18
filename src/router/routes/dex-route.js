@@ -3,7 +3,7 @@ import { loadView } from '../index';
 
 const DexRouter = loadView('dex/DexRouter');
 const DexRouterDetail = loadView('dex/DexRouterDetail');
-const DexViewDetailDashboard = loadView('dex/DexViewDetailDashboard');
+// const DexViewDetailDashboard = loadView('dex/DexViewDetailDashboard');
 const DexViewDetailSwap = loadView('dex/DexViewDetailSwap');
 const DexViewList = loadView('dex/DexViewList');
 
@@ -23,18 +23,18 @@ const dexRoute = {
         {
           path: '',
           name: ROUTES.NAME.DEX_DETAIL,
-          component: DexViewDetailDashboard,
+          component: DexViewDetailSwap,
           props: true,
         },
-        {
-          path: ROUTES.PATH.DEX_DETAIL_DASHBOARD,
-          name: ROUTES.NAME.DEX_DETAIL_DASHBOARD,
-          component: DexViewDetailDashboard,
-          props: true,
-          meta: {
-            title: ROUTES.TITLE.DEX_DETAIL_DASHBOARD,
-          },
-        },
+        // {
+        //   path: ROUTES.PATH.DEX_DETAIL_DASHBOARD,
+        //   name: ROUTES.NAME.DEX_DETAIL_DASHBOARD,
+        //   component: DexViewDetailDashboard,
+        //   props: true,
+        //   meta: {
+        //     title: ROUTES.TITLE.DEX_DETAIL_DASHBOARD,
+        //   },
+        // },
         {
           path: ROUTES.PATH.DEX_DETAIL_SWAP,
           name: ROUTES.NAME.DEX_DETAIL_SWAP,
