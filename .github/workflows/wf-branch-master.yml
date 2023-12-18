@@ -35,7 +35,7 @@ jobs:
 
       - name: Verify Environment Variables
         run: |
-          if [ -z "${{ env.ANCESTORS_LIST }}" ] || [ -z "${{ env.API_VERSION }}" ] || [ -z "${{ env.API_VERSION_COSMWASM }}" ] || [ -z "${{ env.BACKEND }}" ] || [ -z "${{ env.BACKEND_API_VERSION }}" ] || [ -z "${{ env.BACKEND_WS }}" ] || [ -z "${{ env.FIRST_CONVERSION_RATE }}" ] || [ -z "${{ env.FIRST_HEIGHT }}" ] || [ -z "${{ env.LCD_URL }}" ] || [ -z "${{ env.MAIN_TITLE }}" ] || [ -z "${{ env.WASM_CW20_CODE_ID }}" ] || [ -z "${{ env.WASM_SWAP_CODE_ID }}" ] || [ -z "${{ env.WS_URL }}" ]; then
+          if "${{ env.ANCESTORS_LIST }}" == "" || "${{ env.API_VERSION }}" == "" || "${{ env.API_VERSION_COSMWASM }}" == "" || "${{ env.BACKEND }}" == "" || "${{ env.BACKEND_API_VERSION }}" == "" || "${{ env.BACKEND_WS }}" == "" || "${{ env.FIRST_CONVERSION_RATE }}" == "" || "${{ env.FIRST_HEIGHT }}" == "" || "${{ env.LCD_URL }}" == "" || "${{ env.MAIN_TITLE }}" == "" || "${{ env.WASM_CW20_CODE_ID }}" == "" || "${{ env.WASM_SWAP_CODE_ID }}" == "" || "${{ env.WS_URL }}" == ""; then
             echo "Error: Environment variables are not set."
             exit 1
           fi
