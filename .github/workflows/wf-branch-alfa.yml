@@ -16,7 +16,6 @@ env:
   WASM_CW20_CODE_ID: ${{ vars.ALMERICO_DEVNET_WASM_CW20_CODE_ID }}
   WASM_SWAP_CODE_ID: ${{ vars.ALMERICO_DEVNET_WASM_SWAP_CODE_ID }}
   WS_URL: ${{ vars.ALMERICO_DEVNET_WS_URL }}
-  DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}:devnet
 
 on:
   push:
@@ -27,5 +26,49 @@ jobs:
   call-workflow-build-and-test:
     uses: ./.github/workflows/wf-build-test.yml
 
-  call-workflow-deploy-docker-image:
-    uses: ./.github/workflows/wf-deploy-docker-image.yml
+  deploy-docker-image-devnet:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Environment Variables
+        run: |
+          if [ -z "${{ env.ANCESTORS_LIST }}" ] || [ -z "${{ env.API_VERSION }}" ] || [ -z "${{ env.API_VERSION_COSMWASM }}" ] || [ -z "${{ env.BACKEND }}" ] || [ -z "${{ env.BACKEND_API_VERSION }}" ] || [ -z "${{ env.BACKEND_WS }}" ] || [ -z "${{ env.FIRST_CONVERSION_RATE }}" ] || [ -z "${{ env.FIRST_HEIGHT }}" ] || [ -z "${{ env.LCD_URL }}" ] || [ -z "${{ env.MAIN_TITLE }}" ] || [ -z "${{ env.WASM_CW20_CODE_ID }}" ] || [ -z "${{ env.WASM_SWAP_CODE_ID }}" ] || [ -z "${{ env.WS_URL }}" ]; then
+            echo "Error: Environment variables are not set."
+            exit 1
+          fi
+
+      - name: Set up Docker Buildx
+        if: success()
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login To Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_IMAGE }}:devnet
+          build-args: |
+            ANCESTORS_LIST=${{ env.ANCESTORS_LIST }}
+            API_VERSION=${{ env.API_VERSION }}
+            API_VERSION_COSMWASM=${{ env.API_VERSION_COSMWASM }}
+            BACKEND=${{ env.BACKEND }}
+            BACKEND_API_VERSION=${{ env.BACKEND_API_VERSION }}
+            BACKEND_WS=${{ env.BACKEND_WS }}
+            FIRST_CONVERSION_RATE=${{ env.FIRST_CONVERSION_RATE }}
+            FIRST_HEIGHT=${{ env.FIRST_HEIGHT }}
+            LCD_URL=${{ env.LCD_URL }}
+            MAIN_TITLE=${{ env.MAIN_TITLE }}
+            WASM_CW20_CODE_ID=${{ env.WASM_CW20_CODE_ID }}
+            WASM_SWAP_CODE_ID=${{ env.WASM_SWAP_CODE_ID }}
+            WS_URL=${{ env.WS_URL }}
