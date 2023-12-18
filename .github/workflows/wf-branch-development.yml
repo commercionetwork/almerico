@@ -7,7 +7,6 @@ env:
   API_VERSION: ${{ vars.ALMERICO_TESTNET_API_VERSION }}
   API_VERSION_COSMWASM: ${{ vars.ALMERICO_TESTNET_API_VERSION_COSMWASM }}
   BACKEND: ${{ vars.ALMERICO_TESTNET_BACKEND }}
-  BACKEND_API_VERSION: ${{ vars.ALMERICO_TESTNET_BACKEND_API_VERSION }}
   BACKEND_WS: ${{ vars.ALMERICO_TESTNET_BACKEND_WS }}
   FIRST_CONVERSION_RATE: ${{ vars.ALMERICO_TESTNET_FIRST_CONVERSION_RATE }}
   FIRST_HEIGHT: ${{ vars.ALMERICO_TESTNET_FIRST_HEIGHT }}
@@ -35,7 +34,7 @@ jobs:
 
       - name: Verify Environment Variables
         run: |
-          if "${{ env.ANCESTORS_LIST }}" == "" || "${{ env.API_VERSION }}" == "" || "${{ env.API_VERSION_COSMWASM }}" == "" || "${{ env.BACKEND }}" == "" || "${{ env.BACKEND_API_VERSION }}" == "" || "${{ env.BACKEND_WS }}" == "" || "${{ env.FIRST_CONVERSION_RATE }}" == "" || "${{ env.FIRST_HEIGHT }}" == "" || "${{ env.LCD_URL }}" == "" || "${{ env.MAIN_TITLE }}" == "" || "${{ env.WASM_CW20_CODE_ID }}" == "" || "${{ env.WASM_SWAP_CODE_ID }}" == "" || "${{ env.WS_URL }}" == ""; then
+          if "${{ env.ANCESTORS_LIST }}" == "" || "${{ env.API_VERSION }}" == "" || "${{ env.API_VERSION_COSMWASM }}" == "" || "${{ env.BACKEND }}" == "" || "${{ env.BACKEND_WS }}" == "" || "${{ env.FIRST_CONVERSION_RATE }}" == "" || "${{ env.FIRST_HEIGHT }}" == "" || "${{ env.LCD_URL }}" == "" || "${{ env.MAIN_TITLE }}" == "" || "${{ env.WASM_CW20_CODE_ID }}" == "" || "${{ env.WASM_SWAP_CODE_ID }}" == "" || "${{ env.WS_URL }}" == ""; then
             echo "Error: Environment variables are not set."
             exit 1
           fi
