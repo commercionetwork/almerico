@@ -16,7 +16,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set Environment Variables
+        run: |
+          echo "ANCESTORS_LIST=${{ vars.ALMERICO_TESTNET_ANCESTORS_LIST }}" >> $GITHUB_ENV
+          echo "API_VERSION=${{ vars.ALMERICO_TESTNET_API_VERSION }}" >> $GITHUB_ENV
+          echo "API_VERSION_COSMWASM=${{ vars.ALMERICO_TESTNET_API_VERSION_COSMWASM }}" >> $GITHUB_ENV
+          echo "BACKEND=${{ vars.ALMERICO_TESTNET_BACKEND }}" >> $GITHUB_ENV
+          echo "BACKEND_API_VERSION=${{ vars.ALMERICO_TESTNET_BACKEND_API_VERSION }}" >> $GITHUB_ENV
+          echo "BACKEND_WS=${{ vars.ALMERICO_TESTNET_BACKEND_WS }}" >> $GITHUB_ENV
+          echo "FIRST_CONVERSION_RATE=${{ vars.ALMERICO_TESTNET_FIRST_CONVERSION_RATE }}" >> $GITHUB_ENV
+          echo "FIRST_HEIGHT=${{ vars.ALMERICO_TESTNET_FIRST_HEIGHT }}" >> $GITHUB_ENV
+          echo "LCD_URL=${{ vars.ALMERICO_TESTNET_LCD_URL }}" >> $GITHUB_ENV
+          echo "MAIN_TITLE=${{ vars.ALMERICO_TESTNET_MAIN_TITLE }}" >> $GITHUB_ENV
+          echo "WASM_CW20_CODE_ID=${{ vars.ALMERICO_TESTNET_WASM_CW20_CODE_ID }}" >> $GITHUB_ENV
+          echo "WASM_SWAP_CODE_ID=${{ vars.ALMERICO_TESTNET_WASM_SWAP_CODE_ID }}" >> $GITHUB_ENV
+          echo "WS_URL=${{ vars.ALMERICO_TESTNET_WS_URL }}" >> $GITHUB_ENV
+
+      - name: Verify Environment Variables
+        run: |
+          if [ -z "${ANCESTORS_LIST}" ] || [ -z "${API_VERSION}" ] || [ -z "${API_VERSION_COSMWASM}" ] || [ -z "${BACKEND}" ] || [ -z "${BACKEND_API_VERSION}" ] || [ -z "${BACKEND_WS}" ] || [ -z "${FIRST_CONVERSION_RATE}" ] || [ -z "${FIRST_HEIGHT}" ] || [ -z "${LCD_URL}" ] || [ -z "${MAIN_TITLE}" ] || [ -z "${WASM_CW20_CODE_ID}" ] || [ -z "${WASM_SWAP_CODE_ID}" ] || [ -z "${WS_URL}" ]; then
+            echo "Error: Environment variables are not set."
+            exit 1
+          fi
+
       - name: Set up Docker Buildx
+        if: success()
         uses: docker/setup-buildx-action@v3
 
       - name: Login To Registry
@@ -34,16 +58,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_IMAGE }}:testnet
           build-args: |
-            ANCESTORS_LIST =${{ secrets.ALMERICO_TESTNET_ANCESTORS_LIST }}
-            API_VERSION =${{ secrets.ALMERICO_TESTNET_API_VERSION }}
-            API_VERSION_COSMWASM =${{ secrets.ALMERICO_TESTNET_API_VERSION_COSMWASM }}
-            BACKEND =${{ secrets.ALMERICO_TESTNET_BACKEND }}
-            BACKEND_API_VERSION =${{ secrets.ALMERICO_TESTNET_BACKEND_API_VERSION }}
-            BACKEND_WS =${{ secrets.ALMERICO_TESTNET_BACKEND_WS }}
-            FIRST_CONVERSION_RATE =${{ secrets.ALMERICO_TESTNET_FIRST_CONVERSION_RATE }}
-            FIRST_HEIGHT =${{ secrets.ALMERICO_TESTNET_FIRST_HEIGHT }}
-            LCD_URL =${{ secrets.ALMERICO_TESTNET_LCD_URL }}
-            MAIN_TITLE =${{ secrets.ALMERICO_TESTNET_MAIN_TITLE }}
-            WASM_CW20_CODE_ID =${{ secrets.ALMERICO_TESTNET_WASM_CW20_CODE_ID }}
-            WASM_SWAP_CODE_ID =${{ secrets.ALMERICO_TESTNET_WASM_SWAP_CODE_ID }}
-            WS_URL =${{ secrets.ALMERICO_TESTNET_WS_URL }}
+            ANCESTORS_LIST=${ANCESTORS_LIST}
+            API_VERSION=${API_VERSION}
+            API_VERSION_COSMWASM=${API_VERSION_COSMWASM}
+            BACKEND=${BACKEND}
+            BACKEND_API_VERSION=${BACKEND_API_VERSION}
+            BACKEND_WS=${BACKEND_WS}
+            FIRST_CONVERSION_RATE=${FIRST_CONVERSION_RATE}
+            FIRST_HEIGHT=${FIRST_HEIGHT}
+            LCD_URL=${LCD_URL}
+            MAIN_TITLE=${MAIN_TITLE}
+            WASM_CW20_CODE_ID=${WASM_CW20_CODE_ID}
+            WASM_SWAP_CODE_ID=${WASM_SWAP_CODE_ID}
+            WS_URL=${WS_URL}
