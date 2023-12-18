@@ -2,6 +2,21 @@ name: CI/CD Pipeline - Alfa Branch
 
 run-name: ${{ github.actor }} is building the Devnet Explorer from ${{ github.ref_name }}
 
+env:
+  ANCESTORS_LIST: ${{ vars.ALMERICO_DEVNET_ANCESTORS_LIST }}
+  API_VERSION: ${{ vars.ALMERICO_DEVNET_API_VERSION }}
+  API_VERSION_COSMWASM: ${{ vars.ALMERICO_DEVNET_API_VERSION_COSMWASM }}
+  BACKEND: ${{ vars.ALMERICO_DEVNET_BACKEND }}
+  BACKEND_API_VERSION: ${{ vars.ALMERICO_DEVNET_BACKEND_API_VERSION }}
+  BACKEND_WS: ${{ vars.ALMERICO_DEVNET_BACKEND_WS }}
+  FIRST_CONVERSION_RATE: ${{ vars.ALMERICO_DEVNET_FIRST_CONVERSION_RATE }}
+  FIRST_HEIGHT: ${{ vars.ALMERICO_DEVNET_FIRST_HEIGHT }}
+  LCD_URL: ${{ vars.ALMERICO_DEVNET_LCD_URL }}
+  MAIN_TITLE: ${{ vars.ALMERICO_DEVNET_MAIN_TITLE }}
+  WASM_CW20_CODE_ID: ${{ vars.ALMERICO_DEVNET_WASM_CW20_CODE_ID }}
+  WASM_SWAP_CODE_ID: ${{ vars.ALMERICO_DEVNET_WASM_SWAP_CODE_ID }}
+  WS_URL: ${{ vars.ALMERICO_DEVNET_WS_URL }}
+
 on:
   push:
     branches:
@@ -11,65 +26,8 @@ jobs:
   call-workflow-build-and-test:
     uses: ./.github/workflows/wf-build-test.yml
 
-  deploy-docker-image:
-    runs-on: ubuntu-latest
+  call-workflow-deploy-docker-image:
+    env:
+      DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}:devnet
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set Environment Variables
-        run: |
-          echo "ANCESTORS_LIST=${{ vars.ALMERICO_DEVNET_ANCESTORS_LIST }}" >> $GITHUB_ENV
-          echo "API_VERSION=${{ vars.ALMERICO_DEVNET_API_VERSION }}" >> $GITHUB_ENV
-          echo "API_VERSION_COSMWASM=${{ vars.ALMERICO_DEVNET_API_VERSION_COSMWASM }}" >> $GITHUB_ENV
-          echo "BACKEND=${{ vars.ALMERICO_DEVNET_BACKEND }}" >> $GITHUB_ENV
-          echo "BACKEND_API_VERSION=${{ vars.ALMERICO_DEVNET_BACKEND_API_VERSION }}" >> $GITHUB_ENV
-          echo "BACKEND_WS=${{ vars.ALMERICO_DEVNET_BACKEND_WS }}" >> $GITHUB_ENV
-          echo "FIRST_CONVERSION_RATE=${{ vars.ALMERICO_DEVNET_FIRST_CONVERSION_RATE }}" >> $GITHUB_ENV
-          echo "FIRST_HEIGHT=${{ vars.ALMERICO_DEVNET_FIRST_HEIGHT }}" >> $GITHUB_ENV
-          echo "LCD_URL=${{ vars.ALMERICO_DEVNET_LCD_URL }}" >> $GITHUB_ENV
-          echo "MAIN_TITLE=${{ vars.ALMERICO_DEVNET_MAIN_TITLE }}" >> $GITHUB_ENV
-          echo "WASM_CW20_CODE_ID=${{ vars.ALMERICO_DEVNET_WASM_CW20_CODE_ID }}" >> $GITHUB_ENV
-          echo "WASM_SWAP_CODE_ID=${{ vars.ALMERICO_DEVNET_WASM_SWAP_CODE_ID }}" >> $GITHUB_ENV
-          echo "WS_URL=${{ vars.ALMERICO_DEVNET_WS_URL }}" >> $GITHUB_ENV
-
-      - name: Verify Environment Variables
-        run: |
-          if [ -z "${ANCESTORS_LIST}" ] || [ -z "${API_VERSION}" ] || [ -z "${API_VERSION_COSMWASM}" ] || [ -z "${BACKEND}" ] || [ -z "${BACKEND_API_VERSION}" ] || [ -z "${BACKEND_WS}" ] || [ -z "${FIRST_CONVERSION_RATE}" ] || [ -z "${FIRST_HEIGHT}" ] || [ -z "${LCD_URL}" ] || [ -z "${MAIN_TITLE}" ] || [ -z "${WASM_CW20_CODE_ID}" ] || [ -z "${WASM_SWAP_CODE_ID}" ] || [ -z "${WS_URL}" ]; then
-            echo "Error: Environment variables are not set."
-            exit 1
-          fi
-
-      - name: Set up Docker Buildx
-        if: success()
-        uses: docker/setup-buildx-action@v3
-
-      - name: Login To Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ secrets.DOCKER_REGISTRY }}
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_IMAGE }}:devnet
-          build-args: |
-            ANCESTORS_LIST=${ANCESTORS_LIST}
-            API_VERSION=${API_VERSION}
-            API_VERSION_COSMWASM=${API_VERSION_COSMWASM}
-            BACKEND=${BACKEND}
-            BACKEND_API_VERSION=${BACKEND_API_VERSION}
-            BACKEND_WS=${BACKEND_WS}
-            FIRST_CONVERSION_RATE=${FIRST_CONVERSION_RATE}
-            FIRST_HEIGHT=${FIRST_HEIGHT}
-            LCD_URL=${LCD_URL}
-            MAIN_TITLE=${MAIN_TITLE}
-            WASM_CW20_CODE_ID=${WASM_CW20_CODE_ID}
-            WASM_SWAP_CODE_ID=${WASM_SWAP_CODE_ID}
-            WS_URL=${WS_URL}
+    uses: ./.github/workflows/wf-deploy-docker-image.yml
