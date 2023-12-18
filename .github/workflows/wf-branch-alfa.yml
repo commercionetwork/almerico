@@ -62,7 +62,6 @@ jobs:
             API_VERSION=${{ env.API_VERSION }}
             API_VERSION_COSMWASM=${{ env.API_VERSION_COSMWASM }}
             BACKEND=${{ env.BACKEND }}
-            BACKEND_API_VERSION=${{ env.BACKEND_API_VERSION }}
             BACKEND_WS=${{ env.BACKEND_WS }}
             FIRST_CONVERSION_RATE=${{ env.FIRST_CONVERSION_RATE }}
             FIRST_HEIGHT=${{ env.FIRST_HEIGHT }}
