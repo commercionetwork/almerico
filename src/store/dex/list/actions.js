@@ -12,7 +12,6 @@ export default {
   },
   async fetchContracts({ commit, dispatch }) {
     const addresses = await dispatch('getDexContracts');
-    console.log(addresses);
     for (const address of addresses) {
       const models = await dispatch('getContractModels', address);
       const token1 = await dispatch('getToken', {
