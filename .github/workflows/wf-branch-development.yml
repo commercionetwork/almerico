@@ -16,6 +16,7 @@ env:
   WASM_CW20_CODE_ID: ${{ vars.ALMERICO_TESTNET_WASM_CW20_CODE_ID }}
   WASM_SWAP_CODE_ID: ${{ vars.ALMERICO_TESTNET_WASM_SWAP_CODE_ID }}
   WS_URL: ${{ vars.ALMERICO_TESTNET_WS_URL }}
+  DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}:testnet
 
 on:
   push:
@@ -27,7 +28,4 @@ jobs:
     uses: ./.github/workflows/wf-build-test.yml
 
   call-workflow-deploy-docker-image:
-    env:
-      DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}:testnet
-
     uses: ./.github/workflows/wf-deploy-docker-image.yml
