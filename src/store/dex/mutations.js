@@ -16,4 +16,16 @@ export default {
   setHasWallet(state, payload) {
     state.hasWallet = payload;
   },
+  addContract(state, payload) {
+    state.contracts.push(payload);
+  },
+  setBankTokens(state, payload) {
+    state.bankTokens = payload;
+  },
+  setContracts(state, payload) {
+    state.contracts = payload;
+  },
+  setWasmsTokens(state, payload) {
+    state.wasmsTokens = payload;
+  },
 };
