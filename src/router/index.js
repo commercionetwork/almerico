@@ -7,6 +7,7 @@ import store from '@/store';
 import accountRoute from './routes/account-route';
 import assetsRoute from './routes/assets-route';
 import blocksRoute from './routes/blocks-route';
+import dexRoute from './routes/dex-route';
 import exchangeRateRoute from './routes/exchangeRate-route';
 import homeRoute from './routes/home-route';
 import issueRoutes from './routes/issue-routes';
@@ -31,6 +32,7 @@ routes.push(
   accountRoute,
   assetsRoute,
   blocksRoute,
+  dexRoute,
   exchangeRateRoute,
   homeRoute,
   poolsRoute,

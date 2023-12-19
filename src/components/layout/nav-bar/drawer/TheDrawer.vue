@@ -36,6 +36,11 @@
         :to="{ name: ROUTES.NAME.ASSETS }"
       />
       <base-drawer-menu-item
+        :icon="mdiCropRotate"
+        :title="$t('titles.dex')"
+        :to="{ name: ROUTES.NAME.DEX }"
+      />
+      <base-drawer-menu-item
         :icon="mdiHexagonSlice2"
         :title="$t('titles.pools')"
         :to="{ name: ROUTES.NAME.POOLS }"
@@ -63,7 +68,7 @@ import TheDrawerThemeSwitcher from './TheDrawerThemeSwitcher';
 import { ROUTES } from '@/constants';
 import {
   mdiAccountMultiple,
-  mdiFolderSwap,
+  mdiCropRotate,
   mdiHexagonSlice2,
   mdiLibrary,
   mdiShape,
@@ -85,7 +90,7 @@ export default {
     return {
       ROUTES,
       mdiAccountMultiple,
-      mdiFolderSwap,
+      mdiCropRotate,
       mdiHexagonSlice2,
       mdiLibrary,
       mdiShape,
