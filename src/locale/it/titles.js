@@ -49,6 +49,8 @@ export const titles = {
   newAsset: 'Nuovo asset',
   otherTokensBalance: 'saldo altri token',
   pools: 'Pools',
+  poolsDetail: 'Dettagli pool',
+  poolsList: 'Elenco pool',
   price: 'Prezzo',
   proof: 'Prova',
   proposalDetail: 'Dettagli proposta',

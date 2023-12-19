@@ -52,7 +52,7 @@ const PATH = Object.freeze({
   BLOCKS_LIST: 'list',
   BLOCKS_DETAIL: 'detail/:id',
   DEX: '/dex',
-  POOLS: 'pools',
+  POOLS: '/pools',
   POOLS_LIST: 'list',
   POOLS_DETAIL: 'detail/:id',
   POOLS_DETAIL_DASHBOARD: 'dashboard',

@@ -49,6 +49,8 @@ export const titles = {
   newAsset: 'New asset',
   otherTokensBalance: 'Other tokens balance',
   pools: 'Pools',
+  poolsDetail: 'Pools detail',
+  poolsList: 'Pools list',
   price: 'Price',
   proof: 'Proof',
   proposalDetail: 'Proposal detail',
