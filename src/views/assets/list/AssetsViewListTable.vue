@@ -43,7 +43,7 @@ export default {
       ];
     },
     items() {
-      return this.list;
+      return this.list.filter((item) => item.symbol !== 'wslpt');
     },
   },
   methods: {
