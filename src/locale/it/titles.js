@@ -48,6 +48,7 @@ export const titles = {
   myValidators: 'Miei validatori',
   newAsset: 'Nuovo asset',
   otherTokensBalance: 'saldo altri token',
+  pools: 'Pools',
   price: 'Prezzo',
   proof: 'Prova',
   proposalDetail: 'Dettagli proposta',
