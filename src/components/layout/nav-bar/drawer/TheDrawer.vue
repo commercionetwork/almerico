@@ -36,9 +36,9 @@
         :to="{ name: ROUTES.NAME.ASSETS }"
       />
       <base-drawer-menu-item
-        :icon="mdiFolderSwap"
-        :title="$t('titles.dex')"
-        :to="{ name: ROUTES.NAME.DEX }"
+        :icon="mdiHexagonSlice2"
+        :title="$t('titles.pools')"
+        :to="{ name: ROUTES.NAME.POOLS }"
       />
       <base-drawer-menu-item
         :icon="mdiTableEye"
@@ -64,6 +64,7 @@ import { ROUTES } from '@/constants';
 import {
   mdiAccountMultiple,
   mdiFolderSwap,
+  mdiHexagonSlice2,
   mdiLibrary,
   mdiShape,
   mdiSwapHorizontalBold,
@@ -85,6 +86,7 @@ export default {
       ROUTES,
       mdiAccountMultiple,
       mdiFolderSwap,
+      mdiHexagonSlice2,
       mdiLibrary,
       mdiShape,
       mdiSwapHorizontalBold,
