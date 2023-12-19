@@ -19,16 +19,19 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <the-header-content :title="$t('titles.dex')" />
+      <dex-view-form />
     </v-col>
   </v-row>
 </template>
 
 <script>
+import DexViewForm from './DexViewForm.vue';
+
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'DexView',
-  components: {},
+  components: { DexViewForm },
   data() {
     return {};
   },
