@@ -1,22 +1,27 @@
 <template>
-  <v-form>
-    <v-row>
-      <v-col cols="12" md="6" offset-md="3">
-        <dex-view-selector :items="contracts" v-model="contract" />
-      </v-col>
-    </v-row>
-  </v-form>
+  <v-row>
+    <v-col cols="12" md="6" offset-md="3">
+      <v-card outlined>
+        <v-form :disabled="isHandling">
+          <dex-view-selector :items="list" v-model="contract" />
+          <dex-view-swap-manager :contract="contract" />
+        </v-form>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
+import DexViewSwapManager from './DexViewSwapManager.vue';
 import DexViewSelector from './DexViewSelector.vue';
 
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'DexViewForm',
   components: {
     DexViewSelector,
+    DexViewSwapManager,
   },
   data() {
     return {
@@ -24,15 +29,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('dex', ['contracts']),
+    ...mapGetters('dex', ['isHandling', 'list']),
   },
-  watch: {
-    contract(value) {
-      this.fetchDex(value.id);
-    },
-  },
-  methods: {
-    ...mapActions('dex', ['fetchDex']),
+  created() {
+    this.contract = this.list[0];
   },
 };
 </script>

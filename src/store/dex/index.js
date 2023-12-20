@@ -5,10 +5,11 @@ import mutations from './mutations';
 export const initState = () => ({
   error: undefined,
   isLoading: false,
+  isFetching: false,
   isHandling: false,
   hasWallet: true,
-  contracts: [],
-  dex: null,
+  detail: null,
+  list: [],
 });
 
 export default {

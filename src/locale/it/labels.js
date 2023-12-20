@@ -170,6 +170,7 @@ export const labels = {
   seconds: 'Secondi',
   securityContact: 'Contatto sicurezza',
   select: 'Seleziona',
+  selectDex: 'Seleziona un DEX',
   self: 'Self',
   send: 'Invia',
   sender: 'Mittente',

@@ -86,10 +86,10 @@ export default {
     }
   },
   async fetchDex({ commit, dispatch }, address) {
-    commit('setHandling', true);
+    commit('setFetching', true);
     const requests = [dispatch('getDexDetail', address)];
     await Promise.all(requests);
-    commit('setHandling', false);
+    commit('setFetching', false);
   },
   async getDexDetail({ commit, dispatch }, address) {
     const query = '{"info":{}}';
@@ -99,7 +99,7 @@ export default {
         address,
         queryData,
       });
-      commit('setDexProp', { path: 'id', value: address });
+      commit('setContractProp', { path: 'id', value: address });
       const data = response.data.data;
       const requests = [dispatch('setLpInfo', { data, spender: address })];
       const native = CONTRACT.TOKEN.TYPE.NATIVE;
@@ -147,7 +147,7 @@ export default {
         responses[1][CONTRACT.KEY.FEE.PROTOCOL_FEE_PERCENT] || '',
       allowance: responses[2]['allowance'] || '',
     };
-    commit('setDexProp', { path: 'lp', value });
+    commit('setContractProp', { path: 'lp', value });
   },
   async getContractInfo({ commit }, { contract, owner }) {
     try {
@@ -211,7 +211,7 @@ export default {
       value['balance'] = balances[index]['amount'];
       value['decimals'] = 6;
     }
-    commit('setDexProp', { path: denom, value });
+    commit('setContractProp', { path: denom, value });
   },
   async getBalances({ commit, rootGetters }) {
     const wallet = rootGetters['keplr/wallet'];
@@ -246,7 +246,7 @@ export default {
     value['decimals'] = responses[0][CONTRACT.KEY.STATE.TOKEN_INFO]['decimals'];
     value['balance'] = responses[0][CONTRACT.KEY.STATE.BALANCE];
     value['allowance'] = responses[1]['allowance'];
-    commit('setDexProp', { path: denom, value });
+    commit('setContractProp', { path: denom, value });
   },
 };
 
