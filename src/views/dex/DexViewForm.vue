@@ -1,5 +1,5 @@
 <template>
-  <div>{{ list }}}}</div>
+  <v-form>{{ list }}</v-form>
 </template>
 
 <script>

@@ -13,4 +13,5 @@ export default {
       bankTokens: state.bankTokens,
       wasmsTokens: state.wasmsTokens,
     }),
+  dex: (state) => state.dex,
 };

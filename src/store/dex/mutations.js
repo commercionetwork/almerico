@@ -28,4 +28,7 @@ export default {
   setWasmsTokens(state, payload) {
     state.wasmsTokens = payload;
   },
+  setDex(state, payload) {
+    state.dex = payload;
+  },
 };

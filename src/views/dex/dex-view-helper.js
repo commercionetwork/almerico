@@ -15,10 +15,17 @@ const dexViewHelper = {
         tokens,
       });
       if (!embedded2) return null;
-      return {
-        address: embedded2.address,
+      const item = {
+        id: embedded2.id,
+        lp: {
+          address: embedded2.data.lp_token_address,
+          supply: embedded2.data.lp_token_supply,
+        },
         ...embedded2.data,
       };
+      item.lp_token_address = undefined;
+      item.lp_token_supply = undefined;
+      return item;
     });
     // Remove null items
     return items.filter(Boolean);
@@ -38,10 +45,15 @@ const embedSwapContract = ({ contract, key, tokens }) => {
   if (index < 0) {
     return null;
   }
-  embedded.data[`${key}_id`] = tokens[index]['id'];
-  embedded.data[`${key}_name`] = tokens[index]['name'];
-  embedded.data[`${key}_symbol`] = tokens[index]['symbol'];
-  embedded.data[`${key}_amount`] = tokens[index]['amount'];
-  embedded.data[`${key}_decimals`] = tokens[index]['decimals'];
+  embedded.data[key] = {};
+  embedded.data[key]['id'] = tokens[index]['id'];
+  embedded.data[key]['name'] = tokens[index]['name'];
+  embedded.data[key]['symbol'] = tokens[index]['symbol'];
+  embedded.data[key]['amount'] = tokens[index]['amount'];
+  embedded.data[key]['decimals'] = tokens[index]['decimals'];
+  embedded.data[key]['denom'] = embedded.data[`${key}_denom`];
+  embedded.data[key]['reserve'] = embedded.data[`${key}_reserve`];
+  embedded.data[`${key}_denom`] = undefined;
+  embedded.data[`${key}_reserve`] = undefined;
   return embedded;
 };

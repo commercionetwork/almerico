@@ -10,6 +10,7 @@ export const initState = () => ({
   bankTokens: [],
   contracts: [],
   wasmsTokens: [],
+  dex: null,
 });
 
 export default {

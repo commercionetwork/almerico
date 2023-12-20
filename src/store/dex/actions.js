@@ -71,7 +71,7 @@ export default {
         queryData,
       });
       const data = response.data.data;
-      commit('addContract', { address, data });
+      commit('addContract', { id: address, data });
     } catch (error) {
       commit('setError', error);
     }
