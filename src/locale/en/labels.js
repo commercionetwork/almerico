@@ -169,6 +169,7 @@ export const labels = {
   searchNameAddressAccount: 'Search name, address, account',
   seconds: 'Seconds',
   securityContact: 'Security contact',
+  select: 'Select',
   self: 'Self',
   send: 'Send',
   sender: 'Sender',

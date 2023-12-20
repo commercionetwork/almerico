@@ -7,9 +7,7 @@ export const initState = () => ({
   isLoading: false,
   isHandling: false,
   hasWallet: true,
-  bankTokens: [],
   contracts: [],
-  wasmsTokens: [],
   dex: null,
 });
 

@@ -169,6 +169,7 @@ export const labels = {
   searchNameAddressAccount: 'Cerca nome, indirizzo, account',
   seconds: 'Secondi',
   securityContact: 'Contatto sicurezza',
+  select: 'Seleziona',
   self: 'Self',
   send: 'Invia',
   sender: 'Mittente',

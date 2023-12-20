@@ -1,3 +1,4 @@
+import { set } from 'lodash';
 import { initState } from './index';
 
 export default {
@@ -19,16 +20,12 @@ export default {
   addContract(state, payload) {
     state.contracts.push(payload);
   },
-  setBankTokens(state, payload) {
-    state.bankTokens = payload;
-  },
   setContracts(state, payload) {
     state.contracts = payload;
   },
-  setWasmsTokens(state, payload) {
-    state.wasmsTokens = payload;
-  },
-  setDex(state, payload) {
-    state.dex = payload;
+  setDexProp(state, payload) {
+    const obj = { ...state.dex };
+    set(obj, payload.path, payload.value);
+    state.dex = { ...obj };
   },
 };
