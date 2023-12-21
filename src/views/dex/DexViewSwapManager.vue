@@ -1,6 +1,19 @@
 <template>
-  <v-progress-linear v-if="isFetching" color="primary" indeterminate />
-  <div v-else-if="model.tokenFrom && model.tokenTo">
+  <v-progress-linear
+    v-if="isFetching"
+    color="primary"
+    indeterminate
+    data-test="loading"
+  />
+  <v-alert
+    v-else-if="!model.tokenFrom || !model.tokenTo"
+    outlined
+    type="info"
+    data-test="info"
+  >
+    <span v-text="$t('msgs.notAvailable')" />
+  </v-alert>
+  <div v-else data-test="content">
     <v-row class="d-flex justify-center align-center">
       <v-col cols="12" md="6">
         <dex-view-swap-selector
@@ -34,7 +47,6 @@
       </v-col>
     </v-row>
   </div>
-  <div v-else />
 </template>
 
 <script>
@@ -87,15 +99,19 @@ export default {
   },
   created() {
     this.fetchDex(this.contract.id).then(() => {
-      this.model.tokenFrom = this.detail.token1;
-      this.model.tokenTo = this.detail.token2;
+      if (this.detail) {
+        this.model.tokenFrom = this.detail.token1;
+        this.model.tokenTo = this.detail.token2;
+      }
     });
   },
   watch: {
     contract(value) {
       this.fetchDex(value.id).then(() => {
-        this.model.tokenFrom = this.detail.token1;
-        this.model.tokenTo = this.detail.token2;
+        if (this.detail) {
+          this.model.tokenFrom = this.detail.token1;
+          this.model.tokenTo = this.detail.token2;
+        }
       });
     },
   },
