@@ -1,7 +1,7 @@
 <template>
   <v-card-text>
     <div
-      class="text-subtitle-1 font-weight-bold"
+      class="text-center text-subtitle-1 font-weight-bold"
       v-text="$t('labels.selectDex')"
     />
     <v-select

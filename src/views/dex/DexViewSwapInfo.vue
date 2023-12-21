@@ -1,7 +1,17 @@
 <template>
   <v-card-text>
-    <div class="py-1" v-text="availables" />
-    <div class="py-1" v-text="exchange" />
+    <v-alert color="info" outlined>
+      <v-list dense>
+        <base-detail-item
+          :label="$t('labels.availables')"
+          :content="availables"
+        />
+        <base-detail-item
+          :label="$t('labels.exchangeRate')"
+          :content="exchange"
+        />
+      </v-list>
+    </v-alert>
   </v-card-text>
 </template>
 
@@ -33,9 +43,7 @@ export default {
         );
         availables = tokensHandler.format(balance, this.tokenFrom.decimals);
       }
-      return `${this.$t('labels.availables')}: ${availables} ${
-        this.tokenFrom.denom
-      }`;
+      return `${availables} ${this.tokenFrom.denom}`;
     },
     exchange() {
       const exchange = DexViewSwapManager.getExpectedAmount({

@@ -69,6 +69,7 @@ export const labels = {
   editVote: 'Modifica voto',
   encryptionDataEncryptedData: 'Dati criptati dei dati criptati',
   encryptionDataKeys: 'Chiavi dei dati criptati',
+  exchangeRate: 'Tasso di cambio',
   expectedAmount: 'Importo atteso',
   failed: 'Fallito',
   fee: 'Commissione',

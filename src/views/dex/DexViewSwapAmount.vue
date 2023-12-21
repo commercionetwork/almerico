@@ -16,8 +16,7 @@
     >
       <template #label>
         <div class="font-weight-bold">
-          <span class="mx-1 error--text">*</span>
-          <span v-text="$t('labels.amount')" />
+          <span v-text="label" />
         </div>
       </template>
     </v-text-field>
@@ -73,6 +72,9 @@ export default {
         expected,
         this.tokenTo.decimals
       )}`;
+    },
+    label() {
+      return `${this.$t('labels.amount')} (${this.tokenFrom.denom})`;
     },
     errorMessages() {
       const errors = [];

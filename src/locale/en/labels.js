@@ -69,6 +69,7 @@ export const labels = {
   editVote: 'Edit vote',
   encryptionDataEncryptedData: 'Encryption data encrypted data',
   encryptionDataKeys: 'Encryption data keys',
+  exchangeRate: 'Exchange rate',
   expectedAmount: 'Expected amount',
   failed: 'Failed',
   fee: 'Fee',

@@ -1,24 +1,45 @@
 <template>
   <v-progress-linear v-if="isFetching" color="primary" indeterminate />
   <div v-else-if="model.tokenFrom && model.tokenTo">
-    <dex-view-swap-selector
-      :tokenFrom="model.tokenFrom"
-      :tokenTo="model.tokenTo"
-      @reverse="onReverse"
-    />
-    <dex-view-swap-info :tokenFrom="model.tokenFrom" :tokenTo="model.tokenTo" />
-    <dex-view-swap-amount
-      :tokenFrom="model.tokenFrom"
-      :tokenTo="model.tokenTo"
-      :v="$v.model.amount"
-      v-model.trim="model.amount"
-    />
+    <v-row class="d-flex justify-center align-center">
+      <v-col cols="12" md="6">
+        <dex-view-swap-selector
+          :tokenFrom="model.tokenFrom"
+          :tokenTo="model.tokenTo"
+          @reverse="onReverse"
+        />
+      </v-col>
+      <v-col cols="12" md="6">
+        <dex-view-swap-info
+          :tokenFrom="model.tokenFrom"
+          :tokenTo="model.tokenTo"
+        />
+      </v-col>
+    </v-row>
+    <v-row class="d-flex align-baseline">
+      <v-col cols="12" md="6">
+        <dex-view-swap-amount
+          :tokenFrom="model.tokenFrom"
+          :tokenTo="model.tokenTo"
+          :v="$v.model.amount"
+          v-model.trim="model.amount"
+        />
+      </v-col>
+      <v-col cols="12" md="6">
+        <dex-view-swap-execute
+          :model="model"
+          :disabled="$v.model.$invalid"
+          @success="onSuccess"
+        />
+      </v-col>
+    </v-row>
   </div>
   <div v-else />
 </template>
 
 <script>
 import DexViewSwapAmount from './DexViewSwapAmount.vue';
+import DexViewSwapExecute from './DexViewSwapExecute.vue';
 import DexViewSwapInfo from './DexViewSwapInfo.vue';
 import DexViewSwapSelector from './DexViewSwapSelector.vue';
 
@@ -30,6 +51,7 @@ export default {
   name: 'DexViewSwapManager',
   components: {
     DexViewSwapAmount,
+    DexViewSwapExecute,
     DexViewSwapInfo,
     DexViewSwapSelector,
   },
@@ -76,16 +98,6 @@ export default {
         this.model.tokenTo = this.detail.token2;
       });
     },
-    model: {
-      handler(value) {
-        if (this.$v.model.$invalid) {
-          this.$emit('invalid');
-          return;
-        }
-        this.$emit('complete', value);
-      },
-      deep: true,
-    },
   },
   methods: {
     ...mapActions('dex', ['fetchDex']),
@@ -93,6 +105,11 @@ export default {
       const tokenFrom = this.model.tokenTo;
       this.model.tokenTo = this.model.tokenFrom;
       this.model.tokenFrom = tokenFrom;
+    },
+    onSuccess() {
+      this.model.amount = '0.01';
+      this.model.tokenFrom = this.detail.token1;
+      this.model.tokenTo = this.detail.token2;
     },
   },
 };

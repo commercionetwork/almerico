@@ -7,10 +7,11 @@
     <div class="my-3">
       <v-btn icon @click="reverse">
         <v-hover v-slot="{ hover }">
-          <v-icon size="48">
-            {{
-              hover ? mdiSwapVerticalCircleOutline : mdiArrowDownCircleOutline
-            }}
+          <v-icon v-if="hover" color="orange" size="48">
+            {{ mdiSwapVerticalCircleOutline }}
+          </v-icon>
+          <v-icon v-else size="48">
+            {{ mdiArrowDownCircleOutline }}
           </v-icon>
         </v-hover>
       </v-btn>
