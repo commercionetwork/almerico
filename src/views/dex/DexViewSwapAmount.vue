@@ -68,10 +68,10 @@ export default {
         tokenTo: this.tokenTo,
         lp: this.detail.lp,
       });
-      return `${this.tokenTo.denom} ${tokensHandler.convertFromBase(
+      return `${tokensHandler.convertFromBase(
         expected,
         this.tokenTo.decimals
-      )}`;
+      )} ${this.tokenTo.denom}`;
     },
     label() {
       return `${this.$t('labels.amount')} (${this.tokenFrom.denom})`;

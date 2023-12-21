@@ -1,30 +1,24 @@
 <template>
   <v-card-text>
-    <div
-      class="text-center text-subtitle-1 font-weight-bold"
-      v-text="$t('labels.selectDex')"
-    />
     <v-select
       dense
+      item-text="text"
+      item-value="value"
       outlined
-      return-object
-      single-line
-      :items="items"
+      :items="contracts"
       v-model="select"
     >
       <template #append>
-        <v-icon>{{ mdiChevronDown }}</v-icon>
+        <v-icon color="primary">{{ mdiChevronDown }}</v-icon>
       </template>
-      <template #item="{ item }">
-        <div>
-          <span v-text="item[CONTRACT.TOKEN.DENOM.TOKEN_1]" /> -
-          <span v-text="item[CONTRACT.TOKEN.DENOM.TOKEN_2]" />
+      <template #label>
+        <div class="font-weight-bold">
+          <span v-text="$t('labels.selectDex')" />
         </div>
       </template>
       <template #selection="{ item }">
         <div class="font-weight-bold">
-          <span v-text="item[CONTRACT.TOKEN.DENOM.TOKEN_1]" /> -
-          <span v-text="item[CONTRACT.TOKEN.DENOM.TOKEN_2]" />
+          <span v-text="item.text" />
         </div>
       </template>
     </v-select>
@@ -61,6 +55,14 @@ export default {
       set(value) {
         this.$emit('input', value);
       },
+    },
+    contracts() {
+      return this.items.map((item) => ({
+        text: `${item[CONTRACT.TOKEN.DENOM.TOKEN_1]} - ${
+          item[CONTRACT.TOKEN.DENOM.TOKEN_2]
+        }`,
+        value: item,
+      }));
     },
   },
 };

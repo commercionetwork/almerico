@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="my-3">
     <v-col cols="12" md="6" offset-md="3">
       <v-card outlined>
         <v-form :disabled="isHandling">
