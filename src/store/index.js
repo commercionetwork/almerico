@@ -6,11 +6,12 @@ import accountBalance from './account-balance';
 import application from './application';
 import assets from './assets';
 import blocks from './blocks';
-import dexDetail from './dex/detail';
-import dexList from './dex/list';
+import dex from './dex';
 import exchangeRate from './exchange-rate';
 import home from './home';
 import keplr from './keplr';
+import poolsDetail from './pools/detail';
+import poolsList from './pools/list';
 import proposals from './proposals';
 import stats from './stats';
 import transactions from './transactions';
@@ -29,11 +30,12 @@ export default new Vuex.Store({
     application,
     assets,
     blocks,
-    dexDetail,
-    dexList,
+    dex,
     exchangeRate,
     home,
     keplr,
+    poolsDetail,
+    poolsList,
     proposals,
     stats,
     transactions,

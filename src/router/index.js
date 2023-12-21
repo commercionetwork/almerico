@@ -11,6 +11,7 @@ import dexRoute from './routes/dex-route';
 import exchangeRateRoute from './routes/exchangeRate-route';
 import homeRoute from './routes/home-route';
 import issueRoutes from './routes/issue-routes';
+import poolsRoute from './routes/pools-route';
 import proposalsRoute from './routes/proposals-route';
 import statsRoute from './routes/stats-route';
 import transactionsRoute from './routes/transactions-route';
@@ -34,6 +35,7 @@ routes.push(
   dexRoute,
   exchangeRateRoute,
   homeRoute,
+  poolsRoute,
   proposalsRoute,
   statsRoute,
   transactionsRoute,

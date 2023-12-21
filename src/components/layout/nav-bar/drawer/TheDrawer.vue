@@ -36,9 +36,15 @@
         :to="{ name: ROUTES.NAME.ASSETS }"
       />
       <base-drawer-menu-item
-        :icon="mdiFolderSwap"
+        :icon="mdiCropRotate"
         :title="$t('titles.dex')"
         :to="{ name: ROUTES.NAME.DEX }"
+      />
+      <base-drawer-menu-item
+        v-if="hasPools"
+        :icon="mdiHexagonSlice2"
+        :title="$t('titles.pools')"
+        :to="{ name: ROUTES.NAME.POOLS }"
       />
       <base-drawer-menu-item
         :icon="mdiTableEye"
@@ -60,10 +66,11 @@ import TheDrawerLocale from './TheDrawerLocale';
 import TheDrawerSocialMedial from './TheDrawerSocialMedial';
 import TheDrawerThemeSwitcher from './TheDrawerThemeSwitcher';
 
-import { ROUTES } from '@/constants';
+import { CONFIG, ROUTES } from '@/constants';
 import {
   mdiAccountMultiple,
-  mdiFolderSwap,
+  mdiCropRotate,
+  mdiHexagonSlice2,
   mdiLibrary,
   mdiShape,
   mdiSwapHorizontalBold,
@@ -84,7 +91,8 @@ export default {
     return {
       ROUTES,
       mdiAccountMultiple,
-      mdiFolderSwap,
+      mdiCropRotate,
+      mdiHexagonSlice2,
       mdiLibrary,
       mdiShape,
       mdiSwapHorizontalBold,
@@ -92,6 +100,11 @@ export default {
       mdiViewDashboard,
       mdiVote,
     };
+  },
+  computed: {
+    hasPools() {
+      return CONFIG.HAS_POOLS;
+    },
   },
 };
 </script>
