@@ -16,6 +16,9 @@ const FIRST_HEIGHT =
     ? process.env.VUE_APP_FIRST_HEIGHT
     : '1';
 
+const HAS_POOLS =
+  process.env.VUE_APP_HAS_POOLS && process.env.VUE_APP_HAS_POOLS === 'true';
+
 const LEGACY_VERSIONS = Object.freeze({
   V_038: '0.38',
 });
@@ -96,6 +99,7 @@ export default Object.freeze({
   FIRST_HEIGHT,
   GAS_AMOUNT,
   GAS_PRICE_STEP,
+  HAS_POOLS,
   LEGACY_VERSIONS,
   PREFIXES,
   REST_LEAD_TIME,

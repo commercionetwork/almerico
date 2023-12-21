@@ -1,4 +1,4 @@
-import { ROUTES } from '@/constants';
+import { CONFIG, ROUTES } from '@/constants';
 import { loadView } from '../index';
 
 const PoolsRouter = loadView('pools/PoolsRouter');
@@ -10,6 +10,12 @@ const PoolsViewList = loadView('pools/PoolsViewList');
 const poolsRoute = {
   path: ROUTES.PATH.POOLS,
   component: PoolsRouter,
+  beforeEnter: (to, from, next) => {
+    if (!CONFIG.HAS_POOLS) {
+      next({ name: ROUTES.NAME.DEX });
+      return;
+    }
+  },
   meta: {
     title: ROUTES.TITLE.POOLS,
   },
