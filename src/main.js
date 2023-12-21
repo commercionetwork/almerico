@@ -13,6 +13,7 @@ import BaseFormNumberField from '@/components/BaseFormNumberField.vue';
 import BaseFormTextField from '@/components/BaseFormTextField.vue';
 import BaseLoadingCircular from '@/components/BaseLoadingCircular.vue';
 import BaseLoadingLinear from '@/components/BaseLoadingLinear.vue';
+import BaseSmallWindow from '@/components/BaseSmallWindow.vue';
 import BaseTopContentCard from '@/components/BaseTopContentCard.vue';
 import BaseTransactionMessage from '@/components/BaseTransactionMessage.vue';
 import TheAlertNotice from '@/components/TheAlertNotice.vue';
@@ -21,6 +22,7 @@ import TheErrorMessage from '@/components/TheErrorMessage.vue';
 import TheHeaderContent from '@/components/TheHeaderContent.vue';
 import TheLatestHeight from '@/components/TheLatestHeight.vue';
 import TheSearchBar from '@/components/TheSearchBar.vue';
+import TheTxAssertModal from '@/components/TheTxAssertModal.vue';
 
 Vue.component('base-chart', BaseChart);
 Vue.component('base-detail-item', BaseDetailItem);
@@ -30,6 +32,7 @@ Vue.component('base-form-number-field', BaseFormNumberField);
 Vue.component('base-form-text-field', BaseFormTextField);
 Vue.component('base-loading-circular', BaseLoadingCircular);
 Vue.component('base-loading-linear', BaseLoadingLinear);
+Vue.component('base-small-window', BaseSmallWindow);
 Vue.component('base-top-content-card', BaseTopContentCard);
 Vue.component('base-transaction-message', BaseTransactionMessage);
 Vue.component('the-alert-notice', TheAlertNotice);
@@ -38,6 +41,7 @@ Vue.component('the-error-message', TheErrorMessage);
 Vue.component('the-header-content', TheHeaderContent);
 Vue.component('the-latest-height', TheLatestHeight);
 Vue.component('the-search-bar', TheSearchBar);
+Vue.component('the-tx-assert-modal', TheTxAssertModal);
 
 Vue.config.productionTip = false;
 

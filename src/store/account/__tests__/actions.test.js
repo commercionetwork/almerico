@@ -247,7 +247,7 @@ describe('store/account/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/bank.js', () => ({
+jest.mock('../../../apis/http/bank-api.js', () => ({
   requestBalances: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -267,7 +267,7 @@ jest.mock('../../../apis/http/bank.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/commercio.js', () => ({
+jest.mock('../../../apis/http/commercio-api.js', () => ({
   requestMembership: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -286,7 +286,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/distribution.js', () => ({
+jest.mock('../../../apis/http/distribution-api.js', () => ({
   requestRewards: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -319,7 +319,7 @@ jest.mock('../../../apis/http/distribution.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/staking.js', () => ({
+jest.mock('../../../apis/http/staking-api.js', () => ({
   requestDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -356,7 +356,7 @@ jest.mock('../../../apis/http/staking.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/tx.js', () => ({
+jest.mock('../../../apis/http/tx-api.js', () => ({
   requestTxsList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -376,7 +376,7 @@ jest.mock('../../../apis/http/tx.js', () => ({
   },
 }));
 
-jest.mock('../../../utils/bech32Manager.js', () => ({
+jest.mock('../../../utils/bech32-manager.js', () => ({
   decode: () => {
     if (mockError) {
       return mockErrorResponse;

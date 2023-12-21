@@ -1,4 +1,4 @@
-import { blocksRequestHelper } from '../index';
+import { blocksRequestHelper } from '@/utils';
 
 describe('utils/blocksRequestHelper', () => {
   test('if "getMinimumHeight" return the proper value', () => {

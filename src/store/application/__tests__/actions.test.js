@@ -161,7 +161,7 @@ describe('store/application/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/gaiaRest.js', () => ({
+jest.mock('../../../apis/http/gaiaRest-api.js', () => ({
   requestNodeInfo: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -178,7 +178,7 @@ jest.mock('../../../apis/http/gaiaRest.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/staking.js', () => ({
+jest.mock('../../../apis/http/staking-api.js', () => ({
   requestParameters: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -212,7 +212,7 @@ jest.mock('../../../apis/http/staking.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/tendermintRpc.js', () => ({
+jest.mock('../../../apis/http/tendermintRpc-api.js', () => ({
   requestBlockLatest: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

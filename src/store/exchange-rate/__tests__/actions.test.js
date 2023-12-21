@@ -57,7 +57,7 @@ describe('store/exchange-rate/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/chart.js', () => ({
+jest.mock('../../../apis/http/chart-api.js', () => ({
   requestTokens: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -74,7 +74,7 @@ jest.mock('../../../apis/http/chart.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/overview.js', () => ({
+jest.mock('../../../apis/http/overview-api.js', () => ({
   requestExchangeRate: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
