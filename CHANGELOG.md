@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add GitHub Actions configuration
 - Add new DEX page
+- Add env variable to enable Pools pages
 
 ### Changed
 
