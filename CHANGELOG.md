@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add GitHub Actions configuration
+- Add DEX page
+
+### Changed
+
+- Filter assets list to remove unwanted items
 
 ### Removed
 
