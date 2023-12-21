@@ -15,6 +15,7 @@ const poolsRoute = {
       next({ name: ROUTES.NAME.DEX });
       return;
     }
+    next();
   },
   meta: {
     title: ROUTES.TITLE.POOLS,
