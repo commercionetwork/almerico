@@ -2,25 +2,12 @@ import { CONTRACT, TRANSACTIONS } from '@/constants';
 import { msgBuilder, tokensHandler } from '@/utils';
 
 const dexSwapManager = {
-  buildIncreaseAllowanceMsg({ sender, contract, data }) {
-    const msg = JSON.stringify({
-      [TRANSACTIONS.KEY.INCREASE_ALLOWANCE]: {
-        spender: data.spender,
-        amount: tokensHandler
-          .convertToBase(data.amount, data.decimals)
-          .toString(),
-      },
-    });
-    return msgBuilder.buildMsgExecuteContract({ sender, contract, msg });
-  },
   buildSwapMsg({ sender, contract, data }) {
     const inputToken =
-      data.tokenFrom.id === contract.token1.id
+      data.tokenFrom.denom === contract.token1.denom
         ? CONTRACT.TOKEN.KEY.TOKEN_1
         : CONTRACT.TOKEN.KEY.TOKEN_2;
-    const inputAmount = tokensHandler
-      .convertToBase(data.amount, data.tokenFrom.decimals)
-      .toString();
+    const inputAmount = tokensHandler.convertToBase(data.amount, 6).toString();
     const minOutput = calcSwapAmount({
       amount: data.amount,
       tokenFrom: data.tokenFrom,
@@ -34,7 +21,7 @@ const dexSwapManager = {
         min_output: minOutput,
       },
     });
-    const funds = setFunds(data.tokenFrom, inputAmount);
+    const funds = [{ denom: data.tokenFrom.denom, amount: inputAmount }];
     return msgBuilder.buildMsgExecuteContract({
       sender,
       contract: contract.id,
@@ -48,11 +35,8 @@ const dexSwapManager = {
   greaterThanZero(amount) {
     return !isNaN(amount) && Number(amount) > 0;
   },
-  smallerThanBalance(amount, tokenFrom) {
-    return (
-      tokensHandler.convertToBase(amount, tokenFrom.decimals) <=
-      parseInt(tokenFrom.balance)
-    );
+  smallerThanBalance(amount, balance) {
+    return tokensHandler.convertToBase(amount, 6) <= parseInt(balance);
   },
 };
 
@@ -62,17 +46,10 @@ const calcSwapAmount = ({ amount, tokenFrom, tokenTo, lp }) => {
   const feeReductionPercent =
     10000 -
     (parseFloat(lp.lpFeePercent) + parseFloat(lp.protocolFeePercent)) * 100;
-  const amountToSwap = tokensHandler.convertToBase(amount, tokenFrom.decimals);
+  const amountToSwap = tokensHandler.convertToBase(amount, 6);
   const inputAmount = amountToSwap * feeReductionPercent;
   return Math.trunc(
     (inputAmount * parseInt(tokenTo.reserve)) /
       (parseInt(tokenFrom.reserve) * 10000 + inputAmount)
   );
-};
-
-const setFunds = (tokenFrom, amount) => {
-  if (tokenFrom.type !== CONTRACT.TOKEN.TYPE.NATIVE) {
-    return [];
-  }
-  return [{ denom: tokenFrom.id, amount }];
 };

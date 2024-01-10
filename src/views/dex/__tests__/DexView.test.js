@@ -24,6 +24,24 @@ describe('views/dex/DexView.vue', () => {
     accounts: () => [{ address: 'address' }],
   };
 
+  test('if missing contract info is displayed', () => {
+    const wrapper = shallowMount(DexView, {
+      localVue,
+      mocks,
+      computed: {
+        ...computed,
+        error: () => null,
+        isLoading: () => false,
+        hasContract: () => false,
+        hasWallet: () => false,
+      },
+    });
+
+    expect(wrapper.find('[data-test="info"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="alert"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="view"]').exists()).toBe(false);
+  });
+
   test('if missing wallet alert is displayed', () => {
     const wrapper = shallowMount(DexView, {
       localVue,
@@ -32,10 +50,12 @@ describe('views/dex/DexView.vue', () => {
         ...computed,
         error: () => null,
         isLoading: () => false,
+        hasContract: () => true,
         hasWallet: () => false,
       },
     });
 
+    expect(wrapper.find('[data-test="info"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="alert"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="view"]').exists()).toBe(false);
   });
@@ -48,10 +68,12 @@ describe('views/dex/DexView.vue', () => {
         ...computed,
         error: () => null,
         isLoading: () => false,
+        hasContract: () => true,
         hasWallet: () => true,
       },
     });
 
+    expect(wrapper.find('[data-test="info"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="alert"]').exists()).toBe(false);
     expect(wrapper.find('[data-test="view"]').exists()).toBe(true);
   });
@@ -64,6 +86,7 @@ describe('views/dex/DexView.vue', () => {
         ...computed,
         error: () => null,
         isLoading: () => true,
+        hasContract: () => true,
         hasWallet: () => true,
       },
     });
@@ -82,6 +105,7 @@ describe('views/dex/DexView.vue', () => {
         ...computed,
         error: () => error,
         isLoading: () => false,
+        hasContract: () => true,
         hasWallet: () => true,
       },
     });
@@ -99,6 +123,7 @@ describe('views/dex/DexView.vue', () => {
         ...computed,
         error: () => null,
         isLoading: () => false,
+        hasContract: () => true,
         hasWallet: () => true,
       },
     });

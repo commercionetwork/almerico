@@ -8,6 +8,7 @@ env:
   API_VERSION_COSMWASM: ${{ vars.ALMERICO_DEVNET_API_VERSION_COSMWASM }}
   BACKEND: ${{ vars.ALMERICO_DEVNET_BACKEND }}
   BACKEND_WS: ${{ vars.ALMERICO_DEVNET_BACKEND_WS }}
+  CONTRACT_DEX: ${{ vars.ALMERICO_DEVNET_CONTRACT_DEX }}
   FIRST_CONVERSION_RATE: ${{ vars.ALMERICO_DEVNET_FIRST_CONVERSION_RATE }}
   FIRST_HEIGHT: ${{ vars.ALMERICO_DEVNET_FIRST_HEIGHT }}
   HAS_POOLS: ${{ vars.ALMERICO_DEVNET_HAS_POOLS }}
@@ -35,7 +36,7 @@ jobs:
 
       - name: Verify Environment Variables
         run: |
-          if "${{ env.ANCESTORS_LIST }}" == "" || "${{ env.API_VERSION }}" == "" || "${{ env.API_VERSION_COSMWASM }}" == "" || "${{ env.BACKEND }}" == "" || "${{ env.BACKEND_WS }}" == "" || "${{ env.FIRST_CONVERSION_RATE }}" == "" || "${{ env.FIRST_HEIGHT }}" == "" || "${{ env.LCD_URL }}" == "" || "${{ env.MAIN_TITLE }}" == "" || "${{ env.WASM_CW20_CODE_ID }}" == "" || "${{ env.WASM_SWAP_CODE_ID }}" == "" || "${{ env.WS_URL }}" == ""; then
+          if "${{ env.ANCESTORS_LIST }}" == "" || "${{ env.API_VERSION }}" == "" || "${{ env.API_VERSION_COSMWASM }}" == "" || "${{ env.BACKEND }}" == "" || "${{ env.BACKEND_WS }}" == "" || "${{ env.CONTRACT_DEX}}" == "" || "${{ env.FIRST_CONVERSION_RATE }}" == "" || "${{ env.FIRST_HEIGHT }}" == "" || "${{ env.LCD_URL }}" == "" || "${{ env.MAIN_TITLE }}" == "" || "${{ env.WASM_CW20_CODE_ID }}" == "" || "${{ env.WASM_SWAP_CODE_ID }}" == "" || "${{ env.WS_URL }}" == ""; then
             echo "Error: Environment variables are not set."
             exit 1
           fi
@@ -64,6 +65,7 @@ jobs:
             API_VERSION_COSMWASM=${{ env.API_VERSION_COSMWASM }}
             BACKEND=${{ env.BACKEND }}
             BACKEND_WS=${{ env.BACKEND_WS }}
+            CONTRACT_DEX=${{ env.CONTRACT_DEX }}
             FIRST_CONVERSION_RATE=${{ env.FIRST_CONVERSION_RATE }}
             FIRST_HEIGHT=${{ env.FIRST_HEIGHT }}
             HAS_POOLS=${{ env.HAS_POOLS }}
