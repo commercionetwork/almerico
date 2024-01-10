@@ -1,27 +1,28 @@
 <template>
-  <v-card-actions class="mx-5">
-    <v-btn
-      block
-      color="primary"
-      depressed
-      :disabled="disabled"
-      :loading="isHandling"
-      @click="swap"
-    >
-      <span v-text="$t('labels.swap')" />
-    </v-btn>
-    <the-tx-assert-modal
-      :hash="hash"
-      :title="$t('titles.swap')"
-      v-model="dialog"
-      @close="onClose"
-    />
-  </v-card-actions>
+  <v-card class="mt-3" color="rgba(0,0,0,0)" flat>
+    <v-card-actions>
+      <v-btn
+        block
+        color="primary"
+        depressed
+        :disabled="disabled"
+        :loading="isHandling"
+        @click="swap"
+      >
+        <span v-text="$t('labels.swap')" />
+      </v-btn>
+      <the-tx-assert-modal
+        :hash="hash"
+        :title="$t('titles.swap')"
+        v-model="dialog"
+        @close="onClose"
+      />
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { CONTRACT } from '@/constants';
 import dexSwapManager from './dex-swap-manager';
 
 export default {
@@ -33,9 +34,10 @@ export default {
     },
     disabled: {
       type: Boolean,
-      required: true,
+      default: true,
     },
   },
+  emits: ['success'],
   data() {
     return {
       dialog: false,
@@ -43,7 +45,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('dex', ['isHandling', 'detail']),
+    ...mapGetters('dex', ['isHandling', 'contract']),
     ...mapGetters('keplr', ['wallet']),
   },
   methods: {
@@ -52,29 +54,13 @@ export default {
       this.dialog = false;
     },
     swap() {
-      const msgs = [];
-      if (this.model.tokenFrom.type === CONTRACT.TOKEN.TYPE.CW20) {
-        msgs.push(
-          dexSwapManager.buildIncreaseAllowanceMsg({
-            sender: this.wallet,
-            contract: this.model.tokenFrom.id,
-            data: {
-              spender: this.detail.id,
-              amount: this.model.amount,
-              decimals: this.model.tokenFrom.decimals,
-            },
-          })
-        );
-      }
-      msgs.push(
-        dexSwapManager.buildSwapMsg({
-          sender: this.wallet,
-          contract: this.detail,
-          data: this.model,
-        })
-      );
+      const msg = dexSwapManager.buildSwapMsg({
+        sender: this.wallet,
+        contract: this.contract,
+        data: this.model,
+      });
       this.executeContract({
-        msgs,
+        msgs: [msg],
         translator: this.$t,
         context: this,
       }).then((res) => {
