@@ -1,9 +1,9 @@
 import { bank, cosmwasm } from '@/apis/http';
-import { CONFIG, CONTRACT } from '@/constants';
+import { CONTRACT } from '@/constants';
 import { stringEncoder } from '@/utils';
 
 export default {
-  async initDex({ commit, dispatch, rootGetters }) {
+  async initDex({ commit, dispatch, rootGetters }, address) {
     commit('reset');
     commit('setLoading', true);
     if (!rootGetters['keplr/wallet']) {
@@ -11,87 +11,23 @@ export default {
       commit('setLoading', false);
       return;
     }
-    const requests = [dispatch('fetchContracts')];
+    const requests = [
+      dispatch('fetchBalances'),
+      dispatch('fetchContract', address),
+    ];
     await Promise.all(requests);
     commit('setLoading', false);
   },
-  async fetchContracts({ commit, dispatch }) {
-    const addresses = await dispatch('getContracts');
-    for (const address of addresses) {
-      const models = await dispatch('getContractModels', address);
-      const token1 = await dispatch('getToken', {
-        key: CONTRACT.KEY.STATE.TOKEN_1,
-        models,
-      });
-      const token2 = await dispatch('getToken', {
-        key: CONTRACT.KEY.STATE.TOKEN_2,
-        models,
-      });
-      const contract = { id: address, token1, token2 };
-      commit('addContract', contract);
-    }
-  },
-  async getContracts({ commit }) {
-    const contracts = [];
-    let nextKey = null;
-    do {
-      try {
-        const response = await cosmwasm.requestContracts({
-          codeId: CONFIG.WASM_SWAP_CODE_ID,
-          nextKey,
-        });
-        contracts.push(...response.data.contracts);
-        nextKey = response.data.pagination.next_key;
-      } catch (error) {
-        commit('setError', error);
-      }
-    } while (nextKey);
-    return contracts;
-  },
-  async getContractModels({ commit }, address) {
+  async fetchBalances({ commit, rootGetters }) {
+    const wallet = rootGetters['keplr/wallet'];
     try {
-      const response = await cosmwasm.requestContractState(address);
-      return response.data.models;
+      const response = await bank.requestBalances(wallet);
+      commit('setBalances', response.data.balances);
     } catch (error) {
       commit('setError', error);
     }
   },
-  async getToken({ commit, dispatch }, { key, models }) {
-    const index = getIndexByKey(models, key);
-    if (index < 0) {
-      return '';
-    }
-    const token = JSON.parse(
-      stringEncoder.decodeFromBase64(models[index].value)
-    );
-    if (token['denom'][CONTRACT.TOKEN.TYPE.NATIVE]) {
-      return token['denom'][CONTRACT.TOKEN.TYPE.NATIVE];
-    }
-    try {
-      const address = token['denom'][CONTRACT.TOKEN.TYPE.CW20];
-      const cw20Models = await dispatch('getContractModels', address);
-      const cw20Index = getIndexByKey(
-        cw20Models,
-        CONTRACT.KEY.STATE.TOKEN_INFO
-      );
-      if (cw20Index < 0) {
-        return address;
-      }
-      const cw20 = JSON.parse(
-        stringEncoder.decodeFromBase64(cw20Models[cw20Index].value)
-      );
-      return cw20.name;
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-  async fetchDex({ commit, dispatch }, address) {
-    commit('setFetching', true);
-    const requests = [dispatch('getDexDetail', address)];
-    await Promise.all(requests);
-    commit('setFetching', false);
-  },
-  async getDexDetail({ commit, dispatch }, address) {
+  async fetchContract({ commit, dispatch }, address) {
     const query = '{"info":{}}';
     const queryData = stringEncoder.encodeToBase64(query);
     try {
@@ -101,25 +37,17 @@ export default {
       });
       commit('setContractProp', { path: 'id', value: address });
       const data = response.data.data;
-      const requests = [dispatch('setLpInfo', { data, spender: address })];
-      const native = CONTRACT.TOKEN.TYPE.NATIVE;
-      const token1 = CONTRACT.TOKEN.DENOM.TOKEN_1;
-      const token2 = CONTRACT.TOKEN.DENOM.TOKEN_2;
-      if (data[`${token1}_denom`][native]) {
-        requests.push(dispatch('getNativeToken', { denom: token1, data }));
-      } else {
-        requests.push(
-          dispatch('getCW20Token', { denom: token1, data, spender: address })
-        );
-      }
-      if (data[`${token2}_denom`][native]) {
-        requests.push(dispatch('getNativeToken', { denom: token2, data }));
-      } else {
-        requests.push(
-          dispatch('getCW20Token', { denom: token2, data, spender: address })
-        );
-      }
-      await Promise.all(requests);
+      await dispatch('setLpInfo', { data, spender: address });
+      const token1 = buildToken(data, CONTRACT.TOKEN.DENOM.TOKEN_1);
+      commit('setContractProp', {
+        path: CONTRACT.TOKEN.DENOM.TOKEN_1,
+        value: token1,
+      });
+      const token2 = buildToken(data, CONTRACT.TOKEN.DENOM.TOKEN_2);
+      commit('setContractProp', {
+        path: CONTRACT.TOKEN.DENOM.TOKEN_2,
+        value: token2,
+      });
     } catch (error) {
       commit('setError', error);
     }
@@ -197,57 +125,6 @@ export default {
       commit('setError', error);
     }
   },
-  async getNativeToken({ commit, dispatch }, { denom, data }) {
-    const name = data[`${denom}_denom`][CONTRACT.TOKEN.TYPE.NATIVE];
-    const balances = await dispatch('getBalances');
-    const value = {
-      id: name,
-      denom: name.substring(1),
-      reserve: data[`${denom}_reserve`],
-      type: CONTRACT.TOKEN.TYPE.NATIVE,
-    };
-    const index = balances.findIndex((balance) => balance.denom === name);
-    if (index > -1) {
-      value['balance'] = balances[index]['amount'];
-      value['decimals'] = 6;
-    }
-    commit('setContractProp', { path: denom, value });
-  },
-  async getBalances({ commit, rootGetters }) {
-    const wallet = rootGetters['keplr/wallet'];
-    try {
-      const response = await bank.requestBalances(wallet);
-      return response.data.balances;
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-  async getCW20Token(
-    { commit, dispatch, rootGetters },
-    { denom, data, spender }
-  ) {
-    const value = {
-      reserve: data[`${denom}_reserve`],
-      type: CONTRACT.TOKEN.TYPE.CW20,
-    };
-    const contract = data[`${denom}_denom`][CONTRACT.TOKEN.TYPE.CW20];
-    const owner = rootGetters['keplr/wallet'];
-    const requests = [
-      dispatch('getContractInfo', { contract, owner }),
-      dispatch('getContractAllowance', {
-        contract,
-        owner,
-        spender,
-      }),
-    ];
-    const responses = await Promise.all(requests);
-    value['id'] = contract;
-    value['denom'] = responses[0][CONTRACT.KEY.STATE.TOKEN_INFO]['name'];
-    value['decimals'] = responses[0][CONTRACT.KEY.STATE.TOKEN_INFO]['decimals'];
-    value['balance'] = responses[0][CONTRACT.KEY.STATE.BALANCE];
-    value['allowance'] = responses[1]['allowance'];
-    commit('setContractProp', { path: denom, value });
-  },
   async executeContract(
     { commit, dispatch, rootGetters },
     { msgs, translator, context } = {}
@@ -264,8 +141,11 @@ export default {
   },
 };
 
-const getIndexByKey = (items, key) =>
-  items.findIndex(
-    (item) =>
-      item.key.toUpperCase() === stringEncoder.encodeToHex(key).toUpperCase()
-  );
+const buildToken = (data, denom) => {
+  const name = data[`${denom}_denom`][CONTRACT.TOKEN.TYPE.NATIVE];
+  return {
+    denom: name,
+    label: name.substring(1),
+    reserve: data[`${denom}_reserve`],
+  };
+};

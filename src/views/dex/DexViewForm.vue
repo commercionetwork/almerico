@@ -1,38 +1,92 @@
 <template>
-  <v-row class="my-3">
-    <v-col cols="12" md="6" offset-md="3">
-      <v-card outlined>
-        <v-form :disabled="isHandling">
-          <dex-view-selector :items="list" v-model="contract" />
-          <dex-view-swap-manager :contract="contract" />
-        </v-form>
-      </v-card>
+  <v-row>
+    <v-col cols="12" sm="10" offset-sm="1" md="6" offset-md="3">
+      <v-form :disabled="isHandling">
+        <dex-view-swap-token-from
+          :balance="balance"
+          :token="model.tokenFrom.label"
+          :v="$v.model.amount"
+          v-model.trim="model.amount"
+        />
+        <dex-view-swap-inverter @reverse="onReverse" />
+        <dex-view-swap-token-to :model="model" />
+        <dex-view-swap-rate :model="model" />
+        <dex-view-swap-execute
+          :model="model"
+          :disabled="$v.model.$invalid"
+          @success="onSuccess"
+        />
+      </v-form>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import DexViewSwapManager from './DexViewSwapManager.vue';
-import DexViewSelector from './DexViewSelector.vue';
+import DexViewSwapExecute from './DexViewSwapExecute.vue';
+import DexViewSwapInverter from './DexViewSwapInverter.vue';
+import DexViewSwapRate from './DexViewSwapRate.vue';
+import DexViewSwapTokenFrom from './DexViewSwapTokenFrom.vue';
+import DexViewSwapTokenTo from './DexViewSwapTokenTo.vue';
 
 import { mapGetters } from 'vuex';
+import { validationMixin } from 'vuelidate';
+import dexSwapManager from './dex-swap-manager';
+import { CONTRACT } from '@/constants';
 
 export default {
   name: 'DexViewForm',
   components: {
-    DexViewSelector,
-    DexViewSwapManager,
+    DexViewSwapExecute,
+    DexViewSwapInverter,
+    DexViewSwapRate,
+    DexViewSwapTokenFrom,
+    DexViewSwapTokenTo,
+  },
+  mixins: [validationMixin],
+  validations() {
+    return {
+      model: {
+        amount: {
+          greaterThanZero: (value) => dexSwapManager.greaterThanZero(value),
+          smallerThanBalance: (value) =>
+            dexSwapManager.smallerThanBalance(value, this.balance),
+        },
+      },
+    };
   },
   data() {
     return {
-      contract: null,
+      model: {
+        amount: '0.01',
+        tokenFrom: null,
+        tokenTo: null,
+      },
     };
   },
   computed: {
-    ...mapGetters('dex', ['isHandling', 'list']),
+    ...mapGetters('dex', ['isHandling', 'balances', 'contract']),
+    balance() {
+      const balance = this.balances.find(
+        (balance) => balance.denom === this.model.tokenFrom.denom
+      );
+      return balance ? balance.amount : '0';
+    },
   },
   created() {
-    this.contract = this.list[0];
+    this.model.tokenFrom = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_1];
+    this.model.tokenTo = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_2];
+  },
+  methods: {
+    onReverse() {
+      const tokenFrom = this.model.tokenFrom;
+      this.model.tokenFrom = this.model.tokenTo;
+      this.model.tokenTo = tokenFrom;
+    },
+    onSuccess() {
+      this.model.amount = '0.01';
+      this.model.tokenFrom = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_1];
+      this.model.tokenTo = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_2];
+    },
   },
 };
 </script>

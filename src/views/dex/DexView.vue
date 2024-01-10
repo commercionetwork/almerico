@@ -1,6 +1,12 @@
 <template>
   <the-alert-notice
-    v-if="!hasWallet"
+    v-if="!hasContract"
+    kind="info"
+    :message="$t('msgs.comingSoon')"
+    data-test="info"
+  />
+  <the-alert-notice
+    v-else-if="hasContract && !hasWallet"
     kind="warning"
     :message="$t('msgs.noWalletConnected')"
     data-test="alert"
@@ -28,6 +34,7 @@
 import DexViewForm from './DexViewForm.vue';
 
 import { mapActions, mapGetters } from 'vuex';
+import { CONTRACT } from '@/constants';
 
 export default {
   name: 'DexView',
@@ -38,16 +45,21 @@ export default {
   computed: {
     ...mapGetters('dex', ['error', 'isLoading', 'hasWallet']),
     ...mapGetters('keplr', ['accounts']),
+    hasContract() {
+      return !!CONTRACT.ADDRESS.DEX;
+    },
   },
   watch: {
     accounts(newValue) {
-      if (newValue) {
-        this.initDex();
+      if (this.hasContract && newValue) {
+        this.initDex(CONTRACT.ADDRESS.DEX);
       }
     },
   },
   created() {
-    this.initDex();
+    if (this.hasContract) {
+      this.initDex(CONTRACT.ADDRESS.DEX);
+    }
   },
   methods: {
     ...mapActions('dex', ['initDex']),

@@ -11,24 +11,18 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
-  setFetching(state, payload) {
-    state.isFetching = payload;
-  },
   setHandling(state, payload) {
     state.isHandling = payload;
   },
   setHasWallet(state, payload) {
     state.hasWallet = payload;
   },
-  addContract(state, payload) {
-    state.list.push(payload);
-  },
-  setContracts(state, payload) {
-    state.list = payload;
+  setBalances(state, payload) {
+    state.balances = payload;
   },
   setContractProp(state, payload) {
-    const obj = { ...state.detail };
+    const obj = { ...state.contract };
     set(obj, payload.path, payload.value);
-    state.detail = { ...obj };
+    state.contract = { ...obj };
   },
 };

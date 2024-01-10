@@ -11,11 +11,10 @@ describe('store/dex/mutations', () => {
   test('mutations.reset', () => {
     state.error = 'error';
     state.isLoading = true;
-    state.isFetching = true;
     state.isHandling = true;
     state.hasWallet = false;
-    state.detail = { id: 1 };
-    state.list = [{ id: 1 }];
+    state.balances = [{ id: 1 }];
+    state.contract = { id: 1 };
 
     const expected = initState();
 
@@ -38,12 +37,6 @@ describe('store/dex/mutations', () => {
     expect(state.isLoading).toBe(true);
   });
 
-  test('mutations.setFetching', () => {
-    mutations.setFetching(state, true);
-
-    expect(state.isFetching).toBe(true);
-  });
-
   test('mutations.setHandling', () => {
     mutations.setHandling(state, true);
 
@@ -56,28 +49,20 @@ describe('store/dex/mutations', () => {
     expect(state.hasWallet).toBe(false);
   });
 
-  test('mutations.addContract', () => {
-    const payload = { id: 1 };
-
-    mutations.addContract(state, payload);
-
-    expect(state.list).toStrictEqual([payload]);
-  });
-
-  test('mutations.setContracts', () => {
+  test('mutations.setBalances', () => {
     const payload = [{ id: 1 }];
 
-    mutations.setContracts(state, payload);
+    mutations.setBalances(state, payload);
 
-    expect(state.list).toStrictEqual(payload);
+    expect(state.balances).toStrictEqual(payload);
   });
 
   test('mutations.setContractProp', () => {
-    state.detail = { id: 1 };
+    state.contract = { id: 1 };
 
     mutations.setContractProp(state, { path: 'prop', value: 'prop' });
 
     const expected = { id: 1, prop: 'prop' };
-    expect(state.detail).toStrictEqual(expected);
+    expect(state.contract).toStrictEqual(expected);
   });
 });
