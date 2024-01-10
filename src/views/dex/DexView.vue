@@ -3,13 +3,13 @@
     v-if="!hasContract"
     kind="info"
     :message="$t('msgs.comingSoon')"
-    data-test="alert-contract"
+    data-test="info"
   />
   <the-alert-notice
     v-else-if="hasContract && !hasWallet"
     kind="warning"
     :message="$t('msgs.noWalletConnected')"
-    data-test="alert-wallet"
+    data-test="alert"
   />
   <v-row v-else data-test="view">
     <v-col cols="12" class="pa-5" v-if="isLoading" data-test="loading">
