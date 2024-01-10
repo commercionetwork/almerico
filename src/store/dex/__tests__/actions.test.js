@@ -1,19 +1,10 @@
-import {
-  mockBalances,
-  mockContracts,
-  mockErrors,
-  mockPagination,
-} from '@/__mocks__';
+import { mockBalances, mockErrors, mockPagination } from '@/__mocks__';
 import actions from '../actions.js';
 import { CONTRACT } from '@/constants';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
 let mockResponse = null;
-let mockNextKey = '';
-let mockCounter = 1;
-const mockContractsCount = 4;
-const mockResponseCount = 2;
 const mockModels = [
   {
     //key: balancedid:com:1cjnpack2jqngdhj9cap23h4n3dmxcvqswgyrlc
@@ -44,61 +35,54 @@ describe('store/dex/actions', () => {
     const rootGetters = {
       'keplr/wallet': 'wallet',
     };
+    const address = 'address';
 
-    await actions.initDex({ commit, dispatch, rootGetters });
+    await actions.initDex({ commit, dispatch, rootGetters }, address);
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchContracts');
+    expect(dispatch).toHaveBeenCalledWith('fetchBalances');
+    expect(dispatch).toHaveBeenCalledWith('fetchContract', address);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
 
     rootGetters['keplr/wallet'] = '';
 
-    await actions.initDex({ commit, dispatch, rootGetters });
+    await actions.initDex({ commit, dispatch, rootGetters }, address);
 
     expect(commit).toHaveBeenCalledWith('setHasWallet', false);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "getContracts" return the contracts, and set the error if it is caught', async () => {
+  test('if "fetchBalances" save the balances, and set the error if it is caught', async () => {
     const commit = jest.fn();
+    const rootGetters = {
+      'keplr/wallet': 'wallet',
+    };
 
-    const response = await actions.getContracts({ commit });
+    await actions.fetchBalances({ commit, rootGetters });
 
-    expect(response.length).toBe(mockContractsCount * mockResponseCount);
+    expect(commit).toHaveBeenCalledWith(
+      'setBalances',
+      mockResponse.data.balances
+    );
 
     mockError = true;
 
-    await actions.getContracts({ commit });
+    await actions.fetchBalances({ commit, rootGetters });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "getContractModels" return the models, and set the error if it is caught', async () => {
-    const commit = jest.fn();
-    const address = 'address';
-
-    const response = await actions.getContractModels({ commit }, address);
-
-    expect(response).toStrictEqual(mockResponse.data.models);
-
-    mockError = true;
-
-    await actions.getContractModels({ commit }, address);
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "fetchDex" set loading state and dispatch wanted actions', async () => {
+  test('if "fetchContract" set contract data, and set the error if it is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
 
-    await actions.fetchDex({ commit, dispatch }, address);
+    mockError = true;
 
-    expect(commit).toHaveBeenCalledWith('setFetching', true);
-    expect(dispatch).toHaveBeenCalledWith('getDexDetail', address);
-    expect(commit).toHaveBeenCalledWith('setFetching', false);
+    await actions.fetchContract({ commit, dispatch }, address);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "getContractInfo" return the info, and set the error if it is caught', async () => {
@@ -158,23 +142,6 @@ describe('store/dex/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
-
-  test('if "getBalances" return the balances, and set the error if it is caught', async () => {
-    const commit = jest.fn();
-    const rootGetters = {
-      'keplr/wallet': 'wallet',
-    };
-
-    const response = await actions.getBalances({ commit, rootGetters });
-
-    expect(response).toStrictEqual(mockResponse.data.balances);
-
-    mockError = true;
-
-    await actions.getBalances({ commit, rootGetters });
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
 });
 
 jest.mock('@/apis/http/bank-api.js', () => ({
@@ -198,26 +165,6 @@ jest.mock('@/apis/http/bank-api.js', () => ({
 }));
 
 jest.mock('@/apis/http/cosmwasm-api.js', () => ({
-  requestContracts: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockNextKey = mockCounter < mockResponseCount ? 'nextKey' : '';
-
-        mockResponse = {
-          data: {
-            contracts: mockContracts(mockContractsCount),
-            pagination: mockPagination(mockNextKey),
-          },
-        };
-        resolve(mockResponse);
-        mockCounter++;
-      }, 1);
-    });
-  },
   requestContractSmartQuery: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

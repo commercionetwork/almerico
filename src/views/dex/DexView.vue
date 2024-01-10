@@ -19,7 +19,7 @@
     </v-col>
     <v-col cols="12" v-else data-test="content">
       <the-header-content :title="$t('titles.dex')" />
-      <dex-view-form />
+      <!-- <dex-view-form /> -->
     </v-col>
   </v-row>
 </template>
@@ -28,6 +28,7 @@
 import DexViewForm from './DexViewForm.vue';
 
 import { mapActions, mapGetters } from 'vuex';
+import { CONTRACT } from '@/constants';
 
 export default {
   name: 'DexView',
@@ -41,13 +42,15 @@ export default {
   },
   watch: {
     accounts(newValue) {
-      if (newValue) {
-        this.initDex();
+      if (newValue && CONTRACT.ADDRESS.DEX) {
+        this.initDex(CONTRACT.ADDRESS.DEX);
       }
     },
   },
   created() {
-    this.initDex();
+    if (CONTRACT.ADDRESS.DEX) {
+      this.initDex(CONTRACT.ADDRESS.DEX);
+    }
   },
   methods: {
     ...mapActions('dex', ['initDex']),

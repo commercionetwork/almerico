@@ -1,3 +1,7 @@
+const ADDRESS = Object.freeze({
+  DEX: process.env.VUE_APP_CONTRACT_DEX,
+});
+
 const KEY = Object.freeze({
   FEE: {
     LP_FEE_PERCENT: 'protocol_fee_percent',
@@ -29,6 +33,7 @@ const TOKEN = Object.freeze({
 });
 
 export default Object({
+  ADDRESS,
   KEY,
   TOKEN,
 });
