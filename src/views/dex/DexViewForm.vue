@@ -32,6 +32,7 @@ import { mapGetters } from 'vuex';
 import { validationMixin } from 'vuelidate';
 import dexSwapManager from './dex-swap-manager';
 import { CONTRACT } from '@/constants';
+import { windowHandler } from '@/utils';
 
 export default {
   name: 'DexViewForm',
@@ -57,7 +58,7 @@ export default {
   data() {
     return {
       model: {
-        amount: '0.01',
+        amount: '0',
         tokenFrom: null,
         tokenTo: null,
       },
@@ -76,6 +77,10 @@ export default {
     this.model.tokenFrom = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_1];
     this.model.tokenTo = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_2];
   },
+  mounted() {
+    const myInput = document.getElementById('amount');
+    windowHandler.setCaretPosition(myInput, 1);
+  },
   methods: {
     onReverse() {
       const tokenFrom = this.model.tokenFrom;
@@ -83,7 +88,7 @@ export default {
       this.model.tokenTo = tokenFrom;
     },
     onSuccess() {
-      this.model.amount = '0.01';
+      this.model.amount = '0';
       this.model.tokenFrom = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_1];
       this.model.tokenTo = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_2];
     },

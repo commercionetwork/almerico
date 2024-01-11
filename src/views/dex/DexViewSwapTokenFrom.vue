@@ -12,14 +12,9 @@
         <v-col cols="12" md="6">
           <v-text-field
             id="amount"
-            dense
-            outlined
-            persistent-placeholder
+            class="text-h5 font-weight-bold"
             required
-            step="0.01"
-            type="number"
             :error-messages="errorMessages"
-            :label="$t('labels.amount')"
             v-model="amount"
             @blur="v.$touch()"
             @input="v.$touch()"
