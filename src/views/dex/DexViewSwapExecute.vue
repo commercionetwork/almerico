@@ -5,11 +5,11 @@
         block
         color="primary"
         depressed
-        :disabled="disabled"
+        :disabled="disabled || !hasWallet"
         :loading="isHandling"
         @click="swap"
       >
-        <span v-text="$t('labels.swap')" />
+        <span v-text="label" />
       </v-btn>
       <the-tx-assert-modal
         :hash="hash"
@@ -45,8 +45,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('dex', ['isHandling', 'contract']),
+    ...mapGetters('dex', ['isHandling', 'hasWallet', 'contract', 'token1']),
     ...mapGetters('keplr', ['wallet']),
+    label() {
+      return this.hasWallet
+        ? this.$t('labels.swap')
+        : this.$t('msgs.noWalletConnected');
+    },
   },
   methods: {
     ...mapActions('dex', ['executeContract']),
@@ -58,6 +63,7 @@ export default {
         sender: this.wallet,
         contract: this.contract,
         data: this.model,
+        token1: this.token1,
       });
       this.executeContract({
         msgs: [msg],

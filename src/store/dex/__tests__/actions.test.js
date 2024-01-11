@@ -29,7 +29,7 @@ describe('store/dex/actions', () => {
     jest.clearAllMocks();
   });
 
-  test('if "initDex" reset store, set loading state, dispatch wanted actions,; if no account is connected set to false has wallet', async () => {
+  test('if "initDex" reset store, set loading state and dispatch wanted actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const rootGetters = {
@@ -41,16 +41,17 @@ describe('store/dex/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(commit).toHaveBeenCalledWith('setHasWallet', true);
     expect(dispatch).toHaveBeenCalledWith('fetchBalances');
     expect(dispatch).toHaveBeenCalledWith('fetchContract', address);
     expect(commit).toHaveBeenCalledWith('setLoading', false);
 
+    const dispatchFetchBalances = jest.fn('fetchBalances');
     rootGetters['keplr/wallet'] = '';
 
     await actions.initDex({ commit, dispatch, rootGetters }, address);
 
-    expect(commit).toHaveBeenCalledWith('setHasWallet', false);
-    expect(commit).toHaveBeenCalledWith('setLoading', false);
+    expect(dispatchFetchBalances).not.toHaveBeenCalled();
   });
 
   test('if "fetchBalances" save the balances, and set the error if it is caught', async () => {
@@ -73,72 +74,53 @@ describe('store/dex/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchContract" set contract data, and set the error if it is caught', async () => {
+  test('if "fetchContract" set contract data and dispatch wanted actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
 
-    mockError = true;
-
     await actions.fetchContract({ commit, dispatch }, address);
 
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+    expect(commit).toHaveBeenCalledWith('setContractProp', {
+      path: 'address',
+      value: address,
+    });
+    expect(dispatch).toHaveBeenCalledWith('getFee', address);
+    expect(dispatch).toHaveBeenCalledWith('getInfo', address);
   });
 
-  test('if "getContractInfo" return the info, and set the error if it is caught', async () => {
-    const commit = jest.fn();
-    const contract = 'contract';
-    const owner = 'did:com:1cjnpack2jqngdhj9cap23h4n3dmxcvqswgyrlc';
-
-    const response = await actions.getContractInfo(
-      { commit },
-      { contract, owner }
-    );
-
-    expect(response).toHaveProperty(CONTRACT.KEY.STATE.BALANCE);
-    expect(response).toHaveProperty(CONTRACT.KEY.STATE.TOKEN_INFO);
-
-    mockError = true;
-
-    await actions.getContractInfo({ commit }, { contract, owner });
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "getContractAllowance" return the query data, and set the error if it is caught', async () => {
-    const commit = jest.fn();
-    const contract = 'contract';
-    const owner = 'owner';
-    const spender = 'spender';
-
-    const response = await actions.getContractAllowance(
-      { commit },
-      { contract, owner, spender }
-    );
-
-    expect(response).toStrictEqual(mockResponse.data.data);
-
-    mockError = true;
-
-    await actions.getContractAllowance(
-      { commit },
-      { contract, owner, spender }
-    );
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
-
-  test('if "getContractFee" return the query data, and set the error if it is caught', async () => {
+  test('if "getFee" set contract data, and set the error if it is caught', async () => {
     const commit = jest.fn();
     const address = 'address';
 
-    const response = await actions.getContractFee({ commit }, address);
+    await actions.getFee({ commit }, address);
 
-    expect(response).toStrictEqual(mockResponse.data.data);
+    expect(commit).toHaveBeenCalledWith('setContractProp', {
+      path: CONTRACT.KEY.QUERY.FEE,
+      value: mockResponse.data.data,
+    });
 
     mockError = true;
 
-    await actions.getContractFee({ commit }, address);
+    await actions.getFee({ commit }, address);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
+
+  test('if "getInfo" set contract data, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const address = 'address';
+
+    await actions.getInfo({ commit }, address);
+
+    expect(commit).toHaveBeenCalledWith('setContractProp', {
+      path: CONTRACT.KEY.QUERY.INFO,
+      value: mockResponse.data.data,
+    });
+
+    mockError = true;
+
+    await actions.getInfo({ commit }, address);
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
