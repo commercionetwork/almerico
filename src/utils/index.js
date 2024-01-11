@@ -11,6 +11,7 @@ import tokensHandler from './tokens-handler';
 import txHandler from './txs/tx-handler';
 import txsFilter from './txs/txs-filter';
 import txsTableAdapter from './txs/txs-table-adapter';
+import windowHandler from './window-handler';
 
 export {
   bech32Manager,
@@ -26,4 +27,5 @@ export {
   txHandler,
   txsFilter,
   txsTableAdapter,
+  windowHandler,
 };

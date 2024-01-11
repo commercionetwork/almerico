@@ -3,12 +3,6 @@
     v-if="!hasContract"
     kind="info"
     :message="$t('msgs.comingSoon')"
-    data-test="info"
-  />
-  <the-alert-notice
-    v-else-if="hasContract && !hasWallet"
-    kind="warning"
-    :message="$t('msgs.noWalletConnected')"
     data-test="alert"
   />
   <v-row v-else data-test="view">
@@ -43,7 +37,7 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters('dex', ['error', 'isLoading', 'hasWallet']),
+    ...mapGetters('dex', ['error', 'isLoading']),
     ...mapGetters('keplr', ['accounts']),
     hasContract() {
       return !!CONTRACT.ADDRESS.DEX;

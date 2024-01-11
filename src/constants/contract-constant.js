@@ -7,6 +7,10 @@ const KEY = Object.freeze({
     LP_FEE_PERCENT: 'protocol_fee_percent',
     PROTOCOL_FEE_PERCENT: 'protocol_fee_percent',
   },
+  QUERY: {
+    FEE: 'fee',
+    INFO: 'info',
+  },
   STATE: {
     BALANCE: 'balance',
     CONTRACT_INFO: 'contract_info',

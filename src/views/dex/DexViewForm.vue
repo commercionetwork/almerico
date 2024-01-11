@@ -31,7 +31,7 @@ import DexViewSwapTokenTo from './DexViewSwapTokenTo.vue';
 import { mapGetters } from 'vuex';
 import { validationMixin } from 'vuelidate';
 import dexSwapManager from './dex-swap-manager';
-import { CONTRACT } from '@/constants';
+import { windowHandler } from '@/utils';
 
 export default {
   name: 'DexViewForm',
@@ -57,14 +57,14 @@ export default {
   data() {
     return {
       model: {
-        amount: '0.01',
+        amount: '0',
         tokenFrom: null,
         tokenTo: null,
       },
     };
   },
   computed: {
-    ...mapGetters('dex', ['isHandling', 'balances', 'contract']),
+    ...mapGetters('dex', ['isHandling', 'balances', 'token1', 'token2']),
     balance() {
       const balance = this.balances.find(
         (balance) => balance.denom === this.model.tokenFrom.denom
@@ -73,8 +73,12 @@ export default {
     },
   },
   created() {
-    this.model.tokenFrom = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_1];
-    this.model.tokenTo = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_2];
+    this.model.tokenFrom = this.token1;
+    this.model.tokenTo = this.token2;
+  },
+  mounted() {
+    const myInput = document.getElementById('amount');
+    windowHandler.setCaretPosition(myInput, 1);
   },
   methods: {
     onReverse() {
@@ -83,9 +87,9 @@ export default {
       this.model.tokenTo = tokenFrom;
     },
     onSuccess() {
-      this.model.amount = '0.01';
-      this.model.tokenFrom = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_1];
-      this.model.tokenTo = this.contract[CONTRACT.TOKEN.DENOM.TOKEN_2];
+      this.model.amount = '0';
+      this.model.tokenFrom = this.token1;
+      this.model.tokenTo = this.token2;
     },
   },
 };
