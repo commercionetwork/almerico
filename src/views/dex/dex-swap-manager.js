@@ -2,9 +2,9 @@ import { CONTRACT, TRANSACTIONS } from '@/constants';
 import { msgBuilder, tokensHandler } from '@/utils';
 
 const dexSwapManager = {
-  buildSwapMsg({ sender, contract, data }) {
+  buildSwapMsg({ sender, contract, data, token1 }) {
     const inputToken =
-      data.tokenFrom.denom === contract.token1.denom
+      data.tokenFrom.denom === token1.denom
         ? CONTRACT.TOKEN.KEY.TOKEN_1
         : CONTRACT.TOKEN.KEY.TOKEN_2;
     const inputAmount = tokensHandler.convertToBase(data.amount, 6).toString();
@@ -12,7 +12,7 @@ const dexSwapManager = {
       amount: data.amount,
       tokenFrom: data.tokenFrom,
       tokenTo: data.tokenTo,
-      lp: contract.lp,
+      fee: contract.fee,
     }).toString();
     const msg = JSON.stringify({
       [TRANSACTIONS.KEY.SWAP]: {
@@ -24,13 +24,13 @@ const dexSwapManager = {
     const funds = [{ denom: data.tokenFrom.denom, amount: inputAmount }];
     return msgBuilder.buildMsgExecuteContract({
       sender,
-      contract: contract.id,
+      contract: contract.address,
       msg,
       funds,
     });
   },
-  getExpectedAmount({ amount, tokenFrom, tokenTo, lp }) {
-    return calcSwapAmount({ amount, tokenFrom, tokenTo, lp });
+  getExpectedAmount({ amount, tokenFrom, tokenTo, fee }) {
+    return calcSwapAmount({ amount, tokenFrom, tokenTo, fee });
   },
   greaterThanZero(amount) {
     return !isNaN(amount) && Number(amount) > 0;
@@ -42,10 +42,11 @@ const dexSwapManager = {
 
 export default dexSwapManager;
 
-const calcSwapAmount = ({ amount, tokenFrom, tokenTo, lp }) => {
+const calcSwapAmount = ({ amount, tokenFrom, tokenTo, fee }) => {
   const feeReductionPercent =
     10000 -
-    (parseFloat(lp.lpFeePercent) + parseFloat(lp.protocolFeePercent)) * 100;
+    (parseFloat(fee.lp_fee_percent) + parseFloat(fee.protocol_fee_percent)) *
+      100;
   const amountToSwap = tokensHandler.convertToBase(amount, 6);
   const inputAmount = amountToSwap * feeReductionPercent;
   return Math.trunc(
