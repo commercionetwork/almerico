@@ -39,7 +39,7 @@ export default {
         amount: this.model.amount,
         tokenFrom: this.model.tokenFrom,
         tokenTo: this.model.tokenTo,
-        lp: this.contract.lp,
+        fee: this.contract.fee,
       });
       const amount = tokensHandler.convertFromBase(expectedAmount, 6);
       return tokensHandler.format(amount, 6);
