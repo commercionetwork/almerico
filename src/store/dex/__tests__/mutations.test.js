@@ -44,9 +44,9 @@ describe('store/dex/mutations', () => {
   });
 
   test('mutations.setHasWallet', () => {
-    mutations.setHasWallet(state, false);
+    mutations.setHasWallet(state, true);
 
-    expect(state.hasWallet).toBe(false);
+    expect(state.hasWallet).toBe(true);
   });
 
   test('mutations.setBalances', () => {
