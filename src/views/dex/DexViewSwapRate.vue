@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mt-3" flat>
+  <div class="mt-3">
     <v-card-text>
       <v-row>
         <v-col cols="12">
@@ -11,7 +11,7 @@
         </v-col>
       </v-row>
     </v-card-text>
-  </v-card>
+  </div>
 </template>
 
 <script>

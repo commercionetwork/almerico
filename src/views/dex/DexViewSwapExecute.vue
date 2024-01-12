@@ -1,24 +1,22 @@
 <template>
-  <v-card class="mt-3" color="rgba(0,0,0,0)" flat>
-    <v-card-actions>
-      <v-btn
-        block
-        color="primary"
-        depressed
-        :disabled="disabled || !hasWallet"
-        :loading="isHandling"
-        @click="swap"
-      >
-        <span v-text="label" />
-      </v-btn>
-      <the-tx-assert-modal
-        :hash="hash"
-        :title="$t('titles.swap')"
-        v-model="dialog"
-        @close="onClose"
-      />
-    </v-card-actions>
-  </v-card>
+  <v-card-actions class="ma-3">
+    <v-btn
+      block
+      color="primary"
+      depressed
+      :disabled="disabled || !hasWallet"
+      :loading="isHandling"
+      @click="swap"
+    >
+      <span v-text="label" />
+    </v-btn>
+    <the-tx-assert-modal
+      :hash="hash"
+      :title="$t('titles.swap')"
+      v-model="dialog"
+      @close="onClose"
+    />
+  </v-card-actions>
 </template>
 
 <script>
