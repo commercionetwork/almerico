@@ -1,19 +1,17 @@
 <template>
-  <v-card flat>
-    <v-card-text>
-      <v-row>
-        <v-col cols="12" md="6">
-          <div class="text-h5 text-uppercase" v-text="token" />
-        </v-col>
-        <v-col cols="12" md="6">
-          <div class="text-h5">
-            <span class="mr-1" v-html="'&#8776;'" />
-            <span class="font-weight-bold" v-text="expectedAmount" />
-          </div>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+  <v-card-text>
+    <v-row>
+      <v-col cols="12" md="6">
+        <div class="text-h5 text-uppercase" v-text="token" />
+      </v-col>
+      <v-col cols="12" md="6">
+        <div class="text-h5">
+          <span class="mr-1" v-html="'&#8776;'" />
+          <span class="font-weight-bold" v-text="expectedAmount" />
+        </div>
+      </v-col>
+    </v-row>
+  </v-card-text>
 </template>
 
 <script>
