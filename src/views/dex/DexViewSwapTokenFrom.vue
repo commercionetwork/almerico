@@ -1,28 +1,26 @@
 <template>
-  <v-card flat>
-    <v-card-text>
-      <v-row>
-        <v-col cols="12" md="6">
-          <div class="text-h5 text-uppercase" v-text="token" />
-          <div class="text-caption">
-            <span class="mr-1" v-text="$t('labels.availables')" />
-            <span class="primary--text font-weight-bold" v-text="availables" />
-          </div>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-text-field
-            id="amount"
-            class="text-h5 font-weight-bold"
-            required
-            :error-messages="errorMessages"
-            v-model="amount"
-            @blur="v.$touch()"
-            @input="v.$touch()"
-          />
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+  <v-card-text>
+    <v-row>
+      <v-col cols="12" md="6">
+        <div class="text-h5 text-uppercase" v-text="token" />
+        <div class="text-caption">
+          <span class="mr-1" v-text="$t('labels.availables')" />
+          <span class="primary--text font-weight-bold" v-text="availables" />
+        </div>
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-text-field
+          id="amount"
+          class="text-h5 font-weight-bold"
+          required
+          :error-messages="errorMessages"
+          v-model="amount"
+          @blur="v.$touch()"
+          @input="v.$touch()"
+        />
+      </v-col>
+    </v-row>
+  </v-card-text>
 </template>
 
 <script>
