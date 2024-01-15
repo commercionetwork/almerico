@@ -35,15 +35,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Verify Environment Variables
-        # TODO: Add  `|| "${{ env.CONTRACT_DEX}}" == ""` when the contract will be available
+        id: verify-vars
         run: |
-          if "${{ env.ANCESTORS_LIST }}" == "" || "${{ env.API_VERSION }}" == "" || "${{ env.API_VERSION_COSMWASM }}" == "" || "${{ env.BACKEND }}" == "" || "${{ env.BACKEND_WS }}" == "" || "${{ env.FIRST_CONVERSION_RATE }}" == "" || "${{ env.FIRST_HEIGHT }}" == "" || "${{ env.LCD_URL }}" == "" || "${{ env.MAIN_TITLE }}" == "" || "${{ env.WASM_CW20_CODE_ID }}" == "" || "${{ env.WASM_SWAP_CODE_ID }}" == "" || "${{ env.WS_URL }}" == ""; then
+          if "${{ env.ANCESTORS_LIST }}" == "" || "${{ env.API_VERSION }}" == "" || "${{ env.API_VERSION_COSMWASM }}" == "" || "${{ env.BACKEND }}" == "" || "${{ env.BACKEND_WS }}" == "" || "${{ env.CONTRACT_DEX }}" == "" || "${{ env.FIRST_CONVERSION_RATE }}" == "" || "${{ env.FIRST_HEIGHT }}" == "" || "${{ env.LCD_URL }}" == "" || "${{ env.MAIN_TITLE }}" == "" || "${{ env.WASM_CW20_CODE_ID }}" == "" || "${{ env.WASM_SWAP_CODE_ID }}" == "" || "${{ env.WS_URL }}" == ""; then
             echo "Error: Environment variables are not set."
             exit 1
           fi
 
       - name: Set up Docker Buildx
-        if: success()
+        if: ${{ success() && steps.verify-vars.outcome == 'success' }}
         uses: docker/setup-buildx-action@v3
 
       - name: Login To Registry
