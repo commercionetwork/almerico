@@ -28,14 +28,16 @@ you have to:
 2. Inside the `.env.development.local` file add the following data:
 
     ```env
-    VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://lcd.com",
-    "lcd": "http://lcd.com", "ver": "0.12"}])
     VUE_APP_API_VERSION=VALUE (e.g., v1)
     VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
+    VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://lcd.com",
+    "lcd": "http://lcd.com", "ver": "0.12"}])
     VUE_APP_BACKEND=VALUE (e.g., http://backend.com)
     VUE_APP_BACKEND_WS=VALUE (e.g., ws://backend.com/websocket)
+    VUE_APP_CONTRACT_DEX=VALUE (e.g., did:com:1yva23huwtu5f5tzm9vu3ce4h4y7x9j0q59wvse4t0lrzhhv68tzq5vps96)
     VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
     VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1234)
+    VUE_APP_HAS_POOLS=VALUE (e.g., true)
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
     VUE_APP_MAIN_TITLE=VALUE (e.g., Testnet)
     VUE_APP_WASM_CW20_CODE_ID=VALUE (e.g., '7')
@@ -59,14 +61,16 @@ Create a file named `.env.production` inside the project root folder
 and set the following data with your values:
 
 ```env
-VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://lcd.com",
-"lcd": "https://lcd.com", "ver": "0.12"}])
 VUE_APP_API_VERSION=VALUE (e.g., v1)
 VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
+VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://lcd.com",
+"lcd": "https://lcd.com", "ver": "0.12"}])
 VUE_APP_BACKEND=VALUE (e.g., https://backend.com)
 VUE_APP_BACKEND_WS=VALUE (e.g., wss://backend.com/websocket)
+VUE_APP_CONTRACT_DEX=VALUE (e.g., did:com:1yva23huwtu5f5tzm9vu3ce4h4y7x9j0q59wvse4t0lrzhhv68tzq5vps96)
 VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
 VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
+VUE_APP_HAS_POOLS=VALUE (e.g., false)
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)
 VUE_APP_MAIN_TITLE=VALUE (e.g., Mainnet)
 VUE_APP_WASM_CW20_CODE_ID=VALUE (e.g., '1')
@@ -107,8 +111,10 @@ docker build -t almerico \
   --build-arg API_VERSION_COSMWASM=<API version> \
   --build-arg BACKEND=<Backend url> \
   --build-arg BACKEND_WS=<Backend WebSocket URL> \
+  --build-arg CONTRACT_DEX=<DEX contract address> \
   --build-arg FIRST_CONVERSION_RATE=<First conversion rate> \
   --build-arg FIRST_HEIGHT=<First height> \
+  --build-arg HAS_POOLS=<boolean> \
   --build-arg LCD_URL=<LCD URL> \
   --build-arg MAIN_TITLE=<App title> \
   --build-arg WASM_CW20_CODE_ID=<Wasm CW20 code_id> \

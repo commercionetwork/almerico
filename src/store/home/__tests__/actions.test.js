@@ -160,7 +160,7 @@ describe('store/home/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/chart.js', () => ({
+jest.mock('../../../apis/http/chart-api.js', () => ({
   requestTokens: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -177,7 +177,7 @@ jest.mock('../../../apis/http/chart.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/commercio.js', () => ({
+jest.mock('../../../apis/http/commercio-api.js', () => ({
   requestParams: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -194,7 +194,7 @@ jest.mock('../../../apis/http/commercio.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/tendermintRpc.js', () => ({
+jest.mock('../../../apis/http/tendermintRpc-api.js', () => ({
   requestBlock: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -211,7 +211,7 @@ jest.mock('../../../apis/http/tendermintRpc.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/tx.js', () => ({
+jest.mock('../../../apis/http/tx-api.js', () => ({
   requestTxs: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

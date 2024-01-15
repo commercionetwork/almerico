@@ -86,7 +86,7 @@ export default {
     let nextKey = null;
     do {
       try {
-        const response = await cosmwasm.requestContracts(codeId, nextKey);
+        const response = await cosmwasm.requestContracts({ codeId, nextKey });
         nextKey = response.data.pagination.next_key;
         contracts.push(...response.data.contracts);
       } catch (error) {

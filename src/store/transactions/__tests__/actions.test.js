@@ -143,7 +143,7 @@ describe('store/transactions/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/tx.js', () => ({
+jest.mock('../../../apis/http/tx-api.js', () => ({
   requestTxs: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

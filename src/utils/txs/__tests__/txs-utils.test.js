@@ -1,8 +1,6 @@
 import { APIS } from '@/constants';
 import { mockTransactions } from '@/__mocks__';
-import txHandler from '../txHandler';
-import txsFilter from '../txsFilter';
-import txsTableAdapter from '../txsTableAdapter';
+import { txHandler, txsFilter, txsTableAdapter } from '@/utils';
 
 describe('utils/txs', () => {
   test('if "txsFilter.filter" method return filtered transactions', () => {
