@@ -28,7 +28,8 @@
 import DexViewForm from './DexViewForm.vue';
 
 import { mapActions, mapGetters } from 'vuex';
-import { CONTRACT } from '@/constants';
+import { CONFIG, CONTRACT } from '@/constants';
+import { bech32Manager } from '@/utils';
 
 export default {
   name: 'DexView',
@@ -40,7 +41,8 @@ export default {
     ...mapGetters('dex', ['error', 'isLoading']),
     ...mapGetters('keplr', ['accounts']),
     hasContract() {
-      return !!CONTRACT.ADDRESS.DEX;
+      const prefix = bech32Manager.extractPrefix(CONTRACT.ADDRESS.DEX);
+      return prefix === CONFIG.PREFIXES.ACCOUNT.ADDRESS;
     },
   },
   watch: {
