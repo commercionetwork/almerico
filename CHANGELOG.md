@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [develop] 4.10.5 - 2024-01-15
+
+### Fixed
+
+- Fix Github configuration to stop the build if an env variable is missing
+
 ## [4.10.4] 2024-01-15
 
 ### Fixed
@@ -17,19 +23,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update the layout of DEX page
 
-## [develop] 4.10.2 2024-01-11
+## [develop] 4.10.2 - 2024-01-11
 
 ### Changed
 
 - Update the behavior of DEX page
 
-## [develop] 4.10.1 2024-01-10
+## [develop] 4.10.1 - 2024-01-10
 
 ### Changed
 
 - Simplify the DEX page
 
-## [develop] 4.10.0 2023-12-21
+## [develop] 4.10.0 - 2023-12-21
 
 ### Added
 
@@ -46,7 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Delete Travis configuration
 
-## [develop] 4.9.0 2023-12-15
+## [develop] 4.9.0 - 2023-12-15
 
 ### Added
 
