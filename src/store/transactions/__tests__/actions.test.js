@@ -104,7 +104,14 @@ describe('store/transactions/actions', () => {
     });
 
     mockError = true;
-    const ancestors = JSON.parse(process.env.VUE_APP_ANCESTORS);
+    const ancestors = [
+      {
+        lcd_ledger: 'http://10.0.0.1:7000',
+        lcd: 'https://lcd-test.commercio.network/9000',
+        ver: '0.38',
+      },
+    ];
+    process.env.VUE_APP_ANCESTORS = JSON.stringify(ancestors);
 
     await actions.fetchTransactionByHash({ commit, dispatch }, hash);
 
@@ -123,7 +130,13 @@ describe('store/transactions/actions', () => {
   test('if "fetchAncestorsTransaction" action commit "setDetail",  and set the error if it is caught', async () => {
     const commit = jest.fn();
     const hash = 'hash';
-    const ancestors = JSON.parse(process.env.VUE_APP_ANCESTORS);
+    const ancestors = [
+      {
+        lcd_ledger: 'http://10.0.0.1:7000',
+        lcd: 'https://lcd-test.commercio.network/9000',
+        ver: '0.38',
+      },
+    ];
 
     await actions.fetchAncestorsTransaction({ commit }, { hash, ancestors });
 
