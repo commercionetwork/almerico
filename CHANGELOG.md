@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.10.6] - 2024-02-08
+
+### Changed
+
+- Update the text content of DEX page
+
 ## [4.10.5] - 2024-01-16
 
 ### Fixed
@@ -787,6 +793,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.10.6]: https://github.com/commercionetwork/almerico/compare/v4.10.5...v4.10.6
 [4.10.5]: https://github.com/commercionetwork/almerico/compare/v4.10.4...v4.10.5
 [4.10.4]: https://github.com/commercionetwork/almerico/compare/v4.10.3...v4.10.4
 [4.10.3]: https://github.com/commercionetwork/almerico/compare/v4.8.13...v4.10.3
