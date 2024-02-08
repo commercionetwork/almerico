@@ -1,3 +1,5 @@
+import { CONFIG } from './index';
+
 const ADDRESS = Object.freeze({
   DEX: process.env.VUE_APP_CONTRACT_DEX,
 });
@@ -29,6 +31,10 @@ const TOKEN = Object.freeze({
   KEY: {
     TOKEN_1: 'Token1',
     TOKEN_2: 'Token2',
+  },
+  LABEL: {
+    [CONFIG.TOKEN.DENOM]: '$COM',
+    [CONFIG.STABLE_COIN.DENOM]: '$CCC',
   },
   TYPE: {
     CW20: 'cw20',
