@@ -17,7 +17,7 @@ const buildToken = (data, denom) => {
   const name = data[`${denom}_denom`][CONTRACT.TOKEN.TYPE.NATIVE];
   return {
     denom: name,
-    label: name.substring(1),
+    label: CONTRACT.TOKEN.LABEL[name],
     reserve: data[`${denom}_reserve`],
   };
 };
