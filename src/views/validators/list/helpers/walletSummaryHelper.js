@@ -34,7 +34,7 @@ const walletSummaryHelper = {
             items.push({
               moniker: validator.moniker,
               amount: buildAmount(entry.balance),
-              completion_time: new Date(entry.completion_time).toLocaleString(),
+              completion_time: entry.completion_time,
               countdown,
             });
           });

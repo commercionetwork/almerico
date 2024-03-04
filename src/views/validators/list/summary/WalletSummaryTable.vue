@@ -22,7 +22,7 @@
               v-text="item.countdown"
             />
           </template>
-          <span v-text="item.completion_time" />
+          <span v-text="formatCompletionTime(item.completion_time)" />
         </v-tooltip>
       </template>
     </v-data-table>
@@ -46,6 +46,11 @@ export default {
         unbondings: this.wallet.unbondings,
         validators: this.list,
       });
+    },
+  },
+  methods: {
+    formatCompletionTime(completionTime) {
+      return new Date(completionTime).toLocaleString();
     },
   },
 };
