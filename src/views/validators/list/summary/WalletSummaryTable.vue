@@ -5,8 +5,6 @@
       :headers="headers"
       :items="items"
       :items-per-page="5"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
     >
       <template #[`item.moniker`]="{ item }">
         <span class="text-caption" v-text="item.moniker" />
@@ -14,8 +12,18 @@
       <template #[`item.amount`]="{ item }">
         <span class="text-caption" v-text="item.amount" />
       </template>
-      <template #[`item.denom`]="{ item }">
-        <span class="text-caption" v-text="item.denom" />
+      <template #[`item.completion_time`]="{ item }">
+        <v-tooltip top>
+          <template #activator="{ on, attrs }">
+            <span
+              v-bind="attrs"
+              v-on="on"
+              class="orange--text font-weight-bold"
+              v-text="item.countdown"
+            />
+          </template>
+          <span v-text="item.completion_time" />
+        </v-tooltip>
       </template>
     </v-data-table>
   </v-card-text>
@@ -23,40 +31,20 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import walletSummaryHelper from '../helpers/walletSummaryHelper';
 
 export default {
   name: 'WalletSummaryTable',
-  data() {
-    return {
-      sortBy: 'amount',
-      sortDesc: true,
-    };
-  },
   computed: {
     ...mapGetters('validators', ['list', 'wallet']),
     headers() {
-      return [
-        { text: 'Validator', value: 'moniker' },
-        { text: 'Amount', value: 'amount' },
-        { text: 'Denom', value: 'denom' },
-      ];
+      return walletSummaryHelper.getHeaders();
     },
     items() {
-      return this.wallet.delegations.map((el) => {
-        const index = this.list.findIndex(
-          (it) => it.operator_address === el.delegation.validator_address
-        );
-        let moniker = '';
-        if (index > -1) {
-          moniker = this.list[index]['moniker'];
-        }
-        const delegation = {
-          moniker,
-          address: el.delegation.validator_address,
-          amount: parseInt(el.balance.amount) / 1000000,
-          denom: 'COM',
-        };
-        return delegation;
+      return walletSummaryHelper.getItems({
+        delegations: this.wallet.delegations,
+        unbondings: this.wallet.unbondings,
+        validators: this.list,
       });
     },
   },
