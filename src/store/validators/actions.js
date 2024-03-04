@@ -95,27 +95,21 @@ export default {
   },
   async fetchAccountDelegations({ dispatch, getters }, account) {
     await dispatch('getWalletDelegations', { account });
-    while (
-      getters['walletDelegationsTotal'] > getters['walletDelegationsOffset']
-    ) {
+    while (getters['walletDelegationsNextKey']) {
       await dispatch('getWalletDelegations', {
         account,
-        offset: getters['walletDelegationsOffset'],
+        key: getters['walletDelegationsNextKey'],
       });
     }
   },
-  async getWalletDelegations({ commit }, { account, offset }) {
+  async getWalletDelegations({ commit }, { account, key }) {
     const pagination = {
-      offset: offset ? offset : 0,
+      key: key ? key : undefined,
     };
     try {
       const response = await staking.requestDelegations(account, pagination);
       commit('addWalletDelegations', response.data.delegation_responses);
       commit('setWalletDelegationsPagination', response.data.pagination);
-      commit(
-        'sumWalletDelegationsOffset',
-        response.data.delegation_responses.length
-      );
     } catch (error) {
       commit('setWalletItem', { delegations: [] });
       return;
@@ -123,27 +117,21 @@ export default {
   },
   async fetchAccountUnbondings({ dispatch, getters }, account) {
     await dispatch('getWalletUnbondings', { account });
-    while (
-      getters['walletUnbondingsTotal'] > getters['walletUnbondingsOffset']
-    ) {
+    while (getters['walletUnbondingsNextKey']) {
       await dispatch('getWalletUnbondings', {
         account,
-        offset: getters['walletUnbondingsOffset'],
+        key: getters['walletUnbondingsNextKey'],
       });
     }
   },
-  async getWalletUnbondings({ commit }, { account, offset }) {
+  async getWalletUnbondings({ commit }, { account, key }) {
     const pagination = {
-      offset: offset ? offset : 0,
+      key: key ? key : undefined,
     };
     try {
       const response = await staking.requestUnbondings(account, pagination);
       commit('addWalletUnbondings', response.data.unbonding_responses);
       commit('setWalletUnbondingsPagination', response.data.pagination);
-      commit(
-        'sumWalletUnbondingsOffset',
-        response.data.unbonding_responses.length
-      );
     } catch (error) {
       commit('setWalletItem', { unbondings: [] });
       return;

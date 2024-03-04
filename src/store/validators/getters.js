@@ -10,8 +10,8 @@ export default {
   filter: (state) => state.filter,
   isLoadingWallet: (state) => state.isLoadingWallet,
   wallet: (state) => state.wallet,
-  walletDelegationsOffset: (state) => state.walletDelegationsOffset,
-  walletDelegationsTotal: (state) => state.walletDelegationsPagination?.total,
-  walletUnbondingsOffset: (state) => state.walletUnbondingsOffset,
-  walletUnbondingsTotal: (state) => state.walletUnbondingsPagination?.total,
+  walletDelegationsNextKey: (state) =>
+    state.walletDelegationsPagination?.next_key,
+  walletUnbondingsNextKey: (state) =>
+    state.walletUnbondingsPagination?.next_key,
 };
