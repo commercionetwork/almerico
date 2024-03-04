@@ -29,6 +29,7 @@ export const msgs = {
   filterByStatus: 'Filter by status',
   filterValidatorsInfo: 'Filter list by status',
   installKeplrExtension: 'Please install Keplr extension',
+  listPrice: 'List price',
   loading: 'Loading...',
   mandatoryField: 'This field is mandatory',
   noAccountFound: 'No accounts found. Use the Keplr extension to create it or import it.',

@@ -2,7 +2,7 @@ import { CONFIG } from '@/constants';
 
 const DEFAULT_INDEX = 1;
 
-const LIST = Object.freeze([
+const LIST = [
   {
     id: 1,
     text: 'Main-net',
@@ -57,7 +57,7 @@ const LIST = Object.freeze([
     rpc: 'https://rpc-b-devnet.commercio.network',
     lcd: 'https://lcd-b-devnet.commercio.network',
   },
-]);
+];
 
 if (process.env.VUE_APP_LCD === 'http://localhost:7123') {
   LIST.push({

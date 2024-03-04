@@ -29,6 +29,7 @@ export const msgs = {
   filterByStatus: 'Filtra per stato',
   filterValidatorsInfo: 'Filtra la lista per stato',
   installKeplrExtension: 'Si prega di installare l\'estensione Keplr',
+  listPrice : 'Prezzo di listino',
   loading: 'Caricando...',
   mandatoryField: 'Questo campo è obbligatorio',
   noAccountFound: 'Nessun conto trovato. Utilizza l\'estensione Keplr per crearlo o importarlo.',
