@@ -23,6 +23,8 @@ export const initState = () => ({
     rewards: [],
     unbondings: [],
   },
+  walletDelegationsOffset: 0,
+  walletDelegationsPagination: null,
   walletUnbondingsOffset: 0,
   walletUnbondingsPagination: null,
 });

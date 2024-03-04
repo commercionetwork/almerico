@@ -43,18 +43,29 @@ export default {
   setWalletItem(state, payload) {
     state.wallet = { ...state.wallet, ...payload };
   },
+  addWalletDelegations(state, payload) {
+    state.wallet['delegations'].push(...payload);
+  },
   addWalletUnbondings(state, payload) {
     state.wallet['unbondings'].push(...payload);
   },
+  setWalletDelegationsPagination(state, payload) {
+    state.walletDelegationsPagination = payload;
+  },
+  sumWalletDelegationsOffset(state, payload) {
+    state.walletDelegationsOffset += payload;
+  },
   setWalletUnbondingsPagination(state, payload) {
-    state.setWalletUnbondingsPagination = payload;
+    state.walletUnbondingsPagination = payload;
   },
   sumWalletUnbondingsOffset(state, payload) {
     state.walletUnbondingsOffset += payload;
   },
   resetWallet(state) {
+    state.walletDelegationsOffset = 0;
+    state.walletDelegationsPagination = null;
     state.walletUnbondingsOffset = 0;
-    state.setWalletUnbondingsPagination = null;
+    state.walletUnbondingsPagination = null;
     for (const k in state.wallet) {
       state.wallet[k] = [];
     }

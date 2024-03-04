@@ -93,13 +93,30 @@ export default {
       return;
     }
   },
-  async fetchAccountDelegations({ commit }, account) {
-    try {
-      const response = await staking.requestDelegations(account);
-      commit('setWalletItem', {
-        delegations: response.data.delegation_responses,
+  async fetchAccountDelegations({ dispatch, getters }, account) {
+    await dispatch('getWalletDelegations', { account });
+    while (
+      getters['walletDelegationsTotal'] > getters['walletDelegationsOffset']
+    ) {
+      await dispatch('getWalletDelegations', {
+        account,
+        offset: getters['walletDelegationsOffset'],
       });
-    } catch {
+    }
+  },
+  async getWalletDelegations({ commit }, { account, offset }) {
+    const pagination = {
+      offset: offset ? offset : 0,
+    };
+    try {
+      const response = await staking.requestDelegations(account, pagination);
+      commit('addWalletDelegations', response.data.delegation_responses);
+      commit('setWalletDelegationsPagination', response.data.pagination);
+      commit(
+        'sumWalletDelegationsOffset',
+        response.data.delegation_responses.length
+      );
+    } catch (error) {
       commit('setWalletItem', { delegations: [] });
       return;
     }

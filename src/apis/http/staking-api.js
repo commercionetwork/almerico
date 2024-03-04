@@ -55,25 +55,31 @@ const staking = {
   /**
    *
    * @param {String} address
+   * @param {Object} pagination
    * @returns {AxiosPromise}
    */
-  requestDelegations(address) {
+  requestDelegations(address, pagination) {
+    const params = apisHelper.setupPagination(pagination);
     return axios({
       url: `/delegations/${address}`,
       method: 'get',
       baseURL: APIS.HTTP.STAKING,
+      params,
     });
   },
   /**
    *
    * @param {String} address
+   * @param {Object} pagination
    * @returns {AxiosPromise}
    */
-  requestUnbondings(address) {
+  requestUnbondings(address, pagination) {
+    const params = apisHelper.setupPagination(pagination);
     return axios({
       url: `/delegators/${address}/unbonding_delegations`,
       method: 'get',
       baseURL: APIS.HTTP.STAKING,
+      params,
     });
   },
   /**
