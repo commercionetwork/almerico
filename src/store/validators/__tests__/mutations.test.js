@@ -24,6 +24,8 @@ describe('store/validators/mutations', () => {
     };
     state.isLoadingWallet = true;
     state.wallet = [{ balances: [{ id: 1 }] }];
+    state.walletDelegationsPagination = { id: 1 };
+    state.walletUnbondingsPagination = { id: 1 };
 
     const expected = initState();
 
@@ -142,6 +144,56 @@ describe('store/validators/mutations', () => {
     };
 
     expect(state.wallet).toStrictEqual(expected);
+  });
+
+  test('mutations.addWalletDelegations', () => {
+    state.wallet = {
+      delegations: [{ id: 1 }],
+    };
+
+    mutations.addWalletDelegations(state, [{ id: 2 }]);
+
+    const expected = {
+      delegations: [{ id: 1 }, { id: 2 }],
+    };
+
+    expect(state.wallet).toStrictEqual(expected);
+  });
+
+  test('mutations.addWalletUnbondings', () => {
+    state.wallet = {
+      unbondings: [{ id: 1 }],
+    };
+
+    mutations.addWalletUnbondings(state, [{ id: 2 }]);
+
+    const expected = {
+      unbondings: [{ id: 1 }, { id: 2 }],
+    };
+
+    expect(state.wallet).toStrictEqual(expected);
+  });
+
+  test('mutations.setWalletDelegationsPagination', () => {
+    const pagination = {
+      next_key: 'string',
+      total: 'string',
+    };
+
+    mutations.setWalletDelegationsPagination(state, pagination);
+
+    expect(state.walletDelegationsPagination).toStrictEqual(pagination);
+  });
+
+  test('mutations.setWalletUnbondingsPagination', () => {
+    const pagination = {
+      next_key: 'string',
+      total: 'string',
+    };
+
+    mutations.setWalletUnbondingsPagination(state, pagination);
+
+    expect(state.walletUnbondingsPagination).toStrictEqual(pagination);
   });
 
   test('mutations.resetWallet', () => {
