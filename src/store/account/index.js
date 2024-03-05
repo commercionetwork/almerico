@@ -6,6 +6,7 @@ export const initState = () => ({
   balances: [],
   commission: null,
   delegations: [],
+  delegationsPagination: null,
   error: null,
   isLoading: false,
   isAddingTxs: false,
@@ -16,7 +17,6 @@ export const initState = () => ({
   transactionsOffset: 0,
   transactionsPagination: [],
   unbondings: [],
-  unbondingsOffset: 0,
   unbondingsPagination: null,
 });
 
