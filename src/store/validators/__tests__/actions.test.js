@@ -96,22 +96,24 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchDetailDelegations" dispatch "addDetailDelegations" action', async () => {
+  test('if "fetchDetailDelegations" dispatch "getDetailDelegations" action', async () => {
     const dispatch = jest.fn();
     const getters = jest.fn();
-    const id = 'id';
+    const validator = 'validator';
 
-    await actions.fetchDetailDelegations({ dispatch, getters }, id);
+    await actions.fetchDetailDelegations({ dispatch, getters }, validator);
 
-    expect(dispatch).toHaveBeenCalledWith('addDetailDelegations', { id });
+    expect(dispatch).toHaveBeenCalledWith('getDetailDelegations', {
+      validator,
+    });
   });
 
-  test('if "addDetailDelegations" action commit "addDelegations", "setDelegationsPagination" and "sumDelegationsOffset" mutations, and set the error if it is caught', async () => {
+  test('if "getDetailDelegations" action commit "addDelegations" and "setDelegationsPagination" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const id = 'id';
-    const offset = 10;
+    const validator = 'validator';
+    const key = 'key';
 
-    await actions.addDetailDelegations({ commit }, { id, offset });
+    await actions.getDetailDelegations({ commit }, { validator, key });
 
     expect(commit).toHaveBeenCalledWith(
       'addDelegations',
@@ -121,14 +123,10 @@ describe('store/validators/actions', () => {
       'setDelegationsPagination',
       mockResponse.data.pagination
     );
-    expect(commit).toHaveBeenCalledWith(
-      'sumDelegationsOffset',
-      mockResponse.data.delegation_responses.length
-    );
 
     mockError = true;
 
-    await actions.addDetailDelegations({ commit }, { id, offset });
+    await actions.getDetailDelegations({ commit }, { validator, key });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });

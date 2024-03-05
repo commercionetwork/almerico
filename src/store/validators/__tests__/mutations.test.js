@@ -16,16 +16,15 @@ describe('store/validators/mutations', () => {
     state.detail = { id: 1 };
     state.list = [{ id: 1 }];
     state.delegations = [{ id: 1 }];
-    state.delegationsOffset = 1;
-    state.delegationsPagination = { total: 25 };
+    state.delegationsPagination = { next_key: 'key', total: 25 };
     state.filter = {
       status: VALIDATORS.FILTER.INACTIVE,
       query: 'abc',
     };
     state.isLoadingWallet = true;
     state.wallet = [{ balances: [{ id: 1 }] }];
-    state.walletDelegationsPagination = { id: 1 };
-    state.walletUnbondingsPagination = { id: 1 };
+    state.walletDelegationsPagination = { next_key: 'key', total: 25 };
+    state.walletUnbondingsPagination = { next_key: 'key', total: 25 };
 
     const expected = initState();
 
@@ -86,24 +85,6 @@ describe('store/validators/mutations', () => {
     mutations.addDelegations(state, payload);
 
     expect(state.delegations).toStrictEqual(expected);
-  });
-
-  test('mutations.setDelegationsOffset', () => {
-    const payload = 10;
-    mutations.setDelegationsOffset(state, payload);
-
-    expect(state.delegationsOffset).toBe(payload);
-  });
-
-  test('mutations.sumDelegationsOffset', () => {
-    const payload = 10;
-    mutations.sumDelegationsOffset(state, payload);
-
-    expect(state.delegationsOffset).toBe(payload);
-
-    mutations.sumDelegationsOffset(state, payload);
-
-    expect(state.delegationsOffset).toBe(payload + payload);
   });
 
   test('mutations.setDelegationsPagination', () => {
@@ -203,6 +184,8 @@ describe('store/validators/mutations', () => {
       rewards: [],
       unbondings: [],
     };
+    state.walletDelegationsPagination = { next_key: 'key', total: 25 };
+    state.walletUnbondingsPagination = { next_key: 'key', total: 25 };
 
     mutations.resetWallet(state);
 
@@ -214,5 +197,7 @@ describe('store/validators/mutations', () => {
     };
 
     expect(state.wallet).toStrictEqual(expected);
+    expect(state.walletDelegationsPagination).toBeNull();
+    expect(state.walletUnbondingsPagination).toBeNull();
   });
 });
