@@ -19,6 +19,12 @@ export default {
   setDelegations(state, payload) {
     state.delegations = payload;
   },
+  addDelegations(state, payload) {
+    state.delegations.push(...payload);
+  },
+  setDelegationsPagination(state, payload) {
+    state.delegationsPagination = payload;
+  },
   setRewards(state, payload) {
     state.rewards = payload;
   },
@@ -27,12 +33,6 @@ export default {
   },
   addUnbondings(state, payload) {
     state.unbondings.push(...payload);
-  },
-  setUnbondingsOffset(state, payload) {
-    state.unbondingsOffset = payload;
-  },
-  sumUnbondingsOffset(state, payload) {
-    state.unbondingsOffset += payload;
   },
   setUnbondingsPagination(state, payload) {
     state.unbondingsPagination = payload;

@@ -19,7 +19,6 @@ export default {
     commit('setLoading', false);
     await dispatch('fetchTransactions', { address });
   },
-
   async fetchBalances({ commit }, address) {
     try {
       const response = await bank.requestBalances(address);
@@ -28,7 +27,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchCommission({ commit }, address) {
     try {
       const hex = bech32Manager.decode(address);
@@ -42,16 +40,27 @@ export default {
       commit('setError', error);
     }
   },
-
-  async fetchDelegations({ commit }, address) {
+  async fetchDelegations({ dispatch, getters }, address) {
+    await dispatch('addDelegations', { address });
+    while (getters['delegationsNextKey']) {
+      await dispatch('addDelegations', {
+        address,
+        key: getters['delegationsNextKey'],
+      });
+    }
+  },
+  async addDelegations({ commit }, { address, key }) {
+    const pagination = {
+      key: key ? key : undefined,
+    };
     try {
-      const response = await staking.requestDelegations(address);
-      commit('setDelegations', response.data.delegation_responses);
+      const response = await staking.requestDelegations(address, pagination);
+      commit('addDelegations', response.data.delegation_responses);
+      commit('setDelegationsPagination', response.data.pagination);
     } catch (error) {
       commit('setError', error);
     }
   },
-
   async fetchRewards({ commit }, address) {
     try {
       const response = await distribution.requestRewards(address);
@@ -60,31 +69,27 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchUnbondings({ dispatch, getters }, address) {
     await dispatch('addUnbondings', { address });
-    while (getters['unbondingsTotal'] > getters['unbondingsOffset']) {
+    while (getters['unbondingsNextKey']) {
       await dispatch('addUnbondings', {
         address,
-        offset: getters['unbondingsOffset'],
+        key: getters['unbondingsNextKey'],
       });
     }
   },
-
-  async addUnbondings({ commit }, { address, offset }) {
+  async addUnbondings({ commit }, { address, key }) {
     const pagination = {
-      offset: offset ? offset : 0,
+      key: key ? key : undefined,
     };
     try {
       const response = await staking.requestUnbondings(address, pagination);
       commit('addUnbondings', response.data.unbonding_responses);
       commit('setUnbondingsPagination', response.data.pagination);
-      commit('sumUnbondingsOffset', response.data.unbonding_responses.length);
     } catch (error) {
       commit('setError', error);
     }
   },
-
   async fetchMembership({ commit }, address) {
     try {
       const response = await commercio.requestMembership(address);
@@ -93,7 +98,6 @@ export default {
       commit('setMembership', null);
     }
   },
-
   async fetchMembershipTxs({ commit }, address) {
     const parameters = { events: `assign_membership.owner='${address}'` };
     try {
@@ -103,7 +107,6 @@ export default {
       commit('setError', error);
     }
   },
-
   async fetchTransactions(
     { commit },
     { address, offset = 0, sent = true } = {}
@@ -129,11 +132,9 @@ export default {
     }
     commit('setAddingTxs', false);
   },
-
   async addTransactions({ dispatch }, { address, offset, sent = true } = {}) {
     await dispatch('fetchTransactions', { address, offset, sent });
   },
-
   resetTransactions({ commit }) {
     commit('setTransactions', []);
     commit('setTransactionsPagination', []);

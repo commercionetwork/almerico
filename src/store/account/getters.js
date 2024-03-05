@@ -2,6 +2,7 @@ export default {
   balances: (state) => state.balances,
   commission: (state) => state.commission,
   delegations: (state) => state.delegations,
+  delegationsNextKey: (state) => state.delegationsPagination?.next_key,
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
   isAddingTxs: (state) => state.isAddingTxs,
@@ -12,6 +13,5 @@ export default {
   transactionsOffset: (state) => state.transactionsOffset,
   transactionsTotal: (state) => state.transactionsPagination.total,
   unbondings: (state) => state.unbondings,
-  unbondingsOffset: (state) => state.unbondingsOffset,
-  unbondingsTotal: (state) => state.unbondingsPagination.total,
+  unbondingsNextKey: (state) => state.unbondingsPagination?.next_key,
 };

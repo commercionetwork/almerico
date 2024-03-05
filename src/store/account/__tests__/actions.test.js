@@ -83,20 +83,35 @@ describe('store/account/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchDelegations" action commit "setDelegations" mutation, and set the error if it is caught', async () => {
-    const commit = jest.fn();
+  test('if "fetchDelegations" dispatch "addDelegations" action', async () => {
+    const dispatch = jest.fn();
+    const getters = jest.fn();
     const address = 'address';
 
-    await actions.fetchDelegations({ commit }, address);
+    await actions.fetchDelegations({ dispatch, getters }, address);
+
+    expect(dispatch).toHaveBeenCalledWith('addDelegations', { address });
+  });
+
+  test('if "addDelegations" action commit "addDelegations" and "setDelegationsPagination" mutations, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const address = 'address';
+    const key = 'key';
+
+    await actions.addDelegations({ commit }, { address, key });
 
     expect(commit).toHaveBeenCalledWith(
-      'setDelegations',
+      'addDelegations',
       mockResponse.data.delegation_responses
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'setDelegationsPagination',
+      mockResponse.data.pagination
     );
 
     mockError = true;
 
-    await actions.fetchDelegations({ commit }, address);
+    await actions.addDelegations({ commit }, { address, key });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
@@ -126,12 +141,12 @@ describe('store/account/actions', () => {
     expect(dispatch).toHaveBeenCalledWith('addUnbondings', { address });
   });
 
-  test('if "addUnbondings" action commit "addUnbondings", "setUnbondingsPagination" and "sumUnbondingsOffset" mutations, and set the error if it is caught', async () => {
+  test('if "addUnbondings" action commit "addUnbondings" and "setUnbondingsPagination" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
     const address = 'address';
-    const offset = 10;
+    const key = 'key';
 
-    await actions.addUnbondings({ commit }, { address, offset });
+    await actions.addUnbondings({ commit }, { address, key });
 
     expect(commit).toHaveBeenCalledWith(
       'addUnbondings',
@@ -141,14 +156,10 @@ describe('store/account/actions', () => {
       'setUnbondingsPagination',
       mockResponse.data.pagination
     );
-    expect(commit).toHaveBeenCalledWith(
-      'sumUnbondingsOffset',
-      mockResponse.data.unbonding_responses.length
-    );
 
     mockError = true;
 
-    await actions.addUnbondings({ commit }, { address, offset });
+    await actions.addUnbondings({ commit }, { address, key });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
