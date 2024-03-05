@@ -1,7 +1,10 @@
 import {
-  mockDelegation,
+  mockBalances,
+  mockDelegations,
   mockErrors,
   mockPagination,
+  mockRewards,
+  mockUnbondings,
   mockValidatorBackend,
   mockValidatorsBackend,
 } from '@/__mocks__';
@@ -93,22 +96,24 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
-  test('if "fetchDetailDelegations" dispatch "addDetailDelegations" action', async () => {
+  test('if "fetchDetailDelegations" dispatch "getDetailDelegations" action', async () => {
     const dispatch = jest.fn();
     const getters = jest.fn();
-    const id = 'id';
+    const validator = 'validator';
 
-    await actions.fetchDetailDelegations({ dispatch, getters }, id);
+    await actions.fetchDetailDelegations({ dispatch, getters }, validator);
 
-    expect(dispatch).toHaveBeenCalledWith('addDetailDelegations', { id });
+    expect(dispatch).toHaveBeenCalledWith('getDetailDelegations', {
+      validator,
+    });
   });
 
-  test('if "addDetailDelegations" action commit "addDelegations", "setDelegationsPagination" and "sumDelegationsOffset" mutations, and set the error if it is caught', async () => {
+  test('if "getDetailDelegations" action commit "addDelegations" and "setDelegationsPagination" mutations, and set the error if it is caught', async () => {
     const commit = jest.fn();
-    const id = 'id';
-    const offset = 10;
+    const validator = 'validator';
+    const key = 'key';
 
-    await actions.addDetailDelegations({ commit }, { id, offset });
+    await actions.getDetailDelegations({ commit }, { validator, key });
 
     expect(commit).toHaveBeenCalledWith(
       'addDelegations',
@@ -118,14 +123,10 @@ describe('store/validators/actions', () => {
       'setDelegationsPagination',
       mockResponse.data.pagination
     );
-    expect(commit).toHaveBeenCalledWith(
-      'sumDelegationsOffset',
-      mockResponse.data.delegation_responses.length
-    );
 
     mockError = true;
 
-    await actions.addDetailDelegations({ commit }, { id, offset });
+    await actions.getDetailDelegations({ commit }, { validator, key });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
@@ -140,6 +141,103 @@ describe('store/validators/actions', () => {
     actions.setValidatorsFilter({ commit }, filter);
 
     expect(commit).toHaveBeenCalledWith('setFilter', filter);
+  });
+
+  test('if "initWallet" reset the wallet, set loading state and dispatch wanted actions', async () => {
+    const commit = jest.fn();
+    const dispatch = jest.fn();
+    const account = 'did:com:';
+    const rootGetters = { 'keplr/accounts': [{ address: account }] };
+
+    await actions.initWallet({ commit, dispatch, rootGetters });
+
+    expect(commit).toHaveBeenCalledWith('resetWallet');
+    expect(commit).toHaveBeenCalledWith('setLoadingWallet', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchAccountBalances', account);
+    expect(dispatch).toHaveBeenCalledWith('fetchAccountDelegations', account);
+    expect(dispatch).toHaveBeenCalledWith('fetchAccountRewards', account);
+    expect(dispatch).toHaveBeenCalledWith('fetchAccountUnbondings', account);
+    expect(commit).toHaveBeenCalledWith('setLoadingWallet', false);
+  });
+
+  test('if "fetchAccountBalances" action commit "setWalletItem", and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const account = 'did:com:';
+
+    await actions.fetchAccountBalances({ commit }, account);
+
+    expect(commit).toHaveBeenCalledWith('setWalletItem', {
+      balances: mockResponse.data.balances,
+    });
+
+    mockError = true;
+
+    await actions.fetchAccountBalances({ commit }, account);
+
+    expect(commit).toHaveBeenCalledWith('setWalletItem', { balances: [] });
+  });
+
+  test('if "getWalletDelegations" add delegations and set pagination, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const account = 'did:com:';
+    const key = 'key';
+
+    await actions.getWalletDelegations({ commit }, { account, key });
+
+    expect(commit).toHaveBeenCalledWith(
+      'addWalletDelegations',
+      mockResponse.data.delegation_responses
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'setWalletDelegationsPagination',
+      mockResponse.data.pagination
+    );
+
+    mockError = true;
+
+    await actions.getWalletDelegations({ commit }, { account, key });
+
+    expect(commit).toHaveBeenCalledWith('setWalletItem', { delegations: [] });
+  });
+
+  test('if "getWalletUnbondings" add unbondings and set pagination, and set the error if it is caught ', async () => {
+    const commit = jest.fn();
+    const account = 'did:com:';
+    const key = 'key';
+
+    await actions.getWalletUnbondings({ commit }, { account, key });
+
+    expect(commit).toHaveBeenCalledWith(
+      'addWalletUnbondings',
+      mockResponse.data.unbonding_responses
+    );
+    expect(commit).toHaveBeenCalledWith(
+      'setWalletUnbondingsPagination',
+      mockResponse.data.pagination
+    );
+
+    mockError = true;
+
+    await actions.getWalletUnbondings({ commit }, { account, key });
+
+    expect(commit).toHaveBeenCalledWith('setWalletItem', { unbondings: [] });
+  });
+
+  test('if "fetchAccountRewards" action commit "setWalletItem", and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const account = 'did:com:';
+
+    await actions.fetchAccountRewards({ commit }, account);
+
+    expect(commit).toHaveBeenCalledWith('setWalletItem', {
+      rewards: mockResponse.data,
+    });
+
+    mockError = true;
+
+    await actions.fetchAccountRewards({ commit }, account);
+
+    expect(commit).toHaveBeenCalledWith('setWalletItem', { rewards: [] });
   });
 });
 
@@ -175,6 +273,40 @@ jest.mock('../../../apis/http/validators-api.js', () => ({
 }));
 
 jest.mock('../../../apis/http/staking-api.js', () => ({
+  requestDelegations: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            delegation_responses: mockDelegations(),
+            pagination: mockPagination(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+  requestUnbondings: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            unbonding_responses: mockUnbondings(),
+            pagination: mockPagination(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
   requestValidatorsDetailDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -184,7 +316,43 @@ jest.mock('../../../apis/http/staking-api.js', () => ({
 
         mockResponse = {
           data: {
-            delegation_responses: mockDelegation(),
+            delegation_responses: mockDelegations(),
+            pagination: mockPagination(),
+          },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
+jest.mock('../../../apis/http/distribution-api.js', () => ({
+  requestRewards: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockRewards(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
+
+jest.mock('../../../apis/http/bank-api.js', () => ({
+  requestBalances: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            balances: mockBalances(),
             pagination: mockPagination(),
           },
         };

@@ -16,14 +16,15 @@ describe('store/validators/mutations', () => {
     state.detail = { id: 1 };
     state.list = [{ id: 1 }];
     state.delegations = [{ id: 1 }];
-    state.delegationsOffset = 1;
-    state.delegationsPagination = { total: 25 };
+    state.delegationsPagination = { next_key: 'key', total: 25 };
     state.filter = {
       status: VALIDATORS.FILTER.INACTIVE,
       query: 'abc',
     };
     state.isLoadingWallet = true;
     state.wallet = [{ balances: [{ id: 1 }] }];
+    state.walletDelegationsPagination = { next_key: 'key', total: 25 };
+    state.walletUnbondingsPagination = { next_key: 'key', total: 25 };
 
     const expected = initState();
 
@@ -86,24 +87,6 @@ describe('store/validators/mutations', () => {
     expect(state.delegations).toStrictEqual(expected);
   });
 
-  test('mutations.setDelegationsOffset', () => {
-    const payload = 10;
-    mutations.setDelegationsOffset(state, payload);
-
-    expect(state.delegationsOffset).toBe(payload);
-  });
-
-  test('mutations.sumDelegationsOffset', () => {
-    const payload = 10;
-    mutations.sumDelegationsOffset(state, payload);
-
-    expect(state.delegationsOffset).toBe(payload);
-
-    mutations.sumDelegationsOffset(state, payload);
-
-    expect(state.delegationsOffset).toBe(payload + payload);
-  });
-
   test('mutations.setDelegationsPagination', () => {
     const pagination = {
       next_key: 'string',
@@ -144,6 +127,56 @@ describe('store/validators/mutations', () => {
     expect(state.wallet).toStrictEqual(expected);
   });
 
+  test('mutations.addWalletDelegations', () => {
+    state.wallet = {
+      delegations: [{ id: 1 }],
+    };
+
+    mutations.addWalletDelegations(state, [{ id: 2 }]);
+
+    const expected = {
+      delegations: [{ id: 1 }, { id: 2 }],
+    };
+
+    expect(state.wallet).toStrictEqual(expected);
+  });
+
+  test('mutations.addWalletUnbondings', () => {
+    state.wallet = {
+      unbondings: [{ id: 1 }],
+    };
+
+    mutations.addWalletUnbondings(state, [{ id: 2 }]);
+
+    const expected = {
+      unbondings: [{ id: 1 }, { id: 2 }],
+    };
+
+    expect(state.wallet).toStrictEqual(expected);
+  });
+
+  test('mutations.setWalletDelegationsPagination', () => {
+    const pagination = {
+      next_key: 'string',
+      total: 'string',
+    };
+
+    mutations.setWalletDelegationsPagination(state, pagination);
+
+    expect(state.walletDelegationsPagination).toStrictEqual(pagination);
+  });
+
+  test('mutations.setWalletUnbondingsPagination', () => {
+    const pagination = {
+      next_key: 'string',
+      total: 'string',
+    };
+
+    mutations.setWalletUnbondingsPagination(state, pagination);
+
+    expect(state.walletUnbondingsPagination).toStrictEqual(pagination);
+  });
+
   test('mutations.resetWallet', () => {
     state.wallet = {
       balances: [{ id: 1 }],
@@ -151,6 +184,8 @@ describe('store/validators/mutations', () => {
       rewards: [],
       unbondings: [],
     };
+    state.walletDelegationsPagination = { next_key: 'key', total: 25 };
+    state.walletUnbondingsPagination = { next_key: 'key', total: 25 };
 
     mutations.resetWallet(state);
 
@@ -162,5 +197,7 @@ describe('store/validators/mutations', () => {
     };
 
     expect(state.wallet).toStrictEqual(expected);
+    expect(state.walletDelegationsPagination).toBeNull();
+    expect(state.walletUnbondingsPagination).toBeNull();
   });
 });
