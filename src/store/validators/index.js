@@ -10,7 +10,6 @@ export const initState = () => ({
   detail: null,
   list: [],
   delegations: [],
-  delegationsOffset: 0,
   delegationsPagination: null,
   filter: {
     status: VALIDATORS.FILTER.ACTIVE,

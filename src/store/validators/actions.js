@@ -40,27 +40,26 @@ export default {
       commit('setError', error);
     }
   },
-  async fetchDetailDelegations({ dispatch, getters }, id) {
-    await dispatch('addDetailDelegations', { id });
-    while (getters['delegationsTotal'] > getters['delegationsOffset']) {
-      await dispatch('addDetailDelegations', {
-        id,
-        offset: getters['delegationsOffset'],
+  async fetchDetailDelegations({ dispatch, getters }, validator) {
+    await dispatch('getDetailDelegations', { validator });
+    while (getters['delegationsNextKey']) {
+      await dispatch('getDetailDelegations', {
+        validator,
+        key: getters['delegationsNextKey'],
       });
     }
   },
-  async addDetailDelegations({ commit }, { id, offset }) {
+  async getDetailDelegations({ commit }, { validator, key }) {
     const pagination = {
-      offset: offset ? offset : 0,
+      key: key ? key : undefined,
     };
     try {
       const response = await staking.requestValidatorsDetailDelegations(
-        id,
+        validator,
         pagination
       );
       commit('addDelegations', response.data.delegation_responses);
       commit('setDelegationsPagination', response.data.pagination);
-      commit('sumDelegationsOffset', response.data.delegation_responses.length);
     } catch (error) {
       commit('setError', error);
     }
