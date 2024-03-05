@@ -18,7 +18,7 @@
             <span
               v-bind="attrs"
               v-on="on"
-              class="orange--text font-weight-bold"
+              class="orange--text"
               v-text="item.countdown"
             />
           </template>
