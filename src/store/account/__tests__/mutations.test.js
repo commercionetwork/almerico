@@ -11,11 +11,27 @@ describe('store/account/mutations', () => {
   test('mutations.reset', () => {
     state.error = new Error('error');
     state.isLoading = true;
+    state.isAddingTxs = true;
     state.balances = [{ id: 1 }];
-    state.unbondingsOffset = 10;
+    state.commission = { id: 1 };
+    state.delegations = [{ id: 1 }];
+    (state.delegationsPagination = {
+      next_key: 'key',
+      total: 10,
+    }),
+      (state.membership = { id: 1 });
+    state.membershipTxs = [{ id: 1 }];
+    state.rewards = { rewards: [{ id: 1 }], total: [{ id: 1 }] };
+    state.transactions = [{ id: 1 }];
+    state.transactionsOffset = 10;
+    (state.transactionsPagination = {
+      next_key: 'key',
+      total: 10,
+    }),
+      (state.unbondings = [{ id: 1 }]);
     state.unbondingsPagination = {
-      next_key: 'string',
-      total: 'string',
+      next_key: 'key',
+      total: 10,
     };
 
     const expected = initState();
@@ -63,6 +79,27 @@ describe('store/account/mutations', () => {
     expect(state.delegations).toStrictEqual(delegations);
   });
 
+  test('mutations.addDelegations', () => {
+    state.delegations = [{ id: 1 }];
+    const payload = [{ id: 2 }];
+    const expected = [{ id: 1 }, { id: 2 }];
+
+    mutations.addDelegations(state, payload);
+
+    expect(state.delegations).toStrictEqual(expected);
+  });
+
+  test('mutations.setDelegationsPagination', () => {
+    const pagination = {
+      next_key: 'string',
+      total: 'string',
+    };
+
+    mutations.setDelegationsPagination(state, pagination);
+
+    expect(state.delegationsPagination).toStrictEqual(pagination);
+  });
+
   test('mutations.setRewards', () => {
     const rewards = { rewards: [{ id: 1 }], total: [{ id: 1 }] };
 
@@ -87,24 +124,6 @@ describe('store/account/mutations', () => {
     mutations.addUnbondings(state, payload);
 
     expect(state.unbondings).toStrictEqual(expected);
-  });
-
-  test('mutations.setUnbondingsOffset', () => {
-    const payload = 10;
-    mutations.setUnbondingsOffset(state, payload);
-
-    expect(state.unbondingsOffset).toBe(payload);
-  });
-
-  test('mutations.sumUnbondingsOffset', () => {
-    const payload = 10;
-    mutations.sumUnbondingsOffset(state, payload);
-
-    expect(state.unbondingsOffset).toBe(payload);
-
-    mutations.sumUnbondingsOffset(state, payload);
-
-    expect(state.unbondingsOffset).toBe(payload + payload);
   });
 
   test('mutations.setUnbondingsPagination', () => {
