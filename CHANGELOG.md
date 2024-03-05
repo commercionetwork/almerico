@@ -2,8 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [4.10.9] - 2024-03-05
+
+### Changed
+
+- Update the layout of delegations list
 
 ## [4.10.8] - 2024-03-05
 
@@ -805,6 +811,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.10.9]: https://github.com/commercionetwork/almerico/compare/v4.10.8...v4.10.9
 [4.10.8]: https://github.com/commercionetwork/almerico/compare/v4.10.7...v4.10.8
 [4.10.7]: https://github.com/commercionetwork/almerico/compare/v4.10.6...v4.10.7
 [4.10.6]: https://github.com/commercionetwork/almerico/compare/v4.10.5...v4.10.6
