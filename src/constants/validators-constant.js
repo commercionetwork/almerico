@@ -4,6 +4,13 @@ const CUSTOMIZATION = Object.freeze({
   },
 });
 
+const DELEGATION = Object.freeze({
+  TYPE: {
+    BONDED: 'bonded',
+    UNBONDING: 'unbonding',
+  },
+});
+
 const FILTER = Object.freeze({
   ACTIVE: 'active',
   INACTIVE: 'inactive',
@@ -24,6 +31,7 @@ const STATUS = Object.freeze({
 
 export default Object.freeze({
   CUSTOMIZATION,
+  DELEGATION,
   FILTER,
   STAKING_ACTIONS,
   STATUS,

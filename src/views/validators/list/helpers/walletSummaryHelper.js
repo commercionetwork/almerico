@@ -1,11 +1,12 @@
-import { CONFIG } from '@/constants';
+import { CONFIG, VALIDATORS } from '@/constants';
 import { dateHandler } from '@/utils';
 
 const walletSummaryHelper = {
   getHeaders: () => {
     return [
-      { text: 'Validator', value: 'moniker' },
-      { text: 'Amount', value: 'amount', sortable: false },
+      { text: 'Validator', value: 'moniker', width: '40%' },
+      { text: 'Type', value: 'type', width: '20%', sortable: false },
+      { text: 'Amount', value: 'amount', width: '20%', sortable: false },
       { text: 'Completion time', value: 'completion_time', sortable: false },
     ];
   },
@@ -21,6 +22,7 @@ const walletSummaryHelper = {
       }
       items.push({
         moniker: validator.moniker,
+        type: VALIDATORS.DELEGATION.TYPE.BONDED,
         amount: buildAmount(delegation.balance.amount),
       });
       unbondings
@@ -33,6 +35,7 @@ const walletSummaryHelper = {
             const countdown = getCoutdown(entry.completion_time);
             items.push({
               moniker: validator.moniker,
+              type: VALIDATORS.DELEGATION.TYPE.UNBONDING,
               amount: buildAmount(entry.balance),
               completion_time: entry.completion_time,
               countdown,
