@@ -59,12 +59,27 @@ const _fetchCommission = async (address) => {
   return { address, value: response.data.commission.commission };
 };
 
+const _getDelegations = async (address, key) => {
+  const pagination = {
+    key: key ? key : undefined,
+  };
+  const response = await staking.requestDelegations(address, pagination);
+  return response.data;
+};
+
 const _fetchDelegations = async (address) => {
-  const response = await staking.requestDelegations(address);
   const delegations = [];
-  response.data.delegation_responses.forEach((res) =>
-    delegations.push(res.balance)
-  );
+  let key = '';
+  let response = await _getDelegations(address, key);
+  response.delegation_responses.forEach((res) => delegations.push(res.balance));
+  key = response.pagination.next_key;
+  while (key) {
+    response = await _getDelegations(address, key);
+    response.delegation_responses.forEach((res) =>
+      delegations.push(res.balance)
+    );
+    key = response.pagination.next_key;
+  }
   return {
     address,
     value: delegations,
@@ -76,11 +91,19 @@ const _fetchRewards = async (address) => {
   return { address, value: response.data.total };
 };
 
+const _getUnbondings = async (address, key) => {
+  const pagination = {
+    key: key ? key : undefined,
+  };
+  const response = await staking.requestUnbondings(address, pagination);
+  return response.data;
+};
+
 const _fetchUnbondings = async (address) => {
-  let offset = 0;
   const unbonding_responses = [];
-  let response = await _getUnbondings(address, offset);
-  response.data.unbonding_responses.forEach((res) => {
+  let key = '';
+  let response = await _getUnbondings(address, key);
+  response.unbonding_responses.forEach((res) => {
     res.entries.forEach((entry) =>
       unbonding_responses.push({
         amount: entry.balance,
@@ -88,11 +111,10 @@ const _fetchUnbondings = async (address) => {
       })
     );
   });
-  const total = response.data.pagination.total;
-  offset = response.data.offset;
-  while (total > offset) {
-    response = await _getUnbondings(address, offset);
-    response.data.unbonding_responses.forEach((res) => {
+  key = response.pagination.next_key;
+  while (key) {
+    response = await _getUnbondings(address, key);
+    response.unbonding_responses.forEach((res) => {
       res.entries.forEach((entry) =>
         unbonding_responses.push({
           amount: entry.balance,
@@ -100,16 +122,7 @@ const _fetchUnbondings = async (address) => {
         })
       );
     });
-    offset = response.data.offset;
+    key = response.pagination.next_key;
   }
   return { address, value: unbonding_responses };
-};
-
-const _getUnbondings = async (address, offset) => {
-  const pagination = {
-    offset,
-  };
-  const response = await staking.requestUnbondings(address, pagination);
-  const newOffset = offset + response.data.unbonding_responses.length;
-  return { data: response.data, offset: newOffset };
 };
