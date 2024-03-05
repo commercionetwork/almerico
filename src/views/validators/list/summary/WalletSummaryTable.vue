@@ -36,17 +36,30 @@
           <span v-text="formatCompletionTime(item.completion_time)" />
         </v-tooltip>
       </template>
+      <template #[`item.address`]="{ item }">
+        <validator-manager
+          v-if="item.type === VALIDATORS.DELEGATION.TYPE.BONDED"
+          :address="item.address"
+          :commission="item.commission"
+          :moniker="item.moniker"
+        />
+      </template>
     </v-data-table>
   </v-card-text>
 </template>
 
 <script>
+import ValidatorManager from '../manager/ValidatorManager.vue';
+
 import { mapGetters } from 'vuex';
 import walletSummaryHelper from '../helpers/walletSummaryHelper';
 import { VALIDATORS } from '@/constants';
 
 export default {
   name: 'WalletSummaryTable',
+  components: {
+    ValidatorManager,
+  },
   data() {
     return {
       VALIDATORS,
