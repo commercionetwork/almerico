@@ -42,12 +42,12 @@ const staking = {
   },
   /**
    *
-   * @param {String} id
+   * @param {String} address
    * @returns {AxiosPromise}
    */
-  requestValidatorsDetail(id) {
+  requestValidatorsDetail(address) {
     return axios({
-      url: `/validators/${id}`,
+      url: `/validators/${address}`,
       method: 'get',
       baseURL: APIS.HTTP.STAKING,
     });
@@ -55,37 +55,46 @@ const staking = {
   /**
    *
    * @param {String} address
+   * @param {Object} pagination
    * @returns {AxiosPromise}
    */
-  requestDelegations(address) {
+  requestDelegations(address, pagination) {
+    const params = apisHelper.setupPagination(pagination);
     return axios({
       url: `/delegations/${address}`,
       method: 'get',
       baseURL: APIS.HTTP.STAKING,
+      params,
     });
   },
   /**
    *
    * @param {String} address
+   * @param {Object} pagination
    * @returns {AxiosPromise}
    */
-  requestUnbondings(address) {
+  requestUnbondings(address, pagination) {
+    const params = apisHelper.setupPagination(pagination);
     return axios({
       url: `/delegators/${address}/unbonding_delegations`,
       method: 'get',
       baseURL: APIS.HTTP.STAKING,
+      params,
     });
   },
   /**
    *
-   * @param {String} id
+   * @param {String} address
+   * @param {Object} pagination
    * @returns {Promise}
    */
-  requestValidatorsDetailDelegations(id) {
+  requestValidatorsDetailDelegations(address, pagination) {
+    const params = apisHelper.setupPagination(pagination);
     return axios({
-      url: `/validators/${id}/delegations`,
+      url: `/validators/${address}/delegations`,
       method: 'get',
       baseURL: APIS.HTTP.STAKING,
+      params,
     });
   },
 };
