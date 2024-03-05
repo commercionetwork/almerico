@@ -9,8 +9,19 @@
       <template #[`item.moniker`]="{ item }">
         <span class="text-caption" v-text="item.moniker" />
       </template>
+      <template #[`item.type`]="{ item }">
+        <span class="text-caption text-capitalize" v-text="item.type" />
+      </template>
       <template #[`item.amount`]="{ item }">
-        <span class="text-caption" v-text="item.amount" />
+        <span
+          class="text-caption"
+          :class="
+            item.type === VALIDATORS.DELEGATION.TYPE.BONDED
+              ? 'font-weight-bold'
+              : 'font-italic'
+          "
+          v-text="item.amount"
+        />
       </template>
       <template #[`item.completion_time`]="{ item }">
         <v-tooltip top>
@@ -32,9 +43,15 @@
 <script>
 import { mapGetters } from 'vuex';
 import walletSummaryHelper from '../helpers/walletSummaryHelper';
+import { VALIDATORS } from '@/constants';
 
 export default {
   name: 'WalletSummaryTable',
+  data() {
+    return {
+      VALIDATORS,
+    };
+  },
   computed: {
     ...mapGetters('validators', ['list', 'wallet']),
     headers() {
