@@ -40,27 +40,26 @@ export default {
       commit('setError', error);
     }
   },
-  async fetchDetailDelegations({ dispatch, getters }, id) {
-    await dispatch('addDetailDelegations', { id });
-    while (getters['delegationsTotal'] > getters['delegationsOffset']) {
-      await dispatch('addDetailDelegations', {
-        id,
-        offset: getters['delegationsOffset'],
+  async fetchDetailDelegations({ dispatch, getters }, validator) {
+    await dispatch('getDetailDelegations', { validator });
+    while (getters['delegationsNextKey']) {
+      await dispatch('getDetailDelegations', {
+        validator,
+        key: getters['delegationsNextKey'],
       });
     }
   },
-  async addDetailDelegations({ commit }, { id, offset }) {
+  async getDetailDelegations({ commit }, { validator, key }) {
     const pagination = {
-      offset: offset ? offset : 0,
+      key: key ? key : undefined,
     };
     try {
       const response = await staking.requestValidatorsDetailDelegations(
-        id,
+        validator,
         pagination
       );
       commit('addDelegations', response.data.delegation_responses);
       commit('setDelegationsPagination', response.data.pagination);
-      commit('sumDelegationsOffset', response.data.delegation_responses.length);
     } catch (error) {
       commit('setError', error);
     }
@@ -93,40 +92,45 @@ export default {
       return;
     }
   },
-  async fetchAccountDelegations({ commit }, account) {
-    try {
-      const response = await staking.requestDelegations(account);
-      commit('setWalletItem', {
-        delegations: response.data.delegation_responses,
+  async fetchAccountDelegations({ dispatch, getters }, account) {
+    await dispatch('getWalletDelegations', { account });
+    while (getters['walletDelegationsNextKey']) {
+      await dispatch('getWalletDelegations', {
+        account,
+        key: getters['walletDelegationsNextKey'],
       });
-    } catch {
+    }
+  },
+  async getWalletDelegations({ commit }, { account, key }) {
+    const pagination = {
+      key: key ? key : undefined,
+    };
+    try {
+      const response = await staking.requestDelegations(account, pagination);
+      commit('addWalletDelegations', response.data.delegation_responses);
+      commit('setWalletDelegationsPagination', response.data.pagination);
+    } catch (error) {
       commit('setWalletItem', { delegations: [] });
       return;
     }
   },
   async fetchAccountUnbondings({ dispatch, getters }, account) {
     await dispatch('getWalletUnbondings', { account });
-    while (
-      getters['walletUnbondingsTotal'] > getters['walletUnbondingsOffset']
-    ) {
+    while (getters['walletUnbondingsNextKey']) {
       await dispatch('getWalletUnbondings', {
         account,
-        offset: getters['walletUnbondingsOffset'],
+        key: getters['walletUnbondingsNextKey'],
       });
     }
   },
-  async getWalletUnbondings({ commit }, { account, offset }) {
+  async getWalletUnbondings({ commit }, { account, key }) {
     const pagination = {
-      offset: offset ? offset : 0,
+      key: key ? key : undefined,
     };
     try {
       const response = await staking.requestUnbondings(account, pagination);
       commit('addWalletUnbondings', response.data.unbonding_responses);
       commit('setWalletUnbondingsPagination', response.data.pagination);
-      commit(
-        'sumWalletUnbondingsOffset',
-        response.data.unbonding_responses.length
-      );
     } catch (error) {
       commit('setWalletItem', { unbondings: [] });
       return;
