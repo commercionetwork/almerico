@@ -4,10 +4,16 @@ import { dateHandler } from '@/utils';
 const walletSummaryHelper = {
   getHeaders: () => {
     return [
-      { text: 'Validator', value: 'moniker', width: '40%' },
-      { text: 'Type', value: 'type', width: '20%', sortable: false },
-      { text: 'Amount', value: 'amount', width: '20%', sortable: false },
-      { text: 'Completion time', value: 'completion_time', sortable: false },
+      { text: 'Validator', value: 'moniker', width: '36%' },
+      { text: 'Type', value: 'type', width: '19%', sortable: false },
+      { text: 'Amount', value: 'amount', width: '19%', sortable: false },
+      {
+        text: 'Completion time',
+        value: 'completion_time',
+        width: '19%',
+        sortable: false,
+      },
+      { value: 'address', width: '7%', sortable: false },
     ];
   },
   getItems: ({ delegations, unbondings, validators }) => {
@@ -24,6 +30,8 @@ const walletSummaryHelper = {
         moniker: validator.moniker,
         type: VALIDATORS.DELEGATION.TYPE.BONDED,
         amount: buildAmount(delegation.balance.amount),
+        address: validatorAddress,
+        commission: validator.commission,
       });
       unbondings
         .filter((unbonding) => unbonding.validator_address === validatorAddress)
