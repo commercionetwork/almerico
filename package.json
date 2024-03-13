@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "4.10.11",
+  "version": "4.11.0",
   "description": "Commercio blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -13,7 +13,7 @@
   "dependencies": {
     "@cosmjs/cosmwasm-stargate": "~0.32.0",
     "@cosmjs/stargate": "~0.32.0",
-    "async-mutex": "~0.4.0",
+    "async-mutex": "~0.5.0",
     "axios": "~1.6.0",
     "bech32": "~2.0.0",
     "chart.js": "~3.9.0",
