@@ -15,6 +15,7 @@ describe('store/assets/mutations', () => {
     state.supply = [{ id: 1 }];
     state.list = [{ id: 1 }];
     state.balances = { path_1: [{ id: 1 }] };
+    state.modal = { id: 1 };
     state.detail = { id: 1 };
     state.newCW20 = { id: 1 };
     state.isInvalid = false;
@@ -70,6 +71,14 @@ describe('store/assets/mutations', () => {
     mutations.addContract(state, payload);
 
     expect(state.list).toStrictEqual([payload]);
+  });
+
+  test('mutations.setModal', () => {
+    const payload = { id: 1 };
+
+    mutations.setModal(state, payload);
+
+    expect(state.modal).toStrictEqual(payload);
   });
 
   test('mutations.setDetail', () => {

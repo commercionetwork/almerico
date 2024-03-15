@@ -49,12 +49,12 @@ const adaptSupply = ({ balances, supply }) => {
   ];
   const nativeBalances = balances ? balances[CONTRACT.TOKEN.TYPE.NATIVE] : [];
   if (!nativeBalances.length) {
-    return items.map((item) => Object.assign(item, { balance: '-' }));
+    return items.map((item) => Object.assign(item, { balance: 0 }));
   }
   return items.map((item) => {
     const balance = nativeBalances.find((balance) => balance.denom === item.id);
     return {
-      balance: balance ? balance.amount : '0',
+      balance: balance ? parseFloat(balance.amount) : 0,
       decimals: item.decimals,
       name: item.name,
       symbol: item.symbol,
@@ -70,7 +70,7 @@ const adaptCW20s = ({ balances, list }) => {
     .map((item) => Object.assign(item, { type: CONTRACT.TOKEN.TYPE.CW20 }));
   const cw20Balances = balances ? balances[CONTRACT.TOKEN.TYPE.CW20] : [];
   if (!cw20Balances.length) {
-    return items.map((item) => Object.assign(item, { balance: '-' }));
+    return items.map((item) => Object.assign(item, { balance: 0 }));
   }
   return items.map((item) => {
     const balance = cw20Balances.find(
@@ -78,7 +78,7 @@ const adaptCW20s = ({ balances, list }) => {
     );
     return {
       id: item.id,
-      balance: balance ? balance.balance : '0',
+      balance: balance ? parseFloat(balance.balance) : 0,
       decimals: item.decimals,
       name: item.name,
       symbol: item.symbol,

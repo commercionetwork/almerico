@@ -28,8 +28,13 @@ export default {
   async fetchAssets({ commit, dispatch }, codeId) {
     const contracts = await dispatch('getContracts', codeId);
     contracts.forEach(async (address) => {
-      const info = await dispatch('getTokenInfo', address);
-      const contract = Object.assign({}, { id: address }, { ...info.token });
+      const requests = [dispatch('getTokenInfo', address)];
+      const responses = await Promise.all(requests);
+      const contract = Object.assign(
+        {},
+        { id: address },
+        { ...responses[0]['token'] }
+      );
       commit('addContract', contract);
     });
   },
@@ -58,6 +63,9 @@ export default {
     } catch (error) {
       commit('setError', error);
     }
+  },
+  handleModal({ commit }, modal) {
+    commit('setModal', modal);
   },
   async initAssetsDetail({ commit, dispatch }, address) {
     commit('reset');

@@ -241,4 +241,5 @@ export const labels = {
   wasmByteCode: 'Wasm bytecode',
   website: 'Sito Web',
   yes: 'Si',
+  withdraw: 'Prelievo',
 };

@@ -10,6 +10,7 @@ export const initState = () => ({
   supply: [],
   list: [],
   balances: null,
+  modal: null,
   detail: null,
   newCW20: null,
   government: '',

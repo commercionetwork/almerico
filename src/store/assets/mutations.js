@@ -25,6 +25,9 @@ export default {
   addContract(state, payload) {
     state.list.push(payload);
   },
+  setModal(state, payload) {
+    state.modal = payload;
+  },
   setDetail(state, payload) {
     state.detail = payload;
   },

@@ -21,6 +21,7 @@ export const titles = {
   dashboard: 'Dashboard',
   delegations: 'Delegations',
   delegatorAmounts: 'Delegator amounts',
+  deposit: 'Deposit',
   description: 'Description',
   dex: 'Dex',
   dexDetail: 'Dex detail',
@@ -80,4 +81,5 @@ export const titles = {
   validators: 'Validators',
   validatorsList: 'Validators list',
   votingDetail: 'Voting detail',
+  withdraw: 'Withdraw',
 };

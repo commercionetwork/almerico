@@ -13,6 +13,7 @@ import PROPOSALS from './proposals-constant';
 import ROUTES from './routes-constant';
 import STATS from './stats-constant';
 import TRANSACTIONS from './transactions-constant';
+import TRANSFER from './transfer-constant';
 import VALIDATORS from './validators-constant';
 
 export {
@@ -31,5 +32,6 @@ export {
   ROUTES,
   STATS,
   TRANSACTIONS,
+  TRANSFER,
   VALIDATORS,
 };
