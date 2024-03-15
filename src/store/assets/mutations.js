@@ -13,6 +13,9 @@ export default {
   setHandling(state, payload) {
     state.isHandling = payload;
   },
+  setSupply(state, payload) {
+    state.supply = payload;
+  },
   addContract(state, payload) {
     state.list.push(payload);
   },

@@ -12,6 +12,7 @@ describe('store/assets/mutations', () => {
     state.error = new Error('error');
     state.isLoading = true;
     state.isHandling = true;
+    state.supply = [{ id: 1 }];
     state.list = [{ id: 1 }];
     state.detail = { id: 1 };
     state.newCW20 = { id: 1 };
@@ -43,6 +44,14 @@ describe('store/assets/mutations', () => {
     mutations.setHandling(state, true);
 
     expect(state.isHandling).toBe(true);
+  });
+
+  test('mutations.setSupply', () => {
+    const payload = [{ id: 1 }];
+
+    mutations.setSupply(state, payload);
+
+    expect(state.supply).toStrictEqual(payload);
   });
 
   test('mutations.addContract', () => {

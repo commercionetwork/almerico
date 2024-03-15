@@ -2,6 +2,7 @@ export default {
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
   isHandling: (state) => state.isHandling,
+  supply: (state) => state.supply,
   list: (state) => state.list,
   detail: (state) => state.detail,
   contract: (state) => (state.detail ? state.detail.id : ''),

@@ -1,4 +1,4 @@
-import { commercio, cosmwasm } from '@/apis/http';
+import { bank, commercio, cosmwasm } from '@/apis/http';
 import { CONFIG } from '@/constants';
 import { msgBuilder, stringEncoder } from '@/utils';
 
@@ -6,9 +6,20 @@ export default {
   async initAssetsList({ commit, dispatch }) {
     commit('reset');
     commit('setLoading', true);
-    const requests = [dispatch('fetchAssets', CONFIG.WASM_CW20_CODE_ID)];
+    const requests = [
+      dispatch('fetchSupply'),
+      dispatch('fetchAssets', CONFIG.WASM_CW20_CODE_ID),
+    ];
     await Promise.all(requests);
     commit('setLoading', false);
+  },
+  async fetchSupply({ commit }) {
+    try {
+      const response = await bank.requestSupply();
+      commit('setSupply', response.data.supply);
+    } catch (error) {
+      commit('setError', error);
+    }
   },
   async fetchAssets({ commit, dispatch }, codeId) {
     const contracts = await dispatch('getContracts', codeId);
