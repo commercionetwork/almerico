@@ -37,9 +37,7 @@ export default {
   },
   watch: {
     wallet(newValue) {
-      if (newValue) {
-        this.initAssetsList(newValue);
-      }
+      this.initAssetsList(newValue);
     },
   },
   created() {
