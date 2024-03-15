@@ -69,14 +69,18 @@ export default {
           value: 'balance',
           align: 'right',
           width: '20%',
+          divider: true,
         },
         {
           text: this.$t('labels.deposit'),
           value: 'deposit',
+          align: 'center',
+          divider: true,
         },
         {
           text: this.$t('labels.withdraw'),
           value: 'withdraw',
+          align: 'center',
         },
       ];
     },
