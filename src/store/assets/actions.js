@@ -36,7 +36,7 @@ export default {
   async fetchBalances({ commit }, wallet) {
     try {
       const response = await bank.requestBalances(wallet);
-      commit('setBalancesProp', {
+      commit('addBalancesProp', {
         path: CONTRACT.TOKEN.TYPE.NATIVE,
         value: response.data.balances,
       });
@@ -51,7 +51,7 @@ export default {
         cw20Code: CONFIG.WASM_CW20_CODE_ID,
         swapCode: CONFIG.WASM_SWAP_CODE_ID,
       });
-      commit('setBalancesProp', {
+      commit('addBalancesProp', {
         path: CONTRACT.TOKEN.TYPE.CW20,
         value: response.data.balances,
       });

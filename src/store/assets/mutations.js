@@ -17,7 +17,7 @@ export default {
   setSupply(state, payload) {
     state.supply = payload;
   },
-  setBalancesProp(state, payload) {
+  addBalancesProp(state, payload) {
     const obj = { ...state.balances };
     set(obj, payload.path, payload.value);
     state.balances = { ...obj };

@@ -55,10 +55,10 @@ describe('store/assets/mutations', () => {
     expect(state.supply).toStrictEqual(payload);
   });
 
-  test('mutations.setBalancesProp', () => {
+  test('mutations.addBalancesProp', () => {
     state.balances = { path_1: [{ id: 1 }] };
 
-    mutations.setBalancesProp(state, { path: 'path_2', value: [{ id: 2 }] });
+    mutations.addBalancesProp(state, { path: 'path_2', value: [{ id: 2 }] });
 
     const expected = { path_1: [{ id: 1 }], path_2: [{ id: 2 }] };
     expect(state.balances).toStrictEqual(expected);
