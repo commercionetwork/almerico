@@ -7,7 +7,10 @@
         @click:row="(item) => openDetail(item)"
       >
         <template #[`item.total_supply`]="{ item }">
-          <div v-text="formatSupply(item.total_supply, item.decimals)" />
+          <div v-text="formatAmount(item.total_supply, item.decimals)" />
+        </template>
+        <template #[`item.balance`]="{ item }">
+          <div v-text="formatAmount(item.balance, item.decimals)" />
         </template>
       </v-data-table>
     </v-col>
@@ -23,7 +26,7 @@ import { tokensHandler } from '@/utils';
 export default {
   name: 'AssetsViewListTable',
   computed: {
-    ...mapGetters('assets', ['list', 'supply']),
+    ...mapGetters('assets', ['balances', 'list', 'supply']),
     headers() {
       return [
         { text: this.$t('labels.name'), value: 'name', width: '35%' },
@@ -33,18 +36,24 @@ export default {
           value: 'total_supply',
           align: 'right',
         },
+        {
+          text: this.$t('labels.balance'),
+          value: 'balance',
+          align: 'right',
+        },
       ];
     },
     items() {
       return assetsTableHelper.buildItems({
-        supply: this.supply,
+        balances: this.balances,
         list: this.list,
+        supply: this.supply,
       });
     },
   },
   methods: {
-    formatSupply(supply, decimals) {
-      const amount = tokensHandler.convertFromBase(supply, decimals);
+    formatAmount(tokens, decimals) {
+      const amount = tokensHandler.convertFromBase(tokens, decimals);
       return tokensHandler.format(amount, decimals);
     },
     openDetail(item) {
