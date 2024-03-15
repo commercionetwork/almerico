@@ -20,7 +20,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import assetsTableHelper from '../helpers/assetsTableHelper';
-import { ROUTES } from '@/constants';
+import { CONTRACT, ROUTES } from '@/constants';
 import { tokensHandler } from '@/utils';
 
 export default {
@@ -53,10 +53,16 @@ export default {
   },
   methods: {
     formatAmount(tokens, decimals) {
+      if (isNaN(parseFloat(tokens))) {
+        return '-';
+      }
       const amount = tokensHandler.convertFromBase(tokens, decimals);
       return tokensHandler.format(amount, decimals);
     },
     openDetail(item) {
+      if (item.type === CONTRACT.TOKEN.TYPE.NATIVE) {
+        return;
+      }
       this.$router.push({
         name: ROUTES.NAME.ASSETS_DETAIL,
         params: { id: item.id },

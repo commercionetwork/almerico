@@ -12,6 +12,7 @@ const assetsTableHelper = {
     });
     for (const cw20 of cw20s) {
       items.push({
+        id: cw20.id,
         decimals: cw20.decimals,
         name: cw20.name,
         symbol: cw20.symbol,
@@ -35,6 +36,7 @@ const adaptSupply = ({ balances, supply }) => {
       name: CONFIG.STABLE_COIN.SYMBOL,
       symbol: CONFIG.STABLE_COIN.SYMBOL,
       total_supply: ccc.amount,
+      type: CONTRACT.TOKEN.TYPE.NATIVE,
     },
     {
       id: CONFIG.TOKEN.DENOM,
@@ -42,40 +44,46 @@ const adaptSupply = ({ balances, supply }) => {
       name: CONFIG.TOKEN.NAME,
       symbol: CONFIG.TOKEN.SYMBOL,
       total_supply: commercio.amount,
+      type: CONTRACT.TOKEN.TYPE.NATIVE,
     },
   ];
   const nativeBalances = balances ? balances[CONTRACT.TOKEN.TYPE.NATIVE] : [];
   if (!nativeBalances.length) {
-    return items;
+    return items.map((item) => Object.assign(item, { balance: '-' }));
   }
   return items.map((item) => {
     const balance = nativeBalances.find((balance) => balance.denom === item.id);
     return {
+      balance: balance ? balance.amount : '0',
       decimals: item.decimals,
       name: item.name,
       symbol: item.symbol,
       total_supply: item.total_supply,
-      balance: balance ? balance.amount : '0',
+      type: item.type,
     };
   });
 };
 
 const adaptCW20s = ({ balances, list }) => {
-  const items = list.filter((item) => item.symbol !== 'wslpt');
+  const items = list
+    .filter((item) => item.symbol !== 'wslpt')
+    .map((item) => Object.assign(item, { type: CONTRACT.TOKEN.TYPE.CW20 }));
   const cw20Balances = balances ? balances[CONTRACT.TOKEN.TYPE.CW20] : [];
   if (!cw20Balances.length) {
-    return items;
+    return items.map((item) => Object.assign(item, { balance: '-' }));
   }
   return items.map((item) => {
     const balance = cw20Balances.find(
       (balance) => balance.contract === item.id
     );
     return {
+      id: item.id,
+      balance: balance ? balance.balance : '0',
       decimals: item.decimals,
       name: item.name,
       symbol: item.symbol,
       total_supply: item.total_supply,
-      balance: balance ? balance.balance : '0',
+      type: item.type,
     };
   });
 };
