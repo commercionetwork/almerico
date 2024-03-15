@@ -1,15 +1,19 @@
-import { bank, commercio, cosmwasm } from '@/apis/http';
-import { CONFIG } from '@/constants';
+import { bank, commercio, cosmwasm, wasms } from '@/apis/http';
+import { CONFIG, CONTRACT } from '@/constants';
 import { msgBuilder, stringEncoder } from '@/utils';
 
 export default {
-  async initAssetsList({ commit, dispatch }) {
+  async initAssetsList({ commit, dispatch }, wallet) {
     commit('reset');
     commit('setLoading', true);
     const requests = [
       dispatch('fetchSupply'),
       dispatch('fetchAssets', CONFIG.WASM_CW20_CODE_ID),
     ];
+    if (wallet) {
+      requests.push(dispatch('fetchBalances', wallet));
+      requests.push(dispatch('fetchWasmBalances', wallet));
+    }
     await Promise.all(requests);
     commit('setLoading', false);
   },
@@ -28,6 +32,32 @@ export default {
       const contract = Object.assign({}, { id: address }, { ...info.token });
       commit('addContract', contract);
     });
+  },
+  async fetchBalances({ commit }, wallet) {
+    try {
+      const response = await bank.requestBalances(wallet);
+      commit('setBalancesProp', {
+        path: CONTRACT.TOKEN.TYPE.NATIVE,
+        value: response.data.balances,
+      });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async fetchWasmBalances({ commit }, wallet) {
+    try {
+      const response = await wasms.requestAccountBalances({
+        accountAddress: wallet,
+        cw20Code: CONFIG.WASM_CW20_CODE_ID,
+        swapCode: CONFIG.WASM_SWAP_CODE_ID,
+      });
+      commit('setBalancesProp', {
+        path: CONTRACT.TOKEN.TYPE.CW20,
+        value: response.data.balances,
+      });
+    } catch (error) {
+      commit('setError', error);
+    }
   },
   async initAssetsDetail({ commit, dispatch }, address) {
     commit('reset');

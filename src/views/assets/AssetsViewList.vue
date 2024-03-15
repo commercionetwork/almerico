@@ -30,9 +30,17 @@ export default {
   },
   computed: {
     ...mapGetters('assets', ['error', 'isLoading']),
+    ...mapGetters('keplr', ['wallet']),
+  },
+  watch: {
+    wallet(newValue) {
+      if (newValue) {
+        this.initAssetsList(newValue);
+      }
+    },
   },
   created() {
-    this.initAssetsList();
+    this.initAssetsList(this.wallet);
   },
   methods: {
     ...mapActions('assets', ['initAssetsList']),

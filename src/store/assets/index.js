@@ -9,6 +9,7 @@ export const initState = () => ({
   isInvalid: true,
   supply: [],
   list: [],
+  balances: null,
   detail: null,
   newCW20: null,
   government: '',
