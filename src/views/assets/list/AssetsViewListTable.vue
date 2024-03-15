@@ -4,8 +4,6 @@
       <v-data-table
         :headers="headers"
         :items="items"
-        :sort-by.sync="sortBy"
-        :sort-desc.sync="sortDesc"
         @click:row="(item) => openDetail(item)"
       >
         <template #[`item.total_supply`]="{ item }">
@@ -18,19 +16,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import assetsTableHelper from '../helpers/assetsTableHelper';
 import { ROUTES } from '@/constants';
 import { tokensHandler } from '@/utils';
 
 export default {
   name: 'AssetsViewListTable',
-  data() {
-    return {
-      sortBy: 'name',
-      sortDesc: false,
-    };
-  },
   computed: {
-    ...mapGetters('assets', ['list']),
+    ...mapGetters('assets', ['list', 'supply']),
     headers() {
       return [
         { text: this.$t('labels.name'), value: 'name', width: '35%' },
@@ -43,7 +36,10 @@ export default {
       ];
     },
     items() {
-      return this.list.filter((item) => item.symbol !== 'wslpt');
+      return assetsTableHelper.buildItems({
+        supply: this.supply,
+        list: this.list,
+      });
     },
   },
   methods: {

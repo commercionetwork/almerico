@@ -47,7 +47,7 @@ const SCROLL = Object.freeze({
 });
 
 const STABLE_COIN = Object.freeze({
-  NAME: 'commercio cash credits',
+  NAME: 'Commercio Cash Credits',
   SYMBOL: 'CCC',
   DENOM: 'uccc',
   EXPONENT: 6,
@@ -58,7 +58,7 @@ const STABLE_COIN = Object.freeze({
 });
 
 const TOKEN = Object.freeze({
-  NAME: 'commercio',
+  NAME: 'Commercio',
   SYMBOL: 'COM',
   DENOM: 'ucommercio',
   EXPONENT: 6,
