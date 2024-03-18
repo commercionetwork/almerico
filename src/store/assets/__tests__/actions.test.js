@@ -1,5 +1,5 @@
 import actions from '../actions.js';
-import { mockErrors, mockPagination } from '@/__mocks__';
+import { mockChannels, mockErrors, mockPagination } from '@/__mocks__';
 import { CONFIG } from '@/constants';
 import { stringEncoder } from '@/utils';
 
@@ -195,6 +195,25 @@ describe('store/assets/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setIsInvalid', isInvalid);
   });
+
+  test('if "fetchConnectionChannels" reset channels and then set the new connection data, and set the error if it is caught', async () => {
+    const commit = jest.fn();
+    const connectionId = 'connectionId';
+
+    await actions.fetchConnectionChannels({ commit }, connectionId);
+
+    expect(commit).toHaveBeenCalledWith('setChannels', []);
+    expect(commit).toHaveBeenCalledWith(
+      'setChannels',
+      mockResponse.data.channels
+    );
+
+    mockError = true;
+
+    await actions.fetchConnectionChannels({ commit }, connectionId);
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
+  });
 });
 
 jest.mock('../../../apis/http/commercio-api.js', () => ({
@@ -243,6 +262,30 @@ jest.mock('../../../apis/http/cosmwasm-api.js', () => ({
 
         mockResponse = {
           data: { data: 'data' },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
+
+jest.mock('../../../apis/http/ibc-core-api.js', () => ({
+  requestConnectionChannels: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: {
+            channels: mockChannels(),
+            pagination: mockPagination(),
+            height: {
+              revision_number: '0',
+              revision_height: '17467168',
+            },
+          },
         };
         resolve(mockResponse);
       }, 1);

@@ -12,6 +12,7 @@ describe('store/assets/mutations', () => {
     state.error = new Error('error');
     state.isLoading = true;
     state.isHandling = true;
+    state.channels = [{ id: 1 }];
     state.supply = [{ id: 1 }];
     state.list = [{ id: 1 }];
     state.balances = { path_1: [{ id: 1 }] };
@@ -46,6 +47,14 @@ describe('store/assets/mutations', () => {
     mutations.setHandling(state, true);
 
     expect(state.isHandling).toBe(true);
+  });
+
+  test('mutations.setChannels', () => {
+    const payload = [{ id: 1 }];
+
+    mutations.setChannels(state, payload);
+
+    expect(state.channels).toStrictEqual(payload);
   });
 
   test('mutations.setSupply', () => {

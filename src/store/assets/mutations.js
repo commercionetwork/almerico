@@ -14,6 +14,9 @@ export default {
   setHandling(state, payload) {
     state.isHandling = payload;
   },
+  setChannels(state, payload) {
+    state.channels = payload;
+  },
   setSupply(state, payload) {
     state.supply = payload;
   },

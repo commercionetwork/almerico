@@ -1,5 +1,6 @@
 import { mockBalance, mockBalances } from './balances-mock';
 import { mockBlock, mockBlockSupposedTime, mockBlocks } from './blocks-mock';
+import { mockChannel, mockChannels } from './channel-mock';
 import { mockChart } from './chart-mock';
 import { mockCommission } from './commission-mock';
 import {
@@ -48,6 +49,8 @@ export {
   mockBlock,
   mockBlockSupposedTime,
   mockBlocks,
+  mockChannel,
+  mockChannels,
   mockChart,
   mockCommission,
   mockContract,

@@ -1,4 +1,4 @@
-import { bank, commercio, cosmwasm, wasms } from '@/apis/http';
+import { bank, commercio, cosmwasm, ibcCore, wasms } from '@/apis/http';
 import { CONFIG, CONTRACT } from '@/constants';
 import { msgBuilder, stringEncoder } from '@/utils';
 
@@ -271,5 +271,14 @@ export default {
     });
     commit('setHandling', false);
     return true;
+  },
+  async fetchConnectionChannels({ commit }, connectionId) {
+    commit('setChannels', []);
+    try {
+      const response = await ibcCore.requestConnectionChannels(connectionId);
+      commit('setChannels', response.data.channels);
+    } catch (error) {
+      commit('setError', error);
+    }
   },
 };

@@ -7,6 +7,7 @@ export const initState = () => ({
   isLoading: false,
   isHandling: false,
   isInvalid: true,
+  channels: [],
   supply: [],
   list: [],
   balances: null,

@@ -2,6 +2,7 @@ export default {
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
   isHandling: (state) => state.isHandling,
+  channels: (state) => state.channels,
   supply: (state) => state.supply,
   list: (state) => state.list,
   balances: (state) => state.balances,
