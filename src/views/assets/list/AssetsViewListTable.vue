@@ -13,21 +13,13 @@
           <div v-text="formatAmount(item.balance, item.decimals)" />
         </template>
         <template #[`item.deposit`]="{ item }">
-          <v-btn
-            v-if="item.balance"
-            text
-            @click.stop="openTransfer(item, TRANSFER.TYPE.DEPOSIT)"
-          >
+          <v-btn text @click.stop="openTransfer(item, TRANSFER.TYPE.DEPOSIT)">
             <span class="text-caption" v-text="$t('labels.deposit')" />
             <v-icon right>{{ mdiChevronRight }}</v-icon>
           </v-btn>
         </template>
         <template #[`item.withdraw`]="{ item }">
-          <v-btn
-            v-if="item.balance"
-            text
-            @click.stop="openTransfer(item, TRANSFER.TYPE.WITHDRAW)"
-          >
+          <v-btn text @click.stop="openTransfer(item, TRANSFER.TYPE.WITHDRAW)">
             <span class="text-caption" v-text="$t('labels.withdraw')" />
             <v-icon right>{{ mdiChevronRight }}</v-icon>
           </v-btn>
@@ -95,9 +87,6 @@ export default {
   methods: {
     ...mapActions('assets', ['handleModal']),
     formatAmount(tokens, decimals) {
-      if (!tokens) {
-        return '-';
-      }
       const amount = tokensHandler.convertFromBase(tokens, decimals);
       return tokensHandler.format(amount, decimals);
     },
