@@ -90,8 +90,14 @@ const WASM_SWAP_CODE_ID =
     ? process.env.VUE_APP_WASM_SWAP_CODE_ID
     : '';
 
+const CONNECTIONS =
+  process.env.VUE_APP_CONNECTIONS !== undefined
+    ? process.env.VUE_APP_CONNECTIONS
+    : '[]';
+
 export default Object.freeze({
   BROWSER_STORAGE_KEYS,
+  CONNECTIONS,
   COIN_TYPE,
   COPYRIGHT,
   FEE_AMOUNT,
