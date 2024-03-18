@@ -11,6 +11,9 @@ export default {
   setLoading(state, payload) {
     state.isLoading = payload;
   },
+  setFetching(state, payload) {
+    state.isFetching = payload;
+  },
   setHandling(state, payload) {
     state.isHandling = payload;
   },

@@ -1,6 +1,7 @@
 export default {
   error: (state) => state.error,
   isLoading: (state) => state.isLoading,
+  isFetching: (state) => state.isFetching,
   isHandling: (state) => state.isHandling,
   channels: (state) => state.channels,
   supply: (state) => state.supply,

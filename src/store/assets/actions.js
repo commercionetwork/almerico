@@ -272,11 +272,37 @@ export default {
     commit('setHandling', false);
     return true;
   },
+  async initIBCTransfer(
+    { commit, dispatch },
+    { connectionId, address = '', baseURL = '', denom = '' } = {}
+  ) {
+    commit('setFetching', true);
+    const requests = [dispatch('fetchConnectionChannels', connectionId)];
+    if (address && baseURL && denom) {
+      requests.push(
+        dispatch('fetchConnectionBalance', { address, baseURL, denom })
+      );
+    }
+    await Promise.all(requests);
+    commit('setFetching', false);
+  },
   async fetchConnectionChannels({ commit }, connectionId) {
     commit('setChannels', []);
     try {
       const response = await ibcCore.requestConnectionChannels(connectionId);
       commit('setChannels', response.data.channels);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async fetchConnectionBalance({ commit }, { address, baseURL, denom }) {
+    try {
+      const response = await bank.requestTokenBalance({
+        address,
+        baseURL,
+        denom,
+      });
+      console.log('response', response.data.balances);
     } catch (error) {
       commit('setError', error);
     }

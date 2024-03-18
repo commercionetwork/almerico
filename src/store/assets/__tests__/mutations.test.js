@@ -11,6 +11,7 @@ describe('store/assets/mutations', () => {
   test('mutations.reset', () => {
     state.error = new Error('error');
     state.isLoading = true;
+    state.isFetching = true;
     state.isHandling = true;
     state.channels = [{ id: 1 }];
     state.supply = [{ id: 1 }];
@@ -41,6 +42,12 @@ describe('store/assets/mutations', () => {
     mutations.setLoading(state, true);
 
     expect(state.isLoading).toBe(true);
+  });
+
+  test('mutations.setFetching', () => {
+    mutations.setFetching(state, true);
+
+    expect(state.isFetching).toBe(true);
   });
 
   test('mutations.setHandling', () => {

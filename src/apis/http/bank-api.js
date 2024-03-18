@@ -25,6 +25,21 @@ const bank = {
       baseURL: APIS.HTTP.BANK,
     });
   },
+  /**
+   *
+   * @param {String} address
+   * @param {String} baseURL
+   * @param {String} denom
+   * @returns {AxiosPromise}
+   */
+  requestTokenBalance({ address, baseURL, denom }) {
+    return axios({
+      url: `/balances/${address}/by_denom`,
+      method: 'get',
+      baseURL,
+      params: { denom },
+    });
+  },
 };
 
 export default bank;
