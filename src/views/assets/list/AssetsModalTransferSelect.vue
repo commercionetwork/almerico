@@ -2,10 +2,10 @@
   <v-select
     dense
     item-text="name"
-    item-value="id"
     outlined
+    return-object
     :items="items"
-    v-model="connectionId"
+    v-model="connection"
   >
     <template #label>
       <span v-text="$t('labels.chain')" />
@@ -28,8 +28,8 @@ export default {
   name: 'AssetsModalTransferSelect',
   props: {
     value: {
-      type: String,
-      default: '',
+      type: Object,
+      default: () => null,
     },
     items: {
       type: Array,
@@ -43,7 +43,7 @@ export default {
     };
   },
   computed: {
-    connectionId: {
+    connection: {
       get() {
         return this.value;
       },

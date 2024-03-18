@@ -34,7 +34,7 @@ const bank = {
    */
   requestTokenBalance({ address, baseURL, denom }) {
     return axios({
-      url: `/balances/${address}/by_denom`,
+      url: `/cosmos/bank/v1beta1/balances/${address}/by_denom`,
       method: 'get',
       baseURL,
       params: { denom },

@@ -15,7 +15,7 @@
       <v-card-text>
         <assets-modal-transfer-select
           :items="connections"
-          v-model="connectionId"
+          v-model="connection"
         />
       </v-card-text>
     </v-card>
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       mdiClose,
-      connectionId: '',
+      connection: null,
       dialog: false,
       model: {
         amount: '0.01',
@@ -66,8 +66,13 @@ export default {
     },
   },
   watch: {
-    connectionId(value) {
-      this.initIBCTransfer({ connectionId: value });
+    connection(value) {
+      let wallet, token;
+      if (this.isDeposit) {
+        wallet = this.wallet;
+        token = this.token;
+      }
+      this.initIBCTransfer({ connection: value, wallet, token });
     },
     modal(value) {
       this.dialog = !!value;
@@ -75,7 +80,7 @@ export default {
   },
   created() {
     if (this.connections.length > 0) {
-      this.connectionId = this.connections[0].id;
+      this.connection = this.connections[0];
     }
   },
   methods: {

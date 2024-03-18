@@ -1,6 +1,11 @@
 import { bank, commercio, cosmwasm, ibcCore, wasms } from '@/apis/http';
 import { CONFIG, CONTRACT } from '@/constants';
-import { msgBuilder, stringEncoder } from '@/utils';
+import {
+  bech32Manager,
+  msgBuilder,
+  stringEncoder,
+  tokensHandler,
+} from '@/utils';
 
 export default {
   async initAssetsList({ commit, dispatch }, wallet) {
@@ -274,37 +279,56 @@ export default {
   },
   async initIBCTransfer(
     { commit, dispatch },
-    { connectionId, address = '', baseURL = '', denom = '' } = {}
+    { connection, wallet = '', token = null } = {}
   ) {
     commit('setFetching', true);
-    const requests = [dispatch('fetchConnectionChannels', connectionId)];
-    if (address && baseURL && denom) {
-      requests.push(
-        dispatch('fetchConnectionBalance', { address, baseURL, denom })
-      );
-    }
+    const requests = [
+      dispatch('fetchConnectionData', { wallet, connection, token }),
+    ];
     await Promise.all(requests);
     commit('setFetching', false);
   },
-  async fetchConnectionChannels({ commit }, connectionId) {
+  async fetchConnectionData(
+    { commit, dispatch },
+    { wallet, connection, token }
+  ) {
     commit('setChannels', []);
     try {
-      const response = await ibcCore.requestConnectionChannels(connectionId);
-      commit('setChannels', response.data.channels);
+      const response = await ibcCore.requestConnectionChannels(connection.id);
+      const channels = response.data.channels;
+      commit('setChannels', channels);
+      if (wallet && token) {
+        await dispatch('fetchConnectionBalance', {
+          wallet,
+          channels,
+          connection,
+          token,
+        });
+      }
     } catch (error) {
       commit('setError', error);
     }
   },
-  async fetchConnectionBalance({ commit }, { address, baseURL, denom }) {
+  async fetchConnectionBalance(
+    { commit },
+    { wallet, channels, connection, token }
+  ) {
+    const address = bech32Manager.encode(
+      bech32Manager.decode(wallet),
+      connection.hrp
+    );
+    const channel = channels[channels.length - 1];
+    const denom = tokensHandler.buildIBCDenom({ channel, name: token.name });
     try {
       const response = await bank.requestTokenBalance({
         address,
-        baseURL,
+        baseURL: connection.lcd,
         denom,
       });
-      console.log('response', response.data.balances);
+      console.log('response', response.data.balance);
     } catch (error) {
-      commit('setError', error);
+      console.log('error', error);
+      // commit('setError', error);
     }
   },
 };

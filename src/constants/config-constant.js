@@ -23,19 +23,25 @@ const LEGACY_VERSIONS = Object.freeze({
   V_038: '0.38',
 });
 
+const BECH32_HRP = Object.freeze({
+  COMMERCIO: 'did:com:',
+  OSMOSIS: 'osmo',
+  REBUS: 'rebus',
+});
+
 const PREFIXES = Object.freeze({
   ACCOUNT: {
-    ADDRESS: 'did:com:',
-    KEY: 'did:com:pub',
+    ADDRESS: BECH32_HRP.COMMERCIO,
+    KEY: `${BECH32_HRP.COMMERCIO}pub`,
   },
   VALIDATOR: {
     CONSENSUS: {
-      ADDRESS: 'did:com:valcons',
-      KEY: 'did:com:valconspub',
+      ADDRESS: `${BECH32_HRP.COMMERCIO}valcons`,
+      KEY: `${BECH32_HRP.COMMERCIO}valconspub`,
     },
     OPERATOR: {
-      ADDRESS: 'did:com:valoper',
-      KEY: 'did:com:valoperpub',
+      ADDRESS: `${BECH32_HRP.COMMERCIO}valoper`,
+      KEY: `${BECH32_HRP.COMMERCIO}valoperpub`,
     },
   },
 });
@@ -96,6 +102,7 @@ const CONNECTIONS =
     : [];
 
 export default Object.freeze({
+  BECH32_HRP,
   BROWSER_STORAGE_KEYS,
   CONNECTIONS,
   COIN_TYPE,

@@ -1,4 +1,15 @@
+import { stringEncoder } from '@/utils';
+
 const tokensHandler = {
+  buildIBCDenom({ channel, name }) {
+    try {
+      const seed = `${channel.port_id}/${channel.channel_id}/${name}`;
+      const unhashedIbc = stringEncoder.encodeToSha256(seed);
+      return 'ibc/' + unhashedIbc.toUpperCase();
+    } catch (error) {
+      return null;
+    }
+  },
   convertFromBase(amount, decimals) {
     return parseInt(amount) / Math.pow(10, decimals);
   },
