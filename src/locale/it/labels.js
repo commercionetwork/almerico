@@ -27,6 +27,7 @@ export const labels = {
   capabilityInvocation: 'Capability invocation',
   caption: 'Didascalia',
   certificateProfile: 'Profilo del certificato',
+  chain: 'Chain',
   changes: 'Modifiche',
   circulatingSupply: 'Supply circolante',
   claimRewards: 'Richiedi rewards',

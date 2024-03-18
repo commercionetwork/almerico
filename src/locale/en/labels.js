@@ -27,6 +27,7 @@ export const labels = {
   capabilityInvocation: 'Capability invocation',
   caption: 'Caption',
   certificateProfile: 'Certificate profile',
+  chain: 'Chain',
   changes: 'Changes',
   circulatingSupply: 'Circulating supply',
   claimRewards: 'Claim rewards',
