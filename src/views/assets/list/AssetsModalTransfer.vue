@@ -74,9 +74,8 @@ export default {
     },
   },
   created() {
-    if (this.dialog && this.connections.length > 0) {
+    if (this.connections.length > 0) {
       this.connectionId = this.connections[0].id;
-      this.fetchConnectionChannels(this.connectionId);
     }
   },
   methods: {

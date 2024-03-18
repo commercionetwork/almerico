@@ -13,13 +13,21 @@
           <div v-text="formatAmount(item.balance, item.decimals)" />
         </template>
         <template #[`item.deposit`]="{ item }">
-          <v-btn text @click.stop="openTransfer(item, TRANSFER.TYPE.DEPOSIT)">
+          <v-btn
+            text
+            :disabled="!wallet"
+            @click.stop="openTransfer(item, TRANSFER.TYPE.DEPOSIT)"
+          >
             <span class="text-caption" v-text="$t('labels.deposit')" />
             <v-icon right>{{ mdiChevronRight }}</v-icon>
           </v-btn>
         </template>
         <template #[`item.withdraw`]="{ item }">
-          <v-btn text @click.stop="openTransfer(item, TRANSFER.TYPE.WITHDRAW)">
+          <v-btn
+            text
+            :disabled="!wallet"
+            @click.stop="openTransfer(item, TRANSFER.TYPE.WITHDRAW)"
+          >
             <span class="text-caption" v-text="$t('labels.withdraw')" />
             <v-icon right>{{ mdiChevronRight }}</v-icon>
           </v-btn>
@@ -46,6 +54,7 @@ export default {
   },
   computed: {
     ...mapGetters('assets', ['balances', 'list', 'supply']),
+    ...mapGetters('keplr', ['wallet']),
     headers() {
       return [
         { text: this.$t('labels.name'), value: 'name', width: '30%' },
