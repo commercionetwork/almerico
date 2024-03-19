@@ -18,6 +18,7 @@ const assetsTableHelper = {
         symbol: cw20.symbol,
         total_supply: cw20.total_supply,
         balance: cw20.balance,
+        type: cw20.type,
       });
     }
     return items;
@@ -54,6 +55,7 @@ const adaptSupply = ({ balances, supply }) => {
   return items.map((item) => {
     const balance = nativeBalances.find((balance) => balance.denom === item.id);
     return {
+      id: item.id,
       balance: balance ? parseFloat(balance.amount) : 0,
       decimals: item.decimals,
       name: item.name,
