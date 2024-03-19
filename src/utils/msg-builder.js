@@ -9,6 +9,7 @@ import {
   MsgExecuteContract,
   MsgInstantiateContract,
 } from 'cosmjs-types/cosmwasm/wasm/v1/tx';
+import { MsgTransfer } from 'cosmjs-types/ibc/applications/transfer/v1/tx';
 
 const msgBuilder = {
   buildMsgBeginRedelegate({ validatorAddress, srcAddress, amount, account }) {
@@ -70,6 +71,31 @@ const msgBuilder = {
         funds,
       }),
     };
+  },
+  buildMsgTransfer({
+    sourcePort,
+    sourceChannel,
+    token,
+    sender,
+    receiver,
+    timeoutHeight = null,
+    timeoutTimestamp = '',
+    memo = '',
+  } = {}) {
+    const msg = {
+      typeUrl: '/ibc.applications.transfer.v1.MsgTransfer',
+      value: MsgTransfer.fromPartial({
+        sourcePort,
+        sourceChannel,
+        token,
+        sender,
+        receiver,
+        timeoutHeight,
+        timeoutTimestamp,
+        memo,
+      }),
+    };
+    return msg;
   },
   buildMsgUndelegate({ validatorAddress, amount, account }) {
     const msg = {
