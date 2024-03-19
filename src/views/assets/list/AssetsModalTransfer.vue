@@ -13,26 +13,53 @@
         </v-toolbar-items>
       </v-toolbar>
       <v-card-text>
-        <assets-modal-transfer-select
-          :items="connections"
-          v-model="connection"
-        />
+        <v-form :disabled="isHandling">
+          <assets-modal-transfer-select
+            :items="connections"
+            v-model="connection"
+          />
+          <assets-modal-transfer-amount
+            :maxBalance="maxBalance"
+            v-model.trim="model.amount"
+          />
+        </v-form>
       </v-card-text>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import AssetsModalTransferAmount from './AssetsModalTransferAmount.vue';
 import AssetsModalTransferSelect from './AssetsModalTransferSelect.vue';
 
 import { mdiClose } from '@mdi/js';
 import { mapActions, mapGetters } from 'vuex';
+import { validationMixin } from 'vuelidate';
 import { CONFIG, TRANSFER } from '@/constants';
+import { tokensHandler } from '@/utils';
+import assetsTransferManager from '../helpers/assetsTransferManager';
 
 export default {
   name: 'AssetsModalTransfer',
   components: {
+    AssetsModalTransferAmount,
     AssetsModalTransferSelect,
+  },
+  mixins: [validationMixin],
+  validations() {
+    return {
+      model: {
+        amount: {
+          greaterThanZero: (value) =>
+            assetsTransferManager.greaterThanZero(value),
+          smallerThanBalance: (value) =>
+            assetsTransferManager.smallerThanBalance({
+              amount: value,
+              balance: this.maxBalance,
+            }),
+        },
+      },
+    };
   },
   data() {
     return {
@@ -40,13 +67,21 @@ export default {
       connection: null,
       dialog: false,
       model: {
-        amount: '0.01',
+        amount: '0',
       },
     };
   },
   computed: {
-    ...mapGetters('assets', ['isFetching', 'modal']),
+    ...mapGetters('assets', ['isFetching', 'isHandling', 'modal']),
     ...mapGetters('keplr', ['wallet']),
+    balance() {
+      return this.token ? this.token.balance : '0';
+    },
+    maxBalance() {
+      return this.token
+        ? tokensHandler.convertFromBase(this.balance, this.token.decimals) + ''
+        : '0';
+    },
     connections() {
       return CONFIG.CONNECTIONS;
     },
@@ -69,12 +104,13 @@ export default {
     connection(value) {
       let wallet, token;
       if (this.isDeposit) {
-        wallet = this.wallet;
         token = this.token;
+        wallet = this.wallet;
       }
-      this.initIBCTransfer({ connection: value, wallet, token });
+      this.initIBCTransfer({ connection: value, token, wallet });
     },
     modal(value) {
+      this.model.amount = '0';
       this.dialog = !!value;
     },
   },

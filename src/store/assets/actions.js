@@ -279,18 +279,18 @@ export default {
   },
   async initIBCTransfer(
     { commit, dispatch },
-    { connection, wallet = '', token = null } = {}
+    { connection, token = null, wallet = '' } = {}
   ) {
     commit('setFetching', true);
     const requests = [
-      dispatch('fetchConnectionData', { wallet, connection, token }),
+      dispatch('fetchConnectionData', { connection, token, wallet }),
     ];
     await Promise.all(requests);
     commit('setFetching', false);
   },
   async fetchConnectionData(
     { commit, dispatch },
-    { wallet, connection, token }
+    { connection, token, wallet }
   ) {
     commit('setChannels', []);
     try {
