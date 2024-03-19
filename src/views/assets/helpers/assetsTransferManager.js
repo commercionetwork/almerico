@@ -2,6 +2,7 @@ import { msgBuilder, tokensHandler } from '@/utils';
 
 const assetsTransferManager = {
   buildTransferMsg({ amount, channel, receiver, sender, token }) {
+    debugger;
     const uamount = tokensHandler.convertToBase(amount, token.decimals);
     const denom = tokensHandler.buildIBCDenom({ channel, token });
     const currentTimestamp = Date.now();

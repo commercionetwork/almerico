@@ -5,7 +5,15 @@
         <span class="text-caption info--text" v-text="`Max: ${maxBalance}`" />
       </v-btn>
     </div>
-    <v-text-field dense outlined v-model="amount"></v-text-field>
+    <v-text-field
+      dense
+      outlined
+      required
+      :error-messages="errorMessages"
+      v-model="amount"
+      @blur="v.$touch()"
+      @input="v.$touch()"
+    ></v-text-field>
   </div>
 </template>
 
@@ -13,6 +21,10 @@
 export default {
   name: 'AssetsModalTransferAmount',
   props: {
+    v: {
+      type: Object,
+      required: true,
+    },
     value: {
       type: String,
       required: true,
@@ -31,6 +43,14 @@ export default {
       set(value) {
         this.$emit('input', value);
       },
+    },
+    errorMessages() {
+      const errors = [];
+      if (!this.v || !this.v.$dirty) return errors;
+      !this.v.greaterThanZero && errors.push(this.$t('msgs.positiveAmount'));
+      !this.v.smallerThanBalance &&
+        errors.push(this.$t('msgs.amonutLessThanBalance'));
+      return errors;
     },
   },
   methods: {

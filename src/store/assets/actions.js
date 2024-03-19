@@ -331,4 +331,21 @@ export default {
       // commit('setError', error);
     }
   },
+  async transferTokens(
+    { commit, dispatch, rootGetters },
+    { msg, translator, context }
+  ) {
+    if (!rootGetters['keplr/isInitialized']) {
+      await dispatch(
+        'keplr/connect',
+        { translator, context },
+        {
+          root: true,
+        }
+      );
+    }
+    commit('setHandling', true);
+    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
+    commit('setHandling', false);
+  },
 };

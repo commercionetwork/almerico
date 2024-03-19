@@ -20,7 +20,16 @@
           />
           <assets-modal-transfer-amount
             :maxBalance="maxBalance"
+            :v="$v.model.amount"
             v-model.trim="model.amount"
+          />
+          <assets-modal-transfer-execute
+            :amount="model.amount"
+            :connection="connection"
+            :disabled="$v.$invalid"
+            :isDeposit="isDeposit"
+            :label="title"
+            :token="token"
           />
         </v-form>
       </v-card-text>
@@ -30,6 +39,7 @@
 
 <script>
 import AssetsModalTransferAmount from './AssetsModalTransferAmount.vue';
+import AssetsModalTransferExecute from './AssetsModalTransferExecute.vue';
 import AssetsModalTransferSelect from './AssetsModalTransferSelect.vue';
 
 import { mdiClose } from '@mdi/js';
@@ -43,6 +53,7 @@ export default {
   name: 'AssetsModalTransfer',
   components: {
     AssetsModalTransferAmount,
+    AssetsModalTransferExecute,
     AssetsModalTransferSelect,
   },
   mixins: [validationMixin],
