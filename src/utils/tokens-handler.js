@@ -1,12 +1,9 @@
-import { CONTRACT } from '@/constants';
 import { stringEncoder } from '@/utils';
 
 const tokensHandler = {
   buildIBCDenom({ channel, token }) {
-    const name =
-      token.type === CONTRACT.TOKEN.TYPE.NATIVE ? token.id : `cw20:${token.id}`;
     try {
-      const seed = `${channel.port_id}/${channel.channel_id}/${name}`;
+      const seed = `${channel.port_id}/${channel.channel_id}/cw20:${token.id}`;
       const unhashedIbc = stringEncoder.encodeToSha256(seed);
       return 'ibc/' + unhashedIbc.toUpperCase();
     } catch (error) {

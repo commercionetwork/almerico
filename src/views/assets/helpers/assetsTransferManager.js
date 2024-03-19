@@ -1,9 +1,13 @@
+import { CONTRACT } from '@/constants';
 import { msgBuilder, tokensHandler } from '@/utils';
 
 const assetsTransferManager = {
   buildTransferMsg({ amount, channel, receiver, sender, token }) {
     const uamount = tokensHandler.convertToBase(amount, token.decimals);
-    const denom = tokensHandler.buildIBCDenom({ channel, token });
+    const denom =
+      token.type === CONTRACT.TOKEN.TYPE.NATIVE
+        ? token.id
+        : tokensHandler.buildIBCDenom({ channel, token });
     const currentTimestamp = Date.now();
     const timeoutTimestamp = currentTimestamp + 20000;
     return msgBuilder.buildMsgTransfer({
