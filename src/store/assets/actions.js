@@ -317,8 +317,8 @@ export default {
       bech32Manager.decode(wallet),
       connection.hrp
     );
-    const channel = channels[channels.length - 1];
-    const denom = tokensHandler.buildIBCDenom({ channel, name: token.name });
+    const channel = channels[0]['counterparty'];
+    const denom = tokensHandler.buildIBCDenom({ channel, token });
     try {
       const response = await bank.requestTokenBalance({
         address,
