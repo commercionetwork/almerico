@@ -5,7 +5,7 @@
     outlined
     return-object
     :items="items"
-    v-model="connection"
+    v-model="chain"
   >
     <template #label>
       <span v-text="$t('labels.chain')" />
@@ -43,7 +43,7 @@ export default {
     };
   },
   computed: {
-    connection: {
+    chain: {
       get() {
         return this.value;
       },

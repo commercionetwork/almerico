@@ -15,7 +15,7 @@
         <template #[`item.deposit`]="{ item }">
           <v-btn
             text
-            :disabled="!wallet"
+            :disabled="disabled"
             @click.stop="openTransfer(item, TRANSFER.TYPE.DEPOSIT)"
           >
             <span class="text-caption" v-text="$t('labels.deposit')" />
@@ -25,7 +25,7 @@
         <template #[`item.withdraw`]="{ item }">
           <v-btn
             text
-            :disabled="!wallet"
+            :disabled="disabled"
             @click.stop="openTransfer(item, TRANSFER.TYPE.WITHDRAW)"
           >
             <span class="text-caption" v-text="$t('labels.withdraw')" />
@@ -41,7 +41,7 @@
 import { mdiChevronRight } from '@mdi/js';
 import { mapActions, mapGetters } from 'vuex';
 import assetsTableHelper from '../helpers/assetsTableHelper';
-import { CONTRACT, ROUTES, TRANSFER } from '@/constants';
+import { CONFIG, CONTRACT, ROUTES, TRANSFER } from '@/constants';
 import { tokensHandler } from '@/utils';
 
 export default {
@@ -91,6 +91,9 @@ export default {
         list: this.list,
         supply: this.supply,
       });
+    },
+    disabled() {
+      return !this.wallet || !CONFIG.CONNECTIONS.length;
     },
   },
   methods: {

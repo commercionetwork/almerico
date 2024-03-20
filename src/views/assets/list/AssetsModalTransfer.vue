@@ -14,10 +14,7 @@
       </v-toolbar>
       <v-card-text>
         <v-form :disabled="isHandling">
-          <assets-modal-transfer-select
-            :items="connections"
-            v-model="connection"
-          />
+          <assets-modal-transfer-select :items="connections" v-model="chain" />
           <assets-modal-transfer-amount
             :maxBalance="maxBalance"
             :v="$v.model.amount"
@@ -25,7 +22,7 @@
           />
           <assets-modal-transfer-execute
             :amount="model.amount"
-            :connection="connection"
+            :chain="chain"
             :disabled="$v.$invalid"
             :isDeposit="isDeposit"
             :label="title"
@@ -75,7 +72,7 @@ export default {
   data() {
     return {
       mdiClose,
-      connection: null,
+      chain: null,
       dialog: false,
       model: {
         amount: '0',
@@ -84,7 +81,6 @@ export default {
   },
   computed: {
     ...mapGetters('assets', ['isFetching', 'isHandling', 'modal']),
-    ...mapGetters('keplr', ['wallet']),
     balance() {
       return this.token ? this.token.balance : '0';
     },
@@ -112,13 +108,8 @@ export default {
     },
   },
   watch: {
-    connection(value) {
-      let wallet, token;
-      if (this.isDeposit) {
-        token = this.token;
-        wallet = this.wallet;
-      }
-      this.initIBCTransfer({ connection: value, token, wallet });
+    chain(value) {
+      this.initIBCTransfer(value.id);
     },
     modal(value) {
       this.model.amount = '0';
@@ -126,9 +117,7 @@ export default {
     },
   },
   created() {
-    if (this.connections.length > 0) {
-      this.connection = this.connections[0];
-    }
+    this.chain = this.connections[0];
   },
   methods: {
     ...mapActions('assets', ['handleModal', 'initIBCTransfer']),

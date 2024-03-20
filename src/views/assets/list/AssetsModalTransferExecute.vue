@@ -26,7 +26,7 @@ export default {
       type: String,
       required: true,
     },
-    connection: {
+    chain: {
       type: Object,
       required: true,
     },
@@ -48,10 +48,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('assets', ['isHandling', 'channels']),
+    ...mapGetters('assets', ['isHandling', 'connection']),
     ...mapGetters('keplr', ['wallet']),
     channel() {
-      const channel = this.channels[0];
+      const channel = this.connection.channel;
       return this.isDeposit
         ? channel['counterparty']
         : { port_id: channel['port_id'], channel_id: channel['channel_id'] };
@@ -61,7 +61,7 @@ export default {
         ? this.wallet
         : bech32Manager.encode(
             bech32Manager.decode(this.wallet),
-            this.connection.hrp
+            this.chain.hrp
           );
     },
     sender() {
@@ -69,19 +69,20 @@ export default {
         ? this.wallet
         : bech32Manager.encode(
             bech32Manager.decode(this.wallet),
-            this.connection.hrp
+            this.chain.hrp
           );
     },
   },
   methods: {
     ...mapActions('assets', ['transferTokens']),
     transfer() {
-      const msg = assetsTransferManager.buildTransferMsg({
+      const msg = assetsTransferManager.getMsg({
         amount: this.amount,
-        channel: this.channel,
-        receiver: this.receiver,
-        sender: this.sender,
+        chain: this.chain,
+        connection: this.connection,
+        isDeposit: this.isDeposit,
         token: this.token,
+        wallet: this.wallet,
       });
       this.transferTokens({ msg, translator: this.$t, context: this });
     },

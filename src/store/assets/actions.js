@@ -309,7 +309,7 @@ export default {
       const response = await ibcCore.requestConnectionClientState(connectionId);
       commit('addConnectionProp', {
         path: 'client',
-        value: response.data,
+        value: response.data.identified_client_state,
       });
     } catch (error) {
       commit('setError', error);
@@ -317,14 +317,18 @@ export default {
   },
   async fetchConnectionBalance(
     { commit },
-    { wallet, channels, connection, token }
+    { chain, connection, token, wallet }
   ) {
     const address = bech32Manager.encode(
       bech32Manager.decode(wallet),
-      connection.hrp
+      chain.hrp
     );
-    const channel = channels[0]['counterparty'];
-    const denom = tokensHandler.buildIBCDenom({ channel, token });
+    const channel = connection['channel']['counterparty'];
+    const denom = tokensHandler.buildIBCDenom({
+      channelId: channel.channel_id,
+      portId: channel.port_id,
+      token,
+    });
     try {
       const response = await bank.requestTokenBalance({
         address,
@@ -333,8 +337,7 @@ export default {
       });
       console.log('response', response.data.balance);
     } catch (error) {
-      console.log('error', error);
-      // commit('setError', error);
+      commit('setError', error);
     }
   },
   async transferTokens(
