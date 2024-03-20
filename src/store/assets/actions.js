@@ -277,34 +277,40 @@ export default {
     commit('setHandling', false);
     return true;
   },
-  async initIBCTransfer(
-    { commit, dispatch },
-    { connection, token = null, wallet = '' } = {}
-  ) {
+  async initIBCTransfer({ commit, dispatch }, connectionId) {
+    commit('setConnection', null);
     commit('setFetching', true);
     const requests = [
-      dispatch('fetchConnectionData', { connection, token, wallet }),
+      dispatch('fetchChannel', connectionId),
+      dispatch('fetchClient', connectionId),
     ];
     await Promise.all(requests);
     commit('setFetching', false);
   },
-  async fetchConnectionData(
-    { commit, dispatch },
-    { connection, token, wallet }
-  ) {
-    commit('setChannels', []);
+  async fetchChannel({ commit }, connectionId) {
     try {
-      const response = await ibcCore.requestConnectionChannels(connection.id);
+      const response = await ibcCore.requestConnectionChannels(connectionId);
       const channels = response.data.channels;
-      commit('setChannels', channels);
-      if (wallet && token) {
-        await dispatch('fetchConnectionBalance', {
-          wallet,
-          channels,
-          connection,
-          token,
+      if (channels.length > 0) {
+        const channel = channels.find(
+          (channel) => channel.state === 'STATE_OPEN'
+        );
+        commit('addConnectionProp', {
+          path: 'channel',
+          value: channel,
         });
       }
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async fetchClient({ commit }, connectionId) {
+    try {
+      const response = await ibcCore.requestConnectionClientState(connectionId);
+      commit('addConnectionProp', {
+        path: 'client',
+        value: response.data,
+      });
     } catch (error) {
       commit('setError', error);
     }

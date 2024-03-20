@@ -3,7 +3,7 @@ export default {
   isLoading: (state) => state.isLoading,
   isFetching: (state) => state.isFetching,
   isHandling: (state) => state.isHandling,
-  channels: (state) => state.channels,
+  connectionss: (state) => state.connectionss,
   supply: (state) => state.supply,
   list: (state) => state.list,
   balances: (state) => state.balances,

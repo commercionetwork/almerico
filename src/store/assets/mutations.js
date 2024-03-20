@@ -17,8 +17,13 @@ export default {
   setHandling(state, payload) {
     state.isHandling = payload;
   },
-  setChannels(state, payload) {
-    state.channels = payload;
+  setConnection(state, payload) {
+    state.connection = payload;
+  },
+  addConnectionProp(state, payload) {
+    const obj = { ...state.connection };
+    set(obj, payload.path, payload.value);
+    state.connection = { ...obj };
   },
   setSupply(state, payload) {
     state.supply = payload;

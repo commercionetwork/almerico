@@ -13,7 +13,7 @@ describe('store/assets/mutations', () => {
     state.isLoading = true;
     state.isFetching = true;
     state.isHandling = true;
-    state.channels = [{ id: 1 }];
+    state.connection = { id: 1 };
     state.supply = [{ id: 1 }];
     state.list = [{ id: 1 }];
     state.balances = { path_1: [{ id: 1 }] };
@@ -56,12 +56,21 @@ describe('store/assets/mutations', () => {
     expect(state.isHandling).toBe(true);
   });
 
-  test('mutations.setChannels', () => {
-    const payload = [{ id: 1 }];
+  test('mutations.setConnection', () => {
+    const payload = { id: 1 };
 
-    mutations.setChannels(state, payload);
+    mutations.setConnection(state, payload);
 
-    expect(state.channels).toStrictEqual(payload);
+    expect(state.connection).toStrictEqual(payload);
+  });
+
+  test('mutations.addConnectionProp', () => {
+    state.connection = { path_1: { id: 1 } };
+
+    mutations.addConnectionProp(state, { path: 'path_2', value: { id: 2 } });
+
+    const expected = { path_1: { id: 1 }, path_2: { id: 2 } };
+    expect(state.connection).toStrictEqual(expected);
   });
 
   test('mutations.setSupply', () => {

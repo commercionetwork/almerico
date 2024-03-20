@@ -8,7 +8,7 @@ export const initState = () => ({
   isFetching: false,
   isHandling: false,
   isInvalid: true,
-  channels: [],
+  connection: null,
   supply: [],
   list: [],
   balances: null,
