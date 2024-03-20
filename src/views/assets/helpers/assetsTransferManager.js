@@ -25,7 +25,7 @@ const assetsTransferManager = {
       ? bech32Manager.encode(bech32Manager.decode(wallet), chain.hrp)
       : wallet;
     const latestHeight = connection.client.client_state.latest_height;
-    const timeoutTimestamp = Date.now() + 60 * 1000;
+    const timeoutTimestamp = Date.now() + 10 * 60 * 1000;
     return msgBuilder.buildMsgTransfer({
       sourcePort,
       sourceChannel,
