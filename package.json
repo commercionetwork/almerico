@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.24.0",
-    "@babel/eslint-parser": "~7.23.0",
+    "@babel/eslint-parser": "~7.24.0",
     "@mdi/js": "~7.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
