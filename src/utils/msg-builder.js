@@ -80,7 +80,7 @@ const msgBuilder = {
     receiver,
     timeoutHeight = null,
     timeoutTimestamp = '',
-    memo = '',
+    memo = 'IBC transfer',
   } = {}) {
     const msg = {
       typeUrl: '/ibc.applications.transfer.v1.MsgTransfer',
