@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-right">
-      <v-btn text @click="setMax">
+      <v-btn text :disabled="isHandling" @click="setMax">
         <span class="text-caption info--text" v-text="`Max: ${maxBalance}`" />
       </v-btn>
     </div>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'AssetsModalIbcTransferAmount',
   props: {
@@ -36,6 +38,7 @@ export default {
   },
   emits: ['input'],
   computed: {
+    ...mapGetters('assetsIbc', ['isHandling']),
     amount: {
       get() {
         return this.value;
