@@ -1,4 +1,4 @@
-const mockChannel = (id = 1) => {
+const mockIBCChannel = (id = 1) => {
   const item = {
     state: 'STATE_OPEN',
     ordering: 'ORDER_UNORDERED',
@@ -14,11 +14,11 @@ const mockChannel = (id = 1) => {
   return item;
 };
 
-const mockChannels = (channels = 2) => {
+const mockIBCChannels = (channels = 2) => {
   const list = new Array(channels)
     .fill(0)
-    .map((_, index) => mockChannel(index));
+    .map((_, index) => mockIBCChannel(index));
   return list;
 };
 
-export { mockChannel, mockChannels };
+export { mockIBCChannel, mockIBCChannels };

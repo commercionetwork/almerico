@@ -1,6 +1,5 @@
 import { mockBalance, mockBalances } from './balances-mock';
 import { mockBlock, mockBlockSupposedTime, mockBlocks } from './blocks-mock';
-import { mockChannel, mockChannels } from './channel-mock';
 import { mockChart } from './chart-mock';
 import { mockCommission } from './commission-mock';
 import {
@@ -11,6 +10,8 @@ import {
 } from './cosmwasm-mock';
 import { mockDelegation, mockDelegations } from './delegations-mock';
 import { mockErrors } from './errors-mock';
+import { mockIBCChannel, mockIBCChannels } from './ibc-channel-mock';
+import { mockIBCClient, mockIBCClients } from './ibc-client-mock';
 import { mockMembership } from './membership-mock';
 import { mockNodeInfo } from './node-info-mock';
 import { mockOverview } from './overview-mock';
@@ -50,8 +51,6 @@ export {
   mockBlock,
   mockBlockSupposedTime,
   mockBlocks,
-  mockChannel,
-  mockChannels,
   mockChart,
   mockCommission,
   mockContract,
@@ -59,6 +58,10 @@ export {
   mockDelegation,
   mockDelegations,
   mockErrors,
+  mockIBCChannel,
+  mockIBCChannels,
+  mockIBCClient,
+  mockIBCClients,
   mockMembership,
   mockModel,
   mockModels,
