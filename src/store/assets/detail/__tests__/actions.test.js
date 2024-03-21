@@ -6,7 +6,7 @@ const mockErrorResponse = mockErrors(400);
 let mockError = false;
 let mockResponse = null;
 
-describe('store/assets/actions', () => {
+describe('store/assetsDetail/actions', () => {
   const queryData = 'queryData';
   jest.spyOn(stringEncoder, 'encodeToBase64').mockReturnValue(queryData);
 

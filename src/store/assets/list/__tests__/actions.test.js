@@ -18,7 +18,7 @@ const mockContracts = new Array(10)
   .fill(null)
   .map(() => `contract ${counter++}`);
 
-describe('store/assets/actions', () => {
+describe('store/assetsList/actions', () => {
   const queryData = 'queryData';
   jest.spyOn(stringEncoder, 'encodeToBase64').mockReturnValue(queryData);
 

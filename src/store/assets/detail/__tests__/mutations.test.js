@@ -1,7 +1,7 @@
 import { initState } from '../index';
 import mutations from '../mutations';
 
-describe('store/assets/mutations', () => {
+describe('store/assetsDetail/mutations', () => {
   let state = {};
 
   beforeEach(() => {
