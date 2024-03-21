@@ -1,12 +1,12 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
-import AssetsViewDetailInfo from '../AssetsViewDetailInfo.vue';
+import AssetsViewDetailTransfer from '../AssetsViewDetailTransfer.vue';
 
 const localVue = createLocalVue();
 
-describe('views/assets/AssetsViewDetailInfo.vue', () => {
+describe('views/assets/AssetsViewDetailTransfer.vue', () => {
   const actions = {
-    initAssetsDetail: jest.fn(),
+    initAssetsTransfer: jest.fn(),
   };
   const mockStore = new Vuex.Store({
     modules: {
@@ -22,10 +22,11 @@ describe('views/assets/AssetsViewDetailInfo.vue', () => {
   };
   const computed = {
     address: () => 'address',
+    title: () => 'title',
   };
 
   test('if loading indicator is displayed', async () => {
-    const wrapper = shallowMount(AssetsViewDetailInfo, {
+    const wrapper = shallowMount(AssetsViewDetailTransfer, {
       localVue,
       mocks,
       computed: {
@@ -42,7 +43,7 @@ describe('views/assets/AssetsViewDetailInfo.vue', () => {
 
   test('if message error is displayed', async () => {
     const error = Error('message');
-    const wrapper = shallowMount(AssetsViewDetailInfo, {
+    const wrapper = shallowMount(AssetsViewDetailTransfer, {
       localVue,
       mocks,
       computed: {
@@ -58,7 +59,7 @@ describe('views/assets/AssetsViewDetailInfo.vue', () => {
   });
 
   test('if content is displayed', async () => {
-    const wrapper = shallowMount(AssetsViewDetailInfo, {
+    const wrapper = shallowMount(AssetsViewDetailTransfer, {
       localVue,
       mocks,
       computed: {

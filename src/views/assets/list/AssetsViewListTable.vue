@@ -53,7 +53,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('assets', ['balances', 'list', 'supply']),
+    ...mapGetters('assetsList', ['balances', 'list', 'supply']),
     ...mapGetters('keplr', ['wallet']),
     headers() {
       return [
@@ -97,7 +97,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('assets', ['handleModal']),
+    ...mapActions('assetsIbc', ['handleModal']),
     formatAmount(tokens, decimals) {
       const amount = tokensHandler.convertFromBase(tokens, decimals);
       return tokensHandler.format(amount, decimals);

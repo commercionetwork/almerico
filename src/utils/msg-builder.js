@@ -87,9 +87,9 @@ const msgBuilder = {
       value: MsgTransfer.fromPartial({
         sourcePort,
         sourceChannel,
-        token,
         sender,
         receiver,
+        token,
         timeoutHeight,
         timeoutTimestamp,
         memo,

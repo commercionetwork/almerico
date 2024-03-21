@@ -32,7 +32,7 @@ export default {
     AssetsModalTransfer,
   },
   computed: {
-    ...mapGetters('assets', ['error', 'isLoading']),
+    ...mapGetters('assetsList', ['error', 'isLoading']),
     ...mapGetters('keplr', ['wallet']),
   },
   watch: {
@@ -44,7 +44,7 @@ export default {
     this.initAssetsList(this.wallet);
   },
   methods: {
-    ...mapActions('assets', ['initAssetsList']),
+    ...mapActions('assetsList', ['initAssetsList']),
   },
 };
 </script>

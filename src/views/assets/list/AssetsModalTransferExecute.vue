@@ -48,7 +48,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('assets', ['isHandling', 'connection']),
+    ...mapGetters('assetsIbc', ['isHandling', 'connection']),
     ...mapGetters('keplr', ['wallet']),
     channel() {
       const channel = this.connection.channel;
@@ -74,7 +74,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('assets', ['transferTokens']),
+    ...mapActions('assetsIbc', ['transferTokens']),
     transfer() {
       const msg = assetsTransferManager.getMsg({
         amount: this.amount,

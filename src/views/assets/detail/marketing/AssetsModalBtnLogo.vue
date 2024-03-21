@@ -26,10 +26,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('assets', ['contract', 'isHandling']),
+    ...mapGetters('assetsDetail', ['contract', 'isHandling']),
   },
   methods: {
-    ...mapActions('assets', ['handleAsset']),
+    ...mapActions('assetsDetail', ['handleAsset']),
     async save() {
       const msg = JSON.stringify({ upload_logo: { url: this.model.url } });
       const res = await this.handleAsset({

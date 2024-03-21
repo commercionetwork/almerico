@@ -71,7 +71,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('assets', ['detail']),
+    ...mapGetters('assetsDetail', ['detail']),
     marketing() {
       return this.detail && this.detail.marketing
         ? this.detail.marketing

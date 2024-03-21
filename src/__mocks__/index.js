@@ -27,6 +27,7 @@ import {
 } from './proposals-mock';
 import { mockRewards } from './rewards-mock';
 import { mockStakingParams } from './staking-params-mock';
+import { mockSupply, mockSupplyItem } from './supply-mock';
 import {
   mockTransaction,
   mockTransactionLegacy,
@@ -72,6 +73,8 @@ export {
   mockProposals,
   mockRewards,
   mockStakingParams,
+  mockSupply,
+  mockSupplyItem,
   mockTally,
   mockTallyParams,
   mockTransaction,

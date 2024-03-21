@@ -27,19 +27,19 @@ const assetsTransferManager = {
     const latestHeight = connection.client.client_state.latest_height;
     const timeoutTimestamp = Date.now() + 10 * 60 * 1000;
     return msgBuilder.buildMsgTransfer({
-      sourcePort,
-      sourceChannel,
-      token: {
-        amount: uamount,
-        denom,
-      },
-      sender,
       receiver,
+      sender,
+      sourceChannel,
+      sourcePort,
       timeoutHeight: {
         revisionNumber: latestHeight.revision_number,
         revisionHeight: latestHeight.revision_height,
       },
       timeoutTimestamp,
+      token: {
+        amount: uamount,
+        denom,
+      },
     });
   },
   greaterThanZero(amount) {

@@ -36,7 +36,7 @@ export default {
     AssetsViewDetailTransferForm,
   },
   computed: {
-    ...mapGetters('assets', ['error', 'isLoading', 'detail']),
+    ...mapGetters('assetsDetail', ['error', 'isLoading', 'detail']),
     address() {
       return this.$route.params.id;
     },
@@ -50,7 +50,7 @@ export default {
     this.initAssetsTransfer(this.address);
   },
   methods: {
-    ...mapActions('assets', ['initAssetsTransfer']),
+    ...mapActions('assetsDetail', ['initAssetsTransfer']),
   },
 };
 </script>

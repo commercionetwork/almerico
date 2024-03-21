@@ -46,11 +46,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('assets', ['isHandling', 'detail']),
+    ...mapGetters('assetsDetail', ['isHandling', 'detail']),
     ...mapGetters('keplr', ['wallet']),
   },
   methods: {
-    ...mapActions('assets', ['transferAsset']),
+    ...mapActions('assetsDetail', ['transferAsset']),
     async transfer() {
       const amount = tokensHandler
         .convertToBase(this.model.amount, this.detail.token.decimals)
