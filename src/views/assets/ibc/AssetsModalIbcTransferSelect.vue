@@ -25,7 +25,7 @@
 import { mdiChevronDown } from '@mdi/js';
 
 export default {
-  name: 'AssetsModalTransferSelect',
+  name: 'AssetsModalIbcTransferSelect',
   props: {
     value: {
       type: Object,

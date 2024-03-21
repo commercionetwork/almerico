@@ -14,13 +14,16 @@
       </v-toolbar>
       <v-card-text>
         <v-form :disabled="isHandling">
-          <assets-modal-transfer-select :items="connections" v-model="chain" />
-          <assets-modal-transfer-amount
+          <assets-modal-ibc-transfer-select
+            :items="connections"
+            v-model="chain"
+          />
+          <assets-modal-ibc-transfer-amount
             :maxBalance="maxBalance"
             :v="$v.model.amount"
             v-model.trim="model.amount"
           />
-          <assets-modal-transfer-execute
+          <assets-modal-ibc-transfer-execute
             :amount="model.amount"
             :chain="chain"
             :disabled="$v.$invalid"
@@ -35,9 +38,9 @@
 </template>
 
 <script>
-import AssetsModalTransferAmount from './AssetsModalTransferAmount.vue';
-import AssetsModalTransferExecute from './AssetsModalTransferExecute.vue';
-import AssetsModalTransferSelect from './AssetsModalTransferSelect.vue';
+import AssetsModalIbcTransferAmount from './AssetsModalIbcTransferAmount.vue';
+import AssetsModalIbcTransferExecute from './AssetsModalIbcTransferExecute.vue';
+import AssetsModalIbcTransferSelect from './AssetsModalIbcTransferSelect.vue';
 
 import { mdiClose } from '@mdi/js';
 import { mapActions, mapGetters } from 'vuex';
@@ -47,11 +50,11 @@ import { tokensHandler } from '@/utils';
 import assetsTransferManager from '../helpers/assetsTransferManager';
 
 export default {
-  name: 'AssetsModalTransfer',
+  name: 'AssetsModalIbcTransfer',
   components: {
-    AssetsModalTransferAmount,
-    AssetsModalTransferExecute,
-    AssetsModalTransferSelect,
+    AssetsModalIbcTransferAmount,
+    AssetsModalIbcTransferExecute,
+    AssetsModalIbcTransferSelect,
   },
   mixins: [validationMixin],
   validations() {

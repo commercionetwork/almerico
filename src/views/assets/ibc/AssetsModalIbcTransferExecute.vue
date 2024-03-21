@@ -20,7 +20,7 @@ import { bech32Manager } from '@/utils';
 import assetsTransferManager from '../helpers/assetsTransferManager';
 
 export default {
-  name: 'AssetsModalTransferExecute',
+  name: 'AssetsModalIbcTransferExecute',
   props: {
     amount: {
       type: String,

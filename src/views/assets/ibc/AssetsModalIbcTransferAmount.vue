@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'AssetsModalTransferAmount',
+  name: 'AssetsModalIbcTransferAmount',
   props: {
     v: {
       type: Object,
