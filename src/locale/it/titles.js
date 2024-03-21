@@ -69,6 +69,7 @@ export const titles = {
   statisticsVotes: 'Statistiche voti',
   swap: 'Swap',
   technicalInfo: 'Informazioni tecniche',
+  timeoutHeight: 'Timeout height',
   total: 'Totale',
   transactionDetail: 'Dettagli transazione',
   transactions: 'Transazioni',
