@@ -112,7 +112,7 @@ export default {
       });
     },
     openTransfer(item, type) {
-      this.handleModal({ token: JSON.stringify(item), type });
+      this.handleModal({ token: item, type });
     },
   },
 };

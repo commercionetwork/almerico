@@ -99,7 +99,7 @@ export default {
       return this.modal ? this.modal.type === TRANSFER.TYPE.DEPOSIT : false;
     },
     token() {
-      return this.modal ? JSON.parse(this.modal.token) : null;
+      return this.modal ? this.modal.token : null;
     },
     title() {
       if (!this.modal) {
@@ -112,20 +112,23 @@ export default {
   },
   watch: {
     chain(value) {
-      this.initIBCTransfer(value.id);
+      if (value) {
+        this.initIBCTransfer(value);
+      }
     },
     modal(value) {
       this.model.amount = '0';
       this.dialog = !!value;
     },
   },
-  created() {
-    this.chain = this.connections[0];
-  },
+  // created() {
+  //   this.chain = this.connections[0];
+  // },
   methods: {
     ...mapActions('assetsIbc', ['handleModal', 'initIBCTransfer']),
     close() {
       this.handleModal(null);
+      this.chain = null;
     },
   },
 };

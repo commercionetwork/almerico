@@ -8,7 +8,7 @@
     v-model="chain"
   >
     <template #label>
-      <span v-text="$t('labels.chain')" />
+      <span v-text="$t('labels.select')" />
     </template>
     <template #append>
       <v-icon color="primary">{{ mdiChevronDown }}</v-icon>

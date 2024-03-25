@@ -25,4 +25,9 @@ export default {
   setModal(state, payload) {
     state.modal = payload;
   },
+  addModalProp(state, payload) {
+    const obj = { ...state.modal };
+    set(obj, payload.path, payload.value);
+    state.modal = { ...obj };
+  },
 };

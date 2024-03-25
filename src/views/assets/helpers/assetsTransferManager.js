@@ -15,10 +15,10 @@ const assetsTransferManager = {
     return isNativeToken ? token.id : convertTokenToIBC(channel, token);
   },
   getReceiver({ wallet, hrp, isDeposit }) {
-    return isDeposit ? wallet : convertAccountToIBC(wallet, hrp);
+    return isDeposit ? wallet : convertAddressToCounterparty(wallet, hrp);
   },
   getSender({ wallet, hrp, isDeposit }) {
-    return isDeposit ? convertAccountToIBC(wallet, hrp) : wallet;
+    return isDeposit ? convertAddressToCounterparty(wallet, hrp) : wallet;
   },
   greaterThanZero(amount) {
     return !isNaN(amount) && Number(amount) > 0;
@@ -30,7 +30,7 @@ const assetsTransferManager = {
 
 export default assetsTransferManager;
 
-const convertAccountToIBC = (account, hrp) => {
+const convertAddressToCounterparty = (account, hrp) => {
   return bech32Manager.encode(bech32Manager.decode(account), hrp);
 };
 

@@ -1,18 +1,19 @@
-import { ibcCore } from '@/apis/http';
-import { msgBuilder } from '@/utils';
+import { bank, ibcCore } from '@/apis/http';
+import { bech32Manager, msgBuilder, tokensHandler } from '@/utils';
 
 export default {
   handleModal({ commit }, modal) {
     commit('setModal', modal);
   },
-  async initIBCTransfer({ commit, dispatch }, connectionId) {
+  async initIBCTransfer({ commit, dispatch }, connection) {
     commit('setConnection', null);
     commit('setLoading', true);
     const requests = [
-      dispatch('fetchChannel', connectionId),
-      dispatch('fetchClient', connectionId),
+      dispatch('fetchChannel', connection.id),
+      dispatch('fetchClient', connection.id),
     ];
     await Promise.all(requests);
+    await dispatch('fetchConnectionBalance', connection);
     commit('setLoading', false);
   },
   async fetchChannel({ commit }, connectionId) {
@@ -43,31 +44,37 @@ export default {
       commit('setError', error);
     }
   },
-  // async fetchConnectionBalance(
-  //   { commit },
-  //   { chain, connection, token, wallet }
-  // ) {
-  //   const address = bech32Manager.encode(
-  //     bech32Manager.decode(wallet),
-  //     chain.hrp
-  //   );
-  //   const channel = connection['channel']['counterparty'];
-  //   const denom = tokensHandler.buildIBCDenom({
-  //     channelId: channel.channel_id,
-  //     portId: channel.port_id,
-  //     token,
-  //   });
-  //   try {
-  //     const response = await bank.requestTokenBalance({
-  //       address,
-  //       baseURL: connection.lcd,
-  //       denom,
-  //     });
-  //     console.log('response', response.data.balance);
-  //   } catch (error) {
-  //     commit('setError', error);
-  //   }
-  // },
+  async fetchConnectionBalance({ commit, getters, rootGetters }, chain) {
+    const connection = getters['connection'];
+    const modal = getters['modal'];
+    const wallet = rootGetters['keplr/wallet'];
+    if (!connection || !modal || !wallet) {
+      return;
+    }
+    const address = bech32Manager.encode(
+      bech32Manager.decode(wallet),
+      chain.hrp
+    );
+    const channel = connection['channel']['counterparty'];
+    const denom = tokensHandler.buildIBCDenom({
+      channelId: channel.channel_id,
+      portId: channel.port_id,
+      token: modal.token,
+    });
+    try {
+      const response = await bank.requestTokenBalance({
+        address,
+        baseURL: chain.lcd,
+        denom,
+      });
+      commit('addModalProp', {
+        path: 'counterparty_balance',
+        value: response.data.balance,
+      });
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
   async transferTokens(
     { commit, dispatch, rootGetters },
     { data, translator, context }

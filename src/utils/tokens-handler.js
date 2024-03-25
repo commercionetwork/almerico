@@ -3,7 +3,7 @@ import { stringEncoder } from '@/utils';
 const tokensHandler = {
   buildIBCDenom({ channelId, portId, token }) {
     try {
-      const seed = `${portId}/${channelId}/cw20:${token.id}`;
+      const seed = `${portId}/${channelId}/${token.id}`;
       const unhashedIbc = stringEncoder.encodeToSha256(seed);
       return 'ibc/' + unhashedIbc.toUpperCase();
     } catch (error) {
