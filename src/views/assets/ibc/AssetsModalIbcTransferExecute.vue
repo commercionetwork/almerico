@@ -16,7 +16,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { bech32Manager } from '@/utils';
 import assetsTransferManager from '../helpers/assetsTransferManager';
 
 export default {
@@ -50,41 +49,48 @@ export default {
   computed: {
     ...mapGetters('assetsIbc', ['isHandling', 'connection']),
     ...mapGetters('keplr', ['wallet']),
-    channel() {
-      const channel = this.connection.channel;
-      return this.isDeposit
-        ? channel['counterparty']
-        : { port_id: channel['port_id'], channel_id: channel['channel_id'] };
-    },
-    receiver() {
-      return this.isDeposit
-        ? this.wallet
-        : bech32Manager.encode(
-            bech32Manager.decode(this.wallet),
-            this.chain.hrp
-          );
-    },
-    sender() {
-      return !this.isDeposit
-        ? this.wallet
-        : bech32Manager.encode(
-            bech32Manager.decode(this.wallet),
-            this.chain.hrp
-          );
-    },
   },
   methods: {
     ...mapActions('assetsIbc', ['transferTokens']),
     transfer() {
-      const msg = assetsTransferManager.getMsg({
-        amount: this.amount,
-        chain: this.chain,
-        connection: this.connection,
-        isDeposit: this.isDeposit,
-        token: this.token,
+      const receiver = assetsTransferManager.getReceiver({
         wallet: this.wallet,
+        hrp: this.chain.hrp,
+        isDeposit: this.isDeposit,
       });
-      this.transferTokens({ msg, translator: this.$t, context: this });
+      const sender = assetsTransferManager.getSender({
+        wallet: this.wallet,
+        hrp: this.chain.hrp,
+        isDeposit: this.isDeposit,
+      });
+      const channel = assetsTransferManager.getChannel(
+        this.connection,
+        this.isDeposit
+      );
+      const latestHeight = this.connection.client.client_state.latest_height;
+      const timeoutTimestamp = Date.now() + 10 * 60 * 1000;
+      const amount = assetsTransferManager.getAmount(this.amount, this.token);
+      const denom = assetsTransferManager.getDenom(channel, this.token);
+      const data = {
+        receiver,
+        sender,
+        sourcePort: channel['port_id'],
+        sourceChannel: channel['channel_id'],
+        timeoutHeight: {
+          revisionNumber: latestHeight.revision_number,
+          revisionHeight: latestHeight.revision_height,
+        },
+        timeoutTimestamp,
+        token: {
+          amount,
+          denom,
+        },
+      };
+      this.transferTokens({
+        data,
+        translator: this.$t,
+        context: this,
+      });
     },
   },
 };

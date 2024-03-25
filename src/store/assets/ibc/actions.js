@@ -1,4 +1,5 @@
 import { ibcCore } from '@/apis/http';
+import { msgBuilder } from '@/utils';
 
 export default {
   handleModal({ commit }, modal) {
@@ -69,7 +70,7 @@ export default {
   // },
   async transferTokens(
     { commit, dispatch, rootGetters },
-    { msg, translator, context }
+    { data, translator, context }
   ) {
     if (!rootGetters['keplr/isInitialized']) {
       await dispatch(
@@ -80,6 +81,7 @@ export default {
         }
       );
     }
+    const msg = msgBuilder.buildMsgTransfer(data);
     commit('setHandling', true);
     await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
     commit('setHandling', false);
