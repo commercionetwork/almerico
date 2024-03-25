@@ -14,6 +14,7 @@
         </template>
         <template #[`item.deposit`]="{ item }">
           <v-btn
+            v-if="item.id !== CONFIG.STABLE_COIN.DENOM"
             text
             :disabled="disabled"
             @click.stop="openTransfer(item, TRANSFER.TYPE.DEPOSIT)"
@@ -24,6 +25,7 @@
         </template>
         <template #[`item.withdraw`]="{ item }">
           <v-btn
+            v-if="item.id !== CONFIG.STABLE_COIN.DENOM"
             text
             :disabled="disabled"
             @click.stop="openTransfer(item, TRANSFER.TYPE.WITHDRAW)"
@@ -48,6 +50,7 @@ export default {
   name: 'AssetsViewListTable',
   data() {
     return {
+      CONFIG,
       TRANSFER,
       mdiChevronRight,
     };
