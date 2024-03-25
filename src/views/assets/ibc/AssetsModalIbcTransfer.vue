@@ -87,10 +87,22 @@ export default {
     balance() {
       return this.token ? this.token.balance : '0';
     },
-    maxBalance() {
-      return this.token
-        ? tokensHandler.convertFromBase(this.balance, this.token.decimals) + ''
+    counterpartyBalance() {
+      return this.modal && this.modal.counterparty_balance
+        ? this.modal.counterparty_balance.amount
         : '0';
+    },
+    maxBalance() {
+      if (!this.token) {
+        return '0';
+      }
+      return this.isDeposit
+        ? tokensHandler
+            .convertFromBase(this.counterpartyBalance, this.token.decimals)
+            .toString()
+        : tokensHandler
+            .convertFromBase(this.balance, this.token.decimals)
+            .toString();
     },
     connections() {
       return CONFIG.CONNECTIONS;
@@ -121,9 +133,6 @@ export default {
       this.dialog = !!value;
     },
   },
-  // created() {
-  //   this.chain = this.connections[0];
-  // },
   methods: {
     ...mapActions('assetsIbc', ['handleModal', 'initIBCTransfer']),
     close() {

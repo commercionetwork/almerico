@@ -27,7 +27,7 @@ export default {
     },
     chain: {
       type: Object,
-      required: true,
+      default: () => ({}),
     },
     disabled: {
       type: Boolean,
