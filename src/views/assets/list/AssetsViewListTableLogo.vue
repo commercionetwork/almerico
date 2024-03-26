@@ -5,7 +5,7 @@
         <v-progress-circular :width="2" indeterminate color="primary" />
       </template>
     </v-img>
-    <v-icon v-else size="30">
+    <v-icon v-else color="grey lighten-1" size="25">
       {{ mdiImageOff }}
     </v-icon>
   </v-avatar>
@@ -32,16 +32,20 @@ export default {
       return this.asset.logo;
     },
     logoSrc() {
-      if (this.logo && this.logo.url) {
-        return this.logo?.url;
+      if (!this.logo) {
+        return '';
       }
-      if (this.logo && this.logo.embedded && this.logo.embedded.png) {
-        return this.logo.embedded.png;
+      let src = '';
+      if (this.logo.url) {
+        src = this.logo.url;
       }
-      if (this.logo && this.logo.embedded && this.logo.embedded.svg) {
-        return this.logo.embedded.svg;
+      if (this.logo.embedded && this.logo.embedded.png) {
+        src = this.logo.embedded.png;
       }
-      return null;
+      if (this.logo.embedded && this.logo.embedded.svg) {
+        src = this.logo.embedded.svg;
+      }
+      return src;
     },
   },
 };
