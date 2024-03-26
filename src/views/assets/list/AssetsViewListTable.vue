@@ -6,6 +6,10 @@
         :items="items"
         @click:row="(item) => openDetail(item)"
       >
+        <template #[`item.name`]="{ item }">
+          <assets-view-list-table-logo :asset="item" />
+          <span class="ml-1" v-text="item.name" />
+        </template>
         <template #[`item.total_supply`]="{ item }">
           <div v-text="formatAmount(item.total_supply, item.decimals)" />
         </template>
@@ -40,6 +44,8 @@
 </template>
 
 <script>
+import AssetsViewListTableLogo from './AssetsViewListTableLogo.vue';
+
 import { mdiChevronRight } from '@mdi/js';
 import { mapActions, mapGetters } from 'vuex';
 import assetsTableHelper from '../helpers/assetsTableHelper';
@@ -48,6 +54,9 @@ import { tokensHandler } from '@/utils';
 
 export default {
   name: 'AssetsViewListTable',
+  components: {
+    AssetsViewListTableLogo,
+  },
   data() {
     return {
       CONFIG,

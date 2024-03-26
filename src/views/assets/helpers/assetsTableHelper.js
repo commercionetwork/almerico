@@ -14,6 +14,7 @@ const assetsTableHelper = {
       items.push({
         id: cw20.id,
         decimals: cw20.decimals,
+        logo: cw20.logo,
         name: cw20.name,
         symbol: cw20.symbol,
         total_supply: cw20.total_supply,
@@ -34,7 +35,7 @@ const adaptSupply = ({ balances, supply }) => {
     {
       id: CONFIG.STABLE_COIN.DENOM,
       decimals: CONFIG.STABLE_COIN.EXPONENT,
-      logo: { embedded: { svg: CONFIG.STABLE_COIN.LOGO } },
+      logo: { embedded: { png: CONFIG.STABLE_COIN.LOGO } },
       name: CONFIG.STABLE_COIN.SYMBOL,
       symbol: CONFIG.STABLE_COIN.SYMBOL,
       total_supply: ccc.amount,
@@ -43,7 +44,7 @@ const adaptSupply = ({ balances, supply }) => {
     {
       id: CONFIG.TOKEN.DENOM,
       decimals: CONFIG.TOKEN.EXPONENT,
-      logo: { embedded: { svg: CONFIG.TOKEN.LOGO } },
+      logo: { embedded: { png: CONFIG.TOKEN.LOGO } },
       name: CONFIG.TOKEN.NAME,
       symbol: CONFIG.TOKEN.SYMBOL,
       total_supply: commercio.amount,
@@ -60,6 +61,7 @@ const adaptSupply = ({ balances, supply }) => {
       id: item.id,
       balance: balance ? parseFloat(balance.amount) : 0,
       decimals: item.decimals,
+      logo: item.logo,
       name: item.name,
       symbol: item.symbol,
       total_supply: item.total_supply,
@@ -84,6 +86,7 @@ const adaptCW20s = ({ balances, list }) => {
       id: item.id,
       balance: balance ? parseFloat(balance.balance) : 0,
       decimals: item.decimals,
+      logo: item.logo,
       name: item.name,
       symbol: item.symbol,
       total_supply: item.total_supply,
