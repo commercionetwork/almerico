@@ -34,6 +34,7 @@ const adaptSupply = ({ balances, supply }) => {
     {
       id: CONFIG.STABLE_COIN.DENOM,
       decimals: CONFIG.STABLE_COIN.EXPONENT,
+      logo: { embedded: { svg: CONFIG.STABLE_COIN.LOGO } },
       name: CONFIG.STABLE_COIN.SYMBOL,
       symbol: CONFIG.STABLE_COIN.SYMBOL,
       total_supply: ccc.amount,
@@ -42,6 +43,7 @@ const adaptSupply = ({ balances, supply }) => {
     {
       id: CONFIG.TOKEN.DENOM,
       decimals: CONFIG.TOKEN.EXPONENT,
+      logo: { embedded: { svg: CONFIG.TOKEN.LOGO } },
       name: CONFIG.TOKEN.NAME,
       symbol: CONFIG.TOKEN.SYMBOL,
       total_supply: commercio.amount,

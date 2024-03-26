@@ -28,12 +28,16 @@ export default {
   async fetchAssets({ commit, dispatch }, codeId) {
     const contracts = await dispatch('getContracts', codeId);
     contracts.forEach(async (address) => {
-      const requests = [dispatch('getTokenInfo', address)];
+      const requests = [
+        dispatch('getMarketingInfo', address),
+        dispatch('getTokenInfo', address),
+      ];
       const responses = await Promise.all(requests);
       const contract = Object.assign(
         {},
         { id: address },
-        { ...responses[0]['token'] }
+        { logo: responses[0]['marketing']['logo'] },
+        { ...responses[1]['token'] }
       );
       commit('addContract', contract);
     });
@@ -51,6 +55,11 @@ export default {
       }
     } while (nextKey);
     return contracts;
+  },
+  async getMarketingInfo({ dispatch }, address) {
+    const queryData = stringEncoder.encodeToBase64('{"marketing_info":{}}');
+    const data = await dispatch('getContractDetail', { address, queryData });
+    return { marketing: data };
   },
   async getTokenInfo({ dispatch }, address) {
     const queryData = stringEncoder.encodeToBase64('{"token_info":{}}');
