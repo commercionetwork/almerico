@@ -14,7 +14,7 @@ import { MsgTransfer } from 'cosmjs-types/ibc/applications/transfer/v1/tx';
 const msgBuilder = {
   buildMsgBeginRedelegate({ validatorAddress, srcAddress, amount, account }) {
     const msg = {
-      typeUrl: '/cosmos.staking.v1beta1.MsgBeginRedelegate',
+      typeUrl: MsgBeginRedelegate.typeUrl,
       value: MsgBeginRedelegate.fromPartial({
         delegatorAddress: account,
         validatorSrcAddress: srcAddress,
@@ -29,7 +29,7 @@ const msgBuilder = {
   },
   buildMsgDelegate({ validatorAddress, amount, account }) {
     const msg = {
-      typeUrl: '/cosmos.staking.v1beta1.MsgDelegate',
+      typeUrl: MsgDelegate.typeUrl,
       value: MsgDelegate.fromPartial({
         delegatorAddress: account,
         validatorAddress: validatorAddress,
@@ -43,7 +43,7 @@ const msgBuilder = {
   },
   buildMsgExecuteContract({ sender, contract, msg, funds = [] } = {}) {
     return {
-      typeUrl: '/cosmwasm.wasm.v1.MsgExecuteContract',
+      typeUrl: MsgExecuteContract.typeUrl,
       value: MsgExecuteContract.fromPartial({
         sender,
         contract,
@@ -61,7 +61,7 @@ const msgBuilder = {
     funds = [],
   } = {}) {
     return {
-      typeUrl: '/cosmwasm.wasm.v1.MsgInstantiateContract',
+      typeUrl: MsgInstantiateContract.typeUrl,
       value: MsgInstantiateContract.fromPartial({
         sender,
         admin,
@@ -73,17 +73,17 @@ const msgBuilder = {
     };
   },
   buildMsgTransfer({
-    sourcePort,
-    sourceChannel,
-    token,
-    sender,
     receiver,
-    timeoutHeight = null,
-    timeoutTimestamp = '',
+    sender,
+    sourceChannel,
+    sourcePort,
+    token,
     memo = 'IBC transfer',
+    timeoutHeight = undefined,
+    timeoutTimestamp = undefined,
   } = {}) {
     const msg = {
-      typeUrl: '/ibc.applications.transfer.v1.MsgTransfer',
+      typeUrl: MsgTransfer.typeUrl,
       value: MsgTransfer.fromPartial({
         sourcePort,
         sourceChannel,
@@ -99,7 +99,7 @@ const msgBuilder = {
   },
   buildMsgUndelegate({ validatorAddress, amount, account }) {
     const msg = {
-      typeUrl: '/cosmos.staking.v1beta1.MsgUndelegate',
+      typeUrl: MsgUndelegate.typeUrl,
       value: MsgUndelegate.fromPartial({
         delegatorAddress: account,
         validatorAddress: validatorAddress,
@@ -113,7 +113,7 @@ const msgBuilder = {
   },
   buildMsgVote({ voteOption, proposalId, account }) {
     const msg = {
-      typeUrl: '/cosmos.gov.v1beta1.MsgVote',
+      typeUrl: MsgVote.typeUrl,
       value: MsgVote.fromPartial({
         proposalId: proposalId,
         voter: account,
@@ -124,7 +124,7 @@ const msgBuilder = {
   },
   buildMsgWithdrawDelegatorReward({ validatorAddress, account }) {
     const msg = {
-      typeUrl: '/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward',
+      typeUrl: MsgWithdrawDelegatorReward.typeUrl,
       value: MsgWithdrawDelegatorReward.fromPartial({
         delegatorAddress: account,
         validatorAddress: validatorAddress,
