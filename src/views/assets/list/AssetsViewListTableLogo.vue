@@ -2,10 +2,10 @@
   <v-avatar>
     <v-img v-if="logoSrc" :src="logoSrc" max-height="30" max-width="30">
       <template v-slot:placeholder>
-        <v-progress-circular :width="2" indeterminate color="grey lighten-1" />
+        <v-progress-circular :width="2" indeterminate color="primary" />
       </template>
     </v-img>
-    <v-icon v-else color="grey lighten-1" size="30">
+    <v-icon v-else size="30">
       {{ mdiImageOff }}
     </v-icon>
   </v-avatar>
