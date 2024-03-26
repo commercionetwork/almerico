@@ -16,7 +16,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import assetsTransferManager from '../helpers/assetsTransferManager';
+import assetsTransferHelper from '../helpers/assetsTransferHelper';
 
 export default {
   name: 'AssetsModalIbcTransferExecute',
@@ -53,24 +53,24 @@ export default {
   methods: {
     ...mapActions('assetsIbc', ['transferTokens']),
     transfer() {
-      const receiver = assetsTransferManager.getReceiver({
+      const receiver = assetsTransferHelper.getReceiver({
         wallet: this.wallet,
         hrp: this.chain.hrp,
         isDeposit: this.isDeposit,
       });
-      const sender = assetsTransferManager.getSender({
+      const sender = assetsTransferHelper.getSender({
         wallet: this.wallet,
         hrp: this.chain.hrp,
         isDeposit: this.isDeposit,
       });
-      const channel = assetsTransferManager.getChannel(
+      const channel = assetsTransferHelper.getChannel(
         this.connection,
         this.isDeposit
       );
       const latestHeight = this.connection.client.client_state.latest_height;
       const timeoutTimestamp = Date.now() + 10 * 60 * 1000;
-      const amount = assetsTransferManager.getAmount(this.amount, this.token);
-      const denom = assetsTransferManager.getDenom(channel, this.token);
+      const amount = assetsTransferHelper.getAmount(this.amount, this.token);
+      const denom = assetsTransferHelper.getDenom(channel, this.token);
       const data = {
         receiver,
         sender,

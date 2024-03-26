@@ -1,7 +1,7 @@
 import { CONTRACT } from '@/constants';
 import { bech32Manager, tokensHandler } from '@/utils';
 
-const assetsTransferManager = {
+const assetsTransferHelper = {
   getAmount(amount, token) {
     return tokensHandler.convertToBase(amount, token.decimals);
   },
@@ -28,7 +28,7 @@ const assetsTransferManager = {
   },
 };
 
-export default assetsTransferManager;
+export default assetsTransferHelper;
 
 const convertAddressToCounterparty = (account, hrp) => {
   return bech32Manager.encode(bech32Manager.decode(account), hrp);

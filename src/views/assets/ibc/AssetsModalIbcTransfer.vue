@@ -47,7 +47,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { validationMixin } from 'vuelidate';
 import { CONFIG, TRANSFER } from '@/constants';
 import { tokensHandler } from '@/utils';
-import assetsTransferManager from '../helpers/assetsTransferManager';
+import assetsTransferHelper from '../helpers/assetsTransferHelper';
 
 export default {
   name: 'AssetsModalIbcTransfer',
@@ -62,9 +62,9 @@ export default {
       model: {
         amount: {
           greaterThanZero: (value) =>
-            assetsTransferManager.greaterThanZero(value),
+            assetsTransferHelper.greaterThanZero(value),
           smallerThanBalance: (value) =>
-            assetsTransferManager.smallerThanBalance({
+            assetsTransferHelper.smallerThanBalance({
               amount: value,
               balance: this.maxBalance,
             }),
