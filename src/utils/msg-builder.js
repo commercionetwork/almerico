@@ -78,10 +78,10 @@ const msgBuilder = {
     sourceChannel,
     sourcePort,
     token,
-    memo = 'IBC transfer',
     timeoutHeight = undefined,
     timeoutTimestamp = undefined,
   } = {}) {
+    const memo = `{"forward":{"receiver":"${receiver}","port":"${sourcePort}","channel":"${sourceChannel}"}`;
     const msg = {
       typeUrl: MsgTransfer.typeUrl,
       value: MsgTransfer.fromPartial({
