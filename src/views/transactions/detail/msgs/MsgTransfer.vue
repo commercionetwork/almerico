@@ -38,7 +38,7 @@
       </v-list-item>
       <base-detail-item
         :label="$t('labels.timeoutTimestamp')"
-        :content="message.timeout_timestamp"
+        :content="timeoutTimestamp"
       />
       <base-detail-item :label="$t('labels.memo')" :content="message.memo" />
     </div>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import { dateHandler } from '@/utils';
+
 export default {
   name: 'MsgTransfer',
   description: 'Display an an IBC transfer transaction message',
@@ -59,6 +61,14 @@ export default {
   computed: {
     amount() {
       return this.message.token.amount + ' ' + this.message.token.denom;
+    },
+    timeoutTimestamp() {
+      if (!this.message.timeout_timestamp) {
+        return '';
+      }
+      const timeoutTimestamp =
+        parseInt(this.message.timeout_timestamp) / 1000000;
+      return dateHandler.getUtcDate(timeoutTimestamp);
     },
   },
 };
