@@ -77,24 +77,21 @@ const msgBuilder = {
     sender,
     sourceChannel,
     sourcePort,
-    token,
     timeoutTimestamp,
-  }) {
-    const memo = `{"forward":{"receiver":"${receiver}","port":"${sourcePort}","channel":"${sourceChannel}"}`;
+    token,
+    memo = '',
+  } = {}) {
     const msg = {
       typeUrl: MsgTransfer.typeUrl,
-      value: {
+      value: MsgTransfer.fromPartial({
         receiver,
         sender,
         sourceChannel,
         sourcePort,
         timeoutTimestamp,
-        token: {
-          amount: token.amount,
-          denom: token.denom,
-        },
+        token,
         memo,
-      },
+      }),
     };
     return msg;
   },

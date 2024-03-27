@@ -17,6 +17,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import assetsTransferHelper from '../helpers/assetsTransferHelper';
+import { TRANSFER } from '@/constants';
 
 export default {
   name: 'AssetsModalIbcTransferExecute',
@@ -70,6 +71,10 @@ export default {
       const timeoutTimestamp = (Date.now() + 10 * 60) * 1000 * 1000;
       const amount = assetsTransferHelper.getAmount(this.amount, this.token);
       const denom = assetsTransferHelper.getDenom(channel, this.token);
+      const type = this.isDeposit
+        ? TRANSFER.TYPE.DEPOSIT
+        : TRANSFER.TYPE.WITHDRAW;
+      const memo = `{"forward":{"chain":"${this.chain.name}","type":"${type}"}}`;
       const data = {
         receiver,
         sender,
@@ -80,6 +85,7 @@ export default {
           amount,
           denom,
         },
+        memo,
       };
       this.transferTokens({
         data,
