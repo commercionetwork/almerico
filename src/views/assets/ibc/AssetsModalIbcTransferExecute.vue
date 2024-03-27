@@ -67,8 +67,7 @@ export default {
         this.connection,
         this.isDeposit
       );
-      const latestHeight = this.connection.client.client_state.latest_height;
-      const timeoutTimestamp = Date.now() + 10 * 60 * 1000;
+      const timeoutTimestamp = (Date.now() + 10 * 60) * 1000 * 1000;
       const amount = assetsTransferHelper.getAmount(this.amount, this.token);
       const denom = assetsTransferHelper.getDenom(channel, this.token);
       const data = {
@@ -76,11 +75,7 @@ export default {
         sender,
         sourcePort: channel['port_id'],
         sourceChannel: channel['channel_id'],
-        timeoutHeight: {
-          revisionNumber: latestHeight.revision_number,
-          revisionHeight: latestHeight.revision_height,
-        },
-        timeoutTimestamp,
+        timeoutTimestamp: timeoutTimestamp,
         token: {
           amount,
           denom,

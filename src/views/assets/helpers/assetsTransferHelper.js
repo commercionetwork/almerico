@@ -3,7 +3,7 @@ import { bech32Manager, tokensHandler } from '@/utils';
 
 const assetsTransferHelper = {
   getAmount(amount, token) {
-    return tokensHandler.convertToBase(amount, token.decimals);
+    return tokensHandler.convertToBase(amount, token.decimals).toString();
   },
   getChannel(connection, isDeposit) {
     return isDeposit
