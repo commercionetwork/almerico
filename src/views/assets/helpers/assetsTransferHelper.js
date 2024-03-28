@@ -7,10 +7,12 @@ const assetsTransferHelper = {
     return isDeposit
       ? {
           chainId: chain.id,
+          hrp: chain.hrp,
           rpc: chain.rpc,
         }
       : {
           chainId: chainInfo.chainId,
+          hrp: chainInfo.bech32Config.bech32PrefixAccAddr,
           rpc: chainInfo.rpc,
         };
   },
