@@ -17,7 +17,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import assetsTransferHelper from '../helpers/assetsTransferHelper';
-import { TRANSFER } from '@/constants';
 
 export default {
   name: 'AssetsModalIbcTransferExecute',
@@ -48,43 +47,38 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('assetsIbc', ['isHandling', 'connection']),
+    ...mapGetters('assetsIbc', ['isHandling']),
     ...mapGetters('keplr', ['wallet']),
   },
   methods: {
     ...mapActions('assetsIbc', ['transferTokens']),
     transfer() {
       const receiver = assetsTransferHelper.getReceiver({
-        wallet: this.wallet,
-        hrp: this.chain.hrp,
+        chain: this.chain,
         isDeposit: this.isDeposit,
+        wallet: this.wallet,
       });
       const sender = assetsTransferHelper.getSender({
-        wallet: this.wallet,
-        hrp: this.chain.hrp,
+        chain: this.chain,
         isDeposit: this.isDeposit,
+        wallet: this.wallet,
       });
-      const channel = assetsTransferHelper.getChannel(
-        this.connection,
-        this.isDeposit
-      );
-      const timeoutTimestamp = (Date.now() + 10 * 60) * 1000 * 1000;
-      const amount = assetsTransferHelper.getAmount(this.amount, this.token);
-      const denom = assetsTransferHelper.getDenom(channel, this.token);
-      const type = this.isDeposit
-        ? TRANSFER.TYPE.DEPOSIT
-        : TRANSFER.TYPE.WITHDRAW;
-      const memo = `{"forward":{"chain":"${this.chain.name}","type":"${type}"}}`;
+      const source = assetsTransferHelper.getSource(this.chain, this.isDeposit);
+      const timeoutTimestamp = assetsTransferHelper.getTimeoutTimestamp();
+      const token = assetsTransferHelper.getToken({
+        amount: this.amount,
+        chain: this.chain,
+        isDeposit: this.isDeposit,
+        token: this.token,
+      });
+      const memo = `{"forward":{"chain":"${this.chain.id}","sender":"${sender}","receiver":"${receiver}"}}`;
       const data = {
         receiver,
         sender,
-        sourcePort: channel['port_id'],
-        sourceChannel: channel['channel_id'],
+        sourceChannel: source.channelId,
+        sourcePort: source.portId,
         timeoutTimestamp: timeoutTimestamp,
-        token: {
-          amount,
-          denom,
-        },
+        token,
         memo,
       };
       this.transferTokens({

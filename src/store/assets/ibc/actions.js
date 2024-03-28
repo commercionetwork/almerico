@@ -17,7 +17,7 @@ export default {
       bech32Manager.decode(wallet),
       chain.hrp
     );
-    const channel = chain.deposit;
+    const channel = chain.withdraw.counterparty;
     const denom = tokensHandler.buildIBCDenom({
       channelId: channel.channel_id,
       portId: channel.port_id,
