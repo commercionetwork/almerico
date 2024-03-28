@@ -14,14 +14,6 @@ export default {
   setHandling(state, payload) {
     state.isHandling = payload;
   },
-  setConnection(state, payload) {
-    state.connection = payload;
-  },
-  addConnectionProp(state, payload) {
-    const obj = { ...state.connection };
-    set(obj, payload.path, payload.value);
-    state.connection = { ...obj };
-  },
   setModal(state, payload) {
     state.modal = payload;
   },

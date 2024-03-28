@@ -12,7 +12,6 @@ describe('store/assetsIbc/mutations', () => {
     state.error = new Error('error');
     state.isLoading = true;
     state.isHandling = true;
-    state.connection = { id: 1 };
     state.modal = { id: 1 };
 
     const expected = initState();
@@ -40,23 +39,6 @@ describe('store/assetsIbc/mutations', () => {
     mutations.setHandling(state, true);
 
     expect(state.isHandling).toBe(true);
-  });
-
-  test('mutations.setConnection', () => {
-    const payload = { id: 1 };
-
-    mutations.setConnection(state, payload);
-
-    expect(state.connection).toStrictEqual(payload);
-  });
-
-  test('mutations.addConnectionProp', () => {
-    state.connection = { path_1: { id: 1 } };
-
-    mutations.addConnectionProp(state, { path: 'path_2', value: { id: 2 } });
-
-    const expected = { path_1: { id: 1 }, path_2: { id: 2 } };
-    expect(state.connection).toStrictEqual(expected);
   });
 
   test('mutations.setModal', () => {

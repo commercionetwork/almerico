@@ -6,7 +6,6 @@ export const initState = () => ({
   error: null,
   isLoading: false,
   isHandling: false,
-  connection: null,
   modal: null,
 });
 

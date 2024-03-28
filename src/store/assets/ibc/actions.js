@@ -1,61 +1,23 @@
-import { bank, ibcCore } from '@/apis/http';
+import { bank } from '@/apis/http';
 import { bech32Manager, msgBuilder, tokensHandler } from '@/utils';
 
 export default {
   handleModal({ commit }, modal) {
     commit('setModal', modal);
   },
-  async initIBCTransfer({ commit, dispatch }, connection) {
-    commit('setConnection', null);
+  async initIBCTransfer({ commit, dispatch }, chain) {
     commit('setLoading', true);
-    const requests = [
-      dispatch('fetchChannel', connection.id),
-      dispatch('fetchClient', connection.id),
-    ];
-    await Promise.all(requests);
-    await dispatch('fetchConnectionBalance', connection);
+    await dispatch('fetchTokenBalance', chain);
     commit('setLoading', false);
   },
-  async fetchChannel({ commit }, connectionId) {
-    try {
-      const response = await ibcCore.requestConnectionChannels(connectionId);
-      const channels = response.data.channels;
-      if (channels.length > 0) {
-        const channel = channels.find(
-          (channel) => channel.state === 'STATE_OPEN'
-        );
-        commit('addConnectionProp', {
-          path: 'channel',
-          value: channel,
-        });
-      }
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-  async fetchClient({ commit }, connectionId) {
-    try {
-      const response = await ibcCore.requestConnectionClientState(connectionId);
-      commit('addConnectionProp', {
-        path: 'client',
-        value: response.data.identified_client_state,
-      });
-    } catch (error) {
-      commit('setError', error);
-    }
-  },
-  async fetchConnectionBalance({ commit, getters, rootGetters }, chain) {
-    const connection = getters['connection'];
+  async fetchTokenBalance({ commit, getters, rootGetters }, chain) {
     const modal = getters['modal'];
     const wallet = rootGetters['keplr/wallet'];
-    if (!connection || !modal || !wallet) {
-      return;
-    }
     const address = bech32Manager.encode(
       bech32Manager.decode(wallet),
       chain.hrp
     );
-    const channel = connection['channel']['counterparty'];
+    const channel = chain.deposit;
     const denom = tokensHandler.buildIBCDenom({
       channelId: channel.channel_id,
       portId: channel.port_id,
