@@ -78,7 +78,7 @@ export default {
         chain.rpc,
         offlineSigner
       );
-      const hrp = chain.hrp;
+      const hrp = chain.bech32Config.bech32PrefixAccAddr;
       const result = await dispatch('deliverTx', { client, hrp, msgs });
       return result;
     } catch (error) {

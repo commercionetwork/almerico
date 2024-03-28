@@ -7,14 +7,12 @@ const assetsTransferHelper = {
     return isDeposit
       ? {
           chainId: chain.id,
-          hrp: chain.hrp,
           rpc: chain.rpc,
+          bech32Config: {
+            bech32PrefixAccAddr: chain.hrp,
+          },
         }
-      : {
-          chainId: chainInfo.chainId,
-          hrp: chainInfo.bech32Config.bech32PrefixAccAddr,
-          rpc: chainInfo.rpc,
-        };
+      : chainInfo;
   },
   getReceiver({ chain, isDeposit, wallet }) {
     return isDeposit ? wallet : convertAddressToCounterparty(wallet, chain.hrp);
