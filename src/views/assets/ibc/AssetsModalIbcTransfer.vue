@@ -30,6 +30,7 @@
             :isDeposit="isDeposit"
             :label="title"
             :token="token"
+            @success="onSuccess"
           />
         </v-form>
       </v-card-text>
@@ -138,6 +139,9 @@ export default {
     close() {
       this.handleModal(null);
       this.chain = null;
+    },
+    onSuccess() {
+      this.close();
     },
   },
 };

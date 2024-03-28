@@ -90,7 +90,10 @@ export default {
     }
     const msg = msgBuilder.buildMsgTransfer(data);
     commit('setHandling', true);
-    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
+    const result = await dispatch('keplr/signAndBroadcastTransaction', [msg], {
+      root: true,
+    });
     commit('setHandling', false);
+    return result;
   },
 };

@@ -91,7 +91,7 @@ export default {
         data,
         translator: this.$t,
         context: this,
-      });
+      }).then((res) => this.$emit('success', res));
     },
   },
 };
