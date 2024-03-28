@@ -1,5 +1,4 @@
 import { bank } from '@/apis/http';
-import { CHAIN } from '@/constants';
 import { bech32Manager, msgBuilder, tokensHandler } from '@/utils';
 
 export default {
@@ -40,7 +39,7 @@ export default {
   },
   async transferTokens(
     { commit, dispatch, rootGetters },
-    { data, translator, context }
+    { chain, data, translator, context }
   ) {
     if (!rootGetters['keplr/isInitialized']) {
       await dispatch(
@@ -51,7 +50,6 @@ export default {
         }
       );
     }
-    const chain = CHAIN.INFO();
     const msg = msgBuilder.buildMsgTransfer(data);
     commit('setHandling', true);
     const result = await dispatch(

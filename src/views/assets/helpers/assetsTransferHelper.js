@@ -1,7 +1,19 @@
-import { CONTRACT } from '@/constants';
+import { CHAIN, CONTRACT } from '@/constants';
 import { bech32Manager, tokensHandler } from '@/utils';
 
 const assetsTransferHelper = {
+  getChainDataToBroadcast(chain, isDeposit) {
+    const chainInfo = CHAIN.INFO();
+    return isDeposit
+      ? {
+          chainId: chain.id,
+          rpc: chain.rpc,
+        }
+      : {
+          chainId: chainInfo.chainId,
+          rpc: chainInfo.rpc,
+        };
+  },
   getReceiver({ chain, isDeposit, wallet }) {
     return isDeposit ? wallet : convertAddressToCounterparty(wallet, chain.hrp);
   },

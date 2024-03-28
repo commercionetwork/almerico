@@ -81,7 +81,12 @@ export default {
         token,
         memo,
       };
+      const chainData = assetsTransferHelper.getChainDataToBroadcast(
+        this.chain,
+        this.isDeposit
+      );
       this.transferTokens({
+        chain: chainData,
         data,
         translator: this.$t,
         context: this,
