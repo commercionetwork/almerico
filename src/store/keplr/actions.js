@@ -70,15 +70,11 @@ export default {
       commit('setError', error);
     }
   },
-  async signAndBroadcastTransaction({ commit, dispatch }, msgs) {
+  async signAndBroadcastTransaction({ commit, dispatch }, { chain, msgs }) {
     try {
-      const chainInfo = CHAIN.INFO();
-      const offlineSigner = await dispatch(
-        'getOfflineSigner',
-        chainInfo.chainId
-      );
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
       const client = await SigningStargateClient.connectWithSigner(
-        chainInfo.rpc,
+        chain.rpc,
         offlineSigner
       );
       const result = await dispatch('deliverTx', { client, msgs });
@@ -87,15 +83,11 @@ export default {
       commit('setError', error);
     }
   },
-  async signAndBroadcastCosmWasmTx({ commit, dispatch }, msgs) {
+  async signAndBroadcastCosmWasmTx({ commit, dispatch }, { chain, msgs }) {
     try {
-      const chainInfo = CHAIN.INFO();
-      const offlineSigner = await dispatch(
-        'getOfflineSigner',
-        chainInfo.chainId
-      );
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
       const client = await SigningCosmWasmClient.connectWithSigner(
-        chainInfo.rpc,
+        chain.rpc,
         offlineSigner
       );
       const result = await dispatch('deliverTx', { client, msgs });

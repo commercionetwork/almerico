@@ -1,5 +1,5 @@
 import { commercio } from '@/apis/http';
-import { CONFIG } from '@/constants';
+import { CHAIN, CONFIG } from '@/constants';
 import { msgBuilder } from '@/utils';
 
 export default {
@@ -63,6 +63,7 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const account = rootGetters['keplr/wallet'];
     const government = getters['government'];
     const label = `Init ${contract.name} contract`;
@@ -75,8 +76,12 @@ export default {
       label,
       msg: JSON.stringify(contract),
     });
-    await dispatch('keplr/signAndBroadcastCosmWasmTx', [msg], {
-      root: true,
-    });
+    await dispatch(
+      'keplr/signAndBroadcastCosmWasmTx',
+      { chain, msgs: [msg] },
+      {
+        root: true,
+      }
+    );
   },
 };

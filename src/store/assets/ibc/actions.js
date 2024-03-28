@@ -1,4 +1,5 @@
 import { bank } from '@/apis/http';
+import { CHAIN } from '@/constants';
 import { bech32Manager, msgBuilder, tokensHandler } from '@/utils';
 
 export default {
@@ -50,11 +51,16 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const msg = msgBuilder.buildMsgTransfer(data);
     commit('setHandling', true);
-    const result = await dispatch('keplr/signAndBroadcastTransaction', [msg], {
-      root: true,
-    });
+    const result = await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { chain, msgs: [msg] },
+      {
+        root: true,
+      }
+    );
     commit('setHandling', false);
     return result;
   },

@@ -1,4 +1,5 @@
 import { cosmwasm } from '@/apis/http';
+import { CHAIN } from '@/constants';
 import { msgBuilder, stringEncoder } from '@/utils';
 
 export default {
@@ -78,15 +79,20 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const sender = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgExecuteContract({
       sender,
       contract,
       msg: textMsg,
     });
-    await dispatch('keplr/signAndBroadcastCosmWasmTx', [msg], {
-      root: true,
-    });
+    await dispatch(
+      'keplr/signAndBroadcastCosmWasmTx',
+      { chain, msgs: [msg] },
+      {
+        root: true,
+      }
+    );
   },
   async handleAsset(
     { commit, dispatch },

@@ -1,5 +1,5 @@
 import { bank, cosmwasm } from '@/apis/http';
-import { CONTRACT } from '@/constants';
+import { CHAIN, CONTRACT } from '@/constants';
 import { stringEncoder } from '@/utils';
 
 export default {
@@ -179,10 +179,15 @@ export default {
     if (!rootGetters['keplr/wallet']) {
       await dispatch('keplr/connect', { translator, context }, { root: true });
     }
+    const chain = CHAIN.INFO();
     commit('setHandling', true);
-    const res = await dispatch('keplr/signAndBroadcastCosmWasmTx', msgs, {
-      root: true,
-    });
+    const res = await dispatch(
+      'keplr/signAndBroadcastCosmWasmTx',
+      { chain, msgs },
+      {
+        root: true,
+      }
+    );
     commit('setHandling', false);
     return res;
   },
