@@ -106,6 +106,11 @@ const SUPPORTED_TYPES = Object.freeze([
     value: 'submit_proposal',
   },
   {
+    name: 'MsgTransfer',
+    text: '/ibc.applications.transfer.v1.MsgTransfer',
+    value: '/ibc.applications.transfer.v1.MsgTransfer',
+  },
+  {
     name: 'MsgUndelegate',
     text: '/cosmos.staking.v1beta1.MsgUndelegate',
     value: 'begin_unbonding',

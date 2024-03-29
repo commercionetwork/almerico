@@ -10,6 +10,8 @@ import {
 } from './cosmwasm-mock';
 import { mockDelegation, mockDelegations } from './delegations-mock';
 import { mockErrors } from './errors-mock';
+import { mockIBCChannel, mockIBCChannels } from './ibc-channel-mock';
+import { mockIBCClient, mockIBCClients } from './ibc-client-mock';
 import { mockMembership } from './membership-mock';
 import { mockNodeInfo } from './node-info-mock';
 import { mockOverview } from './overview-mock';
@@ -26,6 +28,7 @@ import {
 } from './proposals-mock';
 import { mockRewards } from './rewards-mock';
 import { mockStakingParams } from './staking-params-mock';
+import { mockSupply, mockSupplyItem } from './supply-mock';
 import {
   mockTransaction,
   mockTransactionLegacy,
@@ -55,6 +58,10 @@ export {
   mockDelegation,
   mockDelegations,
   mockErrors,
+  mockIBCChannel,
+  mockIBCChannels,
+  mockIBCClient,
+  mockIBCClients,
   mockMembership,
   mockModel,
   mockModels,
@@ -69,6 +76,8 @@ export {
   mockProposals,
   mockRewards,
   mockStakingParams,
+  mockSupply,
+  mockSupplyItem,
   mockTally,
   mockTallyParams,
   mockTransaction,

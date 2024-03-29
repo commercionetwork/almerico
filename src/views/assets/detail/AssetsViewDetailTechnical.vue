@@ -21,7 +21,7 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'AssetsViewDetailTechnical',
   computed: {
-    ...mapGetters('assets', ['contract']),
+    ...mapGetters('assetsDetail', ['contract']),
     contractAddress() {
       return this.contract || '-';
     },

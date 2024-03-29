@@ -4,7 +4,10 @@ import Vuex from 'vuex';
 import account from './account';
 import accountBalance from './account-balance';
 import application from './application';
-import assets from './assets';
+import assetsDetail from './assets/detail';
+import assetsIbc from './assets/ibc';
+import assetsList from './assets/list';
+import assetsNew from './assets/new';
 import blocks from './blocks';
 import dex from './dex';
 import exchangeRate from './exchange-rate';
@@ -28,7 +31,10 @@ export default new Vuex.Store({
     account,
     accountBalance,
     application,
-    assets,
+    assetsDetail,
+    assetsIbc,
+    assetsList,
+    assetsNew,
     blocks,
     dex,
     exchangeRate,

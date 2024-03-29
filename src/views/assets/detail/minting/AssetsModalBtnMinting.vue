@@ -27,10 +27,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('assets', ['detail', 'isHandling']),
+    ...mapGetters('assetsDetail', ['detail', 'isHandling']),
   },
   methods: {
-    ...mapActions('assets', ['handleAsset']),
+    ...mapActions('assetsDetail', ['handleAsset']),
     async save() {
       const amount = tokensHandler.convertToBase(
         this.model.amount,

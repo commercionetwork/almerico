@@ -21,6 +21,7 @@ export const titles = {
   dashboard: 'Dashboard',
   delegations: 'Delegations',
   delegatorAmounts: 'Delegator amounts',
+  deposit: 'Deposit',
   description: 'Description',
   dex: 'Dex',
   dexDetail: 'Dex detail',
@@ -67,6 +68,7 @@ export const titles = {
   statisticsVotes: 'Statistics votes',
   swap: 'Swap',
   technicalInfo: 'Technical info',
+  timeoutHeight: 'Timeout height',
   total: 'Total',
   transactionDetail: 'Transaction detail',
   transactions: 'Transactions',
@@ -80,4 +82,5 @@ export const titles = {
   validators: 'Validators',
   validatorsList: 'Validators list',
   votingDetail: 'Voting detail',
+  withdraw: 'Withdraw',
 };

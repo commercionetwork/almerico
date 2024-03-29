@@ -16,25 +16,6 @@ const assetsRoute = {
   },
   children: [
     { path: '', name: ROUTES.NAME.ASSETS, component: AssetsViewList },
-    // {
-    //   path: ROUTES.PATH.ASSETS_DETAIL,
-    //   name: ROUTES.NAME.ASSETS_DETAIL,
-    //   component: AssetsViewDetail,
-    //   props: true,
-    //   meta: { title: ROUTES.TITLE.ASSETS_DETAIL },
-    // },
-    {
-      path: ROUTES.PATH.ASSETS_LIST,
-      name: ROUTES.NAME.ASSETS_LIST,
-      component: AssetsViewList,
-      meta: { title: ROUTES.TITLE.ASSETS_LIST },
-    },
-    {
-      path: ROUTES.PATH.ASSETS_NEW,
-      name: ROUTES.NAME.ASSETS_NEW,
-      component: AssetsViewNew,
-      meta: { title: ROUTES.TITLE.ASSETS_NEW },
-    },
     {
       path: ROUTES.PATH.ASSETS_DETAIL,
       component: AssetsDetailRouter,
@@ -63,6 +44,18 @@ const assetsRoute = {
           meta: { title: ROUTES.TITLE.ASSETS_DETAIL_TRANSFER },
         },
       ],
+    },
+    {
+      path: ROUTES.PATH.ASSETS_LIST,
+      name: ROUTES.NAME.ASSETS_LIST,
+      component: AssetsViewList,
+      meta: { title: ROUTES.TITLE.ASSETS_LIST },
+    },
+    {
+      path: ROUTES.PATH.ASSETS_NEW,
+      name: ROUTES.NAME.ASSETS_NEW,
+      component: AssetsViewNew,
+      meta: { title: ROUTES.TITLE.ASSETS_NEW },
     },
   ],
 };

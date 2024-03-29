@@ -72,7 +72,7 @@ export default {
     });
   },
   methods: {
-    ...mapActions('assets', ['updateContractProp']),
+    ...mapActions('assetsNew', ['updateContractProp']),
   },
 };
 </script>
