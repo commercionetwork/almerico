@@ -64,7 +64,7 @@ if (process.env.VUE_APP_LCD === 'http://localhost:7123') {
     id: 4,
     text: 'Local-net',
     value: 'https://localhost:9099',
-    chainId: 'chain-hN6HnD',
+    chainId: 'chain-wzTpVI',
     chainName: 'Localnet.network',
     rpc: 'http://localhost:7124',
     lcd: 'http://localhost:7123',
