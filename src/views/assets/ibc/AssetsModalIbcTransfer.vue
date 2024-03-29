@@ -12,7 +12,10 @@
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
-      <v-card-text>
+      <v-card-text v-if="txHash">
+        <assets-modal-ibc-transfer-result :hash="txHash" />
+      </v-card-text>
+      <v-card-text v-else>
         <v-form :disabled="isHandling">
           <assets-modal-ibc-transfer-select
             :items="connections"
@@ -41,6 +44,7 @@
 <script>
 import AssetsModalIbcTransferAmount from './AssetsModalIbcTransferAmount.vue';
 import AssetsModalIbcTransferExecute from './AssetsModalIbcTransferExecute.vue';
+import AssetsModalIbcTransferResult from './AssetsModalIbcTransferResult.vue';
 import AssetsModalIbcTransferSelect from './AssetsModalIbcTransferSelect.vue';
 
 import { mdiClose } from '@mdi/js';
@@ -55,6 +59,7 @@ export default {
   components: {
     AssetsModalIbcTransferAmount,
     AssetsModalIbcTransferExecute,
+    AssetsModalIbcTransferResult,
     AssetsModalIbcTransferSelect,
   },
   mixins: [validationMixin],
@@ -78,6 +83,7 @@ export default {
       mdiClose,
       chain: null,
       dialog: false,
+      txHash: '',
       model: {
         amount: '0',
       },
@@ -139,9 +145,10 @@ export default {
     close() {
       this.handleModal(null);
       this.chain = null;
+      this.txHash = '';
     },
-    onSuccess() {
-      this.close();
+    onSuccess(res) {
+      this.txHash = res.transactionHash;
     },
   },
 };
