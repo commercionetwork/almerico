@@ -18,7 +18,7 @@
         </template>
         <template #[`item.deposit`]="{ item }">
           <v-btn
-            v-if="item.id !== CONFIG.STABLE_COIN.DENOM"
+            v-if="isVisible(item)"
             text
             :disabled="disabled"
             @click.stop="openTransfer(item, TRANSFER.TYPE.DEPOSIT)"
@@ -29,7 +29,7 @@
         </template>
         <template #[`item.withdraw`]="{ item }">
           <v-btn
-            v-if="item.id !== CONFIG.STABLE_COIN.DENOM"
+            v-if="isVisible(item)"
             text
             :disabled="disabled"
             @click.stop="openTransfer(item, TRANSFER.TYPE.WITHDRAW)"
@@ -59,7 +59,6 @@ export default {
   },
   data() {
     return {
-      CONFIG,
       TRANSFER,
       mdiChevronRight,
     };
@@ -110,6 +109,12 @@ export default {
   },
   methods: {
     ...mapActions('assetsIbc', ['handleModal']),
+    isVisible(item) {
+      return (
+        item.id !== CONFIG.STABLE_COIN.DENOM &&
+        item.type === CONTRACT.TOKEN.TYPE.NATIVE
+      );
+    },
     formatAmount(tokens, decimals) {
       const amount = tokensHandler.convertFromBase(tokens, decimals);
       return tokensHandler.format(amount, decimals);
