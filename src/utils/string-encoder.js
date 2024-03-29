@@ -1,3 +1,5 @@
+import { sha256 } from 'js-sha256';
+
 const stringEncoder = {
   decodeBase64ToString(base64) {
     let text = window.atob(base64);
@@ -29,8 +31,17 @@ const stringEncoder = {
     }
     return hex;
   },
+  encodeToSha256(str) {
+    return sha256(str);
+  },
   removeDoubleQuotes(data) {
     return data.replace(/["]+/g, '');
+  },
+  unit8ArrayToString(data) {
+    if (!data) {
+      return '';
+    }
+    return String.fromCharCode.apply(null, data);
   },
 };
 

@@ -75,7 +75,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('assets', ['detail']),
+    ...mapGetters('assetsDetail', ['detail']),
     minter() {
       return this.detail && this.detail.minter ? this.detail.minter : null;
     },

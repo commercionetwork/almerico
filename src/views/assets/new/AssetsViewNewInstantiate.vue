@@ -25,10 +25,10 @@ import assetsCW20Helper from '../helpers/assetsCW20Helper';
 export default {
   name: 'AssetsViewNewInstantiate',
   computed: {
-    ...mapGetters('assets', ['newCW20', 'isHandling', 'isValidCW20']),
+    ...mapGetters('assetsNew', ['newCW20', 'isHandling', 'isValidCW20']),
   },
   methods: {
-    ...mapActions('assets', ['createNewAsset']),
+    ...mapActions('assetsNew', ['createNewAsset']),
     instantiate() {
       const contract = assetsCW20Helper.adapt(this.newCW20);
       this.createNewAsset({

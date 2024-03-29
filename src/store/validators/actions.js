@@ -1,4 +1,5 @@
 import { bank, distribution, staking, validators } from '@/apis/http';
+import { CHAIN } from '@/constants';
 import { msgBuilder } from '@/utils';
 
 export default {
@@ -160,6 +161,7 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgDelegate({
       validatorAddress,
@@ -167,7 +169,11 @@ export default {
       account,
     });
     commit('setLoading', true);
-    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
+    await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { chain, msgs: [msg] },
+      { root: true }
+    );
     commit('setLoading', false);
   },
   async undelegateTokens(
@@ -183,6 +189,7 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgUndelegate({
       validatorAddress,
@@ -190,7 +197,11 @@ export default {
       account,
     });
     commit('setLoading', true);
-    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
+    await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { chain, msgs: [msg] },
+      { root: true }
+    );
     commit('setLoading', false);
   },
   async redelagateTokens(
@@ -206,6 +217,7 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgBeginRedelegate({
       validatorAddress,
@@ -214,7 +226,11 @@ export default {
       account,
     });
     commit('setLoading', true);
-    await dispatch('keplr/signAndBroadcastTransaction', [msg], { root: true });
+    await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { chain, msgs: [msg] },
+      { root: true }
+    );
     commit('setLoading', false);
   },
   async claimRewards(
@@ -230,6 +246,7 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const account = rootGetters['keplr/wallet'];
     const msgs = [];
     for (const validatorAddress of validators) {
@@ -240,7 +257,11 @@ export default {
       msgs.push(msg);
     }
     commit('setLoading', true);
-    await dispatch('keplr/signAndBroadcastTransaction', msgs, { root: true });
+    await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { chain, msgs },
+      { root: true }
+    );
     commit('setLoading', false);
   },
 };
