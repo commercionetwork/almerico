@@ -121,8 +121,9 @@ export default {
         );
         return {
           id: connection.id,
-          deposit: connection.deposit,
-          withdraw: connection.withdraw,
+          channel_id: connection.channel_id,
+          port_id: connection.port_id,
+          counterparty: connection.counterparty,
           name: chain.text,
           lcd: chain.rest,
           rpc: chain.rpc,
