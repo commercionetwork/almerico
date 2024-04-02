@@ -12,8 +12,8 @@ const CHAIN_LIST = Object.freeze([
     text: 'Osmosis - Testnet',
     chainId: 'osmo-test-5',
     chainName: 'osmosis',
-    rpc: 'https://rpc.osmotest5.osmosis.zone',
-    rest: 'https://lcd.osmotest5.osmosis.zone',
+    rpc: 'https://rpc.testnet.osmosis.zone/',
+    rest: 'https://lcd.testnet.osmosis.zone/',
   },
   {
     id: 3,
