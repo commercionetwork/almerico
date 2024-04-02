@@ -132,7 +132,11 @@ export default {
   watch: {
     chain(value) {
       if (value) {
-        this.initIBCTransfer(value);
+        this.initIBCTransfer({
+          chain: value,
+          translator: this.$t,
+          context: this,
+        });
       }
     },
     modal(value) {

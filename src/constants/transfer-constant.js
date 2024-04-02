@@ -11,7 +11,7 @@ const CHAIN_LIST = Object.freeze([
     id: 2,
     text: 'Osmosis - Testnet',
     chainId: 'osmo-test-5',
-    chainName: 'Osmosis (osmo-test-5)',
+    chainName: 'osmosis',
     rpc: 'https://rpc.osmotest5.osmosis.zone',
     rest: 'https://lcd.osmotest5.osmosis.zone',
   },
@@ -48,6 +48,7 @@ const CONFIG_LIST = Object.freeze([
     coinDenom: 'OSMO',
     coinMinimalDenom: 'uosmo',
     coinDecimals: 6,
+    coinGeckoId: 'osmosis',
     gasPriceStep: {
       low: 0.0025,
       average: 0.025,
@@ -68,6 +69,7 @@ const CONFIG_LIST = Object.freeze([
     coinDenom: 'REBUS',
     coinMinimalDenom: 'arebus',
     coinDecimals: 18,
+    coinGeckoId: 'rebus',
     gasPriceStep: {
       low: 10000000000,
       average: 25000000000,
@@ -90,12 +92,14 @@ const INFO = (chainId) => {
     bip44: {
       coinType: 118,
     },
+    coinType: 118,
     bech32Config: config.bech32Config,
     currencies: [
       {
         coinDenom: config.coinDenom,
         coinMinimalDenom: config.coinMinimalDenom,
         coinDecimals: config.coinDecimals,
+        coinGeckoId: config.coinGeckoId,
       },
     ],
     feeCurrencies: [
@@ -103,6 +107,7 @@ const INFO = (chainId) => {
         coinDenom: config.coinDenom,
         coinMinimalDenom: config.coinMinimalDenom,
         coinDecimals: config.coinDecimals,
+        coinGeckoId: config.coinGeckoId,
         gasPriceStep: config.gasPriceStep,
       },
     ],
@@ -110,7 +115,9 @@ const INFO = (chainId) => {
       coinDenom: config.coinDenom,
       coinMinimalDenom: config.coinMinimalDenom,
       coinDecimals: config.coinDecimals,
+      coinGeckoId: config.coinGeckoId,
     },
+    gasPriceStep: config.gasPriceStep,
   });
 };
 
