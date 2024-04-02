@@ -148,7 +148,6 @@ export default {
   watch: {
     chain(value) {
       if (value) {
-        console.log('chain', value);
         this.initIBCTransfer({
           chain: value,
           translator: this.$t,
