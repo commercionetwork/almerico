@@ -14,8 +14,13 @@ describe('store/assetsIbc/actions', () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const chain = { id: 1 };
+    const translator = jest.fn();
+    const context = this;
 
-    await actions.initIBCTransfer({ commit, dispatch }, chain);
+    await actions.initIBCTransfer(
+      { commit, dispatch },
+      { chain, translator, context }
+    );
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
     expect(dispatch).toHaveBeenCalledWith('fetchTokenBalance', chain);

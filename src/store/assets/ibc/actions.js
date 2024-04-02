@@ -1,13 +1,20 @@
 import { bank } from '@/apis/http';
+import { TRANSFER } from '@/constants';
 import { bech32Manager, msgBuilder, tokensHandler } from '@/utils';
 
 export default {
   handleModal({ commit }, modal) {
     commit('setModal', modal);
   },
-  async initIBCTransfer({ commit, dispatch }, chain) {
+  async initIBCTransfer({ commit, dispatch }, { chain, translator, context }) {
+    const $t = translator.bind(context);
+    const chainInfo = TRANSFER.INFO(chain.id);
+    const requests = [
+      dispatch('fetchTokenBalance', chain),
+      dispatch('keplr/suggestChain', { chainInfo, $t }, { root: true }),
+    ];
     commit('setLoading', true);
-    await dispatch('fetchTokenBalance', chain);
+    await Promise.all(requests);
     commit('setLoading', false);
   },
   async fetchTokenBalance({ commit, getters, rootGetters }, chain) {

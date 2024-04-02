@@ -112,7 +112,23 @@ export default {
             .toString();
     },
     connections() {
-      return CONFIG.CONNECTIONS;
+      return CONFIG.CONNECTIONS.map((connection) => {
+        const chain = TRANSFER.CHAIN_LIST.find(
+          (c) => c.chainId === connection.id
+        );
+        const config = TRANSFER.CONFIG_LIST.find((cfg) =>
+          cfg.chainIds.includes(connection.id)
+        );
+        return {
+          id: connection.id,
+          deposit: connection.deposit,
+          withdraw: connection.withdraw,
+          name: chain.text,
+          lcd: chain.rest,
+          rpc: chain.rpc,
+          hrp: config.bech32Config.bech32PrefixAccAddr,
+        };
+      });
     },
     isDeposit() {
       return this.modal ? this.modal.type === TRANSFER.TYPE.DEPOSIT : false;
@@ -132,7 +148,12 @@ export default {
   watch: {
     chain(value) {
       if (value) {
-        this.initIBCTransfer(value);
+        console.log('chain', value);
+        this.initIBCTransfer({
+          chain: value,
+          translator: this.$t,
+          context: this,
+        });
       }
     },
     modal(value) {
