@@ -77,7 +77,8 @@ const msgBuilder = {
     sender,
     sourceChannel,
     sourcePort,
-    timeoutTimestamp,
+    timeoutHeight = undefined,
+    timeoutTimestamp = undefined,
     token,
     memo = '',
   } = {}) {
@@ -88,6 +89,7 @@ const msgBuilder = {
         sender,
         sourceChannel,
         sourcePort,
+        timeoutHeight,
         timeoutTimestamp,
         token,
         memo,
