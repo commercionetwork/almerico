@@ -1,23 +1,45 @@
-import { bank } from '@/apis/http';
-import { TRANSFER } from '@/constants';
+import { bank, ibcCore } from '@/apis/http';
+import { CONFIG, TRANSFER } from '@/constants';
 import { bech32Manager, msgBuilder, tokensHandler } from '@/utils';
 
 export default {
   handleModal({ commit }, modal) {
     commit('setModal', modal);
   },
-  async initIBCTransfer({ commit, dispatch }, { chain, translator, context }) {
-    const $t = translator.bind(context);
-    const chainInfo = TRANSFER.INFO(chain.id);
-    const requests = [
-      dispatch('fetchTokenBalance', chain),
-      dispatch('keplr/suggestChain', { chainInfo, $t }, { root: true }),
-    ];
+  async initIBCTransfer({ commit, dispatch }) {
+    commit('reset');
     commit('setLoading', true);
-    await Promise.all(requests);
+    await dispatch('getConnectionChannels');
     commit('setLoading', false);
   },
-  async fetchTokenBalance({ commit, getters, rootGetters }, chain) {
+  async getConnectionChannels({ commit }) {
+    const connections = CONFIG.CONNECTIONS;
+    for (const connection of connections) {
+      try {
+        const response = await ibcCore.requestConnectionChannels(connection.id);
+        const data = Object.assign(
+          {},
+          { ...connection },
+          { channels: response.data.channels }
+        );
+        commit('addConnection', data);
+      } catch (error) {
+        commit('setError', error);
+      }
+    }
+  },
+  async fetchIBCChain({ commit, dispatch }, { chain, translator, context }) {
+    const $t = translator.bind(context);
+    const chainInfo = TRANSFER.INFO(chain.chain_id);
+    const requests = [
+      dispatch('getTokenBalance', chain),
+      dispatch('keplr/suggestChain', { chainInfo, $t }, { root: true }),
+    ];
+    commit('setHandling', true);
+    await Promise.all(requests);
+    commit('setHandling', false);
+  },
+  async getTokenBalance({ commit, getters, rootGetters }, chain) {
     const modal = getters['modal'];
     const wallet = rootGetters['keplr/wallet'];
     const address = bech32Manager.encode(

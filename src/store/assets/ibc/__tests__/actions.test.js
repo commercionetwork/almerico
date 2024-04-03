@@ -13,17 +13,11 @@ describe('store/assetsIbc/actions', () => {
   test('if "initIBCTransfer" reset connection, set loading state and dispatch wanted actions', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
-    const chain = { id: 1 };
-    const translator = jest.fn();
-    const context = this;
 
-    await actions.initIBCTransfer(
-      { commit, dispatch },
-      { chain, translator, context }
-    );
+    await actions.initIBCTransfer({ commit, dispatch });
 
     expect(commit).toHaveBeenCalledWith('setLoading', true);
-    expect(dispatch).toHaveBeenCalledWith('fetchTokenBalance', chain);
+    expect(dispatch).toHaveBeenCalledWith('getConnectionChannels');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 });
