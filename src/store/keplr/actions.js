@@ -53,7 +53,7 @@ export default {
     commit('setAccounts', []);
     commit('setInitialized', false);
     commit('setLoading', true);
-    await dispatch('getAccounts', { chainId: chainInfo.chainId, $t });
+    await dispatch('getAccounts', { chainInfo, $t });
     commit('setLoading', false);
   },
   subscribeKeyStoreChange({ dispatch }, { chainInfo, $t }) {
