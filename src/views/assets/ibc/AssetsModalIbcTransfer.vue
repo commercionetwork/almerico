@@ -50,7 +50,7 @@ import AssetsModalIbcTransferSelect from './AssetsModalIbcTransferSelect.vue';
 import { mdiClose } from '@mdi/js';
 import { mapActions, mapGetters } from 'vuex';
 import { validationMixin } from 'vuelidate';
-import { CONFIG, TRANSFER } from '@/constants';
+import { TRANSFER } from '@/constants';
 import { tokensHandler } from '@/utils';
 import assetsTransferHelper from '../helpers/assetsTransferHelper';
 
@@ -90,7 +90,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('assetsIbc', ['isLoading', 'isHandling', 'modal']),
+    ...mapGetters('assetsIbc', [
+      'isLoading',
+      'isHandling',
+      'modal',
+      'connections',
+    ]),
     balance() {
       return this.token ? this.token.balance : '0';
     },
@@ -111,25 +116,6 @@ export default {
             .convertFromBase(this.balance, this.token.decimals)
             .toString();
     },
-    connections() {
-      return CONFIG.CONNECTIONS.map((connection) => {
-        const chain = TRANSFER.CHAIN_LIST.find(
-          (c) => c.chainId === connection.id
-        );
-        const config = TRANSFER.CONFIG_LIST.find((cfg) =>
-          cfg.chainIds.includes(connection.id)
-        );
-        return {
-          id: connection.id,
-          deposit: connection.deposit,
-          withdraw: connection.withdraw,
-          name: chain.text,
-          lcd: chain.rest,
-          rpc: chain.rpc,
-          hrp: config.bech32Config.bech32PrefixAccAddr,
-        };
-      });
-    },
     isDeposit() {
       return this.modal ? this.modal.type === TRANSFER.TYPE.DEPOSIT : false;
     },
@@ -148,7 +134,7 @@ export default {
   watch: {
     chain(value) {
       if (value) {
-        this.initIBCTransfer({
+        this.fetchIBCChain({
           chain: value,
           translator: this.$t,
           context: this,
@@ -160,8 +146,15 @@ export default {
       this.dialog = !!value;
     },
   },
+  created() {
+    this.initIBCTransfer();
+  },
   methods: {
-    ...mapActions('assetsIbc', ['handleModal', 'initIBCTransfer']),
+    ...mapActions('assetsIbc', [
+      'handleModal',
+      'initIBCTransfer',
+      'fetchIBCChain',
+    ]),
     close() {
       this.handleModal(null);
       this.chain = null;

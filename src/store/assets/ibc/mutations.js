@@ -22,4 +22,10 @@ export default {
     set(obj, payload.path, payload.value);
     state.modal = { ...obj };
   },
+  setConnections(state, payload) {
+    state.connections = payload;
+  },
+  addConnection(state, payload) {
+    state.connections.push(payload);
+  },
 };

@@ -7,6 +7,7 @@ export const initState = () => ({
   isLoading: false,
   isHandling: false,
   modal: null,
+  connections: [],
 });
 
 export default {

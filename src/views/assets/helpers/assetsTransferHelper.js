@@ -6,7 +6,7 @@ const assetsTransferHelper = {
     const chainInfo = CHAIN.INFO();
     return isDeposit
       ? {
-          chainId: chain.id,
+          chainId: chain.chain_id,
           rpc: chain.rpc,
           bech32Config: {
             bech32PrefixAccAddr: chain.hrp,
@@ -21,12 +21,10 @@ const assetsTransferHelper = {
     return isDeposit ? convertAddressToCounterparty(wallet, chain.hrp) : wallet;
   },
   getSource(chain, isDeposit) {
-    const channel = isDeposit
-      ? chain['deposit']['counterparty']
-      : chain['withdraw'];
+    const counterparty = chain.counterparty;
     return {
-      channelId: channel.channel_id,
-      portId: channel.port_id,
+      channelId: isDeposit ? counterparty.channel_id : chain.channel_id,
+      portId: isDeposit ? counterparty.port_id : chain.port_id,
     };
   },
   getTimeoutTimestamp() {
@@ -36,8 +34,9 @@ const assetsTransferHelper = {
     const uamount = convertAmountToBase(amount, token.decimals);
     const isNativeToken = token.type === CONTRACT.TOKEN.TYPE.NATIVE;
     const tokenId = isNativeToken ? token.id : `cw20/${token.id}`;
-    const channel = chain['withdraw']['counterparty'];
-    const denom = isDeposit ? convertTokenToIBC(channel, tokenId) : tokenId;
+    const denom = isDeposit
+      ? convertTokenToIBC(chain['counterparty'], tokenId)
+      : tokenId;
     return {
       amount: uamount,
       denom,
@@ -61,10 +60,10 @@ const convertAmountToBase = (amount, decimals) => {
   return tokensHandler.convertToBase(amount, decimals).toString();
 };
 
-const convertTokenToIBC = (channel, tokenId) => {
+const convertTokenToIBC = (counterparty, tokenId) => {
   return tokensHandler.buildIBCDenom({
-    channelId: channel.channel_id,
-    portId: channel.port_id,
+    channelId: counterparty.channel_id,
+    portId: counterparty.port_id,
     token: { id: tokenId },
   });
 };

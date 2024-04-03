@@ -9,7 +9,7 @@ const mockIBCChannel = (id = 1) => {
     connection_hops: ['connection-10'],
     version: 'ics20-1',
     port_id: 'transfer',
-    channel_id: `channel-&ì${id}`,
+    channel_id: `channel-${id}`,
   };
   return item;
 };

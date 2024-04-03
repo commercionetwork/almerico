@@ -16,12 +16,13 @@ const ibcCore = {
   },
   /**
    *
-   * @param {String} connectionId
+   * @param {String} channelId
+   * @param {String} portId
    * @returns {AxiosPromise}
    */
-  requestConnectionClientState(connectionId) {
+  requestChannelDetail(channelId, portId) {
     return axios({
-      url: `/connection/v1/connections/${connectionId}/client_state`,
+      url: `/channel/v1/channels/${channelId}/ports/${portId}`,
       method: 'get',
       baseURL: APIS.HTTP.IBC_CORE,
     });

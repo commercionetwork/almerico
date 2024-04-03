@@ -71,13 +71,13 @@ export default {
         isDeposit: this.isDeposit,
         token: this.token,
       });
-      const memo = `{"forward":{"chain":"${this.chain.id}","sender":"${sender}","receiver":"${receiver}"}}`;
+      const memo = `{"forward":{"chain":"${this.chain.chain_id}","sender":"${sender}","receiver":"${receiver}"}}`;
       const data = {
         receiver,
         sender,
         sourceChannel: source.channelId,
         sourcePort: source.portId,
-        timeoutTimestamp: timeoutTimestamp,
+        timeoutTimestamp,
         token,
         memo,
       };
