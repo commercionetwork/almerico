@@ -12,17 +12,19 @@ export default {
     const connections = CONFIG.CONNECTIONS;
     for (const connection of connections) {
       const channel = await dispatch('getConnectionChannel', connection);
-      const proof_height = await dispatch('getChannelProofHeight', {
-        channelId: channel.channel_id,
-        portId: channel.port_id,
-      });
-      const data = Object.assign(
-        {},
-        { ...connection },
-        { channel },
-        { proof_height }
-      );
-      commit('addConnection', data);
+      if (channel) {
+        const proof_height = await dispatch('getChannelProofHeight', {
+          channelId: channel.channel_id,
+          portId: channel.port_id,
+        });
+        const data = Object.assign(
+          {},
+          { ...connection },
+          { channel },
+          { proof_height }
+        );
+        commit('addConnection', data);
+      }
     }
     commit('setLoading', false);
   },
