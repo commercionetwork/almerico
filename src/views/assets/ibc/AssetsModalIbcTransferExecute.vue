@@ -77,7 +77,7 @@ export default {
         sender,
         sourceChannel: source.channelId,
         sourcePort: source.portId,
-        timeoutTimestamp: timeoutTimestamp,
+        timeoutTimestamp,
         token,
         memo,
       };
