@@ -7,10 +7,6 @@ export default {
   modal: (state) => state.modal,
   connections: (state) => {
     return state.connections.map((connection) => {
-      if (!connection.channels) {
-        return [];
-      }
-      const channel = connection.channels.find((c) => c.state === 'STATE_OPEN');
       const chain = TRANSFER.CHAIN_LIST.find(
         (c) => c.chainId === connection.chain_id
       );
@@ -20,9 +16,10 @@ export default {
       return {
         id: connection.id,
         chain_id: connection.chain_id,
-        channel_id: channel.channel_id,
-        port_id: channel.port_id,
-        counterparty: channel.counterparty,
+        channel_id: connection.channel.channel_id,
+        port_id: connection.channel.port_id,
+        counterparty: connection.channel.counterparty,
+        proof_height: connection.proof_height,
         name: chain.text,
         lcd: chain.rest,
         rpc: chain.rpc,

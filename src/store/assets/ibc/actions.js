@@ -9,23 +9,39 @@ export default {
   async initIBCTransfer({ commit, dispatch }) {
     commit('reset');
     commit('setLoading', true);
-    await dispatch('getConnectionChannels');
-    commit('setLoading', false);
-  },
-  async getConnectionChannels({ commit }) {
     const connections = CONFIG.CONNECTIONS;
     for (const connection of connections) {
-      try {
-        const response = await ibcCore.requestConnectionChannels(connection.id);
-        const data = Object.assign(
-          {},
-          { ...connection },
-          { channels: response.data.channels }
-        );
-        commit('addConnection', data);
-      } catch (error) {
-        commit('setError', error);
-      }
+      const channel = await dispatch('getConnectionChannel', connection);
+      const proof_height = await dispatch('getChannelProofHeight', {
+        channelId: channel.channel_id,
+        portId: channel.port_id,
+      });
+      const data = Object.assign(
+        {},
+        { ...connection },
+        { channel },
+        { proof_height }
+      );
+      commit('addConnection', data);
+    }
+    commit('setLoading', false);
+  },
+  async getConnectionChannel({ commit }, connection) {
+    try {
+      const response = await ibcCore.requestConnectionChannels(connection.id);
+      return response.data.channels.find(
+        (channel) => channel.state === 'STATE_OPEN'
+      );
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async getChannelProofHeight({ commit }, { channelId, portId }) {
+    try {
+      const response = await ibcCore.requestChannelDetail(channelId, portId);
+      return response.data.proof_height;
+    } catch (error) {
+      commit('setError', error);
     }
   },
   async fetchIBCChain({ commit, dispatch }, { chain, translator, context }) {
