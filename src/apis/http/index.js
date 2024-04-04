@@ -7,6 +7,7 @@ import cosmwasm from './cosmwasm-api';
 import distribution from './distribution-api';
 import gaiaRest from './gaiaRest-api';
 import governance from './governance-api';
+import ibcCore from './ibc-core-api';
 import monitor from './monitor-api';
 import overview from './overview-api';
 import proposals from './proposals-api';
@@ -26,6 +27,7 @@ export {
   distribution,
   gaiaRest,
   governance,
+  ibcCore,
   monitor,
   overview,
   proposals,

@@ -5,12 +5,9 @@ import mutations from './mutations';
 export const initState = () => ({
   error: null,
   isLoading: false,
-  isHandling: false,
-  isInvalid: true,
+  balances: null,
   list: [],
-  detail: null,
-  newCW20: null,
-  government: '',
+  supply: [],
 });
 
 export default {

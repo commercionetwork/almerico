@@ -3,6 +3,7 @@ const API_PATHS = Object.freeze({
   COMMERCIO: 'commercionetwork',
   COSMOS: 'cosmos',
   COSMWASM: 'cosmwasm',
+  IBC: 'ibc',
   TENDERMINT: 'tendermint',
   TX: 'tx',
 });
@@ -43,6 +44,8 @@ export default Object.freeze({
     TXS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}`,
     // Cosmwasm
     WASM: `${LCD}/${API_PATHS.COSMWASM}/wasm/${API_VERSION_COSMWASM}`,
+    // IBC
+    IBC_CORE: `${LCD}/${API_PATHS.IBC}/core`,
     // Commercio
     GOVERNMENT: `${LCD}/${API_PATHS.COMMERCIO}/government`,
     KYC: `${LCD}/${API_PATHS.COMMERCIO}/commerciokyc`,

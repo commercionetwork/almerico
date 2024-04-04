@@ -14,12 +14,14 @@
     <v-col cols="12" v-else data-test="content">
       <the-header-content :title="$t('titles.assets')" />
       <assets-view-list-table />
+      <assets-modal-ibc-transfer />
     </v-col>
   </v-row>
 </template>
 
 <script>
 import AssetsViewListTable from './list/AssetsViewListTable.vue';
+import AssetsModalIbcTransfer from './ibc/AssetsModalIbcTransfer';
 
 import { mapActions, mapGetters } from 'vuex';
 
@@ -27,15 +29,22 @@ export default {
   name: 'AssetsViewList',
   components: {
     AssetsViewListTable,
+    AssetsModalIbcTransfer,
   },
   computed: {
-    ...mapGetters('assets', ['error', 'isLoading']),
+    ...mapGetters('assetsList', ['error', 'isLoading']),
+    ...mapGetters('keplr', ['wallet']),
+  },
+  watch: {
+    wallet(newValue) {
+      this.initAssetsList(newValue);
+    },
   },
   created() {
-    this.initAssetsList();
+    this.initAssetsList(this.wallet);
   },
   methods: {
-    ...mapActions('assets', ['initAssetsList']),
+    ...mapActions('assetsList', ['initAssetsList']),
   },
 };
 </script>

@@ -67,7 +67,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('assets', ['isHandling']),
+    ...mapGetters('assetsDetail', ['isHandling']),
     dialog: {
       get() {
         return this.value;

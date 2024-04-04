@@ -1,5 +1,5 @@
 import { governance, proposals, staking } from '@/apis/http';
-import { PROPOSALS } from '@/constants';
+import { CHAIN, PROPOSALS } from '@/constants';
 import { msgBuilder } from '@/utils';
 
 export default {
@@ -88,12 +88,17 @@ export default {
         }
       );
     }
+    const chain = CHAIN.INFO();
     const account = rootGetters['keplr/wallet'];
     const msg = msgBuilder.buildMsgVote({ voteOption, proposalId, account });
     commit('setLoading', true);
-    await dispatch('keplr/signAndBroadcastTransaction', [msg], {
-      root: true,
-    });
+    await dispatch(
+      'keplr/signAndBroadcastTransaction',
+      { chain, msgs: [msg] },
+      {
+        root: true,
+      }
+    );
     commit('setLoading', false);
   },
   //TODO: remove legacy

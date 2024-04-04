@@ -4,6 +4,7 @@ import {
 } from '@cosmjs/stargate';
 import { SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
 import { CHAIN, CONFIG } from '@/constants';
+import { bech32Manager } from '@/utils';
 
 let controller;
 
@@ -52,7 +53,7 @@ export default {
     commit('setAccounts', []);
     commit('setInitialized', false);
     commit('setLoading', true);
-    await dispatch('getAccounts', { chainId: chainInfo.chainId, $t });
+    await dispatch('getAccounts', { chainInfo, $t });
     commit('setLoading', false);
   },
   subscribeKeyStoreChange({ dispatch }, { chainInfo, $t }) {
@@ -70,45 +71,40 @@ export default {
       commit('setError', error);
     }
   },
-  async signAndBroadcastTransaction({ commit, dispatch }, msgs) {
+  async signAndBroadcastTransaction({ commit, dispatch }, { chain, msgs }) {
     try {
-      const chainInfo = CHAIN.INFO();
-      const offlineSigner = await dispatch(
-        'getOfflineSigner',
-        chainInfo.chainId
-      );
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
       const client = await SigningStargateClient.connectWithSigner(
-        chainInfo.rpc,
+        chain.rpc,
         offlineSigner
       );
-      const result = await dispatch('deliverTx', { client, msgs });
+      const hrp = chain.bech32Config.bech32PrefixAccAddr;
+      const result = await dispatch('deliverTx', { client, hrp, msgs });
       return result;
     } catch (error) {
       commit('setError', error);
     }
   },
-  async signAndBroadcastCosmWasmTx({ commit, dispatch }, msgs) {
+  async signAndBroadcastCosmWasmTx({ commit, dispatch }, { chain, msgs }) {
     try {
-      const chainInfo = CHAIN.INFO();
-      const offlineSigner = await dispatch(
-        'getOfflineSigner',
-        chainInfo.chainId
-      );
+      const offlineSigner = await dispatch('getOfflineSigner', chain.chainId);
       const client = await SigningCosmWasmClient.connectWithSigner(
-        chainInfo.rpc,
+        chain.rpc,
         offlineSigner
       );
-      const result = await dispatch('deliverTx', { client, msgs });
+      const hrp = chain.bech32Config.bech32PrefixAccAddr;
+      const result = await dispatch('deliverTx', { client, hrp, msgs });
       return result;
     } catch (error) {
       commit('setError', error);
     }
   },
-  async deliverTx({ commit, getters }, { client, msgs }) {
+  async deliverTx({ commit, getters }, { client, hrp, msgs }) {
     try {
       const wallet = getters['wallet'];
+      const account = bech32Manager.encode(bech32Manager.decode(wallet), hrp);
       const fee = _calcFee(msgs.length);
-      const result = await client.signAndBroadcast(wallet, msgs, fee);
+      const result = await client.signAndBroadcast(account, msgs, fee);
       assertIsDeliverTxSuccess(result);
       return result;
     } catch (error) {

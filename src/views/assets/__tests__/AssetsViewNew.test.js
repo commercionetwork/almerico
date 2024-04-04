@@ -10,7 +10,7 @@ describe('views/assets/AssetsViewNew.vue', () => {
   };
   const mockStore = new Vuex.Store({
     modules: {
-      assets: {
+      assetsNew: {
         namespaced: true,
         actions,
       },

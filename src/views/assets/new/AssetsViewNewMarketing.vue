@@ -76,7 +76,7 @@ export default {
     this.model.marketing = this.wallet;
   },
   methods: {
-    ...mapActions('assets', ['updateContractProp']),
+    ...mapActions('assetsNew', ['updateContractProp']),
   },
 };
 </script>

@@ -89,7 +89,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('assets', ['newCW20']),
+    ...mapGetters('assetsNew', ['newCW20']),
     ...mapGetters('keplr', ['wallet']),
   },
   watch: {
@@ -112,7 +112,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions('assets', ['updateIsInvalid', 'updateContractProp']),
+    ...mapActions('assetsNew', ['updateIsInvalid', 'updateContractProp']),
   },
 };
 </script>

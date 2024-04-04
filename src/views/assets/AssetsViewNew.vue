@@ -36,7 +36,7 @@ export default {
     AssetsViewNewForm,
   },
   computed: {
-    ...mapGetters('assets', ['error', 'isLoading']),
+    ...mapGetters('assetsNew', ['error', 'isLoading']),
     isDenied() {
       const query = this.$route.query;
       if (!query['op']) {
@@ -55,7 +55,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('assets', ['initAssetsNew']),
+    ...mapActions('assetsNew', ['initAssetsNew']),
   },
 };
 </script>

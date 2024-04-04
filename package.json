@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "4.10.11",
+  "version": "4.11.2",
   "description": "Commercio blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -13,12 +13,13 @@
   "dependencies": {
     "@cosmjs/cosmwasm-stargate": "~0.32.0",
     "@cosmjs/stargate": "~0.32.0",
-    "async-mutex": "~0.4.0",
+    "async-mutex": "~0.5.0",
     "axios": "~1.6.0",
     "bech32": "~2.0.0",
     "chart.js": "~3.9.0",
     "core-js": "~3.36.0",
     "dayjs": "~1.11.0",
+    "js-sha256": "^0.11.0",
     "jssha": "~3.3.0",
     "lodash": "~4.17.0",
     "qrcode.vue": "~1.7.0",
@@ -34,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "~7.24.0",
-    "@babel/eslint-parser": "~7.23.0",
+    "@babel/eslint-parser": "~7.24.0",
     "@mdi/js": "~7.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",

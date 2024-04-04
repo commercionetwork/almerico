@@ -10,7 +10,7 @@ describe('views/assets/AssetsViewList.vue', () => {
   };
   const mockStore = new Vuex.Store({
     modules: {
-      assets: {
+      assetsList: {
         namespaced: true,
         actions,
       },
@@ -20,12 +20,16 @@ describe('views/assets/AssetsViewList.vue', () => {
     $store: mockStore,
     $t: (msg) => msg,
   };
+  const computed = {
+    wallet: () => 'wallet',
+  };
 
   test('if loading indicator is displayed', async () => {
     const wrapper = shallowMount(AssetsViewList, {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => true,
       },
@@ -42,6 +46,7 @@ describe('views/assets/AssetsViewList.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => error,
         isLoading: () => false,
       },
@@ -57,6 +62,7 @@ describe('views/assets/AssetsViewList.vue', () => {
       localVue,
       mocks,
       computed: {
+        ...computed,
         error: () => null,
         isLoading: () => false,
       },
