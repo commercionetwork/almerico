@@ -17,6 +17,14 @@ const CHAIN_LIST = Object.freeze([
   },
   {
     id: 3,
+    text: 'Osmosis - Localnet',
+    chainId: 'osmosis-commercio',
+    chainName: 'osmosis',
+    rpc: 'http://localhost:36657',
+    rest: 'http://localhost:2317',
+  },
+  {
+    id: 4,
     text: 'Rebus',
     chainId: 'reb_1111-1',
     chainName: 'rebus',
@@ -24,7 +32,7 @@ const CHAIN_LIST = Object.freeze([
     rest: 'https://api.rebuschain.com:1317/',
   },
   {
-    id: 4,
+    id: 5,
     text: 'Rebus - Testnet',
     chainId: 'reb_3333-1',
     chainName: 'rebustestnet',
@@ -36,7 +44,7 @@ const CHAIN_LIST = Object.freeze([
 const CONFIG_LIST = Object.freeze([
   {
     id: 1,
-    chainIds: ['osmosis-1', 'osmo-test-5'],
+    chainIds: ['osmosis-1', 'osmo-test-5', 'osmosis-commercio'],
     bech32Config: {
       bech32PrefixAccAddr: 'osmo',
       bech32PrefixAccPub: 'osmopub',
