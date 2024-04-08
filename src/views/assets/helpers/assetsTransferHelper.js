@@ -28,7 +28,7 @@ const assetsTransferHelper = {
     };
   },
   getTimeoutTimestamp() {
-    return (Date.now() + 10 * 60) * 1000 * 1000;
+    return (Date.now() + 10 * 60 * 1000) * 1000 * 1000;
   },
   getToken({ amount, chain, isDeposit, token }) {
     const uamount = convertAmountToBase(amount, token.decimals);
