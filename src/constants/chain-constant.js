@@ -61,13 +61,24 @@ const LIST = [
 
 if (process.env.VUE_APP_LCD === 'http://localhost:7123') {
   LIST.push({
-    id: 4,
-    text: 'Local-net',
+    id: 7,
+    text: 'Local-net 1',
     value: 'https://localhost:9099',
     chainId: 'chain-wzTpVI',
     chainName: 'Localnet.network',
     rpc: 'http://localhost:7124',
     lcd: 'http://localhost:7123',
+  });
+}
+if (process.env.VUE_APP_LCD === 'http://localhost:1317') {
+  LIST.push({
+    id: 8,
+    text: 'Local-net 2',
+    value: 'https://localhost:9099',
+    chainId: 'commercionetwork',
+    chainName: 'Localnet.network',
+    rpc: 'http://localhost:26657',
+    lcd: 'http://localhost:1317',
   });
 }
 
