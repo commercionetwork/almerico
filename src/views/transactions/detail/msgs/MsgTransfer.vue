@@ -63,8 +63,11 @@ export default {
       return this.message.token.amount + ' ' + this.message.token.denom;
     },
     timeoutTimestamp() {
-      if (!this.message.timeout_timestamp) {
-        return '';
+      if (
+        !this.message.timeout_timestamp ||
+        this.message.timeout_timestamp === '0'
+      ) {
+        return '-';
       }
       const timeoutTimestamp =
         parseInt(this.message.timeout_timestamp) / 1000000;
