@@ -53,6 +53,7 @@ export default {
   methods: {
     ...mapActions('assetsIbc', ['transferTokens']),
     transfer() {
+      const counterparty = assetsTransferHelper.getCounterparty(this.chain);
       const receiver = assetsTransferHelper.getReceiver({
         chain: this.chain,
         isDeposit: this.isDeposit,
@@ -88,6 +89,7 @@ export default {
       this.transferTokens({
         chain: chainData,
         data,
+        counterparty,
         translator: this.$t,
         context: this,
       }).then((res) => this.$emit('success', res));

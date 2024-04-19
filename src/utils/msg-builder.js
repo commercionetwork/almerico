@@ -89,7 +89,10 @@ const msgBuilder = {
         sender,
         sourceChannel,
         sourcePort,
-        timeoutHeight,
+        timeoutHeight: {
+          revisionHeight: parseInt(timeoutHeight.revision_height) + 1000 + '',
+          revisionNumber: timeoutHeight.revision_number,
+        },
         timeoutTimestamp,
         token,
         memo,
