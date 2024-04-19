@@ -90,7 +90,7 @@ const msgBuilder = {
         sourceChannel,
         sourcePort,
         timeoutHeight: {
-          revisionHeight: parseInt(timeoutHeight.revision_height) + 1000 + '',
+          revisionHeight: parseInt(timeoutHeight.revision_height) + 100 + '',
           revisionNumber: timeoutHeight.revision_number,
         },
         timeoutTimestamp,
