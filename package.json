@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "4.11.4",
+  "version": "4.11.5",
   "description": "Commercio blockchain explorer",
   "private": true,
   "license": "MIT",
@@ -17,7 +17,7 @@
     "axios": "~1.6.0",
     "bech32": "~2.0.0",
     "chart.js": "~3.9.0",
-    "core-js": "~3.36.0",
+    "core-js": "~3.37.0",
     "dayjs": "~1.11.0",
     "js-sha256": "^0.11.0",
     "jssha": "~3.3.0",

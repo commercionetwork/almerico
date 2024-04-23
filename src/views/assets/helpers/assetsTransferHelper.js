@@ -14,6 +14,14 @@ const assetsTransferHelper = {
         }
       : chainInfo;
   },
+  getCounterparty(chain) {
+    const counterparty = chain.counterparty;
+    return {
+      channelId: counterparty.channel_id,
+      portId: counterparty.port_id,
+      lcdUrl: chain.lcd,
+    };
+  },
   getReceiver({ chain, isDeposit, wallet }) {
     return isDeposit ? wallet : convertAddressToCounterparty(wallet, chain.hrp);
   },
