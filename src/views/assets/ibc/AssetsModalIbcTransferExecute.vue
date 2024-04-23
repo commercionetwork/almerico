@@ -72,7 +72,6 @@ export default {
         isDeposit: this.isDeposit,
         token: this.token,
       });
-      const memo = `{"forward":{"chain":"${this.chain.chain_id}","sender":"${sender}","receiver":"${receiver}"}}`;
       const data = {
         receiver,
         sender,
@@ -80,7 +79,7 @@ export default {
         sourcePort: source.portId,
         timeoutTimestamp,
         token,
-        memo,
+        memo: '',
       };
       const chainData = assetsTransferHelper.getChainDataToBroadcast(
         this.chain,
