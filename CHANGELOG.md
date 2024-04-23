@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Improve withdraw IBC transfer
+- Update withdraw IBC transfer
 
 ## [4.11.5] - 2024-04-23
 
