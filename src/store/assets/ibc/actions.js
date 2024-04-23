@@ -86,7 +86,7 @@ export default {
   },
   async transferTokens(
     { commit, dispatch, rootGetters },
-    { chain, data, counterparty, translator, context }
+    { chain, data, translator, context }
   ) {
     if (!rootGetters['keplr/isInitialized']) {
       await dispatch(
@@ -97,11 +97,6 @@ export default {
         }
       );
     }
-    const proofHeight = await dispatch(
-      'getCounterpartyProofHeight',
-      counterparty
-    );
-    data.timeoutHeight = proofHeight;
     const msg = msgBuilder.buildMsgTransfer(data);
     commit('setHandling', true);
     const result = await dispatch(
@@ -113,17 +108,5 @@ export default {
     );
     commit('setHandling', false);
     return result;
-  },
-  async getCounterpartyProofHeight({ commit }, counterParty) {
-    try {
-      const response = await ibcCore.requestCounterpartyChannelDetail({
-        channelId: counterParty.channelId,
-        portId: counterParty.portId,
-        lcdUrl: counterParty.lcdUrl,
-      });
-      return response.data.proof_height;
-    } catch (error) {
-      commit('setError', error);
-    }
   },
 };
