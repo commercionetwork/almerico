@@ -53,6 +53,7 @@ export default {
   methods: {
     ...mapActions('assetsIbc', ['transferTokens']),
     transfer() {
+      const counterparty = assetsTransferHelper.getCounterparty(this.chain);
       const receiver = assetsTransferHelper.getReceiver({
         chain: this.chain,
         isDeposit: this.isDeposit,
@@ -71,7 +72,6 @@ export default {
         isDeposit: this.isDeposit,
         token: this.token,
       });
-      const memo = `{"forward":{"chain":"${this.chain.chain_id}","sender":"${sender}","receiver":"${receiver}"}}`;
       const data = {
         receiver,
         sender,
@@ -79,7 +79,6 @@ export default {
         sourcePort: source.portId,
         timeoutTimestamp,
         token,
-        memo,
       };
       const chainData = assetsTransferHelper.getChainDataToBroadcast(
         this.chain,
@@ -88,6 +87,7 @@ export default {
       this.transferTokens({
         chain: chainData,
         data,
+        counterparty,
         translator: this.$t,
         context: this,
       }).then((res) => this.$emit('success', res));

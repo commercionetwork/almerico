@@ -27,6 +27,20 @@ const ibcCore = {
       baseURL: APIS.HTTP.IBC_CORE,
     });
   },
+  /**
+   *
+   * @param {String} channelId
+   * @param {String} portId
+   * @param {String} lcdUrl
+   * @returns {AxiosPromise}
+   */
+  requestCounterpartyChannelDetail({ channelId, portId, lcdUrl }) {
+    return axios({
+      url: `ibc/core/channel/v1/channels/${channelId}/ports/${portId}`,
+      method: 'get',
+      baseURL: `${lcdUrl}`,
+    });
+  },
 };
 
 export default ibcCore;
