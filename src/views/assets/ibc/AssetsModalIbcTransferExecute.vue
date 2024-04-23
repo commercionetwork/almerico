@@ -79,7 +79,6 @@ export default {
         sourcePort: source.portId,
         timeoutTimestamp,
         token,
-        memo: '',
       };
       const chainData = assetsTransferHelper.getChainDataToBroadcast(
         this.chain,
