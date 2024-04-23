@@ -133,28 +133,6 @@ describe('store/assetsIbc/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
-
-  test('if "getCounterpartyProofHeight" return proof height, and set the error if it is caught', async () => {
-    const commit = jest.fn();
-    const counterparty = {
-      channelId: 'channelId',
-      portId: 'portId',
-      lcdUrl: 'lcdUrl',
-    };
-
-    const response = await actions.getCounterpartyProofHeight(
-      { commit },
-      counterparty
-    );
-
-    expect(response).toStrictEqual(mockResponse.data.proof_height);
-
-    mockError = true;
-
-    await actions.getCounterpartyProofHeight({ commit }, counterparty);
-
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-  });
 });
 
 jest.mock('@/apis/http/bank-api.js', () => ({
@@ -199,27 +177,6 @@ jest.mock('@/apis/http/ibc-core-api.js', () => ({
     });
   },
   requestChannelDetail: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: {
-            channel: mockIBCChannel(),
-            proof: null,
-            proof_height: {
-              revision_number: '0',
-              revision_height: '17727015',
-            },
-          },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestCounterpartyChannelDetail: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
