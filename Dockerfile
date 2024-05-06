@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:20
 
 # Read the set variables
 ARG ANCESTORS_LIST
@@ -57,9 +57,6 @@ WORKDIR /app
 
 # Clean up (i.e. extract 'dist' folder and remove everything else)
 RUN mv tmp/dist dist && rm -fr tmp
-
-# Update docker image
-RUN apt-get update && apt-get dist-upgrade -y
 
 # Start the server
 CMD [ "serve", "--single", "-p", "5000", "dist" ]
