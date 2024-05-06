@@ -1,7 +1,7 @@
 {
   "name": "almerico",
-  "version": "4.11.6",
-  "description": "Commercio blockchain explorer",
+  "version": "4.12.0",
+  "description": "explorer of Commercio.network blockchain",
   "private": true,
   "license": "MIT",
   "scripts": {
