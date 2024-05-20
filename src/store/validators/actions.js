@@ -1,6 +1,8 @@
 import { bank, distribution, slashing, staking, validators } from '@/apis/http';
 import { CHAIN, CONFIG } from '@/constants';
-import { bech32Manager, msgBuilder } from '@/utils';
+import { msgBuilder } from '@/utils';
+import { sha256 } from '@cosmjs/crypto';
+import { fromBase64, toBech32 } from '@cosmjs/encoding';
 
 export default {
   async initValidatorsList({ commit, dispatch }) {
@@ -24,38 +26,38 @@ export default {
     const requests = [
       dispatch('fetchDetail', address),
       dispatch('fetchDetailDelegations', address),
-      dispatch('fetchMissedBlocksCounter', address),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
   },
   async updateValidatorsDetail({ commit, dispatch }, address) {
     commit('setUpdating', true);
-    const requests = [
-      dispatch('fetchDetail', address),
-      dispatch('fetchMissedBlocksCounter', address),
-    ];
+    const requests = [dispatch('fetchDetail', address)];
     await Promise.all(requests);
     commit('setUpdating', false);
   },
-  async fetchDetail({ commit }, address) {
+  async fetchDetail({ commit, dispatch }, address) {
     try {
       const response = await validators.requestDetail(address);
       commit('setDetail', response.data);
+      await dispatch('fetchMissedBlocksCounter', response.data.pubkey);
     } catch (error) {
       commit('setError', error);
     }
   },
-  async fetchMissedBlocksCounter({ commit }, address) {
+  async fetchMissedBlocksCounter({ commit }, pubkey) {
     try {
-      const hex = bech32Manager.decode(address);
-      const consAddress = bech32Manager.encode(
-        hex,
-        CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS
+      const consAddress = toBech32(
+        CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS,
+        sha256(fromBase64(pubkey)).slice(0, 20)
       );
-      console.log(consAddress);
-      // const response = await slashing.requestSigningInfosByAddress(consAddress);
-      // console.log(response.data);
+      const response = await slashing.requestSigningInfosByAddress(consAddress);
+      if (!response.data.val_signing_info) {
+        commit(
+          'setMissedBlocksCounter',
+          response.data.val_signing_info.missed_blocks_counter
+        );
+      }
     } catch (error) {
       commit('setError', error);
     }
