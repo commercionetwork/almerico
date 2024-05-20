@@ -1,6 +1,6 @@
-import { bank, distribution, staking, validators } from '@/apis/http';
-import { CHAIN } from '@/constants';
-import { msgBuilder } from '@/utils';
+import { bank, distribution, slashing, staking, validators } from '@/apis/http';
+import { CHAIN, CONFIG } from '@/constants';
+import { bech32Manager, msgBuilder } from '@/utils';
 
 export default {
   async initValidatorsList({ commit, dispatch }) {
@@ -24,19 +24,38 @@ export default {
     const requests = [
       dispatch('fetchDetail', address),
       dispatch('fetchDetailDelegations', address),
+      dispatch('fetchMissedBlocksCounter', address),
     ];
     await Promise.all(requests);
     commit('setLoading', false);
   },
   async updateValidatorsDetail({ commit, dispatch }, address) {
     commit('setUpdating', true);
-    await dispatch('fetchDetail', address);
+    const requests = [
+      dispatch('fetchDetail', address),
+      dispatch('fetchMissedBlocksCounter', address),
+    ];
+    await Promise.all(requests);
     commit('setUpdating', false);
   },
   async fetchDetail({ commit }, address) {
     try {
       const response = await validators.requestDetail(address);
       commit('setDetail', response.data);
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
+  async fetchMissedBlocksCounter({ commit }, address) {
+    try {
+      const hex = bech32Manager.decode(address);
+      const consAddress = bech32Manager.encode(
+        hex,
+        CONFIG.PREFIXES.VALIDATOR.CONSENSUS.ADDRESS
+      );
+      console.log(consAddress);
+      // const response = await slashing.requestSigningInfosByAddress(consAddress);
+      // console.log(response.data);
     } catch (error) {
       commit('setError', error);
     }
