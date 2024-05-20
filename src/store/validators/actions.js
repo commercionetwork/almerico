@@ -40,7 +40,9 @@ export default {
     try {
       const response = await validators.requestDetail(address);
       commit('setDetail', response.data);
-      await dispatch('fetchMissedBlocksCounter', response.data.pubkey);
+      if (response.data.pubkey) {
+        await dispatch('fetchMissedBlocksCounter', response.data.pubkey);
+      }
     } catch (error) {
       commit('setError', error);
     }
@@ -52,7 +54,7 @@ export default {
         sha256(fromBase64(pubkey)).slice(0, 20)
       );
       const response = await slashing.requestSigningInfosByAddress(consAddress);
-      if (!response.data.val_signing_info) {
+      if (response.data.val_signing_info) {
         commit(
           'setMissedBlocksCounter',
           response.data.val_signing_info.missed_blocks_counter
