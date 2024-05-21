@@ -32,7 +32,7 @@ export const msgs = {
   installKeplrExtension: 'Si prega di installare l\'estensione Keplr',
   listPrice : 'Prezzo di listino',
   loading: 'Caricando...',
-  lostBlocks: 'Perso {0} su 20000',
+  lostBlocks: 'Perso {0} su 20K',
   mandatoryField: 'Questo campo è obbligatorio',
   noAccountFound: 'Nessun conto trovato. Utilizza l\'estensione Keplr per crearlo o importarlo.',
   noCode: 'Codice non disponibile',
