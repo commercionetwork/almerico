@@ -26,6 +26,15 @@
             />
           </ul>
         </v-col>
+        <v-col cols="12" class="d-flex justify-center align-center">
+          <i18n tag="span" path="msgs.lostBlocks">
+            <span
+              class="font-weight-bold"
+              :class="missedBlocksCounter > 4000 ? 'error--text' : ''"
+              v-text="missedBlocksCounter"
+            />
+          </i18n>
+        </v-col>
       </v-row>
     </v-card-text>
   </v-card>
@@ -44,7 +53,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('validators', ['isUpdating', 'detail']),
+    ...mapGetters('validators', [
+      'isUpdating',
+      'detail',
+      'missedBlocksCounter',
+    ]),
     limit() {
       return VALIDATORS.CUSTOMIZATION.BLOCKS_MONITOR.AMOUNT;
     },
