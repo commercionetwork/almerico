@@ -36,6 +36,7 @@ export default Object.freeze({
     BANK: `${LCD}/${API_PATHS.COSMOS}/bank/${API_VERSION}`,
     DISTRIBUTION: `${LCD}/${API_PATHS.COSMOS}/distribution/${API_VERSION}`,
     GOVERNANCE: `${LCD}/${API_PATHS.COSMOS}/gov/${API_VERSION}`,
+    SLASHING: `${LCD}/${API_PATHS.COSMOS}/slashing/${API_VERSION}`,
     STAKING: `${LCD}/${API_PATHS.COSMOS}/staking/${API_VERSION}`,
     // Service
     BLOCKS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/blocks`,

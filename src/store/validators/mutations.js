@@ -16,6 +16,9 @@ export default {
   setDetail(state, payload) {
     state.detail = payload;
   },
+  setMissedBlocksCounter(state, payload) {
+    state.missedBlocksCounter = payload;
+  },
   setList(state, payload) {
     state.list = payload;
   },
