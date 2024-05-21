@@ -7,6 +7,7 @@ import {
   mockUnbondings,
   mockValidatorBackend,
   mockValidatorsBackend,
+  mockSigningInfo,
 } from '@/__mocks__';
 import actions from '../actions.js';
 
@@ -80,7 +81,7 @@ describe('store/validators/actions', () => {
     expect(commit).toHaveBeenCalledWith('setUpdating', false);
   });
 
-  test('if "fetchDetail" action commit "setDetail", and set the error if it is caught', async () => {
+  test('if "fetchDetail" action commit "setDetail", dispatch "fetchMissedBlocksCounter" action, and set the error if it is caught', async () => {
     const commit = jest.fn();
     const dispatch = jest.fn();
     const address = 'address';
@@ -88,6 +89,10 @@ describe('store/validators/actions', () => {
     await actions.fetchDetail({ commit, dispatch }, address);
 
     expect(commit).toHaveBeenCalledWith('setDetail', mockResponse.data);
+    expect(dispatch).toHaveBeenCalledWith(
+      'fetchMissedBlocksCounter',
+      mockResponse.data.pubkey
+    );
 
     mockError = true;
 
@@ -241,8 +246,8 @@ describe('store/validators/actions', () => {
   });
 });
 
-jest.mock('../../../apis/http/validators-api.js', () => ({
-  requestList: () => {
+jest.mock('@/apis/http/bank-api.js', () => ({
+  requestBalances: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -250,21 +255,10 @@ jest.mock('../../../apis/http/validators-api.js', () => ({
         }
 
         mockResponse = {
-          data: { validators: mockValidatorsBackend() },
-        };
-        resolve(mockResponse);
-      }, 1);
-    });
-  },
-  requestDetail: () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (mockError) {
-          reject(mockErrorResponse);
-        }
-
-        mockResponse = {
-          data: mockValidatorBackend(false),
+          data: {
+            balances: mockBalances(),
+            pagination: mockPagination(),
+          },
         };
         resolve(mockResponse);
       }, 1);
@@ -272,7 +266,41 @@ jest.mock('../../../apis/http/validators-api.js', () => ({
   },
 }));
 
-jest.mock('../../../apis/http/staking-api.js', () => ({
+jest.mock('@/apis/http/distribution-api.js', () => ({
+  requestRewards: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: mockRewards(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
+
+jest.mock('@/apis/http/slashing-api.js', () => ({
+  requestSigningInfosByAddress: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockError) {
+          reject(mockErrorResponse);
+        }
+
+        mockResponse = {
+          data: { val_signing_info: mockSigningInfo() },
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
+}));
+
+jest.mock('@/apis/http/staking-api.js', () => ({
   requestDelegations: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -325,8 +353,9 @@ jest.mock('../../../apis/http/staking-api.js', () => ({
     });
   },
 }));
-jest.mock('../../../apis/http/distribution-api.js', () => ({
-  requestRewards: () => {
+
+jest.mock('../../../apis/http/validators-api.js', () => ({
+  requestList: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -334,16 +363,13 @@ jest.mock('../../../apis/http/distribution-api.js', () => ({
         }
 
         mockResponse = {
-          data: mockRewards(),
+          data: { validators: mockValidatorsBackend() },
         };
         resolve(mockResponse);
       }, 1);
     });
   },
-}));
-
-jest.mock('../../../apis/http/bank-api.js', () => ({
-  requestBalances: () => {
+  requestDetail: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (mockError) {
@@ -351,10 +377,7 @@ jest.mock('../../../apis/http/bank-api.js', () => ({
         }
 
         mockResponse = {
-          data: {
-            balances: mockBalances(),
-            pagination: mockPagination(),
-          },
+          data: mockValidatorBackend(false),
         };
         resolve(mockResponse);
       }, 1);

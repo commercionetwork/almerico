@@ -27,6 +27,7 @@ import {
   mockVotes,
 } from './proposals-mock';
 import { mockRewards } from './rewards-mock';
+import { mockSigningInfo, mockSigningInfos } from './signing-info-mock';
 import { mockStakingParams } from './staking-params-mock';
 import { mockSupply, mockSupplyItem } from './supply-mock';
 import {
@@ -75,6 +76,8 @@ export {
   mockProposal,
   mockProposals,
   mockRewards,
+  mockSigningInfo,
+  mockSigningInfos,
   mockStakingParams,
   mockSupply,
   mockSupplyItem,
