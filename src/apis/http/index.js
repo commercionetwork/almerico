@@ -11,6 +11,7 @@ import ibcCore from './ibc-core-api';
 import monitor from './monitor-api';
 import overview from './overview-api';
 import proposals from './proposals-api';
+import slashing from './slashing-api';
 import staking from './staking-api';
 import tendermintRpc from './tendermintRpc-api';
 import tx from './tx-api';
@@ -31,6 +32,7 @@ export {
   monitor,
   overview,
   proposals,
+  slashing,
   staking,
   tendermintRpc,
   tx,

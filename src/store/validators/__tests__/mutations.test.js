@@ -14,6 +14,7 @@ describe('store/validators/mutations', () => {
     state.isLoading = true;
     state.isUpdating = true;
     state.detail = { id: 1 };
+    state.missedBlocksCounter = 1;
     state.list = [{ id: 1 }];
     state.delegations = [{ id: 1 }];
     state.delegationsPagination = { next_key: 'key', total: 25 };
@@ -59,6 +60,14 @@ describe('store/validators/mutations', () => {
     mutations.setDetail(state, detail);
 
     expect(state.detail).toStrictEqual(detail);
+  });
+
+  test('mutations.setMissedBlocksCounter', () => {
+    const missedBlocksCounter = 1;
+
+    mutations.setMissedBlocksCounter(state, missedBlocksCounter);
+
+    expect(state.missedBlocksCounter).toBe(missedBlocksCounter);
   });
 
   test('mutations.setList', () => {

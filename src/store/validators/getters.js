@@ -3,6 +3,7 @@ export default {
   isLoading: (state) => state.isLoading,
   isUpdating: (state) => state.isUpdating,
   detail: (state) => state.detail,
+  missedBlocksCounter: (state) => state.missedBlocksCounter,
   list: (state) => state.list,
   delegations: (state) => state.delegations,
   delegationsNextKey: (state) => state.delegationsPagination?.next_key,
