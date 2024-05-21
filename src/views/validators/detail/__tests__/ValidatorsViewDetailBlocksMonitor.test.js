@@ -9,6 +9,7 @@ describe('views/validators/detail/ValidatorsViewDetailBlocksMonitor.vue', () => 
   };
   const computed = {
     isUpdating: () => false,
+    missedBlocksCounter: () => '0',
   };
 
   test('if info message is displayed', () => {
