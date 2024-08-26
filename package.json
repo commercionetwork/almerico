@@ -1,6 +1,6 @@
 {
   "name": "almerico",
-  "version": "4.12.3",
+  "version": "4.12.4",
   "description": "explorer of Commercio.network blockchain",
   "private": true,
   "license": "MIT",
@@ -17,7 +17,7 @@
     "axios": "~1.7.0",
     "bech32": "~2.0.0",
     "chart.js": "~3.9.0",
-    "core-js": "~3.37.0",
+    "core-js": "~3.38.0",
     "dayjs": "~1.11.0",
     "js-sha256": "^0.11.0",
     "jssha": "~3.3.0",
@@ -34,8 +34,8 @@
     "vuex": "~3.6.0"
   },
   "devDependencies": {
-    "@babel/core": "~7.24.0",
-    "@babel/eslint-parser": "~7.24.0",
+    "@babel/core": "~7.25.0",
+    "@babel/eslint-parser": "~7.25.0",
     "@mdi/js": "~7.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
