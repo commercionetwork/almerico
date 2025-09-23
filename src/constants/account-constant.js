@@ -23,6 +23,12 @@ const COMMERCIO_COLOR = Object.freeze({
 
 export default Object.freeze({
   TRANSACTIONS_NUMBER: 10,
+  TRANSACTION_TYPES: Object.freeze({
+    NATIVE_SENT: 'native-sent',
+    NATIVE_RECEIVED: 'native-received',
+    CW20_SENT: 'cw20-sent',
+    CW20_RECEIVED: 'cw20-received',
+  }),
   MEMBERSHIPS: [
     {
       name: COMMERCIO_COLOR.GREEN.NAME,
