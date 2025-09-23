@@ -233,17 +233,17 @@ describe('store/account/actions', () => {
     const dispatch = jest.fn();
     const address = 'address';
     const offset = ACCOUNT.TRANSACTIONS_NUMBER;
-    const sent = false;
+    const type = ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT;
 
     await actions.addTransactions(
       { commit, dispatch },
-      { address, offset, sent }
+      { address, offset, type }
     );
 
     expect(dispatch).toHaveBeenCalledWith('fetchTransactions', {
       address,
       offset,
-      sent,
+      type,
     });
   });
 

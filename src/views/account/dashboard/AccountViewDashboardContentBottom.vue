@@ -27,6 +27,7 @@ import AccountViewDashboardTransactionsFilter from './AccountViewDashboardTransa
 
 import { mapActions, mapGetters } from 'vuex';
 import { txsTableAdapter } from '@/utils';
+import { ACCOUNT } from '@/constants';
 
 export default {
   name: 'AccountViewDashboardContentBottom',
@@ -36,7 +37,7 @@ export default {
   },
   data() {
     return {
-      isSentTxs: true,
+      transactionType: ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT,
     };
   },
   computed: {
@@ -65,12 +66,12 @@ export default {
       'fetchTransactions',
       'resetTransactions',
     ]),
-    onFilterTxs(value) {
+    onFilterTxs(type) {
       this.resetTransactions();
-      this.isSentTxs = value;
+      this.transactionType = type;
       this.fetchTransactions({
         address: this.address,
-        sent: value,
+        type: type,
       });
     },
     onIntersect(_entries, _observer, isIntersecting) {
@@ -78,7 +79,7 @@ export default {
         this.addTransactions({
           address: this.address,
           offset: this.transactionsOffset,
-          sent: this.isSentTxs,
+          type: this.transactionType,
         });
       }
     },
