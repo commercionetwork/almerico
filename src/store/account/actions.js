@@ -109,25 +109,10 @@ export default {
   },
   async fetchTransactions(
     { commit },
-    { address, offset = 0, type = ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT } = {}
+    { address, offset = 0, type = ACCOUNT.TRANSACTION_TYPES.SENT } = {}
   ) {
-    let eventFilter;
-    switch(type) {
-      case ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT:
-        eventFilter = `transfer.sender='${address}'`;
-        break;
-      case ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED:
-        eventFilter = `transfer.recipient='${address}'`;
-        break;
-      case ACCOUNT.TRANSACTION_TYPES.CW20_SENT:
-        eventFilter = `wasm.from='${address}'`;
-        break;
-      case ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED:
-        eventFilter = `wasm.to='${address}'`;
-        break;
-      default:
-        eventFilter = `transfer.sender='${address}'`;
-    }
+    const filterKey = ACCOUNT.EVENT_FILTERS[type];
+    const eventFilter = `${filterKey}='${address}'`;
     const parameters = {
       events: eventFilter,
       order_by: APIS.SORTING_ORDERS.ORDER_BY_DESC,
@@ -147,7 +132,10 @@ export default {
     }
     commit('setAddingTxs', false);
   },
-  async addTransactions({ dispatch }, { address, offset, type = ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT } = {}) {
+  async addTransactions(
+    { dispatch },
+    { address, offset, type = ACCOUNT.TRANSACTION_TYPES.SENT } = {}
+  ) {
     await dispatch('fetchTransactions', { address, offset, type });
   },
   resetTransactions({ commit }) {

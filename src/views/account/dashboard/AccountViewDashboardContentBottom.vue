@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      transactionType: ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT,
+      transactionType: ACCOUNT.TRANSACTION_TYPES.SENT,
     };
   },
   computed: {

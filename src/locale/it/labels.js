@@ -1,6 +1,10 @@
-import { TRANSACTIONS } from '@/constants';
+import { ACCOUNT, TRANSACTIONS } from '@/constants';
 
 export const labels = {
+  [ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED]: 'Token CW20 ricevuti',
+  [ACCOUNT.TRANSACTION_TYPES.CW20_SENT]: 'Token CW20 inviati',
+  [ACCOUNT.TRANSACTION_TYPES.RECEIVED]: 'Ricevute',
+  [ACCOUNT.TRANSACTION_TYPES.SENT]: 'Inviate',
   [TRANSACTIONS.MULTI_FEE]: 'Più fee',
   [TRANSACTIONS.MULTI_TYPE]: 'Più tipi',
   abrAndVbrRewardsNotDistributed: 'ABR e VBR compensi non distribuiti',
@@ -186,10 +190,6 @@ export const labels = {
   sender: 'Mittente',
   sent: 'Inviate',
   sentTxs: 'Transazioni inviate',
-  nativeSent: 'Nativi inviati',
-  nativeSentTxs: 'Token nativi inviati',
-  cw20Sent: 'CW20 inviati',
-  cw20SentTxs: 'Token CW20 inviati',
   service: 'service',
   serviceEndpoint: 'Endpoint del servizio',
   share: 'Condividere',
