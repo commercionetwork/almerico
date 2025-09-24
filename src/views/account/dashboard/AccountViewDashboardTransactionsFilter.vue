@@ -8,10 +8,16 @@
         </v-btn>
       </template>
       <v-list dense>
-        <v-list-item @click="onFilter(ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED)">
+        <v-list-item
+          @click="onFilter(ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED)"
+        >
           <v-list-item-content>
             <v-list-item-title class="text-caption">
-              <span v-text="$t(`labels.nativeReceived`)" />
+              <span
+                v-text="
+                  $t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED}`)
+                "
+              />
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
@@ -21,7 +27,9 @@
         <v-list-item @click="onFilter(ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT)">
           <v-list-item-content>
             <v-list-item-title class="text-caption">
-              <span v-text="$t(`labels.nativeSent`)" />
+              <span
+                v-text="$t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT}`)"
+              />
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
@@ -31,7 +39,9 @@
         <v-list-item @click="onFilter(ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED)">
           <v-list-item-content>
             <v-list-item-title class="text-caption">
-              <span v-text="$t(`labels.cw20Received`)" />
+              <span
+                v-text="$t(`labels.${ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED}`)"
+              />
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
@@ -41,7 +51,9 @@
         <v-list-item @click="onFilter(ACCOUNT.TRANSACTION_TYPES.CW20_SENT)">
           <v-list-item-content>
             <v-list-item-title class="text-caption">
-              <span v-text="$t(`labels.cw20Sent`)" />
+              <span
+                v-text="$t(`labels.${ACCOUNT.TRANSACTION_TYPES.CW20_SENT}`)"
+              />
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
@@ -74,15 +86,15 @@ export default {
   },
   computed: {
     caption() {
-      switch(this.currentType) {
+      switch (this.currentType) {
         case ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT:
-          return this.$t('labels.nativeSentTxs');
+          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT}`);
         case ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED:
-          return this.$t('labels.nativeReceivedTxs');
+          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED}`);
         case ACCOUNT.TRANSACTION_TYPES.CW20_SENT:
-          return this.$t('labels.cw20SentTxs');
+          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.CW20_SENT}`);
         case ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED:
-          return this.$t('labels.cw20ReceivedTxs');
+          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED}`);
         default:
           return this.$t('labels.sentTxs');
       }

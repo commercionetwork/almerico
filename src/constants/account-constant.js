@@ -21,14 +21,14 @@ const COMMERCIO_COLOR = Object.freeze({
   },
 });
 
+const TRANSACTION_TYPES = Object.freeze({
+  CW20_RECEIVED: 'cw20-received',
+  CW20_SENT: 'cw20-sent',
+  NATIVE_RECEIVED: 'native-received',
+  NATIVE_SENT: 'native-sent',
+});
+
 export default Object.freeze({
-  TRANSACTIONS_NUMBER: 10,
-  TRANSACTION_TYPES: Object.freeze({
-    NATIVE_SENT: 'native-sent',
-    NATIVE_RECEIVED: 'native-received',
-    CW20_SENT: 'cw20-sent',
-    CW20_RECEIVED: 'cw20-received',
-  }),
   MEMBERSHIPS: [
     {
       name: COMMERCIO_COLOR.GREEN.NAME,
@@ -51,4 +51,6 @@ export default Object.freeze({
       color: COMMERCIO_COLOR.BLACK.HEX,
     },
   ],
+  TRANSACTIONS_NUMBER: 10,
+  TRANSACTION_TYPES,
 });
