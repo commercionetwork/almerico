@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.13.1] - 2025-09-24
+
+### Changed
+
+- Update account transaction filter labels to accurately describe that they include
+  all transactions with transfer events, not just native tokens
+
 ## [4.13.0] - 2025-09-23
 
 ### Added
@@ -923,6 +930,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.13.1]: https://github.com/commercionetwork/almerico/compare/v4.13.0...v4.13.1
 [4.13.0]: https://github.com/commercionetwork/almerico/compare/v4.12.7...v4.13.0
 [4.12.7]: https://github.com/commercionetwork/almerico/compare/v4.12.6...v4.12.7
 [4.12.6]: https://github.com/commercionetwork/almerico/compare/v4.12.5...v4.12.6
