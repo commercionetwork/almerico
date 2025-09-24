@@ -24,11 +24,19 @@ const COMMERCIO_COLOR = Object.freeze({
 const TRANSACTION_TYPES = Object.freeze({
   CW20_RECEIVED: 'cw20-received',
   CW20_SENT: 'cw20-sent',
-  NATIVE_RECEIVED: 'native-received',
-  NATIVE_SENT: 'native-sent',
+  RECEIVED: 'received',
+  SENT: 'sent',
+});
+
+const EVENT_FILTERS = Object.freeze({
+  [TRANSACTION_TYPES.CW20_RECEIVED]: 'wasm.to',
+  [TRANSACTION_TYPES.CW20_SENT]: 'wasm.from',
+  [TRANSACTION_TYPES.RECEIVED]: 'transfer.recipient',
+  [TRANSACTION_TYPES.SENT]: 'transfer.sender',
 });
 
 export default Object.freeze({
+  EVENT_FILTERS,
   MEMBERSHIPS: [
     {
       name: COMMERCIO_COLOR.GREEN.NAME,

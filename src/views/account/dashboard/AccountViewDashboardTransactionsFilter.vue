@@ -9,13 +9,13 @@
       </template>
       <v-list dense>
         <v-list-item
-          @click="onFilter(ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED)"
+          @click="onFilter(ACCOUNT.TRANSACTION_TYPES.RECEIVED)"
         >
           <v-list-item-content>
             <v-list-item-title class="text-caption">
               <span
                 v-text="
-                  $t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED}`)
+                  $t(`labels.${ACCOUNT.TRANSACTION_TYPES.RECEIVED}`)
                 "
               />
             </v-list-item-title>
@@ -24,11 +24,11 @@
             <v-icon>{{ mdiArrowBottomLeftThick }}</v-icon>
           </v-list-item-icon>
         </v-list-item>
-        <v-list-item @click="onFilter(ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT)">
+        <v-list-item @click="onFilter(ACCOUNT.TRANSACTION_TYPES.SENT)">
           <v-list-item-content>
             <v-list-item-title class="text-caption">
               <span
-                v-text="$t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT}`)"
+                v-text="$t(`labels.${ACCOUNT.TRANSACTION_TYPES.SENT}`)"
               />
             </v-list-item-title>
           </v-list-item-content>
@@ -81,22 +81,22 @@ export default {
       mdiArrowBottomLeftThick,
       mdiArrowTopRightThick,
       mdiChevronDown,
-      currentType: ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT,
+      currentType: ACCOUNT.TRANSACTION_TYPES.SENT,
     };
   },
   computed: {
     caption() {
       switch (this.currentType) {
-        case ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT:
-          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT}`);
-        case ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED:
-          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED}`);
+        case ACCOUNT.TRANSACTION_TYPES.SENT:
+          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.SENT}`);
+        case ACCOUNT.TRANSACTION_TYPES.RECEIVED:
+          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.RECEIVED}`);
         case ACCOUNT.TRANSACTION_TYPES.CW20_SENT:
           return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.CW20_SENT}`);
         case ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED:
           return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED}`);
         default:
-          return this.$t('labels.sentTxs');
+          return this.$t(`labels.${ACCOUNT.TRANSACTION_TYPES.SENT}`);
       }
     },
   },

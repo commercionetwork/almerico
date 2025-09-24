@@ -3,8 +3,8 @@ import { ACCOUNT, TRANSACTIONS } from '@/constants';
 export const labels = {
   [ACCOUNT.TRANSACTION_TYPES.CW20_RECEIVED]: 'Token CW20 ricevuti',
   [ACCOUNT.TRANSACTION_TYPES.CW20_SENT]: 'Token CW20 inviati',
-  [ACCOUNT.TRANSACTION_TYPES.NATIVE_RECEIVED]: 'Token nativi ricevuti',
-  [ACCOUNT.TRANSACTION_TYPES.NATIVE_SENT]: 'Nativi inviati',
+  [ACCOUNT.TRANSACTION_TYPES.RECEIVED]: 'Ricevute',
+  [ACCOUNT.TRANSACTION_TYPES.SENT]: 'Inviate',
   [TRANSACTIONS.MULTI_FEE]: 'Più fee',
   [TRANSACTIONS.MULTI_TYPE]: 'Più tipi',
   abrAndVbrRewardsNotDistributed: 'ABR e VBR compensi non distribuiti',
