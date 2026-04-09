@@ -11,8 +11,8 @@
     "test": "vue-cli-service test:unit --setupTestFrameworkScriptFile=./tests/setup.js"
   },
   "dependencies": {
-    "@cosmjs/cosmwasm-stargate": "~0.32.0",
-    "@cosmjs/stargate": "~0.32.0",
+    "@cosmjs/cosmwasm-stargate": "~0.33.0",
+    "@cosmjs/stargate": "~0.33.0",
     "async-mutex": "~0.5.0",
     "axios": "~1.15.0",
     "bech32": "~2.0.0",
@@ -21,7 +21,7 @@
     "dayjs": "~1.11.0",
     "js-sha256": "~0.11.0",
     "jssha": "~3.3.0",
-    "lodash": "~4.17.0",
+    "lodash": "~4.18.0",
     "qrcode.vue": "~1.7.0",
     "spark-md5": "~3.0.0",
     "uuid": "~11.1.0",
