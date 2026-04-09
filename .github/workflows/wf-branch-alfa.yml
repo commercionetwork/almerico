@@ -46,6 +46,10 @@ jobs:
             exit 0
           fi
 
+      - name: Read package version
+        id: pkg
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -79,3 +83,4 @@ jobs:
             WASM_CW20_CODE_ID=${{ env.WASM_CW20_CODE_ID }}
             WASM_SWAP_CODE_ID=${{ env.WASM_SWAP_CODE_ID }}
             WS_URL=${{ env.WS_URL }}
+            APP_VERSION=${{ steps.pkg.outputs.version }}
