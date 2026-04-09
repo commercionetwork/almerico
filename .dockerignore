@@ -1,0 +1,31 @@
+# VCS
+.git/
+.gitignore
+.github/
+
+# Deps & build output (rebuilt in container)
+node_modules/
+dist/
+
+# Tests & tooling not needed for the build
+tests/
+coverage/
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+*.log
+.DS_Store
+
+# Env & secrets
+.env*
+
+# Docs & configs irrelevant to the build
+*.md
+jsconfig.json
+.editorconfig
+
+# Self
+.dockerignore
+Dockerfile*

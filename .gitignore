@@ -25,3 +25,11 @@ pnpm-debug.log*
 
 # Vetur
 jsconfig.json
+
+# Claude Code
+CLAUDE.md
+.claude/
+
+# Reference implementations not part of this project
+examples/
+swagger/
