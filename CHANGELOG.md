@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.13.2] - 2026-04-09
+
+### Added
+
+- Add multi-stage Dockerfile based on `node:24-alpine`, producing a much
+  smaller runtime image that only ships the built SPA and a static file
+  server, running as a non-root user with OCI-compliant labels and a
+  BusyBox-compatible healthcheck
+- Add `.dockerignore` to shrink the Docker build context
+- Forward `APP_VERSION` from `package.json` to the Docker image labels in
+  the Mainnet, Testnet and Devnet CI workflows
+
+### Changed
+
+- Upgrade axios to `~1.15.0` and core-js to `~3.49.0`
+
+### Fixed
+
+- Fix the `__WEBPACK_DEFAULT_EXPORT__ is not defined` error thrown by
+  webpack 5 against the raw ESM sources shipped by axios `>=1.8` under
+  the `browser` > `default` export condition, by aliasing axios to its
+  prebuilt CJS browser bundle in `vue.config.js`
+
 ## [4.13.1] - 2025-09-24
 
 ### Changed
@@ -930,6 +953,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.13.2]: https://github.com/commercionetwork/almerico/compare/v4.13.1...v4.13.2
 [4.13.1]: https://github.com/commercionetwork/almerico/compare/v4.13.0...v4.13.1
 [4.13.0]: https://github.com/commercionetwork/almerico/compare/v4.12.7...v4.13.0
 [4.12.7]: https://github.com/commercionetwork/almerico/compare/v4.12.6...v4.12.7
