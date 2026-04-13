@@ -1,4 +1,5 @@
 import { TextDecoder, TextEncoder } from 'util';
+import { webcrypto } from 'crypto';
 
 // jsdom shipped by Jest 27 does not expose TextEncoder/TextDecoder on the
 // global scope. @cosmjs/crypto >=0.34 pulls in @noble/hashes, which calls
@@ -9,6 +10,12 @@ if (typeof global.TextEncoder === 'undefined') {
 }
 if (typeof global.TextDecoder === 'undefined') {
   global.TextDecoder = TextDecoder;
+}
+// jsdom shipped by Jest 27 does not expose the Web Crypto API on the
+// global scope. uuid >=13 ships only the browser build, whose rng reads
+// a bare `crypto` identifier and throws otherwise.
+if (typeof global.crypto === 'undefined') {
+  global.crypto = webcrypto;
 }
 
 import Vue from 'vue';
