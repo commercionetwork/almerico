@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.13.5] - 2026-04-14
+
+### Changed
+
+- Bump `chart.js` from `~3.9.0` to `~4.5.0` (resolved to `4.5.1`). The
+  codebase only consumes Chart.js through the thin
+  `src/components/chart/helpers/chartBuilder.js` wrapper that imports
+  `chart.js/auto`; none of the v4 breaking changes apply (no
+  `scales[id].grid.drawBorder`/`borderColor`/`borderWidth`, no `time`
+  scale using `time.stepSize`, no `fontColor` fallback, no custom
+  plugin relying on the removed `destroy` hook), so the upgrade is a
+  pure version bump for all chart helpers
+- Bump `uuid` from `~11.1.0` to `~13.0.0`. Only the `v4` export is
+  used and Node 24 already runs in CI/Docker, so the v12 drop of
+  Node 16 and v13 browser-default exports are both satisfied
+- Convert `src/__mocks__/chart-mock.js` and
+  `src/__mocks__/overview-mock.js` to ESM `import { v4 as uuidv4 } from
+  'uuid'`. `uuid` v12+ removed its CommonJS build, so the previous
+  `require('uuid')` would throw at test load
+- Extend `jest.config.js` `transformIgnorePatterns` to also transpile
+  `chart.js` and `uuid` out of `node_modules`, since both packages now
+  ship as ESM-only and Jest 27 cannot parse them otherwise
+- Remove unused imports (`TRANSFER`, `bech32`, `TRANSACTIONS`,
+  `mockPagination`) from
+  `src/store/assets/ibc/__tests__/actions.test.js` and
+  `src/store/transactions/__tests__/actions.test.js` to clear the
+  `no-unused-vars` lint warnings
+
+### Fixed
+
+- Polyfill `global.crypto` from Node's `webcrypto` in `tests/setup.js`.
+  `uuid` v13 ships only the browser rng, which reads a bare `crypto`
+  identifier; the jsdom bundled with Jest 27 does not expose Web
+  Crypto globally, so without this polyfill every test suite
+  transitively importing `uuid` (via `BaseFormTextField` /
+  `BaseFormNumberField` registered in `tests/setup.js`) fails at
+  runtime with `crypto.getRandomValues() not supported`
+
 ## [4.13.4] - 2026-04-13
 
 ### Changed
@@ -987,6 +1025,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.13.5]: https://github.com/commercionetwork/almerico/compare/v4.13.4...v4.13.5
 [4.13.4]: https://github.com/commercionetwork/almerico/compare/v4.13.3...v4.13.4
 [4.13.3]: https://github.com/commercionetwork/almerico/compare/v4.13.2...v4.13.3
 [4.13.2]: https://github.com/commercionetwork/almerico/compare/v4.13.1...v4.13.2
