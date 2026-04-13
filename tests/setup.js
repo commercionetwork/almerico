@@ -1,3 +1,16 @@
+import { TextDecoder, TextEncoder } from 'util';
+
+// jsdom shipped by Jest 27 does not expose TextEncoder/TextDecoder on the
+// global scope. @cosmjs/crypto >=0.34 pulls in @noble/hashes, which calls
+// `new TextEncoder()` at module-init time, so without this polyfill any
+// test suite that imports a store touching @cosmjs fails to load.
+if (typeof global.TextEncoder === 'undefined') {
+  global.TextEncoder = TextEncoder;
+}
+if (typeof global.TextDecoder === 'undefined') {
+  global.TextDecoder = TextDecoder;
+}
+
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import VueRouter from 'vue-router';

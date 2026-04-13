@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.13.4] - 2026-04-13
+
+### Changed
+
+- Bump `@cosmjs/stargate` and `@cosmjs/cosmwasm-stargate` from `~0.33.0`
+  to `~0.34.0` (resolved to `0.34.1`). This is the last cosmjs release
+  that still ships `Tendermint34Client`, required to talk to the
+  Commercio mainnet RPC (Cosmos SDK `v0.45.16` / Tendermint 0.34), and
+  the last one that keeps `cosmjs-types` on `^0.9.0`, so
+  `src/utils/msg-builder.js` is unaffected. The `0.38` line was
+  evaluated and rejected because it removes `Tendermint34Client`
+  entirely, which would break the Keplr sign-and-broadcast flow against
+  Commercio
+
+### Fixed
+
+- Polyfill `TextEncoder` / `TextDecoder` on `global` in `tests/setup.js`.
+  `@cosmjs/crypto` 0.34 pulls in `@noble/hashes`, which constructs a
+  `TextEncoder` at module load time; the jsdom bundled with Jest 27
+  does not expose it globally, so every test suite that transitively
+  imports `@cosmjs/*` failed to load before this fix
+
 ## [4.13.3] - 2026-04-09
 
 ### Changed
@@ -965,6 +987,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add RFC cross chain navigation
 - Add a switch to selcet a dark theme from navigation drawer
 
+[4.13.4]: https://github.com/commercionetwork/almerico/compare/v4.13.3...v4.13.4
 [4.13.3]: https://github.com/commercionetwork/almerico/compare/v4.13.2...v4.13.3
 [4.13.2]: https://github.com/commercionetwork/almerico/compare/v4.13.1...v4.13.2
 [4.13.1]: https://github.com/commercionetwork/almerico/compare/v4.13.0...v4.13.1
