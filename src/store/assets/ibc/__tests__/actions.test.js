@@ -1,5 +1,5 @@
 import actions from '../actions.js';
-import { CONFIG, TRANSFER } from '@/constants';
+import { CONFIG } from '@/constants';
 import {
   mockBalance,
   mockErrors,
@@ -7,7 +7,6 @@ import {
   mockIBCChannels,
   mockPagination,
 } from '@/__mocks__';
-import { bech32 } from 'bech32';
 import bech32Manager from '../../../../utils/bech32-manager.js';
 
 const mockErrorResponse = mockErrors(400);
