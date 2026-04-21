@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.13.6] - 2026-04-21
+
+### Fixed
+
+- Fix vulnerability upgrading dependencies
+
 ## [4.13.5] - 2026-04-14
 
 ### Changed
@@ -1023,8 +1029,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improv application responsiveness
 - Add infinite scroll to the list of transactions and blocks
 - Add RFC cross chain navigation
-- Add a switch to selcet a dark theme from navigation drawer
+- Add a switch to selcet a dark theme from navigation draw5r
 
+[4.13.6]: https://github.com/commercionetwork/almerico/compare/v4.13.5...v4.13.6
 [4.13.5]: https://github.com/commercionetwork/almerico/compare/v4.13.4...v4.13.5
 [4.13.4]: https://github.com/commercionetwork/almerico/compare/v4.13.3...v4.13.4
 [4.13.3]: https://github.com/commercionetwork/almerico/compare/v4.13.2...v4.13.3
