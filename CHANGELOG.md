@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.14.1] - 2026-05-05
+
+### Changed
+
+- Update log format
+
 ## [4.14.0] - 2026-05-04
 
 ### Changed
@@ -660,6 +666,7 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
+[4.14.1]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.1
 [4.14.0]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.0
 [4.13.7]: https://github.com/commercionetwork/almerico/compare/v4.13.6...v4.13.7
 [4.13.6]: https://github.com/commercionetwork/almerico/compare/v4.13.5...v4.13.6
