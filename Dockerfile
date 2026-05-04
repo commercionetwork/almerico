@@ -7,7 +7,12 @@ FROM node:24-alpine AS build
 
 WORKDIR /app
 
-# Build-time configuration forwarded from CI / --build-arg
+# Install deps first so this layer is cached when only sources or build-args change
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund
+
+# Build-time configuration forwarded from CI / --build-arg.
+# Declared after `npm ci` so changing any value does not invalidate the deps layer.
 ARG ANCESTORS_LIST
 ARG API_VERSION
 ARG API_VERSION_COSMWASM
@@ -40,18 +45,14 @@ ENV VUE_APP_ANCESTORS=${ANCESTORS_LIST} \
     VUE_APP_WASM_SWAP_CODE_ID=${WASM_SWAP_CODE_ID} \
     VUE_APP_WS=${WS_URL}
 
-# Install deps from lockfile (reproducible, cache-friendly)
-COPY package.json package-lock.json ./
-RUN npm ci --no-audit --no-fund
-
 COPY . .
 
 RUN npm run build
 
 ############################
-# Stage 2 — runtime
+# Stage 2 — runtime (nginx)
 ############################
-FROM node:24-alpine
+FROM nginxinc/nginx-unprivileged:1.27-alpine
 
 ARG APP_VERSION=0.0.0
 
@@ -60,21 +61,12 @@ LABEL org.opencontainers.image.title="almerico" \
       org.opencontainers.image.version="${APP_VERSION}" \
       org.opencontainers.image.source="https://github.com/commercionetwork/almerico"
 
-# Static file server + non-root user
-RUN npm install -g serve@14 \
-    && npm cache clean --force \
-    && addgroup -S nodejs -g 1001 \
-    && adduser  -S nodejs -G nodejs -u 1001
-
-WORKDIR /app
-
-COPY --from=build --chown=nodejs:nodejs /app/dist ./dist
-
-USER nodejs
+COPY --chown=nginx:nginx nginx.conf /etc/nginx/nginx.conf
+COPY --from=build --chown=nginx:nginx /app/dist /usr/share/nginx/html
 
 EXPOSE 5000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD wget -q --spider http://localhost:5000/ || exit 1
 
-CMD ["serve", "--single", "-p", "5000", "dist"]
+CMD ["nginx", "-g", "daemon off;"]
