@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.14.0] - 2026-05-04
+
+### Changed
+
+- Switch the runtime stage of the Docker image from `node:24-alpine`
+  + `serve` to `nginxinc/nginx-unprivileged:1.27-alpine`. nginx is
+  purpose-built for serving static assets and the resulting image
+  is ~74 MB instead of ~200 MB, runs as the non-root `nginx` user
+  (uid 101) with `pid` and temp paths under `/tmp`, and removes
+  Node.js from the runtime surface entirely
+- Add `nginx.conf` with SPA fallback (`try_files $uri $uri/
+  /index.html`) so Vue Router handles deep links, long-lived
+  `Cache-Control: public, immutable` for hashed assets under
+  `/js`, `/css`, `/img`, `/fonts`, `Cache-Control: no-store` on
+  `index.html` so clients always pick up the latest bundle hashes
+  after a deploy, and gzip on the usual text/JS/CSS MIME types
+- Reorder `Dockerfile` so the `ARG`/`ENV` block sits after
+  `npm ci`. Vue CLI inlines `VUE_APP_*` into the JS bundle at
+  build time so they cannot be deferred to the runtime stage, but
+  placing them after the install layer means changing any
+  build-arg now invalidates only `npm run build`, not the
+  dependency install layer
+- Bump `axios` from `~1.15.0` to `~1.16.0`
+
 ## [4.13.7] - 2026-04-22
 
 ### Changed
