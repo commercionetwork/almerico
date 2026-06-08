@@ -59,6 +59,19 @@ const tx = {
       baseURL: lcd,
     });
   },
+  /**
+   *
+   * @param {String} hash
+   * @param {String} lcd
+   * @returns {AxiosPromise}
+   */
+  requestTxByHashArchive(hash, lcd) {
+    return axios({
+      url: `/txs/${hash}`,
+      method: 'get',
+      baseURL: `${lcd}/${APIS.HTTP.TXS_PATH}`,
+    });
+  },
 };
 
 export default tx;
