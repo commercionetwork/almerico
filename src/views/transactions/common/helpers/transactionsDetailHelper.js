@@ -38,8 +38,9 @@ class Converter {
   get data() {
     switch (this.detail.version) {
       case '':
+      case CONFIG.SDK_VERSIONS.V_045:
         return _getCurrent({ detail: this.detail, labels: this.labels });
-      case CONFIG.LEGACY_VERSIONS.V_038:
+      case CONFIG.SDK_VERSIONS.V_038:
         return _getV038({ detail: this.detail, labels: this.labels });
       default:
         return null;

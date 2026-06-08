@@ -30,8 +30,11 @@ you have to:
     ```env
     VUE_APP_API_VERSION=VALUE (e.g., v1)
     VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
-    VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://lcd.com",
-    "lcd": "http://lcd.com", "ver": "0.12"}])
+    VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"http://archive.com",
+    "lcd": "http://archive.com", "ver": "0.45"}, {"lcd_ledger":"http://lcd.com",
+    "lcd": "http://lcd.com", "ver": "0.38"}])
+    # The array is queried in order: list the current-SDK archive node ("ver":
+    # "0.45") first, then older ancestors ("ver": "0.38") as further fallbacks.
     VUE_APP_BACKEND=VALUE (e.g., http://backend.com)
     VUE_APP_BACKEND_WS=VALUE (e.g., ws://backend.com/websocket)
     VUE_APP_CONNECTIONS=VALUE (e.g., [{"id":"connection-10","chain_id":"osmo-test-5"}])
@@ -64,8 +67,11 @@ and set the following data with your values:
 ```env
 VUE_APP_API_VERSION=VALUE (e.g., v1)
 VUE_APP_API_VERSION_COSMWASM=VALUE (e.g., v1)
-VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://lcd.com",
-"lcd": "https://lcd.com", "ver": "0.12"}])
+VUE_APP_ANCESTORS=VALUE (e.g., [{"lcd_ledger":"https://archive.com",
+"lcd": "https://archive.com", "ver": "0.45"}, {"lcd_ledger":"https://lcd.com",
+"lcd": "https://lcd.com", "ver": "0.38"}])
+# The array is queried in order: list the current-SDK archive node ("ver":
+# "0.45") first, then older ancestors ("ver": "0.38") as further fallbacks.
 VUE_APP_BACKEND=VALUE (e.g., https://backend.com)
 VUE_APP_BACKEND_WS=VALUE (e.g., wss://backend.com/websocket)
 VUE_APP_CONNECTIONS=VALUE (e.g., [{"id":"connection-8","chain_id":"osmosis-1"}])

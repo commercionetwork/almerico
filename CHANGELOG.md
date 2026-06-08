@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.15.0] - 2026-06-08
+
+### Added
+
+- Fall back to a dedicated archive node running the current Cosmos SDK
+  (`v0.45`) when fetching a transaction detail. The lookup now queries
+  the live LCD first, then the archive node, and finally the legacy
+  `v0.38` ancestor, all driven by the existing `VUE_APP_ANCESTORS`
+  list. List the archive node (`"ver": "0.45"`) before older ancestors,
+  as the array is queried in order
+
 ## [4.14.1] - 2026-05-05
 
 ### Changed
@@ -666,6 +677,7 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
+[4.15.0]: https://github.com/commercionetwork/almerico/compare/v4.14.1...HEAD
 [4.14.1]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.1
 [4.14.0]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.0
 [4.13.7]: https://github.com/commercionetwork/almerico/compare/v4.13.6...v4.13.7

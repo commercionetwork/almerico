@@ -19,8 +19,9 @@ const FIRST_HEIGHT =
 const HAS_POOLS =
   process.env.VUE_APP_HAS_POOLS && process.env.VUE_APP_HAS_POOLS === 'true';
 
-const LEGACY_VERSIONS = Object.freeze({
+const SDK_VERSIONS = Object.freeze({
   V_038: '0.38',
+  V_045: '0.45',
 });
 
 const BECH32_HRP = Object.freeze({
@@ -115,10 +116,10 @@ export default Object.freeze({
   GAS_AMOUNT,
   GAS_PRICE_STEP,
   HAS_POOLS,
-  LEGACY_VERSIONS,
   PREFIXES,
   REST_LEAD_TIME,
   SCROLL,
+  SDK_VERSIONS,
   STABLE_COIN,
   TOKEN,
   WASM_CW20_CODE_ID,
