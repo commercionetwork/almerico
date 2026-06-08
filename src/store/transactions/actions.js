@@ -77,7 +77,9 @@ export default {
 const _requestToAncestor = (hash, ancestor) => {
   const version = ancestor.ver;
   switch (version) {
-    case CONFIG.LEGACY_VERSIONS.V_038:
+    case CONFIG.SDK_VERSIONS.V_045:
+      return tx.requestTxByHashArchive(hash, ancestor.lcd);
+    case CONFIG.SDK_VERSIONS.V_038:
       return tx.requestTxByHashLegacy(hash, ancestor.lcd);
     default:
       return tx.requestTxByHashLegacy(hash, ancestor.lcd);

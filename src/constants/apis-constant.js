@@ -18,10 +18,13 @@ const LCD = process.env.VUE_APP_LCD || '';
 
 const WS = process.env.VUE_APP_WS || '';
 
+const TXS_PATH = `${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}`;
+
 export default Object.freeze({
   HTTP: {
     LCD: LCD,
     API_VERSION: API_VERSION,
+    TXS_PATH: TXS_PATH,
     // Backend
     BACKEND_BLOCKS: `${BACKEND}/api/v2/blocks`,
     BACKEND_CHARTS: `${BACKEND}/api/v2/charts`,
@@ -42,7 +45,7 @@ export default Object.freeze({
     BLOCKS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/blocks`,
     NODE_INFO: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/node_info`,
     VALIDATORSETS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.BASE}/${API_PATHS.TENDERMINT}/${API_VERSION}/validatorsets`,
-    TXS: `${LCD}/${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}`,
+    TXS: `${LCD}/${TXS_PATH}`,
     // Cosmwasm
     WASM: `${LCD}/${API_PATHS.COSMWASM}/wasm/${API_VERSION_COSMWASM}`,
     // IBC
