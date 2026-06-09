@@ -16,6 +16,9 @@ export default {
   setEventHeight(state, payload) {
     state.eventHeight = payload;
   },
+  setFirstHeight(state, payload) {
+    state.firstHeight = payload;
+  },
   setInfo(state, payload) {
     state.info = payload;
   },

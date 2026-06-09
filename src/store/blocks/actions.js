@@ -1,5 +1,5 @@
 import { blocks, tendermintRpc, tx } from '@/apis/http';
-import { BLOCKS, CONFIG } from '@/constants';
+import { BLOCKS } from '@/constants';
 import { blocksRequestHelper } from '@/utils';
 
 export default {
@@ -11,9 +11,9 @@ export default {
     commit('setLoading', false);
   },
 
-  async fetchBlocks({ commit, dispatch }, height) {
+  async fetchBlocks({ commit, dispatch, rootGetters }, height) {
     const max = typeof height === 'number' ? height : parseInt(height);
-    const min = parseInt(CONFIG.FIRST_HEIGHT);
+    const min = rootGetters['application/firstHeight'];
     const minimumHeight = blocksRequestHelper.getMinimumHeight({
       max,
       min,
@@ -29,12 +29,12 @@ export default {
     commit('setCurrentHeight', minimumHeight);
   },
 
-  async searchBlocks({ commit, dispatch }, height) {
+  async searchBlocks({ commit, dispatch, rootGetters }, height) {
     commit('setBlocks', []);
     commit('setCurrentHeight', '');
     commit('setSearching', true);
     const max = typeof height === 'number' ? height : parseInt(height);
-    const min = parseInt(CONFIG.FIRST_HEIGHT);
+    const min = rootGetters['application/firstHeight'];
     const minimumHeight = blocksRequestHelper.getMinimumHeight({
       max,
       min,
