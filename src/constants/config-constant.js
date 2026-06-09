@@ -11,11 +11,6 @@ const FIRST_CONVERSION_RATE =
     ? process.env.VUE_APP_FIRST_CONVERSION_RATE
     : '1';
 
-const FIRST_HEIGHT =
-  process.env.VUE_APP_FIRST_HEIGHT !== undefined
-    ? process.env.VUE_APP_FIRST_HEIGHT
-    : '1';
-
 const HAS_POOLS =
   process.env.VUE_APP_HAS_POOLS && process.env.VUE_APP_HAS_POOLS === 'true';
 
@@ -112,7 +107,6 @@ export default Object.freeze({
   COPYRIGHT,
   FEE_AMOUNT,
   FIRST_CONVERSION_RATE,
-  FIRST_HEIGHT,
   GAS_AMOUNT,
   GAS_PRICE_STEP,
   HAS_POOLS,

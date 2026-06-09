@@ -6,6 +6,7 @@ export const initState = () => ({
   error: null,
   isLoading: false,
   eventHeight: null,
+  firstHeight: null,
   info: null,
   latestBlock: null,
   latestTransactions: [],

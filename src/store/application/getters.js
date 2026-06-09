@@ -3,6 +3,7 @@ export default {
   isLoading: (state) => state.isLoading,
   isMaintenance: (state) => state.maintenance,
   eventHeight: (state) => state.eventHeight,
+  firstHeight: (state) => state.firstHeight,
   info: (state) => state.info,
   latestBlock: (state) => state.latestBlock,
   latestTransactions: (state) => state.latestTransactions,
