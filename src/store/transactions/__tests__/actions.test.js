@@ -9,9 +9,11 @@ import actions from '../actions.js';
 
 const mockErrorResponse = mockErrors(400);
 const mockErrorResponseNotFound = mockErrors(404);
+const mockErrorResponseNetwork = mockErrors(undefined);
 let mockError = false;
 let mockErrorNotFound = false;
 let mockArchiveNotFound = false;
+let mockArchiveNetworkError = false;
 let mockResponse = null;
 
 describe('store/transactions/actions', () => {
@@ -21,6 +23,7 @@ describe('store/transactions/actions', () => {
     mockError = false;
     mockErrorNotFound = false;
     mockArchiveNotFound = false;
+    mockArchiveNetworkError = false;
     mockResponse = null;
     jest.resetModules();
     process.env = { ...OLD_ENV };
@@ -189,7 +192,7 @@ describe('store/transactions/actions', () => {
     );
   });
 
-  test('if "fetchAncestorsTransaction" sets the error when the archive node fails with a non-404 status', async () => {
+  test('if "fetchAncestorsTransaction" falls back to the next ancestor when the archive node fails with an unreadable (CORS/network) error', async () => {
     const commit = jest.fn();
     const hash = 'hash';
     const ancestors = [
@@ -204,12 +207,16 @@ describe('store/transactions/actions', () => {
         ver: '0.38',
       },
     ];
-    mockError = true;
+    mockArchiveNetworkError = true;
 
     await actions.fetchAncestorsTransaction({ commit }, { hash, ancestors });
 
-    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
-    expect(commit).not.toHaveBeenCalledWith('setDetail', expect.anything());
+    expect(commit).toHaveBeenCalledWith('setDetail', {
+      data: mockResponse.data,
+      ledger: ancestors[1].lcd_ledger,
+      version: ancestors[1].ver,
+    });
+    expect(commit).not.toHaveBeenCalledWith('setError', expect.anything());
   });
 });
 
@@ -273,6 +280,9 @@ jest.mock('../../../apis/http/tx-api.js', () => ({
   requestTxByHashArchive: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        if (mockArchiveNetworkError) {
+          reject(mockErrorResponseNetwork);
+        }
         if (mockArchiveNotFound || mockErrorNotFound) {
           reject(mockErrorResponseNotFound);
         }

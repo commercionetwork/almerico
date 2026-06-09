@@ -50,7 +50,12 @@ export default {
     }
   },
   async fetchAncestorsTransaction({ commit }, { hash, ancestors }) {
-    for (const [i, ancestor] of ancestors.entries()) {
+    // Query each ancestor in order and stop at the first hit. A failing
+    // ancestor (404, non-404 status, or a CORS/network error that leaves
+    // the response unreadable) must not abort the chain: only commit the
+    // error once every ancestor has been tried without success.
+    let lastError;
+    for (const ancestor of ancestors) {
       try {
         const response = await _requestToAncestor(hash, ancestor);
         commit('setDetail', {
@@ -58,19 +63,12 @@ export default {
           ledger: ancestor.lcd_ledger,
           version: ancestor.ver,
         });
-        break;
+        return;
       } catch (error) {
-        if (
-          i < ancestors.length - 1 &&
-          error.response &&
-          error.response.status === 404
-        ) {
-          continue;
-        } else {
-          commit('setError', error);
-        }
+        lastError = error;
       }
     }
+    commit('setError', lastError);
   },
 };
 
