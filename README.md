@@ -40,6 +40,8 @@ you have to:
     VUE_APP_CONNECTIONS=VALUE (e.g., [{"id":"connection-10","chain_id":"osmo-test-5"}])
     VUE_APP_CONTRACT_DEX=VALUE (e.g., did:com:1yva23huwtu5f5tzm9vu3ce4h4y7x9j0q59wvse4t0lrzhhv68tzq5vps96)
     VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
+    # Optional: the explorer auto-detects the node's lowest available block
+    # height; set this only as a fallback for when the node does not report it.
     VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1234)
     VUE_APP_HAS_POOLS=VALUE (e.g., true)
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
@@ -77,6 +79,8 @@ VUE_APP_BACKEND_WS=VALUE (e.g., wss://backend.com/websocket)
 VUE_APP_CONNECTIONS=VALUE (e.g., [{"id":"connection-8","chain_id":"osmosis-1"}])
 VUE_APP_CONTRACT_DEX=VALUE (e.g., did:com:1yva23huwtu5f5tzm9vu3ce4h4y7x9j0q59wvse4t0lrzhhv68tzq5vps96)
 VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
+# Optional: the explorer auto-detects the node's lowest available block
+# height; set this only as a fallback for when the node does not report it.
 VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
 VUE_APP_HAS_POOLS=VALUE (e.g., false)
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)
@@ -107,6 +111,26 @@ npm run test
 ```shell
 npm run lint
 ```
+
+### Transaction detail archive fallback
+
+When opening a transaction detail, the explorer queries the live LCD
+first and, on failure, falls back to the nodes listed in
+`VUE_APP_ANCESTORS` in order (see the env var examples above). This lets
+the explorer resolve transactions that predate the current node's
+history.
+
+The following **mainnet** hashes can be used to manually verify each step of
+the chain (they only resolve through the indicated source):
+
+| Source        | SDK     | Example transaction hash                                           |
+| ------------- | ------- | ------------------------------------------------------------------ |
+| Archive node  | `v0.45` | `4249C26E4C01B95E27233E6EF42A8EF5026CB3E954E3FA6C55862059EBB26188` |
+| Archive node  | `v0.45` | `A090C3667E3AAC0E6B15216772DD75EAEFBBBCC4B34ABA64616440B34F8E5DA1` |
+| Ancestor node | `v0.38` | `11980F8E3C810A994E23B51A250DE709DE5E080725F263E63FED94FB01BB7B53` |
+
+Opening any of these from the transactions detail view should display the
+full transaction, served transparently by the matching fallback node.
 
 ## Docker
 

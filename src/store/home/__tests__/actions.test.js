@@ -101,8 +101,9 @@ describe('store/home/actions', () => {
 
   test('if "fetchStartingDate" action commit "setStartingDate", and set the error if it is caught', async () => {
     const commit = jest.fn();
+    const rootGetters = { 'application/firstHeight': 1 };
 
-    await actions.fetchStartingDate({ commit });
+    await actions.fetchStartingDate({ commit, rootGetters });
 
     expect(commit).toHaveBeenCalledWith(
       'setStartingDate',
@@ -111,7 +112,7 @@ describe('store/home/actions', () => {
 
     mockError = true;
 
-    await actions.fetchStartingDate({ commit });
+    await actions.fetchStartingDate({ commit, rootGetters });
 
     expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });

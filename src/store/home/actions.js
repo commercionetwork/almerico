@@ -1,5 +1,5 @@
 import { chart, commercio, tendermintRpc, tx } from '@/apis/http';
-import { APIS, HOME, CONFIG } from '@/constants';
+import { APIS, HOME } from '@/constants';
 
 export default {
   async initHome({ commit, dispatch }) {
@@ -59,9 +59,11 @@ export default {
     commit('setLoadingParams', false);
   },
 
-  async fetchStartingDate({ commit }) {
+  async fetchStartingDate({ commit, rootGetters }) {
     try {
-      const response = await tendermintRpc.requestBlock(CONFIG.FIRST_HEIGHT);
+      const response = await tendermintRpc.requestBlock(
+        rootGetters['application/firstHeight']
+      );
       commit('setStartingDate', response.data.block.header.time);
     } catch (error) {
       commit('setError', error);
