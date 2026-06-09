@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.16.0] - 2026-06-09
+
+### Fixed
+
+- Keep the transaction-detail fallback chain going when an intermediate
+  node returns an error the browser cannot read (e.g. a CORS-blocked or
+  otherwise response-less failure). The lookup previously aborted on the
+  first such error and showed it even when a later ancestor still held
+  the transaction. It now tries every configured ancestor in order and
+  surfaces an error only when all of them fail, restoring `v0.38`
+  transaction lookups when the `v0.45` archive sits earlier in the chain
+
 ## [4.15.0] - 2026-06-08
 
 ### Added
@@ -677,7 +689,8 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
-[4.15.0]: https://github.com/commercionetwork/almerico/compare/v4.14.1...HEAD
+[4.16.0]: https://github.com/commercionetwork/almerico/compare/v4.15.0...HEAD
+[4.15.0]: https://github.com/commercionetwork/almerico/compare/v4.14.1...v4.15.0
 [4.14.1]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.1
 [4.14.0]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.0
 [4.13.7]: https://github.com/commercionetwork/almerico/compare/v4.13.6...v4.13.7
