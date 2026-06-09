@@ -8,20 +8,28 @@ import {
   mockValidatorSets,
 } from '@/__mocks__';
 import actions from '../actions.js';
-import { VALIDATORS } from '@/constants';
+import { BLOCKS, VALIDATORS } from '@/constants';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
+let mockRequestBlockError = false;
+let mockLowestHeightMessage = null;
 let mockResponse = null;
 
 describe('store/application/actions', () => {
+  const OLD_ENV = process.env;
+
   beforeEach(() => {
     mockError = false;
+    mockRequestBlockError = false;
+    mockLowestHeightMessage = null;
     mockResponse = null;
+    process.env = { ...OLD_ENV };
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    process.env = OLD_ENV;
   });
 
   test('if "initAppData" reset store, set loading state, dispatch "fetchInfo", "fetchLatestBlock", "fetchLatestValidatorSets, "fetchStakingParams" and "fetchValidators" actions', async () => {
@@ -32,12 +40,55 @@ describe('store/application/actions', () => {
 
     expect(commit).toHaveBeenCalledWith('reset');
     expect(commit).toHaveBeenCalledWith('setLoading', true);
+    expect(dispatch).toHaveBeenCalledWith('fetchFirstHeight');
     expect(dispatch).toHaveBeenCalledWith('fetchInfo');
     expect(dispatch).toHaveBeenCalledWith('fetchLatestBlock');
     expect(dispatch).toHaveBeenCalledWith('fetchLatestValidatorSets');
     expect(dispatch).toHaveBeenCalledWith('fetchStakingParams');
     expect(dispatch).toHaveBeenCalledWith('fetchValidators');
     expect(commit).toHaveBeenCalledWith('setLoading', false);
+  });
+
+  test('if "fetchFirstHeight" commit the probe height when the node holds the whole history', async () => {
+    const commit = jest.fn();
+
+    await actions.fetchFirstHeight({ commit });
+
+    expect(commit).toHaveBeenCalledWith(
+      'setFirstHeight',
+      BLOCKS.FIRST_HEIGHT_PROBE
+    );
+  });
+
+  test('if "fetchFirstHeight" commit the lowest available height reported by a pruning node', async () => {
+    const commit = jest.fn();
+    mockRequestBlockError = true;
+    mockLowestHeightMessage =
+      'height 1 is not available, lowest height is 24972001';
+
+    await actions.fetchFirstHeight({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setFirstHeight', 24972001);
+  });
+
+  test('if "fetchFirstHeight" fall back to the env variable when the node does not report the lowest height', async () => {
+    const commit = jest.fn();
+    mockRequestBlockError = true;
+    process.env.VUE_APP_FIRST_HEIGHT = '500';
+
+    await actions.fetchFirstHeight({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setFirstHeight', 500);
+  });
+
+  test('if "fetchFirstHeight" set the error when the lowest height is unknown and no env fallback is set', async () => {
+    const commit = jest.fn();
+    mockRequestBlockError = true;
+    delete process.env.VUE_APP_FIRST_HEIGHT;
+
+    await actions.fetchFirstHeight({ commit });
+
+    expect(commit).toHaveBeenCalledWith('setError', mockErrorResponse);
   });
 
   test('if "fetchInfo" action commit "setInfo" mutation, and set the error if it is caught', async () => {
@@ -213,6 +264,24 @@ jest.mock('../../../apis/http/staking-api.js', () => ({
 }));
 
 jest.mock('../../../apis/http/tendermintRpc-api.js', () => ({
+  requestBlock: () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (mockRequestBlockError) {
+          reject(
+            mockLowestHeightMessage
+              ? { response: { data: { error: mockLowestHeightMessage } } }
+              : mockErrorResponse
+          );
+        }
+
+        mockResponse = {
+          data: mockBlock(),
+        };
+        resolve(mockResponse);
+      }, 1);
+    });
+  },
   requestBlockLatest: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {

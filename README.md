@@ -40,6 +40,8 @@ you have to:
     VUE_APP_CONNECTIONS=VALUE (e.g., [{"id":"connection-10","chain_id":"osmo-test-5"}])
     VUE_APP_CONTRACT_DEX=VALUE (e.g., did:com:1yva23huwtu5f5tzm9vu3ce4h4y7x9j0q59wvse4t0lrzhhv68tzq5vps96)
     VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
+    # Optional: the explorer auto-detects the node's lowest available block
+    # height; set this only as a fallback for when the node does not report it.
     VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1234)
     VUE_APP_HAS_POOLS=VALUE (e.g., true)
     VUE_APP_LCD=VALUE (e.g., http://lcd.com)
@@ -77,6 +79,8 @@ VUE_APP_BACKEND_WS=VALUE (e.g., wss://backend.com/websocket)
 VUE_APP_CONNECTIONS=VALUE (e.g., [{"id":"connection-8","chain_id":"osmosis-1"}])
 VUE_APP_CONTRACT_DEX=VALUE (e.g., did:com:1yva23huwtu5f5tzm9vu3ce4h4y7x9j0q59wvse4t0lrzhhv68tzq5vps96)
 VUE_APP_FIRST_CONVERSION_RATE=VALUE (e.g., 1)
+# Optional: the explorer auto-detects the node's lowest available block
+# height; set this only as a fallback for when the node does not report it.
 VUE_APP_FIRST_HEIGHT=VALUE (e.g., 1)
 VUE_APP_HAS_POOLS=VALUE (e.g., false)
 VUE_APP_LCD=VALUE (e.g., https://lcd.com)

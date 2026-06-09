@@ -10,6 +10,15 @@ Entries for versions prior to `4.0.0` have been moved to
 
 ## [4.16.0] - 2026-06-09
 
+### Changed
+
+- Auto-detect the node's lowest available block height instead of relying
+  on `VUE_APP_FIRST_HEIGHT`. On startup the explorer probes the node and,
+  on a pruning node, reads the lowest height it reports; the env variable
+  is now an optional fallback used only when the node does not provide it.
+  This keeps the blocks list and search bounds aligned with the node as it
+  prunes, without manual reconfiguration
+
 ### Fixed
 
 - Keep the transaction-detail fallback chain going when an intermediate

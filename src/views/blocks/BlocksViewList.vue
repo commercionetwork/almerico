@@ -23,7 +23,6 @@
 import BlocksViewListTable from './list/BlocksViewListTable.vue';
 import BlocksViewListContentTop from './list/BlocksViewListContentTop.vue';
 
-import { CONFIG } from '@/constants';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -38,11 +37,8 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('application', ['latestBlock']),
+    ...mapGetters('application', ['latestBlock', 'firstHeight']),
     ...mapGetters('blocks', ['error', 'isLoading', 'newHeight']),
-    firstHeight() {
-      return parseInt(CONFIG.FIRST_HEIGHT);
-    },
     lastHeight() {
       return this.latestBlock.header.height;
     },

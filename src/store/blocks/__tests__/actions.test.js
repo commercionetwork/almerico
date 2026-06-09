@@ -43,8 +43,9 @@ describe('store/blocks/actions', () => {
     const height = '1000';
     let maxHeight = parseInt(height);
     let minHeight = maxHeight - BLOCKS.TABLE_ITEMS;
+    const rootGetters = { 'application/firstHeight': 1 };
 
-    await actions.fetchBlocks({ commit, dispatch }, height);
+    await actions.fetchBlocks({ commit, dispatch, rootGetters }, height);
 
     expect(dispatch).toHaveBeenCalledTimes(BLOCKS.TABLE_ITEMS);
     while (maxHeight > minHeight) {
@@ -59,8 +60,9 @@ describe('store/blocks/actions', () => {
     const height = '1000';
     let maxHeight = parseInt(height);
     let minHeight = maxHeight - BLOCKS.SEARCH_ITEMS;
+    const rootGetters = { 'application/firstHeight': 1 };
 
-    await actions.searchBlocks({ commit, dispatch }, height);
+    await actions.searchBlocks({ commit, dispatch, rootGetters }, height);
 
     expect(commit).toHaveBeenCalledWith('setBlocks', []);
     expect(commit).toHaveBeenCalledWith('setCurrentHeight', '');

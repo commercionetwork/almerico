@@ -20,7 +20,7 @@
                     </template>
                     <i18n tag="span" path="msgs.searchBlocksInfo">
                       <span v-text="BLOCKS.SEARCH_ITEMS" />
-                      <span v-text="CONFIG.FIRST_HEIGHT" />
+                      <span v-text="firstHeight" />
                     </i18n>
                   </v-tooltip>
                 </template>
@@ -46,19 +46,22 @@
 </template>
 
 <script>
-import { BLOCKS, CONFIG } from '@/constants';
+import { BLOCKS } from '@/constants';
 import { mdiInformationOutline, mdiMagnify } from '@mdi/js';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'BlocksViewListSearch',
   data() {
     return {
       BLOCKS,
-      CONFIG,
       mdiInformationOutline,
       mdiMagnify,
       model: { height: '' },
     };
+  },
+  computed: {
+    ...mapGetters('application', ['firstHeight']),
   },
   methods: {
     search(isSearching) {
