@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.16.1] - 2026-06-10
+
+### Changed
+
+- Read the node's lowest available block height from the Tendermint RPC
+  `/status` endpoint (`sync_info.earliest_block_height`) instead of probing
+  the LCD and parsing its error message. This requires the new `VUE_APP_RPC`
+  environment variable pointing at the node's RPC. `VUE_APP_FIRST_HEIGHT` is
+  removed: when the RPC is unreachable the explorer now surfaces an error,
+  with no fallback
+
 ## [4.16.0] - 2026-06-09
 
 ### Changed
@@ -698,7 +709,8 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
-[4.16.0]: https://github.com/commercionetwork/almerico/compare/v4.15.0...HEAD
+[4.16.1]: https://github.com/commercionetwork/almerico/compare/v4.16.0...HEAD
+[4.16.0]: https://github.com/commercionetwork/almerico/compare/v4.15.0...v4.16.0
 [4.15.0]: https://github.com/commercionetwork/almerico/compare/v4.14.1...v4.15.0
 [4.14.1]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.1
 [4.14.0]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.0
