@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
-## [4.16.1] - 2026-06-10
+## [4.16.1] - 2026-06-11
 
 ### Changed
 
