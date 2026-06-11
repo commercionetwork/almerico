@@ -8,28 +8,20 @@ import {
   mockValidatorSets,
 } from '@/__mocks__';
 import actions from '../actions.js';
-import { BLOCKS, VALIDATORS } from '@/constants';
+import { VALIDATORS } from '@/constants';
 
 const mockErrorResponse = mockErrors(400);
 let mockError = false;
-let mockRequestBlockError = false;
-let mockLowestHeightMessage = null;
 let mockResponse = null;
 
 describe('store/application/actions', () => {
-  const OLD_ENV = process.env;
-
   beforeEach(() => {
     mockError = false;
-    mockRequestBlockError = false;
-    mockLowestHeightMessage = null;
     mockResponse = null;
-    process.env = { ...OLD_ENV };
   });
 
   afterEach(() => {
     jest.clearAllMocks();
-    process.env = OLD_ENV;
   });
 
   test('if "initAppData" reset store, set loading state, dispatch "fetchInfo", "fetchLatestBlock", "fetchLatestValidatorSets, "fetchStakingParams" and "fetchValidators" actions', async () => {
@@ -49,42 +41,20 @@ describe('store/application/actions', () => {
     expect(commit).toHaveBeenCalledWith('setLoading', false);
   });
 
-  test('if "fetchFirstHeight" commit the probe height when the node holds the whole history', async () => {
+  test('if "fetchFirstHeight" commit the earliest available height reported by the node', async () => {
     const commit = jest.fn();
 
     await actions.fetchFirstHeight({ commit });
 
     expect(commit).toHaveBeenCalledWith(
       'setFirstHeight',
-      BLOCKS.FIRST_HEIGHT_PROBE
+      parseInt(mockResponse.data.result.sync_info.earliest_block_height)
     );
   });
 
-  test('if "fetchFirstHeight" commit the lowest available height reported by a pruning node', async () => {
+  test('if "fetchFirstHeight" set the error if it is caught', async () => {
     const commit = jest.fn();
-    mockRequestBlockError = true;
-    mockLowestHeightMessage =
-      'height 1 is not available, lowest height is 24972001';
-
-    await actions.fetchFirstHeight({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setFirstHeight', 24972001);
-  });
-
-  test('if "fetchFirstHeight" fall back to the env variable when the node does not report the lowest height', async () => {
-    const commit = jest.fn();
-    mockRequestBlockError = true;
-    process.env.VUE_APP_FIRST_HEIGHT = '500';
-
-    await actions.fetchFirstHeight({ commit });
-
-    expect(commit).toHaveBeenCalledWith('setFirstHeight', 500);
-  });
-
-  test('if "fetchFirstHeight" set the error when the lowest height is unknown and no env fallback is set', async () => {
-    const commit = jest.fn();
-    mockRequestBlockError = true;
-    delete process.env.VUE_APP_FIRST_HEIGHT;
+    mockError = true;
 
     await actions.fetchFirstHeight({ commit });
 
@@ -264,19 +234,21 @@ jest.mock('../../../apis/http/staking-api.js', () => ({
 }));
 
 jest.mock('../../../apis/http/tendermintRpc-api.js', () => ({
-  requestBlock: () => {
+  requestStatus: () => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (mockRequestBlockError) {
-          reject(
-            mockLowestHeightMessage
-              ? { response: { data: { error: mockLowestHeightMessage } } }
-              : mockErrorResponse
-          );
+        if (mockError) {
+          reject(mockErrorResponse);
         }
 
         mockResponse = {
-          data: mockBlock(),
+          data: {
+            result: {
+              sync_info: {
+                earliest_block_height: '24972001',
+              },
+            },
+          },
         };
         resolve(mockResponse);
       }, 1);
