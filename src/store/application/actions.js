@@ -1,5 +1,5 @@
 import { gaiaRest, monitor, staking, tendermintRpc, tx } from '@/apis/http';
-import { BLOCKS, VALIDATORS } from '@/constants';
+import { VALIDATORS } from '@/constants';
 
 export default {
   async fetchHealth({ commit }) {
@@ -26,21 +26,13 @@ export default {
   },
   async fetchFirstHeight({ commit }) {
     try {
-      await tendermintRpc.requestBlock(BLOCKS.FIRST_HEIGHT_PROBE);
-      // The probe height is available: the node holds the whole history.
-      commit('setFirstHeight', BLOCKS.FIRST_HEIGHT_PROBE);
+      const response = await tendermintRpc.requestStatus();
+      commit(
+        'setFirstHeight',
+        parseInt(response.data.result.sync_info.earliest_block_height)
+      );
     } catch (error) {
-      const lowestHeight = _parseLowestHeight(error);
-      if (lowestHeight) {
-        commit('setFirstHeight', lowestHeight);
-      } else if (process.env.VUE_APP_FIRST_HEIGHT) {
-        // Use the env variable and not a constant to make the action testable.
-        // It is only a fallback for when the node does not report its lowest
-        // available height (truthy check also covers an empty Docker default).
-        commit('setFirstHeight', parseInt(process.env.VUE_APP_FIRST_HEIGHT));
-      } else {
-        commit('setError', error);
-      }
+      commit('setError', error);
     }
   },
   async fetchInfo({ commit }) {
@@ -119,16 +111,4 @@ export default {
     await dispatch('fetchValidators');
     commit('setLoading', false);
   },
-};
-
-const _parseLowestHeight = (error) => {
-  const message =
-    error && error.response && error.response.data
-      ? error.response.data.error || error.response.data.message
-      : null;
-  if (!message) {
-    return null;
-  }
-  const match = message.match(BLOCKS.LOWEST_HEIGHT_REGEX);
-  return match ? parseInt(match[1]) : null;
 };

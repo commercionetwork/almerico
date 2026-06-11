@@ -11,10 +11,10 @@ env:
   CONNECTIONS: ${{ vars.ALMERICO_MAINNET_CONNECTIONS }}
   CONTRACT_DEX: ${{ vars.ALMERICO_MAINNET_CONTRACT_DEX }}
   FIRST_CONVERSION_RATE: ${{ vars.ALMERICO_MAINNET_FIRST_CONVERSION_RATE }}
-  FIRST_HEIGHT: ${{ vars.ALMERICO_MAINNET_FIRST_HEIGHT }}
   HAS_POOLS: ${{ vars.ALMERICO_MAINNET_HAS_POOLS }}
   LCD_URL: ${{ vars.ALMERICO_MAINNET_LCD_URL }}
   MAIN_TITLE: ${{ vars.ALMERICO_MAINNET_MAIN_TITLE }}
+  RPC_URL: ${{ vars.ALMERICO_MAINNET_RPC_URL }}
   WASM_CW20_CODE_ID: ${{ vars.ALMERICO_MAINNET_WASM_CW20_CODE_ID }}
   WASM_SWAP_CODE_ID: ${{ vars.ALMERICO_MAINNET_WASM_SWAP_CODE_ID }}
   WS_URL: ${{ vars.ALMERICO_MAINNET_WS_URL }}
@@ -38,7 +38,7 @@ jobs:
 
       - name: Check Environment Variables
         run: |
-          if ${{ env.ANCESTORS_LIST == '' ||  env.API_VERSION == '' ||  env.API_VERSION_COSMWASM == '' ||  env.BACKEND == '' ||  env.BACKEND_WS == '' ||  env.CONNECTIONS == '' ||  env.CONTRACT_DEX == '' ||  env.FIRST_CONVERSION_RATE == '' ||  env.HAS_POOLS == '' ||  env.LCD_URL == '' ||  env.MAIN_TITLE == '' ||  env.WASM_CW20_CODE_ID == '' ||  env.WASM_SWAP_CODE_ID == '' ||  env.WS_URL == '' }}; then
+          if ${{ env.ANCESTORS_LIST == '' ||  env.API_VERSION == '' ||  env.API_VERSION_COSMWASM == '' ||  env.BACKEND == '' ||  env.BACKEND_WS == '' ||  env.CONNECTIONS == '' ||  env.CONTRACT_DEX == '' ||  env.FIRST_CONVERSION_RATE == '' ||  env.HAS_POOLS == '' ||  env.LCD_URL == '' ||  env.MAIN_TITLE == '' ||  env.RPC_URL == '' ||  env.WASM_CW20_CODE_ID == '' ||  env.WASM_SWAP_CODE_ID == '' ||  env.WS_URL == '' }}; then
             echo "Error: one or more environment variables are not set."
             exit 1
           else
@@ -78,10 +78,10 @@ jobs:
             CONNECTIONS=${{ env.CONNECTIONS }}
             CONTRACT_DEX=${{ env.CONTRACT_DEX }}
             FIRST_CONVERSION_RATE=${{ env.FIRST_CONVERSION_RATE }}
-            FIRST_HEIGHT=${{ env.FIRST_HEIGHT }}
             HAS_POOLS=${{ env.HAS_POOLS }}
             LCD_URL=${{ env.LCD_URL }}
             MAIN_TITLE=${{ env.MAIN_TITLE }}
+            RPC_URL=${{ env.RPC_URL }}
             WASM_CW20_CODE_ID=${{ env.WASM_CW20_CODE_ID }}
             WASM_SWAP_CODE_ID=${{ env.WASM_SWAP_CODE_ID }}
             WS_URL=${{ env.WS_URL }}

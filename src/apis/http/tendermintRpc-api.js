@@ -48,6 +48,17 @@ const tendermintRpc = {
       baseURL: APIS.HTTP.VALIDATORSETS_RPC,
     });
   },
+  /**
+   *
+   * @returns {AxiosPromise}
+   */
+  requestStatus() {
+    return axios({
+      url: '/status',
+      method: 'get',
+      baseURL: APIS.HTTP.RPC,
+    });
+  },
 };
 
 export default tendermintRpc;

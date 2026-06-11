@@ -16,6 +16,8 @@ const BACKEND_WS = process.env.VUE_APP_BACKEND_WS || '';
 
 const LCD = process.env.VUE_APP_LCD || '';
 
+const RPC = process.env.VUE_APP_RPC || '';
+
 const WS = process.env.VUE_APP_WS || '';
 
 const TXS_PATH = `${API_PATHS.COSMOS}/${API_PATHS.TX}/${API_VERSION}`;
@@ -59,6 +61,8 @@ export default Object.freeze({
     // RPC
     BLOCKS_RPC: `${LCD}/blocks`,
     VALIDATORSETS_RPC: `${LCD}/validatorsets`,
+    // Tendermint RPC
+    RPC: RPC,
     // TODO:remove
     // Legacy
     GOVERNANCE_LEGACY: `${LCD}/gov`,
