@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.17.0] - 2026-07-15
+
+### Added
+
+- Render the dedicated sharedoc message detail, including document hash
+  verification, on `/transactions/sharedoc/[HASH]/uuid/[UUID]` also for
+  transactions retrieved from archive nodes running Cosmos SDK `0.45`;
+  previously the generic message component was shown
+
+### Changed
+
+- Bump `axios` from `~1.17.0` to `~1.18.0` and update patch-level
+  dependencies
+
 ## [4.16.1] - 2026-06-11
 
 ### Changed
@@ -709,7 +723,8 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
-[4.16.1]: https://github.com/commercionetwork/almerico/compare/v4.16.0...HEAD
+[4.17.0]: https://github.com/commercionetwork/almerico/compare/v4.16.1...v4.17.0
+[4.16.1]: https://github.com/commercionetwork/almerico/compare/v4.16.0...v4.16.1
 [4.16.0]: https://github.com/commercionetwork/almerico/compare/v4.15.0...v4.16.0
 [4.15.0]: https://github.com/commercionetwork/almerico/compare/v4.14.1...v4.15.0
 [4.14.1]: https://github.com/commercionetwork/almerico/compare/v4.13.7...v4.14.1
