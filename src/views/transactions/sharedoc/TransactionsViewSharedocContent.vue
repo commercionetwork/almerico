@@ -15,6 +15,7 @@ import TheTransactionsCommonContent from '../common/TheTransactionsCommonContent
 import TransactionsViewSharedocMessage from './TransactionsViewSharedocMessage.vue';
 
 import transactionsDetailHelper from '../common/helpers/transactionsDetailHelper';
+import { CONFIG } from '@/constants';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -30,7 +31,8 @@ export default {
       return this.$route.params.uuid;
     },
     componentName() {
-      return !this.detail.version
+      return !this.detail.version ||
+        this.detail.version === CONFIG.SDK_VERSIONS.V_045
         ? TransactionsViewSharedocMessage.name
         : MsgDefault.name;
     },
