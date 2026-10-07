@@ -3,6 +3,7 @@ import Vuetify from 'vuetify/lib/framework';
 import colors from 'vuetify/lib/util/colors';
 import IconDiscord from '@/components/icons/IconDiscord.vue';
 import IconTelegram from '@/components/icons/IconTelegram.vue';
+import IconX from '@/components/icons/IconX.vue';
 
 Vue.use(Vuetify);
 
@@ -22,6 +23,13 @@ export default new Vuetify({
         props: {
           height: 512,
           width: 496,
+        },
+      },
+      x: {
+        component: IconX,
+        props: {
+          height: 24,
+          width: 24,
         },
       },
     },
