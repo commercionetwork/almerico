@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.18.0] - 2026-10-07
+
+### Changed
+
+- Replace the Twitter link and icon in the drawer's social media section
+  with the X ones, pointing to `https://x.com/commercionet`. MDI ships no
+  X logo, so a custom `$vuetify.icons.x` icon is registered alongside
+  the Discord and Telegram ones
+- Bump `axios` from `~1.18.0` to `~1.20.0` and `core-js` from `~3.49.0`
+  to `~3.50.0`, and update patch-level dependencies. `@cosmjs/*` stays on
+  `~0.34.0`, the last line supporting the Cosmos SDK `v0.45` chain
+
 ## [4.17.0] - 2026-07-15
 
 ### Added
@@ -723,6 +735,7 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
+[4.18.0]: https://github.com/commercionetwork/almerico/compare/v4.17.0...v4.18.0
 [4.17.0]: https://github.com/commercionetwork/almerico/compare/v4.16.1...v4.17.0
 [4.16.1]: https://github.com/commercionetwork/almerico/compare/v4.16.0...v4.16.1
 [4.16.0]: https://github.com/commercionetwork/almerico/compare/v4.15.0...v4.16.0
