@@ -52,7 +52,7 @@ RUN npm run build
 ############################
 # Stage 2 — runtime (nginx)
 ############################
-FROM nginxinc/nginx-unprivileged:1.27-alpine
+FROM nginxinc/nginx-unprivileged:1.30-alpine
 
 ARG APP_VERSION=0.0.0
 
@@ -67,6 +67,6 @@ COPY --from=build --chown=nginx:nginx /app/dist /usr/share/nginx/html
 EXPOSE 5000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget -q --spider http://localhost:5000/ || exit 1
+  CMD wget -q --spider http://127.0.0.1:5000/ || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
