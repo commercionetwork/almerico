@@ -17,11 +17,8 @@
         </a>
       </v-col>
       <v-col cols="3" class="text-center">
-        <a
-          href="https://twitter.com/commercionet?s=21&t=8FTpg5f7kurZ1d7LOb9YXw"
-          target="_blank"
-        >
-          <v-icon color="primary" size="20">{{ mdiTwitter }}</v-icon>
+        <a href="https://x.com/commercionet" target="_blank">
+          <v-icon color="primary" size="20">$vuetify.icons.x</v-icon>
         </a>
       </v-col>
     </v-row>
@@ -29,14 +26,13 @@
 </template>
 
 <script>
-import { mdiGithub, mdiTwitter } from '@mdi/js';
+import { mdiGithub } from '@mdi/js';
 
 export default {
   name: 'TheDrawerSocialMedial',
   data() {
     return {
       mdiGithub,
-      mdiTwitter,
     };
   },
 };
