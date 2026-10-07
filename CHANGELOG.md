@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.18.1] - 2026-10-07
+
+### Changed
+
+- Bump the nginx runtime image from `nginx-unprivileged:1.27-alpine`,
+  which no longer receives updates, to the current stable
+  `nginx-unprivileged:1.30-alpine`
+
+### Fixed
+
+- Run the Docker healthcheck against `127.0.0.1` instead of `localhost`.
+  `localhost` resolves to `::1` inside the container while nginx only
+  listens on IPv4, so the healthcheck always failed and the container
+  never reported as healthy
+- Render the X icon in the drawer at the same visual size as the other
+  social icons, by padding its `viewBox` like Material Design glyphs
+- Vertically align the custom SVG social icons (Discord, Telegram, X)
+  with the Material Design ones in the drawer
+
 ## [4.18.0] - 2026-10-07
 
 ### Changed
@@ -735,6 +754,7 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
+[4.18.1]: https://github.com/commercionetwork/almerico/compare/v4.18.0...v4.18.1
 [4.18.0]: https://github.com/commercionetwork/almerico/compare/v4.17.0...v4.18.0
 [4.17.0]: https://github.com/commercionetwork/almerico/compare/v4.16.1...v4.17.0
 [4.16.1]: https://github.com/commercionetwork/almerico/compare/v4.16.0...v4.16.1
