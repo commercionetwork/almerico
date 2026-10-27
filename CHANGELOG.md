@@ -8,6 +8,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.18.2] - 2026-10-27
+
+### Changed
+
+- Bump `axios` from `~1.20.0` to `~1.21.0`, `chart.js` from `~4.5.0` to
+  `~4.6.0`, `core-js` from `~3.50.0` to `~3.51.0` and `sass-loader` from
+  `~10.4.0` to `~10.5.0`, and update patch-level and transitive
+  dependencies, including `uuid` `14.0.3`
+- Keep Vue 2.7, Vuetify 2.7, Vuex 3, Vue Router 3, vue-i18n 8, Vue CLI 5,
+  ESLint 7, Jest 27 and `sass` 1.32 on their current majors. `@cosmjs/*`
+  stays on `~0.34.0`, the last line supporting the Cosmos SDK `v0.45`
+  chain
+
+### Security
+
+- Build with the `node:lts-alpine` image in Docker and `lts/*` in CI
+  (CVE-2026-111497). The runtime image stays on nginx and does not ship
+  Node.js
+- Update transitive dependencies with known vulnerabilities
+  (`body-parser`, `fast-uri`, `node-forge`, `postcss-selector-parser`)
+
 ## [4.18.1] - 2026-10-07
 
 ### Changed
@@ -754,6 +775,7 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
+[4.18.2]: https://github.com/commercionetwork/almerico/compare/v4.18.1...v4.18.2
 [4.18.1]: https://github.com/commercionetwork/almerico/compare/v4.18.0...v4.18.1
 [4.18.0]: https://github.com/commercionetwork/almerico/compare/v4.17.0...v4.18.0
 [4.17.0]: https://github.com/commercionetwork/almerico/compare/v4.16.1...v4.17.0
