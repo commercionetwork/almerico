@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.18.3] - 2026-11-20
+
+### Changed
+
+- Bump `axios` from `~1.21.0` to `~1.21.1` and `jssha` to `3.3.3`, and update
+  patch-level and transitive dependencies, including `@babel/core` `7.29.13`
+- Keep Vue 2.7, Vuetify 2.7, Vuex 3, Vue Router 3, vue-i18n 8, Vue CLI 5,
+  ESLint 7, Jest 27 and `sass` 1.32 on their current majors. `@cosmjs/*`
+  stays on `~0.34.0`, the last line supporting the Cosmos SDK `v0.45`
+  chain
+
+### Security
+
+- Build the runtime image on `nginx/nginx-unprivileged:stable-alpine`, the
+  maintained image with nginx 1.30.7: `nginxinc/nginx-unprivileged` was
+  archived at nginx 1.30.6, which has known vulnerabilities
+
 ## [4.18.2] - 2026-10-27
 
 ### Changed
