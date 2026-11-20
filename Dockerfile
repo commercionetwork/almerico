@@ -52,7 +52,7 @@ RUN npm run build
 ############################
 # Stage 2 — runtime (nginx)
 ############################
-FROM nginxinc/nginx-unprivileged:1.30-alpine
+FROM nginx/nginx-unprivileged:stable-alpine
 
 ARG APP_VERSION=0.0.0
 
