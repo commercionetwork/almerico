@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Entries for versions prior to `4.0.0` have been moved to
 [CHANGELOG-archive.md](CHANGELOG-archive.md).
 
+## [4.18.4] - 2026-11-24
+
+### Changed
+
+- Bump `chart.js` from `~4.6.0` to `~4.6.2` and update transitive dependencies
+- Keep `jssha` on `~3.3.3`, like the other production dependencies
+
+### Security
+
+- Upgrade the Alpine packages when building the runtime image, which fixes a
+  known vulnerability in `zlib`
+
 ## [4.18.3] - 2026-11-20
 
 ### Changed
@@ -792,6 +804,7 @@ Entries for versions prior to `4.0.0` have been moved to
 
 - Fix reactivity of account dashboard
 
+[4.18.3]: https://github.com/commercionetwork/almerico/compare/v4.18.2...v4.18.3
 [4.18.2]: https://github.com/commercionetwork/almerico/compare/v4.18.1...v4.18.2
 [4.18.1]: https://github.com/commercionetwork/almerico/compare/v4.18.0...v4.18.1
 [4.18.0]: https://github.com/commercionetwork/almerico/compare/v4.17.0...v4.18.0
