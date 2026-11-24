@@ -61,6 +61,11 @@ LABEL org.opencontainers.image.title="almerico" \
       org.opencontainers.image.version="${APP_VERSION}" \
       org.opencontainers.image.source="https://github.com/commercionetwork/almerico"
 
+# The base image can lag behind Alpine security fixes, so its packages are upgraded at build time
+USER root
+RUN apk upgrade --no-cache
+USER 101
+
 COPY --chown=nginx:nginx nginx.conf /etc/nginx/nginx.conf
 COPY --from=build --chown=nginx:nginx /app/dist /usr/share/nginx/html
 
